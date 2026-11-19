@@ -1,0 +1,50 @@
+{"brand": "AB-620 · Module 3 · Lesson 4", "scenes": [
+ {"type": "flow", "header": {"kicker": "Human in the loop", "title": "A person in the flow"},
+  "nodes": [
+   {"icon": "flow", "title": "Automatic process", "at": "automatic process"},
+   {"icon": "person", "title": "A person signs", "sub": "An approval or a piece of data", "accent": true, "at": "boss who signs"},
+   {"icon": "send", "title": "Then it continues", "sub": "After their answer", "at": "before continuing"}]},
+ {"type": "hub", "header": {"kicker": "Run a multistage approval · preview", "title": "Human review connector", "sub": "Only in agent flows."},
+  "center": {"icon": "people_team", "title": "Multistage approval", "at": "Run a multistage"},
+  "topLabel": "It combines",
+  "top": [
+   {"icon": "person", "title": "Manual stages", "at": "manual stages"},
+   {"icon": "sparkle", "title": "AI stages", "at": "intelligence stages"},
+   {"icon": "branch_fork", "title": "Conditions", "at": "conditions"}],
+  "bottomLabel": "Approvers respond from",
+  "bottom": [
+   {"icon": "people_team", "title": "Teams", "at": "Teams"},
+   {"icon": "mail", "title": "Outlook", "at": "Outlook"},
+   {"icon": "globe", "title": "Power Automate portal", "at": "Power Automate"}]},
+ {"type": "split", "left": {"kicker": "Manual stages", "title": "Choose the approval type"},
+  "rows": [
+   {"icon": "person", "title": "First to respond", "desc": "Ends with the first response", "at": "First to respond", "hi": true},
+   {"icon": "people_team", "title": "Everyone must approve", "at": "Everyone must", "hi": true},
+   {"icon": "form", "title": "Title · assignee · details", "at": "the title", "hi": true},
+   {"icon": "warning", "title": "Same approver in several stages", "desc": "→ the flow fails", "at": "same approver", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "AI stages", "title": "Approve or Reject, with a rationale"},
+  "nodes": [
+   {"icon": "notepad", "title": "Instructions + inputs", "sub": "Documents · images · text · knowledge", "at": "instructions and inputs"},
+   {"icon": "checkmark_circle", "title": "Approve or Reject", "sub": "With a rationale", "accent": true, "at": "Approve or Reject"},
+   {"icon": "brain_circuit", "title": "Good reasoning model", "sub": "The best choice", "at": "good reasoning"}],
+  "below": [{"icon": "warning", "text": "Contradictory instructions → Analysis failed", "at": "Analysis failed"}]},
+ {"type": "flow", "header": {"kicker": "Conditions", "title": "Route between stages"},
+  "nodes": [
+   {"icon": "branch_fork", "title": "Condition", "sub": "Route · approve · reject · skip", "accent": true, "at": "Conditions between"},
+   {"icon": "checkmark_circle", "title": "No condition: approved", "sub": "→ next stage", "at": "approved stage"},
+   {"icon": "dismiss_circle", "title": "No condition: rejected", "sub": "→ the process ends", "at": "rejected stage"}],
+  "below": [{"icon": "braces", "text": "Left side: only an input", "at": "left side", "solid": true}]},
+ {"type": "split", "left": {"kicker": "Request for information", "title": "When you only need data", "sub": "It pauses the flow until someone answers."},
+  "window": {"title": "Outlook · Request for information", "heading": "How it works", "rail": ["apps", "mail", "flow", "person", "settings"],
+   "cards": [
+    {"icon": "mail", "title": "Sent through Outlook", "desc": "Inside the same tenant", "at": "through Outlook", "hi": true},
+    {"icon": "person", "title": "The first response wins", "at": "first response", "hi": true},
+    {"icon": "form", "title": "Text · yes/no · email · number · date", "at": "supports text", "hi": true},
+    {"icon": "braces", "title": "Outputs as dynamic content", "at": "dynamic content", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Approve, or just ask?"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0",
+    "items": [{"text": "Stages with AI and humans → multistage approval", "at": "multistage approval"}, {"text": "Collect data → Request for information", "at": "Request for information"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "\"Advanced approvals have ALM support\"", "at": "ALM"}]}],
+  "verdict": {"icon": "arrow_sync", "text": "Recreate them after importing", "at": "recreate"}}
+]}

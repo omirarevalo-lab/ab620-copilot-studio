@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L01 · Integrate with enterprise systems · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { left: 100px; top: 130px; width: 1720px; height: 820px; }
+  #stage .uw .bar { font-size: 32px; }
+  #stage .uw .nav div { font-size: 34px; padding: 18px 34px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage .uw .main { padding: 0; overflow: hidden; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  #exams .exam .xl { top: 120px; }
+  #exams .exam .xq { top: 162px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1240px; top: 330px; width: 560px; font-size: 38px; }
+  #exams .exam .xp { left: 120px; top: 664px; height: 300px; }
+  #exams .exam .xp .rm { height: 300px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L01 · Integrate with enterprise systems. "The river of systems" in the 3840x2160 world.
+     Wide shot WC = (1500,900) scale .7 (safe area x 300..2700, y 300..1500).
+     Left bank x<1020: pinboard / slots (x 330-990, y 340-840), Valeria desk (330-780, y 900-1290), Nexo (790-1049, y 980-1340).
+     River x 1044-1856. Right bank rows: PC (2020,340) · Inventory (2020,800) · AI clients (2020,1215). */
+  const BLUE = '#2f5bd3', TEAL = '#0f7b8a', AMB = '#d98a00', GRN = '#1e7f4f', RED = '#c4392f', PUR = '#8a5cd6', NAVY = '#1f2a44', BRN = '#8a6a45', GRY = '#5b6578';
+  const BLUEs = '#e6ecfb', TEALs = '#dff1f3', AMBs = '#fff3d6', GRNs = '#e3f4ea', REDs = '#fde8e6', PURs = '#efe7fb', GRYs = '#e7eaf1';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const T = (x, y, fs, col, t, id, ex, cls) => `<div class="px${cls ? ' ' + cls : ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const CHW = (text, fs, icon) => Math.round(Math.max(...text.split('<br>').map((l) => l.length)) * fs * 0.58 + 76 + (icon ? fs * 1.3 : 0));
+  const CHC = (id, cx, y, text, col, fs, icon, bg, ex, w0) => { const w = w0 || CHW(text, fs, icon);
+    return H(id, `left:${Math.round(cx - w / 2)}px;top:${y}px;width:${w}px;border:6px solid ${col};border-radius:26px;background:${bg || '#fff'};color:${col};font-size:${fs}px;font-weight:800;line-height:1.12;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:14px;text-align:center;box-shadow:0 10px 30px rgba(16,24,40,.12);box-sizing:content-box;${ex || ''}`,
+      (icon ? IC(icon, `width:${Math.round(fs * 1.15)}px;height:${Math.round(fs * 1.15)}px;flex:0 0 auto`) : '') + `<span>${text}</span>`); };
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); tl.to(sel, { opacity: 0, duration: 0.15 }, t + 0.38); OFF('#uiBack', t, 0.3); };
+  const DRAW = (sel, t, d) => { ON(sel, t, 0.1); tl.fromTo(sel, { strokeDasharray: 6000, strokeDashoffset: 6000 }, { strokeDashoffset: 0, duration: d || 0.7, ease: 'none', immediateRender: false }, t); };
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const PULSEX = (sel, t, s) => tl.to(sel, { scale: s || 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.inOut' }, t);
+  const SWV = (a, b, t) => { OFF(a, t, 0.2); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, t + 0.22); };
+  const bob = (sel, t0, t1, a, p) => tl.to(sel, { y: -(a || 10), duration: p || 0.3, yoyo: true, repeat: Math.max(1, Math.floor((t1 - t0) / (p || 0.3)) - 1), ease: 'sine.inOut' }, t0);
+  const botCol = (col, w) => miniBot(w).split('#2f5bd3').join(col);
+
+  const WC = [1500, 900, 0.7];
+  const LY = [437, 637, 837, 1037, 1237, 1437];
+
+  /* ═════════ BACKGROUND (decor, not linted) ═════════ */
+  { let fl = '';
+    for (let i = 0; i < 150; i++) { const l = i % 2 === 0; const x = l ? -600 + (i * 211) % 1560 : 1930 + (i * 197) % 2200, y = -300 + (i * 173) % 2400, c = ['#ffffff', '#ffd166', '#f4a6c0', '#c9b6f2'][i % 4]; fl += D('', `left:${x}px;top:${y}px;width:16px;height:16px;border-radius:50%;background:${c};opacity:.85`); }
+    let rp = ''; for (let i = 0; i < 46; i++) rp += D('', `left:${1090 + (i * 173) % 700}px;top:${-250 + i * 58}px;width:${60 + (i % 3) * 30}px;height:8px;border-radius:4px;background:#fff;opacity:.55`);
+    const tree = (x, y, s) => D('', `left:${x}px;top:${y}px;width:${150 * s}px;height:${250 * s}px`, D('', `left:${55 * s}px;top:${150 * s}px;width:${36 * s}px;height:${100 * s}px;background:#8a6a45`) + D('', `left:0;top:0;width:${150 * s}px;height:${180 * s}px;border-radius:50%;background:#a9c892`));
+
+    const bush = (x, y, w) => D('', `left:${x}px;top:${y}px;width:${w}px;height:${w * 0.55}px;border-radius:50% 50% 30% 30%;background:#b4cfa0`);
+    const rock = (x, y, w) => D('', `left:${x}px;top:${y}px;width:${w}px;height:${w * 0.5}px;border-radius:50%;background:#aeb6bf`);
+    const boat = (id, x, y, c) => D(id, `left:${x}px;top:${y}px;width:170px;height:200px`, D('', 'left:84px;top:0;width:8px;height:130px;background:#6b4328') + D('', `left:92px;top:8px;width:70px;height:100px;background:${c};clip-path:polygon(0 0,100% 100%,0 100%)`) + D('', 'left:0;top:130px;width:170px;height:46px;background:#8a6a45;clip-path:polygon(0 0,100% 0,85% 100%,15% 100%)'));
+    const pad = (id, x, y) => D(id, 'left:0;top:0;width:1px;height:1px', D('', `left:${x}px;top:${y}px;width:90px;height:50px;border-radius:50%;background:#7fb069`) + D('', `left:${x + 30}px;top:${y + 8}px;width:26px;height:26px;border-radius:50%;background:#f4a6c0`));
+    const duck = (id, x, y) => D(id, 'left:0;top:0;width:1px;height:1px', D('', `left:${x}px;top:${y}px;width:70px;height:46px;border-radius:50%;background:#ffd166`) + D('', `left:${x + 44}px;top:${y - 18}px;width:32px;height:32px;border-radius:50%;background:#ffd166`) + D('', `left:${x + 72}px;top:${y - 6}px;width:18px;height:10px;background:#e08a00`));
+    const water = boat('bt0', 1330, 370, '#e0556a') + boat('bt1', 1180, 880, '#2f9e6e') + boat('bt2', 1560, 1320, '#d98a00') + pad('pd0', 1120, 640) + pad('pd1', 1600, 700) + pad('pd2', 1250, 1230) + pad('pd3', 1620, 1010) + duck('dk0', 1460, 1180) + duck('dk1', 1130, 1450) + duck('dk2', 1640, 520);
+    const land = [[320, 1500, 220], [620, 1560, 260], [900, 1500, 200], [330, 1640, 240], [2000, 1520, 240], [2330, 1590, 260], [2620, 1500, 200], [2020, 230, 240], [2420, 250, 260], [330, 220, 240], [720, 240, 260], [2680, 1100, 220]].map((b) => bush(b[0], b[1], b[2])).join('') +
+      [[980, 1440, 100], [2000, 1470, 90], [700, 1420, 80], [2600, 760, 90], [2560, 1250, 80]].map((r) => rock(r[0], r[1], r[2])).join('') + Array.from({ length: 7 }, (_, i) => rock(740 + i * 38, 1380 + (i % 2) * 30, 34)).join('');
+    ADD(`<div class="w lint-ignore" style="left:0;top:0;width:1px;height:1px">` + D('', 'left:-700px;top:-400px;width:5300px;height:3000px;background:#e4ecd6') + fl +
+      D('', 'left:1020px;top:-400px;width:24px;height:3000px;background:#e9dfbd') + D('', 'left:1856px;top:-400px;width:24px;height:3000px;background:#e9dfbd') +
+      D('', 'left:1044px;top:-400px;width:812px;height:3000px;background:linear-gradient(90deg,#9fc6ee,#bcd8f4 50%,#9fc6ee)') + D('rip', 'left:0;top:0;width:1px;height:1px', rp) +
+      water + land + D('rglow', 'left:1044px;top:-400px;width:812px;height:3000px;background:linear-gradient(90deg,#fff3c4,#fff9e2 50%,#fff3c4);opacity:0') +
+      [[150, 330, 1.2], [140, 1000, 1.1], [200, 1420, 1.3], [2790, 400, 1.2], [2830, 960, 1.1], [2780, 1400, 1.2], [-150, 700, 1.3], [3150, 700, 1.3]].map((t) => tree(t[0], t[1], t[2])).join('') + `</div>`); }
+
+  /* ═════════ CHARACTERS ═════════ */
+  const VAL = (id, x, y) => D(id, `left:${x}px;top:${y}px;width:220px;height:440px;z-index:6`, D(id + 'B', 'left:0;top:0;width:220px;height:440px', `<svg width="220" height="440" viewBox="0 0 220 440">
+    <rect x="26" y="120" width="70" height="140" rx="26" fill="#8a5a3b"/><rect x="34" y="132" width="54" height="40" rx="12" fill="#a8704b"/>
+    <rect x="84" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="118" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="76" y="424" width="44" height="16" rx="8" fill="#141821"/><rect x="114" y="424" width="44" height="16" rx="8" fill="#141821"/>
+    <path d="M72 140 Q72 112 112 112 Q152 112 152 140 L158 308 L66 308 Z" fill="#8a5cd6"/><path d="M148 150 L190 226" stroke="#8a5cd6" stroke-width="26" stroke-linecap="round"/><circle cx="192" cy="230" r="14" fill="#f2c9a6"/>
+    <circle cx="112" cy="72" r="42" fill="#f2c9a6"/><path d="M66 72 Q66 26 114 26 Q158 28 158 72 Q150 48 112 46 Q84 46 66 72Z" fill="#2a1f2d"/><path d="M66 70 Q60 110 76 130 Q70 96 78 70Z" fill="#2a1f2d"/>
+    <circle cx="130" cy="78" r="5" fill="#141821"/><circle cx="104" cy="78" r="5" fill="#141821"/><path d="M110 98 Q118 104 126 98" stroke="#141821" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`));
+  ADD(VAL('val', 340, 900));
+  ADD(D('desk', 'left:300px;top:1218px;width:420px;height:90px', D('', 'left:0;top:0;width:420px;height:34px;border-radius:10px;background:#a8825a') + D('', 'left:20px;top:34px;width:380px;height:40px;background:#8a6a45') + D('', 'left:30px;top:74px;width:24px;height:16px;background:#6b4328') + D('', 'left:366px;top:74px;width:24px;height:16px;background:#6b4328')));
+  ADD(D('lap', 'left:500px;top:1092px;width:210px;height:130px', D('', 'left:10px;top:0;width:190px;height:116px;border-radius:12px;background:#1f2a44') + D('', 'left:20px;top:10px;width:170px;height:96px;border-radius:6px;background:#fff') +
+    D('', 'left:20px;top:10px;width:170px;height:24px;border-radius:6px 6px 0 0;background:#1f2a44') + D('lapN', 'left:78px;top:42px;width:54px;height:60px', miniBot(54)) + D('', 'left:0;top:116px;width:210px;height:14px;border-radius:7px;background:#8a93a6')));
+  /* Nexo: wrapper nx (position + scale), inner nxIn (bob) */
+  ADD(D('nx', 'left:740px;top:910px;width:360px;height:500px;z-index:5', D('nxIn', 'left:0;top:0;width:360px;height:500px', agent('nxS', 0, 0, { folder: '' }) +
+    D('', 'left:92px;top:388px;width:176px;height:30px;border-radius:8px;background:#8a6a45') + D('', 'left:106px;top:384px;width:56px;height:48px;border-radius:8px;background:#a8825a') + D('', 'left:198px;top:384px;width:56px;height:48px;border-radius:8px;background:#a8825a'))));
+
+  /* ═════════ SCENE 0 ═════════ */
+  ADD(H('bn', 'left:330px;top:480px;width:660px;height:230px;box-sizing:border-box;border:6px solid #1f2a44;border-radius:26px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2);z-index:2', IC('wrench', 'position:absolute;left:28px;top:30px;width:64px;height:64px;color:#1f2a44') + T(114, 34, 54, NAVY, 'Building Nexo', 'bnT1') + T(114, 34, 54, GRN, 'Nexo is ready ✓', 'bnT2', 'opacity:0') + D('', 'left:30px;top:140px;width:600px;height:44px;border-radius:22px;background:#e7eaf1') + D('bnF', 'left:30px;top:140px;width:0px;height:44px;border-radius:22px;background:#2f5bd3')) +
+    H('tok', 'left:600px;top:1060px;width:100px;height:100px;border-radius:50%;background:#fff3d6;border:6px solid #d98a00;box-sizing:border-box;z-index:8', IC('wrench', 'position:absolute;left:18px;top:18px;width:56px;height:56px;color:#d98a00')));
+  ADD(H('pb', 'left:330px;top:480px;width:660px;height:400px;box-sizing:border-box;border:6px solid #cdbf9f;border-radius:22px;background:#fbf6e6;box-shadow:0 14px 40px rgba(16,24,40,.2)', T(26, 14, 50, NAVY, 'Jobs from Contoso')));
+  ADD(H('env', 'left:1180px;top:520px;width:260px;height:180px;box-sizing:border-box;border:6px solid #1f2a44;border-radius:14px;background:#fff;box-shadow:0 12px 30px rgba(16,24,40,.2)', D('', 'left:0;top:0;width:248px;height:90px;background:#e6ecfb;clip-path:polygon(0 0,100% 0,50% 100%)') + T(0, 104, 46, NAVY, 'Contoso', '', 'width:248px;text-align:center') + D('', 'left:196px;top:-30px;width:76px;height:76px;border-radius:50%;background:#c4392f;color:#fff;font-size:46px;font-weight:800;text-align:center;line-height:76px;border:4px solid #fff;box-sizing:border-box', '3')));
+  const JC = [['jc0', 'Invoices · no API', 'document_text', BLUE], ['jc1', 'Inventory · OpenAPI', 'database', NAVY], ['jc2', 'Share · AI clients', 'people_team', PUR]];
+  ADD(JC.map((c, i) => H(c[0], `left:358px;top:${570 + i * 104}px;width:604px;height:90px;box-sizing:border-box;border:5px solid ${c[3]};border-radius:20px;background:#fff;color:${c[3]};font-size:46px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px;white-space:nowrap;z-index:2`, IC(c[2], 'width:56px;height:56px;flex:0 0 auto') + `<span>${c[1]}</span>`)).join(''));
+  /* right bank: three systems */
+  const PCBARS = [0, 1, 2].map((i) => D('', `left:30px;top:${28 + i * 54}px;width:240px;height:36px;border-radius:8px;background:#3b4a45`) + D('pf' + i, `left:30px;top:${28 + i * 54}px;width:0px;height:36px;border-radius:8px;background:#4ade80`)).join('');
+  ADD(D('pc', 'left:2020px;top:340px;width:540px;height:320px', D('', 'left:0;top:0;width:360px;height:270px;background:#e2d8bd;border:8px solid #b8ac8c;border-radius:20px;box-sizing:border-box') + D('pcScr', 'left:30px;top:30px;width:300px;height:190px;background:#1d2a28;border-radius:8px;overflow:hidden', PCBARS) +
+    D('', 'left:130px;top:270px;width:100px;height:28px;background:#c9bd9d') + D('', 'left:90px;top:296px;width:180px;height:20px;border-radius:8px;background:#b8ac8c') +
+    D('', 'left:400px;top:40px;width:130px;height:276px;background:#e2d8bd;border:8px solid #b8ac8c;border-radius:12px;box-sizing:border-box', D('', 'left:20px;top:30px;width:74px;height:10px;background:#b8ac8c') + D('', 'left:20px;top:56px;width:74px;height:10px;background:#b8ac8c') + D('', 'left:36px;top:200px;width:40px;height:40px;border-radius:50%;background:#b8ac8c'))));
+  ADD(D('inv', 'left:2020px;top:790px;width:520px;height:260px', D('', 'left:0;top:48px;width:520px;height:212px;background:#f3f0ea;border:6px solid #1f2a44;border-top:0;box-sizing:border-box') + D('', 'left:-14px;top:0;width:548px;height:48px;background:#1f2a44;border-radius:12px 12px 0 0') +
+    D('invPl', 'left:24px;top:96px;width:306px;height:100px;box-sizing:border-box;border:6px solid #1f2a44;border-radius:18px;background:#fff;color:#1f2a44;font-size:46px;font-weight:800;display:flex;align-items:center;gap:12px;padding-left:14px;white-space:nowrap', IC('document_text', 'width:52px;height:52px;flex:0 0 auto') + 'OpenAPI') +
+    D('', 'left:352px;top:96px;width:52px;height:60px;background:#cfdff3;border:5px solid #1f2a44;box-sizing:border-box') + D('invDoor', 'left:410px;top:110px;width:90px;height:150px;background:#8a6a45;border-radius:10px 10px 0 0')));
+  ADD(D('plat', 'left:1020px;top:1636px;width:810px;height:50px;border-radius:12px;background-color:#a8825a;background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0 4px,transparent 4px 44px);opacity:0') +
+    H('idDoor', 'left:1580px;top:1236px;width:240px;height:400px;box-sizing:border-box;border:10px solid #8a6a45;border-bottom:0;border-radius:26px 26px 0 0;background:#c8924f;z-index:3', D('', 'left:176px;top:190px;width:24px;height:24px;border-radius:50%;background:#8a6a45')) +
+    H('idBadge', 'left:1610px;top:1084px;width:180px;height:140px;box-sizing:border-box;border:8px solid #2f5bd3;border-radius:28px;background:#fff;display:flex;align-items:center;justify-content:center;z-index:3', IC('shield_checkmark', 'width:96px;height:96px;color:#2f5bd3')));
+  const ROB = [['#e0556a', 2030], ['#2f9e6e', 2210], ['#d98a00', 2390]];
+  ADD(D('hspot', 'left:2010px;top:1356px;width:560px;height:44px;border-radius:50%;background:#efe7fb;border:6px solid #8a5cd6;box-sizing:border-box'));
+  ADD(ROB.map((r, i) => D('rb' + i, `left:${r[1]}px;top:1200px;width:150px;height:164px`, botCol(r[0], 150)) + H('rt' + i, `left:${r[1] + 49}px;top:1283px;width:52px;height:52px;border-radius:50%;background:#fff;border:4px solid #8a5cd6;box-sizing:border-box;z-index:3`, IC('wrench', 'position:absolute;left:8px;top:8px;width:32px;height:32px;color:#8a5cd6'))).join(''));
+  ADD(CHC('lbPC', 2290, 676, 'Invoice program', NAVY, 46, null, '#fff') + CHC('lbINV', 2280, 1066, 'Inventory system', NAVY, 46, null, '#fff') + CHC('lbAI', 2300, 1400, 'Other AI clients', NAVY, 46, null, '#fff'));
+  ADD(H('nxHand', 'left:850px;top:1160px;width:90px;height:90px;border-radius:50%;background:#fff3d6;border:5px solid #d98a00;box-sizing:border-box;z-index:6', IC('cursor_click', 'position:absolute;left:14px;top:14px;width:56px;height:56px;color:#d98a00')));
+
+  /* ═════════ SCENE 1: bridges (shared builder) ═════════ */
+  const BRD = [['connectors', 'Power Platform connectors', AMB, 'plug_connected'], ['custom', 'Custom connectors', AMB, 'wrench'], ['rest', 'REST API tool', NAVY, 'braces'], ['mcp', 'MCP servers', PUR, 'cube_tree'], ['flows', 'Agent flows', TEAL, 'flow'], ['cu', 'Computer use', BLUE, 'eye']];
+  /* o: {text, icon, dash, bg, nums, below, wid, cursor} ; y = deck top */
+  const BR = (id, y, col, o) => { const wid = o.wid || 800, sw = Math.round(o.text.length * 46 * 0.56 + 44 + 70), sl = o.signLeft ? 40 : Math.round((wid - sw) / 2), below = !!o.below;
+    const dTop = below ? 0 : 96, sTop = below ? 82 : 0;
+    const deckBg = o.dash ? `border:6px dashed ${col};background:${o.bg || AMBs}` : `background-color:${o.bg || col};background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.25) 0 4px,transparent 4px 44px)`;
+    const nums = o.nums ? [1, 2, 3, 4].map((n, k) => D('', `left:${60 + k * ((wid - 120) / 3) - 30}px;top:5px;width:60px;height:60px;border-radius:50%;background:#fff;color:${col};font-size:46px;font-weight:800;text-align:center;line-height:60px`, n)).join('') : '';
+    return H(id, `left:1050px;top:${below ? y : y - 96}px;width:${wid}px;height:170px`, D(id + 'D', `left:0;top:${dTop}px;width:${wid}px;height:70px;border-radius:14px;box-sizing:border-box;${deckBg}`, nums) +
+      D(id + 'S', `left:${sl}px;top:${sTop}px;width:${sw}px;height:84px;box-sizing:border-box;border:6px solid ${col};border-radius:24px;background:#fff;color:${col};font-size:46px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:12px;white-space:nowrap;box-shadow:0 10px 30px rgba(16,24,40,.15);opacity:0`, IC(o.icon, 'width:52px;height:52px;flex:0 0 auto') + `<span>${o.text}</span>`)); };
+  const BUILD = (id, t) => { tl.set('#' + id, { opacity: 1 }, t);
+    tl.fromTo(`#${id}D`, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.7, ease: 'power2.out', immediateRender: false }, t);
+    tl.fromTo(`#${id}S`, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.6)', immediateRender: false }, t + 0.45); };
+  ADD(BRD.map((b, i) => BR('b1' + i, LY[i], b[2], { text: b[1], icon: b[3], dash: i === 1, nums: i === 4 })).join(''));
+  /* phone and bare desk (chats only) and chips */
+  ADD(H('phone', 'left:400px;top:400px;width:130px;height:230px;box-sizing:border-box;border:8px solid #1f2a44;border-radius:26px;background:#2d3a5c', IC('dismiss_circle', 'position:absolute;left:25px;top:75px;width:64px;height:64px;color:#c4392f')) +
+    H('bare', 'left:600px;top:470px;width:360px;height:170px', D('', 'left:0;top:0;width:360px;height:30px;border-radius:8px;background:#a8825a') + D('', 'left:30px;top:30px;width:22px;height:140px;background:#8a6a45') + D('', 'left:308px;top:30px;width:22px;height:140px;background:#8a6a45') + IC('dismiss_circle', 'position:absolute;left:150px;top:-100px;width:64px;height:64px;color:#c4392f')));
+  ADD(CHC('c1a', 660, 700, 'chats only', RED, 50, null, REDs) + CHC('c1b', 660, 700, 'read · create · update', GRN, 46, null, GRNs) + CHC('c1c', 660, 390, 'six bridges', NAVY, 56, null, '#fff'));
+  /* Tools pocket */
+  const TKI = [AMB, AMB, NAVY, PUR, TEAL, BLUE], TKN = ['plug_connected', 'wrench', 'braces', 'cube_tree', 'flow', 'eye'];
+  ADD(H('nxPk', 'left:580px;top:1330px;width:460px;height:150px;box-sizing:border-box;border:6px solid #8a6a45;border-radius:22px;background:#fff;z-index:7;box-shadow:0 10px 30px rgba(16,24,40,.2)', T(20, 4, 46, NAVY, 'Tools')) +
+    TKN.map((n, i) => H('tk' + i, `left:${598 + i * 72}px;top:1392px;width:62px;height:62px;border-radius:14px;background:${TKI[i]};z-index:8`, IC(n, 'position:absolute;left:8px;top:8px;width:46px;height:46px;color:#fff'))).join(''));
+
+  /* ═════════ SCENE 2: signpost (sign on Nexo's bank, one arrow lane per building) ═════════ */
+  const LN = { r0: 720, r1: 940, r2: 1290, r3: 495 };
+  ADD(H('sp', 'left:300px;top:395px;width:690px;height:200px;box-sizing:border-box;border:7px solid #1f2a44;border-radius:26px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2);color:#1f2a44;font-size:56px;line-height:1.12;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;white-space:nowrap', 'Does it expose<br>an API?') +
+    `<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4000" height="2200" viewBox="0 0 4000 2200"><path id="trunk" d="M990 495 L1075 495 L1075 1290 M1075 720 L1100 720 M1075 940 L1100 940 M1075 1290 L1100 1290 M1075 495 L1100 495" fill="none" stroke="#1f2a44" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>` +
+    [['r1', NAVY, 1800, 1990], ['r2', PUR, 1800, 1990], ['r3', BLUE, 1800, 1990]].map((a) => `<path id="ln${a[0]}" d="M${a[2]} ${LN[a[0]]} L${a[3]} ${LN[a[0]]} M${a[3] - 30} ${LN[a[0]] - 24} L${a[3]} ${LN[a[0]]} L${a[3] - 30} ${LN[a[0]] + 24}" fill="none" stroke="${a[1]}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>`).join('') + `</svg>`);
+  const ROWS = [['r0', 'Connector exists<br>→ use it', AMB, AMBs], ['r1', 'OpenAPI → REST API tool<br>or custom connector', NAVY, '#e4e8f2'], ['r2', 'Speaks MCP<br>→ MCP server', PUR, PURs], ['r3', 'Screen only<br>→ computer use', BLUE, BLUEs]];
+  ADD(ROWS.map((r) => H(r[0], `left:1100px;top:${LN[r[0]] - 75}px;width:${r[0] === 'r0' ? 680 : 700}px;height:150px;box-sizing:border-box;border:6px solid ${r[2]};border-radius:24px;background:${r[3]};color:${r[2]};font-size:46px;font-weight:800;line-height:1.12;display:flex;align-items:center;padding-left:28px;white-space:nowrap;box-shadow:0 10px 30px rgba(16,24,40,.12)`, r[1])).join('') +
+    H('tkn', 'left:1000px;top:690px;width:62px;height:62px;border-radius:14px;background:#d98a00;z-index:8', IC('plug_connected', 'position:absolute;left:8px;top:8px;width:46px;height:46px;color:#fff')));
+
+  /* ═════════ SCENE 3: ladder in the river, rung demos on a bridge deck below it, chips on Nexo's bank ═════════ */
+  const LAD = [['Prebuilt connector', AMB, 'plug_connected'], ['Custom connector', AMB, 'wrench'], ['REST API tool', NAVY, 'braces'], ['Agent flow', TEAL, 'flow'], ['MCP server', PUR, 'cube_tree']];
+  ADD(H('ladR', 'left:1075px;top:430px;width:14px;height:630px;border-radius:7px;background:#8a6a45') + H('ladR2', 'left:1811px;top:430px;width:14px;height:630px;border-radius:7px;background:#8a6a45') + CHC('cOrd', 660, 340, 'order of choice', NAVY, 46, null, '#fff'));
+  ADD(LAD.map((r, i) => H('rg' + i, `left:1100px;top:${440 + i * 124}px;width:700px;height:104px;box-sizing:border-box;border:6px solid #8f99ae;border-radius:24px;background:#eef1f7;color:#3d4863;font-size:46px;font-weight:800;display:flex;align-items:center;gap:12px;padding-left:18px;white-space:nowrap`,
+    `<span style="flex:0 0 60px;height:60px;border:5px solid currentColor;border-radius:50%;text-align:center;line-height:50px;font-size:40px;box-sizing:border-box">${i + 1}</span>` + IC(r[2], 'width:52px;height:52px;flex:0 0 auto') + `<span>${r[0]}</span>`)).join(''));
+  ADD(CHC('c3a', 660, 470, 'no development', AMB, 46, null, AMBs) + CHC('c3b', 660, 640, 'large results<br>slow it', RED, 46, 'timer', REDs) + CHC('c3c', 660, 470, 'several agents,<br>one API', AMB, 46, null, AMBs) +
+    CHC('c3d', 660, 470, 'preview', NAVY, 46, null, '#e4e8f2') + CHC('c3e', 660, 640, 'Copilot Studio only', NAVY, 46, null, '#e4e8f2') + CHC('c3f', 660, 470, 'ordered steps<br>+ approval', TEAL, 46, null, TEALs) + CHC('c3g', 660, 470, 'shared tool server', PUR, 46, null, PURs));
+  const DECK = (id, col, dash, bg) => H(id, `left:1050px;top:1300px;width:800px;height:70px;border-radius:14px;box-sizing:border-box;` + (dash ? `border:6px dashed ${col};background:${bg}` : `background-color:${col};background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.25) 0 4px,transparent 4px 44px)`));
+  ADD(DECK('dk1', AMB) + DECK('dk2', AMB, true, AMBs) + DECK('dk3', NAVY) + DECK('dk4', TEAL) + DECK('dk5', PUR));
+  ADD(H('pgt', 'left:1380px;top:1150px;width:150px;height:150px;border-radius:30px;background:#d98a00', IC('plug_connected', 'position:absolute;left:35px;top:35px;width:80px;height:80px;color:#fff')) +
+    [0, 1, 2].map((k) => H('sa' + k, `left:${1250 + k * 150}px;top:1191px;width:100px;height:109px`, botCol(BLUE, 100))).join('') +
+    H('rtile', 'left:1380px;top:1150px;width:150px;height:150px;border-radius:30px;background:#1f2a44', IC('braces', 'position:absolute;left:35px;top:35px;width:80px;height:80px;color:#fff')) +
+    [1, 2, 3].map((n, k) => H('fc' + k, `left:${1240 + k * 170}px;top:1200px;width:100px;height:100px;border-radius:50%;background:${TEAL};color:#fff;font-size:56px;font-weight:800;text-align:center;line-height:100px`, n)).join('') + H('fcl', 'left:1290px;top:1246px;width:360px;height:8px;background:#0f7b8a') +
+    H('stamp', 'left:1220px;top:1090px;width:460px;height:80px;box-sizing:border-box;border:6px solid #1e7f4f;border-radius:20px;background:#e3f4ea;color:#1e7f4f;font-size:46px;font-weight:800;text-align:center;line-height:68px;transform:rotate(-3deg)', 'Approved ✓') +
+    `<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4000" height="2200" viewBox="0 0 4000 2200"><path id="mcb0" d="M1390 1200 Q1280 1150 1175 1202" fill="none" stroke="#8a5cd6" stroke-width="10" stroke-linecap="round" opacity="0"/><path id="mcb1" d="M1390 1240 L1350 1240" fill="none" stroke="#8a5cd6" stroke-width="10" stroke-linecap="round" opacity="0"/><path id="mcb2" d="M1510 1215 Q1600 1170 1695 1202" fill="none" stroke="#8a5cd6" stroke-width="10" stroke-linecap="round" opacity="0"/></svg>` +
+    H('mhub', 'left:1370px;top:1110px;width:160px;height:180px;border-radius:30px;background:#8a5cd6', IC('cube_tree', 'position:absolute;left:40px;top:40px;width:80px;height:80px;color:#fff')) +
+    [1130, 1260, 1650].map((x, k) => H('mb' + k, `left:${x}px;top:1202px;width:90px;height:98px`, botCol(BLUE, 90))).join(''));
+
+  /* ═════════ SCENE 5: four bridges, each with its price card standing on its own deck (river, buildings stay) ═════════ */
+  const HDR = 66, LH = 60, PB = 12, DK = 28;
+  const PCARD = (id, y, col, title, icon, lines, dash, bg) => { const ch = HDR + lines.length * LH + PB;
+    return H(id, `left:1070px;top:${y}px;width:760px;height:${ch + DK}px`,
+      D(id + 'C', `left:0;top:0;width:740px;height:${ch}px;box-sizing:border-box;border:6px solid ${col};border-radius:24px;background:#fff;box-shadow:0 10px 30px rgba(16,24,40,.12);overflow:hidden;opacity:0`,
+        D('', `left:0;top:0;width:728px;height:${HDR - 6}px;background:${col};color:#fff;font-size:46px;font-weight:800;display:flex;align-items:center;gap:12px;padding-left:20px;white-space:nowrap;box-sizing:border-box`, IC(icon, 'width:44px;height:44px;flex:0 0 auto') + `<span>${title}</span>`) +
+        lines.map((l, k) => `<div id="${id}l${k}" style="position:absolute;left:26px;top:${HDR - 6 + 2 + k * LH}px;font-size:46px;font-weight:800;line-height:${LH}px;color:${col};white-space:nowrap;opacity:.4">${l}</div>`).join('')) +
+      D(id + 'D', `left:0;top:${ch}px;width:760px;height:${DK}px;border-radius:12px;box-sizing:border-box;` + (dash ? `border:5px dashed ${col};background:${bg}` : `background-color:${bg || col};background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.25) 0 4px,transparent 4px 44px)`))); };
+  ADD(PCARD('p5a', 330, TEAL, 'Agent flows', 'flow', ['rate limits', 'error paths', 'response size', 'Copilot Credits']) + PCARD('p5b', 690, PUR, 'MCP servers', 'cube_tree', ['generative only', 'not from topics', 'descriptions on the server']) +
+    PCARD('p5c', 990, BRN, 'Send HTTP request', 'send', ['quick · not shareable'], true, '#f3e7cf') + PCARD('p5d', 1170, GRY, 'Bot Framework skills', 'code', ['pro code in C#', 'Azure costs', 'outside Power Platform ALM'], false, '#8a93a6'));
+  ADD(CHC('c5', 660, 400, 'every bridge<br>has a price', AMB, 52, 'money', AMBs) + H('wn', 'left:880px;top:830px;width:90px;height:90px;border-radius:50%;background:#fff3d6;border:6px solid #d98a00;box-sizing:border-box;z-index:8', IC('warning', 'position:absolute;left:14px;top:14px;width:50px;height:50px;color:#d98a00')));
+
+  /* ═════════ SCENE 6: MCP hub + computer use ═════════ */
+  ADD(H('hub6', 'left:1370px;top:850px;width:160px;height:380px', D('', 'left:30px;top:150px;width:100px;height:230px;background:#8a5cd6;border-radius:12px') + D('', 'left:0;top:0;width:160px;height:190px;border-radius:34px;background:#8a5cd6;box-shadow:0 14px 40px rgba(16,24,40,.25)', IC('cube_tree', 'position:absolute;left:30px;top:45px;width:100px;height:100px;color:#fff'))) +
+    CHC('hubLbl', 1450, 1262, 'MCP server', PUR, 46, null, PURs));
+  ADD(`<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4000" height="2200" viewBox="0 0 4000 2200">
+    <path id="cbN" d="M1370 1100 L1052 1100" fill="none" stroke="#8a5cd6" stroke-width="12" stroke-linecap="round" opacity="0"/>
+    <path id="cbA" d="M1530 1180 L2465 1180 M2105 1180 L2105 1200 M2285 1180 L2285 1200 M2465 1180 L2465 1200" fill="none" stroke="#8a5cd6" stroke-width="12" stroke-linecap="round" opacity="0"/>
+    <path id="cbB" d="M1860 1180 L2465 1180 M2105 1180 L2105 1200 M2285 1180 L2285 1200 M2465 1180 L2465 1200" fill="none" stroke="#8a5cd6" stroke-width="12" stroke-linecap="round" opacity="0"/>
+    <path id="dl1" d="M1450 484 L1450 846" fill="none" stroke="#8a5cd6" stroke-width="8" stroke-dasharray="16 14" opacity="0"/>
+    <path id="dl2" d="M1808 400 L1900 322 L2465 322 L2465 346" fill="none" stroke="#2f5bd3" stroke-width="8" stroke-dasharray="16 14" opacity="0"/>
+    <path id="beam" d="M2400 400 L2340 380 L2340 570 L2400 440 Z" fill="#2f5bd3" opacity="0"/></svg>`);
+  ADD(CHC('c6a', 1450, 345, 'open protocol<br>many AI clients', PUR, 46, null, PURs) + CHC('c6b', 1450, 345, 'Streamable HTTP', GRN, 50, 'checkmark_circle', GRNs) + CHC('c6c', 1450, 345, 'SSE no longer<br>supported', RED, 46, null, REDs) +
+    CHC('c6d', 2200, 192, 'computer use:<br>vision + reasoning', BLUE, 46, null, BLUEs) + CHC('c6e', 1450, 345, 'generative orchestration<br>required', NAVY, 46, null, '#fff') + CHC('c6f', 1210, 570, '5 credits<br>per step<br>standard models', AMB, 46, null, AMBs));
+  ADD(H('plg', 'left:1250px;top:1062px;width:84px;height:84px;border-radius:20px;background:#1e7f4f', IC('plug_connected', 'position:absolute;left:16px;top:16px;width:52px;height:52px;color:#fff')) +
+    H('plgOld', 'left:1250px;top:1062px;width:130px;height:84px;border-radius:20px;background:#8a93a6;color:#fff;font-size:46px;font-weight:800;text-align:center;line-height:84px', 'SSE') + H('plgX', 'left:1190px;top:984px;width:70px;height:70px;border-radius:50%;background:#c4392f;color:#fff;font-size:46px;font-weight:800;text-align:center;line-height:68px', '✕'));
+  ADD(H('eye', 'left:2400px;top:350px;width:130px;height:130px;border-radius:50%;background:#fff;border:8px solid #2f5bd3;box-sizing:border-box;z-index:4', IC('eye', 'position:absolute;left:25px;top:25px;width:68px;height:68px;color:#2f5bd3')) +
+    H('pcCur', 'left:2080px;top:380px;width:46px;height:60px;z-index:4', '<svg width="46" height="60" viewBox="0 0 46 60"><path d="M4 4 L4 48 L16 37 L25 56 L33 52 L24 34 L40 34 Z" fill="#141821" stroke="#fff" stroke-width="3"/></svg>'));
+
+  /* ═════════ SCENE 8: tools vs knowledge ═════════ */
+  ADD(H('sgT', 'left:420px;top:340px;width:520px;height:100px;box-sizing:border-box;border:7px solid #c9ced8;border-radius:26px;background:#e7eaf1;color:#5b6578;font-size:54px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:14px;white-space:nowrap', IC('wrench', 'width:58px;height:58px') + 'Tools: do') +
+    H('sgK', 'left:1990px;top:340px;width:650px;height:100px;box-sizing:border-box;border:7px solid #c9ced8;border-radius:26px;background:#e7eaf1;color:#5b6578;font-size:54px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:14px;white-space:nowrap', IC('book_open', 'width:58px;height:58px') + 'Knowledge: answer'));
+  const BK = ['#2f5bd3', '#d98a00', '#0f7b8a', '#8a5cd6', '#c4392f', '#1e7f4f'];
+  ADD(H('shelf', 'left:1990px;top:520px;width:420px;height:440px;box-sizing:border-box;border:14px solid #8a6a45;border-radius:12px;background:#f3e7cf', [0, 1, 2].map((r) => D('', `left:-14px;top:${r * 140 + 112}px;width:420px;height:14px;background:#8a6a45`) + BK.map((c, k) => D('', `left:${14 + k * 58 + (r % 2) * 8}px;top:${r * 140 + 22 + (k % 3) * 8}px;width:44px;height:${90 - (k % 3) * 8}px;border-radius:6px;background:${c}`)).join('')).join('')) +
+    H('wb', 'left:470px;top:520px;width:300px;height:300px;border-radius:50%;background:#e4e8f2;border:8px solid #1f2a44;box-sizing:border-box', IC('toolbox', 'position:absolute;left:70px;top:70px;width:150px;height:150px;color:#1f2a44')));
+  ADD(H('fOne', 'left:1960px;top:500px;width:360px;height:96px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:20px;background:#fff;color:#2f5bd3;font-size:46px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px', IC('cloud', 'width:56px;height:56px') + 'OneDrive') +
+    H('fSp', 'left:1960px;top:630px;width:360px;height:96px;box-sizing:border-box;border:5px solid #0f7b8a;border-radius:20px;background:#fff;color:#0f7b8a;font-size:46px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px', IC('cloud', 'width:56px;height:56px') + 'SharePoint') +
+    H('drum', 'left:2420px;top:500px;width:240px;height:320px', D('', 'left:0;top:40px;width:240px;height:260px;background:#dff1f3;border:7px solid #0f7b8a;border-top:0;border-radius:0 0 120px 120px / 0 0 40px 40px;box-sizing:border-box') + D('', 'left:0;top:0;width:240px;height:80px;border-radius:50%;background:#bfe3e8;border:7px solid #0f7b8a;box-sizing:border-box') +
+      [0, 1, 2, 3, 4, 5, 6, 7, 8].map((k) => D('vd' + k, `left:${54 + (k % 3) * 52}px;top:${120 + Math.floor(k / 3) * 52}px;width:22px;height:22px;border-radius:50%;background:#0f7b8a;opacity:0`)).join('')) +
+    CHC('lbDv', 2500, 830, 'Dataverse', TEAL, 46, 'database', TEALs) + CHC('c8a', 2320, 960, 'synced · vector indexed<br>in Dataverse', TEAL, 46, null, TEALs) +
+    H('aCon', 'left:1890px;top:1190px;width:370px;height:96px;box-sizing:border-box;border:5px solid #d98a00;border-radius:20px;background:#fff3d6;color:#d98a00;font-size:46px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px', IC('plug_connected', 'width:56px;height:56px') + 'Connector') +
+    [0, 1].map((k) => H('ar' + k, `left:2330px;top:${1150 + k * 110}px;width:340px;height:90px;box-sizing:border-box;border:5px solid #8a93a6;border-radius:20px;background:#fff;color:#1f2a44;font-size:46px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px`, IC('document_text', 'width:52px;height:52px') + 'Article')).join('') +
+    CHC('c8b', 2320, 1350, 'KB articles<br>via connectors', AMB, 46, null, AMBs));
+  ADD(H('dc0', 'left:1100px;top:560px;width:470px;height:100px;box-sizing:border-box;border:5px solid #8a93a6;border-radius:20px;background:#fff;color:#1f2a44;font-size:46px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px', IC('ticket_diagonal', 'width:56px;height:56px;color:#2f5bd3;flex:0 0 auto') + 'Create ticket') +
+    `<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4000" height="2200" viewBox="0 0 4000 2200"><path id="wrA" d="M985 1000 C1010 860 1050 740 1105 650 M1072 668 L1105 650 L1114 690" fill="none" stroke="#c4392f" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>` +
+    H('qm', 'left:845px;top:810px;width:100px;height:100px;border-radius:50%;background:#e7eaf1;border:6px solid #8a93a6;box-sizing:border-box;z-index:8', IC('question_circle', 'position:absolute;left:18px;top:18px;width:56px;height:56px;color:#5b6578')));
+  ADD(H('tc8', 'left:330px;top:470px;width:650px;height:330px;box-sizing:border-box;border:7px solid #1f2a44;border-radius:26px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2)', T(26, 14, 46, GRY, 'Name') + T(26, 66, 50, NAVY, 'Check inventory') + T(26, 142, 46, GRY, 'Description', 'dsLb', 'opacity:0') +
+    T(26, 194, 50, RED, 'Does stuff', 'dsV', 'opacity:0;white-space:normal;width:590px') + T(26, 194, 50, GRN, 'Checks live stock<br>for a product code', 'dsG', 'opacity:0;white-space:normal;width:590px')) +
+    CHC('c8w', 1450, 730, 'wrong tool', RED, 52, 'dismiss_circle', REDs) + CHC('c8n', 1450, 730, 'no tool', GRY, 52, null, GRYs) + CHC('c8p', 1450, 730, 'picked', GRN, 52, 'checkmark_circle', GRNs) + CHC('c8t', 1450, 870, 'write it for a<br>new teammate', NAVY, 50, null, '#fff'));
+
+  /* ═════════ SCENE 11: close ═════════ */
+  ADD(BR('b11c', 380, BLUE, { text: 'Computer use', icon: 'eye', below: true, wid: 980, signLeft: true }) + BR('b11r', 900, NAVY, { text: 'REST API tool', icon: 'braces', below: true, wid: 980, signLeft: true }));
+  ADD(H('hub11', 'left:1700px;top:1000px;width:160px;height:370px', D('', 'left:30px;top:150px;width:100px;height:220px;background:#8a5cd6;border-radius:12px') + D('', 'left:0;top:0;width:160px;height:190px;border-radius:34px;background:#8a5cd6;box-shadow:0 14px 40px rgba(16,24,40,.25)', IC('cube_tree', 'position:absolute;left:30px;top:45px;width:100px;height:100px;color:#fff'))));
+  ADD(H('invC', 'left:1060px;top:286px;width:290px;height:90px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:20px;background:#fff;color:#2f5bd3;font-size:46px;font-weight:800;display:flex;align-items:center;gap:12px;padding-left:14px;z-index:6', IC('document_text', 'width:52px;height:52px') + 'Invoice') +
+    H('stC', 'left:1300px;top:790px;width:560px;height:96px;box-sizing:border-box;border:5px solid #1e7f4f;border-radius:20px;background:#e3f4ea;color:#1e7f4f;font-size:46px;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap;z-index:6', 'Laptops: 12 in stock') +
+    H('rc', 'left:330px;top:480px;width:660px;height:260px;box-sizing:border-box;border:6px solid #cdbf9f;border-radius:22px;background:#fbf6e6;box-shadow:0 14px 40px rgba(16,24,40,.2)',
+      ['Does it have an API?', 'Then follow the order'].map((t, k) => D('rc' + k, `left:26px;top:${30 + k * 108}px;width:600px;height:90px;box-sizing:border-box;border:5px solid ${[BLUE, NAVY][k]};border-radius:20px;background:#fff;color:${[BLUE, NAVY][k]};font-size:46px;font-weight:800;display:flex;align-items:center;padding-left:18px;white-space:nowrap;opacity:.4`, t)).join('')));
+
+  /* ═════════ SCREEN LAYER ═════════ */
+  const PILL = (id, x, y, fs, col, t, ex) => `<div class="ov" id="${id}" style="left:${x}px;top:${y}px;${ex || ''}"><span style="display:inline-block;background:#fff;border:6px solid ${col};border-radius:30px;padding:6px 28px;color:${col};font-size:${fs}px;font-weight:800;box-shadow:0 10px 30px rgba(16,24,40,.12);white-space:nowrap">${t}</span></div>`;
+  ADDS(PILL('pMod', 120, 120, 50, NAVY, 'Module 1') +
+    `<div class="ov" id="kT0" style="left:120px;top:120px;transform-origin:0 0"><span style="display:inline-block;background:#fff;padding:8px 46px;border-radius:34px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:104px;font-weight:800;color:${NAVY};letter-spacing:-3px;white-space:nowrap;line-height:1.1">Pick the<br>right bridge</span></div>` +
+    PILL('pBack', 1180, 120, 50, NAVY, 'Back at Contoso') +
+    `<div class="tag amber" id="tDoors" style="left:960px;top:880px;font-size:42px">three different doors</div>` +
+    `<div class="tag blue" id="tNx" style="left:960px;top:130px;font-size:42px">next: identity<br>and authentication</div>`);
+
+  /* ═════════ UI WINDOW (scene 10) ═════════ */
+  const TL5 = [['Connectors', AMB, 'plug_connected'], ['MCP', PUR, 'cube_tree'], ['REST API', NAVY, 'braces'], ['Flows', TEAL, 'flow'], ['Computer use', BLUE, 'eye']];
+  const FLD = (id, x, y, w, h, label, inner, ex) => D(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:16px;background:#fff;padding:8px 22px;${ex || ''}`, `<div style="font-size:34px;font-weight:700;color:#5d6472;line-height:38px">${label}</div>` + inner);
+  const V = (id, html) => D(id, 'left:0;top:0;width:1420px;height:742px;background:#fff;opacity:0', html);
+  ADDU(uiWindow('sw', { title: 'Copilot Studio · Nexo', nav: ['Overview', 'Knowledge', 'Tools', 'Topics', 'Settings'], on: 0, body:
+    V('v0', T(40, 28, 52, NAVY, 'Overview') + D('', 'left:40px;top:120px;width:560px;height:580px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:22px', D('', 'left:190px;top:60px;width:180px;height:196px', miniBot(180)) + T(0, 300, 56, NAVY, 'Nexo', '', 'width:554px;text-align:center') + T(0, 390, 42, GRY, '3 tools', '', 'width:554px;text-align:center')) +
+      D('', 'left:640px;top:120px;width:740px;height:580px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:22px', T(30, 28, 46, NAVY, 'Instructions') + ['Help Contoso staff', 'Use tools to act', 'Be brief and clear'].map((s, k) => T(30, 130 + k * 130, 42, '#141821', s)).join(''))) +
+    V('v1', T(40, 28, 52, NAVY, 'Tools') + D('btnAdd', 'left:1090px;top:24px;width:290px;height:76px;box-sizing:border-box;border-radius:16px;background:#2f5bd3;color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:76px', 'Add a tool') +
+      [['Look up customer', 'search'], ['Create ticket', 'ticket_diagonal'], ['Send email', 'mail'], ['Check inventory', 'braces']].map((r, k) => D('tr' + k, `left:40px;top:${116 + k * 148}px;width:780px;height:124px;box-sizing:border-box;border:3px solid ${k === 3 ? '#1e7f4f' : '#c9ced8'};border-radius:18px;background:${k === 3 ? '#e3f4ea' : '#fff'};display:flex;align-items:center;gap:20px;padding-left:24px;font-size:42px;font-weight:700;color:#141821;${k === 3 ? 'opacity:0' : ''}`, IC(r[1], 'width:60px;height:60px;flex:0 0 auto;color:#2f5bd3') + r[0])).join('') +
+      D('tp0', 'left:870px;top:116px;width:510px;height:568px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:22px;background:#f3f5f9', IC('toolbox', 'position:absolute;left:175px;top:90px;width:160px;height:160px;color:#2f5bd3') + T(0, 310, 46, NAVY, 'Tools let Nexo<br>act', '', 'width:504px;text-align:center;white-space:normal')) +
+      D('tp', 'left:870px;top:116px;width:510px;height:568px;box-sizing:border-box;border:3px solid #2f5bd3;border-radius:22px;background:#fff;opacity:0', T(24, 18, 42, NAVY, 'Test your agent') +
+        D('tpU', 'left:70px;top:100px;width:416px;height:130px;box-sizing:border-box;border-radius:22px;background:#e6ecfb;color:#141821;font-size:38px;font-weight:700;padding:14px 20px;line-height:1.2;opacity:0', 'Do we have laptops in stock?') +
+        D('tpS', 'left:24px;top:290px;width:400px;height:76px;box-sizing:border-box;border:4px solid #1e7f4f;border-radius:18px;background:#e3f4ea;color:#1e7f4f;font-size:38px;font-weight:800;display:flex;align-items:center;gap:12px;padding-left:16px;opacity:0', IC('checkmark_circle', 'width:44px;height:44px') + 'Check inventory') +
+        D('tpR', 'left:24px;top:400px;width:462px;height:130px;box-sizing:border-box;border-radius:22px;background:#f3f5f9;color:#141821;font-size:42px;font-weight:800;padding:20px;line-height:1.2;opacity:0', 'Laptops: 12 in stock'))) +
+    V('v2', T(40, 28, 52, NAVY, 'Add a tool') + TL5.map((r, k) => D('tl' + k, `left:${40 + (k % 3) * 450}px;top:${110 + Math.floor(k / 3) * 290}px;width:420px;height:260px;box-sizing:border-box;border:5px solid #c9ced8;border-radius:24px;background:#e7eaf1;color:#5b6578;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;font-size:46px;font-weight:800`, IC(r[2], 'width:84px;height:84px') + r[0])).join('') +
+      D('tip', 'left:940px;top:400px;width:420px;height:260px;box-sizing:border-box;border:5px dashed #d98a00;border-radius:24px;background:#fff3d6;color:#d98a00;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:44px;font-weight:800;text-align:center;line-height:1.15;opacity:0', IC('lightbulb', 'width:64px;height:64px') + 'pick the bridge<br>that fits')) +
+    V('v3', T(40, 22, 52, NAVY, 'REST API tool') + FLD('f1', 40, 100, 1340, 120, 'OpenAPI file', `<div id="f1v" style="font-size:40px;font-weight:700;color:#141821;display:flex;align-items:center;gap:14px;opacity:0">inventory-openapi.json ${IC('checkmark_circle', 'width:44px;height:44px;color:#1e7f4f')}</div>`) +
+      FLD('f2', 40, 250, 1340, 120, 'Name', '<div id="f2v" style="font-size:40px;font-weight:700;color:#141821;clip-path:inset(0 100% 0 0)">Check inventory</div>', 'opacity:0') +
+      FLD('f3', 40, 400, 1340, 120, 'Description', '<div id="f3v" style="font-size:40px;font-weight:700;color:#141821;clip-path:inset(0 100% 0 0);white-space:nowrap">Checks live stock for a product code</div>', 'opacity:0') +
+      FLD('f4', 40, 550, 900, 120, 'Connection', `<div id="f4v" style="font-size:40px;font-weight:700;color:#141821;display:flex;align-items:center;gap:20px">Inventory API <span id="f4c" style="color:#1e7f4f;opacity:0;display:inline-flex;align-items:center;gap:8px">${IC('checkmark_circle', 'width:44px;height:44px')}Connected</span></div>`, 'opacity:0') +
+      D('btnAg', 'left:980px;top:550px;width:400px;height:120px;box-sizing:border-box;border-radius:18px;background:#2f5bd3;color:#fff;font-size:42px;font-weight:800;text-align:center;line-height:120px;opacity:0', 'Add to agent')) }));
+  const pcOff = (sel, dx, dy) => { const p = PC(sel); return [p[0] + dx, p[1] + dy]; };
+  const P_NAV2 = pcOff('#sw_nv2', 70, 0), P_ADD = pcOff('#btnAdd', 105, 10), P_T2 = pcOff('#tl2', 130, -70), P_AG = pcOff('#btnAg', 165, 5);
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (id, x, w, col, h4, inner) => `<div class="rm" id="${id}" style="left:${x}px;width:${w}px;border-color:${col};opacity:0"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const XT = (st, t) => bx('', st + ';font-size:36px;font-weight:800;color:#c9d3ea;white-space:nowrap', t);
+  const XTILE = (id, x, y, s, bg, ic, icCol, ex) => bx(id, `left:${x}px;top:${y}px;width:${s}px;height:${s}px;border-radius:20px;background:${bg};${ex || ''}`, IC(ic, `position:absolute;left:${s * 0.2}px;top:${s * 0.2}px;width:${s * 0.6}px;height:${s * 0.6}px;color:${icCol}`));
+  const XCH = (id, x, y, w, col, t, ex) => bx(id, `left:${x}px;top:${y}px;width:${w}px;height:62px;box-sizing:border-box;border:5px solid ${col};border-radius:20px;color:${col};font-size:36px;font-weight:800;text-align:center;line-height:52px;white-space:nowrap;${ex || ''}`, t);
+  const PAL = '#ffd166', PG = '#6be3a0', PR = '#ff8a80';
+  EXAMS(
+    mkExam('exA', { q: "Contoso's inventory system has an OpenAPI file, but no ready connector. Three different agents need it, and a Power Automate flow needs it too. Which bridge do they build?",
+      opts: ['A REST API tool inside each agent', 'A custom connector they all share', 'A Send HTTP request node per topic'],
+      why: '<div id="exA_w1"><span class="g">Many agents</span> share one <span class="g">custom connector</span>, and it also works in <span class="g">Power Automate</span>.</div><div id="exA_w2">The <span class="r">REST API tool</span> lives <span class="r">only inside Copilot Studio</span>.</div>',
+      proof: rmX('pA_L', 0, 826, PAL, 'Custom connector', bx('', 'left:28px;top:150px;width:280px;height:0;border-top:10px dashed #ffd166') + [330, 422, 514].map((x) => bx('', `left:${x}px;top:104px`, botCol('#6f95ff', 76))).join('') + XT('left:330px;top:206px', '3 agents') +
+          XTILE('', 615, 96, 90, '#1e7f4f', 'flow', '#fff') + bx('pA_ck', 'left:684px;top:84px;width:44px;height:44px;border-radius:50%;background:#fff;color:#1e7f4f;font-size:34px;font-weight:800;text-align:center;line-height:44px;opacity:0', '✓') + XT('left:514px;top:206px', 'Power Automate')) +
+        rmX('pA_R', 854, 826, PR, 'REST API tool', [28, 138, 248].map((x) => XTILE('', x, 96, 90, '#fff', 'plug_connected', '#1f2a44')).join('') + XCH('', 28, 206, 440, PR, 'Copilot Studio only') +
+          XTILE('', 615, 96, 90, '#1e7f4f', 'flow', '#fff', 'opacity:.5') + bx('pA_x', 'left:610px;top:70px;width:100px;font-size:100px;font-weight:800;color:#ff8a80;text-align:center;line-height:100px;opacity:0', '✕') + XT('left:514px;top:206px', 'Power Automate')) }),
+    mkExam('exB', { q: 'A maker connects an MCP server to an agent that still uses classic orchestration. They want a topic to call its tools, but the tools never run. What must change?',
+      opts: ['Call the MCP tools from inside a topic', 'Switch the server transport to SSE', 'Switch to generative orchestration'],
+      why: '<div id="exB_w1"><span class="g">MCP</span> only works when the agent <span class="g">plans for itself</span>.</div><div id="exB_w2"><span class="r">Topics cannot call it</span>, and <span class="r">SSE</span> is no longer supported.</div>',
+      proof: rmX('pB_L', 0, 826, PG, 'Generative', bx('', 'left:28px;top:96px;width:200px;height:96px;box-sizing:border-box;border:5px solid #b99af0;border-radius:18px;color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:86px', 'Planner') + bx('', 'left:236px;top:138px;width:64px;height:10px;border-radius:5px;background:#b99af0') +
+          XTILE('', 310, 94, 96, '#8a5cd6', 'cube_tree', '#fff') + XT('left:290px;top:206px', 'MCP server') + bx('', 'left:414px;top:138px;width:64px;height:10px;border-radius:5px;background:#b99af0') +
+          bx('pB_ok', 'left:490px;top:94px;width:300px;height:96px;box-sizing:border-box;border-radius:18px;background:#1e7f4f;color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:96px;opacity:0', '✓ tool runs')) +
+        rmX('pB_R', 854, 826, PR, 'Classic + topic', bx('', 'left:28px;top:90px;width:250px;height:110px;box-sizing:border-box;border:5px solid #8f9cc0;border-radius:18px;color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:1.2;padding-top:12px', 'Topic<br>Call tool') + bx('', 'left:286px;top:138px;width:110px;height:0;border-top:10px dashed #8f9cc0') +
+          bx('pB_x', 'left:306px;top:100px;width:70px;font-size:70px;font-weight:800;color:#ff8a80;text-align:center;line-height:70px;opacity:0', '✕') + XTILE('', 410, 94, 96, '#8a5cd6', 'cube_tree', '#fff', 'opacity:.5') + XCH('', 28, 222, 570, PR, "topics can't call MCP")) }),
+    mkExam('exC', { q: 'Contoso records invoices in an old desktop program. It has no API and nobody can reach its database, but Nexo must type each new invoice into it. Which bridge fits?',
+      opts: ['Computer use, working its screen', 'A custom connector to the program', 'An MCP server running on the program'],
+      why: '<div id="exC_w1">There is <span class="g">only a screen</span>, so Nexo works it with <span class="g">vision</span>.</div><div id="exC_w2">A <span class="r">connector</span> and <span class="r">MCP</span> both <span class="r">assume an API</span>.</div>',
+      proof: rmX('pC_L', 0, 826, PG, 'Computer use', XTILE('', 28, 96, 100, '#2f5bd3', 'eye', '#fff') + bx('', 'left:160px;top:88px;width:630px;height:180px;box-sizing:border-box;border:5px solid #3a4a78;border-radius:16px;background:#141b2d') +
+          ['Customer', 'Amount', 'Date'].map((l, i) => bx('', `left:172px;top:${100 + i * 56}px;font-size:36px;font-weight:800;color:#fff;line-height:44px`, l) + bx('', `left:352px;top:${102 + i * 56}px;width:418px;height:36px;border-radius:10px;background:#2d3a5c`) + bx('pC_f' + i, `left:352px;top:${102 + i * 56}px;width:0px;height:36px;border-radius:10px;background:#4ade80`)).join('')) +
+        rmX('pC_R', 854, 826, PR, 'Connector / MCP', XTILE('', 28, 84, 96, '#fff', 'plug_connected', '#d98a00') + bx('', 'left:140px;top:122px;width:110px;height:0;border-top:10px dashed #ff8a80') + bx('pC_x1', 'left:150px;top:90px;width:90px;font-size:64px;font-weight:800;color:#ff8a80;text-align:center;line-height:64px;opacity:0', '✕') +
+          bx('', 'left:262px;top:76px;width:240px;height:130px;box-sizing:border-box;border:6px solid #8f9cc0;border-radius:16px;background:#1d2742;color:#c9d3ea;font-size:36px;font-weight:800;text-align:center;line-height:118px;white-space:nowrap', 'screen only') +
+          bx('', 'left:514px;top:122px;width:110px;height:0;border-top:10px dashed #ff8a80') + bx('pC_x2', 'left:524px;top:90px;width:90px;font-size:64px;font-weight:800;color:#ff8a80;text-align:center;line-height:64px;opacity:0', '✕') + XTILE('', 636, 84, 96, '#fff', 'cube_tree', '#8a5cd6') + XCH('', 28, 218, 340, PR, 'needs an API')) }));
+  const XB = [380, 560, 740];
+  ['exA', 'exB', 'exC'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1400, height: 160, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: [330, 432, 534][k], width: 1090, height: 92, fontSize: 36, duration: 0.9, ease: 'sine.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal) + 0.1, C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.6, 0.15);
+    tl.fromTo(X + ' .xl', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(i, 0) - 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0, y: 20 }, { opacity: 0.6, y: 0, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.4 }, t - 0.5));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.5 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.15, 0.4);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.5 }, R);
+    ON(Gg + ' .ok', R + 0.15, 0.4);
+    tl.to(O, { opacity: 0.5, duration: 0.5 }, R);
+    XCOMP(id, R + 0.6);
+    OFF([X + ' .xl', X + '_g', X + '_why', X + '_p'], o.end - 0.3, 0.25);
+    OFF(X, o.end, 0.2);
+    const P = R + 1.7;
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, P);
+    tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(i, 10) + 0.1, P + 0.6));
+    ON(X + '_p', P, 0.3); const PK = 'p' + id.slice(2) + '_'; ON('#' + PK + 'L', P + 0.1, 0.4); ON('#' + PK + 'R', Math.max(S(i, 10) + 0.1, P + 0.7), 0.4); return P; };
+  const toExam = (i) => { tl.set(['#world', '#uiBack', '.uw'], { opacity: 0 }, S(i, 0) - 0.4); tl.set('#ovL', { opacity: 0 }, S(i, 0) - 0.4); };
+  const fromExam = (i) => { tl.set(['#world'], { opacity: 1 }, S(i, 0) - 0.7); tl.set('#ovL', { opacity: 1 }, S(i, 0) - 0.7); };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - 700, y: 540 - 900, scale: 1 }); gsap.set('#pMod', { opacity: 1 });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 }); gsap.set('#exA_ring,#exB_ring,#exC_ring', { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set('#nx', { transformOrigin: '0 0', scale: 0.86 });
+  gsap.set('#tNx,#tDoors', { opacity: 0 });
+  const TOT = B.duration + 2.5;
+  tl.to('#rip', { x: 40, duration: 30, yoyo: true, repeat: 12, ease: 'sine.inOut' }, 0);
+  [['#bt0', 50], ['#bt1', -60], ['#bt2', 70]].forEach((b) => tl.to(b[0], { y: b[1], duration: 40, yoyo: true, repeat: 9, ease: 'sine.inOut' }, 0));
+  const KW = document.querySelector('#kT0'), KWd = KW.offsetWidth, KHd = KW.offsetHeight;
+  gsap.set('#kT0', { x: 960 - KWd / 2 - 120, y: 480 - KHd / 2 - 120 });
+  const ALLB = (p) => ['connectors', 'custom', 'rest', 'mcp', 'flows', 'cu'].map((_, i) => '#b1' + i);
+
+  /* ═════════ 0 · Three systems, three bridges ═════════ */
+  bob('#valB', 0.0, S(0, 6), 8, 0.35);
+  tl.to('#world', { x: 960 - 760 * 1.05, y: 540 - 900 * 1.05, scale: 1.05, duration: S(0, 1) + 1.3, ease: 'none' }, 0);
+  tl.to('#nxIn', { y: -16, duration: 0.25, yoyo: true, repeat: 5, ease: 'power2.out' }, 0.2);
+  tl.to('#nxIn', { y: -16, duration: 0.25, yoyo: true, repeat: 3, ease: 'power2.out' }, S(0, 0) + 2.2);
+  tl.fromTo('#bn', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, 0.05);
+  tl.fromTo('#bnF', { width: 0 }, { width: 600, duration: S(0, 1) - 0.5, ease: 'none', immediateRender: false }, 0.3);
+  tl.fromTo('#tok', { opacity: 0, x: 0, y: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, immediateRender: false }, W(0, 0, 'building', -0.2));
+  tl.to('#tok', { x: 250, y: 190, duration: 0.9, ease: 'power2.inOut' }, W(0, 0, 'building', 0.1));
+  tl.to('#nxIn', { scale: 1.07, transformOrigin: '50% 60%', duration: 0.25, yoyo: true, repeat: 1 }, W(0, 0, 'building', 1.0));
+  OFF('#tok', W(0, 0, 'building', 1.15), 0.2);
+  OFF('#bnT1', S(0, 1) + 0.0, 0.15); ON('#bnT2', S(0, 1) + 0.2, 0.2); tl.to('#bnF', { backgroundColor: '#1e7f4f', duration: 0.2 }, S(0, 1) + 0.1);
+  OFF('#bn', S(0, 2) + 0.0, 0.2);
+  tl.to('#lapN', { y: -8, duration: 0.3, yoyo: true, repeat: 7, ease: 'sine.inOut' }, 0);
+  tl.fromTo('#env', { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(0, 1) + 0.1);
+  POPX('#pb', S(0, 2) + 0.25);
+  JC.forEach((c, i) => { const t = S(0, 2 + i) + 0.1;
+    tl.fromTo('#' + c[0], { opacity: 0, x: 950, y: -70, scale: 0.5 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 1.0, ease: 'power2.out', immediateRender: false }, t); });
+  POPX('#lbPC', W(0, 2, 'old desktop', -0.2)); PULSEX('#pc', W(0, 2, 'no a p i', 0), 1.06);
+  POPX('#lbINV', W(0, 3, 'openapi', -0.5)); PULSEX('#inv', W(0, 3, 'openapi', 0), 1.05);
+  POPX('#lbAI', W(0, 4, 'other a i', -0.4));
+  [0, 1, 2].forEach((k) => tl.to('#rb' + k, { y: -18, duration: 0.2, yoyo: true, repeat: 3, ease: 'power2.out' }, W(0, 4, 'other a i', 0.1) + k * 0.15));
+  OFF('#env', S(0, 5) - 0.1, 0.3);
+  PULSEX('#pc', S(0, 5) + 0.3, 1.06); PULSEX('#inv', S(0, 5) + 0.7, 1.05); PULSEX('#rb0,#rb1,#rb2', S(0, 5) + 1.1, 1.1);
+  CAM(1500, 900, 0.7, S(0, 1) + 1.3, 1.5, 'power2.inOut');
+  tl.fromTo('#tDoors', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)', immediateRender: false }, S(0, 5) + 0.2); OFF('#tDoors', S(0, 6) - 0.1, 0.3);
+  OFF('#pMod', S(0, 6) - 0.2, 0.25);
+  tl.fromTo('#kT0', { opacity: 0, scale: 1 }, { opacity: 1, duration: 0.5, immediateRender: false }, S(0, 6) + 0.1);
+  tl.to('#kT0', { x: 0, y: 0, scale: 0.44, duration: 1.0, ease: 'power2.inOut' }, E(0, 6) - 1.4);
+  OFF(['#pb', '#jc0', '#jc1', '#jc2'], S(1, 0) - 0.5, 0.35);
+  OFF(['#bt0', '#bt1', '#bt2', '#dk0', '#dk1', '#dk2', '#pd0', '#pd1', '#pd2', '#pd3'], S(0, 5) - 0.3, 0.5);
+  OFF('#kT0', S(1, 0) + 1.5, 0.3);
+
+  /* ═════════ 1 · The bridges ═════════ */
+  POPX('#phone', S(1, 0) + 0.3); POPX('#bare', S(1, 0) + 0.9); FADEIN('#c1a', W(1, 0, 'only chats', -0.2), 0.4);
+  OFF(['#phone', '#bare', '#c1a'], S(1, 1) - 0.1, 0.3);
+  tl.fromTo('#nxHand', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', immediateRender: false }, S(1, 1) + 0.2); PULSEX('#nxHand', S(1, 1) + 0.9, 1.15);
+  FADEIN('#c1b', W(1, 1, 'read', -0.3), 0.4);
+  FADEIN('#c1c', W(1, 2, 'six', -0.3), 0.4);
+  BUILD('b10', W(1, 2, 'power platform', -0.3));
+  [1, 2, 3, 4, 5].forEach((k) => BUILD('b1' + k, S(1, 2 + k) - 0.1));
+  OFF(['#c1b', '#c1c', '#nxHand'], S(1, 8) - 0.1, 0.3);
+  { const t = S(1, 8) + 0.05;
+    [0, 1, 2, 3, 4, 5].forEach((k) => { const sw = Math.round(BRD[k][1].length * 46 * 0.56 + 44 + 70), sx = 1050 + (800 - sw) / 2 + 12 + 6, sy = LY[k] - 96 + 16;
+      gsap.set('#tk' + k, { x: 0, y: 0 }); });
+    POPX('#nxPk', t - 0.1);
+    TKN.forEach((_, k) => { const tk = t + 0.25 + k * 0.28, dx = 1419 - (598 + 72 * k), dy = (LY[k] - 54 - 31) - 1392;
+      OFF('#b1' + k, tk, 0.2);
+      tl.fromTo('#tk' + k, { opacity: 0, x: dx, y: dy, scale: 1.7 }, { opacity: 1, duration: 0.15, immediateRender: false }, tk + 0.2);
+      tl.to('#tk' + k, { x: 0, y: 0, scale: 1, duration: 0.7, ease: 'power2.inOut' }, tk + 0.35); }); }
+
+  /* ═════════ 2 · The question that sorts everything ═════════ */
+  POPX('#sp', S(2, 0) + 0.1); DRAW('#trunk', S(2, 0) + 0.7, 0.8);
+  tl.to('#nxIn', { y: -14, duration: 0.25, yoyo: true, repeat: 3, ease: 'power2.out' }, S(2, 0) + 0.4);
+  tl.to('#valB', { y: -12, duration: 0.3, yoyo: true, repeat: 3, ease: 'power2.out' }, S(2, 0) + 0.8);
+  ROWS.forEach((r, i) => { POPX('#' + r[0], S(2, 1 + i) + 0.1); if (i) DRAW('#ln' + r[0], S(2, 1 + i) + 0.55, 0.6);
+    tl.to('#nxIn', { y: -12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' }, S(2, 1 + i) + 0.2); });
+  POPX('#tkn', S(2, 1) + 0.9); tl.to('#tkn', { y: 600, duration: 1.0, ease: 'power2.inOut' }, S(2, 1) + 1.6); OFF('#tkn', S(2, 1) + 2.45, 0.2); PULSEX('#nxPk', S(2, 1) + 2.5, 1.08);
+  PULSEX('#inv', S(2, 2) + 1.2, 1.05); PULSEX('#rb0,#rb1,#rb2', S(2, 3) + 1.2, 1.1); PULSEX('#pc', S(2, 4) + 1.2, 1.06);
+  OFF(['#sp', '#trunk', '#r0', '#r1', '#r2', '#r3', '#lnr1', '#lnr2', '#lnr3', '#tkn'], S(3, 0) - 0.4, 0.3);
+
+  /* ═════════ 3 · The order to choose ═════════ */
+  const WIPE = (id, t) => { tl.set('#' + id, { opacity: 1 }, t); tl.fromTo('#' + id, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.6, ease: 'power2.out', immediateRender: false }, t); };
+  ON(['#ladR', '#ladR2'], S(3, 0) + 0.0, 0.4); FADEIN('#cOrd', S(3, 0) + 0.2, 0.4);
+  LAD.forEach((r, i) => tl.fromTo('#rg' + i, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, S(3, 0) + 0.3 + i * 0.2));
+  const LITR = (i, t) => { const c = LAD[i][1]; tl.to('#rg' + i, { backgroundColor: '#ffffff', borderColor: c, color: c, duration: 0.35 }, t); tl.fromTo('#rg' + i, { scale: 1 }, { scale: 1.04, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, t);
+    tl.to('#nxIn', { y: -12, duration: 0.22, yoyo: true, repeat: 1, ease: 'power2.out' }, t + 0.1); tl.to('#valB', { y: -10, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' }, t + 0.3); };
+  LITR(0, S(3, 1) + 0.0); WIPE('dk1', S(3, 1) + 0.2); POPX('#pgt', S(3, 1) + 0.6); FADEIN('#c3a', W(3, 1, 'no development', -0.3), 0.4); FADEIN('#c3b', W(3, 1, 'large results', -0.3), 0.4);
+  OFF(['#c3a', '#c3b', '#pgt', '#dk1'], S(3, 2) - 0.1, 0.25);
+  LITR(1, S(3, 2) + 0.1); FADEIN('#c3c', S(3, 2) + 0.3, 0.4);
+  WIPE('dk2', S(3, 3) + 0.0); [0, 1, 2].forEach((k) => FADEIN('#sa' + k, S(3, 3) + 0.3 + k * 0.2, 0.35));
+  OFF(['#c3c', '#sa0', '#sa1', '#sa2', '#dk2'], S(3, 4) - 0.1, 0.25);
+  LITR(2, S(3, 4) + 0.1); WIPE('dk3', S(3, 4) + 0.3); POPX('#rtile', S(3, 4) + 0.7); FADEIN('#c3d', W(3, 5, 'preview', -0.3), 0.4); FADEIN('#c3e', W(3, 5, 'only inside', -0.5), 0.4);
+  OFF(['#c3d', '#c3e', '#rtile', '#dk3'], S(3, 6) - 0.1, 0.25);
+  LITR(3, S(3, 6) + 0.1); WIPE('dk4', S(3, 6) + 0.3); [0, 1, 2].forEach((k) => FADEIN('#fc' + k, S(3, 6) + 0.6 + k * 0.3, 0.35)); ON('#fcl', S(3, 6) + 0.6, 0.3); FADEIN('#c3f', W(3, 6, 'in order', -0.2), 0.4);
+  tl.fromTo('#stamp', { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.8)', immediateRender: false }, W(3, 6, 'human approval', 0));
+  OFF(['#c3f', '#fc0', '#fc1', '#fc2', '#fcl', '#stamp', '#dk4'], S(3, 7) - 0.1, 0.25);
+  LITR(4, S(3, 7) + 0.1); WIPE('dk5', S(3, 7) + 0.3); FADEIN('#mhub', S(3, 7) + 0.6, 0.4); [0, 1, 2].forEach((k) => { FADEIN('#mb' + k, S(3, 7) + 0.8 + k * 0.2, 0.35); DRAW('#mcb' + k, S(3, 7) + 0.9 + k * 0.2, 0.4); }); FADEIN('#c3g', W(3, 7, 'central tool server', -0.3), 0.4);
+  OFF(['#ladR', '#ladR2', '#cOrd', '#rg0', '#rg1', '#rg2', '#rg3', '#rg4', '#c3g', '#mhub', '#mb0', '#mb1', '#mb2', '#mcb0', '#mcb1', '#mcb2', '#dk5'], E(3, 7) + 0.1, 0.3);
+
+  /* ═════════ 4 · EXAM: the shared inventory API ═════════ */
+  toExam(4);
+  { const P = EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.55 });
+    tl.set('#pA_ck', { opacity: 1 }, P + 0.8); tl.fromTo('#pA_ck', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, P + 0.8);
+    tl.fromTo('#pA_x', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, P + 1.0); }
+  /* world state for scene 5 (hidden under the exam) */
+  tl.set(['#c1a', '#c1b', '#c1c'], { opacity: 0 }, S(4, 0));
+
+  /* ═════════ 5 · Every bridge has a price ═════════ */
+  fromExam(5);
+  FADEIN('#c5', S(5, 0) + 0.1, 0.4);
+  tl.to('#nxIn', { y: -12, duration: 0.25, yoyo: true, repeat: 3, ease: 'power2.out' }, S(5, 0) + 0.4);
+  const BUILD5 = (id, t) => { tl.set('#' + id, { opacity: 1 }, t);
+    tl.fromTo(`#${id}D`, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 0.6, ease: 'power2.out', immediateRender: false }, t);
+    tl.fromTo(`#${id}C`, { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out', immediateRender: false }, t + 0.25);
+    tl.fromTo('#wn', { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)', immediateRender: false }, t + 0.3); tl.to('#wn', { scale: 1.15, duration: 0.25, yoyo: true, repeat: 1 }, t + 0.8);
+    tl.to('#valB', { y: -10, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' }, t + 0.4); };
+  const LIT5 = (id, k, t) => tl.to(`#${id}l${k}`, { opacity: 1, duration: 0.3 }, t);
+  BUILD5('p5a', S(5, 1) + 0.1);
+  [['rate limits', 0], ['error paths', 1], ['response', 2], ['copilot credits', 3]].forEach((w) => LIT5('p5a', w[1], W(5, 1, w[0], -0.1)));
+  BUILD5('p5b', S(5, 2) - 0.1);
+  [['generative', 0], ['topics cannot', 1], ['descriptions', 2]].forEach((w) => LIT5('p5b', w[1], W(5, 2, w[0], -0.1)));
+  BUILD5('p5c', S(5, 3) - 0.1); LIT5('p5c', 0, W(5, 3, 'quick', -0.1));
+  BUILD5('p5d', S(5, 4) - 0.1);
+  [['pro code', 0], ['azure costs', 1], ['outside', 2]].forEach((w) => LIT5('p5d', w[1], W(5, 4, w[0], -0.1)));
+  OFF(['#p5a', '#p5b', '#p5c', '#p5d', '#c5', '#wn'], E(5, 4) + 0.1, 0.35);
+
+  /* ═════════ 6 · MCP and computer use ═════════ */
+  ON(['#pc', '#inv', '#lbPC', '#lbINV', '#lbAI', '#rb0', '#rb1', '#rb2', '#hspot'], S(6, 0) - 0.3, 0.4);
+  CAM(1500, 900, 0.7, S(6, 0) - 0.3, 1.4, 'power2.inOut');
+  tl.fromTo('#hub6', { opacity: 0, y: 140 }, { opacity: 1, y: 0, duration: 0.8, ease: 'back.out(1.4)', immediateRender: false }, S(6, 0) + 0.5);
+  POPX('#hubLbl', W(6, 1, 'm c p', -0.1));
+  DRAW('#cbN', W(6, 1, 'the same server', -0.6), 0.8); DRAW('#cbA', W(6, 1, 'the same server', -0.3), 1.0);
+  [0, 1, 2].forEach((k) => tl.fromTo('#rt' + k, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(2)', immediateRender: false }, W(6, 1, 'other a i', 0.1) + k * 0.2));
+  FADEIN('#c6a', W(6, 1, 'open protocol', -0.2), 0.4);
+  OFF('#c6a', S(6, 2) - 0.1, 0.25);
+  FADEIN('#c6b', S(6, 2) + 0.2, 0.4);
+  tl.fromTo('#plg', { opacity: 0, x: -170 }, { opacity: 1, x: 50, duration: 0.8, ease: 'power2.out', immediateRender: false }, W(6, 2, 'streamable', -0.2));
+  OFF('#plg', S(6, 3) - 0.15, 0.25);
+  OFF('#c6b', S(6, 3) - 0.1, 0.25);
+  tl.fromTo('#plgOld', { opacity: 0, x: -170 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, S(6, 3) + 0.2);
+  tl.to('#plgOld', { x: -100, duration: 0.4, ease: 'power2.out' }, S(6, 3) + 1.1);
+  tl.fromTo('#plgX', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)', immediateRender: false }, S(6, 3) + 1.2);
+  FADEIN('#c6c', W(6, 3, 'no longer', -0.4), 0.4);
+  OFF(['#c6c', '#plgOld', '#plgX', '#plg'], S(6, 4) - 0.4, 0.25);
+  OFF(['#nxPk', '#tk0', '#tk1', '#tk2', '#tk3', '#tk4', '#tk5'], S(6, 4) - 0.5, 0.25);
+  OFF(['#inv', '#lbINV', '#lbAI', '#rb0', '#rb1', '#rb2', '#rt0', '#rt1', '#rt2', '#hub6', '#hubLbl', '#cbN', '#cbA'], S(6, 4) - 0.35, 0.25);
+  CAM(2300, 500, 1.3, S(6, 4) - 0.2, 1.3, 'power2.inOut');
+  POPX('#eye', S(6, 4) + 0.9); ON('#beam', S(6, 4) + 1.2, 0.4); tl.to('#beam', { opacity: 0.18, duration: 0.5, yoyo: true, repeat: 5 }, S(6, 4) + 1.6);
+  tl.to('#eye', { y: 70, duration: 0.9, yoyo: true, repeat: 5, ease: 'sine.inOut' }, S(6, 4) + 1.2);
+  FADEIN('#c6d', W(6, 4, 'vision', -0.6), 0.4);
+  ON('#pcCur', S(6, 4) + 1.9, 0.3);
+  [0, 1, 2].forEach((k) => { const t = S(6, 4) + 2.2 + k * 1.2; tl.to('#pcCur', { x: 10, y: 55 * k, duration: 0.5, ease: 'power2.inOut' }, t);
+    tl.fromTo(`#pf${k}`, { width: 0 }, { width: 240, duration: 0.6, ease: 'power1.out', immediateRender: false }, t + 0.5); });
+  OFF(['#c6d', '#pcCur', '#beam'], S(6, 5) - 0.1, 0.3);
+  CAM(1500, 900, 0.7, S(6, 5) - 0.3, 1.4, 'power2.inOut');
+  ON(['#inv', '#lbINV', '#lbAI', '#rb0', '#rb1', '#rb2', '#rt0', '#rt1', '#rt2', '#hub6', '#hubLbl', '#cbN', '#cbA', '#nxPk', '#tk0', '#tk1', '#tk2', '#tk3', '#tk4', '#tk5'], S(6, 5) + 0.3, 0.4);
+  FADEIN('#c6e', S(6, 5) + 0.9, 0.4); DRAW('#dl1', S(6, 5) + 1.2, 0.6); DRAW('#dl2', S(6, 5) + 1.4, 0.6);
+  FADEIN('#c6f', W(6, 6, 'five', -0.3), 0.4);
+  tl.to('#eye', { scale: 1.12, duration: 0.3, yoyo: true, repeat: 3 }, W(6, 6, 'five', 0));
+
+  /* ═════════ 7 · EXAM: silent MCP tools ═════════ */
+  toExam(7);
+  EXAMX('exB', 7, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.55 });
+  { const R = S(7, 8) + 0.1 + 1.7; tl.fromTo('#pB_ok', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, R + 0.8); tl.fromTo('#pB_x', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, R + 1.0); }
+  tl.set(['#pc', '#inv', '#lbPC', '#lbINV', '#lbAI', '#rb0', '#rb1', '#rb2', '#hspot', '#rt0', '#rt1', '#rt2', '#hub6', '#hubLbl', '#cbN', '#cbA', '#dl1', '#dl2', '#eye', '#c6e', '#c6f', '#nxPk', '#tk0', '#tk1', '#tk2', '#tk3', '#tk4', '#tk5'], { opacity: 0 }, S(7, 0));
+  tl.set(['#pf0', '#pf1', '#pf2'], { width: 0 }, S(7, 0));
+  tl.set('#world', { x: 960 - 1500 * 0.7, y: 540 - 900 * 0.7, scale: 0.7 }, S(7, 0));
+
+  /* ═════════ 8 · Doing, answering, describing ═════════ */
+  fromExam(8);
+  tl.set(['#sgT', '#sgK', '#wb', '#shelf'], { opacity: 1 }, S(8, 0) - 0.6);
+  const LITS = (sel, col, bg, t) => { tl.to(sel, { backgroundColor: bg, borderColor: col, color: col, duration: 0.35 }, t); PULSEX(sel, t, 1.06); };
+  LITS('#sgT', NAVY, '#ffffff', S(8, 1) + 0.1); LITS('#sgK', TEAL, '#ffffff', S(8, 2) + 0.1); PULSEX('#wb', S(8, 1) + 0.5, 1.1); PULSEX('#shelf', S(8, 2) + 0.5, 1.05); OFF('#shelf', W(8, 3, 'onedrive', -0.75), 0.25);
+  tl.to('#nxIn', { y: -14, duration: 0.25, yoyo: true, repeat: 3 }, S(8, 1) + 0.3);
+  FADEIN('#fOne', W(8, 3, 'onedrive', -0.4), 0.4); FADEIN('#fSp', W(8, 3, 'sharepoint', -0.4), 0.4); FADEIN('#drum', W(8, 3, 'onedrive', -0.4), 0.4);
+  POPX('#lbDv', W(8, 3, 'dataverse', -0.8));
+  tl.to('#fOne', { x: 330, duration: 0.7, ease: 'power2.in' }, W(8, 3, 'synced', -0.1)); tl.to('#fSp', { x: 330, duration: 0.7, ease: 'power2.in' }, W(8, 3, 'synced', 0.1));
+  OFF(['#fOne', '#fSp'], W(8, 3, 'synced', 0.65), 0.2);
+  [0, 1, 2, 3, 4, 5, 6, 7, 8].forEach((k) => tl.fromTo('#vd' + k, { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.25, immediateRender: false }, W(8, 3, 'vector', -0.1) + k * 0.1));
+  FADEIN('#c8a', W(8, 3, 'vector', -0.1), 0.4);
+  FADEIN('#aCon', W(8, 3, 'third party', -0.2), 0.4);
+  [0, 1].forEach((k) => { tl.fromTo('#ar' + k, { opacity: 0, x: -250 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, W(8, 3, 'articles', -0.2) + k * 0.4); });
+  FADEIN('#c8b', W(8, 3, 'connectors', -0.5), 0.4);
+  OFF('#wb', S(8, 4) - 0.45, 0.25);
+  tl.fromTo('#tc8', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(8, 4) + 0.1);
+  tl.to('#nxS_e', { x: -10, y: -14, duration: 0.3 }, S(8, 4) + 0.6);
+  ON('#dsLb', S(8, 4) + 0.5, 0.3); FADEIN('#dsV', S(8, 4) + 0.6, 0.3);
+  POPX('#dc0', W(8, 5, 'choose', -0.2)); DRAW('#wrA', W(8, 5, 'badly', -0.5), 0.6);
+  FADEIN('#c8w', W(8, 5, 'badly', -0.3), 0.4); OFF(['#c8w', '#dc0', '#wrA'], W(8, 5, 'choose nothing', -0.4), 0.25); FADEIN('#c8n', W(8, 5, 'nothing', -0.1), 0.4); POPX('#qm', W(8, 5, 'nothing', -0.2));
+  OFF(['#c8n', '#dsV', '#qm'], S(8, 6) + 0.1, 0.25);
+  tl.fromTo('#dsG', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, S(8, 6) + 0.4);
+  FADEIN('#c8p', S(8, 6) + 1.2, 0.4); FADEIN('#c8t', W(8, 6, 'new teammate', -0.6), 0.4);
+  tl.to('#tc8', { borderColor: '#1e7f4f', duration: 0.3 }, S(8, 6) + 1.2);
+  tl.to('#nxS_e', { x: 0, y: 0, duration: 0.3 }, S(8, 6) + 1.4);
+
+  /* ═════════ 9 · EXAM: the old invoice program ═════════ */
+  toExam(9);
+  { const P = EXAMX('exC', 9, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(9, 4), S(9, 5), S(9, 6)], end: S(10, 0) - 0.55 });
+    [0, 1, 2].forEach((k) => tl.fromTo('#pC_f' + k, { width: 0 }, { width: 418, duration: 0.8, ease: 'power1.out', immediateRender: false }, P + 0.5 + k * 0.7));
+    tl.fromTo('#pC_x1', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, P + 0.9); tl.fromTo('#pC_x2', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, P + 1.2); }
+  /* world state for scene 10/11 (hidden under the exam) */
+  tl.set(['#pc', '#inv', '#lbPC', '#lbINV', '#lbAI', '#rb0', '#rb1', '#rb2', '#hspot'], { opacity: 1 }, S(9, 0));
+  tl.set(['#sgT', '#sgK', '#wb', '#shelf', '#fOne', '#fSp', '#drum', '#lbDv', '#c8a', '#aCon', '#ar0', '#ar1', '#c8b', '#tc8', '#c8p', '#c8t', '#c8w', '#c8n', '#tk0', '#tk1', '#tk2', '#tk3', '#tk4', '#tk5'], { opacity: 0 }, S(9, 0));
+  tl.set(['#pf0', '#pf1', '#pf2'], { width: 0 }, S(9, 0));
+
+  /* ═════════ 10 · Add a tool in the studio ═════════ */
+  fromExam(10);
+  CAM(670, 1150, 2.2, S(10, 0) - 0.3, 1.0, 'power2.inOut');
+  tl.set('#v0', { opacity: 1 }, S(10, 0));
+  UIIN2('#sw', S(10, 0) + 0.9);
+  ON('#cur', S(10, 1) + 0.0, 0.2);
+  CUR(P_NAV2[0], P_NAV2[1], S(10, 1) + 0.2, 0.9); CLICK(P_NAV2[0], P_NAV2[1], S(10, 1) + 1.2); NAV('#sw', 2, S(10, 1) + 1.2, 5); PULSEX('#sw_nv2', S(10, 1) + 1.3, 1.05); SWV('#v0', '#v1', S(10, 1) + 1.3);
+  CUR(P_ADD[0], P_ADD[1], S(10, 2) + 0.1, 0.9); CLICK(P_ADD[0], P_ADD[1], S(10, 2) + 1.0); SWV('#v1', '#v2', S(10, 2) + 1.1);
+  [['connectors', 0], ['m c p', 1], ['rest a p i', 2], ['flows', 3], ['computer use', 4]].forEach((w) => { const c = TL5[w[1]][1]; tl.to('#tl' + w[1], { backgroundColor: '#ffffff', borderColor: c, color: c, duration: 0.3 }, W(10, 2, w[0], -0.1)); });
+  POPX('#tip', S(10, 3) + 0.1);
+  CUR(P_T2[0], P_T2[1], S(10, 4) + 0.1, 0.9); CLICK(P_T2[0], P_T2[1], S(10, 4) + 1.0); PULSEX('#tl2', S(10, 4) + 1.0, 1.05); SWV('#v2', '#v3', S(10, 4) + 1.2);
+  ON('#f1v', W(10, 4, 'openapi file', 0), 0.4);
+  ON('#f2', S(10, 5) - 0.1, 0.25); ON('#f3', S(10, 5) - 0.1, 0.25);
+  tl.to('#f2v', { clipPath: 'inset(0 0% 0 0)', duration: 0.8, ease: 'none' }, S(10, 5) + 0.2);
+  tl.to('#f3v', { clipPath: 'inset(0 0% 0 0)', duration: 1.4, ease: 'none' }, W(10, 5, 'description', 0.1));
+  ON('#f4', W(10, 6, 'create', 0), 0.4); ON('#f4c', W(10, 6, 'connection', 0.9), 0.4); ON('#btnAg', W(10, 6, 'connection', 0.7), 0.4);
+  CUR(P_AG[0], P_AG[1], W(10, 6, 'add to agent', -0.9), 0.8); CLICK(P_AG[0], P_AG[1], W(10, 6, 'add to agent', 0.1));
+  SWV('#v3', '#v1', W(10, 6, 'add to agent', 0.3)); tl.set('#tr3', { opacity: 1 }, W(10, 6, 'add to agent', 0.55));
+  { const A = W(10, 6, 'add to agent', 0);
+    SWV('#tp0', '#tp', A + 1.0); ON('#tpU', A + 1.45, 0.3); ON('#tpS', A + 1.95, 0.3); ON('#tpR', A + 2.35, 0.3); }
+  OFF('#cur', S(11, 0) - 0.55, 0.2);
+  UIOUT2('#sw', S(11, 0) - 0.45);
+
+  /* ═════════ 11 · Every system, its bridge ═════════ */
+  CAM(850, 880, 0.9, S(11, 0) - 0.45, 1.3, 'power2.inOut');
+  FADEIN('#pBack', S(11, 0) + 0.3, 0.4);
+  tl.set(['#pb'], { opacity: 0 }, S(10, 0)); tl.set(['#jc0', '#jc1', '#jc2'], { opacity: 0 }, S(10, 0));
+  POPX('#pb', S(11, 0) + 0.5); JC.forEach((c, i) => FADEIN('#' + c[0], S(11, 0) + 0.8 + i * 0.2, 0.4));
+  bob('#valB', S(11, 0) + 0.8, E(11, 5), 8, 0.35);
+  OFF('#pBack', S(11, 1) - 0.3, 0.3);
+  CAM(1450, 850, 0.72, S(11, 1) - 0.4, 1.4, 'power2.inOut');
+  BUILD('b11c', S(11, 1) - 0.1);
+  tl.fromTo('#invC', { opacity: 0, x: 0 }, { opacity: 1, x: 0, duration: 0.3, immediateRender: false }, S(11, 1) + 0.9);
+  tl.to('#invC', { x: 660, duration: 1.4, ease: 'power1.inOut' }, S(11, 1) + 1.2); OFF('#invC', S(11, 1) + 2.5, 0.25);
+  [0, 1, 2].forEach((k) => tl.fromTo(`#pf${k}`, { width: 0 }, { width: 240, duration: 0.5, ease: 'power1.out', immediateRender: false }, S(11, 1) + 2.7 + k * 0.4));
+  PULSEX('#pc', S(11, 1) + 3.8, 1.05);
+  BUILD('b11r', S(11, 2) - 0.1);
+  tl.fromTo('#stC', { opacity: 0, x: 160 }, { opacity: 1, x: -200, duration: 1.5, ease: 'power2.out', immediateRender: false }, S(11, 2) + 1.4);
+  tl.to('#nxS_e', { x: -8, y: -12, duration: 0.3, yoyo: true, repeat: 1 }, S(11, 2) + 2.8);
+  OFF('#stC', S(11, 3) - 0.1, 0.3);
+  ON('#hub11', S(11, 3) + 0.1, 0.1); tl.fromTo('#hub11', { y: 120 }, { y: 0, duration: 0.8, ease: 'back.out(1.4)', immediateRender: false }, S(11, 3) + 0.1);
+  DRAW('#cbB', S(11, 3) + 1.0, 1.0);
+  tl.set(['#rt0', '#rt1', '#rt2'], { opacity: 0 }, S(11, 0) - 1.2);
+  [0, 1, 2].forEach((k) => tl.fromTo('#rt' + k, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(2)', immediateRender: false }, W(11, 3, 'other a i', 0.2) + k * 0.4));
+  OFF(['#pb', '#jc0', '#jc1', '#jc2'], S(11, 4) - 0.1, 0.3);
+  POPX('#rc', S(11, 4) + 0.2); tl.to('#rc0', { opacity: 1, duration: 0.3 }, S(11, 4) + 0.5); tl.to('#rc1', { opacity: 1, duration: 0.3 }, S(11, 5) + 0.2);
+  { const t0 = S(11, 6) + 0.1, t1 = TOT - 0.3;
+    OFF('#rc', S(11, 6) - 0.1, 0.3);
+    OFF(['#pc', '#lbPC', '#b11c', '#cbB', '#hub11'], t0 - 0.2, 0.35);
+    CAM(1450, 1230, 0.8, t0 - 0.1, 1.5, 'power2.inOut');
+    CAM(1470, 1240, 0.82, t0 + 1.4, t1 - t0 - 1.4, 'none');
+    ON('#plat', t0 - 0.1, 0.4);
+    tl.to('#nx', { x: 100, y: 378, scale: 0.75, duration: 1.8, ease: 'power2.inOut' }, t0);
+    tl.to('#nx', { x: 560, duration: 4.0, ease: 'none' }, t0 + 1.8);
+    bob('#nxIn', t0 + 0.2, t1, 12, 0.3);
+    ON(['#idDoor', '#idBadge'], W(11, 6, 'identity', -0.6), 0.4); PULSEX('#idBadge', W(11, 6, 'identity', 0), 1.12); PULSEX('#idBadge', W(11, 6, 'authentication', 0.6), 1.12);
+    PULSEX('#idBadge', t0 + 5.9, 1.1); PULSEX('#idBadge', t1 - 1.0, 1.1);
+    tl.fromTo('#tNx', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)', immediateRender: false }, S(11, 6) + 0.1);
+    tl.to('#inv', { scale: 1.03, duration: 0.5, yoyo: true, repeat: Math.floor((t1 - t0) / 1.0) - 1, ease: 'sine.inOut' }, t0 + 1.0); }
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

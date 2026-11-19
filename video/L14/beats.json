@@ -1,0 +1,498 @@
+{
+ "id": "L14",
+ "title": "Send HTTP request",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 307.684,
+ "scenes": [
+  {
+   "title": "A ticket that lives outside",
+   "start": 0.8,
+   "end": 23.467,
+   "sentences": [
+    {
+     "text": "Marta wants to know the status of her ticket, but the tickets live in another system, outside the agent.",
+     "start": 0.8,
+     "end": 6.772
+    },
+    {
+     "text": "The service manager wants the agent to check by itself.",
+     "start": 7.053,
+     "end": 10.359
+    },
+    {
+     "text": "Valeria has the answer: the Send H T T P request node.",
+     "start": 10.64,
+     "end": 14.522
+    },
+    {
+     "text": "It lets a topic call an A P I on the internet, like asking another system for a piece of data by message.",
+     "start": 14.803,
+     "end": 21.458
+    },
+    {
+     "text": "Nexo gets a courier badge.",
+     "start": 21.739,
+     "end": 23.466
+    }
+   ]
+  },
+  {
+   "title": "Address, method, headers, body",
+   "start": 24.367,
+   "end": 43.26,
+   "sentences": [
+    {
+     "text": "Think of a letter leaving the mail room.",
+     "start": 24.367,
+     "end": 26.328
+    },
+    {
+     "text": "You type the endpoint address, the U R L.",
+     "start": 26.609,
+     "end": 28.912
+    },
+    {
+     "text": "You choose the method: get, post, patch, put, or delete.",
+     "start": 29.193,
+     "end": 32.563
+    },
+    {
+     "text": "You add headers if needed, such as Authorization.",
+     "start": 32.844,
+     "end": 35.723
+    },
+    {
+     "text": "Then you define the body, what goes inside the envelope.",
+     "start": 36.004,
+     "end": 39.224
+    },
+    {
+     "text": "By default the body is No Content, which is typical for a get.",
+     "start": 39.505,
+     "end": 43.259
+    }
+   ]
+  },
+  {
+   "title": "What goes inside the envelope",
+   "start": 44.16,
+   "end": 65.779,
+   "sentences": [
+    {
+     "text": "When there is something to send, the body has two kinds of content.",
+     "start": 44.16,
+     "end": 47.636
+    },
+    {
+     "text": "With J S O N content, you send a J S O N object, typical for post or put.",
+     "start": 47.917,
+     "end": 53.847
+    },
+    {
+     "text": "With Edit J S O N and Formula, you write it as a Power F X object that uses variables.",
+     "start": 54.128,
+     "end": 60.399
+    },
+    {
+     "text": "With Raw content, you send a text string, also written with a Power F X formula.",
+     "start": 60.68,
+     "end": 65.778
+    }
+   ]
+  },
+  {
+   "title": "The reply letter",
+   "start": 66.679,
+   "end": 86.569,
+   "sentences": [
+    {
+     "text": "The other system answers with a reply letter.",
+     "start": 66.679,
+     "end": 69.344
+    },
+    {
+     "text": "In Response data type, Valeria pastes a sample J S O N and chooses Get schema from sample J S O N.",
+     "start": 69.625,
+     "end": 76.92
+    },
+    {
+     "text": "Copilot Studio generates a variable with that shape, so the topic knows the fields of the reply.",
+     "start": 77.201,
+     "end": 82.982
+    },
+    {
+     "text": "In Save user response as, she chooses where to store it.",
+     "start": 83.263,
+     "end": 86.568
+    }
+   ]
+  },
+  {
+   "title": "Decide: the body of a get",
+   "start": 87.469,
+   "end": 119.092,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 87.469,
+     "end": 88.343
+    },
+    {
+     "text": "Valeria adds the node to read one ticket.",
+     "start": 88.624,
+     "end": 91.119
+    },
+    {
+     "text": "She uses get and leaves the body as it is.",
+     "start": 91.4,
+     "end": 93.938
+    },
+    {
+     "text": "What does the body hold by default?",
+     "start": 94.219,
+     "end": 96.074
+    },
+    {
+     "text": "An object with the ticket data?",
+     "start": 96.355,
+     "end": 98.082
+    },
+    {
+     "text": "No Content, nothing is sent?",
+     "start": 98.363,
+     "end": 100.175
+    },
+    {
+     "text": "Or a text string with the ticket?",
+     "start": 100.456,
+     "end": 102.183
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 102.464,
+     "end": 103.999
+    },
+    {
+     "text": "No Content, nothing is sent.",
+     "start": 107.78,
+     "end": 109.678
+    },
+    {
+     "text": "The body is No Content by default, which is typical for a get.",
+     "start": 109.959,
+     "end": 113.712
+    },
+    {
+     "text": "A J S O N object is for post or put, and a text string is Raw content.",
+     "start": 113.993,
+     "end": 119.091
+    }
+   ]
+  },
+  {
+   "title": "When the call fails",
+   "start": 119.992,
+   "end": 138.373,
+   "sentences": [
+    {
+     "text": "Sometimes the letter comes back unanswered.",
+     "start": 119.992,
+     "end": 122.188
+    },
+    {
+     "text": "By default the node uses Raise an error.",
+     "start": 122.469,
+     "end": 124.794
+    },
+    {
+     "text": "The agent stops, and the On Error system topic fires.",
+     "start": 125.075,
+     "end": 128.402
+    },
+    {
+     "text": "The rest of the topic does not run.",
+     "start": 128.683,
+     "end": 130.602
+    },
+    {
+     "text": "Many authors leave this default and then do not understand why On Error appears.",
+     "start": 130.883,
+     "end": 135.618
+    },
+    {
+     "text": "Valeria wants a calmer path for Contoso.",
+     "start": 135.899,
+     "end": 138.372
+    }
+   ]
+  },
+  {
+   "title": "Continue on error",
+   "start": 139.273,
+   "end": 155.644,
+   "sentences": [
+    {
+     "text": "With Continue on error, the node does not stop the agent.",
+     "start": 139.273,
+     "end": 142.494
+    },
+    {
+     "text": "The status code and the error body are saved in variables, and the topic goes on.",
+     "start": 142.775,
+     "end": 147.467
+    },
+    {
+     "text": "The error is of type Any, so you convert it with a Parse value node.",
+     "start": 147.748,
+     "end": 151.288
+    },
+    {
+     "text": "One more setting to know: the default request timeout is thirty seconds.",
+     "start": 151.569,
+     "end": 155.643
+    }
+   ]
+  },
+  {
+   "title": "Decide: reply and go on",
+   "start": 156.544,
+   "end": 189.895,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 156.544,
+     "end": 157.418
+    },
+    {
+     "text": "Marta asks about a missing ticket, and the tickets A P I fails.",
+     "start": 157.699,
+     "end": 161.346
+    },
+    {
+     "text": "The service manager wants the topic to reply and go on.",
+     "start": 161.627,
+     "end": 165.06
+    },
+    {
+     "text": "What should Valeria choose in Error handling?",
+     "start": 165.341,
+     "end": 167.474
+    },
+    {
+     "text": "Keep the default, Raise an error?",
+     "start": 167.755,
+     "end": 169.546
+    },
+    {
+     "text": "Set a longer request timeout?",
+     "start": 169.827,
+     "end": 171.618
+    },
+    {
+     "text": "Or switch to Continue on error?",
+     "start": 171.899,
+     "end": 173.626
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 173.907,
+     "end": 175.442
+    },
+    {
+     "text": "Switch to Continue on error.",
+     "start": 179.223,
+     "end": 180.8
+    },
+    {
+     "text": "It saves the status code and the error body in variables, and the topic goes on.",
+     "start": 181.081,
+     "end": 185.88
+    },
+    {
+     "text": "The default, Raise an error, stops the agent and fires On Error.",
+     "start": 186.161,
+     "end": 189.894
+    }
+   ]
+  },
+  {
+   "title": "The Contoso case: find a ticket",
+   "start": 190.795,
+   "end": 219.627,
+   "sentences": [
+    {
+     "text": "Contoso queries its tickets A P I with a get.",
+     "start": 190.795,
+     "end": 193.61
+    },
+    {
+     "text": "The body stays as No Content, and the response is saved in a variable built from a sample J S O N.",
+     "start": 193.891,
+     "end": 200.567
+    },
+    {
+     "text": "Contoso chose Continue on error, so if the A P I returns a four oh four, the code goes into Topic Status Code and the error body into Topic Error Response.",
+     "start": 200.848,
+     "end": 211.023
+    },
+    {
+     "text": "The topic replies, I could not find that ticket, without stopping.",
+     "start": 211.304,
+     "end": 214.887
+    },
+    {
+     "text": "To create tickets, Contoso uses a post with J S O N content.",
+     "start": 215.168,
+     "end": 219.626
+    }
+   ]
+  },
+  {
+   "title": "Add it in Copilot Studio",
+   "start": 220.527,
+   "end": 246.785,
+   "sentences": [
+    {
+     "text": "Here are the steps in Copilot Studio.",
+     "start": 220.527,
+     "end": 222.702
+    },
+    {
+     "text": "Open a topic and select Add node.",
+     "start": 222.983,
+     "end": 225.094
+    },
+    {
+     "text": "Point to Advanced and choose Send H T T P request.",
+     "start": 225.375,
+     "end": 228.638
+    },
+    {
+     "text": "Type the U R L and choose get.",
+     "start": 228.919,
+     "end": 230.816
+    },
+    {
+     "text": "Select Edit in Headers and body.",
+     "start": 231.097,
+     "end": 233.08
+    },
+    {
+     "text": "In Response data type, choose From sample data and paste a sample J S O N.",
+     "start": 233.361,
+     "end": 238.416
+    },
+    {
+     "text": "In Save user response as, create a variable.",
+     "start": 238.697,
+     "end": 241.555
+    },
+    {
+     "text": "In Error handling, choose Continue on error and define the status and error variables.",
+     "start": 241.836,
+     "end": 246.784
+    }
+   ]
+  },
+  {
+   "title": "Decide: reading the error",
+   "start": 247.685,
+   "end": 281.655,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 247.685,
+     "end": 248.559
+    },
+    {
+     "text": "Valeria chose Continue on error, so the error body waits in a variable.",
+     "start": 248.84,
+     "end": 252.892
+    },
+    {
+     "text": "It is of type Any, and she wants its fields.",
+     "start": 253.173,
+     "end": 255.476
+    },
+    {
+     "text": "Which node converts it into a structured record?",
+     "start": 255.757,
+     "end": 258.295
+    },
+    {
+     "text": "Parse value, into a record?",
+     "start": 258.576,
+     "end": 260.239
+    },
+    {
+     "text": "Send a message, as plain text?",
+     "start": 260.52,
+     "end": 262.439
+    },
+    {
+     "text": "Or the On Error system topic?",
+     "start": 262.72,
+     "end": 264.383
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 264.664,
+     "end": 266.199
+    },
+    {
+     "text": "Parse value, into a record.",
+     "start": 269.98,
+     "end": 271.643
+    },
+    {
+     "text": "Parse value converts a value of type Any into a structured record the topic can use.",
+     "start": 271.924,
+     "end": 277.15
+    },
+    {
+     "text": "On Error only runs when an error is not handled, so it converts nothing.",
+     "start": 277.431,
+     "end": 281.654
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 282.555,
+   "end": 306.483,
+   "sentences": [
+    {
+     "text": "Back in the mail room, Marta's question now gets an answer, even when the ticket does not exist.",
+     "start": 282.555,
+     "end": 288.25
+    },
+    {
+     "text": "Remember three things.",
+     "start": 288.531,
+     "end": 289.767
+    },
+    {
+     "text": "The node sends a letter with an address, a method, headers, and a body that is No Content by default.",
+     "start": 290.048,
+     "end": 296.02
+    },
+    {
+     "text": "Raise an error is the default, and it fires On Error.",
+     "start": 296.301,
+     "end": 299.394
+    },
+    {
+     "text": "Continue on error saves the status and the error body, and Parse value reads it.",
+     "start": 299.675,
+     "end": 304.303
+    },
+    {
+     "text": "Next, tools inside a topic.",
+     "start": 304.584,
+     "end": 306.482
+    }
+   ]
+  }
+ ]
+}

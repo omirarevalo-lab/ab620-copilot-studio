@@ -1,0 +1,640 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L34 · Application Insights and the Monitor tab · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw .nav div { font-size: 30px; padding: 16px 28px; }
+  #stage .uw .fld small { font-size: 30px; }
+  #stage .uw .btn { font-size: 30px; }
+  #stage .uw.az .nav { width: 380px; } #stage .uw.az .main { left: 380px; }
+  #stage .uw.m .nav { width: 240px; } #stage .uw.m .main { left: 240px; padding: 30px 40px; }
+  #stage #uiBack { background: #eef1f7; }
+  .ly { position: absolute; left: 40px; right: 40px; top: 10px; bottom: 0; opacity: 0; }
+  .rw { position: absolute; left: 0; display: flex; align-items: center; gap: 18px; font-size: 34px; font-weight: 700; border-bottom: 2px solid #e2e5eb; }
+  .mc { position: absolute; height: 230px; box-sizing: border-box; border: 3px solid #e2e5eb; border-radius: 20px; padding: 12px 16px; background: #f3f5f9; }
+  .mc small { display: block; font-size: 30px; font-weight: 700; color: #5d6472; }
+  .mc b { display: block; font-size: 68px; line-height: 1.1; }
+  .mc .dl { font-size: 30px; font-weight: 700; color: #1e7f4f; line-height: 1.15; }
+  .cp { position: absolute; display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 6px 20px; font-size: 30px; font-weight: 700; background: #fff; border: 3px solid #2f5bd3; color: #2f5bd3; opacity: 0; }
+  .sr { position: absolute; left: 0; width: 1148px; height: 130px; border-bottom: 2px solid #e2e5eb; opacity: 0; }
+  .sr > b { position: absolute; left: 0; top: 4px; font-size: 34px; }
+  .sr .tgl { position: absolute; left: 1030px; top: 0; }
+  .sr .cp { top: 70px; }
+  .tgl.on { background: #2f5bd3; }
+  .cd { position: absolute; width: 110px; height: 76px; background: #fff; border: 6px solid #2f5bd3; border-radius: 12px; opacity: 0; box-sizing: border-box; }
+  .cd:after { content: ""; position: absolute; left: 12px; top: 14px; width: 60px; height: 8px; border-radius: 4px; background: #c9d8f7; box-shadow: 0 16px 0 #c9d8f7, 0 32px 0 #c9d8f7; }
+  .dm { position: absolute; width: 290px; height: 170px; background: #fff; border: 8px solid #d98a00; border-radius: 22px; box-sizing: border-box; opacity: 0; text-align: center; padding-top: 12px; }
+  .dm span { display: block; font-size: 40px; font-weight: 700; color: #5d6472; } .dm em { display: block; font-style: normal; font-size: 62px; font-weight: 800; }
+  .ovb { position: absolute; inset: 0; background: #f4f6fa; opacity: 0; }
+  .xp .cdk { position: absolute; width: 180px; height: 70px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 800; }
+  .kcard { position: absolute; background: #fff; border-radius: 28px; box-shadow: 0 30px 80px rgba(16,24,40,.25); opacity: 0; box-sizing: border-box; }
+  .code { font-family: Consolas, "Cascadia Mono", monospace; font-size: 36px; line-height: 80px; font-weight: 700; white-space: nowrap; color: #141821; }
+  .code div { opacity: 0; }
+  .code .k { color: #2f5bd3; } .code .s { color: #1e7f4f; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L34 · Application Insights and the Monitor tab.
+     World 3840x2160. Hangar (left): black box 360,420 · drawer 300,1180 · investigator 950,1300 + terminal 1070,1240 · chart2 940,250 · admin 260,1590 · gate on the cable 1180,867.
+     Contoso floor: Nexo 1650,1010 · help desk y1470 · employees 2080-2410,1340 · team desk 1450,1640 · board above Nexo 1530,470.
+     Cockpit (right): panel 2560,360 (1020x1080) · finance desk 2700,1800.
+     Camera bounds: cx in [960/s, 3840-960/s], cy in [540/s, 2160-540/s]. */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44';
+  const D = (id, st, html) => `<div class="w" id="${id}" style="${st}">${html || ''}</div>`;
+  const PL = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + fs + 'px;');
+  const SB = (id, x, y, t, fs, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:' + fs + 'px;');
+  const pulse = (sel, t, col) => tl.fromTo(sel, { boxShadow: '0 0 0 0 rgba(217,138,0,0)' }, { boxShadow: `0 0 0 10px ${col || 'rgba(217,138,0,.85)'}`, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t);
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const TG = (id, t, on) => { tl.to('#' + id, { backgroundColor: on ? BLUE : '#c9ced8', duration: 0.2 }, t); tl.to('#' + id + 'K', { x: on ? 52 : 0, duration: 0.2 }, t); };
+  const tgl = (id, on) => `<div class="tgl" id="${id}" style="${on ? 'background:#2f5bd3' : ''}"><i id="${id}K" style="${on ? 'transform:translateX(52px)' : ''}"></i></div>`;
+  const WSWAP = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.35 }, t); tl.fromTo(b, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'power2.out' }, t + 0.4); };
+  /* world <-> UI: the outgoing layer fades fully to 0 before the incoming one starts (no double exposure) */
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.45, 0.4); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const UP =(sel, t, y) => tl.fromTo(sel, { opacity: 0, y: y || 20 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, t);
+
+  /* ═════════ WORLD ═════════ */
+  /* Contoso floor */
+  ADD(D('hdesk', 'left:1560px;top:1470px;width:540px;height:80px;border-radius:14px;background:#c9ced8'));
+  ADD(agent('nx', 1650, 1010, { folder: '' }));
+  ADD(`<svg class="w" style="left:1650px;top:1010px" width="360" height="500" viewBox="0 0 360 500"><path d="M62 190 Q62 100 180 100 Q298 100 298 190" fill="none" stroke="#141821" stroke-width="10"/><rect x="42" y="168" width="26" height="64" rx="12" fill="#141821"/><rect x="292" y="168" width="26" height="64" rx="12" fill="#141821"/><path d="M62 232 Q70 262 130 262" fill="none" stroke="#141821" stroke-width="8"/></svg>`);
+  ADD(PL('lbNexo', 1830, 1572, 'Nexo · IT agent', 'navy', 60));
+  ADD(crowd('em0', 2080, 1340, '#8a5cd6') + crowd('em1', 2190, 1340, '#d98a00') + crowd('em2', 2300, 1340, '#1e7f4f') + crowd('mgr', 2410, 1340, NAVY));
+  ADD(maker('mk', 1450, 1640));
+  ADD(D('tcA', 'left:1850px;top:1800px;width:170px;height:30px;border-radius:14px;background:#ffd166') + D('tcB', 'left:1940px;top:1852px;width:170px;height:30px;border-radius:14px;background:#ffd166') + D('tcC', 'left:1850px;top:1904px;width:130px;height:30px;border-radius:14px;background:#8cb4ff'));
+  ADD(PL('lbTest', 1980, 1710, 'Test canvas', 'amber', 60));
+  ADD(D('fc0', 'left:1380px;top:1720px;font-size:110px;opacity:0', '😟') + D('fc1', 'left:2330px;top:1160px;font-size:110px;opacity:0', '😟'));
+  ADD(SB('bq1', 1400, 880, 'What do they ask?', 64) + SB('bq2', 2270, 1130, 'Is it working?', 64) + SB('bq2g', 2270, 1130, 'Is it working? ✓', 64, 'green'));
+
+  /* chart builder (board above Nexo and the small copy beside the drawer) */
+  const HR = [0.5, 0.85, 0.4, 0.75, 0.6, 0.45, 0.8, 0.65];
+  const chartHTML = (p, x, y, W, H, n, title, fs, showQ) => {
+    const bw = Math.floor((W - 60 - (n - 1) * 16) / n), mx = H - 140;
+    let h = `<div class="w" id="${p}" style="left:${x}px;top:${y}px;width:${W}px;height:${H}px;background:#fff;border:8px solid ${NAVY};border-radius:28px;box-sizing:border-box;opacity:0">
+      <div class="w" style="left:0;top:14px;width:${W - 16}px;text-align:center;font-size:${fs}px;font-weight:800">${title}</div>`;
+    for (let k = 0; k < n; k++) {
+      const bh = Math.round(mx * HR[k % 8]);
+      h += `<div class="w" id="${p}_b${k}" style="left:${22 + k * (bw + 16)}px;top:${H - 24 - bh}px;width:${bw}px;height:${bh}px;border-radius:8px;background:#8a93a6"></div>`;
+      if (showQ) h += `<div class="w" id="${p}_q${k}" style="left:${22 + k * (bw + 16)}px;top:${H - 24 - bh - 72}px;width:${bw}px;text-align:center;font-size:60px;font-weight:800;color:#5d6472;opacity:0">?</div>`;
+    }
+    return h + '</div>';
+  };
+  ADD(chartHTML('bd', 1530, 470, 700, 420, 8, 'Monday numbers', 56, true));
+  ADD(chartHTML('c2', 940, 250, 340, 290, 6, 'Monday', 52, false));
+  ADD(PL('lbTests', 1880, 400, 'tests', 'amber', 64));
+
+  /* hangar */
+  ADD(`<svg class="w" id="cabs" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+    ${cable('cbl', 'M1715 1195 L1330 1195 C1150 1195 1100 640 825 640', BLUE, 14)}
+    ${cable('cbT', 'M1715 1195 L1330 1195 C1150 1195 1100 640 825 640', AMB, 14)}
+    ${cable('cbG', 'M1715 1195 L1330 1195 C1150 1195 1100 640 825 640', '#9aa3b5', 14)}
+    ${cable('cbH1', 'M820 500 C1100 400 1300 560 1540 700', PUR, 12, '30 18')}
+    ${cable('cbH2', 'M820 520 C1200 300 1800 300 2060 600', PUR, 12, '30 18')}</svg>`);
+  ADD(D('bbW', 'left:360px;top:420px;width:460px;height:300px;opacity:0',
+    D('bbBody', 'left:0;top:0;width:460px;height:300px;border-radius:46px;background:linear-gradient(#f58a1f,#d9680a);border:10px solid #a84f06;box-sizing:border-box;box-shadow:0 0 0 0 rgba(255,209,102,0)') +
+    D('', 'left:30px;top:200px;width:400px;height:30px;background:repeating-linear-gradient(90deg,#fff 0 40px,#141821 40px 80px)') +
+    D('', 'left:36px;top:40px;width:110px;height:110px;border-radius:50%;background:#2f5bd3;color:#fff;font-size:58px;font-weight:800;display:flex;align-items:center;justify-content:center;border:6px solid #fff;box-sizing:border-box', 'Az') +
+    D('', 'left:180px;top:60px;width:230px;height:26px;border-radius:13px;background:#ffffff80') + D('', 'left:180px;top:110px;width:170px;height:26px;border-radius:13px;background:#ffffff80')));
+  ADD(D('bbs', 'left:560px;top:-200px;width:120px;height:80px;border-radius:20px;background:#e8700a;border:6px solid #a84f06;box-sizing:border-box;opacity:0'));
+  ADD(PL('lbBB', 590, 330, 'Application Insights', 'amber', 64) + PL('lbAz', 590, 250, 'Azure', 'blue', 64));
+  ADD(D('drawerW', 'left:300px;top:1180px;width:600px;height:320px;border-radius:20px;background:#8a93a6;border:8px solid #5d6472;box-sizing:border-box',
+    D('', 'left:20px;top:20px;width:540px;height:110px;border-radius:12px;background:#c9ced8') + D('', 'left:200px;top:62px;width:140px;height:20px;border-radius:10px;background:#5d6472') +
+    D('', 'left:20px;top:156px;width:540px;height:110px;border-radius:12px;background:#c9ced8') + D('', 'left:200px;top:198px;width:140px;height:20px;border-radius:10px;background:#5d6472')));
+  ADD(PL('lbDr', 600, 1110, 'customEvents', 'navy', 64));
+  ADD(crowd('inv', 950, 1300, '#1e7f4f'));
+  ADD(D('trm', 'left:1070px;top:1240px;width:220px;height:170px;border-radius:16px;background:#1f2a44;border:8px solid #5d6472;box-sizing:border-box',
+    D('', 'left:20px;top:24px;width:120px;height:12px;border-radius:6px;background:#6be3a0') + D('', 'left:20px;top:56px;width:160px;height:12px;border-radius:6px;background:#8cb4ff') + D('', 'left:20px;top:88px;width:90px;height:12px;border-radius:6px;background:#6be3a0')) + D('', 'left:1160px;top:1410px;width:30px;height:90px;background:#8a93a6'));
+  ADD(`<svg class="w" id="mag" style="left:880px;top:1320px" width="110" height="110" viewBox="0 0 110 110"><circle cx="40" cy="40" r="28" fill="#dff0ff" stroke="#141821" stroke-width="9"/><path d="M62 62 L100 100" stroke="#141821" stroke-width="12" stroke-linecap="round"/></svg>`);
+  const rec = (id, x) => `<div class="cd" id="${id}" style="left:${x}px;top:730px"></div>`;
+  ADD(['r0', 'r1', 'r2', 'r3', 'r4', 'r5', 'rF'].map((id, k) => rec(id, [480, 540, 600, 500, 580, 540, 540][k])).join(''));
+  const dcard = (id, x, y, lab, col) => `<div class="dm" id="${id}" style="left:${x}px;top:${y}px;border-color:${col}"><span>designMode:</span><em style="color:${col}">${lab}</em></div>`;
+  ADD(dcard('cT', 1850, 1690, 'True', AMB) + dcard('cF', 2100, 1420, 'False', BLUE));
+  ADD(PL('pStampT', 1300, 990, 'designMode: True', 'amber', 60) + PL('pMarked', 1300, 990, 'marked, not missing', 'green', 60));
+
+  /* security post and gate */
+  ADD(admin('adm', 260, 1590));
+  ADD(SB('bAdm', 1000, 1640, 'No agent sends telemetry', 60));
+  ADD(gate('gt', 1340, 867));
+  gsap.set('#gt_bar', { rotation: -85 });
+  ADD(PL('lbGate', 1960, 880, 'Data policy', 'red', 64));
+  ADD(chip('conn', 540, 1560, 'plug_connected', 'Application Insights in Copilot Studio', '').replace('class="chip "', 'class="chip" ').replace('style="', 'style="width:1040px;height:120px;font-size:46px;'));
+  ADD(D('connB', 'left:1250px;top:1490px;opacity:0;padding:6px 26px;border-radius:999px;background:#c4392f;color:#fff;font-size:52px;font-weight:800;', 'Blocked'));
+  ADD(D('tgBox', 'left:1560px;top:790px;width:560px;height:100px;border-radius:26px;background:#fff;border:6px solid #2f5bd3;box-sizing:border-box;box-shadow:0 10px 30px rgba(16,24,40,.12);opacity:0;display:flex;align-items:center;gap:26px;padding-left:28px;font-size:50px;font-weight:800', 'Enable logging' +
+    '<div class="w" id="tgW" style="left:420px;top:20px;width:110px;height:58px;border-radius:29px;background:#2f5bd3"><i id="tgWK" class="w" style="left:6px;top:6px;width:46px;height:46px;border-radius:50%;background:#fff;transform:translateX(52px)"></i></div>'));
+  ADD(`<svg class="w" id="hand" style="left:2300px;top:1100px;opacity:0" width="90" height="116" viewBox="0 0 46 60"><path d="M4 4 L4 48 L16 37 L25 56 L33 52 L24 34 L40 34 Z" fill="#141821" stroke="#fff" stroke-width="3"/></svg>`);
+  ADD(PL('lbNot', 1840, 700, 'not an admin control', 'amber', 64) + PL('lbBack', 1840, 700, 'comes back', 'red', 64) + PL('lbEnv', 1700, 620, 'Environment telemetry · Preview<br>traces and spans', 'purple', 60));
+
+  /* cockpit */
+  const ptA = (a, R) => [120 + R * Math.cos(a * Math.PI / 180), 130 - R * Math.sin(a * Math.PI / 180)];
+  const garc = (a0, a1, col) => { const p = ptA(a0, 90), q = ptA(a1, 90); return `<path d="M${p[0]} ${p[1]} A90 90 0 0 1 ${q[0]} ${q[1]}" fill="none" stroke="${col}" stroke-width="26"/>`; };
+  const gauge = (id, cx, cy, label) => `<svg class="w" id="${id}" style="left:${cx - 120}px;top:${cy - 140}px" width="240" height="150" viewBox="0 0 240 150">${garc(180, 120, '#c4392f')}${garc(120, 60, '#d98a00')}${garc(60, 0, '#2fae6a')}<g id="${id}_n"><line x1="120" y1="130" x2="120" y2="52" stroke="#fff" stroke-width="10" stroke-linecap="round"/><circle cx="120" cy="130" r="14" fill="#fff"/></g></svg>` +
+    `<div class="w" style="left:${cx - 250}px;top:${cy + 20}px;width:500px;text-align:center;font-size:60px;font-weight:800;color:#fff">${label}</div>`;
+  ADD(D('ckW', 'left:0;top:0;opacity:0',
+    D('ckGlow', 'left:2546px;top:346px;width:1048px;height:1108px;border-radius:70px;box-shadow:0 0 0 0 rgba(255,209,102,0)') +
+    D('', 'left:3000px;top:1440px;width:140px;height:70px;background:#8a93a6') +
+    D('', 'left:2560px;top:360px;width:1020px;height:1080px;background:#1f2a44;border-radius:60px;box-shadow:0 30px 80px rgba(16,24,40,.35)') +
+    D('', 'left:2590px;top:390px;width:960px;height:1020px;background:#101a33;border-radius:44px') +
+    D('', 'left:2640px;top:400px;font-size:84px;font-weight:800;color:#ffd166', 'Monitor') +
+    gauge('g0', 2815, 640, 'Sessions') + gauge('g1', 3325, 640, 'Users') + gauge('g2', 2815, 940, 'Avg duration') + gauge('g3', 3325, 940, 'Success rate')));
+  ['g0', 'g1', 'g2', 'g3'].forEach((g) => gsap.set('#' + g + '_n', { rotation: -85, svgOrigin: '120 130' }));
+  ADD(D('thc', 'left:2580px;top:1170px;width:400px;height:250px;border-radius:28px;background:#1d2742;border:6px solid #5b6b97;box-sizing:border-box',
+    D('', 'left:24px;top:16px;font-size:60px;font-weight:800;color:#fff', 'Reactions') +
+    D('thE', 'left:24px;top:120px;font-size:60px;font-weight:800;color:#8a93a6;opacity:1', '–') +
+    D('thF', 'left:24px;top:116px;font-size:64px;font-weight:800;color:#fff;opacity:0', '👍 1  👎 0')));
+  ADD(D('fuel', 'left:3000px;top:1170px;width:560px;height:250px;border-radius:28px;background:#1d2742;border:6px solid #5b6b97;box-sizing:border-box',
+    D('', 'left:26px;top:16px;font-size:60px;font-weight:800;color:#ffd166;line-height:1.1', 'Total estimated<br>credits used') +
+    D('', 'left:26px;top:170px;width:500px;height:34px;border-radius:17px;background:#3a4a78') + D('', 'left:26px;top:170px;width:330px;height:34px;border-radius:17px;background:linear-gradient(90deg,#ffd166,#f2b705)')));
+  document.getElementById('ckW').append(document.getElementById('thc'), document.getElementById('fuel'));
+  ADD(SB('thb', 2190, 1250, '👍', 80) + SB('nxAns', 1830, 900, 'VPN fixed', 60, 'blue'));
+  ADD(D('thf', 'left:2200px;top:1280px;font-size:90px;opacity:0', '👍'));
+
+  /* finance */
+  ADD(crowd('fin', 2850, 1640, '#8a5cd6') + D('', 'left:2700px;top:1800px;width:700px;height:100px;border-radius:14px;background:#c9ced8') + D('', 'left:2730px;top:1900px;width:20px;height:60px;background:#c9ced8') + D('', 'left:3350px;top:1900px;width:20px;height:60px;background:#c9ced8') +
+    D('', 'left:3100px;top:1700px;width:140px;height:100px;border-radius:14px;background:#1f2a44;color:#6be3a0;font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center', '2,480'));
+  ADD(PL('lbFin', 3050, 1580, 'Finance', 'purple', 60));
+
+  /* plane, buildings, pills */
+  ADD(`<svg class="w" id="plane" style="left:-500px;top:120px" width="420" height="150" viewBox="0 0 420 150"><path d="M20 80 Q20 60 60 58 L300 58 Q400 60 410 78 Q400 98 300 100 L60 100 Q20 98 20 80 Z" fill="#1f2a44"/><path d="M150 60 L110 10 L170 10 L230 60 Z" fill="#1f2a44"/><path d="M150 98 L110 148 L170 148 L230 98 Z" fill="#1f2a44"/><path d="M40 60 L20 20 L60 20 L80 60 Z" fill="#1f2a44"/></svg>`);
+  ADD(D('bBrick', 'left:1520px;top:560px;width:260px;height:340px;border-radius:14px;border:6px solid #8a3a2a;box-sizing:border-box;opacity:0;background:repeating-linear-gradient(0deg,#b4533f 0 28px,#e8dccf 28px 32px),#b4533f') +
+    D('bGlass', 'left:2000px;top:460px;width:300px;height:440px;border-radius:18px;border:6px solid #5b8be6;box-sizing:border-box;opacity:0;background:linear-gradient(135deg,#e6f0ff,#bcd4ff 55%,#e6f0ff)', IC('sparkle', 'position:absolute;left:100px;top:40px;width:100px;height:100px;color:#2f5bd3')));
+  ADD(PL('lbBoth', 1830, 380, 'Environment telemetry · both harnesses', 'purple', 60) + PL('lbTwo', 1830, 560, 'two tools', 'blue', 84) + PL('lbKeep', 1830, 700, 'keep tests out', 'amber', 84));
+  ADD(PL('lbRec', 640, 830, 'records → deep analysis', 'amber', 64) + PL('lbNow', 3070, 1585, 'health now', 'blue', 64));
+  ADD(PL('lbMon', 3070, 245, 'Monitor tab · Microsoft Copilot harness', 'blue', 60) + PL('lbAlias', 3070, 120, 'formerly GitHub Copilot harness', 'amber', 60));
+  ADD(PL('lbUnch', 1830, 930, 'agent unchanged', 'green', 64) + PL('lbZero', 1830, 700, 'no need to start from zero', 'blue', 84));
+  ADD(PL('lbFalse', 1880, 400, 'designMode = False', 'green', 64));
+
+  /* ═════════ UI WINDOWS ═════════ */
+  const azWin = (id, nav, on) => uiWindow(id, { title: 'Azure portal · Application Insights', nav, on, body: '' }).replace('class="uw"', 'class="uw az"');
+  const chartBox = (p, t, x, w, bars, col) => `<div class="w" style="left:${x}px;top:80px;width:${w}px;height:420px;border:3px solid #e2e5eb;border-radius:18px;background:#fff"><div class="w" style="left:20px;top:12px;font-size:32px;font-weight:800">${t}</div>${bars.map((h, k) => `<div class="w" style="left:${24 + k * ((w - 50) / bars.length)}px;top:${400 - h}px;width:${(w - 50) / bars.length - 12}px;height:${h}px;border-radius:6px;background:${col}"></div>`).join('')}</div>`;
+  const dashHTML = (p) => `<div class="ly" id="${p}_wd"><div style="font-size:44px;font-weight:800">Copilot Studio Dashboard</div>
+      ${chartBox(p, 'Sessions', 0, 360, [110, 190, 150, 250, 210, 290, 260], '#2f5bd3')}${chartBox(p, 'Top topics', 380, 400, [300, 230, 170, 110], '#1e7f4f')}${chartBox(p, 'Errors', 800, 380, [60, 40, 90, 30, 50, 20], '#c4392f')}</div>`;
+
+  /* scene 2 · Azure + Copilot Studio */
+  ADDU(azWin('uiAz', ['Overview', 'Logs', 'Workbooks', 'Access control (IAM)'], 0).replace('<div class="main"></div>', `<div class="main"><div class="ly" style="opacity:1;left:40px"><div style="font-size:44px;font-weight:800;margin-bottom:22px">contoso-nexo-insights</div>
+    <div style="display:flex;gap:24px;margin-bottom:34px"><div class="fld" style="width:380px"><small>Resource group</small>rg-contoso</div><div class="fld" style="width:380px"><small>Location</small>West Europe</div></div>
+    <div class="fld" id="uiAz_cs" style="width:1060px;border-color:#2f5bd3;padding:18px 26px"><small>Connection string</small><span style="display:flex;align-items:center;gap:20px"><span>InstrumentationKey=••••••••••••••••</span><span class="btn" id="uiAz_cp" style="margin-left:auto;display:flex;gap:10px;align-items:center">${IC('copy', 'width:34px;height:34px')}Copy</span></span></div>
+    <div class="note" id="uiAz_ok" style="margin-top:26px;opacity:0">${IC('checkmark_circle')}Copied</div></div></div>`));
+  ADDU(uiWindow('uiCS', { title: 'Copilot Studio', nav: ['Agents', 'Topics', 'Settings'], on: 0, body: `
+    <div class="ly" id="cs_ag" style="opacity:1"><div style="font-size:44px;font-weight:800;margin-bottom:20px">Agents</div>
+      <div class="rw" id="cs_nx" style="top:80px;width:1100px;height:84px;padding-left:14px">${IC('bot', 'width:46px;height:46px;color:#2f5bd3')}Nexo · IT agent</div>
+      <div class="rw" style="top:170px;width:1100px;height:84px;padding-left:14px;color:#5d6472">${IC('bot', 'width:46px;height:46px;color:#8a93a6')}HR helper</div></div>
+    <div id="cs_tabs" class="ly" style="height:90px;bottom:auto"><span id="cs_t0" class="rw" style="left:0;border:none;padding:8px 24px;color:#2f5bd3;border-bottom:6px solid #2f5bd3">General</span><span class="rw" style="left:200px;border:none;padding:8px 24px;color:#5d6472">Safety and access</span><span id="cs_t2" class="rw" style="left:500px;border:none;padding:8px 24px;color:#5d6472;border-bottom:6px solid rgba(47,91,211,0)">Advanced</span></div>
+    <div class="ly" id="cs_gen" style="top:110px"><div class="fld" style="width:900px;margin-bottom:20px"><small>Name</small>Nexo</div><div class="fld" style="width:900px"><small>Description</small>Answers IT questions for Contoso employees</div></div>
+    <div class="ly" id="cs_adv" style="top:110px"><div id="cs_ah" style="font-size:44px;font-weight:800;margin-bottom:24px;border-radius:12px;display:inline-block;padding:0 10px">Application Insights</div>
+      <div class="fld" style="width:1000px;border-color:#2f5bd3;position:relative;height:100px"><small>Connection string</small><span id="cs_ph" style="position:absolute;left:22px;top:46px;color:#8a93a6">Paste your connection string</span><span id="cs_val" style="position:absolute;left:22px;top:46px;opacity:0">InstrumentationKey=••••••••••••••••</span></div>
+      <div class="rw" style="top:200px;width:1100px;height:90px;justify-content:space-between"><span id="cs_el">Enable logging</span>${tgl('cs_tg', false)}</div></div>` }));
+  ADDU(uiWindow('uiSW', { title: 'Copilot Studio · Nexo · Settings · Advanced', nav: ['Agents', 'Topics', 'Settings'], on: 2, body: `
+    <div class="ly" style="opacity:1"><div style="font-size:44px;font-weight:800;margin-bottom:12px">Application Insights</div>
+      <div class="sr" id="sw_r0" style="top:70px;opacity:1"><b>Enable logging</b>${tgl('sw_t0', true)}</div>
+      <div class="sr" id="sw_r1" style="top:210px"><b>Log conversation details</b>${tgl('sw_t1', false)}<span class="cp" id="sw_c0" style="left:0">user</span><span class="cp" id="sw_c1" style="left:120px">name</span><span class="cp" id="sw_c2" style="left:260px">message text</span></div>
+      <div class="sr" id="sw_r2" style="top:350px"><b>Log sensitive Activity properties</b>${tgl('sw_t2', false)}<span class="cp" id="sw_c3" style="left:0;border-color:#c4392f;color:#c4392f">sensitive details</span></div>
+      <div class="sr" id="sw_r3" style="top:490px"><b>Node execution events</b>${tgl('sw_t3', false)}<div class="w" style="left:0;top:78px;width:520px;height:40px">${[0, 1, 2, 3, 4].map((k) => `<div class="w" id="sw_n${k}" style="left:${k * 120}px;top:0;width:36px;height:36px;border-radius:50%;background:#c9ced8"></div>` + (k < 4 ? `<div class="w" style="left:${k * 120 + 36}px;top:16px;width:84px;height:5px;background:#c9ced8"></div>` : '')).join('')}</div></div>
+      <div class="cp" id="sw_b1" style="left:0;top:640px;border-color:#1e7f4f;color:#1e7f4f">more detail</div><div class="w" id="sw_bx" style="left:250px;top:640px;font-size:44px;font-weight:800;opacity:0">⇄</div><div class="cp" id="sw_b2" style="left:330px;top:640px;border-color:#c4392f;color:#c4392f">more personal data</div>
+      </div>` }));
+
+  /* scene 7 · Azure workbook and IAM */
+  ADDU(azWin('uiWB', ['Overview', 'Logs', 'Workbooks', 'Access control (IAM)'], 2).replace('<div class="main"></div>', `<div class="main"><div class="ly" id="wb_ls" style="opacity:1"><div style="font-size:44px;font-weight:800;margin-bottom:20px">Workbooks</div>
+      <div class="fld" style="width:420px;display:inline-block;margin-right:20px;color:#8a93a6"><small>Performance</small>Template</div><div class="fld" style="width:420px;display:inline-block;margin-right:20px;color:#8a93a6"><small>Failures</small>Template</div>
+      <div class="fld" id="wb_tile" style="width:560px;margin-top:20px;border-color:#2f5bd3;position:relative"><small>Workbook</small>Copilot Studio Dashboard<span class="cp" id="wb_pv" style="right:16px;top:14px;border-color:#d98a00;color:#d98a00;opacity:1;font-size:30px;padding:2px 16px">Preview</span></div></div>${dashHTML('wb')}</div>`));
+  ADDU(azWin('uiIAM', ['Overview', 'Logs', 'Workbooks', 'Access control (IAM)'], 3).replace('<div class="main"></div>', `<div class="main"><div class="ly" id="iam_ls" style="opacity:1"><div style="font-size:44px;font-weight:800;margin-bottom:20px">Access control (IAM)</div>
+      <div class="rw" style="top:80px;width:1100px;height:80px;color:#5d6472"><span style="width:300px">Role</span><span>Name</span></div>
+      <div class="rw" style="top:160px;width:1100px;height:80px"><span style="width:300px">Owner</span><span>Contoso IT</span></div>
+      <div class="rw" id="iam_new" style="top:240px;width:1100px;height:80px;background:#e3f4ea;border-radius:10px;opacity:0"><span style="width:300px;color:#1e7f4f">Reader</span><span>Contoso manager</span></div>
+      <span class="btn" id="iam_add" style="position:absolute;left:0;top:380px;border-color:#2f5bd3;color:#2f5bd3">+ Add role assignment</span></div>${dashHTML('iam')}
+      <div class="cp" id="iam_eye" style="right:60px;top:0;border-color:#1e7f4f;color:#1e7f4f">${IC('eye', 'width:36px;height:36px')}View only</div></div>`));
+
+  /* scenes 10-14 · Monitor */
+  const mcard = (id, x, y, w, lab, val, dl) => `<div class="mc" id="${id}" style="left:${x}px;top:${y}px;width:${w}px"><small>${lab}</small><b>${val}</b>${dl ? `<div class="dl" id="${id}_d">▲ ${dl}<br><span style="color:#5d6472">vs previous 7 days</span></div>` : ''}</div>`;
+  const SROW = [['Completed', '#1e7f4f', 'Create ticket', '4.2'], ['Failed', '#c4392f', 'Reset password', '3.1'], ['In progress', '#d98a00', 'Create ticket', '1.8'], ['Completed', '#1e7f4f', 'Search knowledge', '0.9']];
+  ADDU(uiWindow('uiMo', { title: 'Microsoft Copilot harness · Nexo', nav: ['Overview', 'Monitor', 'Settings'], on: 0, body: `
+    <div class="ly" id="mo_ov" style="opacity:1"><div style="font-size:44px;font-weight:800;margin-bottom:20px">Nexo · IT agent</div><div class="fld" style="width:900px;margin-bottom:20px"><small>Description</small>Answers IT questions for Contoso employees</div><div class="fld" style="width:900px"><small>Status</small>Published</div></div>
+    <div class="ly" id="mo_mon" style="overflow:hidden"><div class="w" style="left:0;top:0;width:1320px;height:1300px" id="mo_sc">
+      <div class="w" style="left:0;top:0;font-size:44px;font-weight:800">Monitor</div>
+      <div class="w" id="mo_pk" style="right:0;top:0;border:3px solid #c9ced8;border-radius:12px;padding:6px 22px;font-size:32px;font-weight:700;background:#fff">Last 7 days ▾</div>
+      <div class="w" id="mo_dd" style="right:0;top:58px;width:300px;border:3px solid #c9ced8;border-radius:12px;background:#fff;font-size:32px;font-weight:700;opacity:0;z-index:5"><div id="mo_d0" style="padding:8px 22px;background:#e6ecfb;color:#2f5bd3">Last 7 days</div><div style="padding:8px 22px">Last 28 days</div></div>
+      ${mcard('mo_c0', 0, 80, 312, 'Total sessions', '1,240', '12%')}${mcard('mo_c1', 336, 80, 312, 'Total users', '310', '8%')}${mcard('mo_c2', 672, 80, 312, 'Avg duration', '3m 10s', '5%')}${mcard('mo_c3', 1008, 80, 312, 'Success rate', '87%', '3%')}
+      <div id="mo_row2" class="w" style="left:0;top:340px;width:1320px;height:230px;opacity:0">${mcard('mo_a0', 0, 0, 312, 'Autonomous runs', '96', '')}${mcard('mo_a1', 336, 0, 312, 'Fail rate', '4%', '')}
+        <div class="mc" id="mo_rc" style="left:672px;top:0;width:648px"><small>Reactions</small><div id="mo_rcF" style="font-size:64px;font-weight:800;margin-top:14px">👍 128 &nbsp; 👎 9</div><div id="mo_rcE" style="position:absolute;left:16px;top:70px;font-size:34px;font-weight:700;color:#5d6472;line-height:1.2;opacity:0">Turn on feedback<br>to see reactions</div></div></div>
+      <div class="mc" id="mo_cr" style="left:0;top:600px;width:1320px;height:250px;opacity:0"><small>Total estimated credits used</small><b style="font-size:84px">2,480</b>
+        <div class="w" id="mo_bars" style="left:520px;top:12px;width:780px;opacity:0">
+          ${[['Production', 'mo_bp', 480, '#1e7f4f', 0], ['Preview', 'mo_bv', 170, '#d98a00', 70], ['Evaluations', 'mo_be', 110, '#8a5cd6', 140]].map((r) => `<div class="w" style="left:0;top:${r[4]}px;width:210px;font-size:30px;font-weight:700">${r[0]}</div><div class="w" id="${r[1]}" style="left:210px;top:${r[4] + 6}px;width:${r[2]}px;height:34px;border-radius:17px;background:${r[3]}"></div>`).join('')}
+          <div class="w" id="mo_brk" style="left:190px;top:62px;width:560px;height:152px;border:4px dashed #d98a00;border-radius:16px;opacity:0"></div><div class="w" id="mo_brkT" style="left:480px;top:98px;font-size:34px;font-weight:800;color:#d98a00;opacity:0;white-space:nowrap">building and testing</div></div></div>
+      <div class="w" id="mo_sh" style="left:0;top:880px;font-size:44px;font-weight:800">Sessions</div>
+      <div class="w" id="mo_flt" style="right:0;top:884px;border:3px solid #2f5bd3;border-radius:999px;padding:4px 22px;font-size:32px;font-weight:700;color:#2f5bd3">Last 28 days</div>
+      <div class="rw" style="top:950px;width:1320px;height:60px;color:#5d6472;font-size:30px"><span style="width:300px">Status</span><span style="width:620px">Tools</span><span>Credits</span></div>
+      ${SROW.map((r, k) => `<div class="rw" id="mo_sr${k}" style="top:${1014 + k * 72}px;width:1320px;height:68px;border-radius:10px"><span id="mo_ss${k}" style="width:300px;color:${r[1]};padding-left:8px;border-radius:8px">${r[0]}</span><span style="width:620px"><span id="mo_st${k}" style="border:3px solid #2f5bd3;color:#2f5bd3;border-radius:999px;padding:2px 18px;font-size:30px">${r[2]}</span></span><span id="mo_sc${k}">${r[3]}</span></div>`).join('')}
+      <div class="cp" id="mo_ins" style="left:0;top:340px;border-color:#2f5bd3;font-size:36px;opacity:0">session = one conversation, user ↔ agent</div>
+      <div class="w" id="mo_nev" style="left:0;top:340px;width:1320px;height:250px;border:4px dashed #c9ced8;border-radius:20px;background:#fff;opacity:0"><div class="w" style="left:24px;top:14px;font-size:38px;font-weight:800">Never published agent</div>${['Total sessions', 'Total users', 'Avg duration', 'Success rate'].map((n, k) => `<div class="w" style="left:${24 + k * 318}px;top:90px;width:290px;font-size:30px;font-weight:700;color:#5d6472">${n}<br><span style="font-size:60px;color:#c9ced8">—</span></div>`).join('')}</div>
+    </div></div>
+    <div class="ly" id="mo_tr" style="background:#fff;top:10px"><div id="mo_back" style="font-size:32px;font-weight:700;color:#2f5bd3">‹ Sessions</div><div style="font-size:44px;font-weight:800;margin:8px 0 20px">Transcript · <span style="color:#c4392f">Failed</span></div>
+      ${[['person', 'User · My VPN does not connect', '#141821'], ['wrench', 'Tool call · Reset password', '#2f5bd3'], ['book_open', 'Knowledge · IT handbook', '#2f5bd3'], ['error_circle', 'Agent · Sorry, something went wrong', '#c4392f']].map((s, k) => `<div class="rw" id="mo_ts${k}" style="top:${130 + k * 96}px;width:1100px;height:80px;border:4px solid transparent;border-radius:14px;padding-left:16px;color:${s[2]}">${IC(s[0], 'width:46px;height:46px')}${s[1]}</div>`).join('')}
+      <div class="w" id="mo_lost" style="left:0;top:540px;font-size:36px;font-weight:800;color:#c4392f;opacity:0">where Nexo got lost</div></div>
+    <div class="ly" id="mo_st"><div style="font-size:44px;font-weight:800;margin-bottom:12px">Nexo · Settings</div>
+      <div class="rw" style="left:0;top:80px;border:none"><span class="rw" style="left:0;border:none;padding:8px 24px;color:#5d6472;position:relative">General</span><span id="mo_tsa" class="rw" style="border:none;padding:8px 24px;color:#5d6472;position:relative;border-bottom:6px solid rgba(47,91,211,0)">Safety and access</span></div>
+      <div id="mo_ufr" class="rw" style="top:220px;width:900px;height:100px;justify-content:space-between;opacity:0"><span>User feedback</span>${tgl('mo_ut', false)}</div></div>` }).replace('class="uw"', 'class="uw m"'));
+
+  const PAZ = { cp: PC('#uiAz_cp') };
+  const PCS = { nx: PC('#cs_nx'), nv2: PC('#uiCS_nv2'), t2: PC('#cs_t2'), ph: PC('#cs_ph'), tg: PC('#cs_tg'), ah: PC('#cs_ah') };
+  const PWB = { nv2: PC('#uiWB_nv2'), tile: PC('#wb_tile') };
+  const PIA = { nv3: PC('#uiIAM_nv3'), add: PC('#iam_add') };
+  const PMO = { nv1: PC('#uiMo_nv1'), nv2: PC('#uiMo_nv2'), pk: PC('#mo_pk'), d0: PC('#mo_d0'), sr1: PC('#mo_ss1'), back: PC('#mo_back'), tsa: PC('#mo_tsa'), ut: PC('#mo_ut'), nv0: PC('#uiMo_nv0') };
+
+  /* UI pills (screen space) */
+  const UP_ = (id, x, y, t, c, fs) => ADDU(PL(id, x, y, t, c, fs || 40));
+  UP_('uId', 1180, 640, 'identifies your resource', 'blue');
+  UP_('uUnch', 960, 940, 'Nothing else changes', 'green');
+  UP_('uOnly', 1400, 905, 'only when needed', 'amber');
+  UP_('uZero', 960, 80, 'no need to start from zero', 'blue');
+  UP_('uPrev', 1000, 940, 'Preview', 'amber', 36);
+  UP_('uReal', 1010, 700, 'only real use counts', 'amber');
+  UP_('uClock', 1010, 700, 'up to 1 hour after a session ends', 'blue');
+  UP_('uFb', 1260, 440, 'User feedback = off', 'red');
+  UP_('uCheap', 960, 940, 'cheapest signal', 'green');
+  UP_('uBill', 960, 1000, 'billing figure', 'green');
+  UP_('uUpd', 1000, 940, 'updates a few times a day', 'blue');
+
+  /* overlays */
+  ADDS(`<div class="ov kin title" id="ovT0">Monday at Contoso<small>Application Insights and the Monitor tab</small></div>
+    <div class="ovb" id="ovB16"></div><div class="ov kin" id="ovT16" style="top:50px;font-size:84px">Remember for the exam</div>
+    ${['Connection string → Settings › Advanced', 'Data → customEvents', 'Block telemetry → data policy on the connector', 'Monitor: 28 days · up to 1 h · credits = billing'].map((t, k) => `<div class="chk" id="rc${k}" style="left:210px;width:1500px;height:130px;font-size:54px;top:${210 + k * 190}px;justify-content:center">${IC('checkmark_circle')}${t}</div>`).join('')}
+    <div class="kcard" id="dim" style="left:1060px;top:70px;width:760px;height:430px;padding:26px 36px">
+      <div style="font-size:36px;font-weight:800;color:#5d6472;margin-bottom:10px">Event dimensions</div>
+      ${[['name', 'Message', 'dmR0'], ['conversationId', 'c-1042', 'dmR1'], ['designMode', 'True', 'dmR2']].map((r) => `<div id="${r[2]}" style="display:flex;justify-content:space-between;font-size:48px;font-weight:700;padding:14px 18px;border-radius:14px;margin-top:8px"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')}</div>
+    <div class="kcard" id="kq" style="left:90px;top:140px;width:1110px;height:330px;padding:30px 36px"><div class="code"><div id="kq0"><span class="k">customEvents</span></div><div id="kq1">| <span class="k">where</span> customDimensions['designMode'] == <span class="s">"False"</span></div><div id="kq2">| <span class="k">summarize</span> count() by <span id="kqw">name</span></div></div></div>
+    <div class="kcard" id="kb" style="left:1240px;top:140px;width:580px;height:330px;padding:20px 28px">
+      ${[['Password reset', 440, '#2f5bd3', 'kb0'], ['VPN', 300, '#2f5bd3', 'kb1'], ['New laptop', 180, '#2f5bd3', 'kb2']].map((r, k) => `<div style="position:absolute;left:28px;top:${14 + k * 100}px;font-size:34px;font-weight:800">${r[0]}</div><div id="${r[3]}" style="position:absolute;left:28px;top:${56 + k * 100}px;width:${r[1] * 0.98}px;height:40px;border-radius:20px;background:${r[2]};transform-origin:left"></div>`).join('')}</div>
+    <div class="ov" id="ov87" style="left:0;right:0;top:300px;text-align:center"><span style="display:inline-block;background:#fff;padding:20px 80px;border-radius:40px;box-shadow:0 30px 80px rgba(16,24,40,.25);font-size:240px;font-weight:800;color:#1e7f4f">87%</span></div>`);
+  ADDS(PL('pKql', 960, 40, 'KQL · Azure query language', 'blue', 56) + PL('pDeep', 960, 760, 'deep analysis = black box', 'amber', 64) + PL('pDay', 1530, 500, 'comes back every day', 'amber', 40));
+  gsap.set('#ovT0', { opacity: 1 });
+
+  /* ═════════ EXAMS ═════════ */
+  const cdk = (id, x, y, lab, tr) => `<div class="cdk" id="${id}" style="left:${x}px;top:${y}px;${lab === 'True' ? 'background:#5a4510;color:#ffd166' : 'background:#1f3c8f;color:#cfe0ff'}">${lab}</div>`;
+  EXAMS(
+    mkExam('exA', { q: "Nexo's numbers mix the team's tests with real employees. The manager wants only real traffic. What do you do?",
+      opts: ['Delete the old events from the customEvents table', 'Filter designMode equal to False in the query', 'Publish the agent again to reset the counters'],
+      why: '<div id="exA_w1">Tests stay recorded, but drop out of the <span class="g">query</span></div><div id="exA_w2">Deleting <span class="r">loses data</span> · publishing <span class="r">resets nothing</span></div>',
+      proof: `<div class="rm" style="left:0;width:640px;border-color:#3a4a78"><h4>customEvents</h4>${[0, 1, 2, 3, 4, 5].map((k) => cdk('pA_c' + k, 30 + (k % 3) * 200, 100 + Math.floor(k / 3) * 90, k % 2 ? 'False' : 'True')).join('')}</div>
+        <div class="rm" style="left:670px;width:470px;border-color:#ffd166"><h4>Filter</h4>${IC('filter', 'position:absolute;left:30px;top:100px;width:80px;height:80px;color:#ffd166')}<div class="lb" style="left:24px;top:200px;font-size:36px;color:#fff">designMode == False</div></div>
+        <div class="rm" style="left:1170px;width:510px;border-color:#6be3a0"><h4>Real traffic</h4>${[0, 1, 2].map((k) => cdk('pA_r' + k, 24 + k * 160, 130, 'False')).join('')}</div>` }),
+    mkExam('exB', { q: 'The security team must guarantee that no agent in the environment can send telemetry to Application Insights, not today and not next month. What do they use?',
+      opts: ['Block its connector in a data policy', 'Turn off Enable logging in every agent', 'Remove the Reader role from every maker'],
+      why: '<div id="exB_w1">A <span class="g">data policy</span> on the connector covers every agent</div><div id="exB_w2"><span class="r">Toggles come back</span> · <span class="r">Reader</span> is only for viewing</div>',
+      proof: `<div class="rm" style="left:0;width:840px;border-color:#3a4a78"><h4>Data policy</h4><div class="w" style="left:30px;top:100px;width:780px;height:70px;border-radius:14px;background:#2d3a5c;color:#fff;font-size:34px;font-weight:700;display:flex;align-items:center;gap:14px;padding-left:20px">${IC('plug_connected', 'width:44px;height:44px')}Application Insights in Copilot Studio</div>
+          <div class="w" id="pB_bar" style="left:30px;top:215px;width:300px;height:34px;border-radius:17px;background:#c4392f"></div><div class="lb" style="left:360px;top:205px;color:#ff8a80">Blocked</div></div>
+        <div class="rm" style="left:870px;width:810px;border-color:#3a4a78"><h4>Every agent</h4>${[0, 1, 2].map((k) => `<div class="w" style="left:${40 + k * 260}px;top:100px">${miniBot(80)}</div><div class="w" style="left:${130 + k * 260}px;top:140px;width:90px;height:6px;border-radius:3px;background:#8a93a6"></div><div class="w" style="left:${224 + k * 260}px;top:112px;font-size:50px;font-weight:800;color:#ff8a80">✕</div>`).join('')}<div class="lb" style="left:40px;top:215px;color:#cfd8ee;font-size:36px">all cables grey</div></div>` }),
+    mkExam('exC', { q: 'Finance wants the credits Contoso will be billed for this month on Nexo. Where do you get the figure?',
+      opts: ['Add up the credits shown for each listed session', 'Query the credit events in Application Insights', 'Read Total estimated credits used on Monitor'],
+      why: '<div id="exC_w1"><span class="g">Total estimated credits used</span> is the billing source of truth</div><div id="exC_w2">The sessions list only shows <span class="r">single sessions</span> (and only 28 days)</div>',
+      proof: `<div class="rm" style="left:0;width:840px;border-color:#6be3a0"><h4>Monitor</h4><div class="w" style="left:30px;top:90px;font-size:90px;font-weight:800;color:#fff">2,480</div><div class="lb" style="left:30px;top:200px;font-size:36px;color:#cfd8ee">Total estimated credits used</div><div class="w" style="left:560px;top:110px;border:5px solid #6be3a0;color:#6be3a0;border-radius:14px;padding:6px 26px;font-size:48px;font-weight:800;transform:rotate(-6deg)">billing</div></div>
+        <div class="rm" style="left:870px;width:810px;border-color:#3a4a78"><h4>Sessions</h4>${[['Completed', '4.2'], ['Failed', '3.1'], ['Completed', '0.9']].map((r, k) => `<div class="w" style="left:30px;top:${90 + k * 56}px;font-size:36px;font-weight:700;color:#cfd8ee;width:420px">${r[0]} · ${r[1]}</div>`).join('')}<div class="w" style="left:470px;top:120px;border:5px solid #ffd166;color:#ffd166;border-radius:999px;padding:6px 28px;font-size:44px;font-weight:800">partial view</div></div>` }));
+
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.3, 0.5);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.05);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 1.0, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.6, ease: 'power2.inOut' }, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '.ov', '.ovb', '.kcard'], S(i, 0) - 0.8, 0.3); OFF('#cur', S(i, 0) - 0.8, 0.2); };
+  const exWhy = (id, i, reveal) => {
+    const L = B.scenes[i].sentences.length - 1, PR = Math.max(S(i, Math.min(reveal + 1, L)) + 0.2, S(i, reveal) + 1.7);
+    tl.fromTo(`#${id}_w1`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, PR);
+    tl.fromTo(`#${id}_w2`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(i, Math.min(reveal + 2, L)) + 0.1, PR + 1));
+    ON(`#${id}_p`, PR, 0.4);
+    return PR;
+  };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - 1920 * 0.5, y: 540 - 1080 * 0.5, scale: 0.5 });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 });
+  gsap.set(['#lbNexo', '#lbTest'], { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set(['#kb0', '#kb1', '#kb2'], { scaleX: 0 });
+  gsap.set('#dmR2', { backgroundColor: 'rgba(255,255,255,0)' });
+
+  /* ═════════ 0 · Is Nexo working? ═════════ */
+  OFF('#ovT0', E(0, 0) + 0.2, 0.5);
+  TAG('#lbNexo', S(0, 1) + 0.3);
+  tl.fromTo('#mgr', { scaleX: 1 }, { scaleX: -1, duration: 0.3, transformOrigin: '50% 100%', immediateRender: false }, W(0, 1, 'team', 0));
+  tl.fromTo('#mgr', { y: 0 }, { y: -20, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, W(0, 1, 'asks', 0));
+  POP('#bq1', W(0, 2, 'What', 0)); POP('#bq2', W(0, 2, 'working', -0.3));
+  OFF(['#bq1', '#bq2'], S(0, 3) - 0.1, 0.3);
+  POP('#bd', S(0, 3) + 0.2); POP('#fc0', W(0, 3, 'frowns', 0)); POP('#fc1', W(0, 3, 'frowns', 0.2));
+  [0, 2, 5, 7].forEach((k, n) => tl.to(`#bd_b${k}`, { backgroundColor: AMB, duration: 0.25 }, W(0, 4, 'tests', 0) + n * 0.25));
+  TAG('#lbTests', W(0, 4, 'tests', 0)); OFF('#lbTests', S(0, 5) - 0.2, 0.3);
+  OFF(['#fc0', '#fc1'], S(0, 5) - 0.2, 0.3);
+  [1, 3, 4, 6].forEach((k, n) => POP(`#bd_q${k}`, S(0, 5) + 0.2 + n * 0.3));
+  OFF('#bd', S(0, 6) - 0.1, 0.4);
+  ON(['#bbW', '#ckW'], S(0, 6), 0.5);
+  gsap.set(['#bbW', '#ckW'], { opacity: 0 });
+  tl.to('#bbW', { opacity: 0.55, duration: 0.5 }, S(0, 6)); tl.to('#ckW', { opacity: 0.55, duration: 0.5 }, S(0, 6));
+  tl.to('#bbBody', { boxShadow: '0 0 0 24px rgba(255,209,102,.7)', duration: 0.6, yoyo: true, repeat: 3 }, S(0, 6) + 0.3);
+  tl.to('#ckGlow', { boxShadow: '0 0 0 24px rgba(255,209,102,.7)', duration: 0.6, yoyo: true, repeat: 3 }, S(0, 6) + 0.3);
+  TAG('#lbTwo', W(0, 6, 'two tools', 0)); TAG('#lbKeep', W(0, 6, 'keep the tests', 0));
+  OFF(['#lbTwo', '#lbKeep'], E(0, 6) + 0.1, 0.4);
+
+  /* ═════════ 1 · Black box and cockpit ═════════ */
+  const PT = S(1, 1) - 0.3;
+  tl.fromTo('#plane', { x: 0 }, { x: 4900, duration: 4.6, ease: 'none', immediateRender: false }, PT);
+  tl.to('#bbs', { opacity: 1, duration: 0.01 }, PT + 0.8);
+  tl.fromTo('#bbs', { y: 0 }, { y: 580, duration: 0.7, ease: 'power2.in', immediateRender: false }, PT + 0.9);
+  OFF('#bbs', PT + 1.55, 0.15);
+  tl.to('#bbW', { opacity: 1, duration: 0.3 }, PT + 1.5);
+  tl.fromTo('#bbW', { y: 0 }, { y: 0, duration: 0.01 }, PT + 1.5);
+  TAG('#lbBB', PT + 1.7);
+  CAM(1200, 875, 0.8, S(1, 2) - 0.5, 1.4);
+  ON(['#lbDr'], S(1, 2), 0.3);
+  tl.to('#mag', { x: 130, y: -640, duration: 1.0, ease: 'power2.inOut' }, S(1, 2) + 0.1);
+  ['r0', 'r1', 'r2', 'r3', 'r4', 'r5'].forEach((r, k) => { const t = S(1, 2) + 1.2 + k * 0.5; ON('#' + r, t, 0.15); tl.fromTo('#' + r, { y: 0 }, { y: 440, duration: 1.0, ease: 'power1.in', immediateRender: false }, t); OFF('#' + r, t + 0.85, 0.15); });
+  tl.to('#mag', { x: 0, y: 0, duration: 1.0, ease: 'power2.inOut' }, E(1, 2) - 1.0);
+  TAG('#lbAz', S(1, 3) + 0.3);
+  tl.to('#bbBody', { boxShadow: '0 0 0 18px rgba(255,209,102,.8)', duration: 0.4, yoyo: true, repeat: 3 }, W(1, 3, 'Application Insights', 0));
+  CAM(2640, 800, 0.8, S(1, 4) - 0.4, 1.8);
+  ON('#ckW', S(1, 4) - 0.3, 0.4);
+  ['g0', 'g1', 'g2', 'g3'].forEach((g, k) => { tl.to(`#${g}_n`, { rotation: [-20, 25, -40, 40][k], svgOrigin: '120 130', duration: 1.3, ease: 'power2.inOut' }, S(1, 4) + 0.8 + k * 0.15); tl.to(`#${g}_n`, { rotation: [30, 10, 20, 55][k], svgOrigin: '120 130', duration: 1.0, ease: 'power1.inOut' }, S(1, 4) + 2.4 + k * 0.1); });
+  OFF('#lbAz', S(1, 4), 0.3);
+  TAG('#lbMon', W(1, 5, 'Monitor', 0));
+  TAG('#lbAlias', W(1, 5, 'formerly', -0.2)); OFF('#lbAlias', W(1, 5, 'formerly', 3.8), 0.3);
+  OFF('#lbMon', S(1, 6) - 0.3, 0.3);
+  CAM(1920, 1080, 0.5, S(1, 6) - 0.5, 1.4);
+  OFF('#lbBB', S(1, 6) - 0.3, 0.3);
+  TAG('#lbRec', W(1, 6, 'records', 0)); TAG('#lbNow', W(1, 6, 'health now', -0.3));
+  OFF(['#lbRec', '#lbNow'], E(1, 6) + 0.2, 0.4);
+
+  /* ═════════ 2 · Plug in the black box ═════════ */
+  CAM(1067, 600, 0.9, S(2, 0) - 0.3, 1.3);
+  UIIN2('#uiAz', S(2, 1) - 0.2); ON('#cur', S(2, 1) + 0.4, 0.3);
+  CUR(PAZ.cp[0], PAZ.cp[1], W(2, 1, 'copy', -0.7), 0.8); CLICK(PAZ.cp[0], PAZ.cp[1], W(2, 1, 'copy', 0.1));
+  pulse('#uiAz_cs', W(2, 1, 'copy', 0.1), 'rgba(47,91,211,.7)'); ON('#uiAz_ok', W(2, 1, 'copy', 0.3), 0.25);
+  TAG('#uId', S(2, 2) + 0.1); OFF('#uId', S(2, 3) - 0.3, 0.3);
+  WSWAP('#uiAz', '#uiCS', S(2, 3) - 0.2);
+  CUR(PCS.nx[0], PCS.nx[1], W(2, 3, 'open Nexo', -0.4), 0.7); CLICK(PCS.nx[0], PCS.nx[1], W(2, 3, 'open Nexo', 0.2));
+  tl.to('#cs_nx', { backgroundColor: '#e6ecfb', duration: 0.2 }, W(2, 3, 'open Nexo', 0.2));
+  CUR(PCS.nv2[0], PCS.nv2[1], W(2, 3, 'Settings', -0.3), 0.6); CLICK(PCS.nv2[0], PCS.nv2[1], W(2, 3, 'Settings', 0.1)); NAV('#uiCS', 2, W(2, 3, 'Settings', 0.1), 3);
+  SWAP('#cs_ag', '#cs_gen', W(2, 3, 'Settings', 0.15)); ON('#cs_tabs', W(2, 3, 'Settings', 0.3), 0.2);
+  CUR(PCS.t2[0], PCS.t2[1], W(2, 3, 'Advanced', -0.4), 0.6); CLICK(PCS.t2[0], PCS.t2[1], W(2, 3, 'Advanced', 0.1));
+  tl.to('#cs_t2', { color: BLUE, borderBottomColor: BLUE, duration: 0.2 }, W(2, 3, 'Advanced', 0.1)); tl.to('#cs_t0', { color: '#5d6472', borderBottomColor: 'rgba(47,91,211,0)', duration: 0.2 }, W(2, 3, 'Advanced', 0.1));
+  SWAP('#cs_gen', '#cs_adv', W(2, 3, 'Advanced', 0.15));
+  CUR(PCS.ah[0] + 200, PCS.ah[1], W(2, 3, 'Application Insights section', -0.3), 0.6); pulse('#cs_ah', W(2, 3, 'Application Insights section', 0));
+  CUR(PCS.ph[0], PCS.ph[1], S(2, 4) - 0.1, 0.5); CLICK(PCS.ph[0], PCS.ph[1], W(2, 4, 'Paste', 0.1));
+  SWAP('#cs_ph', '#cs_val', W(2, 4, 'Paste', 0.3));
+  CUR(PCS.tg[0], PCS.tg[1], W(2, 4, 'turn on', -0.5), 0.6); CLICK(PCS.tg[0], PCS.tg[1], W(2, 4, 'turn on', 0.2)); TG('cs_tg', W(2, 4, 'turn on', 0.2), true);
+  UIOUT2('#uiCS', E(2, 4) + 0.1); OFF('#cur', E(2, 4) + 0.1, 0.3);
+  CAM(1920, 1080, 0.5, E(2, 4) + 0.1, 1.2);
+  ON('#cbl', S(2, 5) + 0.1, 0.1); tl.fromTo('#cbl', { strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut', immediateRender: false }, S(2, 5) + 0.1);
+  tl.fromTo('#cbl', { strokeWidth: 14 }, { strokeWidth: 26, duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, S(2, 5) + 1.5);
+  ON('#r5', S(2, 5) + 1.2, 0.1); tl.fromTo('#r5', { y: 0 }, { y: 440, duration: 1.0, ease: 'power1.in', immediateRender: false }, S(2, 5) + 1.2); OFF('#r5', S(2, 5) + 2.0, 0.15);
+  TAG('#lbUnch', S(2, 6) + 0.1); OFF('#lbUnch', E(2, 6) + 0.2, 0.4);
+
+  /* ═════════ 3 · Three extra switches ═════════ */
+  UIIN2('#uiSW', S(3, 0) - 0.2);
+  [1, 2, 3].forEach((k) => tl.fromTo(`#sw_r${k}`, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.45, ease: 'back.out(1.6)' }, S(3, 0) + 0.7 + (k - 1) * 0.5));
+  pulse('#sw_r0', W(3, 0, 'Enable', 0), 'rgba(47,91,211,.6)');
+  pulse('#sw_r1', S(3, 1), 'rgba(47,91,211,.6)');
+  [['#sw_c0', 'user'], ['#sw_c1', 'name'], ['#sw_c2', 'message text']].forEach(([c, w]) => ON(c, W(3, 1, w, 0), 0.25));
+  pulse('#sw_r2', S(3, 2), 'rgba(47,91,211,.6)'); ON('#sw_c3', W(3, 2, 'sensitive details', 0), 0.25);
+  pulse('#sw_r3', S(3, 3), 'rgba(47,91,211,.6)');
+  [0, 1, 2, 3, 4].forEach((k) => tl.to(`#sw_n${k}`, { backgroundColor: BLUE, duration: 0.2 }, S(3, 3) + 2.2 + k * 0.7));
+  ON('#sw_b1', S(3, 4) + 0.2, 0.3); ON('#sw_bx', S(3, 4) + 0.5, 0.3); ON('#sw_b2', S(3, 4) + 0.8, 0.3);
+  TAG('#uOnly', W(3, 4, 'only when', 0));
+  UIOUT2('#uiSW', E(3, 4) + 0.1); OFF('#uOnly', E(3, 4) + 0.05, 0.3);
+
+  /* ═════════ 4 · customEvents and designMode ═════════ */
+  CAM(1300, 1000, 0.8, S(4, 0) - 0.4, 1.5);
+  POP('#lbDr', W(4, 1, 'customEvents', -0.2));
+  ON('#dim', S(4, 2) + 0.2, 0.4); tl.fromTo('#dim', { scale: 0.7 }, { scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(4, 2) + 0.2);
+  ['dmR0', 'dmR1'].forEach((r, k) => tl.fromTo('#' + r, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, immediateRender: false }, S(4, 2) + 0.5 + k * 0.3));
+  tl.fromTo('#dmR2', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, immediateRender: false }, W(4, 2, 'designMode', 0));
+  tl.to('#dmR2', { backgroundColor: '#fff3d6', color: AMB, duration: 0.3 }, W(4, 2, 'designMode', 0.2));
+  OFF('#dim', S(4, 3) - 0.3, 0.4);
+  CAM(1300, 1250, 0.8, S(4, 3) - 0.4, 1.2);
+  TAG('#lbTest', S(4, 3) + 0.1); ON('#cT', W(4, 3, 'True', -0.2), 0.2);
+  tl.fromTo('#cT', { x: 0, y: 0 }, { x: -1250, duration: 1.5, ease: 'none', immediateRender: false }, W(4, 3, 'True', -0.2));
+  tl.fromTo('#cT', { y: 0 }, { y: -360, duration: 0.7, ease: 'power2.out', immediateRender: false }, W(4, 3, 'True', -0.2));
+  tl.to('#cT', { y: -330, duration: 0.8, ease: 'power2.in' }, W(4, 3, 'True', 0.5));
+  tl.to('#cT', { scale: 0.5, duration: 0.5 }, W(4, 3, 'True', 1.1)); OFF('#cT', W(4, 3, 'True', 1.5), 0.3);
+  OFF('#lbTest', S(4, 4) - 0.2, 0.3);
+  ON('#cF', S(4, 4) + 0.1, 0.2);
+  tl.fromTo('#cF', { x: 0 }, { x: -1100, duration: 1.4, ease: 'none', immediateRender: false }, S(4, 4) + 0.1);
+  tl.fromTo('#cF', { y: 0 }, { y: -200, duration: 0.6, ease: 'power2.out', immediateRender: false }, S(4, 4) + 0.1);
+  tl.to('#cF', { y: -120, duration: 0.8, ease: 'power2.in' }, S(4, 4) + 0.7);
+  tl.to('#cF', { scale: 0.5, duration: 0.4 }, S(4, 4) + 1.2); OFF('#cF', S(4, 4) + 1.5, 0.3);
+  CAM(1200, 875, 0.8, S(4, 5) - 0.4, 1.3);
+  ON('#c2', S(4, 5) + 0.2, 0.4);
+  [0, 2, 4].forEach((k, n) => tl.to(`#c2_b${k}`, { backgroundColor: AMB, duration: 0.25 }, W(4, 5, 'label', 0) + n * 0.2));
+  TAG('#pStampT', S(4, 6) + 0.1); SWAP('#pStampT', '#pMarked', W(4, 6, 'marked', -0.2));
+  OFF(['#pMarked', '#c2', '#lbDr'], E(4, 6) + 0.1, 0.4);
+
+  /* ═════════ 5 · EXAM ═════════ */
+  toExam(5);
+  EXAMX('exA', 5, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 0.6 });
+  const PRA = exWhy('exA', 5, 8);
+  tl.to([0, 2, 4].map((k) => '#pA_c' + k), { opacity: 0.25, duration: 0.4 }, S(5, 9));
+  tl.fromTo('#pA_r0', { scale: 1 }, { scale: 1.08, duration: 0.3, yoyo: true, repeat: 3 }, S(5, 9) + 0.3);
+
+  /* ═════════ 6 · KQL ═════════ */
+  camAt(1200, 1485, 0.8, S(6, 0) - 0.7); ON('#world', S(6, 0) - 0.2, 0.3);
+  tl.set(['#bbW', '#ckW'], { opacity: 1 }, S(6, 0) - 0.7);
+  TAG('#pKql', S(6, 0) + 0.2);
+  tl.to('#mag', { x: 140, y: 40, duration: 0.8, ease: 'power2.inOut' }, S(6, 0) + 0.5);
+  ON('#kq', W(6, 2, 'Start from', -0.2), 0.3); tl.fromTo('#kq', { y: 30 }, { y: 0, duration: 0.4, immediateRender: false }, W(6, 2, 'Start from', -0.2));
+  UP('#kq0', W(6, 2, 'Start from', 0)); UP('#kq1', W(6, 2, 'keep only', 0)); UP('#kq2', W(6, 2, 'group them', 0));
+  SWAP('#kqw', '#kqw', 0);
+  tl.to('#kqw', { opacity: 0, duration: 0.15 }, W(6, 2, 'topic', -0.1)); tl.set('#kqw', { innerHTML: 'topic' }, W(6, 2, 'topic', 0.05)); tl.to('#kqw', { opacity: 1, duration: 0.2 }, W(6, 2, 'topic', 0.05));
+  OFF('#pKql', S(6, 2), 0.3);
+  ON('#kb', S(6, 3) + 0.1, 0.4);
+  ['kb0', 'kb1', 'kb2'].forEach((b, k) => tl.to('#' + b, { scaleX: 1, duration: 0.6, ease: 'power2.out' }, S(6, 3) + 0.5 + k * 0.35));
+  TAG('#pDay', W(6, 3, 'come back', 0));
+  OFF(['#pDay'], S(6, 4) - 0.1, 0.3);
+  TAG('#pDeep', S(6, 4) + 0.3);
+  OFF(['#kq', '#kb', '#pDeep'], E(6, 4) + 0.1, 0.4);
+
+  /* ═════════ 7 · A ready dashboard ═════════ */
+  CAM(1920, 1080, 0.5, E(6, 4) + 0.1, 1.2);
+  TAG('#lbZero', S(7, 0) + 0.1); OFF('#lbZero', S(7, 1) - 0.4, 0.3);
+  UIIN2('#uiWB', S(7, 1) - 0.2); ON('#cur', S(7, 1) + 0.4, 0.3);
+  CUR(PWB.tile[0], PWB.tile[1], W(7, 1, 'Workbooks', 0.2), 0.8); NAV('#uiWB', 2, W(7, 1, 'Workbooks', 0), 4);
+  CLICK(PWB.tile[0], PWB.tile[1], W(7, 1, 'Copilot Studio Dashboard', 0.2)); pulse('#wb_tile', W(7, 1, 'Copilot Studio Dashboard', 0.2), 'rgba(47,91,211,.7)');
+  SWAP('#wb_ls', '#wb_wd', S(7, 2) + 0.1);
+  UIOUT2('#uiWB', S(7, 3) - 0.5); OFF('#cur', S(7, 3) - 0.5, 0.3);
+  tl.to('#mgr', { x: -1330, duration: 1.8, ease: 'power1.inOut' }, S(7, 3) - 0.2);
+  tl.fromTo('#mgr', { scaleX: -1 }, { scaleX: 1, duration: 0.01, immediateRender: false }, S(7, 3) - 0.21);
+  UIIN2('#uiIAM', S(7, 4) - 0.3); ON('#cur', S(7, 4) + 0.2, 0.3);
+  CUR(PIA.nv3[0], PIA.nv3[1], S(7, 4) - 0.1, 0.6); NAV('#uiIAM', 3, S(7, 4) + 0.2, 4);
+  CUR(PIA.add[0], PIA.add[1], W(7, 4, 'Reader', -0.3), 0.6); CLICK(PIA.add[0], PIA.add[1], W(7, 4, 'Reader', 0));
+  ON('#iam_new', W(7, 4, 'Reader', 0.3), 0.3); pulse('#iam_new', W(7, 4, 'Reader', 0.4), 'rgba(30,127,79,.7)');
+  SWAP('#iam_ls', '#iam_wd', S(7, 5) + 0.1); ON('#iam_eye', S(7, 5) + 0.5, 0.3);
+  UIOUT2('#uiIAM', E(7, 5) + 0.1); OFF('#cur', E(7, 5) + 0.1, 0.3);
+
+  /* ═════════ 8 · Who can switch it off ═════════ */
+  tl.to('#mgr', { x: 0, duration: 1.2, ease: 'power1.inOut' }, E(7, 5) + 0.2);
+  CAM(1200, 1300, 0.8, E(7, 5) + 0.2, 1.4);
+  POP('#bAdm', S(8, 1) + 0.2); tl.to('#adm', { y: -12, duration: 0.25, yoyo: true, repeat: 3 }, S(8, 1) + 0.3);
+  OFF('#bAdm', S(8, 2) - 0.3, 0.3);
+  ON('#tgBox', S(8, 2) - 0.1, 0.3);
+  tl.set('#hand', { opacity: 1, x: 0, y: 0 }, S(8, 2) + 0.2);
+  tl.fromTo('#hand', { x: 800, y: 400 }, { x: -160, y: -300, duration: 1.0, ease: 'power2.out', immediateRender: false }, S(8, 2) + 0.2);
+  tl.to('#tgW', { backgroundColor: '#c9ced8', duration: 0.2 }, S(8, 2) + 1.4); tl.to('#tgWK', { x: 0, duration: 0.2 }, S(8, 2) + 1.4);
+  TAG('#lbNot', W(8, 2, 'not an admin', 0)); OFF('#lbNot', S(8, 3) - 0.1, 0.3);
+  OFF('#cbl', S(8, 2) + 1.4, 0.2); ON('#cbG', S(8, 2) + 1.4, 0.2);
+  tl.fromTo('#hand', { x: -160, y: -300 }, { x: -400, y: -330, duration: 0.5, immediateRender: false }, S(8, 3) - 0.3);
+  tl.to('#tgW', { backgroundColor: BLUE, duration: 0.2 }, S(8, 3) + 0.4); tl.to('#tgWK', { x: 52, duration: 0.2 }, S(8, 3) + 0.4);
+  OFF('#cbG', S(8, 3) + 0.4, 0.2); ON('#cbl', S(8, 3) + 0.4, 0.2);
+  TAG('#lbBack', S(8, 3) + 0.5); OFF(['#lbBack', '#hand', '#tgBox'], S(8, 4) - 0.2, 0.3);
+  ON('#gt', S(8, 4) - 0.1, 0.3); TAG('#lbGate', S(8, 4) - 0.1);
+  tl.to('#gt_bar', { rotation: 0, duration: 0.6, ease: 'bounce.out' }, S(8, 4) + 0.2);
+  ON('#conn', W(8, 4, 'connector', 0), 0.3);
+  tl.to('#conn', { borderColor: RED, color: RED, backgroundColor: '#fde8e6', duration: 0.3 }, W(8, 4, 'Application Insights in Copilot Studio', 0.5));
+  ON('#connB', W(8, 4, 'Application Insights in Copilot Studio', 0.5), 0.3);
+  OFF('#cbl', S(8, 4) + 0.7, 0.2); ON('#cbG', S(8, 4) + 0.7, 0.2);
+  TAG('#lbEnv', S(8, 5) + 0.2); OFF('#lbEnv', S(8, 5) + 8, 0.4);
+  gsap.set('#gt', { opacity: 0 });
+
+  /* ═════════ 9 · EXAM ═════════ */
+  toExam(9);
+  EXAMX('exB', 9, { pause: 6, reveal: 7, trap: 1, right: 0, opt: [S(9, 3), S(9, 4), S(9, 5)], end: S(10, 0) - 0.6 });
+  exWhy('exB', 9, 7);
+  tl.fromTo('#pB_bar', { scaleX: 0 }, { scaleX: 1, duration: 0.6, transformOrigin: 'left', immediateRender: false }, S(9, 8));
+
+  /* ═════════ 10 · The cockpit: Monitor tab ═════════ */
+  camAt(2640, 800, 0.8, S(10, 0) - 0.7); ON('#world', S(10, 0) - 0.2, 0.3);
+  tl.set(['#lbMon', '#lbAlias', '#gt', '#lbGate', '#conn', '#connB', '#lbNot', '#lbBack', '#lbEnv', '#cbG'], { opacity: 0 }, S(10, 0) - 0.7); tl.set('#cbl', { opacity: 1 }, S(10, 0) - 0.7);
+  UIIN2('#uiMo', S(10, 1) - 0.3); ON('#cur', S(10, 1) + 0.3, 0.3);
+  CUR(PMO.nv1[0], PMO.nv1[1], W(10, 1, 'Monitor', -0.5), 0.7); CLICK(PMO.nv1[0], PMO.nv1[1], W(10, 1, 'Monitor', 0)); NAV('#uiMo', 1, W(10, 1, 'Monitor', 0), 3);
+  SWAP('#mo_ov', '#mo_mon', W(10, 1, 'Monitor', 0.1));
+  CUR(PMO.pk[0], PMO.pk[1], S(10, 2) - 0.2, 0.6); CLICK(PMO.pk[0], PMO.pk[1], S(10, 2) + 0.2);
+  ON('#mo_dd', S(10, 2) + 0.3, 0.2); OFF('#mo_dd', E(10, 2) - 0.1, 0.2);
+  CUR(PMO.pk[0] - 200, PMO.pk[1] + 300, E(10, 2), 0.5);
+  [0, 1, 2, 3].forEach((k) => { tl.to(`#mo_c${k}_d`, { backgroundColor: '#fff3d6', borderRadius: 10, duration: 0.2 }, W(10, 3, 'compares', 0) + k * 0.25); pulse(`#mo_c${k}`, W(10, 3, 'compares', 0) + k * 0.25, 'rgba(30,127,79,.6)'); });
+  ON('#mo_nev', S(10, 4) + 0.1, 0.3); TAG('#uReal', W(10, 4, 'only real', 0));
+  OFF(['#mo_nev', '#uReal'], S(10, 5) - 0.1, 0.3); TAG('#uClock', S(10, 5) + 0.1);
+  OFF('#uClock', E(10, 5) + 0.05, 0.3);
+
+  /* ═════════ 11 · The overview cards ═════════ */
+  [0, 1, 2, 3].forEach((k) => { tl.to(`#mo_c${k}`, { backgroundColor: '#e6ecfb', borderColor: BLUE, duration: 0.25 }, W(11, 1, ['sessions', 'users', 'duration', 'success'][k], 0)); tl.to(`#mo_c${k}`, { backgroundColor: '#f3f5f9', borderColor: '#e2e5eb', duration: 0.3 }, W(11, 1, ['sessions', 'users', 'duration', 'success'][k], 0.9)); });
+  ON('#mo_ins', S(11, 2) + 0.1, 0.3); OFF('#mo_ins', S(11, 3) - 0.2, 0.3);
+  ON('#mo_row2', S(11, 3) + 0.1, 0.4); tl.fromTo('#mo_row2', { x: -60 }, { x: 0, duration: 0.45, immediateRender: false }, S(11, 3) + 0.1);
+  UIOUT2('#uiMo', S(11, 4) - 0.5); OFF('#cur', S(11, 4) - 0.5, 0.3);
+  CAM(2400, 900, 0.7, S(11, 4) - 0.5, 1.3);
+  tl.to('#g3_n', { rotation: 50, svgOrigin: '120 130', duration: 1.0, ease: 'back.out(1.6)' }, S(11, 4) + 0.8);
+  POP('#bq2', S(11, 4) + 0.3); SWAP('#bq2', '#bq2g', W(11, 4, 'Monday', 1.2));
+  tl.set('#bq2g', { opacity: 0 }, 0);
+  OFF('#bq2g', S(11, 5) - 0.2, 0.3);
+  ON('#ov87', S(11, 5), 0.3); tl.fromTo('#ov87', { scale: 0.8 }, { scale: 1.1, duration: 0.4, yoyo: true, repeat: 1, ease: 'power2.inOut', immediateRender: false }, S(11, 5));
+  OFF('#ov87', E(11, 5) + 0.1, 0.4);
+
+  /* ═════════ 12 · Thumbs up, thumbs down ═════════ */
+  UIIN2('#uiMo', S(12, 0) - 0.3); ON('#cur', S(12, 0) + 0.2, 0.3);
+  pulse('#mo_rc', S(12, 0) + 0.3, 'rgba(47,91,211,.6)');
+  OFF('#mo_rcF', S(12, 1) + 0.4, 0.3); ON('#mo_rcE', S(12, 1) + 0.5, 0.3);
+  TAG('#uFb', S(12, 2) + 0.1); OFF('#uFb', S(12, 3) - 0.2, 0.3);
+  CUR(PMO.nv2[0], PMO.nv2[1], S(12, 3) - 0.4, 0.6); CLICK(PMO.nv2[0], PMO.nv2[1], S(12, 3) - 0.1); NAV('#uiMo', 2, S(12, 3) - 0.1, 3);
+  SWAP('#mo_mon', '#mo_st', S(12, 3));
+  CUR(PMO.tsa[0], PMO.tsa[1], W(12, 3, 'Safety', -0.3), 0.5); CLICK(PMO.tsa[0], PMO.tsa[1], W(12, 3, 'Safety', 0.1));
+  tl.to('#mo_tsa', { color: BLUE, borderBottomColor: BLUE, duration: 0.2 }, W(12, 3, 'Safety', 0.1));
+  ON('#mo_ufr', W(12, 3, 'Safety', 0.3), 0.3);
+  CUR(PMO.ut[0], PMO.ut[1], S(12, 4) - 0.1, 0.6); CLICK(PMO.ut[0], PMO.ut[1], S(12, 4) + 0.5); TG('mo_ut', S(12, 4) + 0.5, true);
+  UIOUT2('#uiMo', S(12, 4) + 1.2); OFF('#cur', S(12, 4) + 1.2, 0.3);
+  CAM(2300, 1000, 0.7, S(12, 4) + 1.2, 1.2);
+  POP('#nxAns', S(12, 4) + 2.2); POP('#thb', S(12, 4) + 2.9);
+  ON('#thf', S(12, 4) + 3.3, 0.1);
+  tl.fromTo('#thf', { x: 0, y: 0 }, { x: 760, y: -20, duration: 0.7, ease: 'power1.inOut', immediateRender: false }, S(12, 4) + 3.3);
+  OFF('#thf', S(12, 4) + 4.0, 0.15); SWAP('#thE', '#thF', S(12, 4) + 3.9);
+  OFF(['#nxAns', '#thb'], S(12, 5) - 0.2, 0.3);
+  TAG('#uCheap', S(12, 5) + 0.2);
+  OFF(['#uCheap'], E(12, 5) + 0.1, 0.4);
+
+  /* ═════════ 13 · Sessions and transcripts ═════════ */
+  UIIN2('#uiMo', S(13, 0) - 0.4); ON('#cur', S(13, 0) + 0.2, 0.3);
+  tl.set('#mo_st', { opacity: 0 }, S(13, 0) - 0.5); tl.set('#mo_mon', { opacity: 1 }, S(13, 0) - 0.5); NAV('#uiMo', 1, S(13, 0) - 0.5, 3);
+  tl.set('#mo_cr', { opacity: 1 }, S(13, 0) - 0.5);
+  tl.to('#mo_sc', { y: -870, duration: 1.0, ease: 'power2.inOut' }, S(13, 0) + 0.2);
+  pulse('#mo_flt', S(13, 1) + 0.3, 'rgba(47,91,211,.6)');
+  [0, 1, 2, 3].forEach((k) => { const t = W(13, 2, ['completed', 'failed', 'in progress', 'tools'][k], 0); pulse(`#mo_sr${k}`, t, 'rgba(47,91,211,.4)'); });
+  CUR(PMO.sr1[0] + 0, PMO.sr1[1] - 870, S(13, 3) - 0.2, 0.6); CLICK(PMO.sr1[0], PMO.sr1[1] - 870, S(13, 3) + 0.4);
+  OFF('#mo_mon', S(13, 3) + 0.5, 0.2); ON('#mo_tr', S(13, 3) + 0.75, 0.3);
+  [0, 1, 2, 3].forEach((k) => UP('#mo_ts' + k, S(13, 3) + 0.9 + k * 0.7, 20));
+  tl.set(['#mo_ts0', '#mo_ts1', '#mo_ts2', '#mo_ts3'], { opacity: 1 }, 0);
+  tl.to('#mo_ts3', { backgroundColor: '#fde8e6', borderColor: RED, duration: 0.3 }, S(13, 4));
+  pulse('#mo_ts3', S(13, 4), 'rgba(196,57,47,.7)'); ON('#mo_lost', S(13, 4) + 0.4, 0.3);
+  
+
+  /* ═════════ 14 · The billing number ═════════ */
+  UIOUT2('#uiMo', E(13, 4) + 0.05); OFF('#cur', E(13, 4) + 0.05, 0.3);
+  tl.set(['#mo_tr', '#mo_lost'], { opacity: 0 }, E(13, 4) + 0.6); tl.set('#mo_mon', { opacity: 1 }, E(13, 4) + 0.6);
+  CAM(2385, 1160, 0.66, E(13, 4), 1.2);
+  tl.to('#fin', { y: -16, duration: 0.3, yoyo: true, repeat: 3 }, S(14, 0) + 0.3);
+  tl.set('#mo_sc', { y: -70 }, S(14, 0) + 1.5);
+  UIIN2('#uiMo', S(14, 0) + 1.8); ON('#cur', S(14, 0) + 2.3, 0.3);
+  pulse('#mo_cr', S(14, 0) + 2.4, 'rgba(30,127,79,.7)');
+  TAG('#uBill', S(14, 1) + 0.1); OFF('#uBill', S(14, 2) - 0.2, 0.3);
+  ON('#mo_bars', W(14, 2, 'split', 0), 0.3); TAG('#uUpd', S(14, 2) + 0.2); OFF('#uUpd', S(14, 3) - 0.2, 0.3);
+  tl.fromTo(['#mo_bp', '#mo_bv', '#mo_be'], { scaleX: 0 }, { scaleX: 1, duration: 0.6, transformOrigin: 'left', stagger: 0.25, immediateRender: false }, W(14, 2, 'production', 0));
+  ON('#mo_brk', S(14, 3) + 0.2, 0.3); ON('#mo_brkT', S(14, 3) + 0.4, 0.3);
+  UIOUT2('#uiMo', S(14, 4) - 0.4); OFF('#cur', S(14, 4) - 0.4, 0.3);
+  CAM(1920, 1080, 0.5, S(14, 4) - 0.4, 1.3);
+  ON(['#bBrick', '#bGlass'], S(14, 4) + 0.2, 0.4);
+  ON('#cbH1', S(14, 4) + 0.4, 0.1); ON('#cbH2', S(14, 4) + 0.4, 0.1);
+  tl.fromTo(['#cbH1', '#cbH2'], { strokeDasharray: '1800', strokeDashoffset: 1800 }, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut', immediateRender: false }, S(14, 4) + 0.4);
+  TAG('#lbBoth', S(14, 4) + 0.8); OFF('#lbBoth', E(14, 4) + 0.1, 0.3);
+
+  /* ═════════ 15 · EXAM ═════════ */
+  OFF(['#bBrick', '#bGlass', '#cbH1', '#cbH2'], S(15, 0) - 0.8, 0.3);
+  toExam(15);
+  EXAMX('exC', 15, { pause: 6, reveal: 7, trap: 0, right: 2, opt: [S(15, 3), S(15, 4), S(15, 5)], end: S(16, 0) - 0.6 });
+  exWhy('exC', 15, 7);
+
+  /* ═════════ 16 · Monday, solved ═════════ */
+  camAt(1920, 1080, 0.5, S(16, 0) - 0.7); ON('#world', S(16, 0) - 0.2, 0.3);
+  tl.set(['#ckW', '#bbW'], { opacity: 1 }, S(16, 0) - 0.7);
+  tl.set(['#gt', '#lbGate', '#conn', '#connB', '#cbG', '#bBrick', '#bGlass', '#cbH1', '#cbH2', '#lbBoth'], { opacity: 0 }, S(16, 0) - 0.7);
+  tl.set(['#mag'], { opacity: 0 }, 0.01);
+  ON('#cbl', S(16, 0) - 0.7, 0.01); OFF('#cbG', S(16, 0) - 0.7, 0.01);
+  tl.set('#bq2g', { opacity: 0 }, S(16, 0) - 0.7);
+  ON('#bd', S(16, 0) + 0.2, 0.4);
+  [0, 2, 5, 7].forEach((k) => tl.set(`#bd_b${k}`, { backgroundColor: AMB }, S(16, 0) - 0.7));
+  [1, 3, 4, 6].forEach((k) => tl.set(`#bd_q${k}`, { opacity: 0 }, S(16, 0) - 0.7));
+  [0, 2, 5, 7].forEach((k, n) => { tl.to(`#bd_b${k}`, { height: 0, duration: 0.5 }, S(16, 1) + 0.9 + n * 0.2); });
+  [1, 3, 4, 6].forEach((k) => tl.to(`#bd_b${k}`, { backgroundColor: BLUE, duration: 0.3 }, S(16, 1) + 0.6));
+  TAG('#lbFalse', W(16, 1, 'disappear', -0.8));
+  OFF('#lbFalse', S(16, 2) - 0.3, 0.3);
+  ['g0', 'g1', 'g2', 'g3'].forEach((g, k) => tl.to(`#${g}_n`, { rotation: 55, svgOrigin: '120 130', duration: 0.9, ease: 'back.out(1.4)' }, S(16, 2) + 0.3 + k * 0.2));
+  tl.to('#trm', { boxShadow: '0 0 0 14px rgba(107,227,160,.8)', duration: 0.4, yoyo: true, repeat: 3 }, S(16, 2) + 0.2);
+  tl.to('#ckGlow', { boxShadow: '0 0 0 20px rgba(107,227,160,.8)', duration: 0.5, yoyo: true, repeat: 3 }, S(16, 2) + 0.3);
+  OFF('#bd', S(16, 3) - 0.2, 0.3);
+  tl.to('#ovB16', { opacity: 0.94, duration: 0.4 }, S(16, 3) - 0.2); ON('#ovT16', S(16, 3) + 0.05, 0.4);
+  [0, 1, 2, 3].forEach((k) => POPX('#rc' + k, S(16, 4 + k)));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

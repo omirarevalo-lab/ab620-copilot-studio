@@ -1,0 +1,11 @@
+{
+  "0": ["Steps from the shelves", [["Actions", "The steps a flow performs"], ["Grouped by type", "Ready on the shelves"], ["From connectors", "Actions from other systems"]]],
+  "1": ["The action catalog", [["AI capabilities", "Generate text · process documents · Run a prompt · call an agent · respond to the agent"], ["Human in the loop", "Approvals · information"], ["Built-in tools", "Loops · conditions · data operations · dates · child flows"], ["Connectors", "Actions from other systems"]]],
+  "2": ["Connectors and Run a prompt", [["Connector", "Dataverse · add the ticket row"], ["Run a prompt", "In AI capabilities · runs at one point"], ["How", "Insert new action · existing or new prompt"]]],
+  "4": ["The two-minute window", [["Default", "Over two minutes to respond: the flow fails"], ["Express mode", "Heavy processing · low data volume"], ["Status", "Preview"]]],
+  "5": ["Two figures", [["100 seconds", "Action limit for a flow used as a tool"], ["Two minutes", "Default window for an agent flow to respond"], ["Tool flow", "Plan for 100 seconds"]]],
+  "6": ["Requirements and limits", [["Needs", "When an agent calls a flow · Respond to the agent · Copilot Studio plan"], ["Cost", "No extra cost"], ["Not supported", "Delay · webhooks"], ["Keep it small", "About 100 actions per run · no very large connector responses"]]],
+  "8": ["CreateTicket at Contoso", [["Connector", "Dataverse inserts the ticket row"], ["AI capabilities", "Run a prompt summarizes the text"], ["End", "Respond to the agent · express mode on"], ["Reconciliation", "Long process · asynchronous · no express mode"]]],
+  "9": ["Build it in Copilot Studio", [["Add", "Insert new action · connector action · Run a prompt"], ["Turn on", "Overview · Edit under Details · Express mode"], ["Test", "Responds in under two minutes"]]],
+  "11": ["Remember", [["Four groups", "AI capabilities · Human in the loop · Built-in tools · Connectors"], ["Run a prompt", "AI capabilities"], ["Express mode", "Heavy processing · little data · two minutes · preview"], ["Long processes", "Asynchronous"]]]
+}

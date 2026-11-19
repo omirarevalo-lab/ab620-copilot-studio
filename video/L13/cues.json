@@ -1,0 +1,1397 @@
+{
+ "id": "L13",
+ "sha256": "192382365fc889c9b90059d400a8de3aae3a8b12664891d3985405d0ba4a816d",
+ "generated": "2026-11-11T03:36:22.983Z",
+ "cues": [
+  {
+   "label": "not happy",
+   "scene": 1,
+   "sentStart": 9.47,
+   "sentEnd": 11.58,
+   "wordT": 10.87,
+   "appears": 9.81,
+   "delta": -1.06,
+   "status": "ok"
+  },
+  {
+   "label": "model",
+   "scene": 1,
+   "sentStart": 11.86,
+   "sentEnd": 16.72,
+   "wordT": 14.99,
+   "appears": 0,
+   "delta": -14.99,
+   "status": "ok"
+  },
+  {
+   "label": "custom prompt",
+   "scene": 1,
+   "sentStart": 11.86,
+   "sentEnd": 16.72,
+   "wordT": 16.03,
+   "appears": 16.09,
+   "delta": 0.07,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 1,
+   "sentStart": 11.86,
+   "sentEnd": 16.72,
+   "wordT": 16.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a recipe",
+   "scene": 2,
+   "sentStart": 19.8,
+   "sentEnd": 22.42,
+   "wordT": 20.55,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 2,
+   "sentStart": 22.7,
+   "sentEnd": 26.65,
+   "wordT": 24.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "input",
+   "scene": 2,
+   "sentStart": 26.93,
+   "sentEnd": 30.52,
+   "wordT": 28.13,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "model",
+   "scene": 2,
+   "sentStart": 30.8,
+   "sentEnd": 36.21,
+   "wordT": 31.13,
+   "appears": 0,
+   "delta": -31.13,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 2,
+   "sentStart": 30.8,
+   "sentEnd": 36.21,
+   "wordT": 32.15,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "input",
+   "scene": 2,
+   "sentStart": 30.8,
+   "sentEnd": 36.21,
+   "wordT": 33.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 3,
+   "sentStart": 39.93,
+   "sentEnd": 42.9,
+   "wordT": 40.2,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "single turn tool",
+   "scene": 3,
+   "sentStart": 39.93,
+   "sentEnd": 42.9,
+   "wordT": 41.01,
+   "appears": 40.85,
+   "delta": -0.17,
+   "status": "ok"
+  },
+  {
+   "label": "model",
+   "scene": 3,
+   "sentStart": 39.93,
+   "sentEnd": 42.9,
+   "wordT": 42.63,
+   "appears": 0,
+   "delta": -42.63,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 3,
+   "sentStart": 43.18,
+   "sentEnd": 47.02,
+   "wordT": 43.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "knowledge",
+   "scene": 3,
+   "sentStart": 43.18,
+   "sentEnd": 47.02,
+   "wordT": 45.97,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "conversation",
+   "scene": 3,
+   "sentStart": 47.3,
+   "sentEnd": 51.31,
+   "wordT": 48.03,
+   "appears": 40.32,
+   "delta": -7.71,
+   "status": "ok"
+  },
+  {
+   "label": "returns the result",
+   "scene": 3,
+   "sentStart": 47.3,
+   "sentEnd": 51.31,
+   "wordT": 50.21,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "child agent",
+   "scene": 3,
+   "sentStart": 54.26,
+   "sentEnd": 56.01,
+   "wordT": 54.61,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "heavier",
+   "scene": 3,
+   "sentStart": 54.26,
+   "sentEnd": 56.01,
+   "wordT": 55.66,
+   "appears": 55.19,
+   "delta": -0.46,
+   "status": "ok"
+  },
+  {
+   "label": "for one small task",
+   "scene": 3,
+   "sentStart": 56.29,
+   "sentEnd": 59.1,
+   "wordT": 56.29,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 3,
+   "sentStart": 56.29,
+   "sentEnd": 59.1,
+   "wordT": 57.7,
+   "appears": 40.12,
+   "delta": -17.58,
+   "status": "ok"
+  },
+  {
+   "label": "the same prompt in three places",
+   "scene": 4,
+   "sentStart": 60,
+   "sentEnd": 62.39,
+   "wordT": 60.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 4,
+   "sentStart": 60,
+   "sentEnd": 62.39,
+   "wordT": 61.33,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "as an agent tool",
+   "scene": 4,
+   "sentStart": 62.67,
+   "sentEnd": 65,
+   "wordT": 62.67,
+   "appears": 63.1,
+   "delta": 0.43,
+   "status": "ok"
+  },
+  {
+   "label": "agent tool",
+   "scene": 4,
+   "sentStart": 62.67,
+   "sentEnd": 65,
+   "wordT": 63.25,
+   "appears": 61.35,
+   "delta": -1.9,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 4,
+   "sentStart": 62.67,
+   "sentEnd": 65,
+   "wordT": 64.42,
+   "appears": 61.35,
+   "delta": -3.06,
+   "status": "ok"
+  },
+  {
+   "label": "as a node inside a topic",
+   "scene": 4,
+   "sentStart": 65.28,
+   "sentEnd": 68.67,
+   "wordT": 65.28,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add a tool",
+   "scene": 4,
+   "sentStart": 65.28,
+   "sentEnd": 68.67,
+   "wordT": 67.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "new prompt",
+   "scene": 4,
+   "sentStart": 65.28,
+   "sentEnd": 68.67,
+   "wordT": 68.15,
+   "appears": 61.5,
+   "delta": -6.65,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 4,
+   "sentStart": 65.28,
+   "sentEnd": 68.67,
+   "wordT": 68.41,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 4,
+   "sentStart": 68.95,
+   "sentEnd": 72.17,
+   "wordT": 69.83,
+   "appears": 61.65,
+   "delta": -8.18,
+   "status": "ok"
+  },
+  {
+   "label": "run a prompt action",
+   "scene": 4,
+   "sentStart": 68.95,
+   "sentEnd": 72.17,
+   "wordT": 69.83,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 4,
+   "sentStart": 68.95,
+   "sentEnd": 72.17,
+   "wordT": 70.41,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "agent flow",
+   "scene": 4,
+   "sentStart": 68.95,
+   "sentEnd": 72.17,
+   "wordT": 71.59,
+   "appears": 61.65,
+   "delta": -9.94,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 4,
+   "sentStart": 72.45,
+   "sentEnd": 75.14,
+   "wordT": 72.9,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 5,
+   "sentStart": 80.78,
+   "sentEnd": 83.98,
+   "wordT": 81.58,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "how many turns does a prompt have",
+   "scene": 5,
+   "sentStart": 84.26,
+   "sentEnd": 86.03,
+   "wordT": 84.26,
+   "appears": 76.19,
+   "delta": -8.07,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 5,
+   "sentStart": 84.26,
+   "sentEnd": 86.03,
+   "wordT": 85.53,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "as many turns as the user needs",
+   "scene": 5,
+   "sentStart": 86.31,
+   "sentEnd": 88.23,
+   "wordT": 86.31,
+   "appears": 86.34,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "two it asks for missing input",
+   "scene": 5,
+   "sentStart": 88.51,
+   "sentEnd": 90.43,
+   "wordT": 88.51,
+   "appears": 88.53,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "input",
+   "scene": 5,
+   "sentStart": 88.51,
+   "sentEnd": 90.43,
+   "wordT": 90.11,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only one then it returns",
+   "scene": 5,
+   "sentStart": 90.71,
+   "sentEnd": 92.59,
+   "wordT": 91.02,
+   "appears": 90.73,
+   "delta": -0.29,
+   "status": "ok"
+  },
+  {
+   "label": "only one then it returns",
+   "scene": 5,
+   "sentStart": 98.19,
+   "sentEnd": 99.87,
+   "wordT": 98.19,
+   "appears": 90.73,
+   "delta": -7.45,
+   "status": "ok"
+  },
+  {
+   "label": "a prompt does one task and returns the result and that is its whole run",
+   "scene": 5,
+   "sentStart": 100.15,
+   "sentEnd": 104.31,
+   "wordT": 100.15,
+   "appears": 100.27,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 5,
+   "sentStart": 100.15,
+   "sentEnd": 104.31,
+   "wordT": 100.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "returns the result",
+   "scene": 5,
+   "sentStart": 100.15,
+   "sentEnd": 104.31,
+   "wordT": 101.81,
+   "appears": 100.27,
+   "delta": -1.54,
+   "status": "ok"
+  },
+  {
+   "label": "conversation",
+   "scene": 5,
+   "sentStart": 104.59,
+   "sentEnd": 109.94,
+   "wordT": 104.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "keeps a dialogue going",
+   "scene": 5,
+   "sentStart": 104.59,
+   "sentEnd": 109.94,
+   "wordT": 105.26,
+   "appears": 104.71,
+   "delta": -0.55,
+   "status": "ok"
+  },
+  {
+   "label": "child agent",
+   "scene": 5,
+   "sentStart": 104.59,
+   "sentEnd": 109.94,
+   "wordT": 107.27,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "heavier",
+   "scene": 5,
+   "sentStart": 104.59,
+   "sentEnd": 109.94,
+   "wordT": 108.27,
+   "appears": 104.71,
+   "delta": -3.56,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 6,
+   "sentStart": 110.84,
+   "sentEnd": 117.52,
+   "wordT": 111.59,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "instructions",
+   "scene": 6,
+   "sentStart": 110.84,
+   "sentEnd": 117.52,
+   "wordT": 113.44,
+   "appears": 110.98,
+   "delta": -2.46,
+   "status": "ok"
+  },
+  {
+   "label": "copilot",
+   "scene": 6,
+   "sentStart": 110.84,
+   "sentEnd": 117.52,
+   "wordT": 115.67,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "template",
+   "scene": 6,
+   "sentStart": 110.84,
+   "sentEnd": 117.52,
+   "wordT": 117.15,
+   "appears": 116.64,
+   "delta": -0.51,
+   "status": "ok"
+  },
+  {
+   "label": "ticket text",
+   "scene": 6,
+   "sentStart": 117.8,
+   "sentEnd": 120.47,
+   "wordT": 119.88,
+   "appears": 28.21,
+   "delta": -91.66,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 6,
+   "sentStart": 120.75,
+   "sentEnd": 124.67,
+   "wordT": 121.08,
+   "appears": 110.98,
+   "delta": -10.09,
+   "status": "ok"
+  },
+  {
+   "label": "clear and short",
+   "scene": 6,
+   "sentStart": 120.75,
+   "sentEnd": 124.67,
+   "wordT": 121.73,
+   "appears": 121.76,
+   "delta": 0.03,
+   "status": "ok"
+  },
+  {
+   "label": "output",
+   "scene": 6,
+   "sentStart": 120.75,
+   "sentEnd": 124.67,
+   "wordT": 124.35,
+   "appears": 110.98,
+   "delta": -13.36,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 6,
+   "sentStart": 124.95,
+   "sentEnd": 130.41,
+   "wordT": 127.52,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "not found",
+   "scene": 6,
+   "sentStart": 124.95,
+   "sentEnd": 130.41,
+   "wordT": 128.17,
+   "appears": 123.7,
+   "delta": -4.47,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 7,
+   "sentStart": 131.32,
+   "sentEnd": 134.84,
+   "wordT": 131.32,
+   "appears": 131.71,
+   "delta": 0.39,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 7,
+   "sentStart": 131.32,
+   "sentEnd": 134.84,
+   "wordT": 134.52,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "more predictable",
+   "scene": 7,
+   "sentStart": 135.12,
+   "sentEnd": 137.65,
+   "wordT": 136.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "model",
+   "scene": 7,
+   "sentStart": 137.94,
+   "sentEnd": 142.09,
+   "wordT": 140.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 7,
+   "sentStart": 142.38,
+   "sentEnd": 145.66,
+   "wordT": 143.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt settings",
+   "scene": 7,
+   "sentStart": 142.38,
+   "sentEnd": 145.66,
+   "wordT": 143.74,
+   "appears": 143.07,
+   "delta": -0.67,
+   "status": "ok"
+  },
+  {
+   "label": "settings",
+   "scene": 7,
+   "sentStart": 142.38,
+   "sentEnd": 145.66,
+   "wordT": 144.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "agent settings",
+   "scene": 7,
+   "sentStart": 142.38,
+   "sentEnd": 145.66,
+   "wordT": 145.11,
+   "appears": 144.33,
+   "delta": -0.78,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 7,
+   "sentStart": 145.94,
+   "sentEnd": 150.46,
+   "wordT": 147.17,
+   "appears": 131.71,
+   "delta": -15.47,
+   "status": "ok"
+  },
+  {
+   "label": "consistent",
+   "scene": 7,
+   "sentStart": 145.94,
+   "sentEnd": 150.46,
+   "wordT": 149.64,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "consistent results",
+   "scene": 7,
+   "sentStart": 145.94,
+   "sentEnd": 150.46,
+   "wordT": 149.64,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 8,
+   "sentStart": 152.52,
+   "sentEnd": 158.32,
+   "wordT": 153,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "lower the temperature to zero",
+   "scene": 8,
+   "sentStart": 165.22,
+   "sentEnd": 166.88,
+   "wordT": 165.22,
+   "appears": 165.24,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 8,
+   "sentStart": 165.22,
+   "sentEnd": 166.88,
+   "wordT": 165.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "raise the temperature near one",
+   "scene": 8,
+   "sentStart": 167.16,
+   "sentEnd": 168.76,
+   "wordT": 167.16,
+   "appears": 167.19,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 8,
+   "sentStart": 167.16,
+   "sentEnd": 168.76,
+   "wordT": 167.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "temperature near one",
+   "scene": 8,
+   "sentStart": 167.16,
+   "sentEnd": 168.76,
+   "wordT": 167.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "move the slider into agent settings",
+   "scene": 8,
+   "sentStart": 169.04,
+   "sentEnd": 171.24,
+   "wordT": 169.36,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "agent settings",
+   "scene": 8,
+   "sentStart": 169.04,
+   "sentEnd": 171.24,
+   "wordT": 170.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "settings",
+   "scene": 8,
+   "sentStart": 169.04,
+   "sentEnd": 171.24,
+   "wordT": 170.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "lower the temperature to zero",
+   "scene": 8,
+   "sentStart": 176.84,
+   "sentEnd": 178.52,
+   "wordT": 176.84,
+   "appears": 165.24,
+   "delta": -11.59,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 8,
+   "sentStart": 176.84,
+   "sentEnd": 178.52,
+   "wordT": 177.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "more predictable",
+   "scene": 8,
+   "sentStart": 178.8,
+   "sentEnd": 184.79,
+   "wordT": 180.8,
+   "appears": 178.92,
+   "delta": -1.88,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 8,
+   "sentStart": 185.08,
+   "sentEnd": 190.77,
+   "wordT": 185.71,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "creative",
+   "scene": 8,
+   "sentStart": 185.08,
+   "sentEnd": 190.77,
+   "wordT": 186.66,
+   "appears": 185.2,
+   "delta": -1.46,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 8,
+   "sentStart": 185.08,
+   "sentEnd": 190.77,
+   "wordT": 189.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt settings",
+   "scene": 8,
+   "sentStart": 185.08,
+   "sentEnd": 190.77,
+   "wordT": 189.19,
+   "appears": 185.2,
+   "delta": -3.99,
+   "status": "ok"
+  },
+  {
+   "label": "settings",
+   "scene": 8,
+   "sentStart": 185.08,
+   "sentEnd": 190.77,
+   "wordT": 189.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 9,
+   "sentStart": 191.67,
+   "sentEnd": 194.51,
+   "wordT": 192.89,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "classify ticket",
+   "scene": 9,
+   "sentStart": 191.67,
+   "sentEnd": 194.51,
+   "wordT": 193.7,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "input",
+   "scene": 9,
+   "sentStart": 194.79,
+   "sentEnd": 196.6,
+   "wordT": 195.09,
+   "appears": 194.91,
+   "delta": -0.18,
+   "status": "ok"
+  },
+  {
+   "label": "ticket text",
+   "scene": 9,
+   "sentStart": 194.79,
+   "sentEnd": 196.6,
+   "wordT": 196,
+   "appears": 195.51,
+   "delta": -0.49,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 9,
+   "sentStart": 196.88,
+   "sentEnd": 204.5,
+   "wordT": 197.25,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "hardware",
+   "scene": 9,
+   "sentStart": 196.88,
+   "sentEnd": 204.5,
+   "wordT": 199.78,
+   "appears": 199.89,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "software",
+   "scene": 9,
+   "sentStart": 196.88,
+   "sentEnd": 204.5,
+   "wordT": 200.15,
+   "appears": 200.24,
+   "delta": 0.1,
+   "status": "ok"
+  },
+  {
+   "label": "access",
+   "scene": 9,
+   "sentStart": 196.88,
+   "sentEnd": 204.5,
+   "wordT": 200.87,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 9,
+   "sentStart": 204.78,
+   "sentEnd": 208.53,
+   "wordT": 207.28,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "not found",
+   "scene": 9,
+   "sentStart": 204.78,
+   "sentEnd": 208.53,
+   "wordT": 207.91,
+   "appears": 123.7,
+   "delta": -84.21,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 9,
+   "sentStart": 208.81,
+   "sentEnd": 213.12,
+   "wordT": 209.24,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "temperature zero",
+   "scene": 9,
+   "sentStart": 208.81,
+   "sentEnd": 213.12,
+   "wordT": 209.24,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 10,
+   "sentStart": 216.52,
+   "sentEnd": 219.04,
+   "wordT": 218.48,
+   "appears": 214.65,
+   "delta": -3.83,
+   "status": "ok"
+  },
+  {
+   "label": "add a tool",
+   "scene": 10,
+   "sentStart": 219.32,
+   "sentEnd": 222.22,
+   "wordT": 219.61,
+   "appears": 214.65,
+   "delta": -4.96,
+   "status": "ok"
+  },
+  {
+   "label": "new tool",
+   "scene": 10,
+   "sentStart": 219.32,
+   "sentEnd": 222.22,
+   "wordT": 220.77,
+   "appears": 220.15,
+   "delta": -0.61,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 10,
+   "sentStart": 219.32,
+   "sentEnd": 222.22,
+   "wordT": 221.93,
+   "appears": 40.12,
+   "delta": -181.81,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 10,
+   "sentStart": 222.5,
+   "sentEnd": 227.43,
+   "wordT": 223.16,
+   "appears": 222.57,
+   "delta": -0.59,
+   "status": "ok"
+  },
+  {
+   "label": "input",
+   "scene": 10,
+   "sentStart": 222.5,
+   "sentEnd": 227.43,
+   "wordT": 224.14,
+   "appears": 194.91,
+   "delta": -29.24,
+   "status": "ok"
+  },
+  {
+   "label": "model",
+   "scene": 10,
+   "sentStart": 222.5,
+   "sentEnd": 227.43,
+   "wordT": 225.13,
+   "appears": 225,
+   "delta": -0.13,
+   "status": "ok"
+  },
+  {
+   "label": "temperature",
+   "scene": 10,
+   "sentStart": 222.5,
+   "sentEnd": 227.43,
+   "wordT": 226.44,
+   "appears": 131.71,
+   "delta": -94.73,
+   "status": "ok"
+  },
+  {
+   "label": "sample data",
+   "scene": 10,
+   "sentStart": 227.71,
+   "sentEnd": 229.82,
+   "wordT": 228.06,
+   "appears": 227.73,
+   "delta": -0.33,
+   "status": "ok"
+  },
+  {
+   "label": "add and configure",
+   "scene": 10,
+   "sentStart": 230.1,
+   "sentEnd": 232.66,
+   "wordT": 231.56,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 11,
+   "sentStart": 236.91,
+   "sentEnd": 239.09,
+   "wordT": 238.12,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 11,
+   "sentStart": 239.37,
+   "sentEnd": 241.27,
+   "wordT": 241,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "as a tool of your agent",
+   "scene": 11,
+   "sentStart": 241.55,
+   "sentEnd": 243.04,
+   "wordT": 241.55,
+   "appears": 241.57,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "as a publishing channel",
+   "scene": 11,
+   "sentStart": 243.32,
+   "sentEnd": 244.71,
+   "wordT": 243.32,
+   "appears": 243.34,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "as a node inside a topic",
+   "scene": 11,
+   "sentStart": 244.99,
+   "sentEnd": 246.87,
+   "wordT": 245.26,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "as a publishing channel",
+   "scene": 11,
+   "sentStart": 252.46,
+   "sentEnd": 253.85,
+   "wordT": 252.46,
+   "appears": 243.34,
+   "delta": -9.12,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 254.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "as an agent tool",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 255.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "agent tool",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 255.78,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "as a topic node",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 256.32,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic node",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 256.87,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add a tool",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 257.7,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "new prompt",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 258.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 260.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a prompt action",
+   "scene": 11,
+   "sentStart": 254.13,
+   "sentEnd": 262.09,
+   "wordT": 260.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "reach the agent",
+   "scene": 11,
+   "sentStart": 262.37,
+   "sentEnd": 266.23,
+   "wordT": 263.55,
+   "appears": 262.48,
+   "delta": -1.07,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 11,
+   "sentStart": 262.37,
+   "sentEnd": 266.23,
+   "wordT": 265.04,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "prompt",
+   "scene": 12,
+   "sentStart": 268.73,
+   "sentEnd": 274.17,
+   "wordT": 269.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "saved as a tool",
+   "scene": 12,
+   "sentStart": 268.73,
+   "sentEnd": 274.17,
+   "wordT": 269.69,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "prompt",
+   "scene": 12,
+   "sentStart": 275.97,
+   "sentEnd": 280.34,
+   "wordT": 276.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a recipe",
+   "scene": 12,
+   "sentStart": 275.97,
+   "sentEnd": 280.34,
+   "wordT": 277.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "instructions",
+   "scene": 12,
+   "sentStart": 275.97,
+   "sentEnd": 280.34,
+   "wordT": 278.35,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "single turn lighter than a child agent",
+   "scene": 12,
+   "sentStart": 280.62,
+   "sentEnd": 283.42,
+   "wordT": 281.24,
+   "appears": 280.83,
+   "delta": -0.41,
+   "status": "ok"
+  },
+  {
+   "label": "child agent",
+   "scene": 12,
+   "sentStart": 280.62,
+   "sentEnd": 283.42,
+   "wordT": 282.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "instructions",
+   "scene": 12,
+   "sentStart": 283.7,
+   "sentEnd": 288.11,
+   "wordT": 284.25,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "temperature",
+   "scene": 12,
+   "sentStart": 283.7,
+   "sentEnd": 288.11,
+   "wordT": 285.35,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "temperature zero",
+   "scene": 12,
+   "sentStart": 283.7,
+   "sentEnd": 288.11,
+   "wordT": 285.35,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "consistent",
+   "scene": 12,
+   "sentStart": 283.7,
+   "sentEnd": 288.11,
+   "wordT": 287.01,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "request",
+   "scene": 12,
+   "sentStart": 288.39,
+   "sentEnd": 291.04,
+   "wordT": 290.45,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  }
+ ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Contoso's greeting uses exactly the same words every single time. Users say the agent sounds robotic, and the meaning must stay the same. What should you add?",
+    "options": [
+      "Quick replies under the greeting",
+      "Message variations on the node",
+      "An adaptive card with the greeting"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 5,
+    "pauseSentence": 7,
+    "question": "A ticket must be labelled hardware, software or access, and nothing else. Users must not be able to type a different type. What should Contoso use?",
+    "options": [
+      "A multiple choice Question node",
+      "Quick replies on a Message node",
+      "Message variations for each type"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "After the ticket lookup tool runs, the service manager wants the same exact sentence with the number and the status. No rewording by the model. Which After running option fits?",
+    "options": [
+      "Write the response with generative AI",
+      "Don't respond, the default setting",
+      "Send specific response, a template"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

@@ -1,0 +1,129 @@
+{
+ "id": "L33",
+ "title": "Foundry models in prompts",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 85.397,
+ "scenes": [
+  {
+   "title": "Your own model",
+   "start": 0.8,
+   "end": 16.68,
+   "sentences": [
+    {
+     "text": "Bring your own model means using, inside a prompt, a model that you deployed in Foundry.",
+     "start": 0.8,
+     "end": 6.091
+    },
+    {
+     "text": "It is like bringing your own tool to the workshop.",
+     "start": 6.371,
+     "end": 8.824
+    },
+    {
+     "text": "You only have to follow some precise rules.",
+     "start": 9.104,
+     "end": 11.301
+    },
+    {
+     "text": "Use it when you need a specific model from your team, for example to classify support tickets.",
+     "start": 11.581,
+     "end": 16.68
+    }
+   ]
+  },
+  {
+   "title": "How to connect it",
+   "start": 17.58,
+   "end": 33.951,
+   "sentences": [
+    {
+     "text": "In the prompt, you open the Model drop-down, select the plus sign, and choose to connect a model from Azure AI Foundry.",
+     "start": 17.58,
+     "end": 25.047
+    },
+    {
+     "text": "You type the deployment name and the base model name exactly as they appear in Foundry.",
+     "start": 25.327,
+     "end": 30.319
+    },
+    {
+     "text": "Copy and paste the names.",
+     "start": 30.599,
+     "end": 32.071
+    },
+    {
+     "text": "Do not type them from memory.",
+     "start": 32.351,
+     "end": 33.951
+    }
+   ]
+  },
+  {
+   "title": "Model and endpoint rules",
+   "start": 34.851,
+   "end": 52.864,
+   "sentences": [
+    {
+     "text": "Only chat completion models are supported, and the endpoint must end in slash chat completions.",
+     "start": 34.851,
+     "end": 40.589
+    },
+    {
+     "text": "A Responses endpoint gives the error Resource not found.",
+     "start": 40.869,
+     "end": 44.347
+    },
+    {
+     "text": "Models in the G P T five family and later are not supported.",
+     "start": 44.627,
+     "end": 48.637
+    },
+    {
+     "text": "These rules are very specific, and the exam asks about them a lot.",
+     "start": 48.917,
+     "end": 52.864
+    }
+   ]
+  },
+  {
+   "title": "Governance and billing",
+   "start": 53.764,
+   "end": 68.276,
+   "sentences": [
+    {
+     "text": "The admin governs it with the Azure AI Foundry connector in the Power Platform data policies.",
+     "start": 53.764,
+     "end": 59.652
+    },
+    {
+     "text": "And the usage is billed separately in Azure, not with the Copilot Studio rates.",
+     "start": 59.932,
+     "end": 64.284
+    },
+    {
+     "text": "In other words, it is not charged with Copilot Studio credits.",
+     "start": 64.564,
+     "end": 68.276
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 69.176,
+   "end": 84.197,
+   "sentences": [
+    {
+     "text": "If the exam asks why a model fails, the answer is that it is in the G P T five family or the endpoint is not slash chat completions.",
+     "start": 69.176,
+     "end": 78.029
+    },
+    {
+     "text": "And here is the trap: thinking it is billed in Copilot Studio, when it is billed separately in Azure.",
+     "start": 78.309,
+     "end": 84.197
+    }
+   ]
+  }
+ ]
+}

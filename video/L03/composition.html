@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L03 · Channels and publishing · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { left: 100px; top: 130px; width: 1720px; height: 820px; }
+  #stage .uw .bar { font-size: 32px; }
+  #stage .uw .nav div { font-size: 32px; }
+  #stage .uw .main { padding: 40px; }
+  #stage #uiBack { background: #eef1f7; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  #exams .exam .xl { top: 120px; }
+  #exams .exam .xq { top: 170px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1240px; top: 330px; width: 560px; font-size: 38px; }
+  #exams .exam .xp { left: 120px; top: 664px; height: 300px; }
+  #exams .exam .xp .rm { height: 300px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L03 · Channels and publishing. "The print shop and the newsstand street" in the world.
+     World x: Valeria's desk 150-980 (person 236), side table + draft 960-1200, Nexo 1240-1480, press 1720-2220, Ed. 2 stack 2260-2380,
+     street stands: Teams 2450-3010, Demo 3090-3390, Custom 3450-3750, Mobile 3810-4110 (teal awning 3060-4140), WhatsApp 4210-4510, Facebook 4570-4870.
+     Admin gatehouse above the street (y 330-800). Road y 1540-1730.
+     Cameras: V_D desk, V_T Teams (edges in the gaps between stands), V_ST street wide, V_G gatehouse, V_W the three website stands, V10 closing shot. */
+  const BLUE = '#2f5bd3', TEAL = '#0f7b8a', AMB = '#d98a00', GRN = '#1e7f4f', RED = '#c4392f', PUR = '#8a5cd6', NAVY = '#1f2a44', SLATE = '#3b4252', GREY = '#5b6578', GB = '#4f6b8a', CORAL = '#e07a5f';
+  const BLUEs = '#e6ecfb', TEALs = '#dff1f3', AMBs = '#fff3d6', GRNs = '#e3f4ea', PURs = '#efe7fb', GBs = '#e4ebf3', DIM = '#e7eaf1';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const DL = (st, html) => `<div class="w lint-ignore" style="${st}">${html || ''}</div>`;
+  const T = (x, y, fs, col, t, id, ex) => `<div class="px"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const pers = (c, w) => person(c).replace('width="90" height="200"', `width="${w}" height="${Math.round(w * 200 / 90)}"`);
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const FI = (sel, t, d) => tl.fromTo(sel, { opacity: 0 }, { opacity: 1, duration: d || 0.35, immediateRender: false }, t);
+  const PULSEX = (sel, t, s) => tl.to(sel, { scale: s || 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.inOut' }, t);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SW = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, t + 0.3); };
+  const BOB = (sel, t, n, amp) => tl.to(sel, { y: -(amp || 10), duration: 0.3, yoyo: true, repeat: n, ease: 'sine.inOut' }, t);
+
+  const V_D = [858, 1170, 1.25], V_T = [2520, 1215, 1.05], V_ST = [3660, 1130, 0.68], V6 = [3660, 1130, 0.68], V_G = [3660, 1007, 0.62], V_W = [3600, 1304, 1.4], V10 = [2175, 1133, 0.89];
+  const camAt = (v, t) => CAM(v[0], v[1], v[2], t, 0.01);
+  const camTo = (v, t, d, e) => CAM(v[0], v[1], v[2], t, d == null ? 1.5 : d, e || 'power2.inOut');
+
+  /* ═════════ BACKGROUND (extends the default wall and floor) ═════════ */
+  ADD(DL('left:-1400px;top:-700px;width:7600px;height:2200px;background:linear-gradient(#f4f6fa,#eef1f7)') +
+    DL('left:-1400px;top:1500px;width:7600px;height:1400px;background:#e3e7ef;border-top:6px solid #d3d9e4') +
+    DL('left:-1400px;top:1540px;width:7600px;height:190px;background:#d9deea;border-top:6px solid #c9ced8;border-bottom:6px solid #c9ced8') +
+    Array.from({ length: 34 }, (_, i) => DL(`left:${-1300 + i * 230}px;top:1630px;width:120px;height:10px;border-radius:5px;background:#fff`)).join(''));
+
+  const BLD = [[2300, 300, 640, '#dfe5f0'], [2640, 260, 820, '#d3dbe9'], [2940, 300, 560, '#e3e8f2'], [3280, 320, 900, '#d3dbe9'], [3640, 300, 700, '#dfe5f0'], [3980, 280, 880, '#d3dbe9'], [4300, 300, 600, '#e3e8f2'], [4640, 320, 760, '#dfe5f0']];
+  ADD(BLD.map((b) => DL(`left:${b[0]}px;top:${1500 - b[2]}px;width:${b[1]}px;height:${b[2]}px;background:${b[3]};border-radius:12px 12px 0 0`,
+    Array.from({ length: Math.floor((b[2] - 80) / 110) * 3 }, (_, i) => `<div class="w lint-ignore" style="left:${34 + (i % 3) * Math.floor((b[1] - 68) / 3)}px;top:${40 + Math.floor(i / 3) * 110}px;width:${Math.floor((b[1] - 68) / 3) - 26}px;height:56px;border-radius:8px;background:#f4f6fa"></div>`).join(''))).join(''));
+  /* ═════════ VALERIA'S DESK ═════════ */
+  ADD(maker('dk', 150, 1000).split('#2f5bd3').join(PUR));
+  ADD(D('dkBtn', 'left:590px;top:1190px;width:190px;height:60px;border-radius:12px;background:' + NAVY + ';color:#fff;font-size:34px;font-weight:800;text-align:center;line-height:60px;z-index:3', 'Publish'));
+  /* window with the sky (scene 0: night, next morning) */
+  ADD(D('wn', 'left:470px;top:820px;width:420px;height:250px;box-sizing:border-box;border:12px solid ' + NAVY + ';border-radius:14px;overflow:hidden;background:#fff',
+    D('wnS', 'left:0;top:0;width:396px;height:226px;background:#cfe3ff') +
+    D('wnM', 'left:100px;top:300px;width:84px;height:84px;border-radius:50%;background:#fff3d6;box-shadow:0 0 0 10px rgba(255,243,214,.25)') +
+    D('wnU', 'left:250px;top:300px;width:92px;height:92px;border-radius:50%;background:#ffb703;box-shadow:0 0 0 12px rgba(255,183,3,.25)') +
+    D('', 'left:196px;top:0;width:8px;height:226px;background:' + NAVY)));
+  /* side table + draft manual */
+  ADD(D('stbl', 'left:0;top:0;width:10px;height:10px', D('', 'left:960px;top:1340px;width:240px;height:26px;border-radius:8px;background:#c9ced8') + D('', 'left:990px;top:1366px;width:16px;height:134px;background:#c9ced8') + D('', 'left:1154px;top:1366px;width:16px;height:134px;background:#c9ced8')));
+  ADD(D('dm', 'left:990px;top:1110px;width:200px;height:230px;box-sizing:border-box;border:5px dashed ' + GREY + ';border-radius:12px;background:#f3f5f9;transform-origin:50% 100%',
+    T(18, 12, 38, GREY, 'Draft') + T(18, 64, 44, '#141821', 'Returns') +
+    D('', 'left:18px;top:132px;width:150px;height:12px;border-radius:6px;background:#c9ced8') + D('', 'left:18px;top:160px;width:110px;height:12px;border-radius:6px;background:#c9ced8') +
+    D('dmN', 'left:18px;top:188px;width:150px;height:12px;border-radius:6px;background:' + GRN + ';opacity:0') +
+    H('dmT', 'left:140px;top:6px;width:50px;height:50px;border-radius:50%;background:' + GRN + ';color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:48px', '✓')));
+  ADD(H('dmF', 'left:990px;top:1110px;width:200px;height:230px;box-sizing:border-box;border:5px dashed ' + GREY + ';border-radius:12px;background:#f3f5f9;z-index:4'));
+  ADD(H('pen', 'left:1130px;top:1180px;width:14px;height:90px;border-radius:4px;background:#ffb703;transform:rotate(35deg);border-bottom:16px solid ' + NAVY));
+  /* Nexo */
+  ADD(agent('nx', 1180, 1030, { folder: '' }));
+  ADD(H('tp', 'left:1000px;top:840px;width:400px;height:190px;border:6px solid ' + GRN + ';border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2)',
+    T(24, 14, 38, GREY, 'Test pane') + D('', 'left:24px;top:62px;width:350px;height:100px;border:5px solid ' + GRN + ';border-radius:22px;background:' + GRNs + ';color:' + GRN + ';font-size:44px;font-weight:800;text-align:center;line-height:90px', '✓ New answer')));
+  ADD(say('nxB', 1470, 890, 'New returns answer', 'green').replace('style="', 'style="font-size:40px;'));
+
+  /* ═════════ PRINT SHOP ═════════ */
+  ADD(H('prs', 'left:0;top:0;width:10px;height:10px',
+    D('pr', 'left:1720px;top:1130px;width:500px;height:370px;border-radius:26px;background:' + NAVY) +
+    D('', 'left:1740px;top:1150px;width:460px;height:28px;border-radius:14px;background:#2d3a5c') +
+    D('rl1', 'left:2010px;top:1250px;width:110px;height:110px;border-radius:50%;border:10px solid #5b6a8f;border-top-color:#c9d3ea;box-sizing:border-box') +
+    D('rl2', 'left:2110px;top:1250px;width:80px;height:80px;border-radius:50%;border:10px solid #5b6a8f;border-top-color:#c9d3ea;box-sizing:border-box') +
+    D('prB', 'left:1760px;top:1210px;width:230px;height:100px;border-radius:20px;background:#2d3a5c;color:#c9d3ea;font-size:50px;font-weight:800;text-align:center;line-height:100px', 'Publish') +
+    D('', 'left:1760px;top:1340px;width:230px;height:12px;border-radius:6px;background:#2d3a5c')));
+  const BK = (id, l, t, ed, vis, ex) => D(id, `left:${l}px;top:${t}px;width:176px;height:210px;box-sizing:border-box;border-radius:10px 16px 16px 10px;background:${ed == 1 ? AMB : BLUE};border-left:18px solid ${ed == 1 ? '#9c6400' : '#1d3f9c'};color:#fff;font-size:54px;font-weight:800;text-align:center;line-height:210px;opacity:${vis ? 1 : 0};${ex || ''}`, ed ? `Ed. ${ed}` : '');
+  ADD(H('stk', 'left:0;top:0;width:10px;height:10px',
+    D('', 'left:2288px;top:1318px;width:176px;height:170px;border-radius:10px;background:#1d3f9c') + D('', 'left:2274px;top:1304px;width:176px;height:170px;border-radius:10px;background:#244bb5') +
+    BK('stkE', 2260, 1276, 2, true)));
+  /* delivery van (drives on the road, y 1560-1700) */
+  ADD(H('vn', 'left:1760px;top:1560px;width:380px;height:140px',
+    D('', 'left:0;top:0;width:280px;height:110px;border-radius:22px;background:#fff;border:6px solid ' + NAVY) +
+    D('', 'left:280px;top:34px;width:90px;height:76px;border-radius:12px 26px 12px 12px;background:' + NAVY) +
+    D('', 'left:40px;top:-34px;width:80px;height:34px;border-radius:8px;background:' + BLUE) + D('', 'left:130px;top:-34px;width:80px;height:34px;border-radius:8px;background:' + BLUE) +
+    D('', 'left:36px;top:92px;width:56px;height:56px;border-radius:50%;background:#141821;border:8px solid #c9ced8;box-sizing:border-box') + D('', 'left:290px;top:92px;width:56px;height:56px;border-radius:50%;background:#141821;border:8px solid #c9ced8;box-sizing:border-box')));
+
+  /* ═════════ STANDS ═════════ */
+  const STD = [['sT', 2450, 560, 'Teams and<br>Microsoft 365', PUR, PURs], ['sD', 3090, 300, 'Demo<br>website', TEAL, TEALs], ['sC', 3450, 300, 'Custom<br>website', TEAL, TEALs],
+    ['sM', 3810, 300, 'Mobile<br>app', TEAL, TEALs], ['sW', 4210, 300, 'WhatsApp', GB, GBs], ['sF', 4570, 300, 'Facebook', GB, GBs]];
+  const SC = {}; STD.forEach((s) => { SC[s[0]] = [s[4], s[5]]; });
+  const STAND = (s) => { const id = s[0], l = s[1], w = s[2], lit = id === 'sT', col = s[4], soft = s[5], rk = id === 'sT' ? 360 : (w - 176) / 2;
+    return D(id, `left:${l}px;top:1010px;width:${w}px;height:490px;opacity:${lit ? 1 : 0}`,
+      D(id + '_s', `left:0;top:0;width:${w}px;height:150px;border:6px solid ${lit ? col : GREY};border-radius:22px;background:${lit ? soft : DIM};color:${lit ? col : GREY};font-size:56px;font-weight:800;line-height:1.1;text-align:center;display:flex;align-items:center;justify-content:center`, s[3]) +
+      D(id + '_b', `left:10px;top:170px;width:${w - 20}px;height:320px;border:6px solid ${lit ? col : GREY};border-radius:18px 18px 0 0;background:${lit ? '#fff' : '#f3f5f9'}`) +
+      D('', `left:${rk - 10}px;top:452px;width:196px;height:12px;border-radius:6px;background:#8a93a6`) +
+      BK(id + '_a', rk, 240, 1, true) + BK(id + '_n', rk, 240, 2, false));
+  };
+  ADD(STD.map(STAND).join(''));
+  /* Marta and her reading copy inside the Teams stand */
+  ADD(D('', 'left:2470px;top:1165px;width:150px;height:333px', pers(CORAL, 150)).replace('class="w"', 'class="w" id="marta"'));
+  ADD(D('hA', 'left:2610px;top:1290px;width:150px;height:180px;box-sizing:border-box;border-radius:8px 14px 14px 8px;background:' + AMB + ';border-left:14px solid #9c6400;color:#fff;font-size:44px;font-weight:800;text-align:center;line-height:180px;z-index:4;opacity:0', 'Ed. 1') +
+    D('hB', 'left:2610px;top:1290px;width:150px;height:180px;box-sizing:border-box;border-radius:8px 14px 14px 8px;background:' + BLUE + ';border-left:14px solid #1d3f9c;color:#fff;font-size:44px;font-weight:800;text-align:center;line-height:180px;z-index:4;opacity:0', 'Ed. 2'));
+  /* lock badges (scene 6) */
+  const LOCK = (id, l, t) => H(id, `left:${l}px;top:${t}px;width:76px;height:76px;border-radius:50%;background:#fff;border:6px solid ${AMB};display:flex;align-items:center;justify-content:center;z-index:5`, IC('lock_closed', `width:42px;height:42px;color:${AMB}`));
+  ADD(LOCK('lkT', 2450 + 480, 975) + LOCK('lkC', 3450 + 14, 1186));
+  /* browser strip on the Demo stand */
+  ADD(H('brD', 'left:3100px;top:1176px;width:280px;height:30px;border-radius:10px 10px 0 0;background:' + TEAL, D('', 'left:12px;top:8px;width:14px;height:14px;border-radius:50%;background:#fff') + D('', 'left:34px;top:8px;width:14px;height:14px;border-radius:50%;background:#fff') + D('', 'left:56px;top:8px;width:14px;height:14px;border-radius:50%;background:#fff')));
+  /* shutters on WhatsApp and Facebook (scene 7) */
+  ADD(['sW', 'sF'].map((id) => H(id + '_sh', `left:${id === 'sW' ? 4216 : 4576}px;top:1182px;width:288px;height:318px;border-radius:14px 14px 0 0;background:repeating-linear-gradient(${SLATE} 0 26px,#4a5266 26px 32px);z-index:2;display:flex;align-items:center;justify-content:center`, IC('lock_closed', 'width:130px;height:130px;color:#fff'))).join(''));
+  /* teal awning over the Direct Line family */
+  ADD(H('aw', 'left:3060px;top:885px;width:1080px;height:100px;border-radius:18px;background:' + TEAL + ';color:#fff;font-size:56px;font-weight:800;text-align:center;line-height:100px;box-shadow:0 12px 30px rgba(16,24,40,.2)', 'Direct Line channels'));
+  /* world signs and labels (scene 1) */
+  ADD(H('chS', 'left:3360px;top:780px;width:600px;height:96px;border:6px solid ' + NAVY + ';border-radius:24px;background:#fff;color:' + NAVY + ';font-size:60px;font-weight:800;text-align:center;line-height:84px', 'channels'));
+  ADD(`<div class="tag purple" id="tgT" style="left:2730px;top:895px;font-size:52px">Teams</div><div class="tag blue" id="tgW" style="left:3240px;top:895px;font-size:52px;color:${TEAL};border-color:${TEAL}">Website</div><div class="tag blue" id="tgM" style="left:3960px;top:895px;font-size:52px;color:${TEAL};border-color:${TEAL}">Mobile app</div>`);
+  /* bubbles above the Teams stand */
+  const BUB = (id, t, col, txt, w) => H(id, `left:2450px;top:${t}px;width:${w || 560}px;height:66px;box-sizing:border-box;border:5px solid ${col};border-radius:28px;background:#fff;color:#141821;font-size:40px;font-weight:800;text-align:center;line-height:56px;z-index:3`, txt);
+  ADD(BUB('bq', 840, CORAL, 'How do returns work?') + BUB('br', 936, AMB, 'Old returns answer', 440) + BUB('bs', 840, CORAL, 'start over') +
+    H('brT', 'left:2900px;top:948px;width:112px;height:42px;border-radius:12px;background:' + AMB + ';color:#fff;font-size:34px;font-weight:800;text-align:center;line-height:42px;z-index:4', 'Ed. 1'));
+  ADD(H('qm', 'left:2310px;top:1090px;width:110px;height:110px;border-radius:50%;background:#fff;border:7px solid ' + AMB + ';color:' + AMB + ';font-size:84px;font-weight:800;text-align:center;line-height:96px', '?'));
+  ADD(H('ses', 'left:2430px;top:815px;width:600px;height:695px;border:8px dashed ' + PUR + ';border-radius:30px;z-index:1'));
+  /* website stand visitors (scene 4) */
+  ADD(H('fw', 'left:3070px;top:995px;width:340px;height:515px;border:8px dashed ' + TEAL + ';border-radius:26px;z-index:1'));
+  ADD(D('v1', 'left:3270px;top:1304px;width:100px;height:222px;opacity:0', pers('#a8704b', 100)) + D('v2', 'left:3000px;top:1304px;width:100px;height:222px;opacity:0', pers('#2d3a5c', 100)) +
+    H('v2m', 'left:3150px;top:1390px;width:124px;height:130px;box-sizing:border-box;border-radius:8px 12px 12px 8px;background:' + BLUE + ';border-left:10px solid #1d3f9c;color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:130px;z-index:3', 'Ed. 2') +
+    H('v2k', 'left:3295px;top:1240px;width:54px;height:54px;border-radius:50%;background:' + GRN + ';color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:52px;z-index:4', '✓') +
+    D('v3', 'left:3190px;top:1440px;width:100px;height:222px;opacity:0', pers('#2d3a5c', 100)));
+
+  /* ═════════ ADMIN GATEHOUSE ═════════ */
+  ADD(H('gh', 'left:0;top:0;width:10px;height:10px',
+    D('', 'left:2380px;top:760px;width:2520px;height:40px;border-radius:10px;background:' + NAVY) +
+    D('gp', 'left:2400px;top:330px;width:2480px;height:420px;border:8px solid ' + NAVY + ';border-radius:26px;background:#fff') + T(2440, 350, 56, NAVY, 'Data policies') +
+    D('blk', 'left:4120px;top:345px;width:720px;height:300px;border-radius:22px;background:' + SLATE + ';opacity:0', IC('lock_closed', 'position:absolute;left:24px;top:14px;width:56px;height:56px;color:#fff') + T(96, 12, 56, '#fff', 'Blocked'))));
+  const PG = [['pg1', 2480, 440, 'Teams +<br>Microsoft 365', 2700, 390, PUR, PURs], ['pg2', 3350, 380, 'Direct Line<br>channels', 3540, 265, TEAL, TEALs], ['pg3', 4150, 300, 'WhatsApp', 4300, 390, GB, GBs], ['pg4', 4510, 300, 'Facebook', 4660, 390, GB, GBs]];
+  ADD(PG.map((p) => H('w' + p[0], `left:${p[4] - 6}px;top:620px;width:12px;height:${p[5]}px;border-radius:6px;background:#c9ced8`)).join(''));
+  ADD(PG.map((p) => H(p[0], `left:${p[1]}px;top:470px;width:${p[2]}px;height:150px;border:6px solid ${GREY};border-radius:22px;background:${DIM};color:${GREY};font-size:56px;font-weight:800;line-height:1.1;text-align:center;display:flex;align-items:center;justify-content:center`,
+    D('', `left:${p[2] * 0.3}px;top:-36px;width:18px;height:36px;border-radius:4px;background:${NAVY}`) + D('', `left:${p[2] * 0.62}px;top:-36px;width:18px;height:36px;border-radius:4px;background:${NAVY}`) + p[3])).join(''));
+  ADD(D('ad', 'left:3858px;top:460px;width:135px;height:300px;opacity:0', pers('#6b7385', 135) + D('', 'left:84px;top:150px;width:34px;height:46px;border-radius:6px;background:#fff;border:4px solid ' + NAVY)));
+
+  /* ═════════ VALERIA (closing shot), published signpost ═════════ */
+  const VALS = (id, x, y) => H(id, `left:${x}px;top:${y}px;width:220px;height:440px`, `<svg width="220" height="440" viewBox="0 0 220 440">
+    <rect x="26" y="120" width="70" height="140" rx="26" fill="#8a5a3b"/><rect x="34" y="132" width="54" height="40" rx="12" fill="#a8704b"/>
+    <rect x="84" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="118" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="76" y="424" width="44" height="16" rx="8" fill="#141821"/><rect x="114" y="424" width="44" height="16" rx="8" fill="#141821"/>
+    <path d="M72 140 Q72 112 112 112 Q152 112 152 140 L158 308 L66 308 Z" fill="#8a5cd6"/><path d="M148 150 L190 226" stroke="#8a5cd6" stroke-width="26" stroke-linecap="round"/><circle cx="192" cy="230" r="14" fill="#f2c9a6"/>
+    <circle cx="112" cy="72" r="42" fill="#f2c9a6"/><path d="M66 72 Q66 26 114 26 Q158 28 158 72 Q150 48 112 46 Q84 46 66 72Z" fill="#2a1f2d"/><path d="M66 70 Q60 110 76 130 Q70 96 78 70Z" fill="#2a1f2d"/>
+    <circle cx="130" cy="78" r="5" fill="#141821"/><circle cx="104" cy="78" r="5" fill="#141821"/><path d="M110 98 Q118 104 126 98" stroke="#141821" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`);
+  ADD(VALS('val2', 1490, 1060));
+  ADD(H('rcb', 'left:1710px;top:650px;width:740px;height:330px;border:8px solid ' + NAVY + ';border-radius:26px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.22)',
+    T(30, 14, 52, NAVY, 'Remember') + ['One Publish → every channel', 'Only a new session sees it', 'Each channel: its own connector'].map((r, k) => `<div id="rb${k}" class="px" style="left:30px;top:${92 + k * 78}px;font-size:40px;color:#141821;opacity:.45;display:flex;align-items:center"><i style="display:inline-block;width:24px;height:24px;border-radius:50%;background:${[BLUE, PUR, TEAL][k]};margin-right:16px"></i>${r}</div>`).join('')));
+  ADD(H('sgn', 'left:3030px;top:1330px;width:80px;height:170px', D('', 'left:32px;top:100px;width:16px;height:70px;background:#8a93a6') + D('', 'left:0;top:0;width:80px;height:100px;border:6px solid ' + NAVY + ';border-radius:16px;background:#fff;display:flex;align-items:center;justify-content:center', IC('shield_checkmark', 'width:52px;height:52px;color:' + BLUE))));
+
+  /* ═════════ SCREEN LAYER (pills, chips, kinetic text) ═════════ */
+  const BCH = (id, text, col, icon, extra) => `<div class="ov" id="${id}" style="left:0;top:862px;width:1920px;text-align:center"><span style="display:inline-flex;align-items:center;gap:16px;background:#fff;border:6px solid ${col};border-radius:999px;padding:12px 40px;font-size:46px;font-weight:800;color:${col};white-space:nowrap;box-shadow:0 10px 30px rgba(16,24,40,.18)">${icon ? IC(icon, 'width:54px;height:54px') : ''}${text}${extra || ''}</span></div>`;
+  const PLH = (id, text, col) => `<div class="ov" id="${id}" style="left:120px;top:120px"><span style="display:inline-block;background:#fff;border:5px solid ${col};border-radius:999px;padding:8px 34px;font-size:44px;font-weight:800;color:${col};white-space:nowrap;box-shadow:0 10px 30px rgba(16,24,40,.14)">${text}</span></div>`;
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    ${PLH('pM', 'Module 1', NAVY)}${PLH('pTitle', 'Channels and publishing', BLUE)}${PLH('pFirst', 'First rule', NAVY)}${PLH('pMys', 'Marta\'s mystery', PUR)}${PLH('pWhere', 'Where users meet the agent', NAVY)}${PLH('pBack', 'Back at Contoso', NAVY)}
+    <div class="ov" id="kT" style="left:0;top:128px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:2px 56px;border-radius:36px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:104px;font-weight:800;color:${NAVY};letter-spacing:-3px;white-space:nowrap">Channels and publishing</span></div>
+    <div class="ov" id="kDL" style="left:0;top:150px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:2px 56px;border-radius:36px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:104px;font-weight:800;color:${TEAL};letter-spacing:-3px;white-space:nowrap">Direct Line channels</span></div>
+    <div class="ov" id="btns" style="left:0;top:215px;width:1920px;text-align:center"><span style="display:inline-flex;align-items:center;gap:60px;background:#fff;border-radius:44px;padding:30px 60px;box-shadow:0 20px 60px rgba(16,24,40,.22)"><span style="display:inline-block;width:420px;height:150px;border-radius:30px;background:#c9ced8;color:${GREY};font-size:80px;font-weight:800;line-height:150px;box-shadow:0 14px 40px rgba(16,24,40,.2)">Save</span><span style="font-size:120px;font-weight:800;color:${NAVY}">≠</span><span style="display:inline-block;width:420px;height:150px;border-radius:30px;background:${NAVY};color:#fff;font-size:80px;font-weight:800;line-height:150px;box-shadow:0 14px 40px rgba(16,24,40,.25)">Publish</span></span></div>
+    <div class="ov" id="chk" style="left:300px;top:120px;width:1320px;height:230px;border:8px solid ${NAVY};border-radius:26px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.22)"><div class="px" style="left:30px;top:14px;font-size:46px;color:${NAVY}">republish per channel</div>${['Teams', 'Website', 'Mobile app'].map((r, k) => `<div class="px" style="left:${30 + k * 420}px;top:100px;width:380px;height:90px;border:5px solid #c9ced8;border-radius:20px;background:#f3f5f9;font-size:44px;color:#141821;line-height:80px;padding-left:24px">${r}</div><div id="stk${k}" style="position:absolute;left:${30 + k * 420}px;top:140px;width:0;height:10px;border-radius:5px;background:${SLATE}"></div>`).join('')}</div>
+    <div class="ov" id="one" style="left:0;top:170px;width:1920px;text-align:center"><span style="display:inline-block;position:relative;width:520px;height:170px;border-radius:34px;background:${NAVY};color:#fff;font-size:90px;font-weight:800;line-height:170px;box-shadow:0 14px 40px rgba(16,24,40,.25)">Publish<span style="position:absolute;right:-60px;top:-50px;width:120px;height:120px;border-radius:50%;background:${AMB};color:#fff;font-size:64px;line-height:120px">×1</span></span></div>
+    ${BCH('cMan', 'the agent = a manual', NAVY)}${BCH('cDraft', 'Draft · on your desk', GREY)}${BCH('cNight', 'goes home', NAVY)}${BCH('cMorn', 'next morning', AMB)}${BCH('cOld', 'old answer', AMB)}
+    ${BCH('cBrk', 'Is Nexo broken?', NAVY, null, `<span id="stNo" style="display:inline-block;margin-left:18px;padding:0 24px;border:5px solid ${BLUE};border-radius:14px;color:${BLUE};transform:rotate(-6deg);opacity:0">No</span>`)}
+    ${BCH('cEd', 'new edition, handed out', BLUE)}${BCH('cOldEd', 'old edition still being read', AMB)}${BCH('cOnly', 'only you see it (test pane)', GRN)}${BCH('cAll', 'every connected channel at once', BLUE)}${BCH('cSame', 'same edition, together', BLUE)}${BCH('cNot', 'not channel by channel', SLATE)}${BCH('cOneP', 'One Publish is enough', NAVY)}
+    ${BCH('cSes', 'session = conversation in progress', PUR)}${BCH('cNew', 'new content → only in a new session', BLUE)}${BCH('c30', '30 min of inactivity', TEAL, 'timer')}${BCH('cTK', 'Teams keeps conversations open', PUR)}${BCH('cFo', 'forces a new session', GRN)}${BCH('cHr', 'otherwise: up to an hour', AMB, 'timer')}
+    ${BCH('cQk', 'quick page to try the agent', TEAL)}${BCH('cOth', 'and others', GB)}${BCH('cAuth', 'some require authentication', AMB, 'lock_closed')}
+    ${BCH('cWho', 'who decides?', NAVY)}${BCH('cAdm', 'the administrator', NAVY)}${BCH('cCon', 'one connector per channel · data policies', NAVY)}${BCH('cBlk', 'makers can\'t use those channels', SLATE, 'lock_closed')}${BCH('cKeep', 'Teams and the website keep working', GRN).replace('left:0;top:862px;width:1920px;text-align:center', 'right:120px;top:862px;text-align:right')}
+    ${BCH('cNo2', 'Is Nexo broken? &nbsp;No', GRN, 'checkmark_circle')}${BCH('cSess', 'session started before the fix', AMB, 'history')}${BCH('cNext', 'next: responsible AI and moderation', BLUE).replace('left:0;top:862px;width:1920px', 'left:1240px;top:130px;width:560px').replace('white-space:nowrap', 'white-space:normal;line-height:1.15;border-radius:40px')}
+  </div>`);
+
+  /* ═════════ UI WINDOW (scene 9) ═════════ */
+  const TL = [['Teams and<br>Microsoft 365', PUR], ['Demo website', TEAL], ['Custom website', TEAL], ['Mobile app', TEAL], ['WhatsApp', GB], ['Facebook', GB]];
+  const UB = (id, st, inner) => `<div id="${id}" style="position:absolute;${st}">${inner || ''}</div>`;
+  ADDU(uiWindow('ui', { title: 'Copilot Studio · Nexo', nav: ['Overview', 'Channels', 'Knowledge', 'Tools'], on: 0,
+    bar: `<span id="svd" style="margin-left:auto;font-size:32px;font-weight:700;color:#8fe0b3;opacity:0">✓ All changes saved</span><span class="hc" id="pubBtn" style="margin-left:26px;font-size:32px;font-weight:700;background:${BLUE}">Publish</span>`,
+    body: `<div class="lay" id="lOv" style="left:40px;top:30px;right:40px;opacity:1"><h3>Nexo</h3>
+      <div class="row" style="width:1100px;padding:34px 0"><b>Agent</b><span style="font-size:34px">Nexo · Contoso</span></div>
+      <div class="row" style="width:1100px;padding:34px 0"><b>Last edit</b><span style="font-size:34px">today</span></div>
+      <div class="row" style="width:1100px;padding:34px 0"><b>Status</b><span class="note" id="nSaved" style="opacity:.35;color:${GREY}"><i class="ic">${document.querySelector('#icLib [data-n="checkmark_circle"]').innerHTML}</i>All changes saved</span></div>
+      <div class="row" style="width:1100px;padding:34px 0"><b>Published</b><span style="font-size:34px;color:${GREY}">not yet</span></div></div>
+     <div class="lay" id="lCh" style="left:40px;top:30px;right:40px"><h3>Channels</h3>
+      ${TL.map((t, k) => UB('tl' + k, `left:${(k % 3) * 420}px;top:${80 + Math.floor(k / 3) * 260}px;width:390px;height:230px;box-sizing:border-box;border:5px solid ${t[1]};border-radius:22px;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:40px;font-weight:800;line-height:1.15;color:${t[1]};opacity:0`, t[0])).join('')}</div>
+     <div id="sp" style="position:absolute;left:830px;top:30px;width:510px;height:590px;box-sizing:border-box;border:6px solid ${PUR};border-radius:26px;background:#fff;opacity:0;box-shadow:0 20px 50px rgba(16,24,40,.2)">
+       <div class="px" style="left:24px;top:20px;font-size:36px;color:${PUR};white-space:normal;line-height:1.15">Teams and<br>Microsoft 365</div>
+       ${['Add it to Nexo', 'Sign in to connect', 'Share it with users'].map((r, k) => UB('stp' + k, `left:24px;top:${130 + k * 100}px;width:450px;height:80px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:18px;background:#f3f5f9;font-size:34px;font-weight:700;line-height:70px;padding-left:80px;color:#141821`, r + `<span style="position:absolute;left:14px;top:12px;width:44px;height:44px;border-radius:50%;background:${PUR};color:#fff;text-align:center;line-height:44px;font-size:30px">${k + 1}</span>`)).join('')}
+       ${UB('authR', `left:24px;top:450px;width:450px;height:96px;box-sizing:border-box;border:5px solid ${AMB};border-radius:18px;background:${AMBs};display:flex;align-items:center;gap:14px;padding:0 18px;font-size:34px;font-weight:800;color:#141821;opacity:0`, IC('lock_closed', 'width:44px;height:44px;color:' + AMB) + 'Authentication · Required')}
+     </div>
+     <div class="lay" id="lChat" style="left:40px;top:30px;right:40px;opacity:0"><h3>New conversation</h3>
+       ${UB('', `left:520px;top:90px;width:560px;height:90px;border-radius:24px;background:${CORAL};color:#fff;font-size:40px;font-weight:700;line-height:90px;text-align:center`, 'How do returns work?')}
+       ${UB('', `left:0;top:230px;width:760px;height:150px;box-sizing:border-box;border:5px solid ${GRN};border-radius:24px;background:#fff;padding:20px 28px;font-size:40px;font-weight:700;line-height:1.3;color:#141821`, 'New returns answer')}
+       ${UB('chEd', `left:540px;top:244px;width:130px;height:62px;border-radius:14px;background:${BLUE};color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:62px`, 'Ed. 2')}
+       ${UB('chOk', `left:690px;top:240px;width:70px;height:70px;border-radius:50%;background:${GRN};color:#fff;font-size:50px;font-weight:800;text-align:center;line-height:66px`, '✓')}</div>
+     ${UB('banner', `left:40px;top:560px;width:760px;height:90px;box-sizing:border-box;border:5px solid ${GRN};border-radius:20px;background:${GRNs};color:${GRN};font-size:42px;font-weight:800;line-height:80px;text-align:center;opacity:0`, '✓ Published')}
+     ${UB('tip', `left:830px;top:560px;opacity:0`, '')}`
+  }));
+  ADDU(`<div id="dlg" class="w" style="left:560px;top:330px;width:800px;height:380px;box-sizing:border-box;border:6px solid ${NAVY};border-radius:28px;background:#fff;box-shadow:0 40px 120px rgba(16,24,40,.35);opacity:0;z-index:6">
+    <div class="px" style="left:44px;top:40px;font-size:50px;color:${NAVY}">Publish this agent?</div>
+    <div class="px" style="left:44px;top:130px;font-size:36px;color:${GREY};font-weight:600">Everyone on every channel gets the new edition.</div>
+    <div id="dlgB" class="px" style="left:44px;top:240px;width:300px;height:90px;border-radius:16px;background:${BLUE};color:#fff;font-size:44px;text-align:center;line-height:90px">Publish</div>
+    <div class="px" style="left:380px;top:240px;width:300px;height:90px;border-radius:16px;border:4px solid #c9ced8;color:${GREY};font-size:44px;text-align:center;line-height:82px">Cancel</div></div>`);
+  ADDU(`<div class="tag amber" id="tipT" style="left:1525px;top:850px;font-size:40px">check it</div>`);
+  const CP = {}; ['#pubBtn', '#dlgB', '#ui_nv1', '#tl0'].forEach((s) => { CP[s] = PC(s); }); CP.bt = [960 + (685 - V_D[0]) * V_D[2], 540 + (1220 - V_D[1]) * V_D[2]]; CP['#tl0'] = [CP['#tl0'][0] + 150, CP['#tl0'][1] + 85];
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (id, x, w, col, h4, inner) => `<div class="rm" id="${id}" style="left:${x}px;width:${w}px;border-color:${col};opacity:0"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const MM = (id, x, y, ed, vis) => bx(id, `left:${x}px;top:${y}px;width:130px;height:80px;border-radius:10px;background:${ed == 1 ? AMB : BLUE};color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:80px;opacity:${vis ? 1 : 0}`, 'Ed. ' + ed);
+  const LB = (x, y, txt, w) => bx('', `left:${x}px;top:${y}px;width:${w || 200}px;text-align:center;font-size:36px;font-weight:800;color:#c9d3ea;white-space:nowrap`, txt);
+  const CHIPX = (id, x, y, w, col, txt) => bx(id, `left:${x}px;top:${y}px;width:${w}px;height:56px;box-sizing:border-box;border:5px solid ${col};border-radius:20px;color:${col};font-size:36px;font-weight:800;text-align:center;line-height:46px;opacity:0`, txt);
+  const CELLS = ['Teams', 'Website', 'Mobile app'];
+  EXAMS(
+    mkExam('exA', { q: 'Valeria saved a change, and it works in the test pane. But users on Teams and on the website don\'t see it, even in new conversations. What is missing?',
+      opts: ['Republish each channel one by one', 'Select Publish once for the agent', 'Wait for the save to reach channels'],
+      why: '<div id="exA_w1"><span class="y">Saving</span> only updates the <span class="y">draft</span>.</div><div id="exA_w2"><span class="g">One Publish</span> updates <span class="g">every connected channel</span> together.</div>',
+      proof: rmX('pA_L', 0, 826, '#ffd166', 'Saved only', bx('', 'left:28px;top:96px;width:150px;height:116px;box-sizing:border-box;border:4px dashed #8f9cc0;border-radius:12px;color:#c9d3ea;font-size:38px;font-weight:800;text-align:center;line-height:108px', 'Draft') +
+          CELLS.map((c, k) => MM('pAa' + k, 220 + k * 200, 96, 1, true) + LB(190 + k * 200, 186, c)).join('') + CHIPX('pA_c1', 28, 234, 300, '#ffd166', 'draft only')) +
+        rmX('pA_R', 854, 826, '#6be3a0', 'Published', bx('', 'left:28px;top:96px;width:150px;height:130px;border-radius:14px;background:' + NAVY + ';border:4px solid #6be3a0;color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:122px', 'Publish') +
+          CELLS.map((c, k) => MM('pAb' + k, 220 + k * 200, 96, 2, false) + bx('pAk' + k, `left:${316 + k * 200}px;top:78px;width:44px;height:44px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:30px;font-weight:800;text-align:center;line-height:42px;opacity:0`, '✓') + LB(190 + k * 200, 186, c)).join('') + CHIPX('pA_c2', 28, 234, 440, '#6be3a0', 'all channels at once')) }),
+    mkExam('exB', { q: 'The fix is published, but Marta\'s conversation in Teams is still open, and she keeps getting the old answer. Valeria wants her to see the fix right now. What should Marta do?',
+      opts: ['Type start over in the chat', 'Publish again just for Teams', 'Reinstall the app in Teams'],
+      why: '<div id="exB_w1"><span class="g">Start over</span> forces a <span class="g">new session</span>, and new sessions get the <span class="g">published content</span>.</div><div id="exB_w2"><span class="r">Publishing again</span> changes <span class="r">nothing</span>.</div>',
+      proof: rmX('pB_L', 0, 826, '#6be3a0', 'Start over', bx('pBu', 'left:420px;top:92px;width:370px;height:76px;border-radius:24px;background:' + CORAL + ';color:#fff;font-size:42px;font-weight:700;text-align:center;line-height:76px;opacity:0', 'start over') +
+          bx('pBr', 'left:28px;top:190px;width:540px;height:84px;box-sizing:border-box;border:4px solid #6be3a0;border-radius:24px;background:#fff;color:#141821;font-size:38px;font-weight:700;line-height:76px;padding-left:24px;opacity:0', 'New returns answer') +
+          bx('pBe', 'left:590px;top:197px;width:116px;height:70px;border-radius:14px;background:' + BLUE + ';color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:70px;opacity:0', 'Ed. 2') +
+          bx('pBk', 'left:722px;top:196px;width:70px;height:70px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:50px;font-weight:800;text-align:center;line-height:66px;opacity:0', '✓')) +
+        rmX('pB_R', 854, 826, '#ff8a80', 'Publish again', bx('', 'left:28px;top:100px;width:200px;height:100px;border-radius:18px;background:' + NAVY + ';border:4px solid #ff8a80;color:#fff;font-size:40px;font-weight:800;text-align:center;line-height:92px', 'Publish') +
+          bx('', 'left:250px;top:140px;width:50px;height:12px;border-radius:6px;background:#ff8a80') +
+          bx('', 'left:316px;top:88px;width:480px;height:130px;box-sizing:border-box;border:5px dashed #b79cf0;border-radius:24px', bx('', 'left:24px;top:24px;width:130px;height:80px;border-radius:10px;background:' + AMB + ';color:#fff;font-size:38px;font-weight:800;text-align:center;line-height:80px', 'Ed. 1') + bx('', 'left:172px;top:30px;width:280px;font-size:36px;font-weight:800;color:#c9d3ea;line-height:1.1', 'Marta\'s<br>open session')) +
+          CHIPX('pB_c', 28, 232, 400, '#ff8a80', 'same old session')) }),
+    mkExam('exC', { q: 'Contoso\'s administrator puts the Direct Line channels connector in the Blocked group of a data policy. Makers ask which channels they just lost. Which channels can they no longer use?',
+      opts: ['Every channel, even Teams', 'The Demo website alone', 'Websites and mobile apps'],
+      why: '<div id="exC_w1"><span class="g">Direct Line</span> covers the <span class="g">Demo website</span>, <span class="g">custom websites</span> and <span class="g">mobile apps</span>.</div><div id="exC_w2"><span class="y">Teams</span> has <span class="y">its own connector</span>.</div>',
+      proof: rmX('pC_L', 0, 826, '#8f9cc0', 'Direct Line blocked', bx('', 'left:28px;top:96px;width:770px;height:44px;border-radius:14px;background:' + TEAL, '') +
+          bx('pCl', 'left:718px;top:70px;width:80px;height:80px;border-radius:50%;background:' + SLATE + ';border:4px solid #fff;display:flex;align-items:center;justify-content:center;opacity:0', IC('lock_closed', 'width:46px;height:46px;color:#fff')) +
+          ['Demo<br>website', 'Custom<br>website', 'Mobile<br>app'].map((c, k) => bx('pCs' + k, `left:${28 + k * 264}px;top:156px;width:242px;height:128px;box-sizing:border-box;border:5px solid #8f9cc0;border-radius:18px;background:${SLATE};color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:1.2;padding-top:20px;opacity:0`, c)).join('')) +
+        rmX('pC_R', 854, 826, '#6be3a0', 'Still open', bx('pCt', 'left:28px;top:96px;width:420px;height:170px;box-sizing:border-box;border:6px solid #8a5cd6;border-radius:22px;background:#efe7fb;color:#8a5cd6;font-size:42px;font-weight:800;text-align:center;line-height:1.2;padding-top:32px;opacity:0', 'Teams and<br>Microsoft 365') +
+          bx('pCw', 'left:448px;top:170px;width:50px;height:12px;border-radius:6px;background:#1e7f4f;opacity:0') +
+          bx('pCp', 'left:498px;top:116px;width:290px;height:120px;box-sizing:border-box;border:6px solid #1e7f4f;border-radius:20px;background:#e3f4ea;color:#1e7f4f;display:flex;align-items:center;justify-content:center;gap:12px;font-size:36px;font-weight:800;opacity:0', IC('plug_connected', 'width:54px;height:54px;color:#1e7f4f') + 'own plug') +
+          CHIPX('pC_c', 28, 232, 340, '#6be3a0', 'own connector')) })
+  );
+  const XB = [360, 550, 740];
+  ['exA', 'exB', 'exC'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1400, height: 170, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: [330, 432, 534][k], width: 1090, height: 92, fontSize: 36, duration: 1.3, ease: 'sine.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = Math.max(0.5, R - 0.15 - C0);
+    ON(X, S(i, 0) - 0.5, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0, y: 20 }, { opacity: 0.6, y: 0, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.4 }, t - 0.5));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.6 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.2, 0.6);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.6 }, R);
+    ON(Gg + ' .ok', R + 0.2, 0.6);
+    tl.to(O, { opacity: 0.5, duration: 0.6 }, R);
+    XCOMP(id, R + 0.9);
+    OFF(X, o.end, 0.35);
+  };
+  const toExam = (i) => OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.95, 0.3);
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.6, 0.3); ON('#scr', S(i, 0) - 0.6, 0.3); };
+  const EXW = (id, i) => { const R = S(i, 8), P = Math.max(R + 2.35, S(i, 9) + 0.1);
+    tl.fromTo(`#${id}_w1`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, P);
+    tl.fromTo(`#${id}_w2`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(i, 10) + 0.1, P + 0.9));
+    ON(`#${id}_p`, P, 0.4); return P; };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - V_D[0] * V_D[2], y: 540 - V_D[1] * V_D[2], scale: V_D[2] });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 }); gsap.set('#exA_ring,#exB_ring,#exC_ring', { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set('.lay#lCh,.lay#lChat', { opacity: 0 });
+  const TOT = B.duration + 2.5;
+
+  /* ═════════ 0 · The fix nobody sees ═════════ */
+  ON('#pM', 0.6, 0.4);
+  BOB('#marta', 3, 6, 8); BOB('#nx', 0.6, 9, 7); BOB('#dk_p', 1.0, 9, 5);
+  /* s0: the pencil fix on the draft page */
+  ON('#pen', 0.9, 0.3); tl.to('#pen', { x: -50, y: 24, duration: 0.3, yoyo: true, repeat: 5, ease: 'sine.inOut' }, 1.0);
+  tl.fromTo('#dmT', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)', immediateRender: false }, S(0, 0) + 1.9);
+  OFF('#pen', S(0, 0) + 2.9, 0.3);
+  /* s1: cursor on Publish, night falls, she goes home */
+  ON('#cur', S(0, 1) - 0.1, 0.2); CUR(CP.bt[0], CP.bt[1], S(0, 1), 0.7); CLICK(CP.bt[0], CP.bt[1], S(0, 1) + 0.8);
+  tl.to('#dkBtn', { backgroundColor: BLUE, duration: 0.2 }, S(0, 1) + 0.8); OFF('#cur', S(0, 1) + 1.3, 0.2);
+  tl.to('#wnS', { backgroundColor: '#1b2547', duration: 1.2 }, S(0, 1) + 0.9); tl.to('#wnM', { top: 60, duration: 1.4, ease: 'power2.out' }, S(0, 1) + 0.9);
+  FADEIN('#cNight', S(0, 1) + 0.6, 0.4); OFF('#cNight', S(0, 2) - 0.2, 0.3);
+  tl.to('#dk_p', { x: -230, duration: 1.4, ease: 'none' }, S(0, 1) + 1.2); OFF('#dk_p', S(0, 1) + 1.9, 0.35);
+  /* s2: next morning, camera to Teams, Marta types */
+  tl.to('#wnM', { top: 300, duration: 0.5 }, S(0, 2) - 0.1); tl.to('#wnS', { backgroundColor: '#ffe9b8', duration: 0.6 }, S(0, 2) - 0.1); tl.to('#wnU', { top: 120, duration: 1.0, ease: 'power2.out' }, S(0, 2));
+  FADEIN('#cMorn', S(0, 2) + 0.1, 0.4); OFF('#cMorn', S(0, 2) + 1.6, 0.3);
+  OFF('#dm', S(0, 2) + 0.15, 0.25); ON('#prs', S(0, 2) + 0.2, 0.4);
+  camTo(V_T, S(0, 2) + 0.4, 1.7);
+  FADEIN('#bq', W(0, 2, 'opens', 0.4), 0.4);
+  /* s3: the old answer */
+  FADEIN('#br', S(0, 3) + 0.05, 0.4); POP('#brT', S(0, 3) + 0.5);
+  FADEIN('#cOld', S(0, 3) + 0.2, 0.4); OFF('#cOld', S(0, 4) - 0.15, 0.3);
+  /* s4-s5: broken? No. */
+  POP('#qm', S(0, 4) + 0.05); tl.to('#qm', { rotation: 8, duration: 0.2, yoyo: true, repeat: 3 }, S(0, 4) + 0.5);
+  FADEIN('#cBrk', S(0, 4) + 0.1, 0.4);
+  tl.fromTo('#stNo', { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(1.6)', immediateRender: false }, S(0, 5) + 0.05);
+  OFF(['#cBrk', '#qm'], S(0, 6) - 0.15, 0.3);
+  /* s6: title */
+  OFF('#pM', S(0, 6) - 0.2, 0.3); OFF(['#bq', '#br', '#brT'], S(0, 6) - 0.1, 0.3);
+  tl.fromTo('#kT', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, S(0, 6) + 0.1);
+  OFF('#kT', S(0, 6) + 3.4, 0.3); FI('#pTitle', S(0, 6) + 3.8, 0.4);
+  PULSEX('#brT', S(0, 6) + 4.5, 1.15);
+
+  /* ═════════ 1 · A new edition of the manual ═════════ */
+  OFF(['#pTitle', '#bq', '#br', '#brT'], S(1, 0) - 0.5, 0.3);
+  camTo(V_D, S(1, 0) - 0.5, 1.4);
+  tl.to('#wnS', { backgroundColor: '#cfe3ff', duration: 0.5 }, S(1, 0) - 0.5); tl.to('#wnU', { top: 300, duration: 0.5 }, S(1, 0) - 0.5);
+  ON('#dk_p', S(1, 0) - 0.3, 0.4); tl.set('#dk_p', { x: 0 }, S(1, 0) - 0.5);
+  FADEIN('#cMan', S(1, 0) + 0.2, 0.4); OFF('#cMan', S(1, 1) - 0.1, 0.3);
+  ON('#dm', S(1, 0) + 0.9, 0.3); tl.to('#dm', { scale: 1.3, duration: 0.8, ease: 'back.out(1.4)' }, S(1, 0) + 1.2);
+  FADEIN('#cDraft', S(1, 1) + 0.1, 0.4); OFF('#cDraft', S(1, 2) - 0.1, 0.3);
+  ON('#pen', S(1, 1) + 0.2, 0.3); tl.to('#pen', { x: -40, y: 20, duration: 0.3, yoyo: true, repeat: 5, ease: 'sine.inOut' }, S(1, 1) + 0.4); OFF('#pen', S(1, 1) + 2.2, 0.3);
+  /* s2: press and van */
+  tl.to('#dm', { scale: 1, duration: 0.3 }, S(1, 2) - 0.45); OFF('#dm', S(1, 2) - 0.15, 0.2);
+  ON('#dmF', S(1, 2) - 0.15, 0.2); tl.to('#dmF', { x: 880, y: -60, scale: 0.5, duration: 1.0, ease: 'power2.inOut' }, S(1, 2)); OFF('#dmF', S(1, 2) + 1.0, 0.25);
+  camTo(V_T, S(1, 2) - 0.1, 1.5);
+  ON('#prs', S(1, 2) - 0.3, 0.4); ON('#vn', S(1, 2) - 0.3, 0.4);
+  tl.to('#prB', { backgroundColor: '#ffffff', color: NAVY, duration: 0.25 }, S(1, 2) + 1.0);
+  tl.to(['#rl1', '#rl2'], { rotation: 720, duration: 1.8, ease: 'none' }, S(1, 2) + 1.0);
+  ON('#stk', S(1, 2) + 1.5, 0.4); POP('#stkE', S(1, 2) + 1.6);
+  FADEIN('#cEd', S(1, 2) + 0.7, 0.4); OFF('#cEd', S(1, 3) - 0.15, 0.3);
+  tl.to('#prB', { backgroundColor: '#2d3a5c', color: '#c9d3ea', duration: 0.3 }, S(1, 2) + 2.7);
+  tl.to('#vn', { x: 420, duration: 2.6, ease: 'power1.inOut' }, S(1, 2) + 1.8);
+  /* s3: Marta still reads Ed. 1 */
+  POP('#hA', S(1, 3) + 0.1); BOB('#marta', S(1, 3) + 0.4, 5, 8);
+  FADEIN('#cOldEd', S(1, 3) + 0.4, 0.4); OFF('#cOldEd', S(1, 4) - 0.15, 0.3);
+  /* s4: the street, channels */
+  camTo(V_ST, S(1, 4) - 0.1, 1.9);
+  OFF(['#prs', '#stk'], S(1, 4) + 0.9, 0.4);
+  ['sD', 'sC', 'sM', 'sW', 'sF'].forEach((id, k) => FI('#' + id, S(1, 4) + 0.5 + k * 0.22, 0.4));
+  FADEIN('#chS', W(1, 4, 'channels', -0.2), 0.45);
+  /* s5: three stands light */
+  OFF('#chS', S(1, 5) - 0.1, 0.25);
+  POPX('#tgT', W(1, 5, 'teams', -0.1)); POPX('#tgW', W(1, 5, 'website', -0.1)); POPX('#tgM', W(1, 5, 'mobile app', -0.1));
+  const LIT = (id, t) => { const c = SC[id]; tl.to(`#${id}_s`, { borderColor: c[0], backgroundColor: c[1], color: c[0], duration: 0.4 }, t); tl.to(`#${id}_b`, { borderColor: c[0], backgroundColor: '#ffffff', duration: 0.4 }, t); };
+  const DIMS = (id, t) => { tl.to(`#${id}_s`, { borderColor: GREY, backgroundColor: DIM, color: GREY, duration: 0.3 }, t); tl.to(`#${id}_b`, { borderColor: GREY, backgroundColor: '#f3f5f9', duration: 0.3 }, t); };
+  const RSWAP = (id, t) => { tl.to(`#${id}_a`, { opacity: 0, duration: 0.25 }, t); tl.fromTo(`#${id}_n`, { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, t + 0.3); };
+  LIT('sD', W(1, 5, 'website', -0.1)); LIT('sM', W(1, 5, 'mobile app', -0.1));
+  OFF(['#tgT', '#tgW', '#tgM'], E(1, 5) - 0.1, 0.3);
+
+  /* ═════════ 2 · Saving is not publishing ═════════ */
+  camTo(V_D, E(1, 5) + 0.15, 1.4);
+  ON('#dm', S(2, 1) - 0.2, 0.3);
+  FI('#pFirst', S(2, 0) + 0.05, 0.4); OFF('#pFirst', S(2, 3) - 0.2, 0.3);
+  tl.fromTo('#btns', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(2, 1) + 0.1);
+  OFF('#btns', S(2, 2) + 0.9, 0.3);
+  tl.to('#dm', { scale: 1.1, duration: 0.3, yoyo: true, repeat: 1 }, S(2, 2) + 0.3);
+  tl.set('#dmN', { opacity: 1 }, S(2, 2) + 0.6);
+  FI('#tp', S(2, 2) + 1.3, 0.4); FADEIN('#cOnly', S(2, 2) + 1.4, 0.4); OFF('#cOnly', S(2, 3) - 0.15, 0.3);
+  /* s3: Publish presses the press, one van, every stand */
+  OFF('#dm', S(2, 3) - 0.3, 0.2);
+  camTo(V_T, S(2, 3) - 0.1, 1.4); OFF('#tp', S(2, 3) - 0.3, 0.2);
+  ON(['#prs', '#stk'], S(2, 3) - 0.6, 0.3); OFF(['#sD', '#sC', '#sM', '#sW', '#sF'], S(2, 3) - 0.35, 0.25); ['sD', 'sC', 'sM', 'sW', 'sF'].forEach((id) => FI('#' + id, S(2, 3) + 1.3, 0.4));
+  tl.set('#vn', { x: 420 }, 0);
+  tl.to('#prB', { backgroundColor: '#ffffff', color: NAVY, duration: 0.25 }, S(2, 3) + 0.1);
+  tl.to(['#rl1', '#rl2'], { rotation: '+=720', duration: 1.6, ease: 'none' }, S(2, 3) + 0.1);
+  tl.to('#stkE', { scale: 1.08, duration: 0.2, yoyo: true, repeat: 1 }, S(2, 3) + 0.5);
+  tl.to('#prB', { backgroundColor: '#2d3a5c', color: '#c9d3ea', duration: 0.3 }, S(2, 3) + 1.8);
+  FADEIN('#cAll', S(2, 3) + 0.6, 0.4); OFF('#cAll', S(2, 4) - 0.1, 0.3);
+  tl.to('#vn', { x: 2900, duration: 3.2, ease: 'power1.inOut' }, S(2, 3) + 1.3);
+  camTo(V_ST, S(2, 3) + 1.3, 3.0, 'power1.inOut');
+  OFF('#vn', S(2, 4) + 0.8, 0.4); OFF(['#prs', '#stk'], S(2, 4) + 0.3, 0.4);
+  /* s4: racks swap together */
+  ['sT', 'sD', 'sM'].forEach((id) => RSWAP(id, S(2, 4) + 0.4));
+  FADEIN('#cSame', S(2, 4) + 0.5, 0.4); OFF('#cSame', S(2, 5) - 0.15, 0.3);
+  /* s5: no channel by channel */
+  FI('#chk', S(2, 5) + 0.05, 0.4);
+  [0, 1, 2].forEach((k) => tl.fromTo('#stk' + k, { width: 0 }, { width: 404, duration: 0.5, ease: 'power2.out', immediateRender: false }, S(2, 5) + 0.6 + k * 0.35));
+  FADEIN('#cNot', S(2, 5) + 0.5, 0.4); OFF(['#cNot', '#chk'], S(2, 6) - 0.5, 0.3);
+  /* s6: one Publish */
+  tl.fromTo('#one', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(2, 6) + 0.05);
+  FADEIN('#cOneP', S(2, 6) + 0.2, 0.4);
+
+  OFF(['#one', '#cOneP'], E(2, 6) - 0.1, 0.3);
+
+  /* ═════════ 3 · EXAM: the change nobody sees ═════════ */
+  toExam(3);
+  camAt(V_T, S(3, 0) - 0.7);
+  EXAMX('exA', 3, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 1.0 });
+  { const P = EXW('exA', 3), R = S(3, 8);
+    ON('#pA_L', P, 0.4); ON('#pA_R', Math.max(P + 0.9, S(3, 10) + 0.1), 0.4);
+    ON('#pA_c1', P + 0.5, 0.3);
+    [0, 1, 2].forEach((k) => { const t = Math.max(P + 0.9, S(3, 10) + 0.1) + 0.5 + k * 0.3; tl.fromTo('#pAb' + k, { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, t); ON('#pAk' + k, t + 0.2, 0.25); });
+    ON('#pA_c2', Math.max(P + 0.9, S(3, 10) + 0.1) + 1.5, 0.3); }
+  /* the left panel keeps the amber editions: they are separate elements from the right panel */
+
+  /* ═════════ 4 · Why some users see the old version ═════════ */
+  fromExam(4);
+  /* hide the shared word-sized state under the exam */
+  tl.set(['#pMys', '#stk'], { opacity: 0 }, S(4, 0) - 0.7); tl.set('#prs', { opacity: 1 }, S(4, 0) - 0.7); tl.set(['#sD', '#sC', '#sM', '#sW', '#sF'], { opacity: 0 }, S(4, 0) - 0.7);
+  FI('#pMys', S(4, 0) + 0.1, 0.4); OFF('#pMys', S(4, 2) + 2.0, 0.3);
+  FI('#ses', S(4, 1) - 0.1, 0.4); FADEIN('#bq', S(4, 1) + 0.1, 0.4); FADEIN('#br', S(4, 1) + 0.5, 0.4); FADEIN('#brT', S(4, 1) + 0.9, 0.3);
+  tl.to('#ses', { borderStyle: 'solid', boxShadow: '0 0 0 14px rgba(138,92,214,.25)', duration: 0.4 }, S(4, 1) + 0.2);
+  FADEIN('#cSes', S(4, 1) + 0.3, 0.4); OFF('#cSes', S(4, 2) - 0.1, 0.3);
+  /* s2: Ed. 2 in the rack, Marta keeps Ed. 1 */
+  tl.to('#sT_n', { scale: 1.12, duration: 0.25, yoyo: true, repeat: 3, ease: 'power2.inOut' }, S(4, 2) + 0.2);
+  FADEIN('#cNew', S(4, 2) + 0.4, 0.4); OFF('#cNew', S(4, 3) - 0.15, 0.3);
+  /* s3: website stands, the session closes after 30 minutes */
+  OFF(['#ses', '#bq', '#br', '#brT'], S(4, 3) - 0.35, 0.3);
+  ['sD', 'sC', 'sM'].forEach((id) => FI('#' + id, S(4, 3) - 0.4, 0.4));
+  OFF('#sT', S(4, 3) - 0.35, 0.3); FI('#sT', S(4, 4) - 0.4, 0.3);
+  camTo(V_W, S(4, 3) - 0.3, 1.2);
+  FI('#fw', S(4, 3) + 0.4, 0.4); FI('#v1', S(4, 3) + 0.3, 0.4);
+  FADEIN('#c30', W(4, 3, 'thirty', -0.1), 0.4); tl.to('#c30 .ic', { rotation: 360, duration: 1.6, ease: 'none' }, W(4, 3, 'thirty', 0.1));
+  tl.to('#v1', { x: 420, duration: 1.0, ease: 'none' }, S(4, 3) + 1.0); OFF('#v1', S(4, 3) + 1.8, 0.25);
+  tl.to('#fw', { scaleY: 0.2, opacity: 0, duration: 0.5, transformOrigin: '50% 100%' }, S(4, 3) + 1.4);
+  FI('#v2', S(4, 3) + 1.9, 0.3); tl.to('#v2', { x: 280, duration: 0.8, ease: 'none' }, S(4, 3) + 1.9);
+  OFF('#c30', S(4, 4) - 0.2, 0.3);
+  POP('#v2m', S(4, 3) + 2.5); POP('#v2k', S(4, 3) + 2.75);
+  /* s4: back at Teams, session stays open */
+  OFF(['#v2', '#v2m', '#v2k', '#sD', '#sC', '#sM', '#sW', '#sF'], S(4, 4) - 0.4, 0.3);
+  camTo(V_T, S(4, 4) - 0.4, 1.3);
+  FI('#ses', S(4, 4) + 0.3, 0.4); tl.to('#ses', { borderStyle: 'solid', duration: 0.01 }, S(4, 4) + 0.3);
+  FADEIN('#cTK', S(4, 4) + 0.5, 0.4); OFF('#cTK', S(4, 5) - 0.15, 0.3);
+  /* s5: start over */
+  FADEIN('#bs', S(4, 5) + 0.15, 0.4);
+  tl.to('#ses', { scale: 0.97, duration: 0.2, yoyo: true, repeat: 1 }, S(4, 5) + 1.0);
+  tl.to('#ses', { borderColor: GRN, duration: 0.3 }, S(4, 5) + 1.0);
+  tl.to('#hA', { opacity: 0, duration: 0.25 }, S(4, 5) + 1.3); tl.fromTo('#hB', { opacity: 0 }, { opacity: 1, duration: 0.35, immediateRender: false }, S(4, 5) + 1.6);
+  FADEIN('#cFo', S(4, 5) + 0.7, 0.4); OFF('#cFo', S(4, 6) - 0.1, 0.3);
+  /* s6: up to an hour */
+  FADEIN('#cHr', S(4, 6) + 0.1, 0.4); tl.to('#cHr .ic', { rotation: 360, duration: 1.8, ease: 'none' }, S(4, 6) + 0.2);
+  OFF(['#bs', '#ses', '#cHr'], E(4, 6) - 0.1, 0.3);
+
+  /* ═════════ 5 · EXAM: Marta's old answer ═════════ */
+  toExam(5);
+  tl.set('#hB', { opacity: 0 }, S(5, 0) - 0.7); tl.set('#hA', { opacity: 1 }, S(5, 0) - 0.7);
+  tl.set('#ses', { borderColor: PUR, boxShadow: 'none', opacity: 0 }, S(5, 0) - 0.7);
+  EXAMX('exB', 5, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 1.0 });
+  { const P = EXW('exB', 5), P2 = Math.max(P + 0.9, S(5, 10) + 0.1);
+    ON('#pB_L', P, 0.4); FI('#pBu', P + 0.4, 0.3); FI('#pBr', P + 0.9, 0.3); FI('#pBe', P + 1.3, 0.3); FI('#pBk', P + 1.6, 0.3);
+    ON('#pB_R', P2, 0.4); ON('#pB_c', P2 + 0.8, 0.3); }
+
+  /* ═════════ 6 · Which channels exist ═════════ */
+  fromExam(6);
+  camAt(V6, S(6, 0) - 0.7);
+  tl.set(['#prs', '#stk', '#vn'], { opacity: 0 }, S(6, 0) - 0.7);
+  ['sT', 'sD', 'sC', 'sM', 'sW', 'sF'].forEach((id) => { tl.set(`#${id}_s`, { borderColor: GREY, backgroundColor: DIM, color: GREY }, S(6, 0) - 0.7); tl.set(`#${id}_b`, { borderColor: GREY, backgroundColor: '#f3f5f9' }, S(6, 0) - 0.7); tl.set(`#${id}`, { opacity: 1 }, S(6, 0) - 0.7); });
+  tl.set(['#hA'], { opacity: 0 }, S(6, 0) - 0.7);
+  FI('#pWhere', S(6, 0) + 0.1, 0.4); OFF('#pWhere', S(6, 4) - 0.2, 0.3);
+  LIT('sT', W(6, 1, 'teams', -0.1)); BOB('#marta', S(6, 1) + 0.2, 5, 10);
+  LIT('sD', W(6, 2, 'demo', -0.1)); FI('#brD', W(6, 2, 'demo', 0), 0.3);
+  FADEIN('#cQk', S(6, 2) + 0.9, 0.4); OFF('#cQk', S(6, 3) - 0.1, 0.3);
+  LIT('sW', W(6, 3, 'whatsapp', -0.1)); LIT('sF', W(6, 3, 'facebook', -0.1));
+  FADEIN('#cOth', W(6, 3, 'others', 0), 0.4); OFF('#cOth', S(6, 4) - 0.1, 0.3);
+  /* s4: Direct Line family */
+  tl.fromTo('#kDL', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, W(6, 4, 'direct', -0.2));
+  OFF('#kDL', S(6, 4) + 1.9, 0.3);
+  tl.fromTo('#aw', { opacity: 0, y: -140 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out', immediateRender: false }, S(6, 4) + 2.3);
+  /* s5: one stand per word group */
+  LIT('sD', S(6, 5) + 0.05); LIT('sC', W(6, 5, 'custom', -0.1)); LIT('sM', W(6, 5, 'mobile', -0.1));
+  [['sD', 'demo website'], ['sC', 'custom websites'], ['sM', 'mobile apps']].forEach((s) => PULSEX('#' + s[0] + '_s', W(6, 5, s[1], 0), 1.06));
+  /* s6: authentication */
+  POP('#lkT', W(6, 6, 'authentication', -0.4)); POP('#lkC', W(6, 6, 'authentication', -0.2));
+  FADEIN('#cAuth', S(6, 6) + 0.3, 0.4); OFF('#cAuth', E(6, 6) - 0.1, 0.3);
+
+  /* ═════════ 7 · Channel governance ═════════ */
+  OFF(['#lkT', '#lkC'], E(6, 6) + 0.1, 0.3);
+  camTo(V_G, S(7, 0) - 0.3, 1.9);
+  ON('#gh', S(7, 0) + 0.1, 0.5); FADEIN('#cWho', S(7, 0) + 0.3, 0.4); OFF('#cWho', S(7, 1) - 0.1, 0.3);
+  tl.set('#ad', { x: 800 }, 0); tl.to('#ad', { opacity: 1, x: 0, duration: 1.0, ease: 'power2.out' }, S(7, 1) + 0.05);
+  FADEIN('#cAdm', S(7, 1) + 0.3, 0.4); OFF('#cAdm', S(7, 2) - 0.1, 0.3);
+  PG.forEach((p) => { FI('#' + p[0], S(7, 0) + 0.15, 0.5); FI('#w' + p[0], S(7, 0) + 0.15, 0.5); });
+  FADEIN('#cCon', S(7, 2) + 0.4, 0.4); OFF('#cCon', S(7, 3) - 0.1, 0.3);
+  const PLIT = (k, t) => { const p = PG[k]; tl.to('#' + p[0], { borderColor: p[6], backgroundColor: p[7], color: p[6], duration: 0.4 }, t); tl.to('#w' + p[0], { backgroundColor: p[6], duration: 0.4 }, t); };
+  PLIT(0, W(7, 3, 'teams', -0.1)); PLIT(1, S(7, 4) + 0.05); PLIT(2, W(7, 5, 'whatsapp', -0.1)); PLIT(3, W(7, 5, 'facebook', -0.1));
+  /* s6: block WhatsApp and Facebook */
+  tl.fromTo('#blk', { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, W(7, 6, 'blocks', 0));
+  ['pg3', 'pg4'].forEach((id) => tl.to('#' + id, { borderColor: '#8f9cc0', backgroundColor: '#c9d3ea', color: SLATE, duration: 0.5 }, W(7, 6, 'blocks', 0.5)));
+  OFF(['#wpg3', '#wpg4'], W(7, 6, 'blocks', 0.6), 0.4);
+  ['sW', 'sF'].forEach((id, k) => { tl.fromTo(`#${id}_sh`, { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, W(7, 6, 'no longer', 0) + k * 0.2); });
+  FADEIN('#cBlk', S(7, 6) + 2.4, 0.4); OFF('#cBlk', S(7, 7) - 0.1, 0.3);
+  /* s7: Teams and the website keep working */
+  FI('#v3', S(7, 7) + 0.1, 0.4); BOB('#marta', S(7, 7) + 0.2, 4, 10); BOB('#v3', S(7, 7) + 0.3, 4, 8);
+  FADEIN('#cKeep', S(7, 7) + 0.15, 0.3);
+  OFF('#cKeep', E(7, 7) - 0.05, 0.3);
+
+  /* ═════════ 8 · EXAM: blocking Direct Line ═════════ */
+  toExam(8);
+  tl.set(['#gh', '#aw', '#v3', '#sW_sh', '#sF_sh', '#ad', '#blk', '#brD', '#wpg1', '#wpg2', '#wpg3', '#wpg4', '#pg1', '#pg2', '#pg3', '#pg4'], { opacity: 0 }, S(8, 0) - 0.7);
+  tl.set(['#sD', '#sC', '#sM', '#sW', '#sF'], { opacity: 0 }, S(8, 0) - 0.7);
+  camAt(V_D, S(8, 0) - 0.7); tl.set('#dm', { opacity: 1 }, S(8, 0) - 0.7);
+  EXAMX('exC', 8, { pause: 7, reveal: 8, trap: 1, right: 2, opt: [S(8, 4), S(8, 5), S(8, 6)], end: S(9, 0) - 1.0 });
+  { const P = EXW('exC', 8), P2 = Math.max(P + 0.9, S(8, 10) + 0.1);
+    ON('#pC_L', P, 0.4); ON('#pCl', P + 0.5, 0.3); [0, 1, 2].forEach((k) => FI('#pCs' + k, P + 0.6 + k * 0.25, 0.3));
+    ON('#pC_R', P2, 0.4); FI('#pCt', P2 + 0.5, 0.3); FI('#pCw', P2 + 0.9, 0.2); FI('#pCp', P2 + 1.1, 0.3); ON('#pC_c', P2 + 1.6, 0.3); }
+
+  /* ═════════ 9 · Publish and connect in the studio ═════════ */
+  fromExam(9);
+  UIIN2('#ui', S(9, 0) + 0.3);
+  tl.to('#nSaved', { opacity: 1, color: GRN, duration: 0.4 }, W(9, 1, 'saved', 0)); ON('#svd', W(9, 1, 'saved', 0), 0.4);
+  ON('#cur', W(9, 1, 'saved', 0.2), 0.2); CUR(CP['#pubBtn'][0], CP['#pubBtn'][1], W(9, 1, 'saved', 0.2), 0.7);
+  CLICK(CP['#pubBtn'][0], CP['#pubBtn'][1], S(9, 2) + 0.05);
+  tl.set('#dlg', { opacity: 1 }, S(9, 2) + 0.2);
+  CUR(CP['#dlgB'][0], CP['#dlgB'][1], S(9, 2) + 0.25, 0.5); CLICK(CP['#dlgB'][0], CP['#dlgB'][1], S(9, 2) + 0.85);
+  tl.set('#dlg', { opacity: 0 }, S(9, 2) + 1.0);
+  tl.fromTo('#banner', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, S(9, 2) + 1.05);
+  /* s3: Channels */
+  CUR(CP['#ui_nv1'][0], CP['#ui_nv1'][1], S(9, 3) + 0.1, 0.6); CLICK(CP['#ui_nv1'][0], CP['#ui_nv1'][1], S(9, 3) + 0.8);
+  NAV('#ui', 1, S(9, 3) + 0.8, 4); OFF(['#lOv', '#banner'], S(9, 3) + 0.8, 0.25); tl.fromTo('#lCh', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(9, 3) + 1.15);
+  TL.forEach((t, k) => FI('#tl' + k, S(9, 3) + 1.3 + k * 0.17, 0.3));
+  /* s4: Teams and its steps */
+  CUR(CP['#tl0'][0], CP['#tl0'][1], W(9, 4, 'pick', 0), 0.7); CLICK(CP['#tl0'][0], CP['#tl0'][1], W(9, 4, 'teams', 0));
+  tl.to('#tl0', { backgroundColor: PURs, duration: 0.3 }, W(9, 4, 'teams', 0));
+  OFF(['#tl2', '#tl5'], W(9, 4, 'teams', 0.3), 0.4);
+  tl.fromTo('#sp', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.45, immediateRender: false }, W(9, 4, 'teams', 0.3));
+  OFF('#cur', W(9, 4, 'teams', 0.9), 0.2);
+  [0, 1, 2].forEach((k) => tl.to('#stp' + k, { borderColor: PUR, backgroundColor: PURs, duration: 0.3 }, W(9, 4, 'follow', 0.2) + k * 0.8));
+  /* s5: authentication */
+  tl.fromTo('#authR', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.6)', immediateRender: false }, S(9, 5) + 0.1);
+  FADEIN('#tipT', S(9, 5) + 0.7, 0.4); OFF('#tipT', E(9, 5) - 0.05, 0.3);
+  /* s6: new conversation */
+  OFF(['#lCh', '#sp'], S(9, 6) + 0.05, 0.25); tl.fromTo('#lChat', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(9, 6) + 0.4);
+  tl.set(['#chEd', '#chOk'], { opacity: 0 }, 0); FI('#chEd', W(9, 6, 'change', -0.4), 0.3); POP('#chOk', W(9, 6, 'change', -0.1));
+  /* under the veil: the world is rearranged for the closing shot */
+  tl.set(['#sD', '#sC', '#sM', '#sW', '#sF', '#aw'], { opacity: 0 }, S(9, 0) + 1.2);
+  tl.set(['#hB', '#dm', '#stbl'], { opacity: 0 }, S(9, 0) + 1.2); tl.set('#hA', { opacity: 1 }, S(9, 0) + 1.2);
+  tl.set(['#sT_a', '#sT_n'], { opacity: 0 }, S(9, 0) + 1.2);
+  ON('#prs', S(9, 0) + 1.2, 0.01); ON('#stk', S(9, 0) + 1.2, 0.01);
+  tl.set('#vn', { x: -460, y: -40, scale: 0.8, transformOrigin: '0 0', opacity: 0 }, S(9, 0) + 1.2);
+  UIOUT2('#ui', E(9, 6) - 0.1);
+  OFF('#svd', E(9, 6) - 0.1, 0.2);
+  camAt(V10, E(9, 6) - 0.05);
+
+  /* ═════════ 10 · One edition for everyone ═════════ */
+  tl.set('#world', { opacity: 1 }, 0);
+  ON('#val2', S(10, 0) - 0.4, 0.4); FI('#pBack', S(10, 0) + 0.1, 0.4); OFF('#pBack', S(10, 3) - 0.2, 0.3);
+  BOB('#val2', S(10, 0) + 0.5, 3, 8);
+  /* s1: Marta types start over, the new edition, Nexo answers */
+  FADEIN('#bs', S(10, 1) + 0.1, 0.4);
+  tl.to('#hA', { opacity: 0, duration: 0.25 }, S(10, 1) + 1.4); tl.fromTo('#hB', { opacity: 0 }, { opacity: 1, duration: 0.35, immediateRender: false }, S(10, 1) + 1.7);
+  tl.set('#nxB', { opacity: 0 }, 0);
+  FADEIN('#nxB', S(10, 1) + 2.0, 0.4); BOB('#marta', S(10, 1) + 2.2, 3, 10);
+  /* s2: no, nothing broken */
+  FADEIN('#cNo2', S(10, 2) + 0.05, 0.4); OFF('#cNo2', S(10, 3) - 0.1, 0.3);
+  /* s3: session started before the fix */
+  FADEIN('#cSess', S(10, 3) + 0.1, 0.4); tl.to('#cSess .ic', { rotation: -360, duration: 1.8, ease: 'none' }, S(10, 3) + 0.2); OFF('#cSess', S(10, 4) - 0.1, 0.3);
+  /* s4-s7: recap board */
+  OFF(['#bs'], S(10, 4) - 0.1, 0.3);
+  FADEIN('#rcb', S(10, 4) + 0.15, 0.5);
+  [S(10, 5) + 0.05, S(10, 6) + 0.05, S(10, 7) + 0.05].forEach((t, k) => { tl.to('#rb' + k, { opacity: 1, duration: 0.4 }, t); PULSEX('#rb' + k, t + 0.2, 1.05); });
+  /* s8: the van drives on toward the next lesson */
+  FADEIN('#sgn', S(10, 8) - 0.2, 0.5); FADEIN('#cNext', S(10, 8) + 0.2, 0.4);
+  tl.set('#vn', { opacity: 1 }, S(10, 8) - 0.05);
+  tl.to('#vn', { x: 800, duration: TOT - 0.4 - (S(10, 8) - 0.05), ease: 'none' }, S(10, 8) - 0.05);
+  tl.to('#val2', { y: -10, duration: 0.3, yoyo: true, repeat: Math.floor((TOT - S(10, 7)) / 0.6) - 1, ease: 'sine.inOut' }, S(10, 7));
+  tl.to('#marta', { y: -8, duration: 0.3, yoyo: true, repeat: Math.floor((TOT - S(10, 7)) / 0.6) - 1, ease: 'sine.inOut' }, S(10, 7));
+  PULSEX('#sgn', S(10, 8) + 1.5, 1.08);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+[
+ {
+  "title": "One agent, two doors",
+  "caption": "Contoso wants Nexo on the intranet and the public website. Valeria pastes the secret into the page code, and a visitor copies it.",
+  "say": "Contoso wants Nexo in two places. On the intranet, for employees. And on the public website, for customers. Valeria connects the website fast. She pastes the secret straight into the page code. That afternoon, a visitor opens the page source and copies it. Today you learn how to protect an agent for each audience, and where that secret must live."
+ },
+ {
+  "title": "The staff door and the public desk",
+  "caption": "Employees enter through the staff door with a badge. The public desk is open to everyone. Who uses the agent decides how you protect it.",
+  "say": "Think of the Contoso office. Employees enter through the staff door, and the door asks for a badge. Customers go to the public desk, which is open to everyone. Same building, two very different doors. Your agent works the same way. Who uses it decides how you protect it."
+ },
+ {
+  "title": "Employees: Authenticate with Microsoft",
+  "caption": "Authenticate with Microsoft: the user always signs in, and Share controls who can chat. Teams and Microsoft 365 support only this option.",
+  "say": "For employees, use Authenticate with Microsoft. That is the badge. The user always signs in. Then the Share option controls who in the organization can chat with the agent. So Marta from sales gets in, because the agent is shared with her team. And remember: the Teams and Microsoft three sixty five channels support only this option."
+ },
+ {
+  "title": "Anonymous public: No authentication",
+  "caption": "With No authentication, anyone with the link can talk to the agent. Use it with care, only when the agent does not touch internal data.",
+  "say": "For the anonymous public, there is No authentication. That is the open desk. Anyone with the link can talk to the agent, and nobody signs in. Use it with care. Only choose it when the agent does not touch internal data, like a public returns policy."
+ },
+ {
+  "title": "Decide: only the HR team",
+  "caption": "Nexo answers HR questions. Only members of the HR security group may chat, controlled with Share. Which setting makes this possible?",
+  "say": "Your turn. Nexo now answers questions about salaries and leave. Compliance says only members of the HR security group may chat, controlled with the Share option. Which setting makes this possible? Authenticate with Microsoft and Share? No authentication with a private link? Or Require secured access with one secret? Decide before I answer. Authenticate with Microsoft and Share it with the group. Users always sign in, and Share decides who in the organization can chat. A private link protects nothing."
+ },
+ {
+  "title": "Own website: Require secured access",
+  "caption": "Require secured access: the client needs a secret or a token from it. It protects the web channel, not each user. Up to two hours.",
+  "say": "Now the public website. By default, anyone who knows the agent's ID can use the Demo website and Custom website channels. To close that, turn on Require secured access. Now the client must authenticate with a secret, or with a token generated from that secret. Careful: this protects the web channel. It does not make each customer sign in. And the change can take up to two hours to apply."
+ },
+ {
+  "title": "Decide: will customers sign in?",
+  "caption": "Contoso turns on Require secured access for its public website. Marketing worries every customer must now sign in. What is true?",
+  "say": "Your turn. Contoso turns on Require secured access for its public website. Marketing worries that every customer must now create an account. What is true? Every customer must sign in with Microsoft? It only applies to users outside the network? Or the page client needs a secret or a token? Decide before I answer. The page client needs a secret or a token. Require secured access protects the web channel. Customers still chat without signing in."
+ },
+ {
+  "title": "The secret never goes to the browser",
+  "caption": "Browser code is readable by anyone. Contoso's server exchanges the secret for a token for one conversation and gives the page only the token.",
+  "say": "Here is Valeria's mistake. Code that runs in the browser can be read by anyone. So the secret must never be there. Instead, Contoso's own server keeps the secret, like a safe in the back room. When a visitor opens the page, the server exchanges the secret for a token. The token is valid for a single conversation, and it expires if it isn't refreshed. The page only ever receives the token."
+ },
+ {
+  "title": "Decide: the secret in the page",
+  "caption": "The secret sits in the website's JavaScript and any visitor can copy it. Valeria must keep the agent protected. What should she do?",
+  "say": "Your turn. The secret sits in the website's JavaScript, and any visitor can copy it. Valeria must fix this and keep the agent protected. What should she do? Move the secret into an HTML comment? Turn off Require secured access entirely? Or have the server send the page a token? Decide before I answer. Have the server send the page a token. The secret stays on the server. An HTML comment is still readable, and turning security off opens the channel."
+ },
+ {
+  "title": "Secure the web channel in the studio",
+  "caption": "Settings › Security › Web channel security: turn on Require secured access, keep the secrets on your server, give the page only a token, test.",
+  "say": "Here is how it looks in the studio. Open Nexo and go to Settings, then Security. Open Web channel security and turn on Require secured access. Look at the secrets it generates, and store them only on your server. On the server, create a service that uses the secret to request a token. Make the web page receive only the token. Then test a conversation from the page."
+ },
+ {
+  "title": "Two doors, one agent",
+  "caption": "Employees: Authenticate with Microsoft plus Share. Public: No authentication, without internal data. Own website: Require secured access, token from the server.",
+  "say": "Back at Contoso. Marta signs in on the intranet, and the web visitor chats with a token, never seeing the secret. Remember three things. Employees: Authenticate with Microsoft, and Share decides who chats. Anonymous public: No authentication, only without internal data. Your own website: Require secured access, with the token made on the server. That closes module one. Next, variables and scope."
+ }
+]

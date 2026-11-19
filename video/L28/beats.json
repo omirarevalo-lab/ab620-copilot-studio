@@ -1,0 +1,154 @@
+{
+ "id": "L28",
+ "title": "Multi-agent design",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 108.685,
+ "scenes": [
+  {
+   "title": "Where do I put each capability",
+   "start": 0.8,
+   "end": 20.181,
+   "sentences": [
+    {
+     "text": "Multi-agent design answers one question: where do I put each capability?",
+     "start": 0.8,
+     "end": 5.451
+    },
+    {
+     "text": "Copilot Studio gives you child agents.",
+     "start": 5.731,
+     "end": 8.269
+    },
+    {
+     "text": "They live inside the same main agent.",
+     "start": 8.549,
+     "end": 10.683
+    },
+    {
+     "text": "They are lightweight, built for one use case and one team.",
+     "start": 10.963,
+     "end": 14.077
+    },
+    {
+     "text": "They have no settings, authentication, or deployment of their own, and they are not published separately.",
+     "start": 14.357,
+     "end": 20.181
+    }
+   ]
+  },
+  {
+   "title": "Connected and external",
+   "start": 21.081,
+   "end": 46.817,
+   "sentences": [
+    {
+     "text": "Copilot Studio also offers connected agents.",
+     "start": 21.081,
+     "end": 24.281
+    },
+    {
+     "text": "These are other Copilot Studio agents in the same environment, each with its own publishing and life cycle.",
+     "start": 24.561,
+     "end": 31.089
+    },
+    {
+     "text": "The orchestrator of the main agent decides which one to hand work to, based on their descriptions.",
+     "start": 31.369,
+     "end": 37.001
+    },
+    {
+     "text": "You can also connect external agents through A two A, Microsoft Foundry, Fabric data agents, and the Microsoft three six five Agents S D K.",
+     "start": 37.281,
+     "end": 46.817
+    }
+   ]
+  },
+  {
+   "title": "When to split",
+   "start": 47.717,
+   "end": 69.763,
+   "sentences": [
+    {
+     "text": "Start simple.",
+     "start": 47.717,
+     "end": 48.677
+    },
+    {
+     "text": "Split your agent when the accuracy of tool selection starts to drop.",
+     "start": 48.957,
+     "end": 52.925
+    },
+    {
+     "text": "As a rule of thumb, that happens with more than thirty to forty options across tools, topics, and agents, or when descriptions look alike.",
+     "start": 53.205,
+     "end": 61.611
+    },
+    {
+     "text": "Also split when there are several teams, different publishing channels, their own settings, independent A L M, or a need to reuse.",
+     "start": 61.891,
+     "end": 69.763
+    }
+   ]
+  },
+  {
+   "title": "The cost of splitting",
+   "start": 70.663,
+   "end": 87.953,
+   "sentences": [
+    {
+     "text": "Splitting has a price.",
+     "start": 70.663,
+     "end": 71.964
+    },
+    {
+     "text": "Every extra orchestration hop adds latency.",
+     "start": 72.244,
+     "end": 75.145
+    },
+    {
+     "text": "It also makes the surface you must test and govern bigger.",
+     "start": 75.425,
+     "end": 78.583
+    },
+    {
+     "text": "So do not split without a reason.",
+     "start": 78.863,
+     "end": 80.633
+    },
+    {
+     "text": "A single agent that works well is better than many agents that are hard to test, slow to answer, and difficult to govern.",
+     "start": 80.913,
+     "end": 87.953
+    }
+   ]
+  },
+  {
+   "title": "Contoso and the exam",
+   "start": 88.853,
+   "end": 107.485,
+   "sentences": [
+    {
+     "text": "Think about Contoso.",
+     "start": 88.853,
+     "end": 90.219
+    },
+    {
+     "text": "Software licenses are handled by one team with one use case, so that goes in as a child agent.",
+     "start": 90.499,
+     "end": 96.749
+    },
+    {
+     "text": "Human resources has its own team, channels, and publishing, so it is a connected agent.",
+     "start": 97.029,
+     "end": 102.384
+    },
+    {
+     "text": "On the exam, justify your choice with team, A L M, publishing, and reuse.",
+     "start": 102.664,
+     "end": 107.485
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+  "0": ["A plan B for the flow", [["Errors", "Not an if, a when"], ["Plan B", "The flow knows what to do instead of staying silent"], ["Pattern", "try catch"]]],
+  "1": ["Try and Catch scopes", [["Scope", "Container that groups actions"], ["Try", "The main actions · Dataverse insert"], ["Catch", "Right after the Try · handles the error"]]],
+  "2": ["Run after", [["Run after", "When an action runs, based on the previous one"], ["Can check", "failed · timed out · skipped · succeeded"], ["On the Catch", "Relative to the Try · has failed · has timed out"]]],
+  "4": ["Reading the error", [["result()", "Results of the actions in the Try scope"], ["Filter array", "Keeps the one that failed"], ["Then", "Log the error · notify IT"]]],
+  "5": ["Retry policy", [["For", "Transient failures"], ["Where", "Action settings · initial interval · maximum number of retries"], ["Exponential", "Preferred · the interval grows"]]],
+  "7": ["Terminate", [["Terminate", "Stops the flow with a status and a message"], ["Status", "Failed"], ["Leaves", "A diagnosis"]]],
+  "8": ["CreateTicket at Contoso", [["Try", "Dataverse insert"], ["Catch", "has failed · has timed out · result() · Filter array"], ["Then", "Log · notify IT · Terminate Failed"], ["External service", "Exponential retry policy"]]],
+  "9": ["Build it in the designer", [["Scopes", "Try with the main actions · Catch right after"], ["Catch settings", "Run after: has failed · has timed out"], ["Inside the Catch", "Filter array on result() · log or notify IT · Terminate Failed"], ["Sensitive actions", "Exponential retry policy"]]],
+  "11": ["Remember", [["Try", "Main actions"], ["Catch", "has failed · has timed out · never is successful"], ["Error", "result() · Filter array"], ["Recover / stop", "Exponential retry · Terminate Failed with a message"]]]
+}

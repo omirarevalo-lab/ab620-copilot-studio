@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>F02 · Anatomy of an agent · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { top: 180px; height: 760px; }
+  #stage .uw .fld small { font-size: 30px; } #stage .uw .fld { font-size: 34px; }
+  #stage .uw .btn { font-size: 32px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage #uiA .nav { display: none; } #stage #uiA .main { left: 0; }
+  .tag.grey { color: #5d6472; border: 3px dashed #8a93a6; }
+  .tag.ins { color: #5a6b8c; border: 3px solid #5a6b8c; } .tag.knw { color: #0f7b8a; border: 3px solid #0f7b8a; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  .ly { position: absolute; left: 56px; top: 40px; right: 56px; bottom: 30px; }
+  .pane { position: absolute; left: 0; top: 0; width: 880px; height: 500px; opacity: 0; }
+  .bwr .sb { opacity: 1; }
+  #exams .exam .xq { top: 120px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xring { left: 1550px; top: 475px; }
+  #exams .exam .xwhy { left: 1200px; top: 330px; width: 600px; font-size: 38px; }
+  #exams .exam .xp { left: 204px; top: 700px; transform: scale(.9); transform-origin: 0 0; }
+  #exB .xo b.k { background: #efe7fb; color: #8a5cd6; } #exB .xl { color: #c9b4f0; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* F02 · Anatomy of an agent. World 3840x2160 + extensions.
+     Nexo's office (y 430-1500): Teams door x 240-560 · Nexo desk x 790-1400 (pinboard 1160-1648) · slot row y 400-690 ·
+     shelf x 1740-2200 · Help desk server x 2290-2550 · tool wall x 2700-3400 · cabinet x 3500-3800 (card x 2740-3440) ·
+     underground y 2160+: maker desk 1200,2600 (laptop screen 1730,2825) · closing diorama y 4000-6160 (local y + 4000), camera 0.5 over x 0-3840. */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44', GB = '#4a5a78', GREY = '#8a93a6', TEAL = '#0e8f8f', TMS = '#5b5fc7', BRICK = '#b4533f';
+  const INS = '#5a6b8c', KNW = '#0f7b8a', INSs = '#e4e8f1', KNWs = '#dff1f3', AMBs = '#fff3d6', PURs = '#efe7fb';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const G = (id, html) => D(id, 'left:0;top:0;width:1px;height:1px;opacity:0', html);
+  const PL = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 60) + 'px;');
+  const SB = (id, x, y, t, fs, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 56) + 'px;');
+  const T = (x, y, fs, col, t, id, ex, cls) => `<div class="px${cls ? ' ' + cls : ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const agC = (id, x, y) => agent(id, x, y, { folder: '' }).replace('height="500" viewBox="0 0 360 500"', 'height="390" viewBox="0 0 360 390"').replace('height="170" rx="40"', 'height="90" rx="40"');
+  const pers = (c, w) => person(c).replace('width="90" height="200"', `width="${w}" height="${Math.round(w * 200 / 90)}"`);
+  const pulse = (sel, t, col) => tl.fromTo(sel, { boxShadow: '0 0 0 0 rgba(47,91,211,0)' }, { boxShadow: `0 0 0 10px ${col || 'rgba(47,91,211,.6)'}`, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t);
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.45, 0.4); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SWX = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, t + 0.25); };
+  const DRAW = (sel, t, d) => { ON(sel, t, 0.1); tl.fromTo(sel, { strokeDasharray: 1500, strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: d || 0.7, immediateRender: false }, t); };
+  const LITB = (sel, t, col, bg) => tl.to(sel, { opacity: 1, borderColor: col, backgroundColor: bg, duration: 0.35 }, t);
+  const EMERGE = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 240, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.5)', immediateRender: false }, t);
+
+  /* ═════════ BACKGROUNDS (extensions, underground, closing diorama) ═════════ */
+  const Y = 4000;
+  ADD(D('', 'left:-2000px;top:0;width:2000px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)') + D('', 'left:-2000px;top:1500px;width:2000px;height:660px;background:#e3e7ef') +
+    D('', 'left:3840px;top:0;width:3000px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)') + D('', 'left:3840px;top:1500px;width:3000px;height:660px;background:#e3e7ef') + D('', 'left:3840px;top:1500px;width:3000px;height:6px;background:#d3d9e4') +
+    D('', 'left:-2000px;top:2160px;width:9000px;height:1840px;background:#d9deea') + D('', 'left:-2000px;top:2160px;width:9000px;height:10px;background:#c2c9da') +
+    D('', `left:-2000px;top:${Y - 10}px;width:8000px;height:1510px;background:linear-gradient(#f4f6fa,#eef1f7)`) + D('', `left:-2000px;top:${Y + 1500}px;width:8000px;height:1500px;background:#e3e7ef`) + D('', `left:-2000px;top:${Y + 1500}px;width:8000px;height:6px;background:#d3d9e4`));
+
+  /* ═════════ OFFICE: door, Nexo, pinboard, slots ═════════ */
+  ADD(G('gDoor', D('', `left:240px;top:840px;width:320px;height:660px;border:8px solid ${TMS};border-radius:24px 24px 0 0;background:#fff`) + T(240, 1280, 60, TMS, 'Teams', '', 'width:320px;text-align:center')));
+  ADD(G('gNx', agC('nx', 800, 980) + D('', 'left:790px;top:1370px;width:610px;height:44px;border-radius:12px;background:#b5bcca') + D('', 'left:820px;top:1414px;width:550px;height:86px;background:#c9ced8')));
+  ADD(PL('pNew', 980, 1275, 'new hire', 'navy', 46));
+  ADD(G('gPin', D('pb', 'left:1160px;top:710px;width:488px;height:380px;border:14px solid #8a5a2b;border-radius:18px;background:#e5c9a0') +
+    [1190, 1600].map((x) => D('', `left:${x}px;top:736px;width:22px;height:22px;border-radius:50%;background:${RED}`)).join('')));
+  ADD(H('jd', `left:1304px;top:770px;width:200px;height:260px;background:#fff;border:6px solid ${INS};border-radius:10px;box-shadow:0 12px 30px rgba(16,24,40,.25)`,
+    D('', `left:0;top:0;width:188px;height:56px;background:${INS}`) + [0, 1, 2, 3].map((k) => D('', `left:20px;top:${80 + k * 40}px;width:${k === 3 ? 90 : 148}px;height:14px;border-radius:7px;background:#c9ced8`)).join('')));
+  /* slot row (cutaway) */
+  const SLX = [290, 680, 1070, 1460], SLC = [INS, KNW, AMB, PUR], SLS = [INSs, KNWs, AMBs, PURs], SLN = ['Instructions', 'Knowledge', 'Tools', 'Topics'], SLI = ['document_text', 'book_open', 'wrench', 'flow'];
+  ADD(G('gSl', SLX.map((x, k) => D('sl' + k, `left:${x}px;top:400px;width:360px;height:290px;border:8px dashed #aab2c3;border-radius:26px;background:#fff;opacity:0`,
+    D('sl' + k + '_i', 'left:115px;top:34px;width:110px;height:110px;color:#aab2c3', IC(SLI[k], 'width:110px;height:110px')) + T(0, 178, 46, '#8a93a6', SLN[k], 'sl' + k + '_t', 'width:344px;text-align:center;opacity:0'))).join('')));
+  const SLIT = (k, t) => { tl.set('#sl' + k, { borderStyle: 'solid' }, t); tl.to('#sl' + k, { borderColor: SLC[k], backgroundColor: SLS[k], duration: 0.3 }, t); tl.to('#sl' + k + '_i', { color: SLC[k], duration: 0.3 }, t); tl.to('#sl' + k + '_t', { color: SLC[k], opacity: 1, duration: 0.3 }, t); };
+  /* desk items */
+  ADD(H('fo', `left:1130px;top:1252px;width:150px;height:118px;border-radius:10px 10px 16px 16px;background:${KNW};border:6px solid #0a5560`, IC('document_text', 'position:absolute;left:34px;top:26px;width:70px;height:70px;color:#fff')) +
+    H('kc', `left:1130px;top:1140px;width:150px;height:96px;border-radius:14px;background:${AMB};border:6px solid #8f5b00`, IC('wrench', 'position:absolute;left:38px;top:12px;width:60px;height:60px;color:#fff')) +
+    H('sk', 'left:1300px;top:1260px;width:140px;height:120px', [2, 1, 0].map((k) => D('', `left:${k * 8}px;top:${k * 20}px;width:110px;height:70px;border-radius:10px;background:${PURs};border:6px solid ${PUR}`)).join('')));
+  /* replies and bubbles */
+  const BW = (id, x, y, html) => D(id, `left:${x}px;top:${y}px;width:1px;height:1px;opacity:0`, SB(id + 's', 0, 0, html, 56)).replace('class="w"', 'class="w bwr"');
+  ADD(BW('bw1', 450, 640, `My VPN<br>won't connect`) + BW('bw2', 450, 640, `Status of<br>my ticket?`) + BW('bw3', 450, 640, `Server<br>outage!`));
+  ADD(H('rp1', `left:1200px;top:1150px;width:720px;height:130px;border:6px solid ${GRN};border-radius:24px;background:#fff;box-shadow:0 10px 30px rgba(16,24,40,.15)`, IC('checkmark_circle', `position:absolute;left:26px;top:28px;width:72px;height:72px;color:${GRN}`) + T(116, 32, 56, '#141821', 'Steps from the guide')) +
+    H('rp2', `left:1200px;top:1130px;width:300px;height:170px;border:6px dashed ${GREY};border-radius:24px;background:#fff;text-align:center;font-size:120px;font-weight:800;line-height:150px;color:${GREY}`, '?') +
+    H('rp3', `left:1200px;top:1115px;width:720px;height:250px;border:6px solid ${GB};border-radius:24px;background:#fff;box-shadow:0 10px 30px rgba(16,24,40,.15)`, T(30, 24, 56, '#141821', 'Outage report') + D('', `left:30px;top:130px;width:640px;height:90px;border:6px dashed ${RED};border-radius:16px;text-align:center;font-size:50px;font-weight:800;line-height:78px;color:${RED}`, 'which system?')));
+
+  /* ═════════ INSTRUCTIONS card + sticky notes (scene 2) ═════════ */
+  const IRS = ['who it is', 'how it talks', 'what it must not do'];
+  ADD(H('ci', `left:1110px;top:300px;width:1000px;height:800px;background:#fff;border:8px solid ${INS};border-radius:34px;box-shadow:0 30px 80px rgba(16,24,40,.25);overflow:hidden`,
+    D('', `left:0;top:0;width:984px;height:110px;background:${INS}`) + T(40, 18, 70, '#fff', 'Instructions') +
+    IRS.map((t, k) => D('ir' + k, `left:40px;top:${136 + k * 84}px;width:900px;height:72px;opacity:.4`, D('', `left:0;top:18px;width:36px;height:36px;border-radius:50%;background:${INS}`) + T(60, 8, 54, '#141821', t))).join('') +
+    D('', 'left:40px;top:410px;width:900px;height:310px;border-radius:18px;background:#f3f5f9') +
+    ['You are Nexo, the Contoso IT assistant.', 'Answer briefly.', 'If you don\'t know, offer to open a ticket.'].map((t, k) => T(70, 450 + k * 96, 40, '#141821', t, 'ln' + k, 'font-weight:700;opacity:0;clip-path:inset(0 100% 0 0)')).join('')));
+  ADD(H('n2', 'left:2150px;top:380px;width:350px;height:230px;background:#ffe58a;border:4px solid #d9b43c;border-radius:10px;box-shadow:0 12px 30px rgba(16,24,40,.2);transform:rotate(-2deg)', T(0, 40, 40, '#141821', 'Answer<br>briefly', '', 'width:342px;text-align:center;line-height:1.2')) +
+    H('n1', 'left:2150px;top:700px;width:350px;height:230px;background:#ffe58a;border:4px solid #d9b43c;border-radius:10px;box-shadow:0 12px 30px rgba(16,24,40,.2);transform:rotate(2deg)', T(0, 40, 40, '#141821', 'Always answer<br>in detail', '', 'width:342px;text-align:center;line-height:1.2') + D('n1x', `left:20px;top:96px;width:302px;height:10px;background:${RED};transform:scaleX(0);transform-origin:0 50%`)));
+
+  /* ═════════ SHELF, TOOL WALL, RULE BOARDS, BOT (scene 3) ═════════ */
+  const SHN = [['Websites', 'globe'], ['Files', 'document_text'], ['SharePoint', 'organization'], ['Dataverse', 'database']];
+  ADD(G('gShelf', D('', `left:1740px;top:430px;width:460px;height:800px;border:8px solid ${KNW};border-radius:26px;background:#fff`) +
+    SHN.map((s, k) => D('sr' + k, `left:1760px;top:${454 + k * 190}px;width:420px;height:170px;border:5px solid ${KNW};border-radius:20px;background:${KNWs};opacity:.4`, IC(s[1], `position:absolute;left:22px;top:42px;width:76px;height:76px;color:${KNW}`) + T(114, 54, 48, KNW, s[0], '', 'opacity:0', 'lt'))).join('')));
+  const WLN = [['Connector', 'plug_connected'], ['Agent flow', 'arrow_routing'], ['Prompt', 'sparkle'], ['REST API', 'braces'], ['MCP server', 'cube_tree'], ['Computer use', 'cursor_click']];
+  ADD(G('gWall', D('', `left:2700px;top:430px;width:700px;height:800px;border:8px solid ${AMB};border-radius:26px;background:#fff`) +
+    WLN.map((s, k) => D('wk' + k, `left:${2725 + (k % 2) * 330}px;top:${460 + Math.floor(k / 2) * 250}px;width:320px;height:220px;border:5px solid ${AMB};border-radius:20px;background:${AMBs};opacity:.4;text-align:center`,
+      IC(s[1], `width:84px;height:84px;margin-top:22px;color:${AMB}`) + T(0, 130, 40, '#7a4d00', s[0], '', 'width:310px;text-align:center;opacity:0', 'lt'))).join('') +
+    D('hd', `left:2290px;top:470px;width:260px;height:220px;border:8px solid ${NAVY};border-radius:24px;background:#fff;text-align:center`, IC('server', `width:90px;height:90px;margin-top:18px;color:${NAVY}`) + T(0, 124, 44, NAVY, 'Help desk', '', 'width:244px;text-align:center;opacity:0', 'lt')) +
+    `<svg class="w" id="arw" style="left:0;top:0;overflow:visible;opacity:0" width="3840" height="2160" viewBox="0 0 3840 2160"><path d="M2594 580 H2690" stroke="${AMB}" stroke-width="14"/><polygon points="2562,580 2598,556 2598,604" fill="${AMB}"/><polygon points="2722,580 2686,556 2686,604" fill="${AMB}"/></svg>` +
+    D('dd0', `left:2580px;top:568px;width:24px;height:24px;border-radius:50%;background:${NAVY};opacity:0`)));
+  ADD(G('gRule', D('rk', `left:1740px;top:1262px;width:800px;height:170px;border:6px solid ${KNW};border-radius:26px;background:${KNWs};opacity:.4;text-align:center;font-size:46px;font-weight:800;line-height:1.2;color:${KNW};padding-top:20px`, 'written in a document<br>→ knowledge') +
+    D('rt', `left:2600px;top:1262px;width:800px;height:170px;border:6px solid ${AMB};border-radius:26px;background:${AMBs};opacity:.4;text-align:center;font-size:46px;font-weight:800;line-height:1.2;color:#7a4d00;padding-top:20px`, 'query a system or<br>change something → tool')));
+  ADD(G('gBot', D('nxS', 'left:1540px;top:1100px;width:150px;height:163px', miniBot(150)) + PL('lbBot', 1615, 1290, 'Nexo', 'navy', 60)) +
+    H('ac', `left:1580px;top:790px;width:110px;height:100px;border:6px solid ${KNW};border-radius:22px;background:#fff`, IC('book_open', `position:absolute;left:20px;top:16px;width:60px;height:60px;color:${KNW}`)));
+
+  /* ═════════ CABINET + TOPIC card (scene 5) ═════════ */
+  ADD(G('gCab', D('', `left:3500px;top:640px;width:300px;height:860px;border:8px solid ${PUR};border-radius:20px 20px 0 0;background:${PURs}`) +
+    [0, 1, 2, 3].map((k) => D('', `left:3524px;top:${664 + k * 205}px;width:252px;height:180px;border:5px solid ${PUR};border-radius:14px;background:#fff`, D('', `left:76px;top:80px;width:96px;height:14px;border-radius:7px;background:${PUR}`))).join('') +
+    D('', `left:3520px;top:596px;width:260px;height:44px;border:5px solid ${PUR};border-bottom:0;border-radius:12px 12px 0 0;background:#fff`)));
+  ADD(PL('lbCab', 3650, 530, 'Topics', 'purple', 64) + PL('lbShelf', 1970, 340, 'Knowledge', 'knw', 64) + PL('lbWall', 3050, 340, 'Tools', 'amber', 64));
+  const TNS = ['Trigger', 'Message', 'Question', 'Condition', 'Call a tool'];
+  ADD(H('tcB', `left:2740px;top:250px;width:700px;height:780px;background:#fff;border:8px solid ${PUR};border-radius:34px;box-shadow:0 30px 80px rgba(16,24,40,.25);overflow:hidden`,
+    D('', `left:0;top:0;width:684px;height:110px;background:${PUR}`) + T(40, 18, 70, '#fff', 'Topic') +
+    TNS.map((t, k) => D('tn' + k, `left:40px;top:${150 + k * 120}px;width:420px;height:96px;border:6px solid ${PUR};border-radius:22px;background:${PURs};opacity:.4;text-align:center;font-size:50px;font-weight:800;line-height:84px;color:${PUR}`, t)).join('') +
+    [0, 1, 2, 3].map((k) => D('tl' + k, `left:247px;top:${246 + k * 120}px;width:6px;height:24px;background:${PUR};opacity:0`)).join('') +
+    D('', `left:490px;top:170px;width:8px;height:536px;border-radius:4px;background:${PUR};opacity:.35`) +
+    D('lk', `left:510px;top:340px;width:160px;height:200px;border:6px solid ${PUR};border-radius:20px;background:#fff;text-align:center;opacity:0`, IC('lock_closed', `width:70px;height:70px;margin-top:20px;color:${PUR}`) + T(0, 106, 38, PUR, 'exact<br>order', '', 'width:148px;text-align:center;line-height:1.1'))));
+  ADD(['validate a value', 'fixed process', 'exact result'].map((t, k) => H('uc' + k, `left:2170px;top:${380 + k * 150}px;width:540px;height:110px;border:6px solid ${PUR};border-radius:26px;background:#fff;box-shadow:0 10px 30px rgba(16,24,40,.12);text-align:center;font-size:46px;font-weight:800;line-height:98px;color:${PUR}`, t)).join(''));
+
+  /* ═════════ UNDERGROUND: maker ═════════ */
+  ADD(maker('mk', 1200, 2600));
+
+  /* ═════════ CLOSING DIORAMA ═════════ */
+  ADD(G('gDio',
+    D('', `left:240px;top:${Y + 760}px;width:320px;height:740px;border:8px solid ${TMS};border-radius:24px 24px 0 0;background:#fff`) + T(240, Y + 1400, 70, TMS, 'Teams', '', 'width:320px;text-align:center') +
+    D('', `left:640px;top:${Y + 730}px;width:588px;height:218px;border:14px solid #8a5a2b;border-radius:18px;background:#e5c9a0`) +
+    D('dSh', `left:665px;top:${Y + 765}px;width:538px;height:130px;background:#fff;border:6px solid ${INS};border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:60px;font-weight:800;color:${INS};opacity:.4`, 'Answer briefly') +
+    agC('dNx', 760, Y + 1000) + D('', `left:700px;top:${Y + 1380}px;width:480px;height:44px;border-radius:12px;background:#b5bcca`) + D('', `left:730px;top:${Y + 1424}px;width:420px;height:76px;background:#c9ced8`) +
+    D('dShf', `left:1340px;top:${Y + 900}px;width:520px;height:600px;border:8px solid ${KNW};border-radius:26px 26px 0 0;background:#fff;opacity:.4`,
+      [0, 1, 2].map((k) => D('', `left:20px;top:${150 + k * 140}px;width:468px;height:12px;background:${KNW}`) + [0, 1, 2, 3, 4, 5].map((j) => D('', `left:${30 + j * 74}px;top:${70 + k * 140}px;width:56px;height:80px;border-radius:6px 6px 0 0;background:${[KNW, '#4fc3d0', '#0a5560'][(j + k) % 3]}`)).join('')).join('')) +
+    D('dSv', `left:1940px;top:${Y + 1000}px;width:360px;height:500px;border:8px solid ${NAVY};border-radius:24px 24px 0 0;background:#fff;text-align:center`, IC('server', `width:130px;height:130px;margin-top:40px;color:${NAVY}`) + T(0, 220, 60, NAVY, 'Help desk', '', 'width:344px;text-align:center') +
+      [0, 1, 2].map((k) => D('', `left:40px;top:${320 + k * 50}px;width:264px;height:20px;border-radius:10px;background:#c9ced8`)).join('')) +
+    D('dSk', `left:2380px;top:${Y + 1100}px;width:320px;height:280px;border:6px dashed ${AMB};border-radius:22px;background:${AMBs};text-align:center;opacity:.4`, IC('wrench', `width:90px;height:90px;margin-top:24px;color:${AMB}`) + T(0, 130, 60, '#7a4d00', 'Ticket<br>status', '', 'width:308px;text-align:center;line-height:1.1')) +
+    `<svg class="w" style="left:0;top:0;overflow:visible" width="3840" height="6200" viewBox="0 0 3840 6200"><path id="dCb" d="M2308 ${Y + 1240} H2380" fill="none" stroke="${AMB}" stroke-width="18" stroke-linecap="round" opacity="0"/></svg>` +
+    D('dTc', `left:2780px;top:${Y + 760}px;width:820px;height:600px;border:8px solid ${PUR};border-radius:30px;background:#fff;overflow:hidden;opacity:.4`,
+      D('', `left:0;top:0;width:804px;height:170px;background:${PUR}`) + T(0, 14, 60, '#fff', 'Report serious<br>incident', '', 'width:804px;text-align:center;line-height:1.1') +
+      D('dn0', `left:60px;top:210px;width:580px;height:110px;border:6px solid ${PUR};border-radius:22px;background:${PURs};text-align:center;font-size:60px;font-weight:800;line-height:98px;color:${PUR}`, 'Affected system') +
+      D('', `left:346px;top:320px;width:8px;height:80px;background:${PUR}`) +
+      D('dn1', `left:60px;top:400px;width:580px;height:110px;border:6px solid ${PUR};border-radius:22px;background:${PURs};text-align:center;font-size:60px;font-weight:800;line-height:98px;color:${PUR}`, 'Urgency') +
+      D('dok0', `left:670px;top:214px;width:100px;height:100px;border-radius:50%;background:${GRN};color:#fff;font-size:70px;font-weight:800;text-align:center;line-height:96px;opacity:0`, '✓') +
+      D('dok1', `left:670px;top:404px;width:100px;height:100px;border-radius:50%;background:${GRN};color:#fff;font-size:70px;font-weight:800;text-align:center;line-height:96px;opacity:0`, '✓')) +
+    D('dBd', `left:1700px;top:${Y + 130}px;width:1900px;height:360px;border:8px solid ${NAVY};border-radius:30px;background:#fff;box-shadow:0 30px 80px rgba(16,24,40,.25)`,
+      [['Documents → knowledge', KNW], ['Live systems → tools', AMB], ['Exact processes → topics', PUR]].map((r, k) => D('rb' + k, `left:40px;top:${26 + k * 108}px;width:1800px;height:96px;opacity:.4`, D('', `left:0;top:12px;width:72px;height:72px;border-radius:50%;background:${r[1]}`) + T(110, 8, 72, '#141821', r[0]))).join('')) +
+    D('', `left:240px;top:${Y + 2010}px;width:3360px;height:40px;border-radius:10px;background:#b5bcca`) + D('', `left:270px;top:${Y + 2050}px;width:3300px;height:50px;background:#c9ced8`) +
+    ['#8a5cd6', '#1e7f4f', '#0e8f8f', '#b4533f'].map((c, k) => D('dp' + k, `left:${[520, 1340, 2160, 2980][k]}px;top:${Y + 1620}px`, pers(c, 170))).join('')));
+  ADD(PL('dPl0', 940, Y + 1515, 'Instructions', 'ins', 70) + PL('dPl1', 1600, Y + 1515, 'Knowledge', 'knw', 70) + PL('dPl2', 2540, Y + 1515, 'Tools', 'amber', 70) + PL('dPl3', 3190, Y + 1515, 'Topics', 'purple', 70) +
+    PL('dLbSh', 1700, Y + 800, 'SharePoint · IT guides', 'knw', 70));
+  ADD(['VPN won\'t connect', 'Ticket status?', 'Server outage!'].map((t, k) => D('fw' + k, `left:400px;top:${Y + 540}px;width:1px;height:1px;opacity:0`, SB('fb' + k, 0, 0, t, 68)).replace('class="w"', 'class="w bwr"')).join(''));
+  ADD([['dTk0', 1790, Y + 905], ['dTk1', 2590, Y + 1030], ['dTk2', 3470, Y + 700]].map((c) => H(c[0], `left:${c[1]}px;top:${c[2]}px;width:100px;height:100px;border-radius:50%;background:${GRN};color:#fff;font-size:70px;font-weight:800;text-align:center;line-height:96px;box-shadow:0 8px 20px rgba(16,24,40,.3)`, '✓')).join(''));
+
+  /* ═════════ SCREEN LAYER (kinetic text + pills in reserved slots) ═════════ */
+  const TLp = (id, cls, t) => `<div class="tag ${cls}" id="${id}" style="left:120px;top:84px;transform:none;font-size:46px">${t}</div>`;
+  const TRp = (id, cls, t) => `<div class="tag ${cls}" id="${id}" style="left:auto;right:120px;top:84px;transform:none;font-size:46px">${t}</div>`;
+  const BCp = (id, cls, t) => `<div class="tag ${cls}" id="${id}" style="left:960px;top:890px;font-size:48px">${t}</div>`;
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    <div class="ov" id="ovT0" style="left:140px;top:110px;font-size:72px;font-weight:800;color:#141821">Two weeks later</div>
+    <div class="ov" id="ovT9" style="left:140px;top:110px;font-size:72px;font-weight:800;color:#141821">Back at Contoso</div>
+    <div class="ov" id="kK" style="left:115px;top:58px;width:700px;text-align:center;font-size:80px;font-weight:800;color:${KNW};letter-spacing:-2px">KNOW</div>
+    <div class="ov" id="kD" style="left:1033px;top:58px;width:700px;text-align:center;font-size:80px;font-weight:800;color:${AMB};letter-spacing:-2px">DO</div>
+    ${BCp('bNew', 'amber', 'new requests')}${BCp('bCant', 'amber', 'can\'t see it')}${BCp('bDiff', 'navy', 'a different piece each time')}${TRp('tFit', 'blue', 'which piece fits?')}
+    ${BCp('bPlain', 'navy', 'plain language · Overview page')}${BCp('bNoC', 'green', 'no contradictions')}${BCp('bConv', 'purple', 'a conversation you design')}${BCp('bEvery', 'navy', 'everything else: knowledge + tools')}${TLp('tNext', 'blue', 'next: how Nexo decides')}</div>`);
+
+  /* ═════════ UI WINDOW ═════════ */
+  const TABS = ['Overview', 'Knowledge', 'Tools', 'Topics'];
+  const rowU = (id, ic, t, top, ex) => `<div class="w" id="${id}" style="left:0;top:${top}px;width:880px;height:84px;border:4px solid #c9ced8;border-radius:16px;background:#fff;${ex || 'opacity:.4'}">${IC(ic, 'position:absolute;left:24px;top:16px;width:46px;height:46px;color:#2f5bd3')}${T(96, 18, 34, '#141821', t)}</div>`;
+  ADDU(uiWindow('uiA', { title: 'Copilot Studio · Nexo', nav: [], on: -1, bar: '<span class="hc" id="nxChip">Agent: Nexo</span>', body: `
+    <div class="ly" id="l1">
+      <div style="display:flex;gap:6px;border-bottom:3px solid #e2e5eb;height:70px">${TABS.map((t, k) => `<span id="tb${k}" style="display:inline-block;padding:10px 24px;font-size:34px;font-weight:700;color:#8a93a6;border-bottom:6px solid rgba(47,91,211,0);height:70px">${t}</span>`).join('')}</div>
+      <div class="w" style="left:0;top:100px;width:880px;height:500px">
+        <div class="pane" id="p1" style="opacity:1"><div class="w" id="insBox" style="left:0;top:0;width:880px;height:340px;border:4px solid #c9ced8;border-radius:22px;background:#fff;padding:26px 34px">
+          <div style="font-size:38px;font-weight:800;margin-bottom:14px">Instructions</div>
+          <div style="font-size:33px;line-height:1.5;color:#141821">You are Nexo, the Contoso IT assistant.<br>Answer briefly.<br>If you don't know, offer to open a ticket.</div></div></div>
+        <div class="pane" id="p2"><span class="btn pri" id="btnK" style="position:absolute;left:0;top:0;padding:14px 40px;font-size:32px">Add knowledge</span>
+          <div class="w" style="left:0;top:92px;font-size:30px;color:#5d6472;font-weight:700">Sources</div>${rowU('kr0', 'globe', 'Public website', 140)}${rowU('kr1', 'document_text', 'File', 244)}</div>
+        <div class="pane" id="p3"><span class="btn pri" id="btnT" style="position:absolute;left:0;top:0;padding:14px 40px;font-size:32px">Add a tool</span>
+          <div class="w" style="left:0;top:92px;width:880px;height:84px;border:4px dashed #c9ced8;border-radius:16px;color:#5d6472;font-size:32px;line-height:76px;padding-left:34px">No tools added yet</div>
+          <div class="w" id="pk" style="left:0;top:70px;width:880px;height:430px;border:4px solid #2f5bd3;border-radius:22px;background:#fff;box-shadow:0 20px 50px rgba(16,24,40,.2);opacity:0;padding:14px 26px">
+            <div style="font-size:36px;font-weight:800;color:#2f5bd3;margin-bottom:8px">Connectors</div>
+            ${[['ticket_diagonal', 'Create a ticket'], ['mail', 'Send an email'], ['chat', 'Post a message'], ['database', 'Get a record']].map((r, k) => `<div class="w" style="left:26px;top:${74 + k * 84}px;width:824px;height:72px;border-bottom:3px solid #e2e5eb">${IC(r[0], 'position:absolute;left:4px;top:10px;width:44px;height:44px;color:#2f5bd3')}${T(76, 12, 34, '#141821', r[1])}</div>`).join('')}</div></div>
+        <div class="pane" id="p4"><div class="w" style="left:0;top:0;font-size:30px;font-weight:700;color:#5d6472">System</div>${rowU('sy0', 'chat', 'Greeting', 40, 'opacity:.55;width:440px').replace('width:880px', 'width:440px')}${rowU('sy1', 'alert', 'Escalate', 134, 'opacity:.55').replace('width:880px', 'width:440px')}
+          <div class="w" style="left:0;top:240px;font-size:30px;font-weight:700;color:#5d6472">Custom</div>${rowU('inc', 'flow', 'Report serious incident', 280, 'opacity:1').replace('width:880px', 'width:560px')}
+          <div class="w" id="chn" style="left:600px;top:0;width:280px;height:500px;opacity:0">${['Trigger', 'Question', 'Question'].map((t, k) => `<div class="w" style="left:0;top:${20 + k * 150}px;width:280px;height:96px;border:5px solid #8a5cd6;border-radius:18px;background:#efe7fb;color:#8a5cd6;text-align:center;font-size:34px;font-weight:800;line-height:86px">${t}</div>`).join('')}<div class="w" style="left:137px;top:116px;width:6px;height:54px;background:#8a5cd6"></div><div class="w" style="left:137px;top:266px;width:6px;height:54px;background:#8a5cd6"></div></div></div>
+      </div>
+      <div class="w" id="tp" style="left:920px;top:90px;width:552px;height:520px;border:4px solid #2f5bd3;border-radius:22px;background:#f7f9ff">
+        <div style="position:absolute;left:26px;top:14px;font-size:36px;font-weight:800;color:#2f5bd3">Test your agent</div>
+        <div class="w" style="left:26px;top:68px;background:#e2e5eb;border-radius:18px;padding:8px 20px;font-size:30px">Hi! How can I help?</div>
+        <div id="tU" class="w" style="right:26px;top:134px;max-width:400px;background:#2f5bd3;color:#fff;border-radius:18px;padding:10px 20px;font-size:30px;line-height:1.25;opacity:0">How do I reset my password?</div>
+        <div id="tR" class="w" style="left:26px;top:246px;max-width:440px;background:#e6ecfb;border-radius:18px;padding:10px 20px;font-size:30px;line-height:1.25;opacity:0">Open the password reset guide.</div>
+        <div id="tChip" class="w" style="left:26px;top:350px;display:flex;align-items:center;gap:12px;background:#dff1f3;border:4px solid #0f7b8a;color:#0f7b8a;border-radius:999px;padding:6px 22px;font-size:30px;font-weight:800;white-space:nowrap;opacity:0">${IC('book_open', 'width:38px;height:38px')}Answered from: Knowledge</div>
+        <div class="fld" id="tIn" style="position:absolute;left:26px;right:26px;bottom:22px;height:66px;color:#8a93a6;padding:12px 22px"><span id="phT">Ask something…</span><span id="tyT" style="position:absolute;left:22px;top:12px;white-space:nowrap;color:#141821;opacity:0;clip-path:inset(0 100% 0 0)">How do I reset my password?</span></div></div></div>` }));
+  const PS = { chip: PC('#nxChip'), bk: PC('#btnK'), bt: PC('#btnT'), inc: PC('#inc'), tin: PC('#tIn') };
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (x, w, col, h4, inner) => `<div class="rm" style="left:${x}px;width:${w}px;height:300px;border-color:${col}"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const nodeB = (id, x, t, ex) => bx(id, `left:${x}px;top:120px;width:310px;height:120px;border:5px solid #c9b4f0;border-radius:18px;background:#243256;text-align:center;font-size:36px;font-weight:800;line-height:110px;${ex || ''}`, t);
+  EXAMS(
+    mkExam('exA', { q: 'An employee asks Nexo for the current status of their ticket. That status lives in the help desk system and changes all day. Which piece do they add?',
+      opts: ['Knowledge, with the help desk guides', 'A topic, with fixed ticket questions', 'A tool that queries the help desk'],
+      why: '<div id="exA_w1">The status is <span class="g">live data</span> in a <span class="g">system</span>, so Nexo must <span class="g">query</span> it.</div><div id="exA_w2">Knowledge only reads what is <span class="r">already written</span>.</div>',
+      proof: rmX(0, 820, '#4fc3d0', 'Knowledge', bx('pA_sh', 'left:30px;top:100px;width:440px;height:150px;border:5px solid #4fc3d0;border-radius:18px;background:#243256;opacity:.5;text-align:center;font-size:40px;font-weight:800;line-height:140px', 'Help desk guides') +
+          bx('pA_ch', 'left:500px;top:120px;width:290px;height:110px;border:4px solid #ffd166;border-radius:16px;color:#ffd166;font-size:36px;font-weight:800;text-align:center;line-height:1.15;padding-top:14px', 'written<br>yesterday')) +
+        rmX(860, 820, '#ffd166', 'Tool', bx('', 'left:30px;top:100px;width:200px;height:170px;border:5px solid #ffd166;border-radius:18px;background:#243256;text-align:center', IC('wrench', 'width:70px;height:70px;margin-top:20px;color:#ffd166') + '<div style="font-size:40px;font-weight:800;margin-top:8px">tool</div>') +
+          `<svg class="w" id="pA_ar" style="left:240px;top:160px;opacity:.25" width="190" height="60" viewBox="0 0 190 60"><path d="M30 30 H160" stroke="#ffd166" stroke-width="10"/><polygon points="4,30 34,10 34,50" fill="#ffd166"/><polygon points="186,30 156,10 156,50" fill="#ffd166"/></svg>` +
+          bx('', 'left:440px;top:96px;width:360px;height:76px;border:5px solid #cfd8ee;border-radius:14px;background:#243256;text-align:center;font-size:44px;font-weight:800;line-height:66px', 'Help desk') +
+          bx('pA_st', 'left:440px;top:184px;width:360px;height:96px;border:4px solid #6be3a0;border-radius:14px;color:#6be3a0;font-size:34px;font-weight:800;text-align:center;line-height:1.15;padding-top:8px;opacity:.25', 'status:<br>In progress')) }),
+    mkExam('exB', { q: 'For every serious incident, IT always needs the same data, asked in the same order: the affected system, then the urgency. How should Nexo collect it?',
+      opts: ['A topic with fixed questions in order', 'An instruction that asks for both details', 'A knowledge file listing the questions'],
+      why: '<div id="exB_w1">An <span class="g">exact, repeatable process</span> is designed <span class="g">step by step</span>.</div><div id="exB_w2">An instruction only <span class="y">guides</span> the model, so a question <span class="r">can be skipped</span>.</div>',
+      proof: rmX(0, 1100, '#c9b4f0', 'Topic', nodeB('pB_n0', 30, 'Trigger', 'opacity:.3') + T(345, 140, 50, '#8a93a6', '→') + nodeB('pB_n1', 400, 'Affected system?', 'opacity:.3') + T(715, 140, 50, '#8a93a6', '→') + nodeB('pB_n2', 770, 'Urgency?', 'opacity:.3') +
+          bx('pB_k0', 'left:240px;top:250px;width:44px;height:44px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:30px;font-weight:800;text-align:center;line-height:44px;opacity:0', '✓') + bx('pB_k1', 'left:535px;top:250px;width:44px;height:44px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:30px;font-weight:800;text-align:center;line-height:44px;opacity:0', '✓') + bx('pB_k2', 'left:880px;top:250px;width:44px;height:44px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:30px;font-weight:800;text-align:center;line-height:44px;opacity:0', '✓')) +
+        rmX(1120, 560, '#9fb0cf', 'Instruction', bx('', 'left:30px;top:100px;width:500px;height:70px;border:4px solid #9fb0cf;border-radius:14px;background:#243256;font-size:36px;font-weight:800;line-height:62px;text-align:center', 'Ask the system') +
+          bx('pB_sk', 'left:30px;top:196px;width:500px;height:70px;border:4px dashed #ff8a80;border-radius:14px;color:#ff8a80;font-size:36px;font-weight:800;line-height:62px;text-align:center;opacity:.3', 'Urgency (skipped)')) }),
+    mkExam('exC', { q: 'Nexo has a ticket tool, but it rarely chooses it, even though the instructions talk about tickets. What should the maker improve?',
+      opts: ['Stricter rules in the instructions', 'A clear description of the tool', 'More ticket guides as knowledge'],
+      why: '<div id="exC_w1">The agent reads the <span class="g">descriptions</span> of tools and topics to <span class="g">choose</span> what to use.</div><div id="exC_w2">Instructions set <span class="y">role and tone</span>; they don\'t replace a good description.</div>',
+      proof: rmX(0, 1680, '#ffd166', 'Tool', `<div class="w" id="pC_bot" style="left:40px;top:120px">${miniBot(130)}</div>` + T(210, 148, 90, '#8a93a6', '→', 'pC_ar') +
+          bx('pC_card', 'left:340px;top:86px;width:1300px;height:190px;border:6px solid #3a4a78;border-radius:22px;background:#243256', IC('ticket_diagonal', 'position:absolute;left:30px;top:22px;width:60px;height:60px;color:#ffd166') + T(110, 24, 48, '#fff', 'Tickets') +
+            T(40, 108, 40, '#cfd8ee', 'Does ticket stuff', 'pC_old', 'font-weight:700') + T(40, 108, 40, '#6be3a0', 'Creates and checks help desk tickets', 'pC_new', 'font-weight:700;opacity:0'))) }));
+
+  const XB = [320, 520, 720], XC = [330, 450, 570];
+  ['exA', 'exB', 'exC'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1380, height: 170, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: XC[k], width: 1040, height: 104, fontSize: 34, duration: 0.5, ease: 'power2.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.3, 0.5);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.05);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0.6, y: 20 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, t - 0.5));
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0 }, { opacity: 0.6, duration: 0.4, immediateRender: false }, S(i, 0) - 0.05);
+    tl.fromTo(X + '_ring', { opacity: 0 }, { opacity: 0.3, duration: 0.4, immediateRender: false }, S(i, 0) + 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.1, 0.3);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(Gg + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X, o.end, 0.4);
+  };
+  const SCRT = ['#ovT0', '#ovT9', '#kK', '#kD', '#bNew', '#bCant', '#bDiff', '#tFit', '#bPlain', '#bNoC', '#bConv', '#bEvery', '#tNext'];
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.8, 0.3); OFF('#cur', S(i, 0) - 0.8, 0.2); tl.set(SCRT, { opacity: 0 }, S(i, 0) - 0.45); };
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.25, 0.3); ON('#scr', S(i, 0) - 0.25, 0.3); };
+  const exWhy = (id, i, reveal) => {
+    const L = B.scenes[i].sentences.length - 1, PRt = Math.max(S(i, Math.min(reveal + 1, L)) + 0.2, S(i, reveal) + 1.7);
+    tl.fromTo(`#${id}_w1`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, PRt + 0.4);
+    tl.fromTo(`#${id}_w2`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(i, Math.min(reveal + 2, L)) + 0.1, PRt + 1.5));
+    ON(`#${id}_p`, PRt, 0.4); XCOMP(id, PRt - 0.1);
+    return PRt;
+  };
+  const sets = (sel, t) => tl.set(sel, { opacity: 0 }, t);
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - 1080, y: 540 - 1000, scale: 1 });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 });
+  gsap.set('.bwr .sb', { opacity: 1 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set(['#dPl0', '#dPl1', '#dPl2', '#dPl3', '#dLbSh'], { opacity: 0 });
+
+  /* ═════════ 0 · Nexo's second week ═════════ */
+  ON(['#gDoor', '#gNx', '#gPin'], 0.0, 0.6);
+  ON('#ovT0', S(0, 0), 0.4); OFF('#ovT0', S(0, 1) - 0.2, 0.3);
+  EMERGE('#bw1', S(0, 1) + 0.1); POPX('#rp1', W(0, 1, 'answers', 0.2));
+  OFF(['#bw1', '#rp1'], S(0, 2) - 0.1, 0.3);
+  TAG('#bNew', S(0, 2) + 0.15); OFF('#bNew', S(0, 3) - 0.15, 0.3);
+  EMERGE('#bw2', S(0, 3) + 0.1); POPX('#rp2', W(0, 3, 'cannot', -0.2)); TAG('#bCant', W(0, 3, 'cannot', 0.1));
+  OFF(['#bw2', '#rp2', '#bCant'], S(0, 4) - 0.15, 0.3);
+  EMERGE('#bw3', S(0, 4) + 0.1); POPX('#rp3', W(0, 4, 'forgets', -0.3));
+  OFF(['#bw3', '#rp3'], S(0, 5) - 0.15, 0.3);
+  CAM(2310, 980, 0.6, S(0, 5) + 0.1, 2.4, 'power2.inOut');
+  ON(['#gShelf', '#gWall', '#gCab'], S(0, 5) + 0.3, 0.6);
+  TAG('#bDiff', W(0, 5, 'different', -0.3)); OFF('#bDiff', S(0, 6) - 0.35, 0.3);
+  CAM(1040, 830, 0.85, S(0, 6) - 0.2, 1.1, 'power2.inOut');
+  OFF(['#gShelf', '#gWall', '#gCab'], S(0, 6) - 0.15, 0.4);
+  tl.set('#gSl', { opacity: 1 }, 0);
+  [0, 1, 2, 3].forEach((k) => tl.fromTo('#sl' + k, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(1.6)', immediateRender: false }, S(0, 6) + 0.6 + k * 0.3));
+
+  /* ═════════ 1 · The new employee ═════════ */
+  [0, 1, 2, 3].forEach((k) => tl.to('#sl' + k + '_t', { opacity: 0.55, duration: 0.4 }, S(1, 0) + 0.4 + k * 0.25));
+  TAG('#pNew', S(1, 1) + 0.3);
+  tl.fromTo('#jd', { opacity: 0, y: -60 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.in', immediateRender: false }, W(1, 2, 'job description', -0.3)); SLIT(0, W(1, 2, 'instructions', -0.1));
+  tl.fromTo('#fo', { opacity: 0, y: -110 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.in', immediateRender: false }, W(1, 3, 'folder', -0.2)); SLIT(1, W(1, 3, 'knowledge', -0.1));
+  tl.fromTo('#kc', { opacity: 0, x: 420 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out', immediateRender: false }, W(1, 4, 'access', -0.2)); SLIT(2, W(1, 4, 'tools', -0.1));
+  tl.fromTo('#sk', { opacity: 0, y: -110 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.in', immediateRender: false }, W(1, 5, 'scripts', -0.2)); SLIT(3, W(1, 5, 'topics', -0.1));
+  TAG('#tFit', W(1, 6, 'which piece', -0.4));
+  OFF(['#gSl', '#fo', '#kc', '#sk', '#pNew', '#tFit'], E(1, 6) - 0.1, 0.4);
+
+  /* ═════════ 2 · Instructions: the job description ═════════ */
+  CAM(1620, 830, 0.9, S(2, 0) - 0.1, 1.2, 'power2.inOut'); OFF('#gDoor', S(2, 0) + 0.2, 0.4);
+  tl.fromTo('#ci', { opacity: 0, scale: 0.2, x: -206, y: 220 }, { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.9, ease: 'power3.out', immediateRender: false }, S(2, 0) + 0.9);
+  OFF('#jd', S(2, 0) + 1.6, 0.2);
+  TAG('#bPlain', W(2, 1, 'plain', -0.3)); OFF('#bPlain', S(2, 2) - 0.15, 0.3);
+  tl.to('#ir0', { opacity: 1, duration: 0.35 }, W(2, 2, 'who the agent', -0.1)); tl.to('#ir1', { opacity: 1, duration: 0.35 }, W(2, 2, 'how it talks', -0.1)); tl.to('#ir2', { opacity: 1, duration: 0.35 }, W(2, 2, 'what it must', -0.1));
+  const TY = (sel, t, d, n) => { tl.set(sel, { opacity: 1 }, t); tl.fromTo(sel, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: d, ease: `steps(${n})`, immediateRender: false }, t); };
+  TY('#ln0', W(2, 3, 'you are', -0.1), 3.0, 38); TY('#ln1', S(2, 4) + 0.05, 0.8, 15); TY('#ln2', S(2, 5) + 0.05, 2.0, 42);
+  tl.fromTo('#n2', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, S(2, 6) + 0.3);
+  tl.fromTo('#n1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, S(2, 6) + 0.8);
+  TAG('#bNoC', W(2, 6, 'no contradictions', -0.5));
+  tl.fromTo('#n1x', { scaleX: 0 }, { scaleX: 1, duration: 0.4, immediateRender: false }, W(2, 6, 'contradictions', 0.5));
+  tl.to('#n1', { y: 300, rotation: 18, opacity: 0, duration: 0.9, ease: 'power2.in' }, W(2, 6, 'contradictions', 1.3));
+  OFF(['#ci', '#n2', '#bNoC'], E(2, 6) - 0.5, 0.3);
+
+  /* ═════════ 3 · Knowing and doing ═════════ */
+  CAM(2560, 880, 0.85, E(2, 6) - 0.6, 1.2, 'power2.inOut');
+  OFF(['#gPin', '#gNx'], E(2, 6) - 0.3, 0.3);
+  ON(['#gShelf', '#gWall', '#gBot'], E(2, 6) - 0.4, 0.4); TAG('#lbBot', S(3, 2) + 0.2);
+  tl.to('.lt', { opacity: 1, duration: 0.4 }, S(3, 0) + 0.7);
+  tl.fromTo('#kK', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(3, 0) + 0.6);
+  tl.fromTo('#kD', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(3, 0) + 0.85);
+  tl.to(['#kK', '#kD'], { scale: 0.6, duration: 0.5, ease: 'power2.inOut' }, S(3, 1) + 0.1);
+  ['websites', 'files', 'sharepoint', 'dataverse'].forEach((w, k) => LITB('#sr' + k, W(3, 1, w, -0.1), KNW, KNWs));
+  tl.fromTo('#ac', { opacity: 0, y: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(3, 2) + 0.2);
+  tl.to('#ac', { y: 180, duration: 1.0, ease: 'power2.inOut' }, S(3, 2) + 0.5); tl.to('#ac', { opacity: 0, scale: 0.5, duration: 0.3 }, S(3, 2) + 1.6);
+  ['connector', 'agent flow', 'prompt', 'rest a p i', 'm c p', 'computer use'].forEach((w, k) => LITB('#wk' + k, W(3, 3, w, -0.1), AMB, AMBs));
+  ON('#arw', S(3, 4) + 0.2, 0.3); tl.set('#dd0', { opacity: 1 }, S(3, 4) + 0.4);
+  tl.to('#dd0', { x: 100, duration: 0.7, ease: 'power1.inOut', yoyo: true, repeat: 3 }, S(3, 4) + 0.4);
+  OFF('#dd0', S(3, 4) + 3.2, 0.2);
+  ON('#gRule', S(3, 4) + 0.2, 0.4);
+  LITB('#rk', S(3, 5) + 0.3, KNW, KNWs); LITB('#rt', S(3, 6) + 0.3, AMB, AMBs);
+
+  /* ═════════ 4 · EXAM: ticket status ═════════ */
+  toExam(4);
+  sets(['#gShelf', '#gWall', '#gRule', '#gBot', '#kK', '#kD'], S(4, 0) - 0.4);
+  tl.set('#gCab', { opacity: 1 }, S(4, 0) - 0.4);
+  EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.75 });
+  const pa = exWhy('exA', 4, 8);
+  tl.to('#pA_sh', { opacity: 0.35, duration: 0.4 }, pa + 0.2); tl.to('#pA_ar', { opacity: 1, duration: 0.4 }, pa + 0.2);
+  tl.to('#pA_st', { opacity: 1, duration: 0.4 }, pa + 1.2);
+
+  /* ═════════ 5 · Topics: scripts made of nodes ═════════ */
+  camAt(2985, 870, 0.8, S(5, 0) - 0.6); fromExam(5);
+  TAG('#lbCab', S(5, 0) + 0.2);
+  tl.fromTo('#tcB', { opacity: 0, scale: 0.3, x: 760, y: 120 }, { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.9, ease: 'power3.out', immediateRender: false }, S(5, 0) + 0.2);
+  TAG('#bConv', S(5, 1) + 0.2); OFF('#bConv', S(5, 2) - 0.15, 0.3);
+  tl.to('#tn0', { opacity: 1, duration: 0.35 }, W(5, 2, 'trigger', -0.1));
+  [['message', 1], ['question', 2], ['condition', 3], ['call to a tool', 4]].forEach((n) => { const t = W(5, 3, n[0], -0.1); tl.to('#tn' + n[1], { opacity: 1, duration: 0.35 }, t); tl.to('#tl' + (n[1] - 1), { opacity: 1, duration: 0.3 }, t + 0.2); });
+  tl.fromTo('#lk', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.6)', immediateRender: false }, W(5, 4, 'exactly', -0.2));
+  ['validating', 'following', 'returning'].forEach((w, k) => POPX('#uc' + k, W(5, 5, w, -0.2)));
+  OFF(['#uc0', '#uc1', '#uc2', '#lk'], S(5, 6) - 0.2, 0.3);
+  tl.to('#tcB', { opacity: 0, scale: 0.3, x: 760, y: 120, duration: 0.9, ease: 'power2.in' }, S(5, 6) - 0.1);
+  CAM(2750, 880, 0.75, S(5, 6) + 0.2, 1.3, 'power2.inOut');
+  ON(['#gShelf', '#gWall'], S(5, 6) + 0.5, 0.5);
+  TAG('#lbShelf', S(5, 6) + 1.0); TAG('#lbWall', S(5, 6) + 1.2);
+  TAG('#bEvery', W(5, 6, 'everything', -0.2));
+
+  /* ═════════ 6 · EXAM: serious incidents ═════════ */
+  toExam(6);
+  sets(['#gShelf', '#gWall', '#gCab', '#lbCab', '#lbShelf', '#lbWall', '#bEvery'], S(6, 0) - 0.4);
+  EXAMX('exB', 6, { pause: 6, reveal: 7, trap: 1, right: 0, opt: [S(6, 3), S(6, 4), S(6, 5)], end: S(7, 0) - 0.75 });
+  const pb = exWhy('exB', 6, 7);
+  [0, 1, 2].forEach((k) => { tl.to('#pB_n' + k, { opacity: 1, borderColor: '#6be3a0', duration: 0.3 }, pb + 0.3 + k * 0.5); tl.to('#pB_k' + k, { opacity: 1, duration: 0.3 }, pb + 0.5 + k * 0.5); });
+  tl.to('#pB_sk', { opacity: 1, duration: 0.4 }, pb + 1.4);
+
+  /* ═════════ 7 · Find each piece in the studio (UI) ═════════ */
+  camAt(1730, 2825, 0.9, S(7, 0) - 0.6); fromExam(7);
+  CAM(1730, 2825, 1.5, S(7, 0) - 0.15, 1.0);
+  UIIN2('#uiA', S(7, 0) + 0.45);
+  const TABON = (k, t) => TABS.forEach((u, j) => tl.to('#tb' + j, { color: j === k ? '#2f5bd3' : '#8a93a6', borderBottomColor: j === k ? '#2f5bd3' : 'rgba(47,91,211,0)', duration: 0.2 }, t));
+  ON('#cur', S(7, 1) + 0.1, 0.3); CUR(PS.chip[0], PS.chip[1], S(7, 1) + 0.2, 0.8); CLICK(PS.chip[0], PS.chip[1], S(7, 1) + 1.1); pulse('#nxChip', S(7, 1) + 1.1, 'rgba(255,255,255,.7)'); OFF('#cur', S(7, 1) + 1.5, 0.2);
+  TABON(0, S(7, 2) + 0.1); pulse('#insBox', W(7, 2, 'instructions box', 0.0));
+  TABON(1, S(7, 3) + 0.05); SWX('#p1', '#p2', S(7, 3) + 0.05);
+  ON('#cur', S(7, 3) + 0.6, 0.2); CUR(PS.bk[0], PS.bk[1], S(7, 3) + 0.6, 0.7); CLICK(PS.bk[0], PS.bk[1], W(7, 3, 'add a source', 0.1)); pulse('#btnK', W(7, 3, 'add a source', 0.1));
+  OFF('#cur', W(7, 3, 'add a source', 0.5), 0.2);
+  tl.to('#kr0', { opacity: 1, duration: 0.35 }, W(7, 3, 'public website', -0.1)); tl.to('#kr1', { opacity: 1, duration: 0.35 }, W(7, 3, 'file', -0.1));
+  TABON(2, S(7, 4) + 0.05); SWX('#p2', '#p3', S(7, 4) + 0.05);
+  ON('#cur', S(7, 4) + 0.7, 0.2); CUR(PS.bt[0], PS.bt[1], S(7, 4) + 0.7, 0.7); CLICK(PS.bt[0], PS.bt[1], W(7, 4, 'add a tool', 0.0)); pulse('#btnT', W(7, 4, 'add a tool', 0.0));
+  OFF('#cur', W(7, 4, 'add a tool', 0.4), 0.2);
+  tl.fromTo('#pk', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, immediateRender: false }, W(7, 4, 'connectors', -0.2));
+  TABON(3, S(7, 5) + 0.05); SWX('#p3', '#p4', S(7, 5) + 0.05);
+  ON('#cur', S(7, 5) + 1.4, 0.2); CUR(PS.inc[0], PS.inc[1], S(7, 5) + 1.4, 0.7); CLICK(PS.inc[0], PS.inc[1], W(7, 5, 'open one', 0.0)); pulse('#inc', W(7, 5, 'open one', 0.0));
+  OFF('#cur', W(7, 5, 'open one', 0.4), 0.2);
+  tl.fromTo('#chn', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, immediateRender: false }, W(7, 5, 'read its nodes', -0.4));
+  ON('#cur', S(7, 6) + 0.0, 0.2); CUR(PS.tin[0], PS.tin[1], S(7, 6) + 0.0, 0.7);
+  tl.to('#phT', { opacity: 0, duration: 0.2 }, S(7, 6) + 0.7);
+  TY('#tyT', S(7, 6) + 0.8, 1.0, 27);
+  tl.to('#tyT', { opacity: 0, duration: 0.15 }, S(7, 6) + 1.85); tl.to('#phT', { opacity: 1, duration: 0.2 }, S(7, 6) + 1.9);
+  tl.fromTo('#tU', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, S(7, 6) + 1.9);
+  OFF('#cur', S(7, 6) + 2.0, 0.2);
+  tl.fromTo('#tR', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, S(7, 6) + 2.3);
+  tl.fromTo('#tChip', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, W(7, 6, 'notice', 0.0));
+  UIOUT2('#uiA', E(7, 6) - 0.1);
+
+  /* ═════════ 8 · EXAM: the ignored tool ═════════ */
+  toExam(8);
+  EXAMX('exC', 8, { pause: 6, reveal: 7, trap: 0, right: 1, opt: [S(8, 3), S(8, 4), S(8, 5)], end: S(9, 0) - 0.75 });
+  const pc = exWhy('exC', 8, 7);
+  tl.to('#pC_old', { color: '#ff8a80', textDecoration: 'line-through', duration: 0.3 }, pc + 0.3);
+  tl.to('#pC_old', { opacity: 0, duration: 0.3 }, pc + 1.2); tl.to('#pC_new', { opacity: 1, duration: 0.4 }, pc + 1.3);
+  tl.to('#pC_ar', { color: '#6be3a0', duration: 0.4 }, pc + 1.6);
+
+  /* ═════════ 9 · Every piece in its place (closing diorama) ═════════ */
+  camAt(1920, Y + 1080, 0.5, S(9, 0) - 0.6); fromExam(9);
+  ON('#gDio', S(9, 0) - 0.3, 0.3);
+  tl.to(['#dPl0', '#dPl1', '#dPl2', '#dPl3'], { opacity: 0.45, duration: 0.4 }, S(9, 0) + 0.3);
+  ON('#ovT9', S(9, 0) + 0.1, 0.4);
+  [0, 1, 2, 3].forEach((k) => tl.to('#dp' + k, { y: -30, duration: 0.2, yoyo: true, repeat: 1 }, S(9, 1) + 0.4 + k * 0.4));
+  tl.to('#dSh', { opacity: 1, color: INS, duration: 0.4 }, W(9, 2, 'instructions', -0.1)); tl.to('#dPl0', { opacity: 1, duration: 0.3 }, W(9, 2, 'instructions', -0.1));
+  tl.to('#dShf', { opacity: 1, duration: 0.4 }, W(9, 3, 'sharepoint', -0.1)); tl.to('#dPl1', { opacity: 1, duration: 0.3 }, W(9, 3, 'sharepoint', -0.1)); TAG('#dLbSh', W(9, 3, 'sharepoint', 0.1));
+  DRAW('#dCb', W(9, 4, 'new tool', 0.0), 0.5); tl.set('#dSk', { borderStyle: 'solid' }, W(9, 4, 'new tool', 0.4)); tl.to('#dSk', { opacity: 1, duration: 0.4 }, W(9, 4, 'new tool', 0.4)); tl.to('#dPl2', { opacity: 1, duration: 0.3 }, W(9, 4, 'new tool', 0.4));
+  tl.to('#dTc', { opacity: 1, duration: 0.4 }, W(9, 5, 'topic called', -0.1)); tl.to('#dPl3', { opacity: 1, duration: 0.3 }, W(9, 5, 'topic called', -0.1));
+  [0, 1].forEach((k) => { tl.to('#dn' + k, { borderColor: GRN, duration: 0.3 }, W(9, 5, ['affected system', 'urgency'][k], -0.1)); tl.to('#dok' + k, { opacity: 1, duration: 0.3 }, W(9, 5, ['affected system', 'urgency'][k], 0.3)); });
+  ['documents', 'live systems', 'exact processes'].forEach((w, k) => tl.to('#rb' + k, { opacity: 1, duration: 0.4 }, W(9, 6, w, -0.1)));
+  OFF('#ovT9', S(9, 7) - 0.3, 0.3); TAG('#tNext', S(9, 7) + 0.1);
+  [[0, 1700, 0], [1, 2540, 1.1], [2, 3190, 2.2]].forEach((f) => {
+    const t = S(9, 7) - 0.4 + f[2];
+    tl.fromTo('#fw' + f[0], { opacity: 0, y: 330, scale: 1, x: 0 }, { opacity: 1, y: 0, scale: 1, x: 0, duration: 0.5, ease: 'power2.out', immediateRender: false }, t);
+    tl.to('#fw' + f[0], { x: f[1] - 400, duration: 1.4, ease: 'power2.inOut' }, t + 0.5);
+    POP('#dTk' + f[0], t + 1.85); OFF('#fw' + f[0], t + 1.9, 0.25);
+  });
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

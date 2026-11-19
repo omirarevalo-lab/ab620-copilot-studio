@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L11 · Custom data · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  .bl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 120px; white-space: nowrap; font-size: 42px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; }
+  .bl.red { border-color: #c4392f; color: #c4392f; } .bl.green { border-color: #1e7f4f; color: #1e7f4f; } .bl.vi { border-color: #7b5cd6; color: #7b5cd6; } .bl.go { border-color: #b8860b; color: #8a6508; } .bl.tl { border-color: #0f7b8a; color: #0f7b8a; } .bl.nv { border-color: #1f2a44; color: #1f2a44; } .bl.gr { border-color: #6b7280; color: #5b6578; }
+  .pl { position: absolute; left: 120px; top: 120px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .bub { position: absolute; box-sizing: border-box; padding: 10px 26px; border-radius: 26px; font-size: 44px; font-weight: 700; white-space: nowrap; background: #fff; border: 4px solid #2f5bd3; color: #141821; opacity: 0; }
+  .bub.me { background: #e07a5f; border-color: #e07a5f; color: #fff; }
+  .bub.crm { background: #f4ead2; border-color: #b0926a; color: #141821; }
+  .tg { position: absolute; box-sizing: border-box; white-space: nowrap; font-size: 40px; font-weight: 800; padding: 4px 18px; border-radius: 999px; border: 3px solid #fff; opacity: 0; text-align: center; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 38px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 32px; border-radius: 16px; padding: 2px 16px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  .uw .nav div { font-size: 32px; } .uw .bar { font-size: 32px; } .uw .bar .hc { font-size: 32px; } .uw .row b { font-size: 36px; } .uw .btn { font-size: 32px; } .uw .crumb { font-size: 32px; } .uw .fld { font-size: 34px; } .uw .fld small { font-size: 32px; } .uw .dd { font-size: 34px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 12px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 32px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .uw .mn { position: absolute; background: #fff; border: 3px solid var(--line2); border-radius: 16px; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; font-size: 34px; font-weight: 700; }
+  .uw .mn div { padding: 12px 24px; }
+  .uw .vc { display: inline-block; font-size: 32px; font-weight: 800; padding: 2px 16px; border-radius: 12px; background: #1f2a44; color: #fff; }
+  #ovT { top: 200px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L11 · Custom data and your own sources. The Contoso dispatch kitchen, world 3840x2160.
+     Pantry x300-1500 y800-1500 · belt x300-2200 y1200-1700 · tray station x1900-2900 y1000-1500
+     · hatch x2800-3600 y700-1300 · control panel x2500-3500 y1200-1900 · Valeria's desk front-left
+     · screen band x1300-2960 y240-540 (Marta's questions above hatch) */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#e0a21e', VIO = '#7b5cd6', TLC = '#0f7b8a', CRM = '#f4ead2', CORAL = '#e07a5f', INK = '#141821', GRY = '#6b7280', TBLB = '#dbe8fb';
+
+  const YO = 700;
+  const A = (x, y) => `left:${x}px;top:${y + YO}px`;
+  const Bq = (x, y) => `left:${x + 1920}px;top:${y + YO}px`;
+
+  const hmn = (id, x, y, top, hair, extra) => `<svg class="w ${extra || ''}" id="${id}" style="${A(x, y)}" width="200" height="380" viewBox="0 0 200 380"><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`;
+  const cittX = (id, x, y, t, st) => `<div class="w h" id="${id}" style="${A(x, y)};height:64px;padding:0 24px;box-sizing:border-box;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid #8a93a6;border-radius:999px;font-size:40px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow);color:${TLC};${st || ''}">${IC('link', 'width:38px;height:38px;color:' + TLC)}${t}</div>`;
+  const bub = (id, x, y, w, t, cls, st) => `<div class="bub h ${cls || ''}" id="${id}" style="${A(x, y)};width:${w}px;${st || ''}">${t}</div>`;
+  const tgp = (id, x, y, w, t, bg, col, bd) => `<div class="tg h" id="${id}" style="${A(x, y)};width:${w}px;background:${bg};color:${col};border:3px solid ${bd || bg};text-align:center">${t}</div>`;
+  const TGL = (id, x, y, w, h, on) => { const k = h - 14; return `<svg class="w ${on ? '' : 'h'}" id="${id}" style="${A(x, y)}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect x="3" y="3" width="${w - 6}" height="${h - 6}" rx="${(h - 6) / 2}" fill="${on ? NAVY : '#8a93a6'}" stroke="#8a93a6" stroke-width="5"/><circle id="${id}_k" cx="${on ? w - h / 2 : h / 2}" cy="${h / 2}" r="${k / 2 - 2}" fill="#fff"/>${on ? `<path id="${id}_c" d="M${h / 2 - 14} ${h / 2 + 2} L${h / 2 - 4} ${h / 2 + 12} L${h / 2 + 16} ${h / 2 - 12}" stroke="${GRN}" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>` : ''}</svg>`; };
+
+  /* backdrop patches so close-up framings never reveal a world edge */
+  ADD(`<div class="w" style="${A(-500, -320)};width:4840px;height:1820px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="${A(-500, 1500)};width:4840px;height:980px;background:#e3e7ef"></div>`);
+
+  /* ═══════ WORLD OBJECTS ═══════ */
+
+  /* Valeria's desk (front-left, from L01) + Valeria */
+  ADD(`<div class="w" id="vdesk" style="${A(400, 880)};width:600px;height:160px"><div style="height:26px;background:#aeb6c6;border-radius:10px 10px 0 0"></div><div style="height:134px;background:#c9ced8"></div></div>`);
+  ADD(`<div class="w" id="vlap" style="${A(408, 762)};width:290px;height:112px;box-sizing:border-box;background:#1f2a44;border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#5d6472">Copilot Studio</div></div>`);
+
+  /* Pantry wall: open shelves of jars labelled "files" and "websites" */
+  ADD(`<div class="w" id="pan" style="${A(300, 100)};width:1200px;height:700px;box-sizing:border-box;background:#e7e2d4;border:12px solid #9c8f78;border-radius:18px;box-shadow:var(--shadow)"></div>`);
+  [300, 540, 780].forEach((sy) => ADD(`<div class="w" style="${A(324, sy)};width:1152px;height:14px;background:#b3a68c"></div>`));
+  const JAR = 'display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:#5b6578;';
+  [0, 1, 2, 3].forEach((k) => ADD(`<div class="w h" id="jarF${k}" style="${A(350 + k * 170, 300)};width:140px;height:92px;box-sizing:border-box;background:#fff;border:5px solid #8a93a6;border-radius:14px 14px 10px 10px;box-shadow:var(--shadow);${JAR}">files</div>`));
+  [0, 1, 2, 3].forEach((k) => ADD(`<div class="w" id="jarW${k}" style="${A(350 + k * 210, 420)};width:200px;height:92px;box-sizing:border-box;background:#fff;border:5px solid #8a93a6;border-radius:14px 14px 10px 10px;box-shadow:var(--shadow);${JAR}">websites</div>`));
+  [0, 1].forEach((k) => ADD(`<div class="w" id="jarWb${k}" style="${A(340 + k * 280, 580)};width:260px;height:92px;box-sizing:border-box;background:#fff;border:5px solid #b3a68c;border-radius:14px 14px 10px 10px;box-shadow:var(--shadow);${JAR}">websites</div>`));
+  ADD(`<div class="w h" id="panGlow" style="${A(340, 80)};width:870px;height:760px;box-sizing:border-box;border:8px solid #ffd166;border-radius:26px;box-shadow:0 0 46px 14px rgba(255,209,102,.55)"></div>`);
+  ADD(`<div class="w h" id="panDim" style="${A(300, 100)};width:1200px;height:700px;background:rgba(90,98,114,.62);border-radius:12px"></div>`);
+
+  /* Incident belt: crate -> belt -> tray station */
+  ADD(`<div class="w" id="crate" style="${A(1000, 540)};width:360px;height:240px;box-sizing:border-box;background:#c8a25a;border:10px solid #8d6230;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;color:#5b3d17;text-align:center;line-height:1.2">Incident database</div>`);
+  ADD(`<div class="w" id="belt" style="${A(780, 860)};width:1080px;height:240px;box-sizing:border-box;background:#77808f;border-radius:14px;box-shadow:var(--shadow)"><div style="position:absolute;left:0;right:0;top:14px;height:40px;background:#5f6875;border-radius:10px"></div><div style="position:absolute;left:0;right:0;top:110px;height:40px;background:#5f6875;border-radius:10px"></div></div>`);
+  [0, 1, 2, 3].forEach((k) => ADD(`<div class="w h" id="bs${k}" style="${A(840 + k * 260, 880)};width:70px;height:22px;background:#c3cad6;border-radius:8px"></div>`));
+  [0, 1, 2].forEach((k) => ADD(`<div class="w h" id="tkt${k}" style="${A(860 + k * 250, 900)};width:170px;height:72px;box-sizing:border-box;box-shadow:var(--shadow);background:#fff;border-radius:10px;overflow:hidden"><div style="position:absolute;left:0;top:0;width:100%;height:20px;background:#e0a21e;opacity:.45"></div></div>`));
+  [0, 1, 2].forEach((k) => ADD(`<svg class="w h" id="tkc${k}" style="${A(902 + k * 250, 800)}" width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="40" fill="#fff" stroke="${TLC}" stroke-width="7"/><path d="M14 44 L36 62 L72 18" stroke="${TLC}" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`));
+  ADD(`<svg class="w" id="flt" style="${A(950, 440)}" width="220" height="330" viewBox="0 0 220 330"><path d="M10 10 L210 10 L130 170 L130 250 L90 250 L90 170 Z" fill="#9aa3b5"/><path d="M30 10 L190 10 L120 165 L120 245 L100 245 L100 165 Z" fill="#e3e7ef"/><g id="flt_f">${[0, 1, 2].map((k) => `<rect x="${68 + k * 30}" y="${200 + k * 12}" width="18" height="26" rx="4" fill="#8a93a6"/>`).join('')}</g></svg>`);
+  ADD(`<svg class="w" id="arm" style="${A(1440, 150)}" width="200" height="330" viewBox="0 0 200 330"><rect x="90" y="220" width="24" height="100" rx="8" fill="#9aa3b5"/><g id="arm_r" style="transform-origin:102px 224px"><rect x="88" y="60" width="28" height="170" rx="12" fill="#c3cad6"/><circle cx="102" cy="224" r="26" fill="#8a93a6"/><rect x="60" y="40" width="94" height="34" rx="12" fill="#e0a21e"/></g></svg>`);
+
+  /* Tray station: pedestal + three-slot tray + Nexo the cook with chef's hat */
+  ADD(`<div class="w" id="tt" style="${A(1900, 600)};width:720px;height:280px"><div style="position:absolute;left:0;top:0;width:100%;height:90px;box-sizing:border-box;background:#b9c3d2;border:8px solid ${NAVY};border-radius:16px;box-shadow:var(--shadow)"></div><div style="position:absolute;left:70px;top:90px;width:70px;height:190px;background:#9aa5b6"></div><div style="position:absolute;left:580px;top:90px;width:70px;height:190px;background:#9aa5b6"></div></div>`);
+  ADD(`<div class="w h" id="trayG" style="${A(1960, 420)};width:600px;height:200px"><div style="position:absolute;left:0;top:0;width:600px;height:180px;box-sizing:border-box;background:#dfe5ee;border:10px solid ${NAVY};border-radius:16px;box-shadow:var(--shadow)"></div><div style="position:absolute;left:200px;top:25px;width:4px;height:130px;background:#8a93a6"></div><div style="position:absolute;left:400px;top:25px;width:4px;height:130px;background:#8a93a6"></div><div id="slot1" style="position:absolute;left:40px;top:84px;width:110px;height:54px;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:800;color:#8a93a6">1</div><div id="slot2" style="position:absolute;left:230px;top:84px;width:110px;height:54px;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:800;color:#8a93a6">2</div><div id="slot3" style="position:absolute;left:420px;top:84px;width:110px;height:54px;display:flex;align-items:center;justify-content:center;font-size:54px;font-weight:800;color:#8a93a6">3</div></div>`);
+  ADD(agent('nx', 1940, 1160, { folder: '' }).replace('width="360" height="500"', 'width="330" height="458"'));
+  ADD(`<svg class="w h" id="hatG" style="${A(2072, 250)}" width="266" height="120" viewBox="0 0 266 120"><circle cx="88" cy="62" r="46" fill="#fff"/><circle cx="133" cy="40" r="52" fill="#fff"/><circle cx="180" cy="60" r="48" fill="#fff"/><rect x="40" y="78" width="190" height="30" rx="10" fill="#fff" stroke="#dcdfe6" stroke-width="5"/></svg>`);
+
+  /* Serving hatch + Marta with her laptop */
+  ADD(`<div class="w" id="hat" style="${A(2640, 0)};width:560px;height:620px;box-sizing:border-box;background:rgba(248,250,252,.85);border:12px solid ${NAVY};border-radius:20px"></div>`);
+  ADD(`<div class="w" style="${A(2660, 440)};width:520px;height:16px;background:#8a93a6"></div>`);
+  ADD(`<div class="w" id="cnt" style="${A(2620, 560)};width:780px;height:360px;box-sizing:border-box"><div style="position:absolute;left:0;top:0;width:100%;height:110px;background:#cfd6e2;border-radius:14px 14px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:110px;width:100%;height:250px;background:#9aa5b6"></div></div>`);
+  ADD(hmn('mar', 2950, 0, CORAL, '#3a2a22', 'h'));
+  ADD(`<div class="w" id="lap6" style="${A(2870, 140)};width:260px;height:110px;box-sizing:border-box;background:#1f2a44;border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#5d6472">${IC('chat', 'width:64px;height:64px')}</div></div>`);
+
+  /* Chat screen band on the back wall (Marta's questions above the hatch) */
+  ADD(`<div class="w h" id="scr" style="${A(1300, -460)};width:1660px;height:300px;box-sizing:border-box;background:#1f2a44;border-radius:24px;box-shadow:var(--shadow)"><div style="height:60px;background:#2d3a5c;color:#fff;font-size:36px;font-weight:700;display:flex;align-items:center;padding-left:26px;box-sizing:border-box;border-radius:18px 18px 0 0">${IC('chat', 'width:36px;height:36px')}Support chat</div></div>`);
+  ADD(bub('q0', 1400, -300, 1000, 'My printer shows a fault. What now?', 'me', ';font-size:48px'));
+  ADD(bub('ans0', 1400, -152, 520, 'Try restarting it.', 'crm'));
+  ADD(bub('ans1', 1400, -260, 680, 'One answer, from the tray.', 'crm'));
+  ADD(bub('ans3', 1400, -152, 860, 'Here is what your flow picked.', 'crm'));
+  ADD(bub('ans6', 2640, 470, 720, 'Here is what your flow picked.', 'crm', ';font-size:40px'));
+  ADD(cittX('cit0', 2420, -64, 'link'));
+  ADD(cittX('cit1', 2100, -64, 'link'));
+  ADD(cittX('cit2', 2100, -64, 'link'));
+
+  /* Control panel (scene 6): big navy toggle + source list + Custom data row + two small toggles */
+  ADD(`<div class="w h" id="ctl" style="${A(2600, 476)};width:1020px;height:700px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:24px;box-shadow:var(--shadow)"></div>`);
+  ADD(`<div class="w h" id="ctlL" style="${A(2630, 496)};width:480px;font-size:44px;font-weight:800;color:${NAVY};line-height:1.15">Search only selected sources</div>`);
+  ADD(TGL('ctT', 3150, 496, 300, 104));
+  ADD(`<svg class="w h" id="ctTk" style="${A(3364, 528)}" width="70" height="70" viewBox="0 0 70 70"><path d="M12 38 L30 56 L60 12" stroke="${GRN}" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+  ADD(`<div class="w h" id="srcList" style="${A(2630, 620)};width:900px;height:76px;box-sizing:border-box;background:#fff;border:5px dashed #8a93a6;border-radius:16px;display:flex;align-items:center;padding-left:24px;font-size:44px;font-weight:700;color:#8a93a6">no sources selected</div>`);
+  ADD(`<div class="w h" id="cdLab" style="${A(2630, 718)};width:290px;font-size:44px;font-weight:800;color:${NAVY};line-height:1.2;white-space:nowrap">Custom data</div>`);
+  ADD(`<div class="w h" id="cdSlot" style="${A(2930, 710)};width:330px;height:94px;box-sizing:border-box;background:#f3f5f9;border:5px dashed #8a93a6;border-radius:14px"></div>`);
+  ADD(`<div class="w h" id="vChip" style="${A(2954, 734)};padding:4px 22px;box-sizing:border-box;background:${NAVY};color:#fff;border-radius:12px;font-size:44px;font-weight:800;white-space:nowrap">TableVar</div>`);
+  ADD(`<div class="w h" id="wsLab" style="${A(2630, 836)};width:290px;font-size:44px;font-weight:800;color:${NAVY};line-height:1.15;white-space:nowrap">Web search</div>`);
+  ADD(TGL('ct1', 2930, 832, 200, 64));
+  ADD(`<div class="w h" id="agLab" style="${A(2630, 916)};width:640px;font-size:44px;font-weight:800;color:${NAVY};line-height:1.15;white-space:nowrap">Allow the AI to use its own general knowledge</div>`);
+  ADD(TGL('ct2', 3350, 912, 200, 64));
+
+  /* Neutral cards beside pantry (scene 1 s3) */
+  ADD(`<div class="w h" id="cd1" style="${A(520, 100)};width:440px;height:72px;box-sizing:border-box;background:#fff;border:5px solid #8a93a6;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:#5b6578">not in a file</div>`);
+  ADD(`<div class="w h" id="cd2" style="${A(640, 200)};width:480px;height:72px;box-sizing:border-box;background:#fff;border:5px solid #8a93a6;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:#5b6578">not on a website</div>`);
+
+  /* Tray cards (served from the tray, scenes 1 s5 and 6 s3) */
+  ADD(`<div class="w h" id="tc1" style="${A(60, 150)};width:110px;height:54px;box-sizing:border-box;background:${CRM};border:3px solid #d9c9a6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#3a3a5a">article 1</div>`);
+  ADD(`<div class="w h" id="tc2" style="${A(190, 150)};width:110px;height:54px;box-sizing:border-box;background:${CRM};border:3px solid #d9c9a6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#3a3a5a">article 2</div>`);
+  ADD(`<div class="w h" id="tc3" style="${A(320, 150)};width:110px;height:54px;box-sizing:border-box;background:${CRM};border:3px solid #d9c9a6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#3a3a5a">article 3</div>`);
+  ADD(`<div class="w h" id="tc4" style="${A(450, 150)};width:110px;height:54px;box-sizing:border-box;background:${CRM};border:3px solid #d9c9a6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#3a3a5a">article 4</div>`);
+
+  /* Pile of tickets + neutral grey line (scene 4 s2) */
+  ADD(`<div class="w h" id="pile" style="${A(1200, 900)};width:200px;height:200px;background:#f3f5f9;border:4px solid #8a93a6;border-radius:16px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#5b6578">pile</div>`);
+  ADD(`<div class="w h" id="greyLine" style="${A(2100, 900)};width:100px;height:300px;background:#b3a68c;border-radius:16px"></div>`);
+
+  /* Table card (scene 3): pale-blue grid with Content/ContentLocation/Title */
+  ADD(`<div class="w h" id="tbl" style="${A(1900, 300)};width:900px;height:720px;box-sizing:border-box;background:${TBLB};border:8px solid ${BLUE};border-radius:24px;box-shadow:var(--shadow)"></div>`);
+  ADD(`<div class="w h" id="tblHead" style="${A(1940, 340)};width:820px;height:60px;display:flex"><div style="flex:1;border-bottom:3px solid ${BLUE};font-size:40px;font-weight:800;color:${NAVY};padding:0 20px;box-sizing:border-box">Content</div><div style="flex:1;border-bottom:3px dashed ${TLC};font-size:40px;font-weight:800;color:${NAVY};padding:0 20px;box-sizing:border-box">ContentLocation</div><div style="flex:1;border-bottom:3px dashed ${VIO};font-size:40px;font-weight:800;color:${NAVY};padding:0 20px;box-sizing:border-box">Title</div></div>`);
+  ADD(`<div class="w h" id="tblCell" style="${A(1940, 410)};width:820px;height:100px;box-sizing:border-box;border:3px solid ${AMB};background:#fff;border-radius:12px;display:flex;align-items:center;font-size:40px;font-weight:800;color:${AMB}">article text</div>`);
+  ADD(`<div class="w h" id="tblCL" style="${A(1940, 540)};width:820px;height:120px;box-sizing:border-box;border:3px dashed ${TLC};background:#fff;border-radius:12px;display:flex;align-items:center;font-size:40px;font-weight:800;color:${TLC}">link</div>`);
+  ADD(`<div class="w h" id="tblTi" style="${A(1940, 670)};width:820px;height:120px;box-sizing:border-box;border:3px dashed ${VIO};background:#fff;border-radius:12px;display:flex;align-items:center;font-size:40px;font-weight:800;color:${VIO}">title</div>`);
+  ADD(`<div class="w h" id="tagReq" style="${A(2780, 340)};width:170px;font-size:34px;font-weight:800;color:${AMB};border:3px solid ${AMB};background:#fff;border-radius:999px;padding:4px 18px;text-align:center">required</div>`);
+  ADD(`<div class="w h" id="tagOpt1" style="${A(2780, 540)};width:190px;font-size:34px;font-weight:800;color:${TLC};border:3px solid ${TLC};background:#fff;border-radius:999px;padding:4px 18px;text-align:center">optional</div>`);
+  ADD(`<div class="w h" id="tagOpt2" style="${A(2780, 670)};width:190px;font-size:34px;font-weight:800;color:${VIO};border:3px solid ${VIO};background:#fff;border-radius:999px;padding:4px 18px;text-align:center">optional</div>`);
+
+  /* Recap board (scene 10) */
+  ADD(`<div class="w h" id="rb" style="${A(1300, 100)};width:720px;height:450px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:28px;box-shadow:var(--shadow);overflow:hidden"><div style="position:absolute;left:24px;top:12px;font-size:44px;font-weight:800;color:${NAVY};white-space:nowrap">Remember: three rules</div><div id="rb0" style="position:absolute;left:24px;top:100px;width:660px;height:90px;box-sizing:border-box;background:#f3f5f9;border:3px solid ${NAVY};font-size:34px;font-weight:800;color:${INK};opacity:0.45;display:flex;align-items:center;padding-left:24px"></div><div id="rb1" style="position:absolute;left:24px;top:200px;width:660px;height:90px;box-sizing:border-box;background:#f3f5f9;border:3px solid ${NAVY};font-size:34px;font-weight:800;color:${INK};opacity:0.45;display:flex;align-items:center;padding-left:24px"></div><div id="rb2" style="position:absolute;left:24px;top:300px;width:660px;height:90px;box-sizing:border-box;background:#f3f5f9;border:3px solid ${NAVY};font-size:34px;font-weight:800;color:${INK};opacity:0.45;display:flex;align-items:center;padding-left:24px"></div></div>`);
+
+  /* Next lesson sign (scene 10 s6) */
+  ADD(`<div class="w h" id="nlSign" style="${A(1500, 950)};width:500px;height:120px;box-sizing:border-box;background:${NAVY};border-radius:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:#fff;font-size:44px;font-weight:800">Adaptive Cards</div>`);
+
+  /* ═══════ OVERLAYS (ADDS: screen coords) ═══════ */
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plB">Custom data</div><div class="pl" id="plD">Back in the kitchen</div>
+    <div class="ov kin q" id="ovT"><span>Custom data</span></div>`);
+  ADDS(`${[['c0a','a general answer',AMB],['c0b','only the articles her flow picks',BLUE],['c0c','a link to each',TLC],['c1a','the cook',GRN],['c1b','usually: pantry shelves',GRY],['c1c','Custom data: a tray',AMB],['c1d','not a file or a website',GRY],['c1e','you calculate it',BLUE],['c1f','serves only what is on the tray',GRN],['c2a','Classic data',NAVY],['c2b','a Table variable',BLUE],['c2c','use it for a private API or a flow result',BLUE],['c2d','at Contoso: from a flow',BLUE],['c3a','required',AMB],['c3b','cite each link',TLC],['c4a','the limit',NAVY],['c4b','only the first three',GRN],['c4c','filter and sort first',AMB],['c4d','three articles',GRN],['c6a','on, with no sources',NAVY],['c6b','your variable',BLUE],['c6c','web and general knowledge off',GRY],['c6d','only from the three articles',GRN],['c8','check: the citation uses ContentLocation',TLC],['c10','next lesson',NAVY]].map(([id, t, c]) => `<div class="bl ${c}" id="${id}">${t}</div>`).join('')}`);
+  ADDS(`${[['n0','not a public site, not a file',GRY],['n1','hundreds of rows',GRY],['n2','not read',GRY]].map(([id, t, c]) => `<div class="bl ${c}" id="${id}">${t}</div>`).join('')}`);
+
+  /* ═══════ EXAM ROOMS ═══════ */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const proof5 = `<div class="rm" id="p5L" style="left:0;border-color:${GRN};opacity:0"><h4>Filter and sort first</h4>${pz(28, 70, 'belt + funnel + arm', `background:${GRN};border-color:${GRN}`)}${pz(28, 140, 'three best tickets in slots', `background:${GRN};border-color:${GRN}`)}${pz(400, 70, 'chip: three best rows', `background:${GRN};border-color:${GRN}`)}</div><div class="rm" id="p5R" style="left:860px;border-color:${RED};opacity:0"><h4>Send every row</h4>${pz(28, 70, 'heap of tickets', `background:${RED};border-color:${RED}`)}${pz(28, 140, 'slots 1-3 filled', `background:#fff;color:${INK};border-color:${RED}`)}${pz(400, 70, 'rest behind grey line', `background:${RED};border-color:${RED}`)}${pz(28, 210, 'chip: not all are read', `background:${RED};border-color:${RED}`)}</div>`;
+  const proof7 = `<div class="rm" id="p7L" style="left:0;border-color:${GRN};opacity:0"><h4>On, no sources</h4>${pz(28, 70, 'navy toggle On', `background:${NAVY};border-color:${NAVY};color:#fff`)}${pz(28, 140, 'source list empty', `background:#fff;border:3px dashed ${GRY};color:${GRY}`)}${pz(400, 70, 'pantry dimmed, tray lit', `background:${GRN};border-color:${GRN}`)}${pz(28, 210, 'chip: only your table', `background:${GRN};border-color:${GRN}`)}</div><div class="rm" id="p7R" style="left:860px;border-color:${RED};opacity:0"><h4>On, all sources</h4>${pz(28, 70, 'toggle On, sources full', `background:${NAVY};border-color:${NAVY};color:#fff`)}${pz(28, 140, 'pantry lit beside tray', `background:${RED};border-color:${RED}`)}${pz(400, 70, 'chip: sources are back in', `background:${RED};border-color:${RED}`)}</div>`;
+  const proof9 = `<div class="rm" id="p9L" style="left:0;border-color:${GRN};opacity:0"><h4>Content present</h4>${pz(28, 70, 'Content cell with text', `background:#fff;border:4px solid ${AMB};color:${AMB}`)}${pz(28, 140, 'ContentLocation · optional', `background:#fff;border:4px dashed ${TLC};color:${TLC}`)}${pz(28, 210, 'Title · optional', `background:#fff;border:4px dashed ${VIO};color:${VIO}`)}${pz(400, 70, 'chip: valid row', `background:${GRN};border-color:${GRN}`)}</div><div class="rm" id="p9R" style="left:860px;border-color:${RED};opacity:0"><h4>Content missing</h4>${pz(28, 70, 'Content · missing', `background:#fff;border:4px solid ${RED};color:${RED}`)}${pz(28, 140, 'ContentLocation filled', `background:#fff;border:4px dashed ${TLC};color:${TLC}`)}${pz(28, 210, 'Title filled', `background:#fff;border:4px dashed ${VIO};color:${VIO}`)}${pz(400, 70, 'chip: required field absent', `background:${RED};border-color:${RED}`)}</div>`;
+  EXAMS(
+    mkExam('exA', { q: "Contoso's incident flow finds hundreds of matching articles. Valeria must pass them to Custom data. What should she do with the table first?", opts: ['Send every row and let the node read them all', 'Filter and sort first, best rows on top', 'Pass the first three rows as they come'], why: `<div id="e5w1">Only the first three records are used, so the best rows go <span class="y">on top</span></div><div id="e5w2">More rows <span class="r">do not raise the limit</span>, and unsorted rows <span class="r">can miss the best</span></div>`, proof: proof5 }),
+    mkExam('exB', { q: "Contoso's flow returns a table of three articles, already in Custom data. The agent must answer only from that table. What should Valeria do with Search only selected sources?", opts: ['Turn it on and select no sources', 'Turn it on and select all sources', 'Leave it off and let the agent decide'], why: `<div id="e7w1">Then the node searches <span class="y">no knowledge sources</span>, so only your table is left</div><div id="e7w2">Selecting all sources <span class="r">brings them back in</span></div>`, proof: proof7 }),
+    mkExam('exC', { q: "Contoso is checking the table its flow returns before sending it to Custom data. Valeria wants to know which field no row can be missing. Which field is it?", opts: ['ContentLocation, because it holds the link', 'Title, because the answer needs a heading', 'Content, because it holds the text'], why: `<div id="e9w1">Content is the <span class="y">only required field</span></div><div id="e9w2">ContentLocation and Title are <span class="r">optional</span>, so a row can leave them out</div>`, proof: proof9 })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ═══════ UI WINDOW (scene 8) ═══════ */
+  const navS = ['Topics', 'Tools', 'Knowledge', 'Settings'];
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · support agent', nav: navS, on: 0, bar: `<span class="hc">${IC('chat')}Test</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Topics › Generative answers</div><h3>Generative answers</h3>
+      <span class="btn pri" id="uAdd" style="position:absolute;right:0;top:6px">Add node</span>
+      <div class="mn" id="uMenu" style="right:0;top:70px;width:360px"><div id="uMi0">Send a message</div><div id="uMi1">Properties</div></div>
+      <div style="position:absolute;left:40px;top:200px;width:6px;height:520px;background:#c9ced8"></div>
+      <div class="nc" id="uGen" style="left:0;top:110px;width:760px"><small>Node</small><div style="font-size:34px;font-weight:800">Generative answers</div></div>
+      <div class="nc" id="uCl" style="left:0;top:250px;width:900px;opacity:0"><small>Classic data</small><div style="font-size:34px;font-weight:800;height:46px;position:relative"><span id="uCd0" style="position:absolute;left:0;top:0;color:var(--muted);font-weight:700">Custom data</span><span id="uCd1" style="position:absolute;left:0;top:0;opacity:0">TableVar</span></div><span class="btn" id="uCdAdd" style="position:absolute;right:16px;top:12px">Add</span></div>
+      <div class="mn" id="uMenu2" style="left:600px;top:372px;width:300px"><div id="uMq0">Web search</div><div>General knowledge</div></div>
+      <span class="pp" id="uPl0" style="position:absolute;left:0;top:398px">Web search</span><span class="pp" id="uPl1" style="position:absolute;left:290px;top:398px">General knowledge</span>
+      <div class="nc" id="uTg" style="left:0;top:484px;width:900px;height:200px;opacity:0"><small>Toggles</small><div style="font-size:34px;font-weight:800">Web search · general knowledge</div></div></div>
+    <div class="lay" id="uL1" style="opacity:0"><div class="crumb">Properties</div><h3>Properties</h3>
+      <div class="nc" id="uSos" style="left:0;top:110px;width:900px"><small>Search only selected sources</small><div style="font-size:34px;font-weight:800">Off</div></div>
+      <div id="uToglWrap" style="position:absolute;right:0;top:100px;width:200px;height:64px"><div class="tgl" id="uTgI" style="width:110px;height:58px;border-radius:29px;background:#8a93a6;position:relative"><i style="position:absolute;left:6px;top:6px;width:46px;height:46px;border-radius:50%;background:#fff"></i></div></div>
+      <div class="nc" id="uCd" style="left:0;top:250px;width:900px;opacity:0"><small>Custom data</small><div style="font-size:34px;font-weight:800">TableVar</div></div>
+      <div class="nc" id="uOff" style="left:0;top:390px;width:900px;opacity:0"><small>Web search · general knowledge</small><div style="font-size:34px;font-weight:800">Off</div></div></div>
+    <div class="lay" id="uL2" style="opacity:0"><div class="crumb">Test chat</div><h3>Test chat</h3>
+      <div id="uChat" style="position:absolute;left:0;top:270px;width:1228px;height:440px;box-sizing:border-box;border:3px solid var(--line2);border-radius:20px;background:#f7f9fd;opacity:0">
+        <div class="w" id="ch1" style="right:24px;top:22px;box-sizing:border-box;padding:8px 22px;border-radius:20px;background:${BLUE};color:#fff;font-size:34px;font-weight:700;white-space:nowrap;opacity:0">My printer shows a fault. What now?</div>
+        <div class="w" id="ch2" style="left:24px;top:116px;box-sizing:border-box;padding:8px 22px;border-radius:20px;background:#fff;border:3px solid ${GRN};font-size:34px;font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:12px;opacity:0">Here is what your flow picked.${IC('link', 'width:44px;height:44px;color:' + TLC)}</div>
+      </div></div>` }));
+  const PU = { add: PC('#uAdd'), mi1: PC('#uMi1'), tgl: PC('#uTgI'), cd: PC('#uCdAdd'), mq0: PC('#uMq0'), pl1: PC('#uPl1') };
+
+  /* ═══════ TIMELINE ═══════ */
+  const CAMX = (x, y, s, t) => tl.set('#world', { x: 960 - x * s, y: 540 - y * s, scale: s }, t);
+  const LB = (id, a, b) => { TAG('#' + id, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+
+  /* EXAMX helper: options visible before pause, 3 s ring, nothing moves until reveal */
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.35 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', S(i, 9), 0.2);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+
+  /* initial camera: world centre-left at scale 1.08 (A(x,y) ~ screen (x,y)) */
+  gsap.set('#world', { x: 960 - 960 * 1.08, y: 540 - 1230 * 1.08, scale: 1.08 });
+
+  /* ── 0 Answers from our own articles ── */
+  TAG('#plA', 0.3);
+  ON('#jarF0,#jarF1,#jarF2,#jarF3,#jarW0,#jarW1,#jarW2,#jarW3,#jarWb0,#jarWb1', 0.3, 0.3);
+  CAM(960, 1230, 1.08, S(0, 0) - 0.2, 1.4);
+  ON('#q0', S(0, 0) + 0.3, 0.3);
+  ON('#mar', S(0, 0) + 0.3, 0.4);
+  ON('#nx', S(0, 0) + 0.3, 0.4);
+  BOB('#nx', S(0, 0) + 0.3, S(0, 1) + 1.0, 20);
+  ON('#ans0', S(0, 1) + 0.3, 0.3);
+  LB('c0a', W(0, 1, 'general', 0.2), S(0, 2) - 0.2);
+  OFF(['#ans0', '#c0a'], S(0, 2) - 0.05, 0.25);
+  ON('#q0', S(0, 2) + 0.3, 0.3);
+  ON('#tkt0', S(0, 2) + 0.5, 0.3); ON('#tkt1', S(0, 2) + 0.8, 0.3); ON('#tkt2', S(0, 2) + 1.1, 0.3);
+  LB('c0b', W(0, 2, 'articles', 0.2), S(0, 3) - 0.2);
+  OFF(['#tkt0', '#tkt1', '#tkt2'], S(0, 3) - 0.05, 0.25);
+  ON('#cit0', W(0, 2, 'link', 0.2), 0.3);
+  LB('c0c', W(0, 2, 'link', 0.4), S(0, 4) - 0.2);
+  OFF('#cit0', S(0, 4) - 0.05, 0.25);
+  TAG('#plB', S(0, 4) + 0.2, 0.3);
+  OFF('#plB', S(1, 0) - 0.25, 0.25);
+  OFF('#plA', S(0, 4) + 0.5, 0.25);
+OFF('#jarF0,#jarF1,#jarF2,#jarF3,#jarW0,#jarW1,#jarW2,#jarW3,#jarWb0,#jarWb1', S(1, 0) - 0.25, 0.25);
+  OFF(['#q0', '#ans0', '#mar', '#nx'], S(1, 0) - 0.25, 0.2);
+  OFF('#vlap', S(1, 0) - 0.3, 0.25);
+
+  /* ── 1 A tray for the cook ── */
+  CAM(1400, 1100, 1.0, S(1, 0) - 0.3, 1.4);
+  ON('#nx', S(1, 0) + 0.3, 0.4);
+  LB('c1a', W(1, 1, 'cook', 0.2), S(1, 2) - 0.2);
+  ON('#hatG', S(1, 1) + 0.3, 0.4);
+  ON('#panGlow', S(1, 2) + 0.3, 0.4);
+  LB('c1b', W(1, 2, 'pantry', 0.2), S(1, 3) - 0.2);
+  OFF('#panGlow', S(1, 3) - 0.05, 0.25);
+  ON('#trayG', S(1, 3) + 0.3, 0.5);
+  tl.fromTo('#trayG', { x: -400 }, { x: 0, duration: 0.8, ease: 'power2.out' }, S(1, 3) + 0.5);
+  LB('c1c', W(1, 3, 'tray', 0.2), S(1, 4) - 0.2);
+  ON('#cd1', S(1, 4) + 0.3, 0.3); ON('#cd2', S(1, 4) + 0.5, 0.3);
+  LB('c1d', W(1, 4, 'file', 0.2), S(1, 5) - 0.2);
+  OFF(['#cd1', '#cd2'], S(1, 5) - 0.05, 0.25);
+  ON('#tc1', S(1, 5) + 0.3, 0.3); ON('#tc2', S(1, 5) + 0.5, 0.3); ON('#tc3', S(1, 5) + 0.7, 0.3);
+  LB('c1e', W(1, 5, 'calculate', 0.2), W(1, 5, 'tray', 0.2) - 0.3);
+  ON('#ans1', S(1, 5) + 0.3, 0.3);
+  LB('c1f', W(1, 5, 'tray', 0.2), S(2, 0) - 0.2);
+  OFF(['#ans1', '#nx', '#trayG', '#tc1', '#tc2', '#tc3', '#cd1', '#cd2', '#c1a', '#c1b', '#c1c', '#c1d', '#c1e', '#c1f'], S(2, 0) - 0.3, 0.3);
+
+  /* ── 2 Where the option is ── */
+  CAM(2600, 1080, 1.0, S(2, 0) - 0.3, 1.4);
+  ON('#ctl', S(2, 0) + 0.3, 0.4);
+  ON('#cdLab', S(2, 0) + 0.6, 0.3);
+  LB('c2a', W(2, 0, 'Classic', 0.2), S(2, 1) - 0.2);
+  ON('#cdSlot', S(2, 1) + 0.3, 0.4); ON('#vChip', S(2, 1) + 0.6, 0.4);
+  LB('c2b', W(2, 1, 'Table', 0.2), S(2, 2) - 0.2);
+  ADD(`<div class="w h" id="icPlug" style="${A(2500, 1080)};width:100px;height:100px;border:4px solid ${AMB};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:${AMB}">${IC('plug_connected', 'width:56px;height:56px;color:' + AMB)}</div>`);
+  ADD(`<div class="w h" id="icBelt" style="${A(2680, 1080)};width:100px;height:100px;border:4px solid ${TLC};border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:${TLC}">${IC('tasks_app', 'width:56px;height:56px;color:' + TLC)}</div>`);
+  tl.set('#icPlug', { opacity: 0 }); tl.set('#icBelt', { opacity: 0 });
+  ON('#icPlug', S(2, 2) + 0.3, 0.3); ON('#icBelt', S(2, 2) + 0.6, 0.3);
+  LB('c2c', W(2, 2, 'private', 0.2), S(2, 3) - 0.2);
+  OFF(['#icPlug', '#icBelt'], S(2, 3) - 0.05, 0.25);
+  ON('#n0', S(2, 3) - 0.1, 0.4);
+  OFF('#n0', S(2, 3) + 0.05, 0.25);
+  LB('c2d', W(2, 3, 'flow', 0.2), S(3, 0) - 0.2);
+  OFF(['#ctl', '#cdLab', '#cdSlot', '#vChip', '#c2a', '#c2b', '#c2c', '#c2d'], S(3, 0) - 0.3, 0.3);
+
+  /* ── 3 The shape of the table ── */
+  CAM(2300, 700, 1.0, S(3, 0) - 0.3, 1.4);
+  ON('#tbl', S(3, 0) + 0.3, 0.4); ON('#tblHead', S(3, 0) + 0.5, 0.3);
+  ON('#tblCell', S(3, 0) + 0.7, 0.3); ON('#tagReq', S(3, 0) + 0.9, 0.3);
+  LB('c3a', W(3, 0, 'Content', 0.2), S(3, 1) - 0.2);
+  OFF('#tagReq', S(3, 1) - 0.05, 0.25);
+  ON('#tblCell', S(3, 1) + 0.3, 0.3);
+  LB('c3b-tag', S(3, 1) + 0.6, S(3, 2) - 0.2);
+  ON('#tblCL', S(3, 2) + 0.3, 0.3); ON('#tblTi', S(3, 2) + 0.5, 0.3); ON('#tagOpt1', S(3, 2) + 0.3, 0.3); ON('#tagOpt2', S(3, 2) + 0.5, 0.3);
+  LB('c3b', W(3, 2, 'optional', 0.2), S(3, 3) - 0.2);
+  OFF(['#tblCL', '#tblTi', '#tagOpt1', '#tagOpt2'], S(3, 3) - 0.05, 0.25);
+  ON('#ans3', S(3, 3) + 0.3, 0.3); ON('#cit1', S(3, 3) + 0.5, 0.3); ON('#cit2', S(3, 3) + 0.7, 0.3);
+  LB('c3b', W(3, 3, 'link', 0.2), S(4, 0) - 0.2);
+  OFF(['#tbl', '#tblHead', '#tblCell', '#tblCL', '#tblTi', '#ans3', '#cit1', '#cit2', '#c3a', '#c3b'], S(4, 0) - 0.3, 0.3);
+
+  /* ── 4 Only three records ── */
+  CAM(1400, 1100, 1.0, S(4, 0) - 0.3, 1.4);
+  ON('#trayG', S(4, 0) + 0.3, 0.4);
+  LB('c4a', W(4, 0, 'limit', 0.2), S(4, 1) - 0.2);
+  ON('#slot1', S(4, 1) + 0.3, 0.3); ON('#slot2', S(4, 1) + 0.5, 0.3); ON('#slot3', S(4, 1) + 0.7, 0.3);
+  ON('#tc1', S(4, 1) + 1.0, 0.3); ON('#tc2', S(4, 1) + 1.2, 0.3); ON('#tc3', S(4, 1) + 1.4, 0.3);
+  LB('c4b', W(4, 1, 'first', 0.2), S(4, 2) - 0.2);
+  OFF(['#tc1', '#tc2', '#tc3'], S(4, 2) - 0.05, 0.25);
+  ON('#pile', S(4, 2) + 0.3, 0.4); ON('#greyLine', S(4, 2) + 0.6, 0.3);
+  ON('#n1', S(4, 2) + 0.9, 0.3); OFF('#n1', S(4, 2) + 1.05, 0.25); ON('#n2', S(4, 2) + 1.2, 0.3);
+  LB('c4c', W(4, 3, 'sort', 0.2), S(4, 4) - 0.2);
+  OFF(['#pile', '#greyLine', '#n1', '#n2'], S(4, 3) - 0.05, 0.25);
+  tl.fromTo('#flt', { x: 0 }, { x: 40, duration: 0.6, yoyo: true, repeat: 1, ease: 'sine.inOut' }, S(4, 3) + 0.2);
+  tl.fromTo('#arm', { x: 0 }, { x: -40, duration: 0.6, yoyo: true, repeat: 1, ease: 'sine.inOut' }, S(4, 3) + 0.2);
+  LB('c4d', W(4, 3, 'filter', 0.2), S(4, 3) + 0.6);
+  ON('#tc1', S(4, 4) + 0.3, 0.3); ON('#tc2', S(4, 4) + 0.5, 0.3); ON('#tc3', S(4, 4) + 0.7, 0.3);
+  LB('c4d', W(4, 4, 'three', 0.4), S(5, 0) - 0.2);
+  OFF(['#trayG', '#slot1', '#slot2', '#slot3', '#tc1', '#tc2', '#tc3', '#flt', '#arm', '#c4a', '#c4b', '#c4c', '#c4d'], S(5, 0) - 0.3, 0.3);
+
+  /* ── 5 EXAM: hundreds of rows ── */
+  EXAMX('exA', 5, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 0.1 });
+  ON('#p5L', S(5, 9) + 0.1, 0.3); ON('#p5R', S(5, 10) + 0.1, 0.3);
+
+  /* ── 6 Only with your data ── */
+  CAM(2600, 900, 1.0, S(6, 0) - 0.3, 1.4);
+  ON('#ctl', S(6, 0) + 0.3, 0.4); ON('#ctlL', S(6, 0) + 0.6, 0.3); ON('#ctT', S(6, 0) + 0.9, 0.4);
+  LB('c6a', W(6, 0, 'sources', 0.2), S(6, 1) - 0.2);
+  tl.to('#ctT_k', { cx: 260, duration: 0.4, ease: 'power2.inOut' }, S(6, 1) + 0.2);
+  ON('#ctTk', S(6, 1) + 0.6, 0.4);
+  OFF('#ctTk', S(6, 2) - 0.05, 0.25);
+  ON('#srcList', S(6, 1) + 0.3, 0.3);
+  LB('c6b', W(6, 1, 'variable', 0.2), S(6, 2) - 0.2);
+  tl.fromTo('#vChip', { x: 4000 }, { x: 2954, duration: 0.8, ease: 'back.out(1.8)' }, S(6, 2) + 0.3);
+  LB('c6b', W(6, 2, 'Custom', 0.4), S(6, 2) + 0.5);
+  OFF('#vChip', S(6, 3) - 0.05, 0.25);
+  ON('#ct1', S(6, 3) + 0.3, 0.4); ON('#ct2', S(6, 3) + 0.6, 0.4);
+  tl.to('#ct1_k', { cx: 160, duration: 0.4, ease: 'power2.inOut' }, S(6, 3) + 0.5);
+  tl.to('#ct2_k', { cx: 160, duration: 0.4, ease: 'power2.inOut' }, S(6, 3) + 0.8);
+  LB('c6c', W(6, 2, 'Web', 0.4), E(6, 2) - 0.2);
+  OFF(['#ct1', '#ct2'], S(7, 0) - 0.05, 0.25);
+  ON('#ans6', S(7, 0) + 0.3, 0.3);
+  ON('#tc1', S(7, 0) + 0.5, 0.3); ON('#tc2', S(7, 0) + 0.7, 0.3); ON('#tc3', S(7, 0) + 0.9, 0.3);
+  ON('#cit0', S(7, 0) + 1.1, 0.3); ON('#cit1', S(7, 0) + 1.3, 0.3); ON('#cit2', S(7, 0) + 1.5, 0.3);
+  LB('c6d', W(6, 3, 'articles', 0.2), S(7, 0) - 0.2);
+  OFF(['#ctl', '#ctlL', '#ctT', '#ctTk', '#srcList', '#cdLab', '#cdSlot', '#vChip', '#ct1', '#ct2', '#ans6', '#tc1', '#tc2', '#tc3', '#cit0', '#cit1', '#cit2', '#c6a', '#c6b', '#c6c', '#c6d'], S(7, 0) - 0.3, 0.3);
+
+  /* ── 7 EXAM: answer only from the table ── */
+  EXAMX('exB', 7, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.1 });
+  ON('#p7L', S(7, 9) + 0.1, 0.3); ON('#p7R', S(7, 10) + 0.1, 0.3);
+
+  /* ── 8 Set it up in the studio ── */
+  CAM(2400, 1100, 1.0, S(8, 0) - 0.3, 1.4);
+  ON('#vdesk', S(8, 0) + 0.3, 0.4); ON('#vlap', S(8, 0) + 0.5, 0.4);
+  UIIN('#uiS', S(8, 0) + 0.8);
+  ON('#cur', S(8, 1) + 0.1, 0.2);
+  CUR(PU.add[0], PU.add[1], S(8, 1) + 0.3, 0.7); CLICK(PU.add[0], PU.add[1], W(8, 1, 'add node', 0.2));
+  ON('#uMenu', W(8, 1, 'add node', 0.35), 0.2);
+  CUR(PU.mi1[0], PU.mi1[1], W(8, 1, 'properties', -0.4), 0.5); CLICK(PU.mi1[0], PU.mi1[1], W(8, 1, 'properties', 0.1));
+  OFF('#uMenu', W(8, 1, 'properties', 0.25), 0.15);
+  TAG('#plE', S(8, 2) + 0.1);
+  ON('#uL1', S(8, 2) + 0.4, 0.35); ON('#uSos', S(8, 2) + 0.6, 0.3);
+  OFF('#uL0', S(8, 2) + 0.1, 0.3);
+  CUR(PU.tgl[0], PU.tgl[1], S(8, 2) + 0.9, 0.7); CLICK(PU.tgl[0], PU.tgl[1], S(8, 2) + 1.2);
+  tl.to('#uTgI i', { x: 52, duration: 0.35, ease: 'power2.inOut' }, S(8, 2) + 1.2);
+  tl.to('#uTgI', { backgroundColor: NAVY, duration: 0.35 }, S(8, 2) + 1.2);
+  LB('c8a', W(8, 2, 'sources', 0.2), S(8, 3) - 0.2);
+  OFF(['#uSos', '#uToglWrap'], S(8, 3) + 0.1, 0.25);
+  ON('#uCd', S(8, 3) + 0.4, 0.35);
+  CUR(PU.cd[0], PU.cd[1], S(8, 3) + 0.7, 0.7); CLICK(PU.cd[0], PU.cd[1], S(8, 3) + 1.0);
+  tl.fromTo('#uCd1', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(8, 3) + 1.1);
+  LB('c8b', W(8, 3, 'variable', 0.2), S(8, 4) - 0.2);
+  OFF('#uCd', S(8, 4) - 0.05, 0.25);
+  ON('#uOff', S(8, 4) + 0.3, 0.35);
+  CUR(PU.pl1[0], PU.pl1[1], S(8, 4) + 0.6, 0.7); CLICK(PU.pl1[0], PU.pl1[1], S(8, 4) + 0.9);
+  LB('c8c', W(8, 4, 'knowledge', 0.2), S(8, 5) - 0.2);
+  OFF(['#uOff'], S(8, 5) - 0.05, 0.25);
+  ON('#uL2', S(8, 5) + 0.3, 0.35); ON('#uChat', S(8, 5) + 0.5, 0.35); ON('#ch1', S(8, 5) + 0.8, 0.3);
+  ON('#ch2', S(8, 5) + 1.4, 0.3);
+  OFF('#uL1', S(8, 5) + 0.3, 0.3);
+  LB('c8', W(8, 5, 'ContentLocation', 0.2), S(10, 0) - 0.2);
+  OFF('#c8', E(8, 5) - 0.25, 0.25);
+  OFF('#cur', E(8, 5) - 0.45, 0.15);
+  UIOUT('#uiS', E(8, 5) - 0.4);
+  OFF(['#vdesk', '#vlap', '#uL0', '#uL1', '#uL2', '#ch1', '#ch2', '#c8', '#plE'], S(10, 0) - 0.3, 0.3);
+
+  /* ── 9 EXAM: the required field ── */
+  EXAMX('exC', 9, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(9, 4), S(9, 5), S(9, 6)], end: S(10, 0) - 0.1 });
+  ON('#p9L', S(9, 9) + 0.1, 0.3); ON('#p9R', S(9, 10) + 0.1, 0.3);
+
+  /* ── 10 Three rules to remember ── */
+  CAM(1400, 1100, 1.0, S(10, 0) - 0.3, 1.4);
+  ON('#mar', S(10, 0) + 0.3, 0.4); ON('#nx', S(10, 0) + 0.5, 0.4);
+  TAG('#plD', S(10, 0) + 0.2, 0.3);
+  LB('c10t', S(10, 0) + 0.4);
+  ON('#ans6', S(10, 1) + 0.3, 0.3);
+  ON('#tc1', S(10, 1) + 0.5, 0.3); ON('#tc2', S(10, 1) + 0.7, 0.3); ON('#tc3', S(10, 1) + 0.9, 0.3);
+  ON('#cit0', S(10, 1) + 1.1, 0.3); ON('#cit1', S(10, 1) + 1.3, 0.3); ON('#cit2', S(10, 1) + 1.5, 0.3);
+  LB('c10a', W(10, 1, 'link', 0.2), S(10, 2) - 0.2);
+  OFF(['#ans6', '#tc1', '#tc2', '#tc3', '#cit0', '#cit1', '#cit2'], S(10, 2) - 0.05, 0.25);
+  ON('#rb', S(10, 2) + 0.4, 0.4);
+  tl.fromTo('#rb0', { opacity: 0.45 }, { opacity: 1, duration: 0.4 }, S(10, 3) + 0.1);
+  tl.fromTo('#rb1', { opacity: 0.45 }, { opacity: 1, duration: 0.4 }, S(10, 4) + 0.1);
+  tl.fromTo('#rb2', { opacity: 0.45 }, { opacity: 1, duration: 0.4 }, S(10, 5) + 0.1);
+  ADD(`<div class="w h" id="rbL0" data-lint="ignore" style="${A(1320, 120)};width:660px;height:90px;box-sizing:border-box;background:${AMB};color:${INK};border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px;font-size:34px;font-weight:800;white-space:nowrap">${IC('document_text', 'width:44px;height:44px;color:' + AMB)}Content is the only required field</div>`);
+  ADD(`<div class="w h" id="rbL1" data-lint="ignore" style="${A(1320, 220)};width:960px;height:90px;box-sizing:border-box;background:${NAVY};color:#fff;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px;font-size:34px;font-weight:800;white-space:nowrap">${IC('document_text', 'width:44px;height:44px;color:#ffd166')}Only the first three records count · filter and sort first</div>`);
+  ADD(`<div class="w h" id="rbL2" data-lint="ignore" style="${A(1320, 320)};width:660px;height:90px;box-sizing:border-box;background:${NAVY};color:#fff;border-radius:12px;display:flex;align-items:center;gap:12px;padding:0 20px;font-size:34px;font-weight:800;white-space:nowrap">${IC('document_text', 'width:44px;height:44px;color:#ffd166')}Answer only from your data · Search only selected sources, no sources</div>`);
+  tl.set('#rbL0', { opacity: 0 }); tl.set('#rbL1', { opacity: 0 }); tl.set('#rbL2', { opacity: 0 });
+  tl.to('#rbL0', { opacity: 1, duration: 0.4 }, S(10, 3) + 0.1);
+  tl.to('#rbL1', { opacity: 1, duration: 0.4 }, S(10, 4) + 0.1);
+  tl.to('#rbL2', { opacity: 1, duration: 0.4 }, S(10, 5) + 0.1);
+  OFF(['#c10t', '#c10a'], S(10, 6) - 0.3, 0.35);
+  ON('#nlSign', S(10, 6) + 0.3, 0.35);
+  LB('c10', S(10, 6) + 0.5);
+  OFF('#plD', S(10, 6) - 0.25, 0.3);
+  BOB('#nx', S(10, 6) + 0.7, 261.0, 14);
+  tl.fromTo('#mar', { x: 0 }, { x: 20, duration: 0.6, yoyo: true, repeat: 20, ease: 'sine.inOut' }, S(10, 6) + 0.7);
+
+  window.__timelines = { main: tl };
+</script>
+</body>
+</html>

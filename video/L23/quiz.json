@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Valeria wants Nexo's search results reordered by meaning with the semantic ranker. Where does she configure it first?",
+    "options": [
+      "In the Copilot Studio knowledge settings",
+      "In the Generative answers node settings",
+      "in the search service, first in Azure"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Valeria is in a hurry and has the endpoint and key on a note. How should she add Azure AI Search to Nexo?",
+    "options": [
+      "Through Create new connection, as always",
+      "By typing the endpoint and key in the form",
+      "by sharing the key with every user first"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Contoso also wants Azure OpenAI on their data. Where does Azure OpenAI on your data go?",
+    "options": [
+      "In Add knowledge, next to the search index",
+      "In the Classic data option of the node",
+      "in a second vector index on the connection"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

@@ -1,0 +1,139 @@
+{
+ "id": "L23",
+ "title": "Azure AI Search as knowledge",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 92.805,
+ "scenes": [
+  {
+   "title": "Your index, your agent",
+   "start": 0.8,
+   "end": 15.269,
+   "sentences": [
+    {
+     "text": "Azure AI Search stores your documents in an index, like the index of a book but smarter.",
+     "start": 0.8,
+     "end": 6.325
+    },
+    {
+     "text": "You connect that index to your agent and it answers with your own documents.",
+     "start": 6.605,
+     "end": 10.68
+    },
+    {
+     "text": "It is like giving it a tidy filing cabinet, instead of asking it to guess.",
+     "start": 10.96,
+     "end": 15.269
+    }
+   ]
+  },
+  {
+   "title": "Vectors and semantic ranker",
+   "start": 16.169,
+   "end": 36.807,
+   "sentences": [
+    {
+     "text": "Copilot Studio supports vectorized indexes with integrated vectorization.",
+     "start": 16.169,
+     "end": 21.247
+    },
+    {
+     "text": "The same embeddings model that vectorized the data also vectorizes the user question.",
+     "start": 21.527,
+     "end": 26.86
+    },
+    {
+     "text": "It also supports the semantic ranker, but that improvement is configured earlier in Azure, not in Copilot Studio.",
+     "start": 27.14,
+     "end": 34.479
+    },
+    {
+     "text": "This way the search understands meaning.",
+     "start": 34.759,
+     "end": 36.807
+    }
+   ]
+  },
+  {
+   "title": "How to connect it",
+   "start": 37.707,
+   "end": 55.059,
+   "sentences": [
+    {
+     "text": "You add it from Add knowledge, in Featured, or from the properties of a Generative answers node.",
+     "start": 37.707,
+     "end": 43.125
+    },
+    {
+     "text": "There are four authentication types: Access Key, client certificate, Service principal, and integrated Entra I D.",
+     "start": 43.405,
+     "end": 50.595
+    },
+    {
+     "text": "Only one vector index per connection.",
+     "start": 50.875,
+     "end": 52.987
+    },
+    {
+     "text": "You will see the progress on screen.",
+     "start": 53.267,
+     "end": 55.059
+    }
+   ]
+  },
+  {
+   "title": "Citations with a URL",
+   "start": 55.959,
+   "end": 73.289,
+   "sentences": [
+    {
+     "text": "To get citations, the index must include a field with the real address of the document.",
+     "start": 55.959,
+     "end": 61.271
+    },
+    {
+     "text": "If metadata storage path exists, it is used as the citation.",
+     "start": 61.551,
+     "end": 65.604
+    },
+    {
+     "text": "Users also need access to the cited documents.",
+     "start": 65.884,
+     "end": 68.785
+    },
+    {
+     "text": "Without that field, the answer appears without a link to the original document.",
+     "start": 69.065,
+     "end": 73.289
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 74.189,
+   "end": 91.605,
+   "sentences": [
+    {
+     "text": "Two traps.",
+     "start": 74.189,
+     "end": 75.128
+    },
+    {
+     "text": "If they ask you to connect Azure OpenAI on your data, it is not a knowledge source: you use Classic data in the node.",
+     "start": 75.408,
+     "end": 82.597
+    },
+    {
+     "text": "And if they ask you to provision the semantic ranker from Copilot Studio, that is wrong: it is configured in Azure.",
+     "start": 82.877,
+     "end": 89.853
+    },
+    {
+     "text": "Write it down for the exam.",
+     "start": 90.133,
+     "end": 91.605
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{"brand": "AB-620 · Module 3 · Lesson 5", "scenes": [
+ {"type": "split", "left": {"kicker": "Monitoring", "title": "The flow dashboard", "sub": "Is it fine, and how much fuel does it use?"},
+  "rows": [
+   {"icon": "gauge", "title": "Is everything fine?", "at": "everything is fine", "hi": true},
+   {"icon": "data_bar_vertical", "title": "A dashboard with tabs", "desc": "Each one answers a question", "at": "has tabs", "hi": true},
+   {"icon": "money", "title": "Fuel = Copilot Credits", "at": "Copilot Credits", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Two tabs", "title": "Overview and Analytics"},
+  "cols": [
+   {"icon": "document_text", "title": "Overview", "sub": "What the flow is", "at": "Overview",
+    "items": [{"text": "Name · description", "at": "the name"}, {"text": "Connections · owners", "at": "connections"}, {"text": "Most recent runs", "at": "recent runs"}]},
+   {"icon": "data_bar_vertical", "title": "Analytics", "sub": "How it is doing", "accent": true, "at": "Analytics",
+    "items": [{"text": "Runs · error rate · trends", "at": "number of runs"}, {"text": "Up to 30 minutes to reflect runs", "at": "thirty minutes"}]}]},
+ {"type": "split", "left": {"kicker": "Activity", "title": "The run history", "sub": "Diagnose, resubmit, cancel."},
+  "window": {"title": "Agent flow · Activity", "heading": "Runs", "rail": ["apps", "bot", "flow", "history", "data_bar_vertical"],
+   "cards": [
+    {"icon": "history", "title": "Status and duration", "desc": "Of each run", "at": "status", "hi": true},
+    {"icon": "search", "title": "Select a run → details", "at": "select a run", "hi": true},
+    {"icon": "arrow_clockwise", "title": "Resubmit several", "at": "resubmit", "hi": true},
+    {"icon": "dismiss_circle", "title": "Cancel the ones in progress", "at": "cancel", "hi": true}]}},
+ {"type": "stats", "header": {"kicker": "What it consumes", "title": "Credits per action"},
+  "items": [
+   {"icon": "money", "value": "13", "label": "Copilot Credits per 100 actions", "at": "thirteen", "accent": true},
+   {"icon": "beaker", "value": "0", "label": "Test runs: designer or test chat", "at": "Test runs"},
+   {"icon": "person", "value": "0", "label": "Users with a Microsoft 365 Copilot license, when the agent triggers it", "at": "three sixty-five"}]},
+ {"type": "flow", "header": {"kicker": "Capacity runs out", "title": "When prepaid capacity runs out"},
+  "nodes": [
+   {"icon": "dismiss_circle", "title": "New runs", "sub": "Blocked", "accent": true, "at": "New flow runs"},
+   {"icon": "checkmark_circle", "title": "Running ones", "sub": "Finish normally", "at": "finish normally"},
+   {"icon": "chat", "title": "The agent", "sub": "Keeps responding without flows", "at": "keeps responding"}],
+  "below": [{"icon": "money", "text": "Avoid it: link a pay-as-you-go plan", "at": "pay-as-you-go", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Contoso", "title": "CreateTicket failed"},
+  "nodes": [
+   {"icon": "history", "title": "Activity", "sub": "Why it failed", "at": "checks in Activity"},
+   {"icon": "wrench", "title": "Fix", "sub": "The Dataverse connection", "at": "fixes"},
+   {"icon": "arrow_clockwise", "title": "Resubmit", "sub": "The failed runs", "at": "resubmits"},
+   {"icon": "data_bar_vertical", "title": "Analytics", "sub": "The error rate", "accent": true, "at": "Analytics"}],
+  "below": [{"icon": "beaker", "text": "Designer tests used no capacity", "at": "did not use"}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Prepaid capacity runs out"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0",
+    "items": [{"text": "New runs are blocked", "at": "New runs"}, {"text": "Running ones finish", "at": "already running"}, {"text": "The agent keeps responding elsewhere", "at": "keeps responding"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "\"The agent stops completely\"", "at": "stops working"}]}],
+  "verdict": {"icon": "chat", "text": "It keeps answering", "at": "keeps answering"}}
+]}

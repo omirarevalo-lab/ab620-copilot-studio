@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Valeria saved a change, and it works in the test pane. But users on Teams and on the website don't see it, even in new conversations. What is missing?",
+    "options": [
+      "Republish each channel one by one",
+      "Select Publish once for the agent",
+      "Wait for the save to reach channels"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 5,
+    "pauseSentence": 7,
+    "question": "The fix is published, but Marta's conversation in Teams is still open, and she keeps getting the old answer. Valeria wants her to see the fix right now. What should Marta do?",
+    "options": [
+      "Type start over in the chat",
+      "Publish again just for Teams",
+      "Reinstall the app in Teams"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "Contoso's administrator puts the Direct Line channels connector in the Blocked group of a data policy. Makers ask which channels they just lost. Which channels can they no longer use?",
+    "options": [
+      "Every channel, even Teams",
+      "The Demo website alone",
+      "Websites and mobile apps"
+    ],
+    "right": 2,
+    "trap": 1
+  }
+]

@@ -1,0 +1,30 @@
+{"brand": "AB-620 · Module 7 · Lesson 3", "scenes": [
+ {"type": "terms", "header": {"kicker": "Read the results", "title": "Four states per case"}, "cols": 4,
+  "items": [
+   {"icon": "checkmark_circle", "term": "Pass", "def": "Met the method", "at": "Pass,"},
+   {"icon": "dismiss_circle", "term": "Fail", "def": "Did not meet it", "at": "Fail,"},
+   {"icon": "warning", "term": "Invalid", "def": "Missing what it needs", "at": "Invalid,"},
+   {"icon": "error_circle", "term": "Error", "def": "Execution failure", "at": "or Error"}]},
+ {"type": "split", "left": {"kicker": "Invalid versus Fail", "title": "Where to fix it"},
+  "rows": [
+   {"icon": "warning", "title": "Invalid", "desc": "Missing what the method needs → fix the test set", "at": "Invalid appears", "hi": true},
+   {"icon": "error_circle", "title": "Error", "desc": "An execution failure → the system", "at": "Error means", "hi": true},
+   {"icon": "dismiss_circle", "title": "Very high pass score", "desc": "Gives Fail, not Invalid → the method", "at": "very high", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Show activity map", "title": "Why did it answer that?"},
+  "nodes": [
+   {"icon": "search", "title": "Show activity map", "accent": true, "at": "Show activity map"},
+   {"icon": "branch_fork", "title": "Decisions in sequence", "at": "sequence of decisions"},
+   {"icon": "arrow_routing", "title": "The path, step by step", "at": "step by step"}],
+  "below": [{"icon": "flag", "text": "When a case surprises you", "at": "different from", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Compare with", "title": "Did the change help?"},
+  "nodes": [
+   {"icon": "clipboard_task_list_ltr", "title": "Run 1", "at": "two runs"},
+   {"icon": "clipboard_task_list_ltr", "title": "Run 2", "sub": "Same test set", "at": "same test set"},
+   {"icon": "arrow_up_right", "title": "Arrows", "sub": "Fail ↔ pass", "accent": true, "at": "arrows"}],
+  "below": [{"icon": "checkmark_circle", "text": "Improved, or made something worse?", "at": "made something", "solid": true}]},
+ {"type": "stats", "header": {"kicker": "Retention and the exam", "title": "Facts worth memorizing"},
+  "items": [
+   {"icon": "history", "value": "89 days", "label": "Results stay available", "at": "eighty nine", "accent": true},
+   {"icon": "document_text", "value": "CSV", "label": "Export to keep them longer", "at": "C S V"},
+   {"icon": "dismiss_circle", "value": "Fail", "label": "A demanding threshold — not Invalid", "at": "demanding threshold"}]}
+]}

@@ -1,0 +1,52 @@
+[
+ {
+  "title": "Where do I start?",
+  "caption": "Valeria wants AB-620 in two months and faces a long skills list. Before the trip, check how heavy each stretch is.",
+  "say": "Meet Valeria, a developer at Contoso. She has watched Nexo grow over the last seven classes, and now she wants the certification herself, in two months. She opens the list of skills measured, and it is long. Where should she start? Think of planning a trip. Before you start walking, you check how heavy each stretch is, and which words you will need on the way. That is today: the exam map and the glossary."
+ },
+ {
+  "title": "The exam in a few lines",
+  "caption": "AB-620 earns AI Agent Builder Associate. A hundred and twenty minutes, proctored, interactive parts. Pass at seven hundred of a thousand, scaled.",
+  "say": "The exam is A B six twenty, Designing and Building Integrated A I Solutions in Copilot Studio. Passing it earns the Microsoft Certified A I Agent Builder Associate. It lasts one hundred and twenty minutes, it is proctored, and it can include interactive parts. You pass with seven hundred points out of one thousand. And that number is a scaled score, which matters more than it seems."
+ },
+ {
+  "title": "The rules of the room",
+  "caption": "Local versions update about eight weeks after English. Retake after a day. Learn opens in the exam, without Q and A or practice pages.",
+  "say": "A few rules of the room. The exam comes in several languages, including Spanish, but local versions are updated about eight weeks after the English one. If you fail, you can retake it after twenty four hours. During the exam you can open Microsoft Learn, but not its Q and A, its practice assessments, or profile pages. To search a page, use Control F. Open Learn only for a quick check, because the clock keeps running."
+ },
+ {
+  "title": "Decide: seventy percent",
+  "caption": "Valeria gets about seventy percent right in practice. Is that a sure pass with seven hundred?",
+  "say": "Your turn. In her practice sessions, Valeria answers about seventy percent of the questions correctly. She thinks: seven hundred out of a thousand, so seventy percent is enough. Is she right? No, seven hundred is a scaled score? Yes, seven hundred means seventy percent? Or only if each domain reaches seventy? Decide before I answer. No. Seven hundred is a scaled score. It does not equal seventy percent correct, so aim well above the line."
+ },
+ {
+  "title": "Three domains, three weights",
+  "caption": "Domain one, plan and configure: thirty to thirty-five percent. Domain two, integrate and extend: forty to forty-five. Domain three, test and manage: twenty to twenty-five.",
+  "say": "Now the map. The exam has three domains. Domain one, plan and configure agent solutions: thirty to thirty five percent. Planning, agent flows and topics. Domain two, integrate and extend agents: forty to forty five percent. Knowledge, tools, multi agent solutions and Azure services. Domain three, test and manage agents: twenty to twenty five percent. Evaluation and A L M. The weights are ranges, so every exam is a little different."
+ },
+ {
+  "title": "Decide: where the weeks go",
+  "caption": "Valeria has eight weeks. Where should most of her study time go?",
+  "say": "Your turn. Valeria has eight weeks before her exam date. She wants to spend most of them where the exam weighs the most. Where should most of her study time go? Plan and configure: planning and topics? Test and manage: evaluation and A L M? Or integrate and extend: knowledge, tools? Decide before I answer. Integrate and extend. It is forty to forty five percent, almost half. But all three count, so no domain is skipped."
+ },
+ {
+  "title": "How this course follows the map",
+  "caption": "Module zero: fundamentals. Modules one to three: domain one. Four to six: domain two. Seven: domain three. Every topic: theory, video, questions, challenge.",
+  "say": "This course follows the same map. Module zero, the one you are finishing, gives you the basics. Modules one to three cover domain one: planning, advanced topics and agent flows. Modules four to six cover domain two: knowledge and tools, M C P and multi agent, and Azure and monitoring. Module seven covers domain three: evaluation and A L M. Every topic has theory, a video, questions, and a hands on challenge."
+ },
+ {
+  "title": "Words so far: the agent",
+  "caption": "Agent, topic, tool, connector, knowledge, orchestration, harness: the words from Nexo's first classes.",
+  "say": "Now the glossary, looking back at Nexo. An agent is an A I assistant that chats and acts. A topic is a conversation you design with nodes. A tool is a capability the agent runs. A connector is a wrapper around an A P I. Knowledge is the sources the agent looks up. Orchestration is the decision about what to use for each message. And the harness is the engine that runs the agent."
+ },
+ {
+  "title": "Words so far: where it lives",
+  "caption": "Environment, solution, Dataverse, data policies, channel, Copilot Credits: where Nexo lives, travels, and talks.",
+  "say": "And the words about where Nexo lives. An environment is a Power Platform space with its apps and data. A solution is the container that moves components between environments. Dataverse is the Power Platform database. D L P means the administrator's data policies. A channel is where the user chats with the agent. And Copilot Credits are the unit used to bill agent usage."
+ },
+ {
+  "title": "Valeria's plan",
+  "caption": "Study guide, a date with Pearson VUE, most weeks on domain two, a lab environment, and Nexo rebuilt after every topic. Next: module one.",
+  "say": "Back to Valeria. She opens the study guide and books a date with Pearson VUE. Most of her weeks go to domain two, with a weekly block for domain one, and evaluation and A L M in the last weeks. Her lab environment is ready, and after every topic she rebuilds a piece of Nexo herself. One week before the exam, she reviews this glossary and her mistakes. Module zero is done. Next, module one: planning the solution."
+ }
+]

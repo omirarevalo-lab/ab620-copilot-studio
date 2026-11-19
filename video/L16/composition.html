@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L16 · Agent flows inside a topic · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  #ovL .pl, #ovL .lbp { position: absolute; left: 120px; font-size: 40px; font-weight: 800; padding: 8px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  #ovL .pl { top: 120px; }
+  #ovL .lbp { top: 210px; font-size: 38px; border-color: #1f2a44; color: #1f2a44; }
+  #ovL .lbp.st { border-color: #3d6e9e; color: #3d6e9e; } #ovL .lbp.am { border-color: #d98a00; color: #a86b00; } #ovL .lbp.rd { border-color: #c4392f; color: #c4392f; }
+  #world .tag { font-size: 36px; }
+  #world .tag.stl { color: #3d6e9e; border: 3px solid #3d6e9e; } #world .tag.cyl { color: #1b7f95; border: 3px solid #2a9db5; } #world .tag.nvl { color: #1f2a44; border: 3px solid #1f2a44; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 510px; font-size: 34px; } .exam .xwhy div { text-wrap: balance; }
+  .exam .xp { top: 690px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .rm h4 { font-size: 40px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 34px; border-radius: 16px; padding: 6px 18px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; display: flex; align-items: center; gap: 10px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #uiS .nav div { font-size: 32px; } #uiS .bar, #uiS .bar .t { font-size: 32px; } #uiS .bar .hc { font-size: 32px; } #uiS .btn { font-size: 32px; } #uiS .crumb { font-size: 32px; } #uiS h3 { font-size: 44px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 10px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 32px; font-weight: 700; color: var(--muted); margin-bottom: 2px; }
+  .uw .mn { position: absolute; background: #fff; border: 3px solid var(--line2); border-radius: 16px; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; font-size: 34px; font-weight: 700; }
+  .uw .mn div { padding: 12px 24px; }
+  .uw .pp { position: absolute; font-size: 32px; font-weight: 800; padding: 6px 22px; border-radius: 999px; background: #cfe0ff; color: #1f3a8a; border: 3px solid #2f5bd3; white-space: nowrap; opacity: 0; }
+  .uw .vc { display: inline-block; font-size: 32px; font-weight: 800; padding: 2px 16px; border-radius: 12px; background: #3d6e9e; color: #fff; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L16 · Agent flows inside a topic. "The Contoso assembly plant", world 3840x2160, camera scale 1 everywhere.
+     Top band (y 0-1080): line x 340-1700 (title / urgency / socket / ticket number), depot x 2250-3500 (cart, Tools page, crane), door x 1740.
+     Cams: CL line (960,540) · CJ junction (1900,540) · CD depot (2800,540).
+     Bottom row (y 1080+): S2 (x 0-1920) hatch + back workshop (scene 6), S3 (x 1920-3840) callback pole (8) and Valeria's desk (9). */
+  const STEEL = '#3d6e9e', YEL = '#f2c230', AMBR = '#e8913a', CYAN = '#2a9db5', CRM = '#f4ead2', GRN = '#1e7f4f', RED = '#c4392f', NAVY = '#1f2a44', INK = '#141821', MUTE = '#5d6472', CORAL = '#e07a5f', PURP = '#8a5cd6', ACC = '#2f5bd3', LON = '#6fb1ff';
+  const CL = [960, 540], CJ = [1900, 540], CD = [2800, 540], CS2 = [960, 1620], CS3 = [2880, 1620];
+  const P2 = (x, y) => `left:${x}px;top:${1080 + y}px`, P3 = (x, y) => `left:${1920 + x}px;top:${1080 + y}px`;
+  const human = (id, x, y, top, hair, extra) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px" width="150" height="285" viewBox="0 0 200 380"><g><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></g>${extra || ''}</svg>`;
+  const nexo = (id, x, y) => agent(id, x, y, { folder: '' }).replace('width="360" height="500"', 'width="187" height="260"').replace('</svg>', '<path d="M70 118 Q70 52 180 52 Q290 52 290 118 Z" fill="#e8913a"/><rect x="54" y="110" width="252" height="18" rx="9" fill="#c9702a"/></svg>');
+  const CHS = { st: [STEEL, STEEL], am: ['#e8913a', '#a85a10'], cy: [CYAN, '#1b7f95'], cr: ['#d9c9a6', INK], nv: ['#8a93a6', MUTE] };
+  const ch = (id, x, y, icon, text, k, w) => {
+    const c = CHS[k || 'nv'], raw = text.length * 22.3 + (icon ? 66 : 0) + 50, two = !w && raw > 650, ww = w || Math.min(650, Math.ceil(raw));
+    return `<div class="chip sm" id="${id}" style="left:${x}px;top:${y}px;width:${ww}px;border-color:${c[0]};color:${c[1]};${k === 'cr' ? 'background:' + CRM + ';' : ''}${two ? 'height:auto;min-height:84px;padding:8px 20px;white-space:normal;line-height:1.15;' : ''}">${icon ? IC(icon) : ''}<span${two ? ' style="text-wrap:balance"' : ''}>${text}</span></div>`;
+  };
+  const wp = (id, xc, y, text, cls) => `<div class="tag ${cls || 'nvl'}" id="${id}" style="left:${xc}px;top:${y}px">${text}</div>`;
+  const mod = (id, x, y, extra) => `<div class="w mod" id="${id}" style="left:${x}px;top:${y}px;width:300px;height:230px"><svg class="w" style="left:0;top:0" width="300" height="230" viewBox="0 0 300 230"><rect x="20" y="150" width="260" height="70" rx="14" fill="#5d6472"/><rect x="20" y="150" width="260" height="20" rx="10" fill="#7b8598"/><path d="M230 150 L230 92 L150 40 L108 68" fill="none" stroke="#8a93a6" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/><circle cx="108" cy="68" r="17" fill="#2f3a52"/>${[50, 90, 130].map((cx, k) => `<circle id="${id}_l${k}" cx="${cx}" cy="128" r="11" fill="#9aa3b5"/>`).join('')}</svg><div id="${id}_pl" class="w" style="left:30px;top:164px;width:240px;height:52px;background:${YEL};border-radius:10px;font-size:34px;font-weight:800;color:${INK};display:flex;align-items:center;justify-content:center;white-space:nowrap">CreateTicket</div>${extra || ''}</div>`;
+  const stn = (id, x, w, kind, name, nf) => `<div class="w stn" id="${id}" style="left:${x}px;top:440px;width:${w}px;height:160px;background:#fff;border:6px solid ${STEEL};border-radius:18px;padding:10px 0 0 22px;box-sizing:border-box"><div style="font-size:32px;font-weight:700;color:${MUTE}">${kind}</div><div style="font-size:${nf || 44}px;font-weight:800;color:${INK};white-space:nowrap">${name}</div><i class="w" id="${id}_l" style="right:16px;top:16px;width:28px;height:28px;border-radius:50%;background:#c9ced8"></i></div>`;
+  const laptopSvg = '<svg width="60" height="44" viewBox="0 0 120 88"><rect x="14" y="4" width="92" height="62" rx="6" fill="#1f2a44"/><rect x="22" y="12" width="76" height="46" rx="3" fill="#e6ecfb"/><rect x="0" y="70" width="120" height="12" rx="6" fill="#8a93a6"/></svg>';
+
+  /* ═══════ TOP BAND ═══════ */
+  ADD(`<div class="w" style="left:0;top:760px;width:3840px;height:320px;background:#e3e7ef;border-top:6px solid #d3d9e4"></div>`);
+  ADD(`<div class="w" style="left:0;top:1080px;width:3840px;height:760px;background:#eef1f7"></div><div class="w" style="left:0;top:1840px;width:3840px;height:320px;background:#e3e7ef;border-top:6px solid #d3d9e4"></div>`);
+  ADD(`<div class="w" style="left:0;top:100px;width:3840px;height:22px;background:#8a93a6"></div>`);
+  /* back lines */
+  [['bk1', 175], ['bk2', 275]].forEach(([id, y]) => ADD(`<div class="w" id="${id}" style="left:1450px;top:${y}px;width:350px;height:30px;background:repeating-linear-gradient(90deg,#4a5262 0 30px,#5d6472 30px 60px);border:5px solid #8a93a6;border-radius:8px"></div><div class="w" id="${id}b" style="left:1500px;top:${y + 36}px;width:150px;height:54px;background:#fff;border:4px solid #8a93a6;border-radius:12px;font-size:34px;font-weight:800;color:${MUTE};display:flex;align-items:center;justify-content:center">Topic</div>`));
+  /* Report problem line */
+  ADD(`<div class="w" id="cd1" style="left:840px;top:250px;width:6px;height:42px;background:#8a93a6"></div><div class="w" id="cd2" style="left:1360px;top:250px;width:6px;height:42px;background:#8a93a6"></div>`);
+  ADD(`<div class="w" id="lbd" style="left:780px;top:290px;width:640px;height:64px;background:#fff;border:6px solid ${STEEL};border-radius:14px;font-size:40px;font-weight:800;color:${STEEL};display:flex;align-items:center;justify-content:center;white-space:nowrap">Topic: Report problem</div>`);
+  [400, 1000, 1600].forEach((x) => ADD(`<div class="w" style="left:${x}px;top:690px;width:24px;height:70px;background:#8a93a6"></div>`));
+  ADD(`<div class="w" id="belt" style="left:340px;top:640px;width:1360px;height:50px;background:repeating-linear-gradient(90deg,#4a5262 0 40px,#5d6472 40px 80px);background-position:0px 0px;border:6px solid ${STEEL};border-radius:10px;box-sizing:border-box"></div>`);
+  ADD(stn('st0', 400, 260, 'Question', 'title') + stn('st1', 710, 260, 'Question', 'urgency') + stn('st2', 1360, 300, 'Message', 'ticket number', 36));
+  ADD(`<div class="w" id="sock" style="left:1010px;top:410px;width:300px;height:230px;border:6px dashed ${STEEL};border-radius:18px;background:rgba(61,110,158,.10);box-sizing:border-box"></div>`);
+  ADD(`<div class="w" id="sockp" style="left:1010px;top:640px;width:300px;height:50px;background:${STEEL};border-radius:0 0 10px 10px;color:#fff;font-size:32px;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap"><span id="sockt" style="opacity:0">Action node</span></div>`);
+  ADD(`<div class="w h" id="p1" style="left:360px;top:572px;width:84px;height:68px;background:#a8a08c;border:4px solid #8a8269;border-radius:8px"></div><div class="w h" id="p2" style="left:360px;top:572px;width:84px;height:68px;background:#b7b09c;border:4px solid #8a8269;border-radius:8px"></div><div class="w h" id="pcl" style="left:380px;top:572px;width:84px;height:68px;background:#a8a08c;border:4px solid #8a8269;border-radius:8px"></div>`);
+  ADD(mod('mA', 1010, 410).replace('class="w mod"', 'class="w mod h"'));
+  ADD(`<svg class="w h" id="pin" style="left:1135px;top:352px" width="50" height="58" viewBox="0 0 50 58"><circle cx="25" cy="20" r="16" fill="${YEL}" stroke="#7a6208" stroke-width="4"/><path d="M25 36 L25 56" stroke="#7a6208" stroke-width="6" stroke-linecap="round"/></svg>`);
+  ADD(ch('stub1', 1307, 362, 'ticket_diagonal', 'ticket number', 'cr'));
+  /* characters at the plant */
+  ADD(`<div class="w" id="ctr" style="left:100px;top:870px;width:460px;height:110px;background:#c9ced8;border-top:14px solid #aeb6c6;border-radius:10px 10px 0 0"></div>`);
+  ADD(human('mar', 140, 700, CORAL, '#3a2a22'));
+  ADD(`<svg class="w" id="lap" style="left:340px;top:798px" width="120" height="76" viewBox="0 0 120 76"><rect x="14" y="4" width="92" height="56" rx="6" fill="#1f2a44"/><rect x="20" y="10" width="80" height="44" rx="3" fill="#e6ecfb"/><rect x="0" y="62" width="120" height="12" rx="6" fill="#8a93a6"/></svg>`);
+  ADD(`<div class="w h" id="mcard" style="left:140px;top:566px;width:210px;height:100px;background:#fff;border:5px solid ${AMBR};border-radius:20px;display:flex;align-items:center;justify-content:center;gap:16px;box-shadow:var(--shadow)">${laptopSvg}${IC('warning', 'width:56px;height:56px;color:#d98a00')}</div>`);
+  ADD(human('val', 640, 700, PURP, '#2b1f3a'));
+  ADD(human('mgr', 1480, 600, '#8a93a6', '#2b2b2b', '<rect x="62" y="206" width="76" height="12" fill="#5d6472"/><path d="M52 190 L100 232 L148 190" fill="none" stroke="#f4f6fa" stroke-width="8"/>'));
+  ADD(`<div class="w" id="nxg" style="left:800px;top:720px;width:187px;height:260px">${nexo('nx', 0, 0)}<div class="chip sm h" id="nxs" style="left:-260px;top:-110px;width:440px;background:${CRM};border-color:#d9c9a6;color:${INK}">${IC('ticket_diagonal')}<span>create a ticket</span></div></div>`);
+  ADD(`<div class="w" id="door" style="left:1740px;top:430px;width:160px;height:330px;background:#8a93a6;border:8px solid #6d7688;border-radius:12px 12px 0 0;box-sizing:border-box"><div class="w" style="left:14px;top:14px;right:14px;bottom:0;background:#c9ced8"></div><div class="w" style="left:112px;top:170px;width:16px;height:16px;border-radius:50%;background:#5d6472"></div></div>`);
+  ADD(`<div class="w h" id="dsg" style="left:1660px;top:290px;width:440px;height:120px;box-sizing:border-box;background:${NAVY};border-radius:20px;color:#fff;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;box-shadow:var(--shadow)">Create an agent flow<br>and its parameters</div>`);
+
+  /* depot */
+  ADD(`<div class="w h" id="tpb" style="left:2470px;top:330px;width:300px;height:80px;background:#fff;border:6px solid ${NAVY};border-radius:16px;font-size:42px;font-weight:800;color:${NAVY};display:flex;align-items:center;justify-content:center">Tools page</div>`);
+    ADD(`<div class="w" id="cartG" style="left:2250px;top:640px;width:480px;height:330px">
+    ${mod('mB', 30, 10)}
+    <div class="w" style="left:0;top:240px;width:480px;height:34px;background:#8a93a6;border-radius:8px"></div>
+    <div class="w" style="left:50px;top:270px;width:56px;height:56px;border-radius:50%;background:#2f3a52;border:8px solid #5d6472;box-sizing:border-box"></div><div class="w" style="left:374px;top:270px;width:56px;height:56px;border-radius:50%;background:#2f3a52;border:8px solid #5d6472;box-sizing:border-box"></div>
+    <svg class="w h" id="chn" style="left:0;top:0;overflow:visible" width="480" height="330"><path d="M50 280 L-70 330" stroke="#3a3a4a" stroke-width="14" stroke-dasharray="26 12" stroke-linecap="round" fill="none"/><path d="M430 280 L550 330" stroke="#3a3a4a" stroke-width="14" stroke-dasharray="26 12" stroke-linecap="round" fill="none"/></svg>
+    <div class="w h" id="lck" style="left:205px;top:262px;width:70px;height:70px;border-radius:50%;background:#fff;border:5px solid #3a3a4a;display:flex;align-items:center;justify-content:center;box-sizing:border-box">${IC('lock_closed', 'width:40px;height:40px;color:#3a3a4a')}</div>
+    <svg class="w h" id="lev" style="left:380px;top:100px;overflow:visible" width="200" height="200" viewBox="0 0 200 200"><rect x="44" y="104" width="32" height="36" rx="8" fill="#5d6472"/><g id="lev_s"><line x1="60" y1="110" x2="150" y2="110" stroke="#2f3a52" stroke-width="14" stroke-linecap="round"/><circle cx="150" cy="110" r="30" fill="#fff" stroke="${STEEL}" stroke-width="6"/><path d="M138 124 V98 M138 98 H164 V110" stroke="${STEEL}" stroke-width="5" fill="none" stroke-linecap="round"/></g></svg>
+  </div>`);
+  ADD(`<div class="w" id="crn" style="left:2690px;top:122px;width:300px;height:200px"><div class="w" style="left:40px;top:-20px;width:60px;height:22px;background:#5d6472;border-radius:6px"></div><div class="w" style="left:200px;top:-20px;width:60px;height:22px;background:#5d6472;border-radius:6px"></div>
+    <svg class="w" style="left:0;top:0" width="300" height="170" viewBox="0 0 300 170"><rect x="0" y="0" width="300" height="170" rx="22" fill="${NAVY}"/><rect id="crn_w" x="30" y="28" width="170" height="96" rx="12" fill="#2d3a5c"/><circle cx="244" cy="76" r="20" fill="#2d3a5c"/></svg>
+    <div class="w" id="crn_r" style="left:146px;top:170px;width:8px;height:358px;background:#5d6472;transform-origin:50% 0%"><i class="w" style="left:-18px;bottom:-12px;width:44px;height:28px;border:8px solid #5d6472;border-top:0;border-radius:0 0 22px 22px;box-sizing:border-box"></i></div></div>`);
+  ADD(`<svg class="w h" id="sig" style="left:1870px;top:520px" width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="42" fill="${STEEL}"/></svg><div class="w h" id="sigi" style="left:1892px;top:542px;width:46px;height:46px">${IC('plug_connected', 'width:46px;height:46px;color:#fff')}</div>`);
+  ADD(`<svg class="w h" id="wsg" style="left:2830px;top:320px" width="100" height="100" viewBox="0 0 100 100"><path d="M50 8 L94 88 H6 Z" fill="${YEL}" stroke="#7a6208" stroke-width="6" stroke-linejoin="round"/><path d="M50 34 V60" stroke="#141821" stroke-width="9" stroke-linecap="round"/><circle cx="50" cy="75" r="5.5" fill="#141821"/></svg>`);
+  ADD(`<div class="w h" id="abn" style="left:2780px;top:520px;width:700px;height:90px;background:${AMBR};border-radius:20px;color:#141821;font-size:34px;font-weight:800;display:flex;align-items:center;padding-left:28px;box-sizing:border-box;box-shadow:var(--shadow)">Ask the end user before running<i class="w" id="abn_l" style="right:22px;top:22px;width:46px;height:46px;border-radius:50%;background:#fff3d6;border:5px solid #a85a10;box-sizing:border-box"></i></div>`);
+  ADD(`<div class="w h" id="nwt" style="left:2860px;top:330px;width:300px;height:80px;background:#fff;border:6px solid ${NAVY};border-radius:16px;font-size:42px;font-weight:800;color:${NAVY};display:flex;align-items:center;justify-content:center">new tool</div>`);
+  ADD(`<div class="w" id="mNg" style="left:3100px;top:650px;width:300px;height:230px;opacity:0">${mod('mN', 0, 0, `<div class="w" style="left:-18px;top:150px;width:44px;height:44px;border-radius:50%;background:${STEEL};display:flex;align-items:center;justify-content:center">${IC('plug_connected', 'width:28px;height:28px;color:#fff')}</div><div class="w" style="left:270px;top:150px;width:30px;height:70px;background:${CYAN};border-radius:6px"></div>`)}</div>`);
+  /* tag "flow requirements" + tool picker drawer (scene 5) */
+  const r5 = (k, ic, html) => `<div class="w" id="r5_${k}" style="left:24px;top:${88 + k * 82}px;width:576px;height:70px;opacity:.3;display:flex;align-items:center;gap:14px;font-size:34px;font-weight:800;color:${INK};white-space:nowrap">${IC(ic, 'width:46px;height:46px;color:' + STEEL + ';flex:0 0 auto')}${html}</div>`;
+  ADD(`<div class="w h" id="fl5" style="left:3016px;top:140px;width:624px;height:520px;box-sizing:border-box;background:#fff;border:6px solid ${STEEL};border-radius:24px;box-shadow:var(--shadow);transform-origin:0 0"><div class="w" style="left:24px;top:16px;font-size:42px;font-weight:800;color:${STEEL}">flow requirements</div>
+    ${r5(0, 'plug_connected', 'When an agent calls the flow')}${r5(1, 'arrow_reply', '<span style="background:#d6f0f5;color:#1b7f95;border:3px solid ' + CYAN + ';border-radius:12px;padding:0 12px">Respond to the agent</span>')}${r5(2, 'rocket', 'published')}${r5(3, 'timer', '100 seconds <span style="font-size:32px;border:3px solid ' + STEEL + ';border-radius:999px;padding:0 16px;color:' + STEEL + '">real time</span>')}${r5(4, 'toolbox', 'solution flow')}</div>`);
+  ADD(`<div class="w h" id="dr5" style="left:3016px;top:690px;width:624px;height:190px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:24px;box-shadow:var(--shadow)"><div class="w" style="left:24px;top:14px;font-size:36px;font-weight:800;color:${NAVY}">tool picker</div><div class="w" style="left:24px;top:84px;width:340px;height:80px;border:4px dashed #8a93a6;border-radius:14px;box-sizing:border-box"></div><div class="w h" id="dp5" style="left:30px;top:90px;width:328px;height:68px;background:${YEL};border-radius:10px;font-size:34px;font-weight:800;color:${INK};display:flex;align-items:center;justify-content:center">CreateTicket</div></div>`);
+
+  /* ═══════ CHIPS (top band) ═══════ */
+  ADD(ch('chR', 3010, 150, 'document_text', 'an automatic recipe of steps', 'st'));
+  ADD(ch('chW', 3010, 150, 'bot', 'the whole agent', 'nv'));
+  ADD(ch('chX', 120, 310, 'link', 'an exact point in a topic', 'st'));
+  ADD(ch('c1a', 120, 310, 'link', 'only to that topic', 'st'));
+  ADD(ch('c1b', 120, 310, 'cursor_click', 'exactly where you put it on the canvas', 'st'));
+  ADD(ch('c1c', 120, 310, 'list', 'right after title and urgency', 'st'));
+  ADD(ch('c2a', 3010, 150, 'brain_circuit', 'orchestrator', 'nv'));
+  ADD(ch('c2b', 3010, 250, 'timer', 'at run time', 'nv'));
+  ADD(ch('c2c', 3010, 350, 'dismiss_circle', 'no topic calling it', 'nv'));
+  ADD(ch('c2d', 120, 310, 'link', 'not tied to one moment', 'nv'));
+  ADD(wp('wp1', 1590, 362, "the agent's choice", 'nvl') + wp('wp2', 1160, 362, 'a fixed step', 'stl'));
+  ADD(ch('c2e', 3010, 150, 'bot', 'whenever it sees fit', 'nv'));
+  ADD(ch('c4a', 2650, 640, '', 'Off', 'nv', 120));
+  ADD(ch('c4b', 3010, 150, 'warning', 'does not block the selection', 'am'));
+  ADD(ch('c4c', 3010, 150, 'question_circle', 'only asks for confirmation', 'am'));
+  ADD(ch('c4d', 3010, 250, 'brain_circuit', 'the orchestrator can still pick it', 'nv'));
+  ADD(ch('c4e', 3010, 150, 'link', 'only when a topic calls it', 'st'));
+  ADD(ch('c5a', 3016, 905, '', 'or it does not appear', 'nv'));
+  ADD(ch('c5b', 3010, 500, 'plug_connected', 'Copilot Studio adds them for you', 'cy'));
+  ADD(ch('stM', 120, 470, 'ticket_diagonal', 'ticket number', 'cr', 270).replace('class="chip sm" id="stM" style="', 'class="chip sm" id="stM" style="height:auto;min-height:120px;white-space:normal;line-height:1.15;padding:8px 20px;'));
+
+  /* ═══════ S2: hatch + back workshop (scene 6) ═══════ */
+  ADD(`<div class="w" id="ws6" style="${P2(900, 330)};width:900px;height:470px;background:#dfe6f0;border:6px solid #c1ccdb;border-radius:20px 20px 0 0;box-sizing:border-box"></div>`);
+  ADD(`<div class="w" id="b6" style="${P2(120, 800)};width:1680px;height:50px;background:repeating-linear-gradient(90deg,#4a5262 0 40px,#5d6472 40px 80px);border:6px solid ${STEEL};border-radius:10px;box-sizing:border-box"></div>`);
+  ADD(`<div class="w" style="${P2(345, 710)};width:22px;height:90px;background:#8a93a6"></div><div class="w" style="${P2(595, 710)};width:22px;height:90px;background:#8a93a6"></div>`);
+  ADD(mod('mH', 1920 * 0 + 330, 1080 + 480));
+  ADD(`<div class="w h" id="sw6" style="${P2(120, 380)};height:84px;padding:0 24px;background:#fff;border:5px solid ${STEEL};border-radius:22px;display:flex;align-items:center;gap:14px;font-size:38px;font-weight:800;color:${STEEL};white-space:nowrap;box-shadow:var(--shadow)">${IC('timer', 'width:46px;height:46px')}100 seconds</div>`);
+  ADD(`<div class="w h" id="pb6" style="${P2(120, 710)};width:150px;height:90px;background:#a8a08c;border:5px solid #8a8269;border-radius:10px;box-sizing:border-box"></div>`);
+  ADD(`<div class="w h" id="hat6" style="${P2(800, 360)};width:80px;height:490px;background:repeating-linear-gradient(45deg,#2a9db5 0 24px,#6cc4d6 24px 48px);border-radius:8px;opacity:0"></div>`);
+  ADD(wp('hl6', 840, 1080 + 250, 'Respond to the agent', 'cyl') + wp('sy6', 440, 1080 + 250, 'synchronous', 'nvl') + wp('as6', 1250, 1080 + 250, 'asynchronous', 'nvl'));
+  ADD(`<div class="w h" id="cal6" style="${P2(1540, 380)};width:220px;height:190px;background:#fff;border:5px solid ${NAVY};border-radius:16px;box-sizing:border-box;overflow:hidden"><div class="w" style="left:0;top:0;width:100%;height:46px;background:${NAVY}"></div><div class="w" style="left:0;top:64px;width:100%;text-align:center;font-size:46px;font-weight:800;color:${NAVY};white-space:nowrap">30 days</div></div>`);
+  ADD(`<div class="w h" id="bd6" style="${P2(960, 390)};width:440px;height:140px;background:#fff;border:5px solid ${NAVY};border-radius:14px;box-sizing:border-box;font-size:34px;font-weight:800;color:${NAVY};display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2">Power Automate<br>flow duration limit</div>`);
+  ADD(`<div class="w h" id="jb6" style="${P2(120, 560)};width:190px;height:84px;background:${CRM};border:7px solid #d9c9a6;border-radius:28px;box-sizing:border-box;font-size:38px;font-weight:800;color:${INK};display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)">job ID</div>`);
+  ADD(ch('c6a', 500, 1080 + 380, 'timer', 'within 100 seconds', 'nv'));
+  ADD(`<svg class="w h" id="lp6" style="left:0;top:1080px" width="1920" height="1080" viewBox="0 0 1920 1080"><path d="M1640 850 V960 H650 V850" fill="none" stroke="#8a93a6" stroke-width="14" stroke-dasharray="28 16" stroke-linecap="round"/><path d="M638 884 L650 846 L662 884 Z" fill="#8a93a6"/></svg>`);
+  ADD(ch('c6b', 520, 1080 + 862, 'arrow_sync', 'polling topic', 'nv') + ch('c6c', 1000, 1080 + 862, 'mail', 'follow-up message', 'nv') + ch('fin6', 120, 1080 + 862, 'document_text', 'final result', 'cr'));
+
+  /* ═══════ S3: callback pole (scene 8) + Valeria's desk (scene 9) ═══════ */
+  ADD(`<div class="w" style="${P3(690, 200)};width:1110px;height:680px;background:#e1e8f2;border:6px solid #c1ccdb;border-radius:24px;box-sizing:border-box"></div>`);
+  ADD(`<div class="w" id="cart3" style="${P3(120, 790)};width:340px;height:24px;background:#8a93a6;border-radius:8px"></div>`);
+  ADD(mod('m3', 1920 + 140, 1080 + 560));
+  ADD(`<div class="w" id="hat3" style="${P3(470, 520)};width:36px;height:300px;background:repeating-linear-gradient(45deg,#2a9db5 0 18px,#6cc4d6 18px 36px);border-radius:6px"></div>`);
+  ADD(`<div class="w h" id="jb3" style="${P3(200, 440)};width:190px;height:84px;background:${CRM};border:7px solid #d9c9a6;border-radius:28px;box-sizing:border-box;font-size:38px;font-weight:800;color:${INK};display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)">job ID</div>`);
+  ADD(`<div class="w h" id="bar3" style="${P3(540, 620)};width:36px;height:220px;background:repeating-linear-gradient(45deg,#1f2a44 0 20px,#fff 20px 40px);border:4px solid #1f2a44;border-radius:6px;box-sizing:border-box"></div>`);
+  ADD(`<div class="w" id="pole3" style="${P3(760, 300)};width:36px;height:560px;background:#8a93a6;border-radius:8px"></div>`);
+  ADD(`<svg class="w" id="bell" style="${P3(736, 214)};overflow:visible" width="84" height="84" viewBox="0 0 84 84"><g id="bell_g"><path d="M42 8 C20 8 18 30 18 46 L10 64 H74 L66 46 C66 30 64 8 42 8 Z" fill="#2f3a52"/><circle cx="42" cy="72" r="9" fill="${YEL}"/></g></svg>`);
+  ADD(`<svg class="w" id="rings" style="${P3(718, 196)};overflow:visible" width="120" height="120" viewBox="0 0 120 120">${[0, 1, 2].map((k) => `<circle class="rg" cx="60" cy="60" r="${30 + k * 14}" fill="none" stroke="${STEEL}" stroke-width="6" opacity="0"/>`).join('')}</svg>`);
+  ADD(`<div class="w h" id="ar3" style="${P3(830, 300)};width:500px;height:80px;background:#fff;border:6px solid ${NAVY};border-radius:16px;box-sizing:border-box;font-size:38px;font-weight:800;color:${NAVY};display:flex;align-items:center;justify-content:center;white-space:nowrap">Asynchronous response</div>`);
+  ADD(`<div class="w h" id="sw3" style="${P3(830, 410)};width:220px;height:80px;display:flex;align-items:center;gap:20px"><div class="w" id="tg3" style="position:relative;width:110px;height:58px;border-radius:29px;background:${ACC}"><i class="w" id="tg3k" style="left:6px;top:6px;width:46px;height:46px;border-radius:50%;background:#fff"></i></div><span class="w" id="tg3t" style="position:relative;font-size:42px;font-weight:800;color:${NAVY}"><span id="tg3on">On</span><span id="tg3of" style="position:absolute;left:0;top:0;opacity:0">Off</span></span></div>`);
+  ADD(`<div class="w h" id="ck3" style="${P3(830, 510)};width:380px;height:84px;background:#fff;border:5px solid ${STEEL};border-radius:22px;box-sizing:border-box;padding:0 22px;display:flex;align-items:center;gap:14px;font-size:38px;font-weight:800;color:${STEEL};white-space:nowrap">${IC('timer', 'width:46px;height:46px')}two minutes</div>`);
+  ADD(`<div class="w h" id="ni3" style="${P3(830, 620)};width:440px;height:80px;background:${NAVY};border-radius:16px;font-size:38px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;white-space:nowrap">new infrastructure</div>`);
+  const scr = (id, y, name, dot, st, ok) => `<div class="w h" id="${id}" style="${P3(1352, y)};width:410px;height:120px;box-sizing:border-box;background:#fff;border:5px solid ${ok ? GRN : '#8a93a6'};border-radius:20px;padding:10px 20px 0 70px;box-shadow:var(--shadow)"><i class="w" style="left:20px;top:44px;width:30px;height:30px;border-radius:50%;background:${dot}"></i><div style="font-size:38px;font-weight:800;color:${INK};white-space:nowrap">${name}</div><div style="font-size:36px;font-weight:700;color:${ok ? GRN : MUTE};white-space:nowrap">${st}</div></div>`;
+  ADD(scr('s3a', 330, 'Teams', GRN, 'fully supported', true) + scr('s3b', 470, 'Microsoft Copilot', '#8a93a6', 'not supported', false) + scr('s3c', 610, 'telephony', '#8a93a6', 'not supported', false));
+  ADD(ch('c8a', 1920 + 830, 1080 + 740, '', 'a callback', 'nv'));
+  ADD(ch('c8b', 1920 + 830, 1080 + 740, '', 'only in those environments', 'nv'));
+  ADD(ch('c8c', 1920 + 140, 1080 + 870, '', 'not the tool pattern', 'nv'));
+  ADD(ch('c8d', 1920 + 830, 1080 + 740, '', 'keep it Off · use the job ID', 'st'));
+  ADD(maker('mk', 1920 + 520, 1080 + 400).replace(/#2f5bd3/g, PURP).replace('<svg class="w"', '<svg class="w h"'));
+
+  /* ═══════ overlays ═══════ */
+  const rrow = (id, y, h, inner) => `<div class="w" id="${id}" style="left:24px;top:${y}px;width:632px;height:${h}px;opacity:.32;font-size:32px;font-weight:800;color:${INK};line-height:1.2">${inner}</div>`;
+  const rc = (t, bg) => `<span style="display:inline-block;background:${bg};color:#fff;border-radius:12px;padding:0 10px;margin-right:8px;white-space:nowrap">${t}</span>`;
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plF">agent flow</div><div class="pl" id="plT">agent-level tool</div><div class="pl" id="plD">Allow agent to decide dynamically</div><div class="pl" id="plB">Back at the plant</div><div class="pl" id="plC">Asynchronous response</div>
+    <div class="lbp" id="lbEP">the exact point</div><div class="lbp st" id="lbTL">topic-level tool</div><div class="lbp" id="lbTO">the other way</div><div class="lbp" id="lbAT">also an agent tool</div><div class="lbp rd" id="lbTR">a common trap</div><div class="lbp" id="lbNE">not every flow can be a tool</div><div class="lbp am" id="lbLJ">a long job</div><div class="lbp" id="lbNS">newer, separate</div>
+    <div class="lbp" id="nxl" style="left:0;right:0;margin:0 auto;width:fit-content;top:880px">next lesson</div>
+    <div class="w h" id="rb" style="left:1120px;top:110px;width:680px;height:520px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:28px;overflow:hidden"><div style="position:absolute;left:24px;top:8px;font-size:44px;font-weight:800;color:${NAVY};white-space:nowrap">Remember: three rules</div>
+      ${rrow('rl0', 70, 180, rc('Exact point', STEEL) + 'add the flow to the topic<div style="margin-top:6px">' + rc('Allow agent to decide dynamically', '#5d6472') + 'off: explicit calls only</div>')}
+      ${rrow('rl1', 258, 96, rc('Ask the end user before running', AMBR).replace('color:#fff', 'color:#141821') + '<div style="margin-top:6px">only confirmation</div>')}
+      ${rrow('rl2', 362, 130, 'Longer than 100 seconds:<div style="margin-top:6px">' + rc('job ID', '#8a6d1e') + 'at ' + rc('Respond to the agent', CYAN) + '</div><div style="margin-top:6px">' + rc('solution flow', STEEL) + '</div>')}</div>
+    <div id="vl" style="position:absolute;left:0;top:0;width:1920px;height:1080px;background:#eef1f7;opacity:0"></div>`);
+
+  /* ═══════ exam rooms ═══════ */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const ok = (t) => IC('checkmark_circle', 'width:44px;height:44px;color:#6be3a0;flex:0 0 auto') + t;
+  const no = (t) => IC('dismiss_circle', 'width:44px;height:44px;color:#ff8a80;flex:0 0 auto') + t;
+  const vOK = 'background:#16382c;border-color:#1e7f4f;color:#6be3a0', vNO = 'background:#3a1e22;border-color:#c4392f;color:#ff8a80';
+  const bar = (x, y, w) => `<div class="w" style="left:${x}px;top:${y}px;width:${w}px;height:10px;border-radius:5px;background:#3a4a78;opacity:.7"></div>`;
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>In the Report problem topic</h4>
+      ${pz(28, 76, 'title')}${pz(186, 76, 'urgency')}${pz(366, 76, 'CreateTicket', `background:${YEL};color:${INK};border-color:${STEEL}`)}
+      ${pz(28, 142, 'ticket number')}${bar(350, 152, 400)}${bar(350, 174, 400)}
+      ${pz(28, 208, ok('only there, at that point'), vOK)}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4>On the agent's own Tools page</h4>
+      ${pz(28, 76, 'orchestrator', `border-color:${YEL}`)}${pz(330, 76, 'CreateTicket', `background:${YEL};color:${INK};border-color:#8a93a6`)}
+      ${pz(28, 142, 'back lines')}
+      ${pz(28, 208, no("the agent's choice"), vNO)}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4 style="font-size:34px">Turn off Allow agent to decide dynamically</h4>
+      ${pz(28, 76, 'Off', 'background:#2a3350')}${pz(130, 76, 'chain on the cart', 'border-color:#8a93a6')}
+      ${pz(28, 142, "released only by the topic's call")}
+      ${pz(28, 208, ok('explicit calls only'), vOK)}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4 style="font-size:34px">Turn on Ask the end user before running</h4>
+      ${pz(28, 76, 'amber lamp lit', `background:${AMBR};color:${INK};border-color:#a85a10`)}
+      ${pz(28, 142, 'the crane still lifts the cart')}
+      ${pz(28, 208, no('only confirmation'), vNO)}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${GRN};opacity:0"><h4 style="font-size:34px">Reply early, work after the response</h4>
+      ${pz(28, 76, 'job ID', `background:${CRM};color:${INK};border-color:#d9c9a6`)}${pz(200, 76, 'Respond to the agent', `background:${CYAN};color:${INK};border-color:#1b7f95`)}
+      ${pz(28, 142, 'back workshop')}${pz(340, 142, '30 days', 'border-color:#8a93a6')}
+      ${pz(28, 208, ok('job ID, then async'), vOK)}</div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4 style="font-size:34px">Turn on the Asynchronous response option</h4>
+      ${pz(28, 76, 'Asynchronous response')}${pz(540, 76, 'On', `border-color:${STEEL}`)}
+      ${pz(28, 142, 'behind the barrier')}
+      ${pz(28, 208, no('not the tool pattern'), vNO)}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'CreateTicket must run at one exact moment, and Contoso does not want tickets created in other conversations. Where should Valeria add the flow?', opts: ["On the agent's own Tools page", 'In the Report problem topic', 'In all topics of the agent'],
+      why: `<div id="exA_w1">A flow in a topic is <span class="g">available only to that topic</span>, and <span class="y">runs exactly where you put it</span></div><div id="exA_w2">On the Tools page, <span class="r">the orchestrator could pick it in any conversation</span></div>`, proof: proofA }),
+    mkExam('exB', { q: 'CreateTicket is also an agent tool, and the service manager wants it used only when a topic calls it. Which setting should Valeria change?', opts: ['Turn off Allow agent to decide dynamically', 'Turn on Ask the end user before running', 'Remove the flow from the Report problem topic'],
+      why: `<div id="exB_w1">With it off, the agent uses the flow <span class="g">only when a topic calls it explicitly</span></div><div id="exB_w2">Ask the end user before running <span class="r">only confirms</span>; the orchestrator can still pick it</div>`, proof: proofB }),
+    mkExam('exC', { q: 'A Contoso flow starts a job that runs for hours, but as a tool it must respond within 100 seconds. What should Valeria do?', opts: ['Turn on the Asynchronous response option', 'Move every action before the response', 'Reply early, work after the response'],
+      why: `<div id="exC_w1">Return a <span class="y">job ID</span> at Respond to the agent; long actions go after it and <span class="g">run asynchronously</span></div><div id="exC_w2">Asynchronous response On is <span class="r">a separate callback</span>, so for a tool keep it Off</div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ═══════ UI window (scene 9) ═══════ */
+  const navS = ['Overview', 'Topics', 'Tools', 'Knowledge'];
+  const sk = (y) => `<div style="position:absolute;left:0;top:${y}px;width:900px;height:44px;border-radius:12px;background:#eceff5"></div>`;
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Contoso agent', nav: navS, on: 0, bar: `<span class="hc">${IC('chat')}Test</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Agent flows</div><h3>CreateTicket</h3>
+      <div class="nc" style="left:0;top:110px;width:820px;height:210px"><small>Agent flow</small><div style="font-size:42px;font-weight:800">CreateTicket</div>
+        <div style="position:relative;margin-top:14px;height:56px"><span class="pp" id="uSt0" style="left:0;top:0;opacity:1;background:#eceff5;color:#5d6472;border-color:#8a93a6">Draft</span><span class="pp" id="uSt1" style="left:0;top:0">published</span></div></div>
+      <span class="btn pri" id="uPub" style="position:absolute;left:880px;top:176px">Publish</span>
+      <span class="pp" id="uC1" style="left:0;top:350px">create and publish</span></div>
+    <div class="lay" id="uL1"><div class="crumb">Topics page</div><h3>Topics</h3>
+      <div class="row" id="uRow" style="width:900px;background:#eaf0fc;padding-left:16px;padding-right:16px;box-sizing:border-box"><b>Report problem</b><span style="font-size:36px;color:var(--muted)">›</span></div><div class="row" style="width:900px"><b style="color:var(--muted)">Greeting</b></div><div class="row" style="width:900px"><b style="color:var(--muted)">Fallback</b></div></div>
+    <div class="lay" id="uL2"><div class="crumb">Topics page › Report problem</div>
+      <div class="nc" id="uQ1" style="left:0;top:66px;width:640px;height:120px"><small>Question</small><b style="font-size:38px">title</b></div>
+      <div class="nc" id="uQ2" style="left:0;top:206px;width:640px;height:120px"><small>Question</small><b style="font-size:38px">urgency</b></div>
+      <div id="uPlus" style="position:absolute;left:290px;top:340px;width:60px;height:60px;border-radius:50%;background:#fff;border:4px solid ${ACC};color:${ACC};font-size:44px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1;box-sizing:border-box">+</div>
+      <span class="pp" id="uTip" style="left:440px;top:346px">Add node</span>
+      <div class="mn" id="uMenu" style="left:380px;top:410px;width:420px"><div>Send a message</div><div>Ask a question</div><div id="uAT">Add a tool</div></div>
+      <div class="mn" id="uPick" style="left:380px;top:410px;width:520px"><div style="font-size:32px;color:var(--muted);font-weight:700">Add a tool</div><div id="uCT" style="background:#eaf0fc">CreateTicket</div></div>
+      <div class="nc" id="uAct" style="left:0;top:334px;width:640px;height:110px;opacity:0;border-color:${STEEL};background:#eef3f9"><small>Action node</small><b style="font-size:38px">CreateTicket</b></div>
+      <span class="pp" id="uC2" style="left:0;top:456px">at that exact point</span>
+      <div class="nc" id="uMap" style="left:700px;top:334px;width:500px;height:170px;opacity:0"><small>topic variables</small><div style="font-size:34px;font-weight:800;line-height:1.5">title ← <span class="vc">title</span><br>urgency ← <span class="vc">urgency</span></div></div>
+      <div class="nc" id="uMsg" style="left:0;top:520px;width:640px;height:116px;opacity:0"><small>Message</small><span class="vc" style="background:#8a6d1e">ticket number</span></div>
+      <div class="nc" id="uInset" style="left:700px;top:566px;width:500px;height:180px;opacity:0"><div style="font-size:34px;font-weight:800;line-height:1.15;text-wrap:balance">Allow agent to decide dynamically</div><div class="tgl" id="uTg" style="margin-top:10px"><i></i></div></div>
+      <span class="pp" id="uC3" style="left:700px;top:512px">if also an agent tool</span></div>` }));
+  const PE = (sel) => { const r = document.querySelector(sel).getBoundingClientRect(); return [r.right - 26, r.top + 14]; };
+  const PU = { pub: PE('#uPub'), nv1: PE('#uiS_nv1'), row: PE('#uRow'), plus: PE('#uPlus'), at: PE('#uAT'), ct: PE('#uCT'), tg: PE('#uTg') };
+  PU.tg = [PU.tg[0] - 30, PU.tg[1] + 16];
+
+  /* ═══════ TIMELINE ═══════ */
+  const CAMX = (c, t) => tl.set('#world', { x: 960 - c[0], y: 540 - c[1], scale: 1 }, t);
+  const CAMV = (c, t, d) => CAM(c[0], c[1], 1, t, d);
+  const CUT = (c, t) => { ON('#vl', t - 0.3, 0.25); CAMX(c, t); OFF('#vl', t + 0.02, 0.3); };
+  const FT = (sel, from, to, t) => tl.fromTo(sel, from, Object.assign({ immediateRender: false }, to), t);
+  const LB = (id, a, b) => { TAG('#' + id, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const CH = (id, a, b) => { POP('#' + id, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const BOB = (sel, a, b, amp) => FT(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+  const LAMP = (sel, t) => tl.to(sel, { attr: { fill: YEL }, duration: 0.15 }, t);
+  const LAMPOFF = (sel, t) => tl.set(sel, { attr: { fill: '#9aa3b5' } }, t);
+  const TOTAL = B.duration + 2.5;
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD0 = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.35 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD0, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD0 / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD0 / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD0 / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD0 / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', S(i, 9), 0.2);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  const FILL = (id, i, chips) => { document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:830px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`); [S(i, 1) + 0.4, S(i, 2) + 0.1, S(i, 3) + 0.1].forEach((t, k) => ON(`#${id}_sc .fc:nth-child(${k + 1})`, t, 0.3)); OFF(`#${id}_sc`, S(i, 8) - 0.05, 0.25); };
+  FILL('exA', 3, ['One exact moment', 'No tickets in other conversations', 'The CreateTicket flow']);
+  FILL('exB', 7, ['Also an agent tool', 'Only when a topic calls it', 'Which setting?']);
+  FILL('exC', 10, ['A job that runs for hours', 'Tool: respond within 100 seconds', 'What should Valeria do?']);
+
+  gsap.set('#world', { x: 0, y: 0, scale: 1 });
+  gsap.set('#lev_s', { rotation: -50, svgOrigin: '60 110' });
+  gsap.set('#crn_r', { scaleY: 0, transformOrigin: '50% 0%' });
+  gsap.set('#uTg', { backgroundColor: ACC }); gsap.set('#uTg i', { x: 52 });
+  gsap.set('#mNg', { x: 500 });
+  tl.fromTo('#belt', { backgroundPosition: '0px 0px' }, { backgroundPosition: '-2000px 0px', duration: TOTAL, ease: 'none' }, 0);
+
+  /* ── 0 Two ways to use a flow ── */
+  TAG('#plA', 0.3); OFF('#plA', S(0, 1) + 0.05, 0.25);
+  POP('#mcard', S(0, 0) + 0.6); OFF('#mcard', S(0, 1) + 0.2, 0.25);
+  ON('#p1', 0.5, 0.3); ON('#p2', 5.5, 0.3);
+  tl.fromTo('#p1', { x: 0 }, { x: 1150, duration: 10, ease: 'none' }, 0.5);
+  tl.fromTo('#p2', { x: 0 }, { x: 1150, duration: 10, ease: 'none' }, 5.5);
+  tl.to('#nxg', { x: 900, duration: 1.7, ease: 'power1.in' }, S(0, 1) + 0.1);
+  CUT(CD, S(0, 1) + 1.95); tl.set('#nxg', { x: 2190 }, S(0, 1) + 1.95);
+  POP('#nxs', S(0, 1) + 0.3); OFF('#nxs', S(0, 2) + 0.1, 0.25);
+  tl.to('#mB_pl', { boxShadow: '0 0 0 10px rgba(242,194,48,.55)', duration: 0.4, yoyo: true, repeat: 3 }, S(0, 2) + 0.1);
+  LB('plF', S(0, 2) + 0.2, S(0, 3) - 0.05);
+  [0, 1, 2].forEach((k) => LAMP(`#mB_l${k}`, W(0, 2, 'recipe', 0.05 + k * 0.55)));
+  CH('chR', S(0, 2) + 0.5, S(0, 3) - 0.1);
+  [0, 1, 2].forEach((k) => LAMPOFF(`#mB_l${k}`, S(0, 3) - 0.05));
+  tl.to('#crn_w', { attr: { fill: '#ffd166' }, duration: 0.3 }, S(0, 3) + 0.1);
+  CH('chW', S(0, 3) + 0.3, S(0, 4) - 0.2);
+  tl.to('#crn_w', { attr: { fill: '#2d3a5c' }, duration: 0.2 }, S(0, 4));
+  CUT(CL, S(0, 4) - 0.05);
+  FT('#mA', { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, S(0, 4) + 0.4);
+  CH('chX', S(0, 4) + 0.8, S(1, 0));
+
+  /* ── 1 A flow inside a topic ── */
+  OFF('#mA', S(1, 0) + 0.05, 0.25); OFF(['#p1', '#p2'], S(1, 0) + 0.05, 0.25);
+  tl.set('#cartG', { opacity: 0 }, S(1, 0) + 0.5);
+  LB('lbEP', S(1, 0) + 0.3, S(1, 1) - 0.05);
+  tl.to('#val', { x: 250, duration: 1.2, ease: 'power2.inOut' }, S(1, 1));
+  FT('#mA', { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, S(1, 1) + 1.3);
+  tl.to(['#bk1', '#bk1b', '#bk2', '#bk2b'], { opacity: 0.3, duration: 0.5 }, W(1, 1, 'only to that topic', -0.3));
+  CH('c1a', W(1, 1, 'only to that topic', 0), S(1, 2) - 0.05);
+  LB('lbTL', W(1, 1, 'only to that topic', 0.3), S(1, 2) - 0.05);
+  ON('#sockt', W(1, 2, 'action node', 0), 0.25);
+  POP('#pin', S(1, 2) + 0.3); CH('c1b', S(1, 2) + 0.5, S(1, 3) - 0.05);
+  OFF('#pin', S(1, 3) + 0.1, 0.25);
+  tl.to('#lbd', { boxShadow: '0 0 0 12px rgba(61,110,158,.35)', duration: 0.4, yoyo: true, repeat: 3 }, W(1, 3, 'report problem', 0));
+  tl.to('#mA_pl', { boxShadow: '0 0 0 10px rgba(242,194,48,.6)', duration: 0.4, yoyo: true, repeat: 3 }, W(1, 3, 'createticket', 0));
+  const w4t = W(1, 4, 'title', 0), w4u = W(1, 4, 'urgency', 0), s4 = S(1, 4) - 0.05;
+  ON('#pcl', s4, 0.2);
+  tl.to('#pcl', { x: 108, duration: Math.max(0.4, w4t - s4), ease: 'none' }, s4);
+  tl.to('#st0_l', { backgroundColor: LON, duration: 0.2 }, w4t);
+  tl.to('#pcl', { x: 418, duration: Math.max(0.4, w4u - w4t), ease: 'none' }, w4t);
+  tl.to('#st1_l', { backgroundColor: LON, duration: 0.2 }, w4u);
+  tl.to('#pcl', { x: 738, duration: 0.7, ease: 'power1.out' }, w4u);
+  CH('c1c', S(1, 4) + 0.4, S(1, 5) - 0.05);
+  [0, 1, 2].forEach((k) => LAMP(`#mA_l${k}`, E(1, 4) - 0.1 + k * 0.2));
+  POP('#stub1', S(1, 5) + 0.4); OFF('#pcl', S(1, 5) + 0.2, 0.25);
+  tl.to('#mA_pl', { boxShadow: '0 0 0 10px rgba(242,194,48,.6)', duration: 0.4, yoyo: true, repeat: 3 }, S(1, 5) + 0.3);
+  OFF('#stub1', S(2, 0) + 0.2, 0.25);
+
+  /* ── 2 A flow as an agent tool ── */
+  CUT(CD, S(2, 0) + 0.05);
+  tl.set(['#mA', '#bk1', '#bk1b', '#bk2', '#bk2b'], { opacity: 0 }, S(2, 0) + 0.05);
+  LB('lbTO', S(2, 0) + 0.3, S(2, 1) - 0.05);
+  tl.set('#val', { x: 2130 }, S(2, 0) + 0.05);
+  FT('#cartG', { y: -120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: 'bounce.out' }, S(2, 1) + 0.2);
+  POPX('#tpb', S(2, 1) + 0.4);
+  LB('plT', S(2, 1) + 0.3, S(2, 2) - 0.05);
+  const t2 = S(2, 2);
+  tl.to('#crn_w', { attr: { fill: '#ffd166' }, duration: 0.3 }, t2 + 0.05);
+  CH('c2a', t2 + 0.2); CH('c2b', S(2, 2) + 1.3); CH('c2c', W(2, 2, 'without', 0));
+  tl.to('#crn', { x: -410, duration: 0.7, ease: 'power2.inOut' }, t2 + 0.3);
+  tl.to('#crn_r', { scaleY: 1, duration: 0.5 }, t2 + 1.0);
+  tl.to('#cartG', { y: -150, duration: 0.7 }, t2 + 1.6); tl.to('#crn_r', { scaleY: 0.62, duration: 0.7 }, t2 + 1.6);
+  tl.to('#cartG', { x: -330, duration: 1.5, ease: 'power2.inOut' }, t2 + 2.4); tl.to('#crn', { x: -740, duration: 1.5, ease: 'power2.inOut' }, t2 + 2.4);
+  OFF(['#c2a', '#c2b', '#c2c', '#tpb'], S(2, 3) - 0.45, 0.25);
+  CUT(CL, S(2, 3) - 0.05);
+  CH('c2d', S(2, 3) + 0.3, S(2, 4) - 0.05);
+  tl.to('#sock', { backgroundColor: 'rgba(232,145,58,.18)', duration: 0.4, yoyo: true, repeat: 3 }, S(2, 3) + 0.4);
+  TAG('#wp1', W(2, 4, "agent's choice", 0)); TAG('#wp2', W(2, 4, 'fixed step', 0));
+  OFF(['#wp1', '#wp2'], S(2, 5) - 0.45, 0.25);
+  CAMV(CD, S(2, 5) - 0.1, 1.0);
+  tl.to('#cartG', { y: 0, x: 0, duration: 1.4, ease: 'power2.inOut' }, S(2, 5) + 0.1);
+  tl.to('#crn', { x: 0, duration: 1.4, ease: 'power2.inOut' }, S(2, 5) + 0.1);
+  tl.to('#crn_r', { scaleY: 0, duration: 0.4 }, S(2, 5) + 1.5);
+  tl.to('#nxg', { y: -24, duration: 0.25, yoyo: true, repeat: 3 }, S(2, 5) + 0.2);
+  POPX('#tpb', S(2, 5) + 0.0);
+  CH('c2e', S(2, 5) + 0.5);
+
+  /* ── 3 EXAM A ── */
+  SET(['#c2e', '#tpb', '#c2d'], S(3, 0) + 0.6, 0);
+  tl.set('#crn_w', { attr: { fill: '#2d3a5c' } }, S(3, 0) + 0.6);
+  tl.set('#val', { x: 2190 }, S(3, 0) + 0.6);
+  tl.set('#lev', { opacity: 1 }, S(3, 0) + 0.6);
+  EXAMX('exA', 3, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 0.1 });
+  ON('#pa_L', S(3, 9) + 0.1, 0.3); ON('#pa_R', S(3, 10) + 0.1, 0.3);
+
+  /* ── 4 Controlling the selection ── */
+  POPX('#tpb', S(4, 0) + 0.3);
+  LB('lbAT', S(4, 0) + 0.4, S(4, 1) - 0.05);
+  LB('plD', S(4, 1) + 0.15, S(4, 3) - 0.05);
+  const wOff = W(4, 1, 'turns off', 0);
+  tl.to('#lev_s', { rotation: 45, svgOrigin: '60 110', duration: 0.5 }, wOff);
+  tl.to('#val', { y: -14, duration: 0.25, yoyo: true, repeat: 1 }, wOff);
+  CH('c4a', wOff + 0.5, S(4, 3) + 0.9);
+  tl.fromTo('#chn', { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, S(4, 2) + 0.2); POP('#lck', S(4, 2) + 0.25);
+  CH('c4e', W(4, 2, 'only when', 0));
+  const sg = W(4, 2, 'only when', -0.2);
+  ON(['#sig', '#sigi'], sg, 0.2);
+  tl.to(['#sig', '#sigi'], { x: 430, duration: 0.8, ease: 'power1.inOut' }, sg + 0.1);
+  OFF(['#sig', '#sigi', '#chn', '#lck'], sg + 0.95, 0.2);
+  tl.to('#cartG', { x: -400, duration: 1.0, ease: 'power2.inOut' }, sg + 0.95);
+  OFF('#c4e', S(4, 3) - 0.05, 0.2);
+  tl.to('#cartG', { x: 0, duration: 0.9, ease: 'power2.inOut' }, S(4, 3) + 0.05);
+  LB('lbTR', S(4, 3) + 0.1, S(4, 4) - 0.05);
+  POP('#wsg', S(4, 3) + 0.3);
+  tl.to('#lev_s', { rotation: -50, svgOrigin: '60 110', duration: 0.5 }, S(4, 3) + 0.9);
+  POP('#abn', S(4, 4) + 0.2);
+  CH('c4b', S(4, 4) + 1.3, S(4, 5) - 0.05);
+  tl.to('#val', { y: -14, duration: 0.25, yoyo: true, repeat: 1 }, S(4, 4) + 0.5);
+  tl.to('#abn_l', { backgroundColor: '#ffb347', boxShadow: '0 0 0 10px rgba(255,179,71,.5)', duration: 0.3 }, S(4, 5) + 0.1);
+  CH('c4c', S(4, 5) + 0.2);
+  tl.to('#crn_w', { attr: { fill: '#ffd166' }, duration: 0.3 }, W(4, 5, 'orchestrator', -0.3));
+  tl.to('#crn', { x: -410, duration: 0.7, ease: 'power2.inOut' }, W(4, 5, 'orchestrator', -0.3));
+  tl.to('#crn_r', { scaleY: 1, duration: 0.5 }, W(4, 5, 'orchestrator', 0.45));
+  tl.to('#cartG', { y: -150, duration: 0.7 }, W(4, 5, 'orchestrator', 0.95)); tl.to('#crn_r', { scaleY: 0.62, duration: 0.7 }, W(4, 5, 'orchestrator', 0.95));
+  CH('c4d', W(4, 5, 'orchestrator', 0));
+
+  /* ── 5 What a flow needs ── */
+  OFF(['#abn', '#wsg', '#c4c', '#c4d', '#lev', '#nxg', '#c4a'], S(5, 0) - 0.3, 0.25);
+  tl.to('#cartG', { y: 0, duration: 0.6 }, S(5, 0) - 0.25);
+  tl.to('#crn_r', { scaleY: 0, duration: 0.4 }, S(5, 0) - 0.25); tl.to('#crn', { x: 0, duration: 0.7, ease: 'power2.inOut' }, S(5, 0) - 0.2);
+  tl.to('#crn_w', { attr: { fill: '#2d3a5c' }, duration: 0.2 }, S(5, 0) - 0.2);
+  LB('lbNE', S(5, 0) + 0.3, S(5, 1) - 0.05);
+  tl.fromTo('#fl5', { opacity: 0, rotation: -14 }, { opacity: 1, rotation: 0, duration: 0.6, ease: 'back.out(1.4)' }, S(5, 0) + 0.4);
+  ON('#r5_0', W(5, 1, 'when an agent', 0), 0.3); ON('#r5_1', W(5, 1, 'respond to', 0), 0.3);
+  ON('#r5_2', W(5, 2, 'published', 0), 0.3); ON('#r5_3', S(5, 2) + 1.3, 0.3);
+  ON('#r5_4', W(5, 3, 'solution flow', -0.2), 0.3);
+  ON('#dr5', S(5, 3) + 0.1, 0.12); POP('#dp5', W(5, 3, 'solution flow', 0.6));
+  CH('c5a', S(5, 3) + 1.3, S(5, 4) - 0.05);
+  OFF(['#fl5', '#dr5'], S(5, 4) - 0.05, 0.3);
+  POPX('#nwt', S(5, 4) + 0.1);
+  tl.to('#mNg', { opacity: 1, x: 0, duration: 1.2, ease: 'power2.out' }, S(5, 4) + 0.5);
+  tl.to('#val', { y: -14, duration: 0.25, yoyo: true, repeat: 1 }, S(5, 4) + 0.2);
+  CH('c5b', W(5, 4, 'copilot studio', 0));
+
+  /* ── 6 Long jobs ── */
+  CUT(CS2, S(6, 0) - 0.3);
+  OFF(['#c5b', '#nwt', '#mNg'], S(6, 0) - 0.5, 0.1);
+  LB('lbLJ', S(6, 0) + 0.3, S(6, 1) - 0.05);
+  POP('#sw6', S(6, 0) + 0.2);
+  tl.fromTo('#pb6', { x: -260, opacity: 1 }, { x: 260, duration: 1.6, ease: 'power2.out' }, S(6, 0) + 0.2);
+  tl.to('#sw6', { borderColor: '#d98a00', color: '#a86b00', duration: 0.3 }, W(6, 0, 'longer', 0));
+  ON('#hat6', S(6, 1) + 0.15, 0.4); TAG('#hl6', S(6, 1) + 0.3);
+  TAG('#sy6', S(6, 1) + 0.1); TAG('#as6', S(6, 1) + 0.2);
+  tl.to('#pb6', { x: 1000, duration: 2.2, ease: 'power1.inOut' }, S(6, 2) + 0.2);
+  POP('#cal6', W(6, 2, 'thirty days', -0.2)); POPX('#bd6', W(6, 2, 'power automate', 0));
+  POP('#jb6', W(6, 3, 'job', 0));
+  tl.to('#sw6', { borderColor: GRN, color: GRN, duration: 0.3 }, W(6, 3, 'within', 0));
+  CH('c6a', W(6, 3, 'within', 0.1), S(6, 4) - 0.05);
+  ON('#lp6', S(6, 4) + 0.05, 0.3);
+  CH('c6b', S(6, 4) + 0.4); CH('c6c', S(6, 4) + 1.2);
+  POP('#fin6', S(6, 4) + 1.4);
+
+  /* ── 7 EXAM B ── */
+  SET(['#sw6', '#pb6', '#hat6', '#hl6', '#sy6', '#as6', '#cal6', '#bd6', '#jb6', '#c6a', '#lp6', '#c6b', '#c6c', '#fin6', '#lbLJ'], S(7, 0) + 0.6, 0);
+  CAMX(CS3, S(7, 0) + 0.6);
+  EXAMX('exB', 7, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.1 });
+  ON('#pb_L', S(7, 9) + 0.1, 0.3); ON('#pb_R', S(7, 10) + 0.1, 0.3);
+
+  /* ── 8 A separate callback option ── */
+  POPX('#ar3', S(8, 0) + 0.5); POP('#sw3', S(8, 0) + 0.8);
+  LB('plC', W(8, 0, 'called', 0.0), S(8, 1) - 0.05);
+  LB('lbNS', S(8, 0) + 1.2, S(8, 1) - 0.05);
+  POP('#ck3', S(8, 1) + 1.3);
+  tl.fromTo('#bell_g', { rotation: 0, transformOrigin: '50% 10%' }, { rotation: 14, duration: 0.12, yoyo: true, repeat: 9, immediateRender: false }, W(8, 1, 'callback', 0));
+  tl.fromTo('.rg', { opacity: 0.9, scale: 0.6, transformOrigin: '50% 50%' }, { opacity: 0, scale: 1.4, duration: 0.8, stagger: 0.25, repeat: 1, immediateRender: false }, W(8, 1, 'callback', 0));
+  CH('c8a', W(8, 1, 'callback', 0.1), S(8, 2) - 0.05);
+  TAG('#ni3', S(8, 2) + 0.1); CH('c8b', S(8, 2) + 0.5);
+  OFF(['#c8b', '#ck3'], S(8, 3) - 0.05, 0.25);
+  POP('#s3a', S(8, 3) + 0.9); POP('#s3b', S(8, 3) + 1.4); POP('#s3c', W(8, 3, 'telephony', 0));
+  POP('#bar3', S(8, 4) + 0.1); CH('c8c', S(8, 4) + 0.3);
+  tl.to('#tg3', { backgroundColor: '#c9ced8', duration: 0.3 }, W(8, 5, 'keep it', 0.1));
+  tl.to('#tg3k', { x: 52, duration: 0.01 }, 0);
+  tl.to('#tg3k', { x: 0, duration: 0.25 }, W(8, 5, 'keep it', 0.1));
+  OFF('#tg3on', W(8, 5, 'keep it', 0.1), 0.15); ON('#tg3of', W(8, 5, 'keep it', 0.2), 0.15);
+  POP('#jb3', S(8, 5) + 1.0); tl.to('#jb3', { boxShadow: '0 0 0 12px rgba(242,194,48,.6)', duration: 0.4, yoyo: true, repeat: 3 }, S(8, 5) + 1.6);
+  CH('c8d', S(8, 5) + 0.3);
+
+  /* ── 9 Studio (UI) ── */
+  OFF(['#ar3', '#sw3', '#ni3', '#s3a', '#s3b', '#s3c', '#bar3', '#c8a', '#c8c', '#c8d', '#jb3', '#m3', '#hat3', '#cart3', '#pole3', '#bell', '#rings'], S(9, 0) - 0.3, 0.25);
+  ON('#mk', S(9, 0) - 0.2, 0.3);
+  gsap.set('#uiS', { opacity: 0 });
+  ON('#uiBack', S(9, 0) + 0.4, 0.4); ON('#uiS', S(9, 0) + 0.45, 0.4);
+  ON('#cur', S(9, 0) + 1.6, 0.2);
+  CUR(PU.pub[0], PU.pub[1], S(9, 1) + 0.05, 0.8); CLICK(PU.pub[0], PU.pub[1], W(9, 1, 'publish it', -0.2));
+  OFF('#uSt0', W(9, 1, 'publish it', -0.1), 0.15); ON('#uSt1', W(9, 1, 'publish it', 0.05), 0.25); ON('#uC1', W(9, 1, 'publish it', 0.2), 0.25);
+  OFF('#uC1', S(9, 2) + 0.1, 0.2);
+  CUR(PU.nv1[0], PU.nv1[1], S(9, 2) + 0.05, 0.6); CLICK(PU.nv1[0], PU.nv1[1], W(9, 2, 'topics page', -1.0));
+  NAV('#uiS', 1, W(9, 2, 'topics page', -1.0), 4);
+  tl.to('#uL0', { opacity: 0, duration: 0.2 }, W(9, 2, 'topics page', -0.95)); ON('#uL1', W(9, 2, 'topics page', -0.75), 0.25);
+  CUR(PU.row[0], PU.row[1], W(9, 2, 'open the report', -0.5), 0.5); CLICK(PU.row[0], PU.row[1], W(9, 2, 'report problem', 0.2));
+  tl.to('#uL1', { opacity: 0, duration: 0.2 }, W(9, 2, 'report problem', 0.45)); ON('#uL2', W(9, 2, 'report problem', 0.6), 0.25);
+  ON('#uPlus', S(9, 3) - 0.01, 0.01); ON('#uTip', S(9, 3) + 0.05, 0.2);
+  CUR(PU.plus[0], PU.plus[1], S(9, 3) + 0.05, 0.7); CLICK(PU.plus[0], PU.plus[1], S(9, 3) + 1.0);
+  ON('#uMenu', S(9, 4) + 0.05, 0.2);
+  CUR(PU.at[0], PU.at[1], S(9, 4) + 0.2, 0.5); CLICK(PU.at[0], PU.at[1], W(9, 4, 'add a tool', 0.1));
+  OFF(['#uMenu', '#uTip'], W(9, 4, 'add a tool', 0.25), 0.15); ON('#uPick', W(9, 4, 'add a tool', 0.4), 0.2);
+  CUR(PU.ct[0], PU.ct[1], W(9, 4, 'select', -0.3), 0.5); CLICK(PU.ct[0], PU.ct[1], W(9, 4, 'createticket', 0.1));
+  OFF('#uPick', W(9, 4, 'createticket', 0.3), 0.15);
+  OFF('#uPlus', S(9, 5) + 0.1, 0.15); ON('#uAct', S(9, 5) + 0.2, 0.3); ON('#uC2', S(9, 5) + 0.5, 0.25);
+  CUR(1480, 470, S(9, 5) + 0.3, 0.6);
+  ON('#uMap', S(9, 6) + 0.1, 0.3); ON('#uMsg', W(9, 6, 'message', -0.3), 0.3);
+  OFF('#uC2', S(9, 6) + 0.05, 0.2);
+  ON('#uInset', S(9, 7) + 0.1, 0.3); ON('#uC3', S(9, 7) + 0.4, 0.25);
+  CUR(PU.tg[0], PU.tg[1], W(9, 7, 'turn off', -0.3), 0.6); CLICK(PU.tg[0], PU.tg[1], W(9, 7, 'turn off', 0.2));
+  tl.to('#uTg', { backgroundColor: '#c9ced8', duration: 0.25 }, W(9, 7, 'turn off', 0.2)); tl.to('#uTg i', { x: 0, duration: 0.25 }, W(9, 7, 'turn off', 0.2));
+  OFF('#cur', S(10, 0) - 0.5, 0.15);
+  OFF('#uiS', S(10, 0) - 0.15, 0.2); OFF('#uiBack', S(10, 0) - 0.12, 0.2);
+  OFF('#mk', S(10, 0) - 0.1, 0.2);
+
+  /* ── 10 EXAM C + reset for the close ── */
+  CAMX(CL, S(10, 0) + 0.6);
+  SET(['#mk'], S(10, 0) + 0.6, 0);
+  SET(['#lbd', '#cd1', '#cd2', '#bk1', '#bk1b', '#bk2', '#bk2b', '#st2', '#sock', '#sockp', '#mA', '#stub1', '#pcl', '#nxs', '#mcard'], S(10, 0) + 0.6, 0);
+  SET(['#mar', '#val', '#mgr', '#nxg', '#ctr', '#lap', '#door', '#st0', '#st1'], S(10, 0) + 0.6, 1);
+  tl.set('#val', { x: -40, y: 0 }, S(10, 0) + 0.6); tl.set('#mgr', { x: -720 }, S(10, 0) + 0.6); tl.set('#nxg', { x: 900, y: 0 }, S(10, 0) + 0.6);
+  tl.set(['#st0_l', '#st1_l'], { backgroundColor: '#c9ced8' }, S(10, 0) + 0.6);
+  EXAMX('exC', 10, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(10, 4), S(10, 5), S(10, 6)], end: S(11, 0) - 0.1 });
+  ON('#pc_L', S(10, 9) + 0.1, 0.3); ON('#pc_R', S(10, 10) + 0.1, 0.3);
+
+  /* ── 11 Three rules to remember ── */
+  LB('plB', S(11, 0) + 0.2, S(11, 5) - 0.1);
+  POP('#stM', S(11, 0) + 0.6);
+  tl.to('#nxg', { x: 120, duration: 1.8, ease: 'power2.out' }, S(11, 0) + 0.3);
+  ON('#p1', S(11, 0) + 0.2, 0.3); ON('#p2', S(11, 0) + 4.7, 0.3);
+  tl.fromTo('#p1', { x: 0 }, { x: 1150, duration: 9, ease: 'none', repeat: 3, immediateRender: false }, S(11, 0) + 0.2);
+  tl.fromTo('#p2', { x: 0 }, { x: 1150, duration: 9, ease: 'none', repeat: 3, immediateRender: false }, S(11, 0) + 4.7);
+  BOB('#nxg', S(11, 0) + 2.2, TOTAL, 14);
+  ON('#rb', S(11, 1) + 0.1, 0.4);
+  [0, 1, 2].forEach((k) => tl.to('#rl' + k, { opacity: 1, duration: 0.3 }, S(11, 2 + k) + 0.15));
+  OFF('#rb', S(11, 5) + 0.05, 0.4); OFF('#stM', S(11, 5) - 0.2, 0.25);
+  CAMV([1250, 540], S(11, 5) + 0.1, 1.1);
+  POPX('#dsg', S(11, 5) + 1.3);
+  TAG('#nxl', S(11, 5) + 2.1);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

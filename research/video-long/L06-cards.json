@@ -1,0 +1,12 @@
+{
+"2": ["Component collection", [["Contains", "Topics, tools, knowledge, flows, entities, child agents, MCP"], ["Contoso", "Greeting and escalation"]]],
+"3": ["Who edits", [["Authors of consuming agents", "Use, cannot change"], ["Can edit", "Creator, system customizer, administrator"]]],
+"4": ["Why not", [["Copy and paste", "Falls out of sync"], ["Child agent", "Not shared"], ["Export whole agent", "Too much"]]],
+"6": ["Moving a collection", [["Connectors or environment variables", "Use a solution as carrier"], ["Direct export", "Managed, simpler cases"]]],
+"8": ["Skill (Microsoft Copilot harness)", [["Parts", "Name, description, Markdown instructions"], ["Activated", "When the request matches the description"]]],
+"9": ["Adding a skill", [["Where", "Build tab › Skills"], ["Formats", "Markdown with YAML front matter, or ZIP with SKILL.md"], ["Name", "lowercase, numbers, hyphens; unique"]]],
+"10": ["Skill or not", [["One-off", "Agent instructions"], ["Single action", "Tool"], ["Fixed sequence", "Workflow"], ["Own owner, life cycle", "Connected agent"]]],
+"13": ["Fixing a skill", [["Upload fails", "YAML front matter, name, description"], ["Fires wrongly", "Refine the description"], ["Wrong output", "Refine the instructions"], ["Update", "Edit source, Replace"]]],
+"15": ["Memory (preview)", [["Switch", "On or off per agent"], ["Store", "Separate per user"]]],
+"16": ["Steps", [["1", "Settings › Component collections"], ["2", "New collection, add components, save"], ["3", "Add it to another agent"]]]
+}

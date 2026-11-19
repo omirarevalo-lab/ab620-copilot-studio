@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L05 pilot · world style</title>
+<script src="gsap.min.js"></script>
+<link rel="stylesheet" href="style.css" />
+<style>
+  :root { --amber: #d98a00; --amber-soft: #fff3d6; --red: #c4392f; --red-soft: #fde8e6; --green: #1e7f4f; --green-soft: #e3f4ea; --wall: #eef1f7; --floor: #e3e7ef; }
+  #stage { position: absolute; inset: 0; overflow: hidden; background: var(--wall); }
+  #world { position: absolute; left: 0; top: 0; width: 3840px; height: 2160px; transform-origin: 0 0; }
+  .wall { position: absolute; left: 0; top: 0; width: 3840px; height: 1500px; background: linear-gradient(#f4f6fa, var(--wall)); }
+  .floor { position: absolute; left: 0; top: 1500px; width: 3840px; height: 660px; background: var(--floor); }
+  .floor:before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: #d3d9e4; }
+  .w { position: absolute; }
+  .tag { position: absolute; transform: translateX(-50%); white-space: nowrap; font-size: 34px; font-weight: 700; padding: 10px 26px; border-radius: 999px; background: #fff; box-shadow: var(--shadow); opacity: 0; }
+  .tag.amber { color: var(--amber); border: 3px solid var(--amber); }
+  .tag.red { color: var(--red); border: 3px solid var(--red); }
+  .tag.blue { color: var(--accent); border: 3px solid var(--accent); }
+  /* overlays */
+  .ov { position: absolute; opacity: 0; }
+  .kin { left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -2px; color: var(--ink); }
+  #ovTitle { top: 0; bottom: 0; padding-top: 400px; font-size: 120px; background: rgba(244,246,250,.94); }
+  #ovTitle small { display: block; font-size: 44px; font-weight: 600; letter-spacing: 0; color: var(--muted); margin-top: 18px; }
+  #ovQ { top: 380px; font-size: 104px; }
+  #ovQ span { display: inline-block; background: #fff; padding: 22px 56px; border-radius: 36px; box-shadow: 0 30px 80px rgba(16,24,40,.18); }
+  #vign { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(20,24,33,0) 40%, rgba(20,24,33,.45) 100%); opacity: 0; }
+  #ovSplit { inset: 0; display: flex; }
+  #ovSplit > div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; font-size: 120px; font-weight: 800; letter-spacing: -2px; }
+  #ovSplit .l { background: var(--amber-soft); color: var(--amber); }
+  #ovSplit .r { background: var(--red-soft); color: var(--red); }
+  #ovSplit small { font-size: 46px; font-weight: 600; letter-spacing: 0; color: var(--ink); }
+  #ovSplit .ic { width: 150px; height: 150px; }
+  #stamp { left: 50%; top: 820px; transform: translateX(-50%); font-size: 40px; font-weight: 700; background: var(--ink); color: #fff; padding: 18px 40px; border-radius: 18px; white-space: nowrap; }
+  #stamp b { color: #ffd166; }
+  #blocked { left: 50%; top: 50%; font-size: 200px; font-weight: 900; color: var(--red); border: 16px solid var(--red); border-radius: 30px; padding: 10px 60px; letter-spacing: 6px; transform: translate(-50%, -50%) rotate(-8deg); background: rgba(255,255,255,.85); }
+  /* product UI mock (generic, no product logos) */
+  #uiBack { position: absolute; inset: 0; background: rgba(238,241,247,.94); opacity: 0; }
+  #ui { position: absolute; left: 140px; top: 90px; width: 1640px; height: 900px; background: #fff; border-radius: 28px; box-shadow: 0 40px 120px rgba(16,24,40,.25); overflow: hidden; opacity: 0; transform-origin: 50% 50%; }
+  #ui .bar { height: 78px; background: #1f2a44; display: flex; align-items: center; padding: 0 34px; gap: 14px; color: #fff; font-size: 28px; font-weight: 600; }
+  #ui .bar i.dot { width: 16px; height: 16px; border-radius: 50%; background: #ffffff40; display: inline-block; }
+  #ui .bar .t { margin-left: 18px; }
+  #ui .bar .pub { margin-left: auto; background: var(--accent); padding: 12px 30px; border-radius: 12px; font-size: 26px; }
+  #ui .nav { position: absolute; left: 0; top: 78px; bottom: 0; width: 300px; background: #f3f5f9; padding: 30px 0; }
+  #ui .nav div { padding: 16px 38px; font-size: 27px; color: var(--muted); }
+  #ui .nav div.on { background: #fff; color: var(--accent); font-weight: 700; border-left: 6px solid var(--accent); }
+  #ui .main { position: absolute; left: 300px; top: 78px; right: 0; bottom: 0; padding: 40px 56px; }
+  #ui h3 { margin: 0 0 30px; font-size: 44px; }
+  #ui .crumb { font-size: 24px; color: var(--muted); margin-bottom: 8px; }
+  #ui .row { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; border-bottom: 2px solid var(--line); width: 680px; }
+  #ui .row b { font-size: 31px; }
+  #ui .dd { position: relative; width: 380px; padding: 16px 22px; border: 2px solid var(--line2); border-radius: 12px; font-size: 26px; background: #fff; }
+  #ui .dd:after { content: "▾"; position: absolute; right: 18px; color: var(--muted); }
+  #ui .dd .v2 { position: absolute; left: 22px; top: 16px; opacity: 0; color: var(--amber); font-weight: 700; }
+  #ui .btn { padding: 14px 34px; border-radius: 12px; border: 2px solid var(--line2); font-size: 26px; font-weight: 600; }
+  #ddList { position: absolute; left: 0; top: 64px; width: 410px; background: #fff; border-radius: 12px; box-shadow: 0 20px 50px rgba(16,24,40,.2); opacity: 0; z-index: 5; }
+  #ddList div { padding: 16px 22px; font-size: 26px; }
+  #ddList div.sel { background: var(--amber-soft); color: var(--amber); font-weight: 700; }
+  #warns { position: absolute; right: 50px; top: 150px; width: 520px; display: flex; flex-direction: column; gap: 20px; }
+  .warn { background: var(--amber-soft); border: 3px solid var(--amber); border-radius: 18px; padding: 20px 24px; display: flex; gap: 18px; align-items: flex-start; opacity: 0; }
+  .warn .ic { width: 44px; height: 44px; color: var(--amber); flex: 0 0 auto; }
+  .warn b { display: block; font-size: 27px; color: #7a4d00; }
+  .warn span { font-size: 25px; color: #6b5a3a; }
+  #shareDlg { position: absolute; left: 520px; top: 430px; width: 560px; background: #fff; border-radius: 20px; box-shadow: 0 30px 80px rgba(16,24,40,.25); padding: 30px 34px; opacity: 0; z-index: 6; }
+  #shareDlg b { font-size: 30px; }
+  #shareDlg .tg { margin-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 27px; }
+  .sw { width: 86px; height: 46px; border-radius: 23px; background: var(--line2); position: relative; }
+  .sw i { position: absolute; left: 5px; top: 5px; width: 36px; height: 36px; border-radius: 50%; background: #fff; }
+  #toast { position: absolute; right: 40px; top: 96px; background: var(--green); color: #fff; font-size: 27px; font-weight: 700; padding: 16px 30px; border-radius: 14px; opacity: 0; }
+  #brace { position: absolute; right: 590px; top: 150px; width: 26px; height: 0; border: 5px solid var(--amber); border-left: 0; border-radius: 0 20px 20px 0; opacity: 0; }
+  #braceTxt { position: absolute; right: 50px; top: 560px; width: 520px; text-align: center; font-size: 30px; font-weight: 800; color: #fff; background: var(--amber); border-radius: 999px; padding: 14px 0; opacity: 0; }
+  #cur { position: absolute; left: 0; top: 0; width: 46px; height: 60px; opacity: 0; z-index: 20; }
+  #clickRing { position: absolute; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; border: 5px solid var(--accent); opacity: 0; z-index: 19; }
+  .capi { position: absolute; width: 200px; text-align: center; transform: translate(-50%, -50%); opacity: 0; }
+  .capi .disc { width: 150px; height: 150px; margin: 0 auto 14px; border-radius: 40px; background: #fff; border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; color: var(--accent); box-shadow: var(--shadow); }
+  .capi .disc .ic { width: 80px; height: 80px; }
+  .capi b { font-size: 36px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage">
+ <div id="world">
+  <div class="wall"></div><div class="floor"></div>
+  <!-- many agents (filled by script) -->
+  <div id="fleet" class="w" style="left:0;top:0"></div>
+
+  <!-- maker desk -->
+  <svg class="w" style="left:420px;top:1040px" width="900" height="520" viewBox="0 0 900 520">
+   <rect x="230" y="340" width="600" height="26" rx="8" fill="#c9ced8"/><rect x="270" y="366" width="18" height="120" fill="#c9ced8"/><rect x="770" y="366" width="18" height="120" fill="#c9ced8"/>
+   <g id="maker"><circle cx="140" cy="200" r="46" fill="#f2c9a6"/><path d="M86 470 Q86 270 140 262 Q194 270 194 470 Z" fill="#2f5bd3"/><path d="M178 320 L300 330" stroke="#2f5bd3" stroke-width="26" stroke-linecap="round"/></g>
+   <rect x="370" y="110" width="320" height="230" rx="16" fill="#1f2a44"/><rect x="386" y="126" width="288" height="198" rx="8" fill="#fff"/>
+   <rect x="340" y="336" width="380" height="14" rx="6" fill="#8a93a6"/>
+   <text x="404" y="170" font-size="22" font-weight="700" fill="#141821">Authentication</text>
+   <rect x="404" y="188" width="252" height="48" rx="8" fill="#fff" stroke="#c9ced8" stroke-width="2"/>
+   <text id="lapA" x="418" y="220" font-size="19" fill="#141821">Authenticate with Microsoft</text>
+   <text id="lapB" x="418" y="220" font-size="20" font-weight="700" fill="#d98a00" opacity="0">No authentication</text>
+   <rect id="lapHi" x="404" y="188" width="252" height="48" rx="8" fill="none" stroke="#d98a00" stroke-width="4" opacity="0"/>
+  </svg>
+
+  <!-- wall alarm (security scan) -->
+  <div class="w" id="alarm" style="left:860px;top:640px;width:200px;height:200px">
+   <svg width="200" height="200" viewBox="0 0 200 200" style="position:absolute;left:0;top:0;overflow:visible">
+    <circle class="ring" cx="100" cy="100" r="90" fill="none" stroke="#d98a00" stroke-width="8" opacity="0"/>
+    <circle class="ring" cx="100" cy="100" r="90" fill="none" stroke="#d98a00" stroke-width="8" opacity="0"/>
+    <circle class="ring" cx="100" cy="100" r="90" fill="none" stroke="#d98a00" stroke-width="8" opacity="0"/>
+    <circle id="alarmOut" cx="100" cy="100" r="78" fill="none" stroke="#c9ced8" stroke-width="6" stroke-dasharray="14 12" opacity="0"/>
+    <g id="alarmBody" opacity="0"><circle cx="100" cy="100" r="78" fill="#d98a00"/><circle id="alarmGlow" cx="100" cy="100" r="50" fill="#ffd166"/><path d="M100 64 L100 108" stroke="#7a4d00" stroke-width="12" stroke-linecap="round"/><circle cx="100" cy="132" r="8" fill="#7a4d00"/></g>
+   </svg>
+  </div>
+  <div class="tag amber" id="tagScan" style="left:960px;top:880px">Security scan · warns</div>
+
+  <!-- the agent -->
+  <svg class="w" id="bot" style="left:1720px;top:1010px" width="360" height="500" viewBox="0 0 360 500">
+   <line x1="180" y1="40" x2="180" y2="90" stroke="#2f5bd3" stroke-width="10"/><circle cx="180" cy="34" r="16" fill="#2f5bd3"/>
+   <rect x="60" y="90" width="240" height="190" rx="54" fill="#2f5bd3"/><rect x="92" y="130" width="176" height="104" rx="40" fill="#e6ecfb"/>
+   <circle class="eye" cx="145" cy="182" r="16" fill="#141821"/><circle class="eye" cx="215" cy="182" r="16" fill="#141821"/>
+   <rect x="96" y="300" width="168" height="170" rx="40" fill="#2f5bd3"/>
+   <rect x="250" y="330" width="96" height="120" rx="10" fill="#ffd166"/><text x="298" y="400" font-size="34" font-weight="800" fill="#7a4d00" text-anchor="middle">HR</text>
+   <g id="lockC"><rect x="20" y="210" width="56" height="46" rx="10" fill="#1e7f4f"/><path d="M32 210 v-14 a16 16 0 0 1 32 0 v14" fill="none" stroke="#1e7f4f" stroke-width="9"/></g>
+   <g id="lockO" opacity="0"><rect x="20" y="210" width="56" height="46" rx="10" fill="#d98a00"/><path d="M32 210 v-14 a16 16 0 0 1 32 0 v-6" fill="none" stroke="#d98a00" stroke-width="9" transform="rotate(-25 32 210)"/></g>
+  </svg>
+  <div class="tag blue" id="tagBot" style="left:1900px;top:1540px">HR agent</div>
+
+  <!-- door + gate (data policy) -->
+  <svg class="w" style="left:2700px;top:960px" width="420" height="560" viewBox="0 0 420 560">
+   <rect x="120" y="20" width="200" height="520" rx="10" fill="#d3d9e4"/><rect x="140" y="40" width="160" height="500" fill="#f8f9fb"/>
+   <g id="gate" style="transform-origin: 40px 330px" opacity="0"><rect x="30" y="320" width="20" height="200" rx="6" fill="#141821"/><g id="gateBar"><rect x="40" y="310" width="360" height="36" rx="18" fill="#c4392f"/><rect x="100" y="310" width="40" height="36" fill="#fff"/><rect x="200" y="310" width="40" height="36" fill="#fff"/><rect x="300" y="310" width="40" height="36" fill="#fff"/></g></g>
+   <rect id="gateOut" x="40" y="310" width="360" height="36" rx="18" fill="none" stroke="#c9ced8" stroke-width="6" stroke-dasharray="14 12" opacity="0"/>
+  </svg>
+  <div class="tag red" id="tagGate" style="left:2920px;top:1540px">Data policy · blocks</div>
+
+  <!-- admin tower -->
+  <svg class="w" id="tower" style="left:3160px;top:300px" width="460" height="560" viewBox="0 0 460 560" opacity="0">
+   <rect x="40" y="300" width="380" height="240" rx="24" fill="#1f2a44"/><rect x="70" y="330" width="320" height="180" rx="14" fill="#2d3a5c"/>
+   <circle cx="230" cy="160" r="54" fill="#f2c9a6"/><path d="M160 300 Q160 222 230 214 Q300 222 300 300 Z" fill="#1e7f4f"/>
+   <path d="M196 380 l34 -26 l34 26 v40 q0 30 -34 46 q-34 -16 -34 -46 Z" fill="#c4392f"/>
+  </svg>
+  <div class="tag red" id="tagAdmin" style="left:3390px;top:880px">Administrator</div>
+  <svg class="w" style="left:2780px;top:860px" width="700" height="460" viewBox="0 0 700 460"><path id="adminLine" d="M600 20 C 560 200, 200 120, 60 440" fill="none" stroke="#c4392f" stroke-width="6" stroke-dasharray="16 14" opacity="0"/></svg>
+
+  <!-- link + people (filled by script) -->
+  <div class="w" id="linkChip" style="left:0;top:0;opacity:0"><span class="pill solid lg"><i class="ic" data-i="link"></i>Agent link</span></div>
+  <div id="crowd" class="w" style="left:0;top:0"></div>
+  <div id="bubbles" class="w" style="left:0;top:0"></div>
+  <div class="w" id="walker" style="left:3260px;top:1180px;opacity:0"></div>
+  <div class="w" id="xMark" style="left:2600px;top:1060px;font-size:200px;font-weight:900;color:#c4392f;opacity:0">✕</div>
+
+  <!-- capabilities around the agent (scene 4) -->
+  <svg class="w" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+   <path class="cable" id="cb0" d="M1820 1150 C 1700 1000, 1500 900, 1380 800" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <path class="cable" id="cb1" d="M1980 1150 C 2100 1000, 2300 900, 2420 800" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <path class="cable" id="cb2" d="M1800 1420 C 1650 1550, 1500 1650, 1380 1760" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <path class="cable" id="cb3" d="M2000 1420 C 2150 1550, 2300 1650, 2420 1760" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <g id="cut" opacity="0"><rect x="2150" y="905" width="40" height="150" rx="10" fill="#c4392f" transform="rotate(35 2170 980)"/></g>
+  </svg>
+  <div class="capi" id="cap0" style="left:1300px;top:720px"><div class="disc"><i class="ic" data-i="chat"></i></div><b>Channels</b></div>
+  <div class="capi" id="cap1" style="left:2500px;top:720px"><div class="disc"><i class="ic" data-i="book_open"></i></div><b>Knowledge</b></div>
+  <div class="capi" id="cap2" style="left:1300px;top:1840px"><div class="disc"><i class="ic" data-i="toolbox"></i></div><b>Tools</b></div>
+  <div class="capi" id="cap3" style="left:2500px;top:1840px"><div class="disc"><i class="ic" data-i="server"></i></div><b>MCP servers</b></div>
+  <div id="envs" class="w" style="left:2950px;top:960px;opacity:0;display:flex;gap:24px"></div>
+ </div>
+
+ <!-- product UI (scene 3) -->
+ <div id="uiBack"></div>
+ <div id="ui">
+  <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="t">HR agent · Settings</span><span class="pub" id="btnPub">Publish</span></div>
+  <div class="nav"><div>Overview</div><div>Knowledge</div><div>Tools</div><div>Topics</div><div class="on">Settings</div></div>
+  <div class="main">
+   <div class="crumb">Settings › Security</div><h3>Security</h3>
+   <div class="row"><b>Authentication</b><div class="dd" id="ddAuth"><span id="authA">Authenticate with Microsoft</span><span class="v2" id="authB">No authentication</span>
+     <div id="ddList"><div>Authenticate with Microsoft</div><div>Authenticate manually</div><div class="sel">No authentication</div></div></div></div>
+   <div class="row"><b>Tool credentials</b><div class="dd" id="ddCred"><span id="credA">End user credentials</span><span class="v2" id="credB">Maker's credentials</span></div></div>
+   <div class="row"><b>Sharing</b><span class="btn" id="btnShare">Share</span></div>
+  </div>
+  <div id="warns">
+   <div class="warn" id="w1"><i class="ic" data-i="warning"></i><div><b>No authentication</b><span>Anyone with the link can chat</span></div></div>
+   <div class="warn" id="w2"><i class="ic" data-i="warning"></i><div><b>Maker's credentials</b><span>Tools run as you, not the user</span></div></div>
+   <div class="warn" id="w3"><i class="ic" data-i="warning"></i><div><b>Shared with everyone</b><span>Default is shared with nobody</span></div></div>
+  </div>
+  <div id="brace"></div><div id="braceTxt">A default was weakened</div>
+  <div id="shareDlg"><b>Share HR agent</b><div class="tg"><span>Whole organization</span><div class="sw" id="sw"><i id="swK"></i></div></div></div>
+  <div id="toast">✓ Published</div>
+ </div>
+ <div id="clickRing"></div>
+ <svg id="cur" viewBox="0 0 46 60"><path d="M4 4 L4 48 L16 37 L25 56 L33 52 L24 34 L40 34 Z" fill="#141821" stroke="#fff" stroke-width="3"/></svg>
+
+ <div id="vign"></div>
+ <div class="ov kin" id="ovTitle">Monday morning at Contoso<small>Security and governance</small></div>
+ <div class="ov kin" id="ovQ"><span>Who should have stopped this?</span></div>
+ <div class="ov" id="ovSplit"><div class="l"><i class="ic" data-i="alert"></i>WARNS<small>Security scan</small></div><div class="r"><i class="ic" data-i="shield_checkmark"></i>PREVENTS<small>Data policy</small></div></div>
+ <div class="ov" id="stamp">Exam rule: <b>scan warns</b> · <b>policy blocks</b></div>
+ <div class="ov" id="blocked">BLOCKED</div>
+</div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<script>
+  const B = {{BEATS}};
+  const tl = gsap.timeline({ paused: true });
+  const S = (i, j) => B.scenes[i].sentences[j || 0].start;
+  const E = (i, j) => B.scenes[i].sentences[j || 0].end;
+  const W = (i, j, word, lag) => { const s = B.scenes[i].sentences[j], k = s.text.toLowerCase().indexOf(word.toLowerCase()); return (k < 0 ? s.start : s.start + (s.end - s.start) * k / s.text.length) + (lag || 0); };
+  const ON = (sel, t, d) => tl.to(sel, { opacity: 1, duration: d || 0.4 }, t);
+  const OFF = (sel, t, d) => tl.to(sel, { opacity: 0, duration: d || 0.4 }, t);
+  const POP = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, t);
+  const TAG = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)' }, t);
+  // camera: centre world point (x, y) at scale s
+  const CAM = (x, y, s, t, d, ease) => tl.to('#world', { x: 960 - x * s, y: 540 - y * s, scale: s, duration: d == null ? 1.6 : d, ease: ease || 'power3.inOut' }, t);
+  // cursor in the UI layer (screen px)
+  const CUR = (x, y, t, d) => tl.to('#cur', { x: x, y: y, duration: d || 0.9, ease: 'power2.inOut' }, t);
+  const CLICK = (x, y, t) => { tl.fromTo('#clickRing', { left: x, top: y, opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.4, duration: 0.5, ease: 'power2.out' }, t); tl.to('#cur', { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1 }, t); };
+  const person = (c) => `<svg width="90" height="200" viewBox="0 0 90 200"><circle cx="45" cy="34" r="28" fill="#f2c9a6"/><path d="M8 196 Q8 76 45 70 Q82 76 82 196 Z" fill="${c}"/></svg>`;
+  const bubble = () => `<svg width="110" height="84" viewBox="0 0 110 84"><path d="M10 6 h90 a8 8 0 0 1 8 8 v40 a8 8 0 0 1 -8 8 h-60 l-22 18 v-18 h-8 a8 8 0 0 1 -8 -8 v-40 a8 8 0 0 1 8 -8z" fill="#fff" stroke="#d98a00" stroke-width="4"/><circle cx="34" cy="34" r="6" fill="#d98a00"/><circle cx="55" cy="34" r="6" fill="#d98a00"/><circle cx="76" cy="34" r="6" fill="#d98a00"/></svg>`;
+  const miniBot = `<svg width="64" height="70" viewBox="0 0 64 70"><rect x="6" y="8" width="52" height="40" rx="14" fill="#2f5bd3"/><circle cx="24" cy="28" r="5" fill="#fff"/><circle cx="40" cy="28" r="5" fill="#fff"/><rect x="16" y="50" width="32" height="18" rx="8" fill="#2f5bd3"/></svg>`;
+
+  // build repeated elements (deterministic)
+  const crowd = document.getElementById('crowd'), cols = ['#8a5cd6', '#1e7f4f', '#c4392f', '#0f6f85', '#7a4d00'];
+  for (let k = 0; k < 5; k++) { const d = document.createElement('div'); d.className = 'w cp'; d.id = 'p' + k; d.style.cssText = `left:${3250 + k * 120}px;top:${1300 + (k % 2) * 20}px;opacity:0`; d.innerHTML = person(cols[k]); crowd.appendChild(d); }
+  const bub = document.getElementById('bubbles');
+  for (let k = 0; k < 4; k++) { const d = document.createElement('div'); d.className = 'w bb'; d.style.cssText = `left:${1680 + k * 150}px;top:${880 - (k % 2) * 60}px;opacity:0`; d.innerHTML = bubble(); bub.appendChild(d); }
+  const fleet = document.getElementById('fleet');
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 26; c++) { const d = document.createElement('div'); d.className = 'w fl'; d.style.cssText = `left:${210 + c * 132 + (r % 2) * 66}px;top:${1700 + r * 120}px;opacity:0`; d.innerHTML = miniBot; fleet.appendChild(d); }
+  document.getElementById('walker').innerHTML = person('#0f6f85');
+  const envs = document.getElementById('envs');
+  ['Dev', 'Test', 'Prod'].forEach((n) => { const d = document.createElement('div'); d.className = 'env'; d.style.cssText = 'background:#fff;border:4px solid #c4392f;border-radius:22px;padding:18px 26px;font-size:34px;font-weight:800;color:#c4392f;box-shadow:var(--shadow)'; d.textContent = '🛡 ' + n; envs.appendChild(d); });
+
+  gsap.set('#world', { x: 960 - 900 * 1.5, y: 540 - 1230 * 1.5, scale: 1.5 });
+  gsap.set('#cur', { x: 960, y: 900 });
+
+  /* ── scene 0: Monday morning ───────────────────────────── */
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.3);
+  tl.fromTo('#vign', { opacity: 0 }, { opacity: 0.6, duration: 0.5 }, 0.3);
+  OFF('#ovTitle', S(0, 1) - 0.3, 0.5); OFF('#vign', S(0, 1) - 0.3, 0.5);
+  tl.to('#maker path:last-child', { rotation: -6, transformOrigin: '178px 320px', duration: 0.18, yoyo: true, repeat: 9 }, S(0, 1) + 0.4);
+  tl.to('#lapA', { opacity: 0, duration: 0.25 }, W(0, 1, 'switches', 0.6));
+  tl.to('#lapB', { opacity: 1, duration: 0.25 }, W(0, 1, 'switches', 0.7));
+  tl.fromTo('#lapHi', { opacity: 0 }, { opacity: 1, duration: 0.2, yoyo: true, repeat: 3 }, W(0, 1, 'switches', 0.7));
+  CAM(1500, 1240, 1.0, W(0, 1, 'No authentication', 0.2), 1.6);
+  tl.to('#lockC', { opacity: 0, duration: 0.3 }, W(0, 1, 'No authentication', 1.0)); tl.to('#lockO', { opacity: 1, duration: 0.3 }, W(0, 1, 'No authentication', 1.0));
+  tl.fromTo('#lockO', { scale: 1 }, { scale: 1.25, transformOrigin: '48px 230px', duration: 0.2, yoyo: true, repeat: 3 }, W(0, 1, 'No authentication', 1.2));
+  // the link leaves through the door
+  CAM(2300, 1240, 0.75, S(0, 2) - 0.2, 1.4);
+  tl.set('#linkChip', { x: 1040, y: 1150, opacity: 0 }, S(0, 2));
+  tl.to('#linkChip', { opacity: 1, duration: 0.3 }, S(0, 2));
+  tl.to('#linkChip', { x: 3300, y: 1150, duration: 1.6, ease: 'power1.inOut' }, S(0, 2) + 0.2);
+  // people come in
+  for (let k = 0; k < 5; k++) { tl.to('#p' + k, { opacity: 1, duration: 0.3 }, S(0, 3) + k * 0.15); tl.to('#p' + k, { x: -(1150 - k * 60), duration: 2.4, ease: 'power1.inOut' }, S(0, 3) + 0.3 + k * 0.15); tl.to('#p' + k, { y: -10, duration: 0.2, yoyo: true, repeat: 11, ease: 'sine.inOut' }, S(0, 3) + 0.3 + k * 0.15); }
+  OFF('#linkChip', S(0, 3) + 0.4);
+  gsap.utils.toArray('.bb').forEach((b, k) => POP(b, W(0, 3, 'chat', 0.6 + k * 0.3)));
+  // the question
+  tl.to('#vign', { opacity: 1, duration: 0.5 }, S(0, 4) - 0.2);
+  tl.fromTo('#ovQ', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, S(0, 4) - 0.1);
+  OFF('#ovQ', S(0, 5) - 0.1); OFF('#vign', S(0, 5) - 0.1);
+  // two safety nets (outlines) + the whole fleet
+  CAM(1920, 1150, 0.5, S(0, 5) - 0.2, 1.8);
+  ON('#alarmOut', W(0, 5, 'two safety', 0.2)); ON('#gateOut', W(0, 5, 'two safety', 0.5));
+  tl.fromTo(['#alarmOut', '#gateOut'], { scale: 0.9, transformOrigin: '50% 50%' }, { scale: 1.1, duration: 0.4, yoyo: true, repeat: 3 }, W(0, 5, 'two safety', 0.5));
+  tl.to('.fl', { opacity: 1, duration: 0.25, stagger: { each: 0.035, from: 'center' } }, W(0, 5, 'hundreds', -0.3));
+  tl.to(['.cp', '.bb'], { opacity: 0.25, duration: 0.6 }, W(0, 5, 'hundreds', -0.3));
+  ON('#tower', W(0, 5, 'admins', 0)); TAG('#tagAdmin', W(0, 5, 'admins', 0.2));
+
+  /* ── scene 1: the alarm and the guard ──────────────────── */
+  tl.to(['.cp', '.bb', '.fl'], { opacity: 0, duration: 0.5 }, S(1, 0) - 0.4);
+  CAM(980, 1010, 0.95, S(1, 0) - 0.2, 1.6);
+  OFF('#alarmOut', S(1, 1)); tl.fromTo('#alarmBody', { opacity: 0, scale: 0.4, transformOrigin: '100px 100px' }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)' }, S(1, 1));
+  TAG('#tagScan', W(1, 1, 'alarm', 0));
+  // it rings
+  const rings = (t, n) => { for (let r = 0; r < n; r++) tl.fromTo('#alarm .ring', { opacity: 0.8, scale: 0.9, transformOrigin: '100px 100px' }, { opacity: 0, scale: 1.9, duration: 0.9, stagger: 0.25, ease: 'power1.out' }, t + r * 0.8); tl.fromTo('#alarmGlow', { opacity: 1 }, { opacity: 0.2, duration: 0.2, yoyo: true, repeat: n * 4 - 1 }, t); };
+  rings(W(1, 2, 'rings', 0), 3);
+  // ... but you can still walk through
+  CAM(2700, 1200, 0.9, W(1, 2, 'still walk', -0.6), 1.2);
+  tl.set('#walker', { x: 0, opacity: 1 }, W(1, 2, 'still walk', -0.4));
+  tl.to('#walker', { x: -900, duration: 2.2, ease: 'none' }, W(1, 2, 'still walk', -0.3));
+  tl.to('#walker', { y: -10, duration: 0.2, yoyo: true, repeat: 11 }, W(1, 2, 'still walk', -0.3));
+  rings(W(1, 2, 'still walk', -0.2), 2);
+  // the guard
+  tl.set('#walker', { x: 0, opacity: 0 }, S(1, 3) - 0.1);
+  OFF('#gateOut', S(1, 3)); tl.fromTo('#gate', { opacity: 0, rotation: -90 }, { opacity: 1, rotation: 0, duration: 0.7, ease: 'bounce.out' }, S(1, 3) + 0.2);
+  TAG('#tagGate', W(1, 3, 'guard', 0));
+  CAM(3050, 1000, 0.75, S(1, 4) - 0.2, 1.2);
+  tl.fromTo('#adminLine', { opacity: 0 }, { opacity: 1, duration: 0.4 }, W(1, 4, 'posts', 0));
+  tl.set('#walker', { opacity: 1 }, W(1, 4, 'does not', -0.9));
+  tl.to('#walker', { x: -460, duration: 0.9, ease: 'power1.in' }, W(1, 4, 'does not', -0.8));
+  tl.to('#walker', { x: -300, duration: 0.5, ease: 'power2.out' }, W(1, 4, 'does not', 0.1));
+  tl.fromTo('#xMark', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, W(1, 4, 'pass', -0.1));
+  // one warns, the other prevents
+  tl.fromTo('#ovSplit .l', { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }, W(1, 5, 'warns', -0.2));
+  tl.fromTo('#ovSplit .r', { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }, W(1, 5, 'warns', -0.2)); tl.fromTo('#ovSplit .r > *', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 }, W(1, 5, 'prevents', -0.2)); tl.set('#ovSplit .r > *', { opacity: 0 }, 0);
+  tl.set('#ovSplit', { opacity: 1 }, W(1, 5, 'warns', -0.2));
+  tl.fromTo('#stamp', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, S(1, 6) + 0.3);
+  OFF(['#ovSplit', '#stamp'], E(1, 6) + 0.3, 0.4); OFF(['#walker', '#xMark'], E(1, 6));
+
+  /* ── scene 2: the alarm in action (product UI) ─────────── */
+  CAM(1020, 1250, 2.4, S(2, 0) - 0.3, 1.2, 'power2.in');
+  ON('#uiBack', S(2, 0) + 0.5, 0.5); tl.fromTo('#ui', { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' }, S(2, 0) + 0.6);
+  ON('#cur', S(2, 1) - 0.4, 0.2);
+  CUR(1190, 330, S(2, 1) - 0.3, 0.9); CLICK(1190, 340, W(2, 1, 'switches', 0));
+  ON('#ddList', W(2, 1, 'switches', 0.1), 0.2);
+  CUR(1170, 470, W(2, 1, 'No authentication', -0.7), 0.6); CLICK(1170, 480, W(2, 1, 'No authentication', 0));
+  OFF('#ddList', W(2, 1, 'No authentication', 0.2), 0.15); OFF('#authA', W(2, 1, 'No authentication', 0.2), 0.15); ON('#authB', W(2, 1, 'No authentication', 0.25), 0.2);
+  tl.fromTo('#w1', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, S(2, 2));
+  CUR(1190, 430, S(2, 3), 0.8); CLICK(1190, 440, W(2, 3, "maker's", -0.2));
+  OFF('#credA', W(2, 3, "maker's", 0), 0.15); ON('#credB', W(2, 3, "maker's", 0.05), 0.2);
+  tl.fromTo('#w2', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(2, 3, 'warns again', -0.1));
+  CUR(1110, 520, S(2, 4) - 0.2, 0.8); CLICK(1110, 530, S(2, 4) + 0.6);
+  tl.fromTo('#shareDlg', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(2, 4) + 0.7);
+  CUR(1240, 620, S(2, 4) + 1.0, 0.6); CLICK(1240, 630, W(2, 4, 'whole organization', 0));
+  tl.to('#sw', { backgroundColor: '#d98a00', duration: 0.2 }, W(2, 4, 'whole organization', 0.05)); tl.to('#swK', { x: 40, duration: 0.2 }, W(2, 4, 'whole organization', 0.05));
+  tl.fromTo('#w3', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(2, 4, 'warns too', 0));
+  OFF('#shareDlg', W(2, 4, 'nobody', 0.2), 0.3);
+  // the pattern
+  
+  tl.fromTo('#braceTxt', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(2)' }, S(2, 6));
+  ['#w1', '#w2', '#w3'].forEach((w, k) => tl.fromTo(w, { scale: 1 }, { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1 }, S(2, 5) + 0.3 + k * 0.4));
+  // the limit: can still publish
+  CUR(1640, 128, S(2, 7) - 0.2, 0.8); CLICK(1640, 138, W(2, 7, 'publish', -0.1));
+  tl.fromTo('#toast', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(2)' }, W(2, 7, 'publish', 0.1));
+
+  /* ── scene 3: the guard (data policies) ───────────────── */
+  OFF('#cur', S(3, 0) - 0.6, 0.2);
+  tl.to('#ui', { opacity: 0, scale: 0.28, duration: 0.7, ease: 'power3.in' }, S(3, 0) - 0.6); OFF('#uiBack', S(3, 0) - 0.3, 0.5);
+  CAM(3150, 900, 0.9, S(3, 0) - 0.1, 1.4);
+  tl.fromTo('#envs', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5 }, W(3, 1, 'each environment', -0.2));
+  tl.set('#envs', { left: 2900, top: 640 }, 0); OFF('#envs', S(3, 2) - 0.2);
+  CAM(1900, 1290, 0.62, S(3, 2) - 0.2, 1.6);
+  tl.to('#tagBot', { opacity: 1, duration: 0.3 }, S(3, 2));
+  ['#cb0', '#cb1', '#cb2', '#cb3'].forEach((c, k) => { tl.set(c, { opacity: 1 }, S(3, 3) + 0.4); tl.fromTo(c, { strokeDasharray: 900, strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, S(3, 3) + 0.4 + k * 0.15); });
+  [['#cap0', 'Channels'], ['#cap1', 'knowledge'], ['#cap2', 'tools'], ['#cap3', 'M C P']].forEach(([c, w]) => POP(c, W(3, 4, w, -0.1)));
+  // the admin blocks one connector
+  tl.fromTo('#cut', { opacity: 0, scale: 2, transformOrigin: '2170px 980px' }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power3.in' }, W(3, 5, 'blocks', 0));
+  tl.to('#cb1', { stroke: '#c4392f', strokeDasharray: '18 18', duration: 0.3 }, W(3, 5, 'blocks', 0.3));
+  tl.to('#cap1 .disc', { borderColor: '#c9ced8', color: '#c9ced8', duration: 0.4 }, W(3, 5, 'disappears', -0.2));
+  tl.to('#cap1', { opacity: 0.35, duration: 0.6 }, W(3, 5, 'disappears', 0));
+  tl.fromTo('#cap1', { x: 0 }, { x: 14, duration: 0.06, yoyo: true, repeat: 7 }, W(3, 5, 'disappears', 0));
+  tl.fromTo('#blocked', { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power4.in' }, S(3, 7) - 0.2);
+  tl.fromTo('#stage', { x: 0 }, { x: 10, duration: 0.05, yoyo: true, repeat: 5 }, S(3, 7) + 0.15);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "1": ["Pipeline", [["Trip", "Dev → Test → Production"], ["Deploys", "Managed solutions"], ["Same artifact", "Stages in order · no skipping QA"], ["Host", "Stores artifacts and backups"]]],
+  "2": ["Where you start", [["Run from", "Unmanaged solution in Dev"], ["Not from", "Default solution · target environments"], ["Deploy", "Pick the pipeline and the stage"]]],
+  "4": ["Environment requirements", [["Host", "Production · not necessarily managed"], ["Developer", "Does not need to be managed"], ["All others", "Must be Managed Environments"]]],
+  "5": ["Deployment rules", [["Per deployment", "One solution"], ["Default import", "Upgrade"], ["Other tenant", "Not supported · use Azure DevOps or GitHub"]]],
+  "7": ["Validated first", [["Provided beforehand", "Connections · connection references · environment variables"], ["Checked", "Before the deployment runs"]]],
+  "8": ["Extending", [["Pre-deployment step", "OnPreDeploymentStarted · 20 complete · 30 reject"], ["Delegated deployments", "OnApprovalStarted · 20 approve · 30 reject"], ["Delegated runs as", "Service principal"]]],
+  "10": ["Steps", [["1", "Host · a production environment"], ["2", "Pipeline and stages in the host"], ["3", "Targets are Managed Environments"], ["4", "Unmanaged solution in Dev"], ["5", "Deploy · pick pipeline and stage"], ["6", "Connections and variables · validated"], ["7", "Deploy · optional pre-deployment step"]]]
+}

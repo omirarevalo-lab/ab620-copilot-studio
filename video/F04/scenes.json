@@ -1,0 +1,240 @@
+{
+ "brand": "AB-620 · Basics · Lesson 4",
+ "scenes": [
+  {
+   "type": "split",
+   "left": {
+    "kicker": "Knowledge",
+    "title": "The agent's library",
+    "sub": "Real data from your organization, not memory."
+   },
+   "rows": [
+    {
+     "icon": "book_open",
+     "title": "Looks in your sources",
+     "at": "looks in the sources",
+     "hi": true
+    },
+    {
+     "icon": "document_text",
+     "title": "Answers with real data",
+     "at": "real data",
+     "hi": true
+    },
+    {
+     "icon": "checkmark_circle",
+     "title": "Tells you which book",
+     "desc": "Citations",
+     "at": "which book",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "terms",
+   "header": {
+    "kicker": "Available sources",
+    "title": "Where knowledge comes from"
+   },
+   "items": [
+    {
+     "icon": "globe",
+     "term": "Websites",
+     "def": "Public · up to 25",
+     "at": "public websites"
+    },
+    {
+     "icon": "document_text",
+     "term": "Files",
+     "def": "You upload them",
+     "at": "files you upload"
+    },
+    {
+     "icon": "people_team",
+     "term": "SharePoint",
+     "def": "Sites · up to 25",
+     "at": "SharePoint sites"
+    },
+    {
+     "icon": "cube_tree",
+     "term": "Dataverse",
+     "def": "Tables",
+     "at": "Dataverse"
+    },
+    {
+     "icon": "plug_connected",
+     "term": "Enterprise data",
+     "def": "Connectors, indexed in Microsoft Search",
+     "at": "enterprise data"
+    },
+    {
+     "icon": "cloud",
+     "term": "Azure AI Search",
+     "def": "Later in the course",
+     "at": "Azure A I Search"
+    }
+   ]
+  },
+  {
+   "type": "compare",
+   "header": {
+    "kicker": "Permissions",
+    "title": "Everyone sees their own"
+   },
+   "cols": [
+    {
+     "icon": "person",
+     "title": "Ana",
+     "sub": "Has access to the document",
+     "tone": "good",
+     "at": "Ana",
+     "items": [
+      {
+       "text": "Gets the answer from it",
+       "at": "a document"
+      }
+     ]
+    },
+    {
+     "icon": "person",
+     "title": "Luis",
+     "sub": "No access",
+     "tone": "bad",
+     "at": "Luis does not",
+     "items": [
+      {
+       "text": "Same question, different answer",
+       "at": "different answers"
+      }
+     ]
+    }
+   ],
+   "verdict": {
+    "icon": "key",
+    "text": "Configure user authentication in the agent",
+    "at": "user authentication"
+   }
+  },
+  {
+   "type": "split",
+   "left": {
+    "kicker": "Citations",
+    "title": "Where each fact came from",
+    "sub": "Citations give the user confidence."
+   },
+   "rows": [
+    {
+     "icon": "checkmark_circle",
+     "title": "Answers come with citations",
+     "at": "citations",
+     "hi": true
+    },
+    {
+     "icon": "flag",
+     "title": "Custom response? Draw them yourself",
+     "desc": "Adaptive card or variable: not added on their own",
+     "at": "customize the response",
+     "hi": true
+    },
+    {
+     "icon": "document_text",
+     "title": "Ask for citations in the instructions",
+     "at": "Also ask",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "path",
+   "header": {
+    "kicker": "Settings",
+    "title": "Three key settings"
+   },
+   "crumbs": [
+    {
+     "icon": "settings",
+     "text": "Settings",
+     "at": "Settings"
+    },
+    {
+     "icon": "sparkle",
+     "text": "Generative AI",
+     "accent": true,
+     "at": "Generative A I"
+    }
+   ],
+   "cards": [
+    {
+     "icon": "shield_checkmark",
+     "title": "Allow ungrounded responses",
+     "desc": "Off: blocks answers with no sources or tools",
+     "at": "Allow ungrounded",
+     "hi": true
+    },
+    {
+     "icon": "globe",
+     "title": "Use information from the web",
+     "desc": "Searches the public web with Bing",
+     "at": "Use information from the web",
+     "hi": true
+    },
+    {
+     "icon": "shield_checkmark",
+     "title": "Content moderation",
+     "desc": "High by default",
+     "at": "content moderation",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "chat",
+   "window": {
+    "title": "Nexo · IT support · Contoso",
+    "at": "start"
+   },
+   "messages": [
+    {
+     "from": "u",
+     "text": "How do I reset my password?",
+     "at": "how to reset"
+    },
+    {
+     "from": "a",
+     "text": "Here are the steps from the IT guide:",
+     "list": [
+      "Open the self-service portal",
+      "Verify your identity",
+      "Choose a new password"
+     ],
+     "cite": "IT guides · Password reset",
+     "at": "answers with the steps"
+    }
+   ],
+   "side": {
+    "heading": "What Nexo uses",
+    "at": "start",
+    "cards": [
+     {
+      "icon": "book_open",
+      "title": "Knowledge",
+      "desc": "The IT SharePoint site",
+      "at": "0:SharePoint",
+      "hi": true
+     },
+     {
+      "icon": "shield_checkmark",
+      "title": "Ungrounded responses: off",
+      "desc": "No sources, no made-up answer",
+      "at": "2:Allow ungrounded",
+      "hi": true
+     }
+    ]
+   },
+   "close": {
+    "html": "*Reliable* answers, *permissions* respected",
+    "at": "Reliable answers"
+   }
+  }
+ ]
+}

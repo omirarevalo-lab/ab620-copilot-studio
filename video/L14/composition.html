@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L14 · Send HTTP request · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  .bl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 920px; white-space: nowrap; font-size: 46px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; }
+  .bl.red { border-color: #c4392f; color: #c4392f; } .bl.green { border-color: #1e7f4f; color: #1e7f4f; } .bl.vi { border-color: #6b4fa0; color: #6b4fa0; } .bl.go { border-color: #b8860b; color: #8a6508; } .bl.tl { border-color: #0f7b8a; color: #0f7b8a; } .bl.nv { border-color: #1f2a44; color: #1f2a44; } .bl.gr { border-color: #6b7280; color: #5b6578; } .bl.or { border-color: #e8913a; color: #b8620f; } .bl.pg { border-color: #7a9a4a; color: #4a5e2c; }
+  .pl { position: absolute; left: 120px; top: 60px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .nl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 920px; font-size: 40px; font-weight: 800; padding: 10px 30px; border-radius: 999px; background: #fff; border: 4px solid #1f2a44; color: #1f2a44; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 36px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 36px; border-radius: 16px; padding: 2px 16px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  #stage #uiS { top: 80px; height: 820px; } #stage #uiS .nav div { font-size: 34px; } #stage #uiS .bar { font-size: 32px; } #stage #uiS .btn { font-size: 34px; } #stage #uiS .crumb { font-size: 32px; } #stage #uiS .fld { font-size: 34px; } #stage #uiS .fld small { font-size: 32px; } #exams .exam .xo em.trap { font-size: 32px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 8px 24px; background: #fff; font-size: 34px; font-weight: 800; white-space: nowrap; }
+  .uw .mn { position: absolute; background: #fff; border: 3px solid var(--line2); border-radius: 16px; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; font-size: 34px; font-weight: 700; white-space: nowrap; }
+  .uw .mn div { padding: 10px 24px; border-radius: 12px; }
+  .uw .ab { position: absolute; box-sizing: border-box; }
+  .uw .fld.ab { overflow: hidden; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L14 · Send HTTP request. The Contoso mail room and courier dock, world 3840x2160.
+     cubbies x520-2200 y240-860 · Marta counter x420-960 top y1290 (Marta x470, laptop x700 y1180) · sorting table x1000-2300 top y1330 (belt y1392-1442, side track y1452-1482)
+     · stamp rack x1010-1250 y850-1310 · Valeria x1260 y950 · envelope x1470-2310 y820-1320 · out tube x2290-2430 y490-1300 then x2290-3040 y490-620 · window x3040-3600 y250-800
+     · in tube x3040-3240 y640-770 then x3100-3240 y640-1300 · desk R x2400-4900 top y1330 · manager x2450 · bin x2700-2960 · pigeonholes x2450-3000 y640-880
+     · error panel x1340-1980 y380-840 · door x2040-2280 y560-1330 · lamp x2090 y410 · press x1680-1940 y1060-1330 · clock x920-1120 y300-500
+     · reply desk: tray x3700-4240 y1180-1330, panel x3700-4500 y300-640, rack x3700-4280 y880-1030 · Valeria desk (UI) x100-620 y1640 · side door x-240 y760. */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#e0a21e', TLC = '#0f7b8a', CRM = '#f4ead2', TRY = '#cadca8', CORAL = '#e07a5f', INK = '#141821', GRY = '#6b7280';
+  const KRF = '#d9b382', KRD = '#b58f5c', GOLD = '#e3b23c', PUR = '#6b4fa0', ORG = '#e8913a', GRE = '#8a8f98', BRS = '#c9a03c', BRD = '#8a6a1f';
+  const hmn = (id, x, y, top, hair, extra) => `<svg class="w ${extra || ''}" id="${id}" style="left:${x}px;top:${y}px" width="200" height="380" viewBox="0 0 200 380"><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`;
+  const GRP = (id, fn) => { const wd = document.getElementById('world'), n0 = wd.children.length; fn(); const g = document.createElement('div'); g.id = id; g.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0'; const kids = Array.from(wd.children).slice(n0); wd.insertBefore(g, kids[0]); kids.forEach((k) => g.appendChild(k)); };
+  const CTR = (t, w, h, fs, col, bg, bd, st, id, h0) => `<div class="w ${h0 ? 'h' : ''}" ${id ? `id="${id}"` : ''} style="width:${w}px;height:${h}px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;white-space:nowrap;font-size:${fs}px;font-weight:800;color:${col};background:${bg};border:${bd};${st || ''}">${t}</div>`;
+  const PILL = (id, x, y, t, col, bg, st, vis) => `<div class="w ${vis ? '' : 'h'}" id="${id}" style="left:${x}px;top:${y}px;height:72px;padding:0 26px;box-sizing:border-box;display:flex;align-items:center;gap:10px;border-radius:999px;background:${bg || '#fff'};border:5px solid ${col};color:${col};font-size:54px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow);${st || ''}">${t}</div>`;
+
+  /* kraft envelope 840x500: flap lines, Authorization tag, mouth (body), address label, method stamp */
+  const ENV = (id, x, y, o) => {
+    o = o || {};
+    return `<div class="w ${o.h === false ? '' : 'h'}" id="${id}" style="left:${x}px;top:${y}px;width:840px;height:500px">
+      <div id="${id}_fo" style="position:absolute;left:0;top:-160px;width:840px;height:160px;opacity:${o.open ? 1 : 0}"><svg width="840" height="160" viewBox="0 0 840 160"><path d="M4 160 L420 6 L836 160 Z" fill="#cda673" stroke="${KRD}" stroke-width="6" stroke-linejoin="round"/></svg></div>
+      <div style="position:absolute;left:0;top:0;width:840px;height:500px;box-sizing:border-box;background:${KRF};border:6px solid ${KRD};border-radius:18px;box-shadow:var(--shadow)"></div>
+      <svg id="${id}_fl" style="position:absolute;left:0;top:0;opacity:${o.open ? 0 : 1}" width="840" height="500" viewBox="0 0 840 500"><path d="M6 6 L420 250 L834 6" fill="none" stroke="${KRD}" stroke-width="6" stroke-linejoin="round"/></svg>
+      <div id="${id}_au" style="position:absolute;left:48px;top:16px;width:440px;height:84px;box-sizing:border-box;border-radius:14px;background:${GOLD};border:5px solid #b88a14;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:800;color:#3b2a00;white-space:nowrap;opacity:${o.auth ? 1 : 0}">Authorization</div>
+      <div id="${id}_mo" style="position:absolute;left:48px;top:124px;width:520px;height:100px;box-sizing:border-box;border-radius:14px;background:#c79c66;border:4px solid ${KRD};opacity:${o.open ? 1 : 0}">
+        <div id="${id}_sl" style="position:absolute;left:12px;top:8px;width:490px;height:78px;box-sizing:border-box;border:5px dashed ${CRM};border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:${CRM};opacity:0">body</div>
+        <div id="${id}_nc" style="position:absolute;left:100px;top:8px;width:320px;height:78px;box-sizing:border-box;border-radius:12px;background:${CRM};border:4px solid #b0926a;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:${INK};white-space:nowrap;opacity:${o.nc ? 1 : 0}">No Content</div>
+        <div id="${id}_js" style="position:absolute;left:12px;top:8px;width:490px;height:78px;box-sizing:border-box;border-radius:12px;background:${CRM};border:4px solid #b0926a;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:${INK};white-space:nowrap;opacity:${o.js ? 1 : 0}">{ … }</div></div>
+      <div id="${id}_lb" style="position:absolute;left:48px;top:248px;width:560px;height:196px;box-sizing:border-box;background:#fff;border:4px solid #d8dde6;border-radius:14px">
+        <div id="${id}_ba" style="position:absolute;left:28px;top:44px;opacity:${o.url ? 0 : 1}"><div style="height:22px;width:420px;background:#dfe3ec;border-radius:11px;margin-bottom:22px"></div><div style="height:22px;width:300px;background:#dfe3ec;border-radius:11px"></div></div>
+        <div id="${id}_t0" style="position:absolute;left:0;right:0;top:52px;text-align:center;font-size:56px;font-weight:800;color:${NAVY};white-space:nowrap;opacity:0">Send HTTP request</div>
+        <div id="${id}_u" style="position:absolute;left:28px;top:12px;opacity:${o.url ? 1 : 0}"><div style="font-size:52px;font-weight:800;color:${NAVY};line-height:80px">URL</div><div style="font-size:52px;font-weight:700;color:#5b6578;line-height:80px;white-space:nowrap">…/tickets</div></div></div>
+      <div id="${id}_st" style="position:absolute;left:640px;top:248px;width:160px;height:160px;box-sizing:border-box;border-radius:50%;background:${NAVY};border:8px solid #3a4a78;color:#fff;font-size:${(o.m || 'GET').length > 3 ? 44 : 54}px;font-weight:800;display:flex;align-items:center;justify-content:center;opacity:${o.m ? 1 : 0}">${o.m || 'GET'}</div></div>`;
+  };
+  /* small round navy method stamp */
+  const STP = (id, x, y, t, d, fs) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:${d}px;height:${d}px;box-sizing:border-box;border-radius:50%;background:${NAVY};border:6px solid #3a4a78;color:#fff;font-size:${fs}px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)">${t}</div>`;
+  /* teal reply envelope 360x230 */
+  const REP = (id, x, y, bg, bd) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:360px;height:230px"><div style="position:absolute;inset:0;box-sizing:border-box;background:${bg};border:6px solid ${bd};border-radius:16px;box-shadow:var(--shadow)"></div><svg style="position:absolute;left:0;top:0" width="360" height="230" viewBox="0 0 360 230"><path d="M6 6 L180 120 L354 6" fill="none" stroke="${bd}" stroke-width="6" stroke-linejoin="round"/></svg></div>`;
+  const BUB = (id, x, y, t) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;height:110px;padding:0 34px;box-sizing:border-box;display:flex;align-items:center;white-space:nowrap;background:#fff;border:6px solid ${AMB};border-radius:30px;font-size:52px;font-weight:800;color:${INK};box-shadow:var(--shadow)">${t}<div style="position:absolute;left:70px;bottom:-34px;width:0;height:0;border:20px solid transparent;border-top:30px solid ${AMB};border-bottom:0"></div></div>`;
+  const RNG = (id, x, y, w, t) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;height:110px;box-sizing:border-box;border-radius:18px;background:#fff;border:6px solid #9aa5b6;box-shadow:var(--shadow)"><div id="${id}_l" style="position:absolute;left:24px;top:0;height:98px;display:flex;align-items:center;font-size:44px;font-weight:800;color:${NAVY};white-space:nowrap">${t[0]}</div><div id="${id}_l2" style="position:absolute;left:24px;top:0;height:98px;display:flex;align-items:center;font-size:44px;font-weight:800;color:${NAVY};white-space:nowrap;opacity:0">${t[1]}</div><div id="${id}_v" style="position:absolute;right:8px;top:12px;width:92px;height:74px;border-radius:14px;background:${CRM};border:4px solid #b0926a;display:flex;align-items:center;justify-content:center;color:${INK};opacity:0">${t[2]}</div></div>`;
+
+  /* backdrop patches so close-up framings never reveal a world edge */
+  ADD(`<div class="w" style="left:-1300px;top:-420px;width:6700px;height:1920px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="left:-1300px;top:1500px;width:6700px;height:1100px;background:#e3e7ef"></div><div class="w" style="left:-1300px;top:1500px;width:6700px;height:6px;background:#d3d9e4"></div>`);
+  /* mail cubbies on the back wall */
+  GRP('gCub', () => {
+    let h = '';
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 8; c++) {
+      const x = 520 + c * 210, y = 240 + r * 150;
+      h += `<div class="w" style="left:${x}px;top:${y}px;width:190px;height:130px;box-sizing:border-box;background:#e2d6b5;border:6px solid #c9b48a;border-radius:10px"><div style="position:absolute;left:14px;top:${40 + ((r + c) % 3) * 6}px;width:${(r + c) % 2 ? 120 : 96}px;height:${(r + c) % 2 ? 70 : 56}px;background:${KRF};border:4px solid ${KRD};border-radius:6px;transform:rotate(${((r * 3 + c) % 5) - 2}deg)"></div></div>`;
+    }
+    ADD(h);
+  });
+  /* far window "tickets API" + brass tubes */
+  ADD(`<div class="w" id="win" style="left:3040px;top:250px;width:560px;height:550px;box-sizing:border-box;background:#cfe3f1;border:16px solid ${NAVY};border-radius:20px;box-shadow:var(--shadow);overflow:hidden">
+    <div id="bgl" style="position:absolute;left:150px;top:30px;width:340px;height:500px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(255,224,150,.95),rgba(255,224,150,0) 70%);opacity:.5"></div>
+    <div style="position:absolute;left:330px;top:210px;width:90px;height:320px;background:#5b6b8a"></div><div style="position:absolute;left:300px;top:300px;width:160px;height:230px;background:#46557a"></div><div style="position:absolute;left:430px;top:160px;width:90px;height:370px;background:#3a4a78"></div>
+    ${[0, 1, 2, 3].map((k) => `<div style="position:absolute;left:446px;top:${190 + k * 70}px;width:24px;height:30px;background:#ffe9a8"></div><div style="position:absolute;left:480px;top:${190 + k * 70}px;width:24px;height:30px;background:#ffe9a8"></div>`).join('')}</div>`);
+  ADD(PILL('winT', 3085, 285, 'tickets API', NAVY, '#fff', 'font-size:60px', true));
+  const TUBE = (l, t, w, h) => `<div class="w" style="left:${l}px;top:${t}px;width:${w}px;height:${h}px;box-sizing:border-box;background:linear-gradient(90deg,${BRS},#e8c668 40%,${BRS});border:6px solid ${BRD};border-radius:14px"></div>`;
+  ADD(TUBE(2290, 490, 140, 810) + TUBE(2290, 490, 750, 130) + TUBE(3040, 640, 200, 130) + TUBE(3100, 640, 140, 660));
+  ADD(PILL('tbO', 2455, 519, 'out', NAVY, '#fff', 'width:130px;justify-content:center;padding:0;font-size:60px', true));
+  ADD(PILL('tbI', 3105, 900, 'in', NAVY, '#fff', 'width:130px;justify-content:center;padding:0;font-size:60px', true));
+  /* floor crates */
+  ADD(`<div class="w" style="left:560px;top:1560px;width:240px;height:150px;box-sizing:border-box;background:${KRF};border:6px solid ${KRD};border-radius:10px"><div style="position:absolute;left:100px;top:0;width:40px;height:100%;background:#cda673"></div></div><div class="w" style="left:830px;top:1620px;width:190px;height:120px;box-sizing:border-box;background:#cda673;border:6px solid ${KRD};border-radius:10px"></div><div class="w" style="left:3400px;top:1570px;width:260px;height:150px;box-sizing:border-box;background:${KRF};border:6px solid ${KRD};border-radius:10px"><div style="position:absolute;left:110px;top:0;width:40px;height:100%;background:#cda673"></div></div>`);
+
+  /* error wall (scenes 5-6): switch panel, system door, On Error lamp, clock */
+  GRP('g56w', () => {
+    ADD(`<div class="w" id="sdr" style="left:2040px;top:560px;width:240px;height:770px;box-sizing:border-box;background:linear-gradient(90deg,#3a4a78,${NAVY});border:14px solid ${NAVY};border-bottom:none;border-radius:26px 26px 0 0"><div style="position:absolute;left:30px;top:40px;right:30px;height:300px;box-sizing:border-box;border:6px solid #4a5a8a;border-radius:16px"></div><div style="position:absolute;right:26px;top:400px;width:34px;height:34px;border-radius:50%;background:#ffd166"></div></div>`);
+    ADD(`<div class="w" id="lmp" style="left:2090px;top:410px;width:140px;height:140px"><div id="lmpG" style="position:absolute;left:-40px;top:-40px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(232,145,58,.75),rgba(232,145,58,0) 70%);opacity:0"></div><div style="position:absolute;inset:0;border-radius:50%;background:#cfc3ac;border:8px solid #a39573"></div><div id="lmpO" style="position:absolute;inset:0;border-radius:50%;background:${ORG};border:8px solid #b8620f;opacity:0"></div></div>`);
+    ADD(PILL('lmpT', 2010, 332, 'On Error', ORG, '#fff', 'width:300px;justify-content:center;padding:0'));
+    ADD(`<div class="w h" id="spN" style="left:1340px;top:380px;width:640px;height:460px;box-sizing:border-box;background:${NAVY};border-radius:26px;box-shadow:var(--shadow)">
+      <div style="position:absolute;left:36px;top:22px;font-size:52px;font-weight:800;color:#fff;white-space:nowrap">Error handling</div>
+      <div id="spSel" style="position:absolute;left:24px;top:108px;width:592px;height:160px;box-sizing:border-box;border-radius:18px;background:#fff;border:6px solid #ffd166"></div>
+      <div id="spR1" style="position:absolute;left:52px;top:120px;font-size:52px;font-weight:800;color:${NAVY};white-space:nowrap">Raise an error</div>
+      <div id="spDf" style="position:absolute;left:52px;top:196px;height:56px;padding:0 20px;display:flex;align-items:center;border-radius:999px;background:#ffd166;color:#3b2a00;font-size:44px;font-weight:800">default</div>
+      <div id="spR2" style="position:absolute;left:52px;top:310px;font-size:52px;font-weight:800;color:#fff;white-space:nowrap">Continue on error</div></div>`);
+    ADD(`<div class="w h" id="clk" style="left:920px;top:345px;width:200px;height:200px"><svg width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="#fff" stroke="${NAVY}" stroke-width="12"/>${[0, 1, 2, 3].map((k) => `<line x1="100" y1="22" x2="100" y2="38" stroke="${NAVY}" stroke-width="8" stroke-linecap="round" transform="rotate(${k * 90} 100 100)"/>`).join('')}<g id="clkH"><line x1="100" y1="100" x2="100" y2="40" stroke="${ORG}" stroke-width="10" stroke-linecap="round"/></g><circle cx="100" cy="100" r="10" fill="${NAVY}"/></svg></div>`);
+    ADD(`<div class="w h" id="clkT" style="left:780px;top:575px;width:480px;height:170px;box-sizing:border-box;background:#fff;border:5px solid ${NAVY};border-radius:26px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:54px;font-weight:800;color:${NAVY};line-height:1.15;white-space:nowrap"><div>Request timeout</div><div style="color:${ORG}">30 s</div></div>`);
+  });
+  /* pigeonholes (status code / error body), same cells reused in the Contoso case with the Topic.* names */
+  GRP('rkE', () => {
+    ADD(RNG('pg1', 2450, 640, 580, ['status code', 'Topic.StatusCode', '<span style="font-size:40px;font-weight:800">404</span>']));
+    ADD(RNG('pg2', 2450, 770, 580, ['error body', 'Topic.ErrorResponse', IC('document_text', 'width:48px;height:48px')]));
+  });
+  /* sorting table + belt + side track */
+  ADD(`<div class="w" id="tbl" style="left:1000px;top:1330px;width:1300px;height:170px"><div style="position:absolute;left:0;top:0;width:1300px;height:30px;background:#c9a96e;border-radius:12px 12px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:30px;width:1300px;height:140px;background:#9a7d57"></div></div>`);
+  ADD(`<div class="w" id="belt" style="left:1030px;top:1392px;width:1240px;height:50px;overflow:hidden;background:#3b4256;border-radius:10px"><div id="btI" style="position:absolute;left:-100px;top:0;width:1500px;height:50px;background:repeating-linear-gradient(90deg,#6b7488 0,#6b7488 30px,transparent 30px,transparent 100px)"></div></div>`);
+  ADD(`<div class="w h" id="trk" style="left:1030px;top:1452px;width:1240px;height:30px;overflow:hidden;background:${BLUE};border-radius:10px"><div id="trI" style="position:absolute;left:-100px;top:0;width:1500px;height:30px;background:repeating-linear-gradient(90deg,#bcd0ff 0,#bcd0ff 30px,transparent 30px,transparent 100px)"></div></div>`);
+  /* reply desk (right) + returns bin */
+  ADD(`<div class="w" id="rdk" style="left:2400px;top:1330px;width:2500px;height:170px"><div style="position:absolute;left:0;top:0;width:2500px;height:28px;background:#cfd6e2;border-radius:12px 12px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:28px;width:2500px;height:142px;background:#9aa5b6"></div></div>`);
+  ADD(`<div class="w" id="bin" style="left:2700px;top:1180px;width:260px;height:150px"><svg width="260" height="150" viewBox="0 0 260 150"><path d="M10 10 H250 L226 144 H34 Z" fill="#aeb6c6" stroke="#8a93a6" stroke-width="8" stroke-linejoin="round"/><path d="M40 60 H220" stroke="#8a93a6" stroke-width="8"/></svg></div>`);
+  /* Marta's counter, window and laptop */
+  GRP('gIn', () => {
+    ADD(`<div class="w" id="ictr" style="left:420px;top:1290px;width:540px;height:210px"><div style="position:absolute;left:0;top:0;width:540px;height:26px;background:#cfd6e2;border-radius:12px 12px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:26px;width:540px;height:184px;background:#9aa5b6"></div></div>`);
+    ADD(hmn('mar', 470, 910, CORAL, '#3a2a22'));
+    ADD(`<div class="w" id="lapM" style="left:700px;top:1180px;width:240px;height:110px;box-sizing:border-box;background:${NAVY};border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#5d6472">${IC('ticket_diagonal', 'width:64px;height:64px')}</div></div>`);
+    ADD(`<div class="w" id="sQ" style="left:720px;top:1010px;width:200px;height:150px;box-sizing:border-box;background:#fff;border:4px solid #c9ced8;border-left:16px solid ${CORAL};border-radius:12px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:${CORAL}">${IC('question_circle', 'width:92px;height:92px')}</div>`);
+  });
+  /* manager (grey vest, frowning) */
+  ADD(hmn('mgr', 2450, 950, '#8a93a6', '#d9dde6').replace('M84 122 Q100 134 116 122', 'M84 134 Q100 112 116 134'));
+  /* stamp rack (scene 1) */
+  GRP('gRk', () => {
+    ADD(`<div class="w" style="left:1000px;top:836px;width:260px;height:490px;box-sizing:border-box;background:#b8a27a;border:6px solid #8a6a3a;border-radius:16px"></div>`);
+    ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'].forEach((m, k) => ADD(CTR(m, 224, 84, 52, '#fff', NAVY, '4px solid #3a4a78', `left:1018px;top:${852 + k * 94}px;border-radius:14px;box-shadow:var(--shadow)`, 'rk' + k, true)));
+  });
+  /* Valeria + envelope (scene 0-1) */
+  ADD(hmn('val', 1260, 950, '#6b4fa0', '#30242c', 'h'));
+  ADD(ENV('ea', 1470, 820, {}));
+  ADD(STP('stG', 1010, 860, 'GET', 160, 54));
+
+  /* ── scene 2: three cream sheets ── */
+  GRP('g2', () => {
+    const SH = (id, x, inner) => `<div class="w h" id="${id}" style="left:${x}px;top:960px;width:380px;height:360px;box-sizing:border-box;background:${CRM};border:6px solid #b0926a;border-radius:18px;box-shadow:var(--shadow);padding:20px 26px;font-family:Consolas,'Courier New',monospace;font-size:44px;font-weight:700;color:${INK};line-height:70px;white-space:nowrap">${inner}</div>`;
+    const VC = (id, t) => `<span class="h" id="${id}" style="display:inline-block;line-height:52px;padding:0 14px;margin-left:8px;border-radius:999px;background:#ece6f7;border:4px solid ${PUR};color:${PUR};font-family:inherit;font-size:36px;font-weight:800;vertical-align:middle">${t}</span>`;
+    ADD(SH('sL', 1030, `<div>{</div><div>&nbsp;"id": 1042,</div><div>&nbsp;"status": …</div><div>}</div>`));
+    ADD(SH('sM', 1450, `<div>{</div><div>&nbsp;"id":${VC('vc1', 'ticket')}</div><div>&nbsp;"note":${VC('vc2', 'text')}</div><div>}</div>`));
+    ADD(SH('sR', 1870, `<div style="height:12px;width:300px;background:#d9c9a3;border-radius:6px;margin-top:40px"></div><div style="position:absolute;left:26px;top:132px;line-height:70px">"ticket 1042"</div><div style="position:absolute;left:26px;top:250px;height:12px;width:240px;background:#d9c9a3;border-radius:6px"></div>`));
+    ADD(PILL('tL', 1000, 872, 'JSON content', NAVY, '#fff', 'height:76px'));
+    ADD(`<div class="w h" id="tM" style="left:1456px;top:826px;width:368px;height:128px;box-sizing:border-box;border-radius:30px;background:#fff;border:5px solid ${NAVY};color:${NAVY};font-size:46px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.15;box-shadow:var(--shadow)">Edit JSON<br>and Formula</div>`);
+    ADD(PILL('tR', 1880, 872, 'Raw content', NAVY, '#fff', 'height:76px'));
+    ADD(STP('sP', 1020, 660, 'POST', 130, 40)); ADD(STP('sU', 1170, 660, 'PUT', 130, 40));
+    ADD(`<div class="w h" id="pen" style="left:1540px;top:1255px;height:80px;padding:0 26px 0 22px;box-sizing:border-box;display:flex;align-items:center;gap:10px;border-radius:999px;background:${PUR};color:#fff;font-size:48px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow)">${IC('code', 'width:48px;height:48px')}Power Fx</div>`);
+  });
+
+  /* ── scene 3: reply desk ── */
+  GRP('g3', () => {
+    ADD(REP('rep', 2990, 1100, TLC, '#0b5f6b'));
+    ADD(hmn('val3', 3430, 950, '#6b4fa0', '#30242c', 'h'));
+    ADD(`<div class="w h" id="tray" style="left:3700px;top:1180px;width:540px;height:150px;box-sizing:border-box;background:${TLC};border:6px solid #0b5f6b;border-radius:20px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center"><div id="trayIn" style="width:420px;height:100px;box-sizing:border-box;border:6px dashed #8fd1d9;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#d8f1f4">${IC('braces', 'width:64px;height:64px')}</div></div>`);
+    ADD(`<div class="w h" id="smp" style="left:3740px;top:990px;width:340px;height:250px;box-sizing:border-box;background:${CRM};border:6px solid #b0926a;border-radius:16px;box-shadow:var(--shadow);padding:8px 18px;font-family:Consolas,'Courier New',monospace;font-size:40px;font-weight:700;color:${INK};line-height:56px;white-space:nowrap"><div>{</div><div>&nbsp;"id": …</div><div>&nbsp;"status": …</div><div>}</div></div>`);
+    ADD(`<div class="w h" id="rpn" style="left:3700px;top:300px;width:800px;height:300px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:24px;box-shadow:var(--shadow);overflow:hidden"><div style="height:96px;background:${NAVY};color:#fff;font-size:52px;font-weight:800;display:flex;align-items:center;padding-left:34px;white-space:nowrap">Response data type</div><div id="rpB" style="margin:44px 30px 0;height:100px;box-sizing:border-box;border-radius:50px;background:${TLC};border:5px solid #0b5f6b;color:#fff;font-size:46px;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap">Get schema from sample JSON</div></div>`);
+    ADD(`<div class="w h" id="vbx" style="left:3700px;top:1030px;width:420px;height:150px;box-sizing:border-box;background:#d8f1f4;border:6px solid ${TLC};border-radius:18px;box-shadow:var(--shadow);padding:10px 24px;font-size:46px;font-weight:800;color:#0b5f6b;line-height:62px"><div>id</div><div>status</div></div>`);
+    ADD(`<div class="w h" id="rkS" style="left:3700px;top:880px;width:580px;height:140px;box-sizing:border-box;background:#fff;border:6px solid #9aa5b6;border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;padding-left:24px;font-size:48px;font-weight:800;color:${NAVY};white-space:nowrap">Save user response as</div>`);
+  });
+
+  /* ── scenes 5-6: returned envelope, lamp, envelopes, author, Valeria, press ── */
+  GRP('g56', () => {
+    [0, 1, 2].forEach((k) => ADD(`<div class="w" id="lt${k}" style="left:${1150 + k * 120}px;top:1230px;width:110px;height:84px;box-sizing:border-box;background:${KRF};border:5px solid ${KRD};border-radius:10px"><svg style="position:absolute;left:0;top:0" width="110" height="74" viewBox="0 0 110 74"><path d="M3 3 L55 40 L107 3" fill="none" stroke="${KRD}" stroke-width="4" stroke-linejoin="round"/></svg></div>`));
+    ADD(hmn('auth', 1840, 950, GRE, '#cfd3da', 'h').replace('M84 122 Q100 134 116 122', 'M84 134 Q100 112 116 134'));
+    ADD(hmn('val5', 1520, 950, '#6b4fa0', '#30242c', 'h'));
+    ADD(`<div class="w h" id="prs" style="left:1740px;top:1060px;width:260px;height:270px"><div style="position:absolute;left:30px;top:0;width:200px;height:80px;box-sizing:border-box;background:#8a93a6;border:6px solid #5b6578;border-radius:12px"></div><div style="position:absolute;left:100px;top:80px;width:60px;height:70px;background:#5b6578"></div><div style="position:absolute;left:0;top:140px;width:260px;height:130px;box-sizing:border-box;background:${NAVY};border-radius:18px;border-top:10px solid #3a4a78;display:flex;align-items:center;justify-content:center;color:#ffd166">${IC('arrow_sync', 'width:84px;height:84px')}</div></div>`);
+    ADD(`<div class="w h" id="rcd" style="left:1740px;top:860px;width:300px;height:180px;box-sizing:border-box;background:${TRY};border:6px solid #9fb87a;border-radius:16px;box-shadow:var(--shadow);padding:14px 26px;font-size:50px;font-weight:800;color:#4a5e2c;line-height:72px"><div>id</div><div>status</div></div>`);
+    ADD(`<div class="w h" id="bnd" style="left:2740px;top:930px;width:200px;height:140px"><div style="position:absolute;left:16px;top:0;width:164px;height:110px;box-sizing:border-box;background:#b7bcc6;border:5px solid #8a8f98;border-radius:10px;transform:rotate(-5deg)"></div><div style="position:absolute;left:6px;top:12px;width:164px;height:110px;box-sizing:border-box;background:#c9ced8;border:5px solid #8a8f98;border-radius:10px;transform:rotate(3deg)"></div><div style="position:absolute;left:24px;top:56px;width:140px;height:80px;box-sizing:border-box;border-radius:14px;background:#fff;border:4px solid #5b6578;color:#5b6578;font-size:60px;font-weight:800;display:flex;align-items:center;justify-content:center">Any</div></div>`);
+    /* grey returned envelope (scene 5) and token coins (scene 6) */
+    ADD(REP('gEn', 2990, 1100, '#b7bcc6', GRE).replace('width:360px;height:230px', 'width:340px;height:215px'));
+    ADD(`<div class="w h" id="gSt" style="left:3140px;top:1150px;width:70px;height:70px;border-radius:50%;background:#5b6578;display:flex;align-items:center;justify-content:center;color:#fff">${IC('error_circle', 'width:46px;height:46px')}</div>`);
+    ADD(`<div class="w h" id="tk1" style="left:2810px;top:1170px;width:84px;height:84px;box-sizing:border-box;border-radius:50%;background:${CRM};border:5px solid #b0926a;display:flex;align-items:center;justify-content:center;color:${INK};font-size:44px;font-weight:800">404</div>`);
+    ADD(`<div class="w h" id="tk2" style="left:2810px;top:1170px;width:84px;height:84px;box-sizing:border-box;border-radius:50%;background:${CRM};border:5px solid #b0926a;display:flex;align-items:center;justify-content:center;color:${INK}">${IC('document_text', 'width:48px;height:48px')}</div>`);
+  });
+
+  /* ── scene 8: Contoso case ── */
+  GRP('g8', () => {
+    ADD(ENV('e8', 1470, 820, { m: 'GET', open: true, nc: true, url: true }));
+    ADD(ENV('e9', 1470, 820, { m: 'POST', open: true, js: true, url: true }));
+    ADD(`<div class="w h" id="vb8" style="left:3440px;top:1150px;width:340px;height:170px;box-sizing:border-box;background:#d8f1f4;border:6px solid ${TLC};border-radius:18px;padding:10px 24px;font-size:46px;font-weight:800;color:#0b5f6b;line-height:68px"><div>id</div><div>status</div></div>`);
+    ADD(PILL('sw8', 1500, 560, '<span style="position:relative;display:inline-block;flex:0 0 96px;width:96px;height:52px;border-radius:26px;background:#2f5bd3"><span style="position:absolute;right:6px;top:6px;width:40px;height:40px;border-radius:50%;background:#fff"></span></span>Continue on error', NAVY, '#fff', '', false));
+    ADD(REP('g8En', 2990, 1100, '#b7bcc6', GRE).replace('width:360px;height:230px', 'width:340px;height:215px'));
+    ADD(`<div class="w h" id="g8St" style="left:3120px;top:1150px;width:150px;height:84px;box-sizing:border-box;border-radius:42px;background:#5b6578;color:#fff;font-size:52px;font-weight:800;display:flex;align-items:center;justify-content:center;transform:rotate(-8deg)">404</div>`);
+    ADD(BUB('bub8', 500, 690, 'I could not find that ticket'));
+  });
+
+  /* ── Nexo (blue robot) + courier badge ── */
+  ADD(`<div class="w h" id="nxG" style="left:0;top:0;width:0;height:0">${agent('nx', 1700, 880, { folder: '' }).replace('width="360" height="500"', 'width="330" height="458"')}
+    <div class="w h" id="nxBd" style="left:1794px;top:1154px;width:74px;height:74px;box-sizing:border-box;border-radius:50%;background:${KRF};border:6px solid ${KRD};display:flex;align-items:center;justify-content:center;color:${NAVY}">${IC('mail', 'width:38px;height:38px')}</div>
+    <div class="w h" id="nxBg" style="left:1778px;top:1138px;width:106px;height:106px;box-sizing:border-box;border-radius:50%;border:8px solid #ffd166;box-shadow:0 0 40px 12px rgba(255,209,102,.6)"></div></div>`);
+  /* ── Valeria's lab desk (UI scene) ── */
+  GRP('deskG', () => {
+    ADD(`<div class="w" id="vdesk" style="left:100px;top:1640px;width:520px;height:160px"><div style="height:26px;background:#aeb6c6;border-radius:10px 10px 0 0"></div><div style="height:134px;background:#c9ced8"></div></div>`);
+    ADD(hmn('val9', 420, 1260, '#6b4fa0', '#30242c'));
+    ADD(`<div class="w" id="vlap" style="left:150px;top:1520px;width:300px;height:116px;box-sizing:border-box;background:${NAVY};border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#5d6472">Copilot Studio</div></div>`);
+  });
+  /* ── scene 11: close ── */
+  GRP('g11', () => {
+    ADD(hmn('val11', 1420, 950, '#6b4fa0', '#30242c', 'h'));
+    ADD(hmn('mgr11', 1650, 950, '#8a93a6', '#d9dde6', 'h'));
+    ADD(REP('rep11', 1100, 1090, TLC, '#0b5f6b').replace('width:360px;height:230px', 'width:300px;height:190px'));
+    ADD(BUB('bub11', 500, 690, 'I could not find that ticket'));
+    [0, 1, 2].forEach((k) => ADD(`<div class="w h" id="rb${k}" style="left:1010px;top:1366px;width:110px;height:72px;box-sizing:border-box;background:${KRF};border:5px solid ${KRD};border-radius:10px"><svg style="position:absolute;left:0;top:0" width="100" height="62" viewBox="0 0 100 62"><path d="M3 3 L50 34 L97 3" fill="none" stroke="${KRD}" stroke-width="4" stroke-linejoin="round"/></svg></div>`));
+    ADD(`<div class="w h" id="corr" style="left:-240px;top:760px;width:340px;height:740px;box-sizing:border-box;background:linear-gradient(90deg,#3a4a78,${NAVY});border:14px solid ${NAVY};border-bottom:none;border-radius:26px 26px 0 0"><div style="position:absolute;right:30px;top:340px;width:34px;height:34px;border-radius:50%;background:#ffd166"></div><div style="position:absolute;left:40px;top:40px;right:40px;height:300px;box-sizing:border-box;border:6px solid #4a5a8a;border-radius:16px"></div></div>`);
+    ADD(`<div class="w h" id="signN" style="left:-480px;top:560px;width:800px;height:150px;box-sizing:border-box;background:${NAVY};border-radius:24px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:20px;color:#fff;font-size:54px;font-weight:800;white-space:nowrap">${IC('toolbox', 'width:60px;height:60px;color:#ffd166')}Tools inside a topic</div>`);
+  });
+
+  /* ── overlays (screen space) ── */
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plD">Back in the mail room</div>
+    ${[['c0a', 'outside the agent', 'gr'], ['c0b', 'check by itself', 'nv'], ['c0c', 'a message to another system', 'tl'], ['c0d', "Nexo's courier badge", 'go'],
+      ['c1a', 'endpoint address', 'nv'], ['c1b', 'the method', 'nv'], ['c1c', 'headers, if needed', 'go'], ['c1d', 'the body', 'go'], ['c1e', 'default · typical for GET', 'go'],
+      ['c2a', 'the body', 'go'], ['c2b', 'POST or PUT', 'nv'], ['c2c', 'a Power Fx object with variables', 'vi'], ['c2d', 'a text string · Power Fx formula', 'vi'],
+      ['c3a', 'the reply', 'tl'], ['c3b', 'a variable with that shape', 'tl'], ['c3c', 'where it is stored', 'tl'],
+      ['c5a', 'unanswered', 'gr'], ['c5c', 'the agent stops', 'or'], ['c5d', 'the rest of the topic does not run', 'gr'], ['c5e', 'left on the default', 'gr'], ['c5f', 'a calmer path', 'nv'],
+      ['c6a', 'the agent goes on', 'nv'], ['c6b', 'saved in variables', 'tl'], ['c6c', 'Parse value', 'pg'], ['c6d', 'default timeout', 'nv'],
+      ['c8a', 'the Contoso case', 'tl'], ['c8b', 'response from a sample JSON', 'tl'], ['c8d', 'without stopping', 'nv'], ['c8e', 'create tickets: POST with JSON content', 'nv'],
+      ['c9a', 'Add node · Advanced', 'tl', 930], ['c9b', 'the topic goes on', 'nv', 930]].map(([id, t, c, tp]) => `<div class="bl ${c}" id="${id}"${tp ? ` style="top:${tp}px"` : ''}>${t}</div>`).join('')}
+    <div class="nl" id="nlNext">next lesson</div>
+    <div class="h" id="rec" style="position:absolute;left:auto;right:120px;top:100px;width:1160px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:26px;box-shadow:var(--shadow);padding:20px 26px;display:flex;flex-direction:column;gap:12px"><div id="recH" style="font-size:46px;font-weight:800;color:${NAVY};white-space:nowrap">Remember: three rules</div>
+    ${[['URL · method · headers · body (default No Content)', KRD, IC('mail', 'width:48px;height:48px;flex:0 0 48px;color:' + NAVY)], ['Raise an error is the default → On Error fires', ORG, IC('alert', 'width:48px;height:48px;flex:0 0 48px;color:' + ORG)], ['Continue on error saves status and error body · Parse value reads it', '#7a9a4a', IC('arrow_sync', 'width:48px;height:48px;flex:0 0 48px;color:#4a5e2c')]].map(([tx, c, ic], k) => `<div id="rl${k}" style="box-sizing:border-box;padding:8px 18px;background:#f3f5f9;border-left:12px solid ${c};border-radius:14px;font-size:34px;font-weight:800;color:${INK};line-height:1.2;opacity:.3;display:flex;align-items:center;gap:14px">${ic}<span style="text-wrap:balance">${tx}</span></div>`).join('')}</div>`);
+
+  /* ── exam rooms ── */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const aw = (x, y) => `<svg style="position:absolute;left:${x}px;top:${y}px" width="70" height="50" viewBox="0 0 70 50"><path d="M4 25 H54 M40 8 L58 25 L40 42" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const ico = (n, x, y, col) => IC(n, `position:absolute;left:${x}px;top:${y}px;width:60px;height:60px;color:${col}`);
+  const GOOD = 'background:#1e5f3b;border-color:' + GRN, BAD = 'background:#8a2b23;border-color:#c4392f';
+  const mEnv = (x, y, w, h, inner) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;background:${KRF};border:5px solid ${KRD};border-radius:12px">${inner}</div>`;
+  const mStamp = (x, y, d, t) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${d}px;height:${d}px;box-sizing:border-box;border-radius:50%;background:${NAVY};border:4px solid #3a4a78;color:#fff;font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center">${t}</div>`;
+  const mSheet = (x, y, w, h, rows) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;background:${CRM};border:4px solid #b0926a;border-radius:10px;padding:8px 16px;font-family:Consolas,'Courier New',monospace;font-size:32px;font-weight:700;color:${INK};line-height:40px;white-space:nowrap">${rows}</div>`;
+  const mSwitch = (x, y, t) => `<div style="position:absolute;left:${x}px;top:${y}px;width:400px;height:60px;box-sizing:border-box;border-radius:14px;background:#fff;color:${NAVY};font-size:36px;font-weight:800;display:flex;align-items:center;padding-left:18px;white-space:nowrap">${t}</div>`;
+  const mBelt = (x, y, w) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:24px;border-radius:8px;background:#3b4256;overflow:hidden"><div style="position:absolute;left:0;top:0;right:0;bottom:0;background:repeating-linear-gradient(90deg,#6b7488 0,#6b7488 20px,transparent 20px,transparent 60px)"></div></div>`;
+  const mBun = (x, y, dim) => `<div style="position:absolute;left:${x}px;top:${y}px;width:150px;height:110px;opacity:${dim ? 0.7 : 1}"><div style="position:absolute;left:10px;top:0;width:120px;height:84px;box-sizing:border-box;background:#b7bcc6;border:4px solid ${GRE};border-radius:8px;transform:rotate(-5deg)"></div><div style="position:absolute;left:4px;top:8px;width:120px;height:84px;box-sizing:border-box;background:#c9ced8;border:4px solid ${GRE};border-radius:8px;transform:rotate(3deg)"></div><div style="position:absolute;left:16px;top:42px;width:116px;height:62px;box-sizing:border-box;border-radius:10px;background:#fff;border:3px solid #5b6578;color:#5b6578;font-size:42px;font-weight:800;display:flex;align-items:center;justify-content:center">Any</div></div>`;
+  const mLamp = (x, y, d, lit) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${d}px;height:${d}px;border-radius:50%;box-sizing:border-box;background:${lit ? ORG : '#cfc3ac'};border:5px solid ${lit ? '#b8620f' : '#a39573'};${lit ? 'box-shadow:0 0 28px 8px rgba(232,145,58,.7)' : ''}"></div>`;
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>No Content, nothing is sent</h4>
+      ${mEnv(28, 92, 340, 178, `<div style="position:absolute;left:14px;top:12px;width:250px;height:60px;box-sizing:border-box;border-radius:10px;background:#c79c66;border:3px solid ${KRD}"><div style="position:absolute;left:8px;top:6px;width:228px;height:42px;box-sizing:border-box;border-radius:8px;background:${CRM};border:3px solid #b0926a;color:${INK};font-size:32px;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap">No Content</div></div><div style="position:absolute;left:14px;top:90px;width:190px;height:50px;background:#fff;border-radius:8px"><div style="margin:14px 14px 0;height:10px;width:130px;background:#dfe3ec;border-radius:5px"></div></div>${mStamp(222, 62, 104, 'GET')}`)}
+      ${pz(400, 150, 'default for GET', GOOD)}${ico('checkmark_circle', 716, 96, '#6be3a0')}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4 style="font-size:40px">An object with the ticket data</h4>
+      ${mSheet(28, 92, 300, 164, `<div>{</div><div>&nbsp;"id": 1042</div><div>}</div>`)}${mStamp(366, 84, 134, 'POST')}${mStamp(514, 84, 134, 'PUT')}
+      ${pz(366, 226, 'that is JSON content', BAD)}${ico('dismiss_circle', 726, 100, '#ff8a80')}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4>Switch to Continue on error</h4>
+      ${mSwitch(28, 92, 'Continue on error')}${mBelt(28, 170, 370)}<div style="position:absolute;left:28px;top:200px;width:370px;height:14px;border-radius:6px;background:${BLUE}"></div>
+      <div style="position:absolute;left:440px;top:92px;width:260px;height:56px;box-sizing:border-box;border-radius:12px;background:${CRM};border:3px solid #b0926a;color:${INK};font-size:36px;font-weight:800;display:flex;align-items:center;padding-left:14px;white-space:nowrap">status code</div>
+      <div style="position:absolute;left:440px;top:158px;width:260px;height:56px;box-sizing:border-box;border-radius:12px;background:${CRM};border:3px solid #b0926a;color:${INK};font-size:36px;font-weight:800;display:flex;align-items:center;padding-left:14px;white-space:nowrap">error body</div>
+      ${pz(28, 226, 'the topic goes on', GOOD)}${ico('checkmark_circle', 726, 96, '#6be3a0')}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4 style="font-size:38px">Keep the default, Raise an error</h4>
+      ${mSwitch(28, 92, 'Raise an error')}${mBelt(28, 170, 370)}<div style="position:absolute;left:150px;top:154px;width:90px;height:40px;box-sizing:border-box;background:#b7bcc6;border:4px solid ${GRE};border-radius:8px"></div>
+      ${mLamp(440, 92, 64, true)}<div style="position:absolute;left:520px;top:98px;font-size:40px;font-weight:800;color:${ORG};white-space:nowrap">On Error</div>
+      ${pz(28, 226, 'the agent stops', BAD)}${ico('dismiss_circle', 726, 176, '#ff8a80')}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${GRN};opacity:0"><h4>Parse value, into a record</h4>
+      ${mBun(24, 100)}${aw(172, 128)}
+      <div style="position:absolute;left:240px;top:98px;width:206px;height:120px;box-sizing:border-box;border-radius:14px;background:${NAVY};border:4px solid #3a4a78;color:#fff;font-size:40px;line-height:46px;font-weight:800;display:flex;align-items:center;justify-content:center;text-align:center">Parse<br>value</div>${aw(452, 128)}
+      <div style="position:absolute;left:536px;top:92px;width:176px;height:132px;box-sizing:border-box;background:${TRY};border:4px solid #9fb87a;border-radius:12px;padding:8px 14px;font-size:38px;font-weight:800;color:#4a5e2c;line-height:54px"><div>id</div><div>status</div></div>
+      ${pz(28, 226, 'a structured record', GOOD)}${ico('checkmark_circle', 728, 96, '#6be3a0')}</div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4>The On Error system topic</h4>
+      <div style="position:absolute;left:28px;top:100px;width:120px;height:120px;box-sizing:border-box;background:${NAVY};border:4px solid #3a4a78;border-bottom:none;border-radius:20px 20px 0 0"></div>${mLamp(56, 112, 64, true)}
+      <div style="position:absolute;left:176px;top:114px;font-size:40px;font-weight:800;color:${ORG};white-space:nowrap">On Error</div>${mBun(430, 100, true)}
+      ${pz(28, 226, 'only for unhandled errors', BAD)}${ico('dismiss_circle', 726, 100, '#ff8a80')}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'Valeria reads one ticket with a GET and leaves the body as it is. What does the body hold by default?', opts: ['An object with the ticket data', 'No Content, nothing is sent', 'A text string with the ticket'],
+      why: `<div id="exA_w1">The body is <span class="g">No Content by default</span>, which is typical for a <span class="g">GET</span></div><div id="exA_w2">A JSON object is for <span class="r">POST or PUT</span>, and a text string is <span class="y">Raw content</span></div>`, proof: proofA }),
+    mkExam('exB', { q: 'Marta asks about a ticket that does not exist, the tickets API fails, and the topic stops. The service manager wants the topic to reply and go on. What should Valeria choose in Error handling?', opts: ['Keep the default, Raise an error', 'Set a longer request timeout', 'Switch to Continue on error'],
+      why: `<div id="exB_w1"><span class="g">Continue on error</span> saves the status and error body, and the topic goes on</div><div id="exB_w2">The default, <span class="r">Raise an error</span>, stops the agent and fires On Error</div>`, proof: proofB }),
+    mkExam('exC', { q: 'With Continue on error, the error body waits in a variable of type Any. Which node converts it into a structured record?', opts: ['Parse value, into a record', 'Send a message, as plain text', 'The On Error system topic'],
+      why: `<div id="exC_w1"><span class="g">Parse value</span> converts type Any into a structured record the topic can use</div><div id="exC_w2"><span class="r">On Error</span> only runs when an error is not handled, so it converts nothing</div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ── UI window (scene 9): Copilot Studio · Service desk agent ── */
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Service desk agent', nav: ['Overview', 'Topics', 'Knowledge', 'Settings'], on: 1, body: `
+    <div class="lay" id="uL0" style="opacity:1">
+      <div id="uPg"><div class="crumb">Service desk agent › Topics</div><h3>Ticket status</h3>
+        <div class="nc" id="uTr" style="left:20px;top:130px;width:420px">Trigger</div>
+        <div class="ab" style="left:227px;top:200px;width:6px;height:44px;background:#c9ced8"></div>
+        <div class="ab" id="uPl" style="left:194px;top:244px;width:72px;height:72px;border-radius:50%;border:4px solid #2f5bd3;background:#fff;color:#2f5bd3;font-size:56px;font-weight:800;display:flex;align-items:center;justify-content:center;line-height:1">+</div>
+        <div class="ab" style="left:227px;top:316px;width:6px;height:36px;background:#c9ced8"></div>
+        <div class="nc" id="uSm" style="left:20px;top:352px;width:420px">Send a message</div>
+        <div class="nc h" id="uNd" style="left:20px;top:352px;width:420px;border-color:#2f5bd3;background:#eef3fd">Send HTTP request</div>
+        <div class="mn" id="uM1" style="left:290px;top:246px;width:260px"><div id="uM1i">Add node</div></div>
+        <div class="mn" id="uM2" style="left:290px;top:246px;width:260px"><div id="uM2i">Advanced  ›</div></div>
+        <div class="mn" id="uSb" style="left:570px;top:246px;width:420px"><div id="uSbi">Send HTTP request</div></div>
+      </div>
+      <div id="uNp" class="ab" style="left:0;top:0;width:1228px;height:672px;opacity:0">
+        <div class="ab" style="left:20px;top:0;font-size:44px;font-weight:800;white-space:nowrap">Send HTTP request</div>
+        <div class="fld ab" id="uFU" style="left:20px;top:64px;width:570px;height:112px"><small>URL</small><div style="overflow:hidden;white-space:nowrap;width:0;font-weight:700" id="uTypU">…/tickets</div></div>
+        <div class="fld ab" id="uFM" style="left:20px;top:188px;width:570px;height:112px"><small>Method</small><div style="position:relative"><div id="uMv0" style="color:#8a93a6;font-weight:700">Select</div><div id="uMv1" style="position:absolute;left:0;top:0;opacity:0;font-weight:800">GET</div><svg style="position:absolute;right:0;top:8px" width="36" height="24" viewBox="0 0 44 30"><path d="M4 6 L22 24 L40 6" fill="none" stroke="#5b6578" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        <div class="fld ab" id="uFH" style="left:20px;top:312px;width:570px;height:112px"><small>Headers and body</small><div style="font-weight:700;color:#5b6578">No Content</div><span class="btn ab" id="uEd2" style="right:16px;top:30px;padding:6px 26px">Edit</span></div>
+        <div class="fld ab" id="uFR" style="left:20px;top:436px;width:570px;height:112px"><small>Response data type</small><div style="position:relative"><div id="uRd0" style="color:#8a93a6;font-weight:700">Select</div><div id="uRd1" style="position:absolute;left:0;top:0;opacity:0;font-weight:800">From sample data</div></div></div>
+        <div class="ab" id="uSj" style="left:20px;top:560px;width:570px;height:96px;box-sizing:border-box;border-radius:14px;background:#eef1f7;border:3px solid var(--line2);padding:6px 20px;font-family:Consolas,'Courier New',monospace;font-size:32px;font-weight:700;line-height:40px;opacity:0"><div>{ "id": …,</div><div>&nbsp;"status": … }</div></div>
+        <div class="fld ab" id="uFS" style="left:630px;top:64px;width:570px;height:112px"><small>Save user response as</small><div style="position:relative"><div id="uSv0" style="color:#8a93a6;font-weight:700">Select</div><div id="uSv1" style="position:absolute;left:0;top:0;opacity:0;font-weight:800">Topic.Response</div></div></div>
+        <div class="fld ab" id="uFE" style="left:630px;top:188px;width:570px;height:112px"><small>Error handling</small><div style="position:relative"><div id="uEh0" style="font-weight:700;color:#5b6578">Raise an error</div><div id="uEh1" style="position:absolute;left:0;top:0;opacity:0;font-weight:800">Continue on error</div></div></div>
+        <div class="fld ab" id="uFC" style="left:630px;top:312px;width:570px;height:112px;opacity:0"><small>Status code</small><div style="font-weight:800">Topic.StatusCode</div></div>
+        <div class="fld ab" id="uFB" style="left:630px;top:436px;width:570px;height:112px;opacity:0"><small>Error body</small><div style="font-weight:800">Topic.ErrorResponse</div></div>
+        <div class="ab" id="uHb" style="left:620px;top:56px;width:590px;height:340px;box-sizing:border-box;background:#f7f9fd;border:4px solid #1f2a44;border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.3);padding:18px 26px;opacity:0">
+          <div style="font-size:40px;font-weight:800">Headers and body</div>
+          <div style="margin-top:20px;display:flex;align-items:center;gap:16px;font-size:34px;font-weight:800"><span style="background:${GOLD};border-radius:10px;padding:2px 14px;color:#3b2a00">Authorization</span><span style="flex:1;height:14px;background:#dfe3ec;border-radius:7px"></span></div>
+          <div style="margin-top:34px;font-size:32px;font-weight:700;color:var(--muted)">Body</div>
+          <div style="margin-top:6px;display:inline-block;background:${CRM};border:4px solid #b0926a;border-radius:12px;padding:6px 22px;font-size:36px;font-weight:800;color:${INK}">No Content</div></div>
+      </div>
+    </div>` }));
+  const PE = (sel, dx, dy) => { const r = document.querySelector(sel).getBoundingClientRect(); return [r.right - dx, r.bottom - dy]; };
+  const PU = { pl: PE('#uPl', 22, 18), m1: PE('#uM1i', 60, 14), m2: PE('#uM2i', 70, 14), sb: PE('#uSbi', 70, 14), u: PE('#uFU', 40, 20), mt: PE('#uFM', 40, 20), ed: PE('#uEd2', 20, 10), rd: PE('#uFR', 40, 20), sv: PE('#uFS', 40, 20), eh: PE('#uFE', 40, 20), sc: PE('#uFC', 40, 20) };
+
+  window.__timelines = window.__timelines || {}; window.__timelines['main'] = tl;
+  /* ═══════ TIMELINE ═══════ */
+  const POPR = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)', immediateRender: false }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const LB = (id, a, b) => { tl.fromTo('#' + id, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' }, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const PULSE = (sel, t, s) => tl.to(sel, { scale: s || 1.06, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t);
+  const RUN = (sel, a, b) => { const T = b - a; if (T < 0.4) return; const n = Math.ceil(T / 0.6); tl.fromTo(sel, { x: 0 }, { x: 100, duration: T / n, ease: 'none', repeat: n - 1 }, a); };
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.2 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', R + 1.95, 0.15);
+    ON('#' + o.pf + '_L', R + 2.0, 0.15); ON('#' + o.pf + '_R', R + 2.35, 0.15);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  /* the exam covers the world: hide it, jump the camera to the next framing, bring it back as the exam fades */
+  const EXWORLD = (i, cam, back) => { tl.set('#world', { opacity: 0 }, S(i, 1)); CAM(cam[0], cam[1], cam[2], S(i, 1), 0.01); tl.set('#world', { opacity: 1 }, back); };
+  const SC0 = [2035, 880, 0.58];
+  gsap.set('#world', { x: 960 - SC0[0] * SC0[2], y: 540 - SC0[1] * SC0[2], scale: SC0[2] });
+  gsap.set(['#gRk', '#g2', '#g3', '#g56', '#g56w', '#rkE', '#g8', '#deskG', '#g11'], { opacity: 0 });
+
+  /* ── 0 A ticket that lives outside ── */
+  TAG('#plA', 0.3);
+  BOB('#mar', 1.2, S(0, 2), 14);
+  LB('c0a', W(0, 0, 'outside the agent', -0.2), S(0, 1) - 0.1);
+  tl.fromTo('#bgl', { opacity: 0.5 }, { opacity: 1, duration: 0.5, yoyo: true, repeat: 3, ease: 'sine.inOut' }, W(0, 0, 'outside the agent', -0.3));
+  BOB('#mgr', S(0, 1) + 0.2, S(0, 2), 16);
+  LB('c0b', W(0, 1, 'check by itself', -0.2), S(0, 2) - 0.1);
+  ON(['#val', '#ea'], S(0, 2) - 0.1, 0.1);
+  tl.fromTo('#val,#ea', { x: -1250 }, { x: 0, duration: 1.9, ease: 'power1.out' }, S(0, 2) - 0.1);
+  ON('#ea_t0', W(0, 2, 'send h t t p', -1.0), 0.3); OFF('#ea_ba', W(0, 2, 'send h t t p', -1.0), 0.2);
+  /* the envelope travels: table -> out tube -> window; the reply comes back down the in tube */
+  const T3 = S(0, 3) + 0.2;
+  tl.to('#ea', { x: 470, y: 180, scale: 0.17, duration: 0.9, ease: 'power2.inOut' }, T3);
+  tl.to('#ea', { y: -515, duration: 1.1, ease: 'power1.in' }, T3 + 0.9);
+  tl.to('#ea', { x: 1150, duration: 0.9, ease: 'none' }, T3 + 2.0);
+  tl.to('#ea', { opacity: 0, duration: 0.25 }, T3 + 2.75);
+  tl.fromTo('#bgl', { opacity: 0.5 }, { opacity: 1, duration: 0.4, yoyo: true, repeat: 1 }, T3 + 2.8);
+  const R0 = W(0, 3, 'asking another', -0.2);
+  tl.set('#rep', { opacity: 1, x: 250, y: -515, scale: 0.18 }, R0);
+  tl.to('#rep', { x: 0, duration: 0.7, ease: 'none' }, R0);
+  tl.to('#rep', { y: -215, scale: 0.3, duration: 0.8, ease: 'power1.in' }, R0 + 0.7);
+  tl.to('#rep', { y: 0, scale: 1, duration: 0.6, ease: 'bounce.out' }, R0 + 1.5);
+  LB('c0c', W(0, 3, 'asking another', 0.0), S(0, 4) - 0.1);
+  tl.set('#g3', { opacity: 1 }, 0.01);
+  tl.set(['#tray', '#smp', '#rpn', '#vbx', '#rkS', '#val3'], { opacity: 0 }, 0.01);
+  tl.set('#rep', { opacity: 0 }, 0.02);
+  /* Nexo and his badge */
+  tl.set('#nxG', { opacity: 0 }, 0);
+  tl.fromTo('#nxG', { x: 450, opacity: 0 }, { x: 0, opacity: 1, duration: 1.3, ease: 'power2.out' }, S(0, 4) - 0.05);
+  tl.set('#nxBd', { opacity: 0 }, 0);
+  POP('#nxBd', S(0, 4) + 1.0);
+  ON('#nxBg', S(0, 4) + 1.0, 0.2); OFF('#nxBg', S(0, 4) + 1.7, 0.3);
+  LB('c0d', S(0, 4) + 0.3, S(1, 0) - 0.35);
+  OFF('#plA', S(0, 4) - 0.05, 0.25);
+
+  /* ── 1 Address, method, headers, body ── */
+  CAM(1650, 1000, 0.9, S(1, 0) - 0.3, 1.5);
+  OFF(['#nxG', '#gIn'], S(1, 0) - 0.3, 0.3);
+  tl.set('#ea', { x: 0, y: 0, scale: 1, opacity: 0 }, S(1, 0) - 0.35);
+  tl.set('#ea_t0', { opacity: 0 }, S(1, 0) - 0.35); tl.set('#ea_ba', { opacity: 1 }, S(1, 0) - 0.35);
+  tl.set('#rep', { opacity: 0 }, S(1, 0) - 0.35);
+  POPR('#ea', W(1, 0, 'letter', -0.4));
+  tl.set('#val', { opacity: 1 }, S(1, 0) - 0.35);
+  OFF('#ea_ba', W(1, 1, 'endpoint', -0.2), 0.2); ON('#ea_u', W(1, 1, 'endpoint', -0.2), 0.3);
+  LB('c1a', W(1, 1, 'endpoint', -0.1), S(1, 2) - 0.1);
+  ON('#gRk', W(1, 2, 'method', -0.5), 0.2);
+  ['get', 'post', 'patch', 'put', 'delete'].forEach((m, k) => POP('#rk' + k, W(1, 2, m + (k === 3 ? ',' : ''), -0.3)));
+  LB('c1b', W(1, 2, 'method', 0.0), S(1, 3) - 0.1);
+  tl.set('#stG', { opacity: 0 }, 0.01);
+  tl.fromTo('#stG', { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, x: 1100, y: 208, scale: 1, duration: 0.6, ease: 'power2.inOut' }, W(1, 2, 'put,', 0.3));
+  tl.set('#ea_st', { opacity: 1 }, W(1, 2, 'put,', 0.9)); tl.set('#stG', { opacity: 0 }, W(1, 2, 'put,', 0.9));
+  tl.fromTo('#ea_st', { scale: 1.35 }, { scale: 1, duration: 0.3, ease: 'back.out(2)', immediateRender: false }, W(1, 2, 'put,', 0.9));
+  tl.to('#rk0', { backgroundColor: '#3a4a78', duration: 0.2 }, W(1, 2, 'put,', 0.3));
+  tl.fromTo('#ea_au', { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(1, 3, 'authorization', -0.6));
+  LB('c1c', W(1, 3, 'headers', 0.0), S(1, 4) - 0.1);
+  OFF(['#ea_fl'], W(1, 4, 'body', -0.2), 0.2); ON(['#ea_fo', '#ea_mo', '#ea_sl'], W(1, 4, 'body', -0.2), 0.3);
+  LB('c1d', W(1, 4, 'body', 0.0), S(1, 5) - 0.1);
+  OFF('#ea_sl', W(1, 5, 'no content', -0.3), 0.15); ON('#ea_nc', W(1, 5, 'no content', -0.2), 0.3);
+  PULSE('#ea_st', W(1, 5, 'typical', 0.0), 1.15);
+  LB('c1e', W(1, 5, 'no content', 0.0), S(2, 0) - 0.4);
+
+  /* ── 2 What goes inside the envelope ── */
+  OFF(['#ea', '#val', '#gRk'], S(2, 0) - 0.3, 0.3);
+  ON('#g2', S(2, 0) - 0.3, 0.05);
+  ['#sL', '#sM', '#sR'].forEach((s, k) => tl.fromTo(s, { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, S(2, 0) + 0.15 + k * 0.2));
+  LB('c2a', W(2, 0, 'body', 0.0), S(2, 1) - 0.1);
+  ON('#tL', W(2, 1, 'j s o n content', -0.3), 0.3);
+  POP('#sP', W(2, 1, 'post', 0.0)); POP('#sU', W(2, 1, 'put', 0.0));
+  tl.to('#sL', { borderColor: GOLD, duration: 0.3 }, W(2, 1, 'j s o n content', 0.0));
+  LB('c2b', W(2, 1, 'typical', -0.2), S(2, 2) - 0.1);
+  OFF(['#sP', '#sU'], S(2, 2) - 0.15, 0.25);
+  tl.to('#sL', { borderColor: '#b0926a', duration: 0.3 }, S(2, 2) - 0.1);
+  ON('#tM', W(2, 2, 'edit j s o n', -0.3), 0.3);
+  tl.to('#sM', { borderColor: PUR, duration: 0.3 }, W(2, 2, 'edit j s o n', 0.0));
+  POP('#pen', W(2, 2, 'power f x', -0.3));
+  POP('#vc1', W(2, 2, 'variables', -0.5)); POP('#vc2', W(2, 2, 'variables', 0.3));
+  LB('c2c', W(2, 2, 'power f x', 0.0), S(2, 3) - 0.1);
+  tl.to('#sM', { borderColor: '#b0926a', duration: 0.3 }, S(2, 3) - 0.1);
+  ON('#tR', W(2, 3, 'raw content', -0.3), 0.3);
+  tl.to('#sR', { borderColor: PUR, duration: 0.3 }, W(2, 3, 'raw content', 0.0));
+  tl.to('#pen', { x: 420, duration: 0.9, ease: 'power2.inOut' }, W(2, 3, 'power f x', -0.4));
+  LB('c2d', W(2, 3, 'text string', 0.0), E(2, 3) + 0.3);
+
+  /* ── 3 The reply letter ── */
+  CAM(3470, 800, 0.86, S(3, 0) - 0.3, 1.5);
+  OFF(['#g2', '#pen', '#gCub'], S(3, 0) - 0.3, 0.3);
+  tl.set('#winT', { y: 55 }, S(3, 0) - 0.3);
+  tl.set('#rep', { opacity: 1, x: 250, y: -515, scale: 0.26 }, S(3, 0) + 0.1);
+  tl.to('#rep', { x: 0, duration: 0.5, ease: 'none' }, S(3, 0) + 0.1);
+  tl.to('#rep', { y: -215, scale: 0.3, duration: 0.7, ease: 'power1.in' }, S(3, 0) + 0.6);
+  tl.to('#rep', { y: 0, scale: 1, duration: 0.6, ease: 'bounce.out' }, S(3, 0) + 1.3);
+  LB('c3a', W(3, 0, 'reply letter', 0.0), S(3, 1) - 0.1);
+  ON(['#tray', '#val3'], S(3, 0) + 0.2, 0.3);
+  tl.fromTo('#smp', { opacity: 0, y: -300 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(3, 1, 'pastes', -0.2));
+  POP('#rpn', S(3, 0) + 0.9);
+  tl.to('#rpB', { boxShadow: '0 0 0 10px #ffd166', duration: 0.3, yoyo: true, repeat: 3 }, W(3, 1, 'get schema', -0.3));
+  tl.to('#trayIn', { borderStyle: 'solid', borderColor: CRM, duration: 0.3 }, W(3, 2, 'generates', 0.0));
+  OFF('#smp', W(3, 2, 'generates', 0.0), 0.3);
+  POP('#vbx', W(3, 2, 'variable', 0.0));
+  LB('c3b', W(3, 2, 'variable', 0.0), S(3, 3) - 0.1);
+  POP('#rkS', W(3, 3, 'save user response as', -0.5));
+  tl.to('#vbx', { y: -140, scale: 0.6, duration: 0.5, ease: 'power2.inOut' }, W(3, 3, 'chooses where', -0.4)); OFF('#vbx', W(3, 3, 'chooses where', 0.15), 0.1);
+  tl.to('#rkS', { borderColor: TLC, backgroundColor: '#d8f1f4', duration: 0.3 }, W(3, 3, 'chooses where', 0.2));
+  LB('c3c', W(3, 3, 'where', 0.0), E(3, 3) + 0.3);
+
+  /* ── 4 EXAM A: the body of a get ── */
+  EXWORLD(4, [2250, 905, 0.85], S(5, 0) - 0.12);
+  EXAMX('exA', 4, { pf: 'pa', pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.1 });
+  tl.set(['#g3', '#gCub'], { opacity: 0 }, S(4, 1));
+  tl.set(['#g56', '#g56w'], { opacity: 1 }, S(4, 1));
+  tl.set('#winT', { opacity: 0, y: 0 }, S(4, 1));
+
+  /* ── 5 When the call fails ── */
+  RUN('#btI', 0.05, S(5, 2) - 0.1);
+  tl.set(['#lt0', '#lt1', '#lt2'], { opacity: 1 }, 0.02);
+  const GP = S(5, 0) + 0.1;
+  tl.set('#gEn', { opacity: 1, x: 250, y: -515, scale: 0.18 }, GP);
+  tl.to('#gEn', { x: 0, duration: 0.4, ease: 'none' }, GP);
+  tl.to('#gEn', { y: -215, scale: 0.3, duration: 0.5, ease: 'power1.in' }, GP + 0.4);
+  tl.to('#gEn', { y: 0, scale: 1, duration: 0.45, ease: 'bounce.out' }, GP + 0.9);
+  POP('#gSt', GP + 1.5);
+  tl.to('#gEn', { x: -340, y: 40, scale: 0.6, duration: 0.5, ease: 'power2.inOut' }, S(5, 1) - 0.25); tl.to('#gSt', { x: -342, y: 52, scale: 0.6, duration: 0.5, ease: 'power2.inOut' }, S(5, 1) - 0.25);
+  LB('c5a', W(5, 0, 'unanswered', -0.4), S(5, 1) - 0.1);
+  tl.set('#spN', { opacity: 0.4 }, S(4, 1) + 0.1); ON('#spN', S(5, 1) + 0.05, 0.35);
+  ON('#lmpG', 0, 0.01);
+  tl.set('#lmpG', { opacity: 0 }, 0.02);
+  tl.to('#lmpO', { opacity: 1, duration: 0.3 }, W(5, 2, 'on error', -0.4));
+  tl.fromTo('#lmpG', { opacity: 0.4 }, { opacity: 1, duration: 0.5, yoyo: true, repeat: 5 }, W(5, 2, 'on error', -0.4));
+  POP('#lmpT', W(5, 2, 'on error', -0.2));
+  LB('c5c', W(5, 2, 'agent stops', -0.2), S(5, 3) - 0.1);
+  tl.to(['#lt0', '#lt1', '#lt2'], { opacity: 0.3, duration: 0.5 }, W(5, 3, 'rest of the topic', -0.2));
+  LB('c5d', W(5, 3, 'rest of the topic', 0.0), S(5, 4) - 0.1);
+  ON('#auth', W(5, 4, 'many authors', -0.2), 0.3); BOB('#auth', W(5, 4, 'many authors', 0.0), S(5, 5) - 0.1, 6);
+  LB('c5e', W(5, 4, 'leave this default', -0.3), S(5, 5) - 0.1);
+  OFF('#auth', S(5, 5) - 0.1, 0.3);
+  ON('#val5', S(5, 5) - 0.05, 0.3);
+  tl.to('#spSel', { boxShadow: '0 0 0 10px #ffd166', duration: 0.3, yoyo: true, repeat: 3 }, W(5, 5, 'calmer path', -0.6));
+  LB('c5f', W(5, 5, 'calmer path', -0.3), E(5, 5) + 0.3);
+
+  /* ── 6 Continue on error ── */
+  tl.to('#spSel', { top: 268, height: 128, duration: 0.5, ease: 'power2.inOut' }, S(6, 0) + 0.3);
+  tl.to('#spR1', { color: '#fff', duration: 0.3 }, S(6, 0) + 0.3); tl.to('#spR2', { color: NAVY, duration: 0.3 }, S(6, 0) + 0.3);
+  OFF('#spDf', S(6, 0) + 0.3, 0.2);
+  tl.to('#lmpO', { opacity: 0, duration: 0.3 }, S(6, 0) + 0.8); tl.to('#lmpG', { opacity: 0, duration: 0.3 }, S(6, 0) + 0.8); OFF('#lmpT', S(6, 0) + 0.8, 0.3);
+  ON('#trk', S(6, 0) + 0.8, 0.3);
+  tl.to(['#lt0', '#lt1', '#lt2'], { opacity: 1, duration: 0.4 }, S(6, 0) + 0.8);
+  RUN('#btI', S(6, 0) + 0.8, B.duration + 2.6); RUN('#trI', S(6, 0) + 0.8, B.duration + 2.6);
+  LB('c6a', W(6, 0, 'does not stop', -0.4), S(6, 1) - 0.1);
+  OFF('#val5', S(6, 0) + 1.2, 0.3);
+  ON('#rkE', S(6, 1) - 0.1, 0.01);
+  ['pg1', 'pg2'].forEach((p) => tl.set('#' + p, { opacity: 0 }, 0.02));
+  POP('#pg1', W(6, 1, 'status code', -0.5)); POP('#pg2', W(6, 1, 'error body', -0.5));
+  tl.set('#tk1', { opacity: 1, x: 0, y: 0 }, W(6, 1, 'status code', -0.1));
+  tl.to('#tk1', { x: 100, y: -523, duration: 0.7, ease: 'power2.inOut' }, W(6, 1, 'status code', -0.1));
+  tl.to('#tk1', { opacity: 0, duration: 0.15 }, W(6, 1, 'status code', 0.6)); ON('#pg1_v', W(6, 1, 'status code', 0.6), 0.2);
+  tl.set('#tk2', { opacity: 1, x: 0, y: 0 }, W(6, 1, 'error body', -0.2));
+  tl.to('#tk2', { x: 100, y: -387, duration: 0.7, ease: 'power2.inOut' }, W(6, 1, 'error body', -0.2));
+  tl.to('#tk2', { opacity: 0, duration: 0.15 }, W(6, 1, 'error body', 0.5)); ON('#pg2_v', W(6, 1, 'error body', 0.5), 0.2);
+  LB('c6b', W(6, 1, 'saved in variables', -0.3), S(6, 2) - 0.1);
+  /* the bundle "Any" goes into the press and comes out as a record card */
+  ON('#prs', W(6, 2, 'parse value', -0.9), 0.3);
+  tl.set('#bnd', { opacity: 1 }, W(6, 2, 'type any', -0.3));
+  tl.to('#bnd', { x: -400, y: 30, duration: 0.5, ease: 'power1.out' }, W(6, 2, 'type any', -0.3));
+  tl.to('#bnd', { x: -955, y: 140, scale: 1, duration: 1.0, ease: 'power1.inOut' }, W(6, 2, 'type any', 0.3));
+  tl.to('#bnd', { opacity: 0, duration: 0.2 }, W(6, 2, 'parse value', 0.6));
+  POP('#rcd', W(6, 2, 'parse value', 0.7));
+  LB('c6c', W(6, 2, 'parse value', 0.0), S(6, 3) - 0.1);
+  CAM(1850, 905, 0.85, S(6, 3) - 0.35, 1.2);
+  OFF('#rkE', S(6, 3) - 0.4, 0.25);
+  ON('#clk', W(6, 3, 'request timeout', -0.2), 0.3); POP('#clkT', W(6, 3, 'request timeout', -0.1));
+  tl.to('#clkH', { rotation: 180, svgOrigin: '100 100', duration: 1.8, ease: 'none' }, W(6, 3, 'thirty seconds', -0.3));
+  LB('c6d', W(6, 3, 'request timeout', 0.0), E(6, 3) + 0.3);
+
+  /* ── 7 EXAM B: reply and go on ── */
+  EXWORLD(7, [2600, 900, 0.75], S(8, 0) - 0.12);
+  EXAMX('exB', 7, { pf: 'pb', pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.1 });
+  tl.set(['#g56', '#g56w', '#rkE', '#trk'], { opacity: 0 }, S(7, 1));
+  tl.set('#g8', { opacity: 1 }, S(7, 1));
+  tl.set(['#winT', '#gIn', '#mgr', '#gCub'], { opacity: 1 }, S(7, 1));
+  tl.set('#rkE', { opacity: 1 }, S(7, 1) + 0.05);
+  tl.set(['#pg1', '#pg2', '#pg1_v', '#pg2_v'], { opacity: 0 }, S(7, 1) + 0.1);
+
+  /* ── 8 The Contoso case ── */
+  LB('c8a', S(8, 0) + 0.1, S(8, 1) - 0.1);
+  POPR('#e8', S(8, 0) + 0.1);
+  const T8 = S(8, 0) + 0.7;
+  tl.to('#e8', { x: 470, y: 180, scale: 0.17, duration: 0.9, ease: 'power2.inOut' }, T8);
+  tl.to('#e8', { y: -515, duration: 1.1, ease: 'power1.in' }, T8 + 0.9);
+  tl.to('#e8', { x: 1150, duration: 0.9, ease: 'none' }, T8 + 2.0);
+  tl.to('#e8', { opacity: 0, duration: 0.25 }, T8 + 2.75);
+  tl.to('#vb8', { opacity: 0.45, duration: 0.4 }, W(8, 1, 'response is saved', -0.2));
+  LB('c8b', W(8, 1, 'sample', -0.4), S(8, 2) - 0.1);
+  POP('#sw8', W(8, 2, 'continue on error', -0.4));
+  const G8 = W(8, 2, 'returns a four', -0.6);
+  tl.set('#g8En', { opacity: 1, x: 250, y: -515, scale: 0.18 }, G8);
+  tl.to('#g8En', { x: 0, duration: 0.5, ease: 'none' }, G8);
+  tl.to('#g8En', { y: -215, scale: 0.3, duration: 0.6, ease: 'power1.in' }, G8 + 0.5);
+  tl.to('#g8En', { y: 0, scale: 1, duration: 0.5, ease: 'bounce.out' }, G8 + 1.1);
+  POP('#g8St', G8 + 1.6);
+  tl.to('#g8En', { x: -340, y: 40, scale: 0.6, duration: 0.5, ease: 'power2.inOut' }, G8 + 2.4); tl.to('#g8St', { x: -345, y: 50, scale: 0.7, duration: 0.5, ease: 'power2.inOut' }, G8 + 2.4);
+  POPR('#pg1', W(8, 2, 'topic status code', -0.7)); POPR('#pg2', W(8, 2, 'topic status code', -0.5));
+  tl.set('#pg1_l', { opacity: 0 }, W(8, 2, 'topic status code', -0.7)); tl.set('#pg1_l2', { opacity: 1 }, W(8, 2, 'topic status code', -0.7));
+  tl.set('#pg2_l', { opacity: 0 }, W(8, 2, 'topic status code', -0.7)); tl.set('#pg2_l2', { opacity: 1 }, W(8, 2, 'topic status code', -0.7));
+  tl.set(['#pg1_v', '#pg2_v'], { opacity: 0 }, W(8, 2, 'topic status code', -0.7));
+  tl.set('#tk1', { opacity: 1, x: 0, y: 0 }, W(8, 2, 'topic status code', 0.0));
+  tl.to('#tk1', { x: 100, y: -523, duration: 0.7, ease: 'power2.inOut' }, W(8, 2, 'topic status code', 0.0));
+  tl.to('#tk1', { opacity: 0, duration: 0.15 }, W(8, 2, 'topic status code', 0.7)); ON('#pg1_v', W(8, 2, 'topic status code', 0.7), 0.2);
+  tl.set('#tk2', { opacity: 1, x: 0, y: 0 }, W(8, 2, 'topic error response', -0.4));
+  tl.to('#tk2', { x: 100, y: -387, duration: 0.7, ease: 'power2.inOut' }, W(8, 2, 'topic error response', -0.4));
+  tl.to('#tk2', { opacity: 0, duration: 0.15 }, W(8, 2, 'topic error response', 0.3)); ON('#pg2_v', W(8, 2, 'topic error response', 0.3), 0.2);
+  /* s3: Nexo hands Marta the bubble */
+  CAM(1450, 950, 0.8, S(8, 3) - 0.4, 1.0);
+  OFF(['#vb8', '#sw8', '#rkE', '#mgr'], S(8, 3) - 0.4, 0.3);
+  ON('#gIn', S(8, 3) - 0.45, 0.3);
+  tl.set('#nxG', { opacity: 1, x: -640 }, S(8, 3) - 0.45);
+  tl.set(['#nxBd'], { opacity: 1 }, S(8, 3) - 0.45);
+  tl.fromTo('#nxG', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(8, 3) - 0.4);
+  POP('#bub8', W(8, 3, 'i could not', -0.2));
+  LB('c8d', W(8, 3, 'without stopping', -0.3), S(8, 4) - 0.1);
+  /* s4: POST envelope goes out */
+  CAM(1700, 900, 0.75, S(8, 4) - 0.3, 1.0);
+  OFF(['#bub8', '#nxG'], S(8, 4) - 0.3, 0.3); ON('#mgr', S(8, 4) - 0.3, 0.3);
+  POPR('#e9', S(8, 4) + 0.2);
+  const T9 = W(8, 4, 'uses a post', -0.5);
+  tl.to('#e9', { x: 470, y: 180, scale: 0.17, duration: 0.9, ease: 'power2.inOut' }, T9); tl.to('#e9', { opacity: 0, duration: 0.45 }, T9 + 0.35);
+  tl.to('#e9', { y: -515, duration: 1.1, ease: 'power1.in' }, T9 + 0.9);
+  LB('c8e', S(8, 4) + 0.1, E(8, 4) - 0.55);
+
+  /* ── 9 Add it in Copilot Studio (UI) ── */
+  CAM(420, 1470, 1.5, E(8, 4) - 0.3, 0.7, 'power2.inOut');
+  ON('#deskG', E(8, 4) - 0.3, 0.3);
+  OFF(['#g8', '#rkE', '#e9', '#gIn', '#gCub'], E(8, 4) - 0.3, 0.3);
+  UIIN('#uiS', S(9, 0) - 0.25);
+  tl.to('#world', { opacity: 0, duration: 0.25 }, S(9, 0) - 0.45); tl.set('#world', { opacity: 1 }, E(9, 7) - 0.4);
+  ON('#cur', S(9, 0) + 1.3, 0.2);
+  CUR(PU.pl[0], PU.pl[1], S(9, 1) - 0.1, 0.6); CLICK(PU.pl[0], PU.pl[1], W(9, 1, 'select', -0.1));
+  ON('#uM1', W(9, 1, 'select', 0.05), 0.15);
+  CUR(PU.m1[0], PU.m1[1], W(9, 1, 'add node', -0.2), 0.4); CLICK(PU.m1[0], PU.m1[1], W(9, 1, 'add node', 0.15));
+  tl.to('#uM1i', { backgroundColor: '#e6ecfb', duration: 0.15 }, W(9, 1, 'add node', 0.1));
+  OFF('#uM1', W(9, 1, 'add node', 0.3), 0.12); ON('#uM2', W(9, 1, 'add node', 0.4), 0.15);
+  LB('c9a', S(9, 2) - 0.1, S(9, 3) - 0.1);
+  CUR(PU.m2[0], PU.m2[1], S(9, 2) + 0.05, 0.5);
+  tl.to('#uM2i', { backgroundColor: '#e6ecfb', duration: 0.15 }, W(9, 2, 'advanced', 0.0));
+  ON('#uSb', W(9, 2, 'advanced', 0.3), 0.15);
+  CUR(PU.sb[0], PU.sb[1], W(9, 2, 'choose', -0.1), 0.5);
+  tl.to('#uSbi', { backgroundColor: '#e6ecfb', duration: 0.15 }, W(9, 2, 'send h t t p', 0.1)); CLICK(PU.sb[0], PU.sb[1], W(9, 2, 'send h t t p', 0.3));
+  OFF(['#uM2', '#uSb'], W(9, 2, 'send h t t p', 0.45), 0.15);
+  tl.to('#uSm', { y: 110, duration: 0.4, ease: 'power2.inOut' }, W(9, 2, 'send h t t p', 0.5)); ON('#uNd', W(9, 2, 'send h t t p', 0.55), 0.3);
+  OFF('#uPg', S(9, 3) - 0.05, 0.25); ON('#uNp', S(9, 3) - 0.05, 0.25);
+  tl.to('#uTypU', { width: 330, duration: 0.8, ease: 'steps(9)' }, W(9, 3, 'type the', 0.1));
+  CUR(PU.mt[0], PU.mt[1], W(9, 3, 'choose get', -1.0), 0.5); CLICK(PU.mt[0], PU.mt[1], W(9, 3, 'choose get', -0.45));
+  tl.set('#uMv0', { opacity: 0 }, W(9, 3, 'choose get', -0.35)); tl.set('#uMv1', { opacity: 1 }, W(9, 3, 'choose get', -0.35));
+  CUR(PU.ed[0], PU.ed[1], S(9, 4) - 0.1, 0.5); CLICK(PU.ed[0], PU.ed[1], W(9, 4, 'select edit', 0.2));
+  OFF(['#uFS', '#uFE'], W(9, 4, 'select edit', 0.2), 0.1); ON('#uHb', W(9, 4, 'select edit', 0.3), 0.2);
+  OFF('#uHb', S(9, 5) - 0.1, 0.2); ON(['#uFS', '#uFE'], S(9, 5) - 0.1, 0.2);
+  CUR(PU.rd[0], PU.rd[1], S(9, 5) - 0.05, 0.5); CLICK(PU.rd[0], PU.rd[1], W(9, 5, 'from sample data', -0.2));
+  tl.set('#uRd0', { opacity: 0 }, W(9, 5, 'from sample data', 0.0)); tl.set('#uRd1', { opacity: 1 }, W(9, 5, 'from sample data', 0.0));
+  ON('#uSj', W(9, 5, 'paste', 0.0), 0.3);
+  CUR(PU.sv[0], PU.sv[1], S(9, 6) - 0.1, 0.5); CLICK(PU.sv[0], PU.sv[1], W(9, 6, 'create', -0.1));
+  tl.set('#uSv0', { opacity: 0 }, W(9, 6, 'create', 0.2)); tl.set('#uSv1', { opacity: 1 }, W(9, 6, 'create', 0.2));
+  CUR(PU.eh[0], PU.eh[1], S(9, 7) - 0.1, 0.5); CLICK(PU.eh[0], PU.eh[1], W(9, 7, 'choose', -0.2));
+  tl.set('#uEh0', { opacity: 0 }, W(9, 7, 'choose', 0.1)); tl.set('#uEh1', { opacity: 1 }, W(9, 7, 'choose', 0.1));
+  ON('#uFC', W(9, 7, 'status', -0.1), 0.3); ON('#uFB', W(9, 7, 'error variables', -0.3), 0.3);
+  LB('c9b', W(9, 7, 'status', 0.0), E(9, 7) - 0.1);
+  OFF('#cur', E(9, 7) - 0.4, 0.15);
+  tl.to('#uiS', { opacity: 0, scale: 0.28, duration: 0.7, ease: 'power3.in' }, E(9, 7) - 0.3);
+  OFF('#uiBack', E(9, 7) + 0.3, 0.4);
+
+  /* ── 10 EXAM C: reading the error ── */
+  EXWORLD(10, [1357, 880, 0.8], S(11, 0) - 0.12);
+  OFF('#deskG', S(10, 1), 0.01);
+  EXAMX('exC', 10, { pf: 'pc', pause: 7, reveal: 8, trap: 2, right: 0, opt: [S(10, 4), S(10, 5), S(10, 6)], end: S(11, 0) - 0.1 });
+  tl.set(['#g11', '#gCub', '#gIn'], { opacity: 1 }, S(10, 1)); tl.set(['#mgr', '#tbO'], { opacity: 0 }, S(10, 1));
+  tl.set('#nxG', { opacity: 1, x: -640 }, S(10, 1)); tl.set('#nxBd', { opacity: 1 }, S(10, 1));
+  tl.set('#rep11', { opacity: 0 }, S(10, 1));
+
+  /* ── 11 Three rules to remember ── */
+  TAG('#plD', S(11, 0) + 0.2);
+  ON(['#val11', '#mgr11'], S(11, 0) - 0.05, 0.3);
+  BOB('#val11', S(11, 0) + 0.3, S(11, 5), 14); BOB('#mgr11', S(11, 0) + 0.6, S(11, 5), 10);
+  tl.fromTo('#nxG', { x: -640 }, { x: -580, duration: 2.0, yoyo: true, repeat: Math.ceil((B.duration + 2.6 - S(11, 0)) / 2.0), ease: 'sine.inOut' }, S(11, 0) + 0.1);
+  RUN('#btI', S(11, 0) - 0.2, B.duration + 2.6);
+  tl.set('#trk', { opacity: 1 }, S(11, 0) - 0.2);
+  [0, 1, 2].forEach((k) => { for (let t0 = S(11, 0) + k * 2.2; t0 < B.duration + 2.6; t0 += 6.6) { tl.set('#rb' + k, { x: 0, opacity: 0 }, t0); tl.to('#rb' + k, { opacity: 1, duration: 0.3 }, t0); tl.to('#rb' + k, { x: 1100, duration: 6.4, ease: 'none' }, t0); tl.to('#rb' + k, { opacity: 0, duration: 0.3 }, t0 + 6.1); } });
+  tl.set('#rep11', { opacity: 1, x: 0, y: 0 }, S(11, 0) + 0.3);
+  tl.fromTo('#rep11', { x: 0, y: 0 }, { x: -380, y: 40, duration: 1.2, ease: 'power2.inOut' }, S(11, 0) + 0.5);
+  OFF('#rep11', S(11, 0) + 2.3, 0.3);
+  POP('#bub11', S(11, 0) + 3.2); OFF('#bub11', S(11, 1) - 0.1, 0.25);
+  ON('#rec', S(11, 1) + 0.15, 0.35);
+  tl.to('#rl0', { opacity: 1, duration: 0.35 }, S(11, 2) + 0.15);
+  tl.to('#rl1', { opacity: 1, duration: 0.35 }, S(11, 3) + 0.15);
+  tl.to('#rl2', { opacity: 1, duration: 0.35 }, S(11, 4) + 0.15);
+  OFF('#rec', S(11, 5) - 0.75, 0.25); OFF(['#val11', '#mgr11', '#nxG', '#plD'], S(11, 5) - 0.4, 0.4);
+  CAM(-70, 960, 0.9, S(11, 5) - 0.7, 1.3);
+  ON(['#corr', '#signN'], S(11, 5) + 0.1, 0.25);
+  TAG('#nlNext', S(11, 5) + 0.4);
+  BOB('#signN', S(11, 5) + 1.0, B.duration + 2.6, 14);
+  tl.to('#world', { scale: 0.86, duration: Math.max(1, B.duration + 2.6 - (S(11, 5) + 1.7)), ease: 'none' }, S(11, 5) + 1.7);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

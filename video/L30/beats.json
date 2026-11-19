@@ -1,0 +1,144 @@
+{
+ "id": "L30",
+ "title": "Microsoft Foundry agents",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 87.411,
+ "scenes": [
+  {
+   "title": "A specialist in Foundry",
+   "start": 0.8,
+   "end": 16.936,
+   "sentences": [
+    {
+     "text": "Foundry is the Azure platform where teams build agents with their own code and models.",
+     "start": 0.8,
+     "end": 5.792
+    },
+    {
+     "text": "Copilot Studio can invoke one of those agents, like a boss who calls an outside specialist.",
+     "start": 6.072,
+     "end": 11.981
+    },
+    {
+     "text": "This capability is in preview.",
+     "start": 12.261,
+     "end": 14.203
+    },
+    {
+     "text": "It is a way to reuse the work of another team.",
+     "start": 14.483,
+     "end": 16.936
+    }
+   ]
+  },
+  {
+   "title": "How to add it",
+   "start": 17.836,
+   "end": 34.228,
+   "sentences": [
+    {
+     "text": "You go to Agents, Add an agent, Connect to an external agent, and choose Microsoft Foundry.",
+     "start": 17.836,
+     "end": 23.511
+    },
+    {
+     "text": "The connection needs the project endpoint.",
+     "start": 23.791,
+     "end": 26.244
+    },
+    {
+     "text": "Then you enter a name, a description, and the Agent Id.",
+     "start": 26.524,
+     "end": 29.767
+    },
+    {
+     "text": "It is only a few details, but each one matters for the connection to work.",
+     "start": 30.047,
+     "end": 34.228
+    }
+   ]
+  },
+  {
+   "title": "Requirement one: Activity protocol",
+   "start": 35.128,
+   "end": 53.059,
+   "sentences": [
+    {
+     "text": "First requirement: the agent must have the Activity protocol enabled.",
+     "start": 35.128,
+     "end": 39.288
+    },
+    {
+     "text": "New agents expose only Responses and A two A.",
+     "start": 39.568,
+     "end": 42.704
+    },
+    {
+     "text": "You can enable it only through the R E S T A P I or the Python S D K.",
+     "start": 42.984,
+     "end": 48.019
+    },
+    {
+     "text": "If it is missing, you see a four hundred error.",
+     "start": 48.299,
+     "end": 50.731
+    },
+    {
+     "text": "Knowing this saves you hours of searching.",
+     "start": 51.011,
+     "end": 53.059
+    }
+   ]
+  },
+  {
+   "title": "Requirement two: new portal",
+   "start": 53.959,
+   "end": 68.9,
+   "sentences": [
+    {
+     "text": "Second requirement: only agents created in the new Foundry portal work.",
+     "start": 53.959,
+     "end": 58.439
+    },
+    {
+     "text": "With the previous portal, the error is four hundred four, Version not found.",
+     "start": 58.719,
+     "end": 62.708
+    },
+    {
+     "text": "Each error code tells a different story.",
+     "start": 62.988,
+     "end": 65.164
+    },
+    {
+     "text": "If it is four hundred four, look at where the agent was created.",
+     "start": 65.444,
+     "end": 68.9
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 69.8,
+   "end": 86.211,
+   "sentences": [
+    {
+     "text": "If you see a four hundred four error, the agent is from the old portal.",
+     "start": 69.8,
+     "end": 73.747
+    },
+    {
+     "text": "And here is the classic trap: looking for the Activity protocol in the portal, where only Responses and A two A appear.",
+     "start": 74.027,
+     "end": 81.152
+    },
+    {
+     "text": "With this method you win easy points on a diagnosis question in the exam.",
+     "start": 81.432,
+     "end": 86.211
+    }
+   ]
+  }
+ ]
+}

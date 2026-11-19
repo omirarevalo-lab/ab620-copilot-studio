@@ -1,0 +1,87 @@
+[
+ {
+  "title": "Monday morning at Contoso",
+  "caption": "A test agent, no sign-in, a shared link. Who should have stopped it?",
+  "say": "Monday morning at Contoso. A maker builds an HR agent and, to test faster, switches authentication to No authentication. Then the link gets shared. Now anyone with that link can chat with an agent that knows HR policies. Who should have stopped this? Copilot Studio has two safety nets, and admins have tools to govern hundreds of agents at once. By the end of this class you will know exactly which one stops what."
+ },
+ {
+  "title": "The alarm and the guard",
+  "caption": "Security scan = alarm (warns). Data policy = guard (blocks).",
+  "say": "Here is the picture to keep. The security scan is an alarm. It rings when you weaken a setting, but you can still walk through the door. A data policy is a guard. The administrator posts it at the door, and it simply does not let you pass. One warns, the other prevents. Many governance questions on the exam come down to this difference."
+ },
+ {
+  "title": "The alarm in action",
+  "caption": "The scan warns about No authentication, maker credentials, and sharing with everyone.",
+  "say": "Let's watch the alarm. Our maker switches from Authenticate with Microsoft to No authentication. The scan warns. If tools switch from end user credentials to the maker's own credentials, it warns again. If the agent is shared with the whole organization, it warns too, because by default an agent is shared with nobody. Notice the pattern. Each warning means a default was weakened. And notice the limit: the maker can still publish."
+ },
+ {
+  "title": "The guard: data policies",
+  "caption": "Admins set data policies in Power Platform. Blocked connector, blocked capability.",
+  "say": "Now the guard. The administrator defines data policies in Power Platform, for each environment. A data policy works on connectors. Here is the key idea: almost everything an agent does rides on a connector. Channels, knowledge sources, tools, even M C P servers. So when the admin blocks a connector, that capability simply disappears for every maker in the environment. It does not warn, it blocks. Blocked."
+ },
+ {
+  "title": "Three groups",
+  "caption": "Business, Non-business, Blocked. One agent can't mix Business and Non-business.",
+  "say": "A data policy sorts every connector into one of three groups. Business, Non-business, and Blocked. Blocked connectors can't be used by any agent. Business and Non-business connectors can both be used, but never together in one agent. Picture an agent that reads SharePoint, which the admin put in Business, and posts to a social network the admin put in Non-business. The moment the maker adds the second one, an error appears, in real time. If a maker needs a blocked connector, ask the admin to move it to another group."
+ },
+ {
+  "title": "Decide: it worked yesterday",
+  "caption": "Works in development, fails in production. Which environment's policy applies?",
+  "say": "Your turn. An agent works perfectly in the development environment. In production, adding the same tool fails at once with an error. Is the scan to blame, or a data policy? Decide before I answer. It is a data policy, and it belongs to the production environment. Policies are set per environment, so a connector can be allowed in development and blocked in production. Check the target environment while you design, not on launch day."
+ },
+ {
+  "title": "Credentials and Teams",
+  "caption": "Control maker-provided credentials forces end-user sign-in at runtime.",
+  "say": "Admins have a second lever, beyond connectors. In the Power Platform admin center there is a setting called Control maker provided credentials. When it is enforced, makers can no longer set tools to run with their own credentials. Every connection is signed in by the end user, at runtime. One more limit for Teams. If an agent there uses custom Active Directory authentication, single sign on does not work for connectors, so users sign in to each connector by hand."
+ },
+ {
+  "title": "One connector per source",
+  "caption": "Documents, SharePoint and OneDrive, public websites: separate connectors.",
+  "say": "Knowledge works the same way, with a twist. Each type of knowledge source has its own connector. Uploaded documents have one. SharePoint and OneDrive have another. Public websites have a third. So an admin can block public websites and keep SharePoint fully working. Blocking one never touches the others. And if blocking a whole connector is too blunt, endpoint filtering lets the admin allow or deny specific addresses instead."
+ },
+ {
+  "title": "Closing the Monday door",
+  "caption": "Block Chat without Microsoft Entra ID authentication. Only signed-in options remain.",
+  "say": "Back to Monday morning. How does the admin make sure nobody ever publishes an agent without sign in? There is a connector for exactly that: Chat without Microsoft Entra I D authentication in Copilot Studio. Block it in the data policy. Now the No authentication option is gone. Makers can only choose Authenticate with Microsoft, or Authenticate manually. The alarm would only have warned. The guard closes the door."
+ },
+ {
+  "title": "Decide: the exam version",
+  "caption": "Prevent agents without sign-in: block the connector, don't rely on the scan.",
+  "say": "Here is how the exam asks it. An admin must prevent any agent from being published without authentication. Option one, rely on the security scan. Option two, block the Chat without Microsoft Entra I D authentication connector. Option three, enforce Control maker provided credentials. Decide. The answer is option two. The scan only warns, and that setting controls credentials, not sign in. When the question says prevent, think data policy."
+ },
+ {
+  "title": "Three zones",
+  "caption": "Zone one citizen, zone two partnered, zone three professional.",
+  "say": "Now zoom out. A large company has hundreds of agents, and they don't all need the same rules. Zoned governance sorts them into three zones by purpose and risk. Zone one is for citizens: private, read only agents made in Agent Builder or as SharePoint agents. Zone two is for partnered makers, approved by I T, with a coach, in I T managed environments. Zone three is for professional developers: A L M, the strongest controls, and service level agreements."
+ },
+ {
+  "title": "What each zone allows",
+  "caption": "Zone one: Microsoft connectors, no sharing. Zone two: approvals, pipelines. Zone three: Purview.",
+  "say": "Each zone takes effect through its environment and policies. Zone one allows only Microsoft three sixty five and Power Platform connectors, runs in the user's own context, lives in developer environments, and has sharing turned off. Zone two adds advanced connector policies, approved data sources, environment groups and rules, deployment pipelines, and I T approval before publishing. Zone three keeps advanced connector policies, adds Microsoft Purview, and shares agents through Integrated apps in the Microsoft three sixty five admin center."
+ },
+ {
+  "title": "Decide: which zone?",
+  "caption": "Ask: who builds it, who uses it, what data, how critical. HR benefits = zone two.",
+  "say": "To place any agent, ask four questions. Who builds it? Who will use it? What data and permissions does it need? How critical is it? Try one. An HR benefits agent, built by an I T approved maker, used by other departments, with shared HR data, and no service level agreement. Which zone? Decide. Zone two. Not zone one, because others use it and the data is shared. Not zone three, because nothing demands an S L A."
+ },
+ {
+  "title": "Environment groups",
+  "caption": "One group per environment. Tenant rules are inherited and read-only.",
+  "say": "Environment groups apply rules at scale. An environment belongs to one group only, and groups can't overlap or nest. When a tenant admin sets rules on a group, such as agent sharing, generative A I settings, or transcript access, every environment inherits them as read only. Here is the trap. An environment admin can't override them locally. If a change is needed, it goes through a tenant admin, at the group level."
+ },
+ {
+  "title": "Agent three sixty five",
+  "caption": "Every agent registered automatically. Inventory, registry, block, and audit.",
+  "say": "Last piece: seeing every agent. Microsoft Agent three sixty five gives admins one place to see and control them. Copilot Studio agents join automatically, with no setup from the maker. Admins find drafts and published agents in the Power Platform admin center, under Manage, Inventory. The registry lives in the Microsoft three sixty five admin center. An admin can block an agent: nobody can use it in any channel, but makers can still open and test it. Microsoft Purview logs every governance action."
+ },
+ {
+  "title": "Decide: the silent agent",
+  "caption": "No authentication means no telemetry for unauthenticated sessions.",
+  "say": "One more. Our Monday agent, still set to No authentication, is used all week. The admin opens the activity dashboards. What does the admin see for those chats? Decide. Nothing. Telemetry needs an authenticated session, at least one qualifying license, and an agent that is not multitenant. So an agent without sign in is not only exposed, it is also invisible. Two reasons to close that door."
+ },
+ {
+  "title": "What to remember",
+  "caption": "Scan warns, policy blocks. Connectors per source. Zones by risk. Agent three sixty five sees all.",
+  "say": "Let's close. The scan is the alarm, it warns. The data policy is the guard, it blocks, per environment, by connector, in three groups. Each knowledge source has its own connector. To stop agents without sign in, block that one connector. Zones sort agents by who builds them, who uses them, the data, and how critical they are. And Agent three sixty five sees everything, as long as users sign in. Now Monday morning can't happen."
+ }
+]

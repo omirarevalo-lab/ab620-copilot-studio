@@ -1,0 +1,159 @@
+{
+ "id": "L40",
+ "title": "Power Platform Pipelines",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 102.587,
+ "scenes": [
+  {
+   "title": "The conveyor belt",
+   "start": 0.8,
+   "end": 20.669,
+   "sentences": [
+    {
+     "text": "Power Platform Pipelines automate the trip of a solution from Dev to Test to Production, like a conveyor belt with quality checks.",
+     "start": 0.8,
+     "end": 8.587
+    },
+    {
+     "text": "They deploy managed solutions.",
+     "start": 8.867,
+     "end": 10.616
+    },
+    {
+     "text": "The same exported artifact goes through the stages in order, so nobody can skip the test stage.",
+     "start": 10.896,
+     "end": 16.443
+    },
+    {
+     "text": "It is the guided way to do A L M, without writing your own scripts.",
+     "start": 16.723,
+     "end": 20.669
+    }
+   ]
+  },
+  {
+   "title": "Where you see them",
+   "start": 21.569,
+   "end": 40.671,
+   "sentences": [
+    {
+     "text": "You see and run pipelines from an unmanaged solution in the development environment.",
+     "start": 21.569,
+     "end": 26.689
+    },
+    {
+     "text": "You do not see them from the default solution, and you do not run them from the target environments.",
+     "start": 26.969,
+     "end": 32.068
+    },
+    {
+     "text": "So the starting point is always your own unmanaged solution in Dev.",
+     "start": 32.348,
+     "end": 36.401
+    },
+    {
+     "text": "From there, you pick the pipeline and the stage, and the deployment begins.",
+     "start": 36.681,
+     "end": 40.671
+    }
+   ]
+  },
+  {
+   "title": "Environment requirements",
+   "start": 41.571,
+   "end": 61.101,
+   "sentences": [
+    {
+     "text": "There are environment requirements.",
+     "start": 41.571,
+     "end": 43.32
+    },
+    {
+     "text": "The host must be a production environment, but it does not need to be managed.",
+     "start": 43.6,
+     "end": 47.867
+    },
+    {
+     "text": "Developer environments do not need to be managed either.",
+     "start": 48.147,
+     "end": 51.411
+    },
+    {
+     "text": "Every other environment in the pipeline, such as Test and Production, must be a Managed Environment.",
+     "start": 51.691,
+     "end": 57.685
+    },
+    {
+     "text": "Remember this rule, because the exam likes to ask about it.",
+     "start": 57.965,
+     "end": 61.101
+    }
+   ]
+  },
+  {
+   "title": "Deployment rules",
+   "start": 62.001,
+   "end": 81.343,
+   "sentences": [
+    {
+     "text": "Here are some rules for the deployment.",
+     "start": 62.001,
+     "end": 63.879
+    },
+    {
+     "text": "You deploy one solution at a time.",
+     "start": 64.159,
+     "end": 66.036
+    },
+    {
+     "text": "The default import type is Upgrade.",
+     "start": 66.316,
+     "end": 68.343
+    },
+    {
+     "text": "And you cannot deploy across tenants.",
+     "start": 68.623,
+     "end": 70.5
+    },
+    {
+     "text": "Connections, connection references, and environment variables are provided beforehand, and they are validated before the deployment runs.",
+     "start": 70.78,
+     "end": 78.737
+    },
+    {
+     "text": "If something is missing, you find out early.",
+     "start": 79.017,
+     "end": 81.343
+    }
+   ]
+  },
+  {
+   "title": "Extensions and status codes",
+   "start": 82.243,
+   "end": 101.387,
+   "sentences": [
+    {
+     "text": "You can extend a pipeline with a pre-deployment step, or with delegated deployments that run as a service principal.",
+     "start": 82.243,
+     "end": 88.941
+    },
+    {
+     "text": "Think of Contoso and its NexoCore pipeline.",
+     "start": 89.221,
+     "end": 92.123
+    },
+    {
+     "text": "One detail about the status actions: twenty means complete or approve, and thirty means reject.",
+     "start": 92.403,
+     "end": 98.376
+    },
+    {
+     "text": "A manual approval step is a classic example.",
+     "start": 98.656,
+     "end": 101.387
+    }
+   ]
+  }
+ ]
+}

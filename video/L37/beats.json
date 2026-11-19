@@ -1,0 +1,726 @@
+{
+ "id": "L37",
+ "title": "Review results",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 410.516,
+ "scenes": [
+  {
+   "title": "Twelve red cases",
+   "start": 0.8,
+   "end": 23.277,
+   "sentences": [
+    {
+     "text": "Monday at Contoso.",
+     "start": 0.8,
+     "end": 2.208
+    },
+    {
+     "text": "Over the weekend, the maker rewrote the instructions of Nexo, the I T agent, and ran the test set again.",
+     "start": 2.488,
+     "end": 9.123
+    },
+    {
+     "text": "Monday morning, twelve cases are red.",
+     "start": 9.403,
+     "end": 11.685
+    },
+    {
+     "text": "The first instinct is to rewrite the instructions again, and run again, and hope.",
+     "start": 11.965,
+     "end": 16.445
+    },
+    {
+     "text": "But the real cause is not in the instructions at all.",
+     "start": 16.725,
+     "end": 19.733
+    },
+    {
+     "text": "Today you learn to read the results before you change anything.",
+     "start": 20.013,
+     "end": 23.277
+    }
+   ]
+  },
+  {
+   "title": "Read the graded exam",
+   "start": 24.177,
+   "end": 45.999,
+   "sentences": [
+    {
+     "text": "Keep this picture.",
+     "start": 24.177,
+     "end": 25.351
+    },
+    {
+     "text": "Reading results is like reviewing a graded exam.",
+     "start": 25.631,
+     "end": 28.703
+    },
+    {
+     "text": "You don't only look at the score.",
+     "start": 28.983,
+     "end": 30.476
+    },
+    {
+     "text": "You ask three questions.",
+     "start": 30.756,
+     "end": 32.164
+    },
+    {
+     "text": "What result did each answer get?",
+     "start": 32.444,
+     "end": 34.151
+    },
+    {
+     "text": "Why did it get that result?",
+     "start": 34.431,
+     "end": 35.924
+    },
+    {
+     "text": "And did this exam improve compared with the last one?",
+     "start": 36.204,
+     "end": 38.999
+    },
+    {
+     "text": "Copilot Studio gives you one tool for each question: the result itself, the activity map, and Compare with.",
+     "start": 39.279,
+     "end": 45.999
+    }
+   ]
+  },
+  {
+   "title": "Four results",
+   "start": 46.899,
+   "end": 70.379,
+   "sentences": [
+    {
+     "text": "Every case gets one of four results.",
+     "start": 46.899,
+     "end": 48.947
+    },
+    {
+     "text": "Pass and Fail are the grades you expect: the method judged the answer.",
+     "start": 49.227,
+     "end": 53.152
+    },
+    {
+     "text": "Invalid means the case is missing what the method needs, like an expected response, keywords, or tools.",
+     "start": 53.432,
+     "end": 59.683
+    },
+    {
+     "text": "Error means an execution failure while evaluating, so there is no grade at all.",
+     "start": 59.963,
+     "end": 64.357
+    },
+    {
+     "text": "Only Pass and Fail say something about the answer.",
+     "start": 64.637,
+     "end": 67.368
+    },
+    {
+     "text": "Invalid and Error tell you to look at the run first.",
+     "start": 67.648,
+     "end": 70.379
+    }
+   ]
+  },
+  {
+   "title": "Decide: the demanding bar",
+   "start": 71.279,
+   "end": 102.475,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 71.279,
+     "end": 72.153
+    },
+    {
+     "text": "Contoso raises the Compare meaning pass score to ninety five.",
+     "start": 72.433,
+     "end": 76.231
+    },
+    {
+     "text": "Cases that have an expected response now score below that bar.",
+     "start": 76.511,
+     "end": 80.415
+    },
+    {
+     "text": "What result do those cases get?",
+     "start": 80.695,
+     "end": 82.508
+    },
+    {
+     "text": "Invalid, because the bar is too demanding?",
+     "start": 82.788,
+     "end": 85.071
+    },
+    {
+     "text": "Error, because the method could not decide?",
+     "start": 85.351,
+     "end": 87.548
+    },
+    {
+     "text": "Or Fail, because they scored below the bar?",
+     "start": 87.828,
+     "end": 90.239
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 90.519,
+     "end": 92.055
+    },
+    {
+     "text": "Fail.",
+     "start": 95.835,
+     "end": 96.56
+    },
+    {
+     "text": "The case had everything the method needs, so it was graded.",
+     "start": 96.84,
+     "end": 99.976
+    },
+    {
+     "text": "Invalid is only for missing material.",
+     "start": 100.256,
+     "end": 102.475
+    }
+   ]
+  },
+  {
+   "title": "Why did it do that?",
+   "start": 103.375,
+   "end": 123.009,
+   "sentences": [
+    {
+     "text": "When one case confuses you, open Show activity map.",
+     "start": 103.375,
+     "end": 106.617
+    },
+    {
+     "text": "It shows the sequence of decisions Nexo made in that case, step by step, until it answered.",
+     "start": 106.897,
+     "end": 112.508
+    },
+    {
+     "text": "Here, the user asked how to reconnect the V P N, and the map shows Nexo went to the Password reset topic first.",
+     "start": 112.788,
+     "end": 119.743
+    },
+    {
+     "text": "Now you know why the answer was wrong, instead of guessing.",
+     "start": 120.023,
+     "end": 123.009
+    }
+   ]
+  },
+  {
+   "title": "Did the change help?",
+   "start": 123.909,
+   "end": 147.197,
+   "sentences": [
+    {
+     "text": "To measure a change, use Compare with.",
+     "start": 123.909,
+     "end": 126.085
+    },
+    {
+     "text": "It puts two runs of the same test set side by side.",
+     "start": 126.365,
+     "end": 129.608
+    },
+    {
+     "text": "Arrows mark the cases that changed, from failing to passing, or the other way around.",
+     "start": 129.888,
+     "end": 135.008
+    },
+    {
+     "text": "Contoso edits the instructions, runs the same set again, and sees five cases improve and one get worse.",
+     "start": 135.288,
+     "end": 142.093
+    },
+    {
+     "text": "That one is the next case to open.",
+     "start": 142.373,
+     "end": 144.336
+    },
+    {
+     "text": "Compare with only makes sense on the same test set.",
+     "start": 144.616,
+     "end": 147.197
+    }
+   ]
+  },
+  {
+   "title": "Eighty-nine days",
+   "start": 148.097,
+   "end": 169.569,
+   "sentences": [
+    {
+     "text": "Results do not stay forever.",
+     "start": 148.097,
+     "end": 149.74
+    },
+    {
+     "text": "Copilot Studio keeps evaluation results for eighty nine days.",
+     "start": 150.02,
+     "end": 154.116
+    },
+    {
+     "text": "To keep them longer, export them to a C S V file.",
+     "start": 154.396,
+     "end": 157.553
+    },
+    {
+     "text": "Each row has the question, the expected response, the method, the score, the agent's response, the result, and the analysis.",
+     "start": 157.833,
+     "end": 165.172
+    },
+    {
+     "text": "That file is your history, for audits and for comparisons months later.",
+     "start": 165.452,
+     "end": 169.569
+    }
+   ]
+  },
+  {
+   "title": "Decide: a full year",
+   "start": 170.469,
+   "end": 201.279,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 170.469,
+     "end": 171.344
+    },
+    {
+     "text": "Contoso's auditors want this quarter's evaluation results available for a full year.",
+     "start": 171.624,
+     "end": 177.064
+    },
+    {
+     "text": "What should the maker do?",
+     "start": 177.344,
+     "end": 178.645
+    },
+    {
+     "text": "Export the results to C S V after each run?",
+     "start": 178.925,
+     "end": 181.699
+    },
+    {
+     "text": "Ask an admin to extend the result retention?",
+     "start": 181.979,
+     "end": 184.645
+    },
+    {
+     "text": "Or use Compare with to merge the older runs?",
+     "start": 184.925,
+     "end": 187.229
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 187.509,
+     "end": 189.045
+    },
+    {
+     "text": "Export to C S V.",
+     "start": 192.825,
+     "end": 194.233
+    },
+    {
+     "text": "Results stay eighty nine days, and exporting is how you keep them longer.",
+     "start": 194.513,
+     "end": 198.46
+    },
+    {
+     "text": "Compare with only puts two runs side by side.",
+     "start": 198.74,
+     "end": 201.279
+    }
+   ]
+  },
+  {
+   "title": "The Evaluate tab",
+   "start": 202.179,
+   "end": 230.675,
+   "sentences": [
+    {
+     "text": "Everything so far is the standard harness.",
+     "start": 202.179,
+     "end": 204.739
+    },
+    {
+     "text": "On the Microsoft Copilot harness, formerly GitHub Copilot harness, results live in the Evaluate tab.",
+     "start": 205.019,
+     "end": 211.675
+    },
+    {
+     "text": "Each run is saved separately.",
+     "start": 211.955,
+     "end": 213.683
+    },
+    {
+     "text": "To run a set again, open Recent results, then Evaluate test set again.",
+     "start": 213.963,
+     "end": 218.485
+    },
+    {
+     "text": "The summary shows Score, Duration, Test cases, Data type, User profile, and Credits used.",
+     "start": 218.765,
+     "end": 224.696
+    },
+    {
+     "text": "Duration is the whole run, not how fast the agent answered.",
+     "start": 224.976,
+     "end": 228.645
+    },
+    {
+     "text": "Measure latency in Preview.",
+     "start": 228.925,
+     "end": 230.675
+    }
+   ]
+  },
+  {
+   "title": "Who broke it?",
+   "start": 231.575,
+   "end": 255.489,
+   "sentences": [
+    {
+     "text": "On this harness, a fail can come from three places.",
+     "start": 231.575,
+     "end": 234.54
+    },
+    {
+     "text": "The evaluation setup, owned by the evaluation author.",
+     "start": 234.82,
+     "end": 238.063
+    },
+    {
+     "text": "The agent configuration, owned by the agent builder.",
+     "start": 238.343,
+     "end": 241.585
+    },
+    {
+     "text": "Or a platform limitation, owned by the platform team.",
+     "start": 241.865,
+     "end": 245.023
+    },
+    {
+     "text": "Check the setup first.",
+     "start": 245.303,
+     "end": 246.668
+    },
+    {
+     "text": "Are the dependencies healthy?",
+     "start": 246.948,
+     "end": 248.548
+    },
+    {
+     "text": "Is the authentication valid for the user profile?",
+     "start": 248.828,
+     "end": 251.708
+    },
+    {
+     "text": "Is it the right environment?",
+     "start": 251.988,
+     "end": 253.588
+    },
+    {
+     "text": "Only then blame the agent.",
+     "start": 253.868,
+     "end": 255.489
+    }
+   ]
+  },
+  {
+   "title": "Decide: Monday morning",
+   "start": 256.389,
+   "end": 288.697,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 256.389,
+     "end": 257.264
+    },
+    {
+     "text": "Back to Monday.",
+     "start": 257.544,
+     "end": 258.589
+    },
+    {
+     "text": "Twelve cases fail overnight.",
+     "start": 258.869,
+     "end": 260.683
+    },
+    {
+     "text": "All of them call the Create Ticket tool, and the connection for the user profile expired yesterday.",
+     "start": 260.963,
+     "end": 266.552
+    },
+    {
+     "text": "What should the maker do first?",
+     "start": 266.832,
+     "end": 268.453
+    },
+    {
+     "text": "Rewrite the instructions and run the set again?",
+     "start": 268.733,
+     "end": 271.208
+    },
+    {
+     "text": "Restore the connection and rerun the same set?",
+     "start": 271.488,
+     "end": 273.984
+    },
+    {
+     "text": "Or improve the Create Ticket tool description?",
+     "start": 274.264,
+     "end": 276.653
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 276.933,
+     "end": 278.469
+    },
+    {
+     "text": "Restore the connection and rerun.",
+     "start": 282.249,
+     "end": 284.02
+    },
+    {
+     "text": "An expired connection is a setup issue.",
+     "start": 284.3,
+     "end": 286.796
+    },
+    {
+     "text": "Leave the instructions alone.",
+     "start": 287.076,
+     "end": 288.697
+    }
+   ]
+  },
+  {
+   "title": "Symptom, then fix",
+   "start": 289.597,
+   "end": 308.957,
+   "sentences": [
+    {
+     "text": "When the agent really is the cause, match the symptom to the fix.",
+     "start": 289.597,
+     "end": 293.096
+    },
+    {
+     "text": "Low General quality means improve the instructions.",
+     "start": 293.376,
+     "end": 296.427
+    },
+    {
+     "text": "Missing or incorrect tool use means improve the tool descriptions.",
+     "start": 296.707,
+     "end": 300.717
+    },
+    {
+     "text": "Incorrect information means check the knowledge sources.",
+     "start": 300.997,
+     "end": 304.112
+    },
+    {
+     "text": "Change one thing, run the same set again, and use Compare with to see the effect.",
+     "start": 304.392,
+     "end": 308.957
+    }
+   ]
+  },
+  {
+   "title": "Which failure first?",
+   "start": 309.857,
+   "end": 328.668,
+   "sentences": [
+    {
+     "text": "With many failures, you need an order.",
+     "start": 309.857,
+     "end": 311.927
+    },
+    {
+     "text": "First, safety and compliance.",
+     "start": 312.207,
+     "end": 314.02
+    },
+    {
+     "text": "Then the core business scenarios, the ones Contoso cannot work without.",
+     "start": 314.3,
+     "end": 318.417
+    },
+    {
+     "text": "Then the lowest scoring evaluation.",
+     "start": 318.697,
+     "end": 320.575
+    },
+    {
+     "text": "Last, the failures that keep coming back.",
+     "start": 320.855,
+     "end": 323.031
+    },
+    {
+     "text": "A low score on the cafeteria menu can wait.",
+     "start": 323.311,
+     "end": 325.913
+    },
+    {
+     "text": "An answer that breaks a privacy rule cannot.",
+     "start": 326.193,
+     "end": 328.668
+    }
+   ]
+  },
+  {
+   "title": "Decide: three failures",
+   "start": 329.568,
+   "end": 360.079,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 329.568,
+     "end": 330.443
+    },
+    {
+     "text": "After a run, Nexo has three failures.",
+     "start": 330.723,
+     "end": 333.005
+    },
+    {
+     "text": "A vague answer about the cafeteria menu, a wrong order status, and an answer that shares an employee's home address.",
+     "start": 333.285,
+     "end": 340.261
+    },
+    {
+     "text": "Which one do you triage first?",
+     "start": 340.541,
+     "end": 342.184
+    },
+    {
+     "text": "The wrong order status in a core scenario?",
+     "start": 342.464,
+     "end": 344.747
+    },
+    {
+     "text": "The vague menu answer with the lowest score?",
+     "start": 345.027,
+     "end": 347.288
+    },
+    {
+     "text": "Or the answer sharing an employee's address?",
+     "start": 347.568,
+     "end": 349.851
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 350.131,
+     "end": 351.667
+    },
+    {
+     "text": "The shared address.",
+     "start": 355.447,
+     "end": 356.535
+    },
+    {
+     "text": "Safety and compliance come first, then core scenarios.",
+     "start": 356.815,
+     "end": 360.079
+    }
+   ]
+  },
+  {
+   "title": "Estimate or final",
+   "start": 360.979,
+   "end": 381.021,
+   "sentences": [
+    {
+     "text": "One last number: credits.",
+     "start": 360.979,
+     "end": 362.685
+    },
+    {
+     "text": "Evaluation runs use Copilot Credits.",
+     "start": 362.965,
+     "end": 365.483
+    },
+    {
+     "text": "The credits you see in Evaluate and in Preview are estimates, close to real time.",
+     "start": 365.763,
+     "end": 370.435
+    },
+    {
+     "text": "The final, accurate consumption appears in the Monitor tab within a few hours, after the usage is processed.",
+     "start": 370.715,
+     "end": 377.157
+    },
+    {
+     "text": "So for the real number, check Monitor later, not the run summary.",
+     "start": 377.437,
+     "end": 381.021
+    }
+   ]
+  },
+  {
+   "title": "Read before you fix",
+   "start": 381.921,
+   "end": 409.316,
+   "sentences": [
+    {
+     "text": "Back to Monday.",
+     "start": 381.921,
+     "end": 382.967
+    },
+    {
+     "text": "The maker leaves the instructions alone, restores the connection, and runs the same set again.",
+     "start": 383.247,
+     "end": 388.708
+    },
+    {
+     "text": "Compare with shows the twelve cases going from fail to pass.",
+     "start": 388.988,
+     "end": 392.316
+    },
+    {
+     "text": "Remember for the exam.",
+     "start": 392.596,
+     "end": 393.855
+    },
+    {
+     "text": "Four results: Pass, Fail, Invalid, Error.",
+     "start": 394.135,
+     "end": 396.716
+    },
+    {
+     "text": "A demanding pass score gives Fail, not Invalid.",
+     "start": 396.996,
+     "end": 399.812
+    },
+    {
+     "text": "Activity map explains one case.",
+     "start": 400.092,
+     "end": 402.097
+    },
+    {
+     "text": "Compare with measures a change.",
+     "start": 402.377,
+     "end": 403.999
+    },
+    {
+     "text": "Eighty nine days, then C S V.",
+     "start": 404.279,
+     "end": 406.284
+    },
+    {
+     "text": "Check the setup first, and triage safety first.",
+     "start": 406.564,
+     "end": 409.316
+    }
+   ]
+  }
+ ]
+}

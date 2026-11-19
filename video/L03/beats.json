@@ -1,0 +1,541 @@
+{
+ "id": "L03",
+ "title": "Channels and publishing",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 277.309,
+ "scenes": [
+  {
+   "title": "The fix nobody sees",
+   "start": 0.8,
+   "end": 22.32,
+   "sentences": [
+    {
+     "text": "Valeria fixes Nexo's answer about returns.",
+     "start": 0.8,
+     "end": 3.7
+    },
+    {
+     "text": "She selects Publish and goes home happy.",
+     "start": 3.981,
+     "end": 6.242
+    },
+    {
+     "text": "The next morning, Marta from sales opens Teams and asks about returns.",
+     "start": 6.523,
+     "end": 10.916
+    },
+    {
+     "text": "She gets the old answer.",
+     "start": 11.197,
+     "end": 12.604
+    },
+    {
+     "text": "Is Nexo broken?",
+     "start": 12.885,
+     "end": 14.164
+    },
+    {
+     "text": "No.",
+     "start": 14.445,
+     "end": 15.106
+    },
+    {
+     "text": "Today you learn what Publish really does, where your users meet the agent, and why some of them still see yesterday's version.",
+     "start": 15.387,
+     "end": 22.319
+    }
+   ]
+  },
+  {
+   "title": "A new edition of the manual",
+   "start": 23.22,
+   "end": 42.476,
+   "sentences": [
+    {
+     "text": "Think of the agent as a manual.",
+     "start": 23.22,
+     "end": 25.182
+    },
+    {
+     "text": "While you edit, your changes are a draft on your desk.",
+     "start": 25.463,
+     "end": 28.299
+    },
+    {
+     "text": "Publish prints the new edition and hands it out to everyone.",
+     "start": 28.58,
+     "end": 31.779
+    },
+    {
+     "text": "But someone still reading the old edition won't see the changes until they pick up the new one.",
+     "start": 32.06,
+     "end": 37.115
+    },
+    {
+     "text": "And the places where users pick it up are called channels.",
+     "start": 37.396,
+     "end": 40.104
+    },
+    {
+     "text": "Teams, a website, a mobile app.",
+     "start": 40.385,
+     "end": 42.475
+    }
+   ]
+  },
+  {
+   "title": "Saving is not publishing",
+   "start": 43.376,
+   "end": 63.211,
+   "sentences": [
+    {
+     "text": "First rule.",
+     "start": 43.376,
+     "end": 44.292
+    },
+    {
+     "text": "Saving is not publishing.",
+     "start": 44.573,
+     "end": 46.151
+    },
+    {
+     "text": "Your saved changes stay in your draft, and only you see them in the test pane.",
+     "start": 46.432,
+     "end": 50.655
+    },
+    {
+     "text": "When you select Publish, every connected channel is updated at once.",
+     "start": 50.936,
+     "end": 54.796
+    },
+    {
+     "text": "Teams, the website and the mobile app get the same new edition together.",
+     "start": 55.077,
+     "end": 59.151
+    },
+    {
+     "text": "So you never republish channel by channel.",
+     "start": 59.432,
+     "end": 61.628
+    },
+    {
+     "text": "One Publish is enough.",
+     "start": 61.909,
+     "end": 63.21
+    }
+   ]
+  },
+  {
+   "title": "Decide: the change nobody sees",
+   "start": 64.111,
+   "end": 93.963,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 64.111,
+     "end": 64.984
+    },
+    {
+     "text": "Valeria saved a change, and it works in the test pane.",
+     "start": 65.265,
+     "end": 68.422
+    },
+    {
+     "text": "But users on Teams and on the website don't see it, even in new conversations.",
+     "start": 68.703,
+     "end": 73.544
+    },
+    {
+     "text": "What is missing?",
+     "start": 73.825,
+     "end": 74.784
+    },
+    {
+     "text": "Republish each channel one by one?",
+     "start": 75.065,
+     "end": 77.006
+    },
+    {
+     "text": "Select Publish once for the agent?",
+     "start": 77.287,
+     "end": 79.184
+    },
+    {
+     "text": "Or wait for the save to reach channels?",
+     "start": 79.465,
+     "end": 81.406
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 81.687,
+     "end": 83.222
+    },
+    {
+     "text": "Select Publish once.",
+     "start": 87.003,
+     "end": 88.367
+    },
+    {
+     "text": "Saving only updates the draft.",
+     "start": 88.648,
+     "end": 90.524
+    },
+    {
+     "text": "One Publish updates every connected channel together.",
+     "start": 90.805,
+     "end": 93.962
+    }
+   ]
+  },
+  {
+   "title": "Why some users see the old version",
+   "start": 94.863,
+   "end": 116.233,
+   "sentences": [
+    {
+     "text": "Now Marta's mystery.",
+     "start": 94.863,
+     "end": 96.206
+    },
+    {
+     "text": "A session is a conversation in progress.",
+     "start": 96.487,
+     "end": 98.896
+    },
+    {
+     "text": "New content only applies when a new session starts.",
+     "start": 99.177,
+     "end": 102.184
+    },
+    {
+     "text": "In most channels, that happens after thirty minutes of inactivity.",
+     "start": 102.465,
+     "end": 106.198
+    },
+    {
+     "text": "Teams keeps conversations open, so the old session can stay alive.",
+     "start": 106.479,
+     "end": 110.531
+    },
+    {
+     "text": "There, the user can type start over to force a new session.",
+     "start": 110.812,
+     "end": 113.926
+    },
+    {
+     "text": "Otherwise, it can take up to an hour.",
+     "start": 114.207,
+     "end": 116.232
+    }
+   ]
+  },
+  {
+   "title": "Decide: Marta's old answer",
+   "start": 117.133,
+   "end": 147.263,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 117.133,
+     "end": 118.007
+    },
+    {
+     "text": "The fix is published, but Marta's conversation in Teams is still open, and she keeps getting the old answer.",
+     "start": 118.288,
+     "end": 124.516
+    },
+    {
+     "text": "Valeria wants her to see the fix right now.",
+     "start": 124.797,
+     "end": 127.143
+    },
+    {
+     "text": "What should Marta do?",
+     "start": 127.424,
+     "end": 128.639
+    },
+    {
+     "text": "Type start over in the chat?",
+     "start": 128.92,
+     "end": 130.412
+    },
+    {
+     "text": "Publish again just for Teams?",
+     "start": 130.693,
+     "end": 132.314
+    },
+    {
+     "text": "Or reinstall the app in Teams?",
+     "start": 132.595,
+     "end": 134.428
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 134.709,
+     "end": 136.244
+    },
+    {
+     "text": "Type start over.",
+     "start": 140.025,
+     "end": 141.155
+    },
+    {
+     "text": "It forces a new session, and new sessions get the published content.",
+     "start": 141.436,
+     "end": 145.168
+    },
+    {
+     "text": "Publishing again changes nothing.",
+     "start": 145.449,
+     "end": 147.262
+    }
+   ]
+  },
+  {
+   "title": "Which channels exist",
+   "start": 148.163,
+   "end": 171.219,
+   "sentences": [
+    {
+     "text": "So where can users meet the agent?",
+     "start": 148.163,
+     "end": 149.954
+    },
+    {
+     "text": "There is Teams and Microsoft three sixty five.",
+     "start": 150.235,
+     "end": 152.986
+    },
+    {
+     "text": "There is the Demo website, a quick page to try the agent.",
+     "start": 153.267,
+     "end": 156.7
+    },
+    {
+     "text": "And there are others, such as WhatsApp and Facebook.",
+     "start": 156.981,
+     "end": 159.562
+    },
+    {
+     "text": "One family deserves a name: Direct Line channels.",
+     "start": 159.843,
+     "end": 162.85
+    },
+    {
+     "text": "It covers the Demo website, custom websites and mobile apps.",
+     "start": 163.131,
+     "end": 166.863
+    },
+    {
+     "text": "And watch out: some channels require authentication before they work.",
+     "start": 167.144,
+     "end": 171.218
+    }
+   ]
+  },
+  {
+   "title": "Channel governance",
+   "start": 172.119,
+   "end": 195.455,
+   "sentences": [
+    {
+     "text": "Who decides which channels makers may use?",
+     "start": 172.119,
+     "end": 174.4
+    },
+    {
+     "text": "The administrator.",
+     "start": 174.681,
+     "end": 175.811
+    },
+    {
+     "text": "Each channel has its own connector in the data policies.",
+     "start": 176.092,
+     "end": 179.419
+    },
+    {
+     "text": "Teams and Microsoft three sixty five has one.",
+     "start": 179.7,
+     "end": 182.558
+    },
+    {
+     "text": "Direct Line channels has one.",
+     "start": 182.839,
+     "end": 184.544
+    },
+    {
+     "text": "WhatsApp and Facebook have their own.",
+     "start": 184.825,
+     "end": 186.638
+    },
+    {
+     "text": "So if the administrator blocks the WhatsApp and Facebook connectors, makers can no longer use those two channels.",
+     "start": 186.919,
+     "end": 193.318
+    },
+    {
+     "text": "Teams and the website keep working.",
+     "start": 193.599,
+     "end": 195.454
+    }
+   ]
+  },
+  {
+   "title": "Decide: blocking Direct Line",
+   "start": 196.355,
+   "end": 227.871,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 196.355,
+     "end": 197.228
+    },
+    {
+     "text": "Contoso's administrator puts the Direct Line channels connector in the Blocked group of a data policy.",
+     "start": 197.509,
+     "end": 203.78
+    },
+    {
+     "text": "Makers ask which channels they just lost.",
+     "start": 204.061,
+     "end": 206.322
+    },
+    {
+     "text": "Which channels can they no longer use?",
+     "start": 206.603,
+     "end": 208.564
+    },
+    {
+     "text": "Every channel, even Teams?",
+     "start": 208.845,
+     "end": 210.572
+    },
+    {
+     "text": "The Demo website alone?",
+     "start": 210.853,
+     "end": 212.346
+    },
+    {
+     "text": "Or websites and mobile apps?",
+     "start": 212.627,
+     "end": 214.29
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 214.571,
+     "end": 216.106
+    },
+    {
+     "text": "Websites and mobile apps.",
+     "start": 219.887,
+     "end": 221.422
+    },
+    {
+     "text": "Direct Line covers the Demo website, custom websites and mobile apps.",
+     "start": 221.703,
+     "end": 225.926
+    },
+    {
+     "text": "Teams has its own connector.",
+     "start": 226.207,
+     "end": 227.87
+    }
+   ]
+  },
+  {
+   "title": "Publish and connect in the studio",
+   "start": 228.771,
+   "end": 250.803,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 228.771,
+     "end": 230.583
+    },
+    {
+     "text": "Open Nexo and check that your changes are saved.",
+     "start": 230.864,
+     "end": 233.786
+    },
+    {
+     "text": "Select Publish and confirm.",
+     "start": 234.067,
+     "end": 235.73
+    },
+    {
+     "text": "Then go to Channels to see which ones are available.",
+     "start": 236.011,
+     "end": 238.826
+    },
+    {
+     "text": "Pick one, for example Teams or the Demo website, and follow its connection steps.",
+     "start": 239.107,
+     "end": 244.055
+    },
+    {
+     "text": "Check whether it requires authentication.",
+     "start": 244.336,
+     "end": 246.618
+    },
+    {
+     "text": "Finally, open a new conversation in the channel to see your change.",
+     "start": 246.899,
+     "end": 250.802
+    }
+   ]
+  },
+  {
+   "title": "One edition for everyone",
+   "start": 251.703,
+   "end": 276.108,
+   "sentences": [
+    {
+     "text": "Back at Contoso.",
+     "start": 251.703,
+     "end": 252.96
+    },
+    {
+     "text": "Marta types start over, and Nexo gives her the new returns answer.",
+     "start": 253.241,
+     "end": 257.102
+    },
+    {
+     "text": "Nothing was broken.",
+     "start": 257.383,
+     "end": 258.619
+    },
+    {
+     "text": "Her session had simply started before the fix.",
+     "start": 258.9,
+     "end": 261.523
+    },
+    {
+     "text": "Remember three things.",
+     "start": 261.804,
+     "end": 263.04
+    },
+    {
+     "text": "One Publish updates every channel.",
+     "start": 263.321,
+     "end": 265.304
+    },
+    {
+     "text": "Only a new session sees the change.",
+     "start": 265.585,
+     "end": 267.504
+    },
+    {
+     "text": "And each channel has its own connector in the data policies.",
+     "start": 267.785,
+     "end": 271.347
+    },
+    {
+     "text": "Next, keeping the agent safe and fair: responsible A I and moderation.",
+     "start": 271.628,
+     "end": 276.107
+    }
+   ]
+  }
+ ]
+}

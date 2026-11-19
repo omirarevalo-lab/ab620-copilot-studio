@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Contoso's warehouse inventory changes every minute, and the data owner does not want the stock copied. Which option should Valeria give Nexo?",
+    "options": [
+      "A Copilot connector that indexes the stock",
+      "A Power Platform connector in real-time mode",
+      "a Copilot connector shared with Microsoft Search"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Marta asks about HR policies. The manager wants citations, and each employee sees only what they could already see. Which option fits these policies?",
+    "options": [
+      "A Copilot connector set up by the admin",
+      "A Power Platform connector asked live",
+      "indexing only the table and column names"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Valeria publishes Nexo to channels. Nexo uses a Copilot connector for the manuals and the HR policies. What does authentication need?",
+    "options": [
+      "The identity of each user, asked live",
+      "A scope for the Power Platform connector",
+      "the External Item Read All scope"
+    ],
+    "right": 2,
+    "trap": 1
+  }
+]

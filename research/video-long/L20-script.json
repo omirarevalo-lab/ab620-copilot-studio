@@ -1,0 +1,62 @@
+[
+  {
+    "title": "A person in the flow",
+    "caption": "Human in the loop: a person takes part in the automatic process, like a boss who signs before something is sent.",
+    "say": "Marta asks Nexo for a new laptop, and Contoso handles laptop purchases with an agent flow. But someone must say yes before the purchase goes ahead. Valeria knows the answer is human in the loop. It means a person takes part in the automatic process, like a boss who signs before something is sent. The flow can ask someone for an approval or a piece of data. Then it waits for the answer before moving on."
+  },
+  {
+    "title": "Multistage approval",
+    "caption": "Run a multistage approval, Human review connector, preview: manual stages, AI stages, conditions. Only in agent flows.",
+    "say": "For an approval in several steps, Valeria uses the Run a multistage approval action. It comes from the Human review connector, and it is in preview. It combines manual stages, A I stages, and conditions between the stages. Multistage approvals exist only in agent flows. People respond through the Approvals app in Teams, in Outlook, or in the Power Automate portal."
+  },
+  {
+    "title": "Manual stages",
+    "caption": "Manual stage: First to respond or Everyone must approve, title, Assigned to, details. Never the same approver in several manual stages.",
+    "say": "A manual stage is a step where a person decides. Valeria picks the approval type. First to respond ends with the first response received. Everyone must approve needs every approver to say yes. She also sets the title, who the stage is assigned to, and the details. One rule matters: you cannot assign the same approver to several manual stages."
+  },
+  {
+    "title": "AI stages",
+    "caption": "AI stage: instructions and inputs such as documents, images, text, or knowledge. It returns Approve or Reject with a rationale.",
+    "say": "An A I stage is a step where a model decides. Valeria writes its instructions and gives it inputs, such as documents, images, text, or knowledge. She chooses the model and selects Test. The stage returns Approve or Reject, together with a rationale. So anyone can read why the stage decided, and not only what it decided."
+  },
+  {
+    "title": "Decide: the second manual stage",
+    "caption": "The service manager approves the first manual stage. Valeria wants the same manager on the second one. What should she do?",
+    "say": "Your turn. Valeria builds the laptop approval with two manual stages. The service manager approves the first one, and Valeria wants the same manager on the second one too. What should she do? Assign the manager to both stages? Use a second approver instead? Or turn both stages into conditions? Decide before I answer. Use a second approver instead. You cannot assign the same approver to several manual stages, so the second stage needs someone else. Assigning the manager to both stages is the trap, because the rule forbids it."
+  },
+  {
+    "title": "Conditions",
+    "caption": "Conditions between stages route, approve, reject, or skip stages. Without them: approved moves on, rejected ends. Left side: only an input.",
+    "say": "Between the stages, Valeria can add conditions. A condition lets her route, approve, reject, or skip stages based on criteria. Without conditions, the path is simple. If a stage is approved, it moves to the next one. If it is rejected, the process ends. One detail: on the left side of a condition, you can only use an input."
+  },
+  {
+    "title": "Request for information",
+    "caption": "Request for information pauses the flow and asks for data through Outlook, same tenant. First response wins; outputs are dynamic content.",
+    "say": "Sometimes the flow does not need a yes or a no, only a piece of data. For that, Valeria uses Request for information. It pauses the flow and asks one or more people through Outlook, inside the same tenant. The first response wins. Input types include text, yes or no, email, number, and date. The answers come back as dynamic content for the next steps."
+  },
+  {
+    "title": "Decide: the missing cost center",
+    "caption": "Marta's laptop request has no cost center, and the flow cannot continue until someone types it in. What should Valeria add?",
+    "say": "Your turn. Marta's laptop request arrives without a cost center. The flow cannot continue until someone types it in. What should Valeria add? A new manual approval stage? A condition on the cost center? Or a Request for information? Decide before I answer. A Request for information. It pauses the flow, asks for the data through Outlook, and returns it as dynamic content. A manual approval stage is the trap, because it returns Approve or Reject, not the missing data."
+  },
+  {
+    "title": "The Contoso case",
+    "caption": "AI stage checks the budget; a condition sends large amounts to management, First to respond. Missing cost center: Request for information.",
+    "say": "Here is the whole Contoso case. Marta's laptop request first goes through an A I stage that checks the amount is within budget. It returns Approve or Reject with its rationale. Then a condition decides. Above a certain threshold, the request goes to a manual management stage with First to respond. If not, it ends approved. A missing cost center is asked with Request for information. One more fact: advanced approvals have no A L M support, so you must recreate them after importing."
+  },
+  {
+    "title": "Build it in the designer",
+    "caption": "Designer, plus, Run a multistage approval, Set up the approval, manual stage, AI stage with Test, condition, Request for information.",
+    "say": "Here are the steps. Open the designer of an agent flow. Select the plus sign where you want the approval, and search for Run a multistage approval. Select Set up the approval to open the stage editor. Create a manual stage with a title, Assigned to, and Details. Add an A I stage with instructions, choose the model, and select Test. Add a condition between the stages. To collect a piece of data, also try Request for information with a text field."
+  },
+  {
+    "title": "Decide: moving to production",
+    "caption": "Valeria exports the solution with the laptop approval and imports it into production. What must she do with the multistage approval?",
+    "say": "Your turn. The laptop approval works in development. Valeria exports the solution and imports it into production. What must she do with the multistage approval? Recreate the approval after import? Nothing, it travels with the solution? Or export it again as unmanaged first? Decide before I answer. Recreate the approval after import. Advanced approvals have no A L M support, so you must recreate them after importing. Doing nothing is the trap, because the approval does not travel with the solution."
+  },
+  {
+    "title": "Rules to remember",
+    "caption": "Multistage approval: manual and AI stages with conditions, agent flows only. Data: Request for information. Recreate after import.",
+    "say": "Back at Contoso, Marta's laptop is approved, and the service manager signed in one stage. Remember the rules. Stages with A I and humans mean a multistage approval, only in agent flows. Manual stages use First to respond or Everyone must approve, never the same approver twice. A I stages return Approve or Reject with a rationale. Conditions route, approve, reject, or skip. A piece of data means Request for information. Recreate advanced approvals after import. Next, monitor agent flows and their cost."
+  }
+]

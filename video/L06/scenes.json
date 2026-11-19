@@ -1,0 +1,53 @@
+{"brand": "AB-620 · Module 1 · Lesson 6", "scenes": [
+ {"type": "split", "left": {"kicker": "Reusable components", "title": "Shared Lego pieces", "sub": "Package once, reuse in many agents."},
+  "chain": [
+   {"icon": "cube_tree", "title": "Pieces", "at": "box of pieces"},
+   {"icon": "apps", "title": "Collection", "accent": true, "at": "component collection"},
+   {"icon": "bot", "title": "Agents", "at": "several agents"}],
+  "rows": [{"icon": "checkmark_circle", "title": "Reuse instead of repeat", "desc": "No copy and paste every time", "at": "reusing instead", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "What it contains", "title": "Make it once, reuse it everywhere"}, "cols": 4,
+  "items": [
+   {"icon": "branch_fork", "term": "Topics", "def": "", "at": "topics,"},
+   {"icon": "toolbox", "term": "Tools", "def": "", "at": "tools,"},
+   {"icon": "book_open", "term": "Knowledge", "def": "", "at": "knowledge,"},
+   {"icon": "flow", "term": "Flows", "def": "", "at": "flows,"},
+   {"icon": "cube_tree", "term": "Entities", "def": "", "at": "entities"},
+   {"icon": "bot", "term": "Child agents", "def": "", "at": "child agents"},
+   {"icon": "apps", "term": "MCP servers", "def": "", "at": "M C P"}]},
+ {"type": "compare", "header": {"kicker": "Permissions", "title": "Who can change it"},
+  "cols": [
+   {"icon": "people_team", "title": "All authors", "sub": "Can use it", "at": "all authors", "items": [{"text": "Cannot change its components", "at": "cannot change"}]},
+   {"icon": "key", "title": "Creator · system customizer · admin", "accent": true, "at": "Only the creator", "items": [{"text": "Can edit it", "at": "can edit it"}]}],
+  "verdict": {"icon": "shield_checkmark", "text": "Nobody breaks the shared piece by accident", "at": "by accident"}},
+ {"type": "compare", "header": {"kicker": "Why not copy and paste", "title": "Keep one source of truth"},
+  "cols": [
+   {"icon": "flag", "title": "Copy and paste", "tone": "bad", "at": "Copy and paste",
+    "items": [{"text": "Duplicates and falls out of sync", "at": "duplicates"}, {"text": "Fixes don't reach the copies", "at": "copies stay old"}]},
+   {"icon": "flag", "title": "Other shortcuts", "tone": "bad", "at": "#2",
+    "items": [{"text": "A child agent is not shared", "at": "child agent"}, {"text": "Exporting a whole agent is too much", "at": "exporting a whole"}]}],
+  "verdict": {"icon": "apps", "text": "A collection = a single source of truth", "at": "single source"}},
+ {"type": "hub", "header": {"kicker": "Contoso", "title": "\"Greeting and escalation\""},
+  "center": {"icon": "apps", "title": "Collection", "at": "start"},
+  "topLabel": "Inside",
+  "top": [
+   {"icon": "branch_fork", "title": "Two topics", "at": "two topics"},
+   {"icon": "ticket_diagonal", "title": "Tool", "desc": "Create tickets", "at": "create tickets"}],
+  "bottomLabel": "Used by three agents",
+  "bottom": [
+   {"icon": "window_dev_tools", "title": "Technology", "at": "technology", "hi": true},
+   {"icon": "people_team", "title": "Human resources", "at": "human resources", "hi": true},
+   {"icon": "data_bar_vertical", "title": "Sales", "at": "sales", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Complex collections", "title": "Use a solution as the carrier", "sub": "When it includes connectors or environment variables."},
+  "nodes": [
+   {"icon": "apps", "title": "Collection", "sub": "Connectors · env. variables", "at": "collection includes"},
+   {"icon": "cube_tree", "title": "Solution", "sub": "The carrier", "accent": true, "at": "solutions as carriers"},
+   {"icon": "send", "title": "Export", "at": "export it"},
+   {"icon": "checkmark_circle", "title": "Import", "sub": "In the target", "at": "import it"}],
+  "below": [{"text": "Direct export — only for simpler cases", "at": "Exporting directly", "strike": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Reuse pieces without breaking them"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Component collections", "at": "component collections"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap",
+    "items": [{"text": "Copy topics by hand", "at": "copying topics"}, {"text": "Export only the collection when it has connectors", "at": "exporting only"}]}],
+  "verdict": {"icon": "cube_tree", "text": "With connectors: use a solution", "at": "use a solution"}}
+]}

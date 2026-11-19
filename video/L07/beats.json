@@ -1,0 +1,516 @@
+{
+ "id": "L07",
+ "title": "Internal and external audiences",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 286.938,
+ "scenes": [
+  {
+   "title": "One agent, two doors",
+   "start": 0.8,
+   "end": 22.192,
+   "sentences": [
+    {
+     "text": "Contoso wants Nexo in two places.",
+     "start": 0.8,
+     "end": 3.167
+    },
+    {
+     "text": "On the intranet, for employees.",
+     "start": 3.448,
+     "end": 5.196
+    },
+    {
+     "text": "And on the public website, for customers.",
+     "start": 5.477,
+     "end": 7.759
+    },
+    {
+     "text": "Valeria connects the website fast.",
+     "start": 8.04,
+     "end": 10.066
+    },
+    {
+     "text": "She pastes the secret straight into the page code.",
+     "start": 10.347,
+     "end": 12.948
+    },
+    {
+     "text": "That afternoon, a visitor opens the page source and copies it.",
+     "start": 13.229,
+     "end": 16.919
+    },
+    {
+     "text": "Today you learn how to protect an agent for each audience, and where that secret must live.",
+     "start": 17.2,
+     "end": 22.191
+    }
+   ]
+  },
+  {
+   "title": "The staff door and the public desk",
+   "start": 23.092,
+   "end": 39.639,
+   "sentences": [
+    {
+     "text": "Think of the Contoso office.",
+     "start": 23.092,
+     "end": 24.755
+    },
+    {
+     "text": "Employees enter through the staff door, and the door asks for a badge.",
+     "start": 25.036,
+     "end": 28.683
+    },
+    {
+     "text": "Customers go to the public desk, which is open to everyone.",
+     "start": 28.964,
+     "end": 32.526
+    },
+    {
+     "text": "Same building, two very different doors.",
+     "start": 32.807,
+     "end": 35.131
+    },
+    {
+     "text": "Your agent works the same way.",
+     "start": 35.412,
+     "end": 37.16
+    },
+    {
+     "text": "Who uses it decides how you protect it.",
+     "start": 37.441,
+     "end": 39.638
+    }
+   ]
+  },
+  {
+   "title": "Employees: Authenticate with Microsoft",
+   "start": 40.539,
+   "end": 61.971,
+   "sentences": [
+    {
+     "text": "For employees, use Authenticate with Microsoft.",
+     "start": 40.539,
+     "end": 43.418
+    },
+    {
+     "text": "That is the badge.",
+     "start": 43.699,
+     "end": 44.786
+    },
+    {
+     "text": "The user always signs in.",
+     "start": 45.067,
+     "end": 46.623
+    },
+    {
+     "text": "Then the Share option controls who in the organization can chat with the agent.",
+     "start": 46.904,
+     "end": 51.532
+    },
+    {
+     "text": "So Marta from sales gets in, because the agent is shared with her team.",
+     "start": 51.813,
+     "end": 55.844
+    },
+    {
+     "text": "And remember: the Teams and Microsoft three sixty five channels support only this option.",
+     "start": 56.125,
+     "end": 61.97
+    }
+   ]
+  },
+  {
+   "title": "Anonymous public: No authentication",
+   "start": 62.871,
+   "end": 78.369,
+   "sentences": [
+    {
+     "text": "For the anonymous public, there is No authentication.",
+     "start": 62.871,
+     "end": 65.856
+    },
+    {
+     "text": "That is the open desk.",
+     "start": 66.137,
+     "end": 67.544
+    },
+    {
+     "text": "Anyone with the link can talk to the agent, and nobody signs in.",
+     "start": 67.825,
+     "end": 71.579
+    },
+    {
+     "text": "Use it with care.",
+     "start": 71.86,
+     "end": 72.862
+    },
+    {
+     "text": "Only choose it when the agent does not touch internal data, like a public returns policy.",
+     "start": 73.143,
+     "end": 78.368
+    }
+   ]
+  },
+  {
+   "title": "Decide: only the HR team",
+   "start": 79.269,
+   "end": 114.647,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 79.269,
+     "end": 80.143
+    },
+    {
+     "text": "Nexo now answers questions about salaries and leave.",
+     "start": 80.424,
+     "end": 83.623
+    },
+    {
+     "text": "Compliance says only members of the HR security group may chat, controlled with the Share option.",
+     "start": 83.904,
+     "end": 89.706
+    },
+    {
+     "text": "Which setting makes this possible?",
+     "start": 89.987,
+     "end": 91.692
+    },
+    {
+     "text": "Authenticate with Microsoft and Share?",
+     "start": 91.973,
+     "end": 94.106
+    },
+    {
+     "text": "No authentication with a private link?",
+     "start": 94.387,
+     "end": 96.583
+    },
+    {
+     "text": "Or Require secured access with one secret?",
+     "start": 96.864,
+     "end": 99.338
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 99.619,
+     "end": 101.154
+    },
+    {
+     "text": "Authenticate with Microsoft and Share it with the group.",
+     "start": 104.935,
+     "end": 107.92
+    },
+    {
+     "text": "Users always sign in, and Share decides who in the organization can chat.",
+     "start": 108.201,
+     "end": 112.638
+    },
+    {
+     "text": "A private link protects nothing.",
+     "start": 112.919,
+     "end": 114.646
+    }
+   ]
+  },
+  {
+   "title": "Own website: Require secured access",
+   "start": 115.547,
+   "end": 140.139,
+   "sentences": [
+    {
+     "text": "Now the public website.",
+     "start": 115.547,
+     "end": 116.975
+    },
+    {
+     "text": "By default, anyone who knows the agent's ID can use the Demo website and Custom website channels.",
+     "start": 117.256,
+     "end": 123.655
+    },
+    {
+     "text": "To close that, turn on Require secured access.",
+     "start": 123.936,
+     "end": 126.73
+    },
+    {
+     "text": "Now the client must authenticate with a secret, or with a token generated from that secret.",
+     "start": 127.011,
+     "end": 132.514
+    },
+    {
+     "text": "Careful: this protects the web channel.",
+     "start": 132.795,
+     "end": 134.863
+    },
+    {
+     "text": "It does not make each customer sign in.",
+     "start": 135.144,
+     "end": 137.298
+    },
+    {
+     "text": "And the change can take up to two hours to apply.",
+     "start": 137.579,
+     "end": 140.138
+    }
+   ]
+  },
+  {
+   "title": "Decide: will customers sign in?",
+   "start": 141.039,
+   "end": 174.261,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 141.039,
+     "end": 141.912
+    },
+    {
+     "text": "Contoso turns on Require secured access for its public website.",
+     "start": 142.193,
+     "end": 146.502
+    },
+    {
+     "text": "Marketing worries that every customer must now create an account.",
+     "start": 146.783,
+     "end": 150.472
+    },
+    {
+     "text": "What is true?",
+     "start": 150.753,
+     "end": 151.691
+    },
+    {
+     "text": "Every customer must sign in with Microsoft?",
+     "start": 151.972,
+     "end": 154.51
+    },
+    {
+     "text": "It only applies to users outside the network?",
+     "start": 154.791,
+     "end": 157.243
+    },
+    {
+     "text": "Or the page client needs a secret or a token?",
+     "start": 157.524,
+     "end": 160.446
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 160.727,
+     "end": 162.262
+    },
+    {
+     "text": "The page client needs a secret or a token.",
+     "start": 166.043,
+     "end": 168.836
+    },
+    {
+     "text": "Require secured access protects the web channel.",
+     "start": 169.117,
+     "end": 171.911
+    },
+    {
+     "text": "Customers still chat without signing in.",
+     "start": 172.192,
+     "end": 174.26
+    }
+   ]
+  },
+  {
+   "title": "The secret never goes to the browser",
+   "start": 175.161,
+   "end": 200.031,
+   "sentences": [
+    {
+     "text": "Here is Valeria's mistake.",
+     "start": 175.161,
+     "end": 176.803
+    },
+    {
+     "text": "Code that runs in the browser can be read by anyone.",
+     "start": 177.084,
+     "end": 180.176
+    },
+    {
+     "text": "So the secret must never be there.",
+     "start": 180.457,
+     "end": 182.334
+    },
+    {
+     "text": "Instead, Contoso's own server keeps the secret, like a safe in the back room.",
+     "start": 182.615,
+     "end": 187.264
+    },
+    {
+     "text": "When a visitor opens the page, the server exchanges the secret for a token.",
+     "start": 187.545,
+     "end": 192.131
+    },
+    {
+     "text": "The token is valid for a single conversation, and it expires if it isn't refreshed.",
+     "start": 192.412,
+     "end": 197.467
+    },
+    {
+     "text": "The page only ever receives the token.",
+     "start": 197.748,
+     "end": 200.03
+    }
+   ]
+  },
+  {
+   "title": "Decide: the secret in the page",
+   "start": 200.931,
+   "end": 234.239,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 200.931,
+     "end": 201.804
+    },
+    {
+     "text": "The secret sits in the website's JavaScript, and any visitor can copy it.",
+     "start": 202.085,
+     "end": 206.351
+    },
+    {
+     "text": "Valeria must fix this and keep the agent protected.",
+     "start": 206.632,
+     "end": 209.746
+    },
+    {
+     "text": "What should she do?",
+     "start": 210.027,
+     "end": 211.071
+    },
+    {
+     "text": "Move the secret into an HTML comment?",
+     "start": 211.352,
+     "end": 213.932
+    },
+    {
+     "text": "Turn off Require secured access entirely?",
+     "start": 214.213,
+     "end": 216.73
+    },
+    {
+     "text": "Or have the server send the page a token?",
+     "start": 217.011,
+     "end": 219.228
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 219.509,
+     "end": 221.044
+    },
+    {
+     "text": "Have the server send the page a token.",
+     "start": 224.825,
+     "end": 226.872
+    },
+    {
+     "text": "The secret stays on the server.",
+     "start": 227.153,
+     "end": 228.923
+    },
+    {
+     "text": "An HTML comment is still readable, and turning security off opens the channel.",
+     "start": 229.204,
+     "end": 234.238
+    }
+   ]
+  },
+  {
+   "title": "Secure the web channel in the studio",
+   "start": 235.139,
+   "end": 258.323,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 235.139,
+     "end": 236.951
+    },
+    {
+     "text": "Open Nexo and go to Settings, then Security.",
+     "start": 237.232,
+     "end": 240.154
+    },
+    {
+     "text": "Open Web channel security and turn on Require secured access.",
+     "start": 240.435,
+     "end": 244.764
+    },
+    {
+     "text": "Look at the secrets it generates, and store them only on your server.",
+     "start": 245.045,
+     "end": 248.607
+    },
+    {
+     "text": "On the server, create a service that uses the secret to request a token.",
+     "start": 248.888,
+     "end": 253.175
+    },
+    {
+     "text": "Make the web page receive only the token.",
+     "start": 253.456,
+     "end": 255.887
+    },
+    {
+     "text": "Then test a conversation from the page.",
+     "start": 256.168,
+     "end": 258.322
+    }
+   ]
+  },
+  {
+   "title": "Two doors, one agent",
+   "start": 259.223,
+   "end": 285.737,
+   "sentences": [
+    {
+     "text": "Back at Contoso.",
+     "start": 259.223,
+     "end": 260.48
+    },
+    {
+     "text": "Marta signs in on the intranet, and the web visitor chats with a token, never seeing the secret.",
+     "start": 260.761,
+     "end": 266.542
+    },
+    {
+     "text": "Remember three things.",
+     "start": 266.823,
+     "end": 268.059
+    },
+    {
+     "text": "Employees: Authenticate with Microsoft, and Share decides who chats.",
+     "start": 268.34,
+     "end": 272.606
+    },
+    {
+     "text": "Anonymous public: No authentication, only without internal data.",
+     "start": 272.887,
+     "end": 277.067
+    },
+    {
+     "text": "Your own website: Require secured access, with the token made on the server.",
+     "start": 277.348,
+     "end": 281.998
+    },
+    {
+     "text": "That closes module one.",
+     "start": 282.279,
+     "end": 283.835
+    },
+    {
+     "text": "Next, variables and scope.",
+     "start": 284.116,
+     "end": 285.736
+    }
+   ]
+  }
+ ]
+}

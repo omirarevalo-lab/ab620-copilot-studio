@@ -1,0 +1,2027 @@
+{
+ "id": "L18",
+ "sha256": "492e2300e29aa2a4c283b9f1b07464f1cebfc1c38638950ff621117cd17546f7",
+ "generated": "2026-11-11T04:43:14.768Z",
+ "cues": [
+  {
+   "label": "laptop will not turn on",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.79,
+   "wordT": 2.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "createticket",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.79,
+   "wordT": 4.8,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "add more steps",
+   "scene": 1,
+   "sentStart": 7.08,
+   "sentEnd": 9.59,
+   "wordT": 8.65,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 1,
+   "sentStart": 9.87,
+   "sentEnd": 14.59,
+   "wordT": 9.87,
+   "appears": 10.03,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "the steps a flow performs",
+   "scene": 1,
+   "sentStart": 9.87,
+   "sentEnd": 14.59,
+   "wordT": 10.5,
+   "appears": 10.71,
+   "delta": 0.21,
+   "status": "ok"
+  },
+  {
+   "label": "grouped by type",
+   "scene": 1,
+   "sentStart": 14.87,
+   "sentEnd": 19.13,
+   "wordT": 15.52,
+   "appears": 15.54,
+   "delta": 0.01,
+   "status": "ok"
+  },
+  {
+   "label": "from connectors",
+   "scene": 1,
+   "sentStart": 14.87,
+   "sentEnd": 19.13,
+   "wordT": 17.49,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 1,
+   "sentStart": 14.87,
+   "sentEnd": 19.13,
+   "wordT": 17.82,
+   "appears": 14.62,
+   "delta": -3.2,
+   "status": "ok"
+  },
+  {
+   "label": "other systems",
+   "scene": 1,
+   "sentStart": 14.87,
+   "sentEnd": 19.13,
+   "wordT": 18.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "find what you need quickly",
+   "scene": 1,
+   "sentStart": 19.41,
+   "sentEnd": 22.08,
+   "wordT": 20.75,
+   "appears": 20.85,
+   "delta": 0.1,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 2,
+   "sentStart": 22.98,
+   "sentEnd": 25.73,
+   "wordT": 23.26,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "four groups",
+   "scene": 2,
+   "sentStart": 22.98,
+   "sentEnd": 25.73,
+   "wordT": 25.18,
+   "appears": 23.14,
+   "delta": -2.04,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 2,
+   "sentStart": 26.01,
+   "sentEnd": 33.41,
+   "wordT": 26.01,
+   "appears": 19.35,
+   "delta": -6.66,
+   "status": "ok"
+  },
+  {
+   "label": "generate text",
+   "scene": 2,
+   "sentStart": 26.01,
+   "sentEnd": 33.41,
+   "wordT": 27.25,
+   "appears": 19.35,
+   "delta": -7.89,
+   "status": "ok"
+  },
+  {
+   "label": "process documents",
+   "scene": 2,
+   "sentStart": 26.01,
+   "sentEnd": 33.41,
+   "wordT": 28.07,
+   "appears": 19.35,
+   "delta": -8.72,
+   "status": "ok"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 2,
+   "sentStart": 26.01,
+   "sentEnd": 33.41,
+   "wordT": 28.89,
+   "appears": 19.35,
+   "delta": -9.54,
+   "status": "ok"
+  },
+  {
+   "label": "call an agent",
+   "scene": 2,
+   "sentStart": 26.01,
+   "sentEnd": 33.41,
+   "wordT": 30.12,
+   "appears": 19.35,
+   "delta": -10.77,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 2,
+   "sentStart": 26.01,
+   "sentEnd": 33.41,
+   "wordT": 31.77,
+   "appears": 19.35,
+   "delta": -12.42,
+   "status": "ok"
+  },
+  {
+   "label": "human in the loop",
+   "scene": 2,
+   "sentStart": 33.7,
+   "sentEnd": 37.43,
+   "wordT": 33.7,
+   "appears": 19.3,
+   "delta": -14.39,
+   "status": "ok"
+  },
+  {
+   "label": "approvals",
+   "scene": 2,
+   "sentStart": 33.7,
+   "sentEnd": 37.43,
+   "wordT": 35.56,
+   "appears": 19.3,
+   "delta": -16.26,
+   "status": "ok"
+  },
+  {
+   "label": "information",
+   "scene": 2,
+   "sentStart": 33.7,
+   "sentEnd": 37.43,
+   "wordT": 37.12,
+   "appears": 19.3,
+   "delta": -17.82,
+   "status": "ok"
+  },
+  {
+   "label": "built in tools",
+   "scene": 2,
+   "sentStart": 37.71,
+   "sentEnd": 42.91,
+   "wordT": 37.71,
+   "appears": 19.27,
+   "delta": -18.43,
+   "status": "ok"
+  },
+  {
+   "label": "loops",
+   "scene": 2,
+   "sentStart": 37.71,
+   "sentEnd": 42.91,
+   "wordT": 39.44,
+   "appears": 19.27,
+   "delta": -20.18,
+   "status": "ok"
+  },
+  {
+   "label": "conditions",
+   "scene": 2,
+   "sentStart": 37.71,
+   "sentEnd": 42.91,
+   "wordT": 39.88,
+   "appears": 19.27,
+   "delta": -20.61,
+   "status": "ok"
+  },
+  {
+   "label": "data operations",
+   "scene": 2,
+   "sentStart": 37.71,
+   "sentEnd": 42.91,
+   "wordT": 40.31,
+   "appears": 19.27,
+   "delta": -21.04,
+   "status": "ok"
+  },
+  {
+   "label": "dates",
+   "scene": 2,
+   "sentStart": 37.71,
+   "sentEnd": 42.91,
+   "wordT": 41.18,
+   "appears": 19.27,
+   "delta": -21.91,
+   "status": "ok"
+  },
+  {
+   "label": "child flows",
+   "scene": 2,
+   "sentStart": 37.71,
+   "sentEnd": 42.91,
+   "wordT": 42.04,
+   "appears": 19.27,
+   "delta": -22.78,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 2,
+   "sentStart": 43.19,
+   "sentEnd": 44.81,
+   "wordT": 44.49,
+   "appears": 14.62,
+   "delta": -29.87,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 3,
+   "sentStart": 45.72,
+   "sentEnd": 49.21,
+   "wordT": 45.72,
+   "appears": 14.62,
+   "delta": -31.1,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 3,
+   "sentStart": 45.72,
+   "sentEnd": 49.21,
+   "wordT": 46.49,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "actions from other systems",
+   "scene": 3,
+   "sentStart": 45.72,
+   "sentEnd": 49.21,
+   "wordT": 46.49,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "other systems",
+   "scene": 3,
+   "sentStart": 45.72,
+   "sentEnd": 49.21,
+   "wordT": 47.27,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "dataverse",
+   "scene": 3,
+   "sentStart": 45.72,
+   "sentEnd": 49.21,
+   "wordT": 48.82,
+   "appears": 43.41,
+   "delta": -5.41,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 3,
+   "sentStart": 49.49,
+   "sentEnd": 53.46,
+   "wordT": 49.49,
+   "appears": 49.6,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "dataverse",
+   "scene": 3,
+   "sentStart": 49.49,
+   "sentEnd": 53.46,
+   "wordT": 50.68,
+   "appears": 43.41,
+   "delta": -7.27,
+   "status": "ok"
+  },
+  {
+   "label": "the ticket row",
+   "scene": 3,
+   "sentStart": 49.49,
+   "sentEnd": 53.46,
+   "wordT": 52.27,
+   "appears": 52.59,
+   "delta": 0.32,
+   "status": "ok"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 3,
+   "sentStart": 53.74,
+   "sentEnd": 59.29,
+   "wordT": 53.74,
+   "appears": 19.35,
+   "delta": -34.39,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 3,
+   "sentStart": 53.74,
+   "sentEnd": 59.29,
+   "wordT": 55.28,
+   "appears": 53.58,
+   "delta": -1.7,
+   "status": "ok"
+  },
+  {
+   "label": "insert new action",
+   "scene": 3,
+   "sentStart": 59.57,
+   "sentEnd": 62.94,
+   "wordT": 60.24,
+   "appears": 60.44,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 3,
+   "sentStart": 59.57,
+   "sentEnd": 62.94,
+   "wordT": 60.92,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "where she wants the step",
+   "scene": 3,
+   "sentStart": 59.57,
+   "sentEnd": 62.94,
+   "wordT": 61.25,
+   "appears": 61.57,
+   "delta": 0.32,
+   "status": "ok"
+  },
+  {
+   "label": "existing prompt",
+   "scene": 3,
+   "sentStart": 63.22,
+   "sentEnd": 65.86,
+   "wordT": 64.28,
+   "appears": 63.48,
+   "delta": -0.79,
+   "status": "ok"
+  },
+  {
+   "label": "summarizes marta text",
+   "scene": 3,
+   "sentStart": 66.14,
+   "sentEnd": 68.53,
+   "wordT": 67.34,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "summarizes marta text",
+   "scene": 4,
+   "sentStart": 70.59,
+   "sentEnd": 74.36,
+   "wordT": 72.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "insert new action",
+   "scene": 4,
+   "sentStart": 74.64,
+   "sentEnd": 77.25,
+   "wordT": 75.39,
+   "appears": 74.84,
+   "delta": -0.55,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 4,
+   "sentStart": 74.64,
+   "sentEnd": 77.25,
+   "wordT": 76.13,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "createticket",
+   "scene": 4,
+   "sentStart": 74.64,
+   "sentEnd": 77.25,
+   "wordT": 76.87,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 4,
+   "sentStart": 77.53,
+   "sentEnd": 79.3,
+   "wordT": 78.63,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "look under the connectors group",
+   "scene": 4,
+   "sentStart": 79.58,
+   "sentEnd": 81.2,
+   "wordT": 79.58,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 4,
+   "sentStart": 79.58,
+   "sentEnd": 81.2,
+   "wordT": 80.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "look under ai capabilities",
+   "scene": 4,
+   "sentStart": 81.48,
+   "sentEnd": 83.31,
+   "wordT": 81.48,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 4,
+   "sentStart": 81.48,
+   "sentEnd": 83.31,
+   "wordT": 82.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "look under built in tools",
+   "scene": 4,
+   "sentStart": 83.59,
+   "sentEnd": 85.19,
+   "wordT": 83.86,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "built in tools",
+   "scene": 4,
+   "sentStart": 83.59,
+   "sentEnd": 85.19,
+   "wordT": 84.39,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "look under ai capabilities",
+   "scene": 4,
+   "sentStart": 90.79,
+   "sentEnd": 92.67,
+   "wordT": 90.79,
+   "appears": 81.47,
+   "delta": -9.32,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 4,
+   "sentStart": 90.79,
+   "sentEnd": 92.67,
+   "wordT": 91.73,
+   "appears": 93.07,
+   "delta": 1.34,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 4,
+   "sentStart": 92.95,
+   "sentEnd": 98.6,
+   "wordT": 92.95,
+   "appears": 93.07,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "run a prompt is one of the ai capabilities next to generate text",
+   "scene": 4,
+   "sentStart": 92.95,
+   "sentEnd": 98.6,
+   "wordT": 92.95,
+   "appears": 93.07,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 4,
+   "sentStart": 92.95,
+   "sentEnd": 98.6,
+   "wordT": 95.42,
+   "appears": 93.07,
+   "delta": -2.35,
+   "status": "ok"
+  },
+  {
+   "label": "generate text",
+   "scene": 4,
+   "sentStart": 92.95,
+   "sentEnd": 98.6,
+   "wordT": 96.83,
+   "appears": 93.14,
+   "delta": -3.69,
+   "status": "ok"
+  },
+  {
+   "label": "process documents",
+   "scene": 4,
+   "sentStart": 92.95,
+   "sentEnd": 98.6,
+   "wordT": 97.89,
+   "appears": 93.14,
+   "delta": -4.75,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 4,
+   "sentStart": 98.88,
+   "sentEnd": 103.27,
+   "wordT": 98.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "actions",
+   "scene": 4,
+   "sentStart": 98.88,
+   "sentEnd": 103.27,
+   "wordT": 99.68,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "actions from other systems",
+   "scene": 4,
+   "sentStart": 98.88,
+   "sentEnd": 103.27,
+   "wordT": 99.68,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "other systems",
+   "scene": 4,
+   "sentStart": 98.88,
+   "sentEnd": 103.27,
+   "wordT": 100.48,
+   "appears": 99,
+   "delta": -1.48,
+   "status": "ok"
+  },
+  {
+   "label": "dataverse",
+   "scene": 4,
+   "sentStart": 98.88,
+   "sentEnd": 103.27,
+   "wordT": 102.08,
+   "appears": 99.07,
+   "delta": -3.01,
+   "status": "ok"
+  },
+  {
+   "label": "speed",
+   "scene": 5,
+   "sentStart": 104.17,
+   "sentEnd": 105.11,
+   "wordT": 104.64,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "two minutes",
+   "scene": 5,
+   "sentStart": 105.39,
+   "sentEnd": 109.89,
+   "wordT": 107.64,
+   "appears": 104.19,
+   "delta": -3.45,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 5,
+   "sentStart": 105.39,
+   "sentEnd": 109.89,
+   "wordT": 108.49,
+   "appears": 104.19,
+   "delta": -4.29,
+   "status": "ok"
+  },
+  {
+   "label": "error",
+   "scene": 5,
+   "sentStart": 110.17,
+   "sentEnd": 113.16,
+   "wordT": 112.89,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 5,
+   "sentStart": 113.44,
+   "sentEnd": 114.85,
+   "wordT": 113.44,
+   "appears": 113.55,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "express mode helps here",
+   "scene": 5,
+   "sentStart": 113.44,
+   "sentEnd": 114.85,
+   "wordT": 113.44,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "heavy processing",
+   "scene": 5,
+   "sentStart": 115.13,
+   "sentEnd": 121.36,
+   "wordT": 116.77,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "low data volume",
+   "scene": 5,
+   "sentStart": 115.13,
+   "sentEnd": 121.36,
+   "wordT": 117.75,
+   "appears": 117.8,
+   "delta": 0.05,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 5,
+   "sentStart": 121.64,
+   "sentEnd": 123.39,
+   "wordT": 121.64,
+   "appears": 113.55,
+   "delta": -8.09,
+   "status": "ok"
+  },
+  {
+   "label": "in preview",
+   "scene": 5,
+   "sentStart": 121.64,
+   "sentEnd": 123.39,
+   "wordT": 122.69,
+   "appears": 122.92,
+   "delta": 0.23,
+   "status": "ok"
+  },
+  {
+   "label": "preview",
+   "scene": 5,
+   "sentStart": 121.64,
+   "sentEnd": 123.39,
+   "wordT": 123.04,
+   "appears": 121.8,
+   "delta": -1.24,
+   "status": "ok"
+  },
+  {
+   "label": "two figures",
+   "scene": 6,
+   "sentStart": 124.29,
+   "sentEnd": 127.87,
+   "wordT": 124.29,
+   "appears": 124.44,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "action limit",
+   "scene": 6,
+   "sentStart": 128.15,
+   "sentEnd": 132.2,
+   "wordT": 129.6,
+   "appears": 129.77,
+   "delta": 0.17,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 6,
+   "sentStart": 128.15,
+   "sentEnd": 132.2,
+   "wordT": 129.6,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a flow used as a tool",
+   "scene": 6,
+   "sentStart": 128.15,
+   "sentEnd": 132.2,
+   "wordT": 130.47,
+   "appears": 130.91,
+   "delta": 0.45,
+   "status": "ok"
+  },
+  {
+   "label": "two minutes",
+   "scene": 6,
+   "sentStart": 132.49,
+   "sentEnd": 140.14,
+   "wordT": 132.49,
+   "appears": 104.19,
+   "delta": -28.29,
+   "status": "ok"
+  },
+  {
+   "label": "default window for an agent flow",
+   "scene": 6,
+   "sentStart": 132.49,
+   "sentEnd": 140.14,
+   "wordT": 133.76,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 6,
+   "sentStart": 132.49,
+   "sentEnd": 140.14,
+   "wordT": 135.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "express mode",
+   "scene": 6,
+   "sentStart": 132.49,
+   "sentEnd": 140.14,
+   "wordT": 138.87,
+   "appears": 113.55,
+   "delta": -25.32,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 7,
+   "sentStart": 144.27,
+   "sentEnd": 146.1,
+   "wordT": 144.27,
+   "appears": 113.55,
+   "delta": -30.72,
+   "status": "ok"
+  },
+  {
+   "label": "requirements",
+   "scene": 7,
+   "sentStart": 144.27,
+   "sentEnd": 146.1,
+   "wordT": 145.64,
+   "appears": 144.46,
+   "delta": -1.18,
+   "status": "ok"
+  },
+  {
+   "label": "when an agent calls a flow",
+   "scene": 7,
+   "sentStart": 146.38,
+   "sentEnd": 153.14,
+   "wordT": 147.61,
+   "appears": 144.46,
+   "delta": -3.15,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 7,
+   "sentStart": 146.38,
+   "sentEnd": 153.14,
+   "wordT": 149.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a respond to the agent action",
+   "scene": 7,
+   "sentStart": 146.38,
+   "sentEnd": 153.14,
+   "wordT": 149.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 7,
+   "sentStart": 146.38,
+   "sentEnd": 153.14,
+   "wordT": 150.07,
+   "appears": 144.46,
+   "delta": -5.61,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 7,
+   "sentStart": 146.38,
+   "sentEnd": 153.14,
+   "wordT": 151.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "copilot studio plan",
+   "scene": 7,
+   "sentStart": 146.38,
+   "sentEnd": 153.14,
+   "wordT": 152.22,
+   "appears": 144.46,
+   "delta": -7.76,
+   "status": "ok"
+  },
+  {
+   "label": "no extra cost",
+   "scene": 7,
+   "sentStart": 153.43,
+   "sentEnd": 154.92,
+   "wordT": 154.02,
+   "appears": 153.59,
+   "delta": -0.44,
+   "status": "ok"
+  },
+  {
+   "label": "limits",
+   "scene": 7,
+   "sentStart": 155.2,
+   "sentEnd": 156.56,
+   "wordT": 156.22,
+   "appears": 155.7,
+   "delta": -0.52,
+   "status": "ok"
+  },
+  {
+   "label": "delay",
+   "scene": 7,
+   "sentStart": 156.84,
+   "sentEnd": 158.98,
+   "wordT": 158.06,
+   "appears": 155.7,
+   "delta": -2.36,
+   "status": "ok"
+  },
+  {
+   "label": "webhooks",
+   "scene": 7,
+   "sentStart": 156.84,
+   "sentEnd": 158.98,
+   "wordT": 158.67,
+   "appears": 155.7,
+   "delta": -2.97,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 7,
+   "sentStart": 159.26,
+   "sentEnd": 167.06,
+   "wordT": 164.58,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "connector responses",
+   "scene": 7,
+   "sentStart": 159.26,
+   "sentEnd": 167.06,
+   "wordT": 166.35,
+   "appears": 164.87,
+   "delta": -1.49,
+   "status": "ok"
+  },
+  {
+   "label": "long processes",
+   "scene": 7,
+   "sentStart": 167.34,
+   "sentEnd": 171.31,
+   "wordT": 167.34,
+   "appears": 167.6,
+   "delta": 0.26,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 7,
+   "sentStart": 167.34,
+   "sentEnd": 171.31,
+   "wordT": 169.33,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "long reconciliation",
+   "scene": 8,
+   "sentStart": 173.37,
+   "sentEnd": 178.34,
+   "wordT": 174.9,
+   "appears": 173.76,
+   "delta": -1.14,
+   "status": "ok"
+  },
+  {
+   "label": "reconciliation",
+   "scene": 8,
+   "sentStart": 173.37,
+   "sentEnd": 178.34,
+   "wordT": 175.28,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a lot of data",
+   "scene": 8,
+   "sentStart": 173.37,
+   "sentEnd": 178.34,
+   "wordT": 176.81,
+   "appears": 177.37,
+   "delta": 0.56,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 8,
+   "sentStart": 178.62,
+   "sentEnd": 182.69,
+   "wordT": 180.84,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "turn on express mode for it",
+   "scene": 8,
+   "sentStart": 184.56,
+   "sentEnd": 186.13,
+   "wordT": 184.56,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 8,
+   "sentStart": 184.56,
+   "sentEnd": 186.13,
+   "wordT": 185.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add a delay action to it",
+   "scene": 8,
+   "sentStart": 186.41,
+   "sentEnd": 187.95,
+   "wordT": 186.41,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "delay",
+   "scene": 8,
+   "sentStart": 186.41,
+   "sentEnd": 187.95,
+   "wordT": 186.92,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "action",
+   "scene": 8,
+   "sentStart": 186.41,
+   "sentEnd": 187.95,
+   "wordT": 187.18,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "let it run asynchronously",
+   "scene": 8,
+   "sentStart": 188.23,
+   "sentEnd": 189.83,
+   "wordT": 188.55,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "let it run asynchronously",
+   "scene": 8,
+   "sentStart": 195.43,
+   "sentEnd": 196.88,
+   "wordT": 195.43,
+   "appears": 188.22,
+   "delta": -7.21,
+   "status": "ok"
+  },
+  {
+   "label": "long processes with lots of data are asynchronous",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 197.16,
+   "appears": 197.27,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "long processes",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 197.16,
+   "appears": 197.27,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "with lots of data are",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 197.9,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 199.75,
+   "appears": 197.27,
+   "delta": -2.48,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 200.49,
+   "appears": 204.3,
+   "delta": 3.81,
+   "status": "otro momento"
+  },
+  {
+   "label": "express mode is for",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 200.49,
+   "appears": 200.55,
+   "delta": 0.05,
+   "status": "ok"
+  },
+  {
+   "label": "heavy processing",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 201.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "little data",
+   "scene": 8,
+   "sentStart": 197.16,
+   "sentEnd": 203.83,
+   "wordT": 203.09,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "express mode",
+   "scene": 8,
+   "sentStart": 204.11,
+   "sentEnd": 208.38,
+   "wordT": 204.11,
+   "appears": 204.3,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 9,
+   "sentStart": 211.54,
+   "sentEnd": 214.57,
+   "wordT": 211.54,
+   "appears": 209.3,
+   "delta": -2.25,
+   "status": "ok"
+  },
+  {
+   "label": "when an agent calls a flow",
+   "scene": 9,
+   "sentStart": 211.54,
+   "sentEnd": 214.57,
+   "wordT": 212.55,
+   "appears": 209.3,
+   "delta": -3.25,
+   "status": "ok"
+  },
+  {
+   "label": "dataverse",
+   "scene": 9,
+   "sentStart": 214.85,
+   "sentEnd": 220.4,
+   "wordT": 215.22,
+   "appears": 214.66,
+   "delta": -0.57,
+   "status": "ok"
+  },
+  {
+   "label": "inserts the ticket row",
+   "scene": 9,
+   "sentStart": 214.85,
+   "sentEnd": 220.4,
+   "wordT": 215.96,
+   "appears": 216.28,
+   "delta": 0.32,
+   "status": "ok"
+  },
+  {
+   "label": "the ticket row",
+   "scene": 9,
+   "sentStart": 214.85,
+   "sentEnd": 220.4,
+   "wordT": 216.33,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 9,
+   "sentStart": 214.85,
+   "sentEnd": 220.4,
+   "wordT": 218.18,
+   "appears": 214.66,
+   "delta": -3.52,
+   "status": "ok"
+  },
+  {
+   "label": "summarizes marta text",
+   "scene": 9,
+   "sentStart": 214.85,
+   "sentEnd": 220.4,
+   "wordT": 219.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 9,
+   "sentStart": 220.68,
+   "sentEnd": 223.05,
+   "wordT": 221.86,
+   "appears": 144.46,
+   "delta": -77.4,
+   "status": "ok"
+  },
+  {
+   "label": "little data",
+   "scene": 9,
+   "sentStart": 223.33,
+   "sentEnd": 232.09,
+   "wordT": 226.25,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "express mode",
+   "scene": 9,
+   "sentStart": 223.33,
+   "sentEnd": 232.09,
+   "wordT": 228.2,
+   "appears": 221.7,
+   "delta": -6.49,
+   "status": "ok"
+  },
+  {
+   "label": "in preview",
+   "scene": 9,
+   "sentStart": 223.33,
+   "sentEnd": 232.09,
+   "wordT": 228.85,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "preview",
+   "scene": 9,
+   "sentStart": 223.33,
+   "sentEnd": 232.09,
+   "wordT": 229.17,
+   "appears": 221.7,
+   "delta": -7.47,
+   "status": "ok"
+  },
+  {
+   "label": "long reconciliation",
+   "scene": 9,
+   "sentStart": 232.38,
+   "sentEnd": 235.3,
+   "wordT": 232.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "reconciliation",
+   "scene": 9,
+   "sentStart": 232.38,
+   "sentEnd": 235.3,
+   "wordT": 233.11,
+   "appears": 232.79,
+   "delta": -0.32,
+   "status": "ok"
+  },
+  {
+   "label": "the steps in copilot studio",
+   "scene": 10,
+   "sentStart": 236.2,
+   "sentEnd": 238.37,
+   "wordT": 236.82,
+   "appears": 237.17,
+   "delta": 0.35,
+   "status": "ok"
+  },
+  {
+   "label": "open the agent flow",
+   "scene": 10,
+   "sentStart": 238.66,
+   "sentEnd": 240.04,
+   "wordT": 238.66,
+   "appears": 239.03,
+   "delta": 0.38,
+   "status": "ok"
+  },
+  {
+   "label": "insert new action",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 240.65,
+   "appears": 74.84,
+   "delta": -165.81,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 241.3,
+   "appears": 236.53,
+   "delta": -4.77,
+   "status": "ok"
+  },
+  {
+   "label": "review the groups",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 244.55,
+   "appears": 240.7,
+   "delta": -3.86,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 245.53,
+   "appears": 93.07,
+   "delta": -152.46,
+   "status": "ok"
+  },
+  {
+   "label": "human in the loop",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 246.18,
+   "appears": 53.52,
+   "delta": -192.66,
+   "status": "ok"
+  },
+  {
+   "label": "built in tools",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 247.48,
+   "appears": 53.48,
+   "delta": -194.01,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 10,
+   "sentStart": 240.32,
+   "sentEnd": 249.11,
+   "wordT": 248.78,
+   "appears": 214.66,
+   "delta": -34.13,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 10,
+   "sentStart": 249.39,
+   "sentEnd": 255.24,
+   "wordT": 250.04,
+   "appears": 236.53,
+   "delta": -13.51,
+   "status": "ok"
+  },
+  {
+   "label": "dataverse",
+   "scene": 10,
+   "sentStart": 249.39,
+   "sentEnd": 255.24,
+   "wordT": 251.99,
+   "appears": 214.66,
+   "delta": -37.33,
+   "status": "ok"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 10,
+   "sentStart": 249.39,
+   "sentEnd": 255.24,
+   "wordT": 253.29,
+   "appears": 253.66,
+   "delta": 0.37,
+   "status": "ok"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 10,
+   "sentStart": 249.39,
+   "sentEnd": 255.24,
+   "wordT": 254.59,
+   "appears": 245.15,
+   "delta": -9.44,
+   "status": "ok"
+  },
+  {
+   "label": "overview",
+   "scene": 10,
+   "sentStart": 255.52,
+   "sentEnd": 261.57,
+   "wordT": 255.89,
+   "appears": 236.53,
+   "delta": -19.37,
+   "status": "ok"
+  },
+  {
+   "label": "details",
+   "scene": 10,
+   "sentStart": 255.52,
+   "sentEnd": 261.57,
+   "wordT": 257.41,
+   "appears": 256.14,
+   "delta": -1.27,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 10,
+   "sentStart": 255.52,
+   "sentEnd": 261.57,
+   "wordT": 258.92,
+   "appears": 256.14,
+   "delta": -2.78,
+   "status": "ok"
+  },
+  {
+   "label": "flow responds in under two minutes",
+   "scene": 10,
+   "sentStart": 261.86,
+   "sentEnd": 264.58,
+   "wordT": 262.76,
+   "appears": 262.94,
+   "delta": 0.18,
+   "status": "ok"
+  },
+  {
+   "label": "two minutes",
+   "scene": 10,
+   "sentStart": 261.86,
+   "sentEnd": 264.58,
+   "wordT": 263.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "heavy processing",
+   "scene": 11,
+   "sentStart": 266.64,
+   "sentEnd": 269.95,
+   "wordT": 268.11,
+   "appears": 267.13,
+   "delta": -0.98,
+   "status": "ok"
+  },
+  {
+   "label": "little data",
+   "scene": 11,
+   "sentStart": 266.64,
+   "sentEnd": 269.95,
+   "wordT": 269.21,
+   "appears": 270.42,
+   "delta": 1.21,
+   "status": "otro momento"
+  },
+  {
+   "label": "express mode",
+   "scene": 11,
+   "sentStart": 270.23,
+   "sentEnd": 273.85,
+   "wordT": 272.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a respond to the agent action",
+   "scene": 11,
+   "sentStart": 275.71,
+   "sentEnd": 277.55,
+   "wordT": 275.71,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 11,
+   "sentStart": 275.71,
+   "sentEnd": 277.55,
+   "wordT": 276.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "action",
+   "scene": 11,
+   "sentStart": 275.71,
+   "sentEnd": 277.55,
+   "wordT": 277.24,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a delay action before the end",
+   "scene": 11,
+   "sentStart": 277.83,
+   "sentEnd": 279.62,
+   "wordT": 277.83,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "delay",
+   "scene": 11,
+   "sentStart": 277.83,
+   "sentEnd": 279.62,
+   "wordT": 278.13,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "action",
+   "scene": 11,
+   "sentStart": 277.83,
+   "sentEnd": 279.62,
+   "wordT": 278.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a webhook that calls the agent",
+   "scene": 11,
+   "sentStart": 279.9,
+   "sentEnd": 281.88,
+   "wordT": 280.18,
+   "appears": 279.89,
+   "delta": -0.29,
+   "status": "ok"
+  },
+  {
+   "label": "a respond to the agent action",
+   "scene": 11,
+   "sentStart": 287.48,
+   "sentEnd": 289.31,
+   "wordT": 287.48,
+   "appears": 275.71,
+   "delta": -11.77,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 11,
+   "sentStart": 287.48,
+   "sentEnd": 289.31,
+   "wordT": 287.79,
+   "appears": 289.72,
+   "delta": 1.93,
+   "status": "otro momento"
+  },
+  {
+   "label": "action",
+   "scene": 11,
+   "sentStart": 287.48,
+   "sentEnd": 289.31,
+   "wordT": 289.01,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "express mode",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 289.6,
+   "appears": 296.53,
+   "delta": 6.94,
+   "status": "otro momento"
+  },
+  {
+   "label": "requires the agent trigger a",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 290.36,
+   "appears": 289.72,
+   "delta": -0.64,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 291.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a respond to the agent action",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 291.88,
+   "appears": 275.71,
+   "delta": -16.17,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 292.26,
+   "appears": 289.72,
+   "delta": -2.54,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 293.78,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "copilot studio plan",
+   "scene": 11,
+   "sentStart": 289.6,
+   "sentEnd": 296.06,
+   "wordT": 294.92,
+   "appears": 289.72,
+   "delta": -5.2,
+   "status": "ok"
+  },
+  {
+   "label": "delay and webhooks are not supported in express mode",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 296.34,
+   "appears": 296.46,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "delay and webhooks",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 296.34,
+   "appears": 296.46,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "delay",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 296.34,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "webhooks",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 296.94,
+   "appears": 155.7,
+   "delta": -141.23,
+   "status": "ok"
+  },
+  {
+   "label": "are not supported in express mode",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 297.24,
+   "appears": 296.46,
+   "delta": -0.77,
+   "status": "ok"
+  },
+  {
+   "label": "not supported",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 297.53,
+   "appears": 296.53,
+   "delta": -1,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 11,
+   "sentStart": 296.34,
+   "sentEnd": 299.62,
+   "wordT": 298.43,
+   "appears": 296.53,
+   "delta": -1.9,
+   "status": "ok"
+  },
+  {
+   "label": "back at the market",
+   "scene": 12,
+   "sentStart": 300.52,
+   "sentEnd": 304.54,
+   "wordT": 300.52,
+   "appears": 300.68,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "remember",
+   "scene": 12,
+   "sentStart": 304.82,
+   "sentEnd": 310.36,
+   "wordT": 304.82,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "four groups",
+   "scene": 12,
+   "sentStart": 304.82,
+   "sentEnd": 310.36,
+   "wordT": 305.56,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 12,
+   "sentStart": 304.82,
+   "sentEnd": 310.36,
+   "wordT": 306.29,
+   "appears": 305.01,
+   "delta": -1.28,
+   "status": "ok"
+  },
+  {
+   "label": "human in the loop",
+   "scene": 12,
+   "sentStart": 304.82,
+   "sentEnd": 310.36,
+   "wordT": 307.03,
+   "appears": 305.01,
+   "delta": -2.02,
+   "status": "ok"
+  },
+  {
+   "label": "built in tools",
+   "scene": 12,
+   "sentStart": 304.82,
+   "sentEnd": 310.36,
+   "wordT": 308.51,
+   "appears": 305.01,
+   "delta": -3.5,
+   "status": "ok"
+  },
+  {
+   "label": "connectors",
+   "scene": 12,
+   "sentStart": 304.82,
+   "sentEnd": 310.36,
+   "wordT": 309.99,
+   "appears": 305.01,
+   "delta": -4.98,
+   "status": "ok"
+  },
+  {
+   "label": "run a prompt",
+   "scene": 12,
+   "sentStart": 310.64,
+   "sentEnd": 313.12,
+   "wordT": 310.64,
+   "appears": 310.84,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "in ai capabilities",
+   "scene": 12,
+   "sentStart": 310.64,
+   "sentEnd": 313.12,
+   "wordT": 312.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ai capabilities",
+   "scene": 12,
+   "sentStart": 310.64,
+   "sentEnd": 313.12,
+   "wordT": 312.41,
+   "appears": 305.01,
+   "delta": -7.4,
+   "status": "ok"
+  },
+  {
+   "label": "express mode",
+   "scene": 12,
+   "sentStart": 313.4,
+   "sentEnd": 319.18,
+   "wordT": 313.4,
+   "appears": 313.59,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "in preview",
+   "scene": 12,
+   "sentStart": 313.4,
+   "sentEnd": 319.18,
+   "wordT": 314.12,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "preview",
+   "scene": 12,
+   "sentStart": 313.4,
+   "sentEnd": 319.18,
+   "wordT": 314.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "heavy processing",
+   "scene": 12,
+   "sentStart": 313.4,
+   "sentEnd": 319.18,
+   "wordT": 315.56,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "little data",
+   "scene": 12,
+   "sentStart": 313.4,
+   "sentEnd": 319.18,
+   "wordT": 316.65,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 12,
+   "sentStart": 319.46,
+   "sentEnd": 324.17,
+   "wordT": 320.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 12,
+   "sentStart": 319.46,
+   "sentEnd": 324.17,
+   "wordT": 321.14,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "copilot studio plan",
+   "scene": 12,
+   "sentStart": 319.46,
+   "sentEnd": 324.17,
+   "wordT": 323.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "long processes",
+   "scene": 12,
+   "sentStart": 324.45,
+   "sentEnd": 326.35,
+   "wordT": 324.45,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous",
+   "scene": 12,
+   "sentStart": 324.45,
+   "sentEnd": 326.35,
+   "wordT": 325.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error handling in flows",
+   "scene": 12,
+   "sentStart": 326.63,
+   "sentEnd": 328.42,
+   "wordT": 326.99,
+   "appears": 326.79,
+   "delta": -0.2,
+   "status": "ok"
+  },
+  {
+   "label": "error",
+   "scene": 12,
+   "sentStart": 326.63,
+   "sentEnd": 328.42,
+   "wordT": 326.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  }
+ ]
+}

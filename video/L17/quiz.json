@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "The service manager wants every ticket to start as Medium, but Nexo still asks Marta for the urgency each time. What should Valeria do?",
+    "options": [
+      "Add a Question node for urgency",
+      "Set a Custom value of Medium",
+      "Remove urgency from the trigger"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Valeria's flow keeps the ticket ID in an internal variable. Nexo runs the flow, but never shares the number with Marta. What should Valeria do?",
+    "options": [
+      "Ask Nexo to read the flow variable",
+      "Copy the variable into the topic",
+      "Add it to Respond to the agent"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "Valeria's new flow has the right trigger and Respond to the agent, and Asynchronous response is Off, but it does not show up as a tool. What should Valeria do?",
+    "options": [
+      "Publish the flow, then add it",
+      "Turn on Asynchronous response",
+      "Set a Custom value on each input"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

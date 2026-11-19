@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 7,
+    "question": "Contoso imported a CSV with only the Question column. Now they want to use Exact match. What must they fix first?",
+    "options": [
+      "Split the file into two smaller TXT files",
+      "Change each case into a conversation case",
+      "Fill an Expected response for each row"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 6,
+    "question": "Contoso has three agents and wants to evaluate one of them today. Which one can take the exam?",
+    "options": [
+      "The one using Authenticate with Microsoft",
+      "The one where makers Authenticate manually",
+      "The Fabric data agent of the finance team"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 14,
+    "pauseSentence": 6,
+    "question": "Nexo now runs on the Microsoft Copilot harness, and Contoso wants to upload a file of real questions to the Evaluate tab. Which limit applies?",
+    "options": [
+      "One hundred questions of one thousand characters",
+      "A single CSV file up to five megabytes in size",
+      "Twenty five conversations until the first run"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

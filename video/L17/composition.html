@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L17 · Create an agent flow and its parameters · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  #world .wall { width: 4400px; height: 1250px; background: linear-gradient(#bcdcf0, #e8f2f8); }
+  #world .floor { width: 4400px; top: 1250px; height: 910px; background: #d9d4c6; }
+  #world .floor:before { background: #c4bfae; }
+    .cp { position: absolute; translate: -50% 0; white-space: nowrap; font-size: 38px; font-weight: 800; padding: 8px 28px; border-radius: 999px; background: #fff; border: 5px solid #1f2a44; color: #1f2a44; box-shadow: var(--shadow); opacity: 0; }
+  .cp.tr { border-color: #3f6f5d; color: #3f6f5d; } .cp.cy { border-color: #1b7f95; color: #1b7f95; } .cp.st { border-color: #3d6e9e; color: #3d6e9e; } .cp.am { border-color: #b36b00; color: #8a5200; } .cp.gr { border-color: #5d6472; color: #5d6472; } .cp.yl { border-color: #b8860b; color: #6e4f00; }
+  .cp.wd { font-size: 52px; padding: 10px 34px; }
+  #ovL .pl { position: absolute; left: 120px; top: 120px; font-size: 40px; font-weight: 800; padding: 8px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  #ovL .nl { position: absolute; left: 50%; margin-left: -190px; top: 890px; width: 380px; text-align: center; font-size: 40px; font-weight: 800; padding: 8px 0; border-radius: 999px; background: #1f2a44; color: #fff; box-shadow: var(--shadow); opacity: 0; }
+  .sg { position: absolute; box-sizing: border-box; white-space: nowrap; text-align: center; font-weight: 800; border-radius: 14px; background: #fff; border: 6px solid; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .cr { position: absolute; box-sizing: border-box; background: #c8a36a; border: 6px solid #8d6230; border-radius: 10px; font-size: 36px; font-weight: 800; color: #3a2410; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .cr.cm { background: #f4ead2; border-color: #d9c9a6; }
+  .sl { position: absolute; box-sizing: border-box; border: 5px dashed #8a93a6; border-radius: 10px; background: #ece9df; }
+  .bub { position: absolute; box-sizing: border-box; padding: 8px 22px; border-radius: 24px; font-size: 34px; font-weight: 700; white-space: nowrap; background: #fff; border: 4px solid #e07a5f; color: #141821; opacity: 0; }
+  .nt { position: absolute; box-sizing: border-box; padding: 6px 20px; border-radius: 10px; font-size: 34px; font-weight: 800; white-space: nowrap; background: #fff; border: 4px solid #8d6230; color: #141821; opacity: 0; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 38px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .rm h4 { font-size: 36px; white-space: nowrap; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 34px; border-radius: 16px; padding: 6px 18px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; display: flex; align-items: center; gap: 10px; height: 64px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #uiS .nav div { font-size: 34px; } #uiS .bar, #uiS .bar .t { font-size: 34px; } #uiS .bar .hc { font-size: 34px; position: absolute; right: 34px; top: 12px; margin: 0; } #uiS .btn { font-size: 34px; } #uiS .crumb { font-size: 34px; } #uiS h3 { font-size: 44px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 10px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 34px; font-weight: 700; color: var(--muted); margin-bottom: 2px; }
+  .uw .pp { position: absolute; font-size: 34px; font-weight: 800; padding: 6px 22px; border-radius: 999px; background: #cfe0ff; color: #1f3a8a; border: 3px solid #2f5bd3; white-space: nowrap; opacity: 0; }
+  .uw .rw { display: inline-flex; align-items: center; gap: 10px; font-size: 34px; font-weight: 800; border: 3px solid #5b8c7a; color: #3f6f5d; border-radius: 12px; padding: 2px 16px; margin-right: 14px; background: #fff; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L17 · Create an agent flow and its parameters. World 3840x2160 = "The Contoso rail yard and signal box", camera scale 1 (1.25 on the callback spur, .75 / .62 wide shots).
+     Horizon y 1250 · main track y 1346-1416 · platform slabs y 1440-1610 (feet y 1570) · canopy roofs y 940-1004.
+     Departure platform x 100-1240 (Marta, manager, Nexo, Valeria, crate slots x 770-1180) · work stations x 1340-2140 under a gantry (route board, "actions", 3 lamps) ·
+     arrival platform x 2300-3100 (bay x 2340, Nexo2, Marta2) · signal box (tower) x 3200-3800 y 380-930 with clock, "Networking" plate, lever + lamp · timetable board x 3200-3500 y 960-1200 ·
+     callback spur x 3560-3840 · sidings hill x 1400-2400 y 840-1250 · greyed platforms (Power Apps / schedules) on the left hill y 720-880.
+     Camera views: DEP (960,1230) · MID (1720,1230) · ARR (2670,1230) · SIG (2880,880) · GREY (960,950) · SID (1900,940) · WIDE (1330,1180,.75). */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', YEL = '#f2c230', CAN = '#5b8c7a', CAND = '#3f6f5d', CYN = '#2a9db5', CYD = '#1b7f95', STL = '#3d6e9e', CRM = '#f4ead2', CORAL = '#e07a5f', INK = '#141821', PURP = '#7b5cd6', PILL = '#cfe0ff';
+  const R = (x, y, w, h, st, id, inner, cls) => `<div class="w ${cls || ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;${st || ''}">${inner || ''}</div>`;
+  const GRP = (id, inner, cls) => `<div class="w ${cls || ''}" id="${id}" style="left:0;top:0;width:0;height:0">${inner}</div>`;
+  const sgn = (id, x, y, w, h, t, col, fs) => `<div class="sg" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-color:${col};color:${col};font-size:${fs || 40}px">${t}</div>`;
+  const CP = (id, cx, y, t, cls) => `<div class="cp ${cls || ''}" id="${id}" style="left:${cx}px;top:${y}px">${t}</div>`;
+  const hum = (id, x, y, top, hair, extra, cls) => `<svg class="w ${cls || ''}" id="${id}" style="left:${x}px;top:${y}px" width="200" height="380" viewBox="0 0 200 380"><g><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></g>${extra || ''}</svg>`;
+  const LAP = '<rect x="48" y="250" width="110" height="70" rx="8" fill="#1f2a44"/><rect x="56" y="258" width="94" height="54" rx="4" fill="#cfe0ff"/><rect x="34" y="320" width="142" height="12" rx="6" fill="#8a93a6"/>';
+  const VEST = '<path d="M40 380 L56 210 L100 250 L144 210 L160 380 Z" fill="#6b7280"/>';
+  const PLAN = '<rect x="104" y="250" width="70" height="20" rx="10" fill="#f4ead2" transform="rotate(-25 140 260)"/>';
+  const CAPN = '<rect x="76" y="62" width="208" height="40" rx="16" fill="#1f2a44"/><rect x="60" y="92" width="240" height="14" rx="7" fill="#141b2d"/><rect x="164" y="72" width="32" height="18" rx="4" fill="#ffd166"/>';
+  const nexo = (id, x, y, cls) => agent(id, x, y, { folder: '' }).replace('width="360" height="500"', 'width="288" height="400"').replace('<svg class="w"', `<svg class="w ${cls || ''}"`).replace(/<\/svg>\s*$/, CAPN + '</svg>');
+  const trainSvg = (id, body, stripe, wag) => `<svg class="w h" id="${id}" style="left:0;top:1190px" width="900" height="190" viewBox="0 0 900 190"><rect x="0" y="40" width="300" height="115" rx="18" fill="${body}"/><rect x="180" y="12" width="120" height="44" rx="8" fill="${body}"/><rect x="202" y="22" width="76" height="28" rx="4" fill="#cfe0ff"/><rect x="30" y="6" width="44" height="42" fill="#141821"/><rect x="0" y="106" width="300" height="14" fill="${stripe}"/><rect x="320" y="52" width="260" height="103" rx="10" fill="${wag}"/><rect x="600" y="52" width="260" height="103" rx="10" fill="${wag}"/><rect x="300" y="128" width="20" height="8" fill="#141821"/><rect x="580" y="128" width="20" height="8" fill="#141821"/>${[60, 150, 240, 360, 540, 640, 820].map((cx) => `<circle cx="${cx}" cy="165" r="24" fill="#141821"/><circle cx="${cx}" cy="165" r="9" fill="#8a93a6"/>`).join('')}</svg>`;
+
+  /* ═══════ decor: sky, hills, fence, track ═══════ */
+  [[200, 560, 260, 70], [900, 460, 320, 80], [1700, 360, 280, 70], [2400, 470, 340, 80], [3000, 590, 300, 70], [3500, 470, 260, 70]].forEach(([x, y, w, h], i) => ADD(R(x, y, w, h, 'background:#fff;border-radius:999px', 'cld' + i, '', 'cld')));
+  ADD(R(40, 850, 1280, 400, 'background:#b5c7a4;border-radius:120px 120px 0 0', 'hlG', '', 'hl'));
+  ADD(R(1400, 760, 1000, 490, 'background:#aebf9f;border-radius:120px 120px 0 0', 'hlS', '', 'hl'));
+  ADD(R(3150, 930, 1250, 320, 'background:#b5c7a4;border-radius:100px 0 0 0', 'hlB', '', 'hl'));
+  ADD(R(0, 1214, 4400, 36, 'background:repeating-linear-gradient(90deg,#b7b29c 0 18px,#cfcab5 18px 30px)', 'bfn'));
+  ADD(R(0, 1346, 4400, 70, 'background:repeating-linear-gradient(90deg,#8a6b45 0 30px,transparent 30px 76px)', 'ties'));
+  ADD(R(0, 1356, 4400, 10, 'background:#6b7280', 'rail1') + R(0, 1386, 4400, 10, 'background:#6b7280', 'rail2'));
+
+  /* ═══════ greyed platforms (left hill) ═══════ */
+  ADD(GRP('gpl', R(140, 846, 420, 30, 'background:#b9bfcc', 'gps1') + R(640, 846, 380, 30, 'background:#b9bfcc', 'gps2') + R(190, 798, 14, 50, 'background:#8a93a6') + R(496, 798, 14, 50, 'background:#8a93a6') + R(700, 798, 14, 50, 'background:#8a93a6') + R(946, 798, 14, 50, 'background:#8a93a6'), 'h'));
+  ADD(sgn('gP1', 160, 720, 380, 78, 'Power Apps', '#5d6472', 40) + sgn('gP2', 670, 720, 330, 78, 'schedules', '#5d6472', 40));
+
+  /* ═══════ sidings (back-centre hill) ═══════ */
+  ADD(R(1440, 944, 820, 10, 'background:#8d6230', 'fnc1') + R(1440, 972, 820, 10, 'background:#8d6230', 'fnc2') + Array.from({ length: 14 }, (_, k) => R(1450 + k * 58, 934, 12, 62, 'background:#8d6230', '', '', 'fpost')).join(''));
+  ADD(GRP('wgs', [1470, 1690, 1910, 2130].map((x, k) => R(x, 814, 180, 110, 'background:#8a93a6;border-radius:12px;border:6px solid #6b7280', 'wg' + k, `<div style="position:absolute;left:12px;right:12px;top:14px;height:16px;background:#6b7280;border-radius:6px"></div><div style="position:absolute;left:62px;top:50px;width:44px;height:36px;background:#6b7280;border-radius:8px"></div>`)).join(''), 'h'));
+  ADD(R(1740, 724, 12, 44, 'background:#5d6472') + R(2150, 724, 12, 44, 'background:#5d6472') + sgn('bdS', 1700, 646, 500, 78, 'internal variables', '#5d6472', 40));
+
+  /* ═══════ gantry, route board, sheds, lamps ═══════ */
+  ADD(R(1340, 1170, 350, 180, 'background:#3d6e9e;border-radius:6px', 'sh1', `<div style="position:absolute;left:30px;top:50px;width:90px;height:90px;background:#2c4f73;border-radius:6px"></div><div style="position:absolute;left:190px;top:50px;width:130px;height:50px;background:#cfe0ff;border-radius:6px"></div>`) + R(1325, 1148, 380, 28, 'background:#2f5578;border-radius:8px', 'sr1'));
+  ADD(R(1790, 1170, 350, 180, 'background:#3d6e9e;border-radius:6px', 'sh2', `<div style="position:absolute;left:30px;top:50px;width:130px;height:50px;background:#cfe0ff;border-radius:6px"></div><div style="position:absolute;left:220px;top:50px;width:90px;height:130px;background:#2c4f73;border-radius:6px"></div>`) + R(1775, 1148, 380, 28, 'background:#2f5578;border-radius:8px', 'sr2'));
+  ADD(R(1300, 1030, 880, 18, 'background:#4a5568', 'gnt') + R(1310, 1048, 20, 300, 'background:#4a5568') + R(2150, 1048, 20, 300, 'background:#4a5568'));
+  ADD(R(1330, 1050, 370, 92, `background:${YEL};border:6px solid #b8860b;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:800;color:#3a2a00;white-space:nowrap;opacity:0`, 'rb', 'CreateTicket'));
+  ADD(sgn('bdA', 1760, 1050, 230, 78, 'actions', STL, 40));
+  ADD(GRP('lmp', [[1480, '1'], [1735, '2'], [1990, '3']].map(([x, n], k) => R(x - 34, 940, 68, 68, 'background:#aeb6c6;border:5px solid #6b7280;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#141821', 'lp' + k, n) + R(x - 5, 1008, 10, 22, 'background:#4a5568')).join(''), 'h'));
+
+  /* ═══════ signal box, timetable board, mast, callback spur ═══════ */
+  const clockSvg = `<svg class="w" style="left:30px;top:40px" width="240" height="240" viewBox="0 0 240 240"><circle cx="120" cy="120" r="108" fill="#fff" stroke="${NAVY}" stroke-width="10"/>${Array.from({ length: 12 }, (_, k) => `<line x1="120" y1="22" x2="120" y2="${k % 3 ? 36 : 44}" stroke="${NAVY}" stroke-width="${k % 3 ? 5 : 8}" transform="rotate(${k * 30} 120 120)"/>`).join('')}<path d="M104 8 L136 8 L120 40 Z" fill="${AMB}"/><g id="clkH"><line x1="120" y1="120" x2="120" y2="40" stroke="${RED}" stroke-width="9" stroke-linecap="round"/></g><circle cx="120" cy="120" r="12" fill="${NAVY}"/></svg>`;
+  ADD(R(3170, 350, 660, 40, 'background:#5d5a4e;border-radius:10px;opacity:0', 'twR') + R(3200, 380, 600, 550, 'background:#e9e4d6;border:8px solid #8d8470;border-radius:20px;opacity:0', 'tw',
+    `<div class="w h" id="clkG" style="left:0;top:0;width:0;height:0">` + clockSvg + `</div><div class="sg h" id="clkT" style="left:20px;top:290px;width:260px;height:56px;border:none;background:transparent;color:${INK};font-size:38px">100 seconds</div>
+    <div class="w h" id="lvP" style="left:268px;top:32px;width:316px;height:480px;background:#2d3a5c;border-radius:14px"></div>
+    <div class="sg h" id="netP" style="left:282px;top:46px;width:288px;height:56px;border-width:0;border-radius:10px;background:#3a4a78;color:#aab6d8;font-size:36px">Networking</div>
+    <div class="sg h" id="asyT" style="left:282px;top:116px;width:288px;height:96px;border:none;background:transparent;color:#fff;font-size:34px;white-space:normal;line-height:1.15;text-wrap:balance">Asynchronous response</div>
+    <div class="w h" id="lvT" style="left:482px;top:250px;width:16px;height:230px;background:#141b2d;border-radius:8px"></div>
+    <div class="w h" id="lvr" style="left:475px;top:290px;width:30px;height:190px;transform-origin:50% 100%"><div style="position:absolute;left:8px;top:20px;width:14px;height:170px;background:#c9ced8;border-radius:7px"></div><div style="position:absolute;left:-7px;top:0;width:44px;height:44px;background:#d98a00;border-radius:50%"></div></div>
+    <div class="sg h" id="lmpT" style="left:276px;top:300px;width:100px;height:100px;border-radius:50%;border:6px solid #141b2d;background:${GRN};color:#fff;font-size:36px">Off</div>`));
+  ADD(R(3200, 960, 300, 240, 'background:#fff;border:6px solid #1f2a44;border-radius:14px;box-sizing:border-box', 'ttb',
+    `<div class="sg h" id="ttH" style="left:0;top:0;width:288px;height:56px;border:none;border-radius:8px 8px 0 0;background:${NAVY};color:#fff;font-size:34px">Timetable</div><div class="sg h" id="ttR" style="left:12px;top:70px;width:264px;height:60px;border-width:4px;border-color:${YEL};background:#fff7d6;color:#3a2a00;font-size:34px">CreateTicket</div>
+     <div class="sg h" id="stp" style="left:30px;top:150px;width:230px;height:66px;border-width:5px;border-color:${BLUE};color:${BLUE};font-size:38px;transform:rotate(-6deg)">published</div>`, 'h'));
+  ADD(sgn('tSl', 3200, 1245, 300, 66, 'Tools', '#8a93a6', 38));
+  ADD(`<svg class="w h" id="tAr" style="left:3330px;top:1198px" width="40" height="46" viewBox="0 0 40 46"><path d="M20 2 V34 M8 24 L20 38 L32 24" stroke="${NAVY}" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+  ADD(R(3142, 1190, 16, 160, 'background:#6b7280') + R(3110, 1060, 80, 130, `background:#2d3a5c;border-radius:14px`, 'msH', `<div class="w" id="msL" style="left:14px;top:30px;width:52px;height:52px;border-radius:50%;background:#4a5568"></div>`));
+  ADD(R(3560, 1268, 280, 50, 'background:repeating-linear-gradient(90deg,#8a6b45 0 24px,transparent 24px 60px)', 'sties') + R(3560, 1278, 280, 8, 'background:#6b7280', 'spr1') + R(3560, 1304, 280, 8, 'background:#6b7280', 'spr2') + R(3515, 1190, 28, 150, 'background:repeating-linear-gradient(45deg,#1f2a44 0 16px,#ffd166 16px 32px)', 'barr') + R(3652, 1010, 16, 258, 'background:#6b7280', 'bpost'));
+  ADD(`<svg class="w h" id="bell" style="left:3622px;top:956px" width="76" height="66" viewBox="0 0 76 66"><path d="M12 54 Q12 12 38 10 Q64 12 64 54 Z" fill="${AMB}"/><rect x="6" y="52" width="64" height="10" rx="5" fill="#8a5200"/></svg>`);
+  ADD(`<svg class="w h" id="ar6" style="left:0;top:0" width="3840" height="1100" viewBox="0 0 3840 1100"><path d="M2800 676 L2730 986" stroke="${CYD}" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M2704 952 L2728 1004 L2766 962" stroke="${CYD}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`);
+  ADD(sgn('cbl', 3400, 960, 180, 62, 'callback', NAVY, 36) + R(3560, 1090, 80, 80, `background:${AMB};border:6px solid #8a5200;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:#141821;opacity:0`, 'cbp', 'On'));
+
+  /* ═══════ trains + stop signal ═══════ */
+  ADD(trainSvg('trn', NAVY, YEL, '#4a5568') + trainSvg('trg', '#8a93a6', '#b9bfcc', '#9aa3b5'));
+  ADD(R(1996, 1180, 14, 190, 'background:#5d6472', 'nsp', '', 'h') + sgn('nsg', 1830, 1100, 340, 82, 'not a tool', '#5d6472', 50).replace('background: #fff', ''));
+
+  /* ═══════ platforms + canopies ═══════ */
+  const slab = (id, x, w) => R(x, 1440, w, 170, 'background:#cfd4dc;border-radius:12px 12px 0 0', id, `<div style="position:absolute;left:0;right:0;top:0;height:18px;background:#e7eaf0;border-radius:12px 12px 0 0"></div><div style="position:absolute;left:0;right:0;bottom:0;height:14px;background:#aeb6c6"></div>`);
+  const canopy = (id, rid, x, w, col, dark) => GRP(id, R(x, 940, w, 64, `background:${col};border-radius:16px`, rid) + R(x + 36, 1004, 24, 436, `background:${dark}`) + R(x + w - 60, 1004, 24, 436, `background:${dark}`));
+  ADD(slab('slD', 100, 1140) + slab('slA', 2300, 800));
+  ADD(canopy('cnD', 'rfD', 80, 1180, CAN, CAND) + canopy('cnA', 'rfA', 2280, 820, CYN, CYD));
+  ADD(GRP('rp', R(880, 1004, 6, 190, 'background:#4a5568') + R(858, 1176, 50, 50, `background:${AMB};border-radius:12px 12px 25px 25px;border:4px solid #8a5200`), 'h'));
+  ADD(sgn('sgD', 520, 1030, 700, 78, 'When an agent calls the flow', CAND, 40) + sgn('sgA', 2440, 1030, 520, 78, 'Respond to the agent', CYD, 40));
+
+  /* ═══════ crates, slots, note, plate, flag ═══════ */
+  ADD(R(770, 1500, 190, 100, '', 'slT', '', 'sl') + R(990, 1500, 190, 100, '', 'slU', '', 'sl') + R(2340, 1500, 190, 100, '', 'slB', '', 'sl'));
+  ADD(R(770, 1500, 190, 100, '', 'g0', '', 'cr h') + R(990, 1500, 190, 100, '', 'g1', '', 'cr h') + R(2340, 1500, 190, 100, '', 'g2', '', 'cr h'));
+  ADD(R(770, 1500, 190, 100, '', 'crT', 'title', 'cr h') + R(990, 1500, 190, 100, '', 'crU', 'urgency', 'cr h'));
+  ADD(R(990, 1400, 190, 100, '', 'stk1', 'urgency', 'cr h') + R(990, 1300, 190, 100, '', 'stk2', 'urgency', 'cr h'));
+  ADD(R(2340, 1500, 190, 100, 'z-index:3', 'cT', 'ticketId', 'cr cm h'));
+  ADD(`<div class="nt" id="nt" style="left:760px;top:1346px;width:440px;height:74px;line-height:60px;padding-top:0;padding-bottom:0">laptop will not turn on</div>`);
+  ADD(`<div class="w h" id="lk" style="left:740px;top:1424px;width:440px;height:60px"><div class="sg" id="lk1" style="left:0;top:0;width:440px;height:60px;opacity:1;background:#1f2a44;border-color:#1f2a44;color:#fff;font-size:34px;gap:10px">${IC('lock_closed', 'width:34px;height:34px')}Custom value</div><div class="sg" id="lk2" style="left:0;top:0;width:440px;height:60px;background:#1f2a44;border-color:#1f2a44;color:#fff;font-size:34px;gap:10px">${IC('lock_closed', 'width:34px;height:34px')}Custom value · Medium</div></div>`);
+  ADD(`<div class="w h" id="qf" style="left:1000px;top:1290px;width:200px;height:58px"><div class="sg" style="left:0;top:0;width:200px;height:58px;opacity:1;background:#ffd166;border-color:#b8860b;color:#141821;font-size:34px;border-width:5px">urgency?</div></div>`);
+
+  /* ═══════ characters ═══════ */
+  ADD(hum('mar', 110, 1190, CORAL, '#3a2a22', LAP) + hum('mgr', 110, 1190, '#b9bfcc', '#6b6b6b', VEST, 'h') + hum('val', 900, 1190, PURP, '#4a2f1d', PLAN, 'h') + nexo('nex', 500, 1170) + nexo('nx2', 2620, 1170, 'h') + hum('mr2', 2900, 1190, CORAL, '#3a2a22', LAP, 'h'));
+  ADD(`<div class="bub h" id="bbM" style="left:100px;top:1118px;width:520px">my laptop will not turn on</div>`);
+  ADD(`<div class="bub h" id="cdM" style="left:120px;top:1118px;width:220px;text-align:center;border-color:${NAVY}">Medium</div>`);
+  ADD(`<div class="nt h" id="cdT" style="left:100px;top:1118px;width:250px;text-align:center;background:${CRM};border-color:#d9c9a6">ticket ID</div>`);
+  ADD(maker('mk', 330, 1090).replace('<svg class="w"', '<svg class="w h"').replace(/<g id="mk_p">.*?<\/g>/, `<g id="mk_p"><path d="M86 470 Q86 250 140 242 Q194 250 194 470 Z" fill="${PURP}"/><path d="M178 320 L300 330" stroke="${PURP}" stroke-width="26" stroke-linecap="round"/><circle cx="140" cy="200" r="46" fill="#f2c9a6"/><path d="M94 198 Q94 146 140 146 Q186 146 186 198 Q164 176 140 178 Q116 176 94 198 Z" fill="#4a2f1d"/><circle cx="124" cy="206" r="5" fill="#141821"/><circle cx="156" cy="206" r="5" fill="#141821"/><path d="M127 224 Q140 234 153 224" stroke="#141821" stroke-width="4" fill="none" stroke-linecap="round"/></g>`));
+
+  /* ═══════ chips (world layer) ═══════ */
+  const CPL = [
+    ['c0a', 700, 830, 'a tool for a ticket'], ['c0b', 1720, 830, 'a sequence of automatic steps'], ['c0c', 960, 760, 'input ingredients', 'wd tr'], ['c0d', 2300, 760, 'output dish', 'wd cy'], ['c0e', 1330, 760, 'a very specific start and end', 'wd'],
+    ['c1a', 870, 850, 'trigger', 'tr'], ['c1b', 2670, 850, 'the end', 'cy'], ['c1c', 1720, 830, 'the actions you want', 'st'], ['c1d', 640, 560, 'other scenarios', 'gr'], ['c1e', 1330, 760, 'start and end, or no tool', 'wd'],
+    ['c2a', 1050, 830, 'defined in the trigger', 'tr'], ['c2b', 1050, 830, 'from the conversation context'], ['c2c', 1050, 830, 'asks for what is missing', 'am'],
+    ['c3a', 1050, 830, 'the same every time?'], ['c3b', 1050, 830, 'all new tickets'], ['c3c', 1050, 830, 'a fixed value'], ['c3d', 1050, 830, 'the agent no longer asks'],
+    ['c5a', 2670, 850, 'the other end', 'cy'], ['c5b', 2670, 850, 'outputs defined here', 'cy'], ['c5c', 2670, 850, 'one output', 'cy'], ['c5d', 1900, 520, 'never reach the agent', 'gr'], ['c5e', 2670, 850, 'only the outputs you define', 'cy'],
+    ['c6a', 2560, 560, 'conditions', 'yl'], ['c6b', 2600, 560, 'real time'], ['c6c', 2800, 620, 'inside Respond to the agent', 'cy'], ['c6d', 2600, 560, 'action limit'], ['c6e', 2700, 840, 'not the pattern for a tool', 'am'],
+    ['c8a', 1050, 830, 'nobody asks'], ['c8b', 1720, 830, 'the middle actions', 'st'], ['c8c', 2670, 830, 'ticket ID shared', 'cy'], ['c8d', 2560, 800, 'published before it was added', 'yl']
+  ];
+  CPL.forEach(([id, cx, y, t, cls]) => ADD(CP(id, cx, y, t, cls)));
+
+  /* ═══════ overlays: titles, recap board, next lesson ═══════ */
+  const rcc = (t, col) => `<span style="display:inline-block;background:${col};color:#fff;border-radius:14px;padding:2px 14px;margin-right:10px;white-space:nowrap">${t}</span>`;
+  const rrow = (id, y, h, inner) => `<div class="w" id="${id}" style="left:24px;top:${y}px;width:790px;height:${h}px;opacity:.32;font-size:34px;font-weight:800;color:${INK};line-height:1.25">${inner}</div>`;
+  ADDS(`<div class="pl" id="plM">Module 3</div><div class="pl" id="plA">agent flow</div><div class="pl" id="plI">inputs</div><div class="pl" id="plG">generative orchestration</div><div class="pl" id="plC">Custom value</div><div class="pl" id="plO">Asynchronous response · Off</div><div class="pl" id="plK">the Contoso case</div><div class="pl" id="plB">Back at the rail yard</div><div class="nl" id="nl">next lesson</div>
+    <div class="w h" id="rb2" style="left:960px;top:100px;width:840px;height:610px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:28px;overflow:hidden;z-index:6"><div style="position:absolute;left:24px;top:10px;font-size:46px;font-weight:800;color:${NAVY}">Remember</div>
+      ${rrow('rl0', 78, 120, 'Start: ' + rcc('When an agent calls the flow', CAND) + '<div style="margin-top:8px">End: ' + rcc('Respond to the agent', CYD) + '</div>')}
+      ${rrow('rl1', 208, 120, 'Inputs in the trigger<div style="margin-top:8px">' + rcc('Custom value', NAVY) + ': no more questions</div>')}
+      ${rrow('rl2', 338, 76, 'Only explicit outputs reach the agent')}
+      ${rrow('rl3', 424, 170, 'Published · ' + rcc('Asynchronous response Off', AMB) + '<div style="margin-top:8px">' + rcc('100 seconds', STL) + '</div>')}</div>`);
+  ADDS(`<div class="w h" id="cdL" style="left:120px;top:230px;width:780px;height:470px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:28px;z-index:5"><div style="position:absolute;left:28px;top:16px;font-size:44px;font-weight:800;color:${NAVY}">topic</div>
+      <div class="w" style="left:28px;top:100px;width:716px;height:190px;box-sizing:border-box;border:5px solid ${STL};border-radius:20px;background:#eef3fa"><div style="position:absolute;left:24px;top:14px;font-size:38px;font-weight:800;color:${STL}">tool node</div><div style="position:absolute;left:24px;top:100px;font-size:34px;font-weight:800;color:${INK}">variable</div><div style="position:absolute;left:210px;top:92px;font-size:38px;font-weight:800;background:${CRM};border:4px solid #d9c9a6;border-radius:14px;padding:4px 22px;color:${INK}">ticketId</div></div>
+      <div class="w" style="left:28px;top:330px;width:716px;height:90px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;color:${STL};border:4px solid ${STL};border-radius:999px">variables in the tool node</div></div>
+    <div class="w h" id="cdR" style="left:1020px;top:230px;width:780px;height:470px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:28px;z-index:5"><div style="position:absolute;left:28px;top:16px;font-size:44px;font-weight:800;color:${NAVY}">orchestrator</div>
+      <div class="w" style="left:28px;top:100px;width:716px;height:190px;box-sizing:border-box;border:5px solid ${BLUE};border-radius:24px;background:#fff;display:flex;align-items:center;padding:0 30px;font-size:40px;font-weight:800;color:${INK}">Your ticket ID is 4821</div>
+      <div class="w" style="left:28px;top:330px;width:716px;height:90px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;color:${CYD};border:4px solid ${CYD};border-radius:999px">or the response</div></div>`);
+
+  /* ═══════ exam rooms ═══════ */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const ICX = (name, col, x, y) => `<div class="w" style="left:${x}px;top:${y}px">${IC(name, `width:52px;height:52px;color:${col}`)}</div>`;
+  const crPz = (x, y, t, bg) => `<div class="pz" style="left:${x}px;top:${y}px;background:${bg || '#c8a36a'};border-color:${bg === CRM ? '#d9c9a6' : '#8d6230'};color:#3a2410;width:190px;justify-content:center">${t}</div>`;
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>Set a Custom value of Medium</h4>${ICX('checkmark_circle', '#6be3a0', 750, 14)}
+      ${crPz(28, 84, 'urgency')}${pz(244, 84, IC('lock_closed', 'width:34px;height:34px') + 'Custom value · Medium', `background:${NAVY};border-color:#6be3a0`)}
+      ${pz(28, 178, 'no more questions', `background:${GRN};border-color:${GRN}`)}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4>Add a Question node for urgency</h4>${ICX('dismiss_circle', '#ff8a80', 750, 14)}
+      ${crPz(28, 84, 'urgency')}${pz(244, 84, 'urgency?', 'background:#ffd166;color:#141821;border-color:#b8860b')}${pz(490, 84, IC('arrow_up_right', 'width:34px;height:34px;transform:rotate(45deg)') + IC('person', 'width:34px;height:34px') + 'Marta', '')}
+      ${pz(28, 178, 'still asks', `background:${RED};border-color:${RED}`)}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4>Add it to Respond to the agent</h4>${ICX('checkmark_circle', '#6be3a0', 750, 14)}
+      ${pz(28, 84, 'Respond', `background:${CYD};border-color:${CYN}`)}${crPz(240, 84, 'ticketId', CRM)}${pz(460, 84, IC('arrow_routing', 'width:34px;height:34px') + IC('bot', 'width:34px;height:34px') + 'Nexo', '')}
+      ${pz(28, 178, 'an explicit output', `background:${GRN};border-color:${GRN}`)}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4>Ask Nexo to read the flow variable</h4>${ICX('dismiss_circle', '#ff8a80', 750, 14)}
+      ${pz(28, 84, IC('bot', 'width:34px;height:34px') + 'Nexo', '')}${pz(230, 84, 'fence', 'background:#3a4a78;border-style:dashed;width:130px;justify-content:center')}${pz(390, 84, IC('lock_closed', 'width:34px;height:34px') + 'variable', 'background:#5d6472;border-color:#8a93a6')}
+      ${pz(28, 178, 'internal: never arrives', `background:${RED};border-color:${RED}`)}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${GRN};opacity:0"><h4>Publish the flow, then add it</h4>${ICX('checkmark_circle', '#6be3a0', 750, 14)}
+      ${pz(28, 84, 'published', `background:${BLUE};border-color:${BLUE}`)}${pz(228, 84, IC('arrow_routing', 'width:34px;height:34px') + 'Tools: CreateTicket', '')}
+      ${pz(28, 178, 'published, then added', `background:${GRN};border-color:${GRN}`)}</div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4>Turn on Asynchronous response</h4>${ICX('dismiss_circle', '#ff8a80', 750, 14)}
+      ${pz(28, 84, 'On', `background:${AMB};color:#141821;border-color:${AMB};width:90px;justify-content:center`)}${pz(140, 84, 'Asynchronous response', '')}
+      ${pz(28, 178, 'not real time', `background:${RED};border-color:${RED}`)}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'The service manager wants every ticket to start as Medium, but Nexo still asks Marta for the urgency each time. What should Valeria do?', opts: ['Add a Question node for urgency', 'Set a Custom value of Medium', 'Remove urgency from the trigger'],
+      why: `<div id="exA_w1">With a <span class="g">fixed Custom value</span>, <span class="g">the agent no longer asks</span> for that input</div><div id="exA_w2">A Question node <span class="r">would still ask Marta</span></div>`, proof: proofA }),
+    mkExam('exB', { q: "Valeria's flow keeps the ticket ID in an internal variable. Nexo runs the flow, but never shares the number with Marta. What should Valeria do?", opts: ['Ask Nexo to read the flow variable', 'Copy the variable into the topic', 'Add it to Respond to the agent'],
+      why: `<div id="exB_w1">Only the outputs defined in <span class="g">Respond to the agent</span> reach the agent</div><div id="exB_w2">Internal variables <span class="r">never arrive</span>, so Nexo <span class="r">cannot read them</span></div>`, proof: proofB }),
+    mkExam('exC', { q: "Valeria's new flow has the right trigger and Respond to the agent, and Asynchronous response is Off, but it does not show up as a tool. What should Valeria do?", opts: ['Publish the flow, then add it', 'Turn on Asynchronous response', 'Set a Custom value on each input'],
+      why: `<div id="exC_w1">A flow <span class="g">must be published</span> before the agent can use it as a tool</div><div id="exC_w2">Asynchronous response on <span class="r">breaks the real time rule</span></div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ═══════ UI window (scene 9) ═══════ */
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Contoso agent', nav: ['Overview', 'Tools', 'Knowledge', 'Settings'], on: 0, bar: `<span class="hc" id="uPubB">Publish</span><span class="hc" id="uPubD" style="opacity:0;background:${BLUE}">${IC('checkmark_circle')}published</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Agent flows</div><h3>New agent flow</h3>
+      <div class="nc" id="uCh0" style="left:0;top:130px;width:520px;height:220px"><small>Build with the</small><div style="font-size:46px;font-weight:800;margin-top:20px;display:flex;align-items:center;gap:16px">${IC('flow', 'width:60px;height:60px;color:#2f5bd3')}designer</div></div>
+      <div class="nc" id="uCh1" style="left:560px;top:130px;width:620px;height:220px"><small>Describe it in</small><div style="font-size:46px;font-weight:800;margin-top:20px;display:flex;align-items:center;gap:16px">${IC('chat', 'width:60px;height:60px;color:#2f5bd3')}natural language</div></div>
+      <span class="pp" id="uP0" style="left:0;top:420px">create a new agent flow</span></div>
+    <div class="lay" id="uL1"><div class="crumb">Agent flows › CreateTicket</div>
+      <div class="nc" id="uC1" style="left:0;top:50px;width:760px;height:200px;border-color:${CAN};border-width:4px"><small>Trigger</small><div style="font-size:36px;font-weight:800">When an agent calls the flow</div><div style="margin-top:14px"><span class="rw" id="uI0" style="opacity:0">${IC('braces', 'width:34px;height:34px')}title</span><span class="rw" id="uI1" style="opacity:0">${IC('braces', 'width:34px;height:34px')}urgency</span></div></div>
+      <div class="nc" id="uC2" style="left:0;top:266px;width:760px;height:70px;padding-top:12px;font-size:36px;font-weight:800;opacity:0">Action</div>
+      <div class="nc" id="uC3" style="left:0;top:346px;width:760px;height:70px;padding-top:12px;font-size:36px;font-weight:800;opacity:0">Action</div>
+      <div class="nc" id="uC4" style="left:0;top:426px;width:760px;height:124px;border-color:${CYN};border-width:4px;opacity:0;overflow:hidden"><div style="font-size:36px;font-weight:800">Respond to the agent</div><div style="margin-top:12px"><span class="rw" id="uO0" style="opacity:0;border-color:#d9c9a6;color:${INK};background:${CRM}">${IC('braces', 'width:34px;height:34px')}ticketId</span></div>
+        <div id="uNet" style="position:absolute;left:24px;top:134px;width:700px;opacity:0"><div style="font-size:34px;font-weight:800;color:${CYD}">Networking</div><div style="margin-top:10px;display:flex;align-items:center;gap:24px;font-size:34px;font-weight:800"><div class="tgl"><i></i></div>Asynchronous response<span style="color:#5d6472">Off</span></div></div></div>
+      <span class="pp" id="uP1" style="left:820px;top:96px">check the trigger</span><span class="pp" id="uP2" style="left:820px;top:290px">the middle actions</span><span class="pp" id="uP3" style="left:820px;top:450px">keep it Off</span></div>
+    <div class="lay" id="uL2"><div class="crumb">Tools</div><h3>Tools</h3>
+      <span class="btn pri" id="uAdd" style="position:absolute;right:0;top:6px">Add a tool</span>
+      <div class="nc" id="uAT" style="left:0;top:110px;width:800px;height:380px;opacity:0"><small>Add a tool</small><div class="nc" id="uFl" style="left:24px;top:70px;width:220px;height:130px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:44px;font-weight:800;padding:0">${IC('flow', 'width:52px;height:52px;color:#2f5bd3')}Flow</div>
+        <div class="w" id="uSel" style="left:24px;top:240px;width:700px;height:80px;box-sizing:border-box;border:4px solid ${BLUE};background:#e6ecfb;border-radius:16px;display:flex;align-items:center;gap:16px;padding:0 24px;font-size:38px;font-weight:800;opacity:0">${IC('flow', 'width:44px;height:44px;color:#2f5bd3')}CreateTicket${IC('checkmark_circle', 'width:44px;height:44px;color:#1e7f4f;margin-left:auto')}</div></div></div>` }));
+  const PCR = (sel, dx, dy) => { const r = document.querySelector(sel).getBoundingClientRect(); return [r.left + r.width + (dx || 0), r.top + r.height / 2 + (dy || 0)]; };
+  const PU = { ch0: PCR('#uCh0', -50, 40), ch1: PCR('#uCh1', -40, 40), c1: PCR('#uC1', -60), c2: PCR('#uC2', -50, 0), c4: PCR('#uC4', -60, -20), net: PCR('#uC4', -60, 30), pub: PCR('#uPubB', -60, 45), tools: PCR('#uiS_nv1', -40, 0), add: PCR('#uAdd', -10, 40), fl: PCR('#uFl', -40, 30) };
+
+  /* ═══════ TIMELINE ═══════ */
+  const CAMX = (x, y, s, t) => tl.set('#world', { x: 960 - x * s, y: 540 - y * s, scale: s }, t);
+  const LB = (id, a, b) => { TAG('#' + id, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const PASS = (sel, t0, x0, x1, dur) => { tl.set(sel, { x: x0, opacity: 1 }, t0 - 0.02); tl.to(sel, { x: x1, duration: dur, ease: 'none' }, t0); tl.set(sel, { opacity: 0 }, t0 + dur + 0.02); };
+  const TRAIN = (sel, t0, xa, xb, dur) => { tl.set(sel, { x: xa, opacity: 0 }, t0 - 0.05); tl.to(sel, { opacity: 1, duration: 0.3 }, t0); tl.to(sel, { x: xb, duration: dur, ease: 'none' }, t0); tl.to(sel, { opacity: 0, duration: 0.3 }, t0 + dur - 0.3); };
+  const LAMP = (k, t) => tl.to('#lp' + k, { backgroundColor: '#ffd166', borderColor: '#b8860b', scale: 1.15, duration: 0.25 }, t);
+  const LIT = (id, col, t) => tl.to('#' + id, { backgroundColor: col, color: '#fff', duration: 0.3 }, t);
+  const UNLIT = (id, bg, col, t) => tl.to('#' + id, { backgroundColor: bg, color: col, duration: 0.3 }, t);
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, Rv = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = Rv - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.35 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', Rv, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, Rv);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, Rv);
+    ON(Tr + ' .trap', Rv + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, Rv);
+    ON(G + ' .ok', Rv + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, Rv);
+    OFF(X + '_q', Rv + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, Rv + 1.0);
+    ON(X + '_p', S(i, 9), 0.2);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  const FILL = (id, i, chips) => { document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:830px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`); [S(i, 1) + 0.4, S(i, 2) + 0.1, S(i, 3) + 0.1].forEach((t, k) => ON(`#${id}_sc .fc:nth-child(${k + 1})`, t, 0.3)); OFF(`#${id}_sc`, S(i, 8) - 0.05, 0.25); };
+  FILL('exA', 4, ['Every ticket starts as Medium', 'Nexo still asks for urgency', 'The questions must stop']);
+  FILL('exB', 7, ['Ticket ID in a flow variable', 'Nexo never shares the number', 'Marta gets no ticket ID']);
+  FILL('exC', 10, ['Right trigger and response', 'Asynchronous response is Off', 'It is not shown as a tool']);
+
+  const TXT_HIDE = ['#sgD', '#sgA', '#bdA', '#bdS', '#gP1', '#gP2', '#clkT', '#netP', '#asyT', '#lmpT', '#ttH', '#ttR', '#stp', '#tSl', '#cbl', '#cbp', '#nsg', '#lk', '#nt', '#qf', '#bbM', '#cdM', '#cdT', '#crT', '#crU', '#cT', '#stk1', '#stk2', '#rb', '#lmp', '#tAr', '#lvr'];
+  gsap.set('#world', { x: 960 - 960, y: 540 - 1230, scale: 1 });
+  gsap.set('#clkH', { rotation: 0, svgOrigin: '120 120' });
+  gsap.set('#lvr', { rotation: 32 });
+  gsap.set(['#lk2'], { opacity: 0 });
+  gsap.set('#stp', { scale: 0.6 });
+
+  /* ── 0 A recipe for the agent ── */
+  TAG('#plM', 0.3);
+  ON('#bbM', S(0, 0) + 0.3, 0.3);
+  BOB('#nex', S(0, 1) + 0.2, S(0, 1) + 2.6, 14);
+  tl.fromTo('#val', { opacity: 0, x: 430 }, { opacity: 1, x: 0, duration: 0.9, ease: 'power2.out' }, S(0, 1) + 0.3);
+  LB('c0a', W(0, 1, 'builds the tool', -0.1), S(0, 2) - 0.2);
+  OFF(['#bbM', '#val', '#mar', '#nex'], S(0, 2) - 0.3, 0.25);
+  CAM(1500, 1230, 1, S(0, 2) - 0.2, 1.2);
+  OFF('#plM', S(0, 2) - 0.2, 0.2); TAG('#plA', S(0, 2) + 0.1);
+  ON('#lmp', S(0, 2) + 0.1, 0.3);
+  { const t0 = S(0, 2) + 0.4, sp = 436; TRAIN('#trn', t0, 560, 1520, 2.4);
+    [1480, 1735, 1990].forEach((x, k) => LAMP(k, t0 + (x - 880 - 560) / sp)); }
+  LB('c0b', W(0, 2, 'sequence', 0), S(0, 3) - 0.3);
+  OFF(['#lmp', '#plA'], S(0, 3) - 0.35, 0.25);
+  CAM(1330, 1180, 0.75, S(0, 3) - 0.3, 1.2);
+  POP('#g0', S(0, 3) + 0.6); POP('#g1', S(0, 3) + 1.1);
+  LB('c0c', W(0, 3, 'input', 0.0), W(0, 3, 'output', -0.1));
+  POP('#g2', W(0, 3, 'output', 0.1)); LB('c0d', W(0, 3, 'output', 0.15), S(0, 4) - 0.1);
+  tl.to(['#rfD', '#rfA'], { boxShadow: '0 0 0 16px rgba(242,194,48,.85)', duration: 0.4, yoyo: true, repeat: 3 }, S(0, 4) + 0.2);
+  LB('c0e', S(0, 4) + 0.3, E(0, 4) - 0.1);
+
+  /* ── 1 It starts and ends in a special way ── */
+  OFF(['#g0', '#g1', '#g2', '#c0e'], S(1, 0) - 0.55, 0.25); ON(['#mar', '#nex'], S(1, 0) - 0.5, 0.3);
+  CAM(960, 1230, 1, S(1, 0) - 0.5, 1.2);
+  tl.fromTo('#sgD', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, W(1, 0, 'when an agent', -0.1));
+  LB('c1a', W(1, 0, 'trigger', -0.05), S(1, 1) - 0.4);
+  ON('#rp', S(1, 0) - 0.3, 0.3); tl.to('#rp', { y: 34, duration: 0.3, yoyo: true, repeat: 1 }, S(1, 0) + 0.3); tl.to('#rp', { y: 20, duration: 0.25, yoyo: true, repeat: 3 }, S(1, 0) + 1.1);
+  LIT('sgD', CAND, W(1, 0, 'when an agent', 0.5));
+  OFF(['#sgD', '#mar', '#nex'], S(1, 1) - 0.4, 0.25);
+  CAM(2670, 1230, 1, S(1, 1) - 0.3, 1.3);
+  LB('c1b', S(1, 1) + 0.7, S(1, 2) - 0.45);
+  tl.fromTo('#sgA', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, W(1, 1, 'respond', -0.1));
+  LIT('sgA', CYD, W(1, 1, 'respond', 0.6));
+  OFF('#sgA', S(1, 2) - 0.35, 0.25);
+  CAM(1500, 1230, 1, S(1, 2) - 0.3, 1.3);
+  ON('#lmp', S(1, 2) + 0.1, 0.3); ON('#bdA', S(1, 2) + 0.2, 0.3);
+  { const t0 = S(1, 2) + 0.4, sp = 436; TRAIN('#trn', t0, 560, 1520, 2.4);
+    [1480, 1735, 1990].forEach((x, k) => tl.set('#lp' + k, { backgroundColor: '#aeb6c6', borderColor: '#6b7280', scale: 1 }, S(1, 2) + 0.1)); [1480, 1735, 1990].forEach((x, k) => LAMP(k, t0 + (x - 880 - 560) / sp)); }
+  LB('c1c', W(1, 2, 'actions you want', -0.1), S(1, 3) - 0.45);
+  OFF(['#bdA', '#lmp'], S(1, 3) - 0.35, 0.25);
+  CAM(960, 950, 1, S(1, 3) - 0.3, 1.3);
+  ON('#gpl', S(1, 3) - 0.3, 0.3); OFF('#gpl', S(1, 4) - 0.35, 0.25);
+  ON(['#gP1', '#gP2'], S(1, 3) + 0.7, 0.3);
+  LIT('gP1', BLUE, W(1, 3, 'power apps', 0.1)); LIT('gP2', BLUE, W(1, 3, 'schedules', 0.1));
+  tl.to('#gP1', { borderColor: BLUE, duration: 0.3 }, W(1, 3, 'power apps', 0.1)); tl.to('#gP2', { borderColor: BLUE, duration: 0.3 }, W(1, 3, 'schedules', 0.1));
+  LB('c1d', W(1, 3, 'other scenarios', -0.1), S(1, 4) - 0.45);
+  OFF(['#gP1', '#gP2'], S(1, 4) - 0.35, 0.25);
+  CAM(1330, 1180, 0.75, S(1, 4) - 0.3, 1.2);
+  tl.to(['#cnD', '#cnA'], { opacity: 0, duration: 0.4 }, S(1, 4) + 0.2);
+  ON('#nsp', S(1, 4) + 0.2, 0.2);
+  { const t0 = S(1, 4) + 0.5; TRAIN('#trg', t0, 100, 1080, 2.6); }
+  ON('#nsg', S(1, 4) + 2.5, 0.25);
+  LB('c1e', S(1, 4) + 0.3, E(1, 4) + 0.2);
+  OFF(['#nsg', '#nsp'], S(1, 4) + 3.3, 0.3);
+  tl.to(['#cnD', '#cnA'], { opacity: 1, duration: 0.5 }, S(1, 4) + 3.4);
+
+  /* ── 2 The inputs ── */
+  OFF('#c1e', S(2, 0) - 0.6, 0.25); ON(['#mar', '#nex'], S(2, 0) - 0.55, 0.3);
+  CAM(960, 1230, 1, S(2, 0) - 0.6, 1.2);
+  TAG('#plI', S(2, 0) + 0.1);
+  ON('#sgD', S(2, 1) + 0.1, 0.3); LIT('sgD', CAND, S(2, 1) + 0.2);
+  tl.to(['#slT', '#slU'], { borderColor: CAND, backgroundColor: '#dcebe4', duration: 0.3, yoyo: true, repeat: 3 }, W(2, 1, 'defined', 0));
+  LB('c2a', W(2, 1, 'defined', 0), S(2, 2) - 0.1);
+  tl.fromTo('#crT', { opacity: 0, y: -400 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, W(2, 2, 'title', -0.1));
+  tl.fromTo('#crU', { opacity: 0, y: -400 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, W(2, 2, 'urgency', -0.1));
+  ON('#rb', W(2, 2, 'createticket', 0), 0.35);
+  OFF('#plI', S(2, 3) - 0.05, 0.2); TAG('#plG', W(2, 3, 'generative', -0.1));
+  ON('#bbM', S(2, 3) + 0.1, 0.3);
+  tl.fromTo('#nt', { opacity: 0, x: -660, y: -240 }, { opacity: 1, x: 0, y: 0, duration: 1.2, ease: 'power2.inOut' }, W(2, 3, 'conversation', -0.8));
+  LB('c2b', W(2, 3, 'conversation context', -0.1), S(2, 4) - 0.1);
+  OFF('#plG', S(2, 4) - 0.05, 0.2);
+  tl.fromTo('#qf', { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(2, 4, 'questions', -0.2));
+  LB('c2c', W(2, 4, 'questions', 0), S(2, 5) - 0.1);
+  tl.to('#qf', { x: -690, y: -30, duration: 1.4, ease: 'power2.inOut' }, W(2, 5, 'asks for', -0.2));
+
+  /* ── 3 A Custom value ── */
+  OFF(['#nt', '#qf', '#bbM', '#mar'], S(3, 0) - 0.45, 0.3);
+  tl.set('#qf', { x: 0, y: -80 }, S(3, 0) - 0.1);
+  tl.fromTo('#qf', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(3, 0) + 0.2);
+  POP('#stk1', S(3, 0) + 0.3); POP('#stk2', S(3, 0) + 0.7);
+  LB('c3a', W(3, 0, 'same urgency', -0.5), S(3, 1) - 0.1);
+  tl.fromTo('#mgr', { opacity: 0, x: -70 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.5)' }, S(3, 1) + 0.0);
+  ON('#cdM', S(3, 1) + 0.8, 0.25);
+  LB('c3b', W(3, 1, 'all new', -0.1), S(3, 2) - 0.1);
+  tl.set('#val', { x: -580 }, S(3, 2) - 0.3);
+  tl.fromTo('#val', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, ease: 'back.out(1.5)' }, S(3, 2) - 0.2);
+  OFF(['#stk1', '#stk2'], S(3, 2) + 0.5, 0.25);
+  TAG('#plC', W(3, 2, 'custom value', -0.1));
+  tl.fromTo('#lk', { opacity: 0, x: -250, y: -90 }, { opacity: 1, x: 0, y: 0, duration: 0.9, ease: 'power2.out' }, S(3, 2) + 0.9);
+  OFF('#cdM', S(3, 3) - 0.02, 0.2);
+  tl.to('#lk1', { opacity: 0, duration: 0.2 }, S(3, 3) + 0.3); tl.to('#lk2', { opacity: 1, duration: 0.25 }, S(3, 3) + 0.3);
+  LB('c3c', W(3, 3, 'fixed value', 0), S(3, 4) - 0.1);
+  OFF('#plC', S(3, 4) - 0.05, 0.2);
+  tl.to('#qf', { y: 20, opacity: 0, duration: 0.7, ease: 'power2.in' }, W(3, 4, 'no longer', 0));
+  LB('c3d', W(3, 4, 'no longer', 0), S(3, 5) - 0.1);
+  OFF(['#mgr'], S(3, 5) - 0.05, 0.2); ON('#mar', S(3, 5) + 0.15, 0.3); ON('#bbM', S(3, 5) + 0.3, 0.3);
+  tl.fromTo('#nt', { opacity: 0, x: -660, y: -240 }, { opacity: 1, x: 0, y: 0, duration: 1.1, ease: 'power2.inOut' }, W(3, 5, 'title', -0.6));
+
+  /* ── 4 EXAM: always Medium ── */
+  SET(['#rb', '#sgD', '#lk', '#nt', '#bbM', '#mar', '#mgr', '#val', '#crT', '#crU', '#slT', '#slU', '#c3d', '#c3c', '#c3b', '#c3a'], S(4, 0) + 0.6, 0);
+  CAMX(2400, 1230, 1, S(4, 0) + 0.6);
+  EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.1 });
+  ON('#pa_L', S(4, 9) + 0.1, 0.3); ON('#pa_R', S(4, 10) + 0.1, 0.3);
+
+  /* ── 5 Only the outputs arrive ── */
+  CAM(2670, 1230, 1.1, S(5, 0) - 0.3, 1.2);
+  LB('c5a', S(5, 0) + 0.6, S(5, 1) - 0.05);
+  tl.to('#slB', { borderColor: CYD, backgroundColor: '#d3eef3', duration: 0.3, yoyo: true, repeat: 3 }, S(5, 1) + 0.3);
+  tl.fromTo('#sgA', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.8)' }, S(5, 0) + 0.0); LIT('sgA', CYD, W(5, 1, 'respond to the agent', 0.4));
+  LB('c5b', W(5, 1, 'outputs', 0), S(5, 2) - 0.05);
+  tl.fromTo('#cT', { opacity: 0, y: -400 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, W(5, 2, 'ticket i d', -0.2));
+  LB('c5c', W(5, 2, 'one output', 0), S(5, 3) - 0.45);
+  OFF(['#sgA', '#cT'], S(5, 3) - 0.35, 0.25);
+  CAM(1900, 940, 1, S(5, 3) - 0.6, 1.0);
+  ON('#bdS', S(5, 3) + 0.3, 0.3);
+  [0, 1, 2, 3].forEach((k) => POP('#wg' + k, S(5, 3) - 0.05 + k * 0.2)); tl.set('#wgs', { opacity: 1 }, S(5, 3) - 0.1);
+  LB('c5d', W(5, 3, 'do not reach', -0.1), S(5, 4) - 0.45);
+  OFF('#bdS', S(5, 4) - 0.35, 0.25);
+  CAM(2670, 1230, 1.1, S(5, 4) - 0.3, 1.3);
+  tl.set('#wgs', { opacity: 0 }, S(5, 4) + 0.3);
+  ON('#sgA', S(5, 4) + 0.1, 0.3); tl.fromTo('#nx2', { opacity: 0, x: 180 }, { opacity: 1, x: 120, duration: 0.5, ease: 'back.out(1.5)' }, S(5, 4) + 0.2);
+  LB('c5e', W(5, 4, 'only the outputs', 0), S(5, 5) - 0.1);
+  tl.fromTo('#cT', { opacity: 0, x: 0, y: -400 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, S(5, 4) + 0.3); tl.to('#cT', { x: 270, duration: 0.9, ease: 'power2.inOut' }, W(5, 4, 'only the outputs', 0.8));
+  OFF(['#sgA', '#c5e', '#cT', '#nx2'], W(5, 5, 'tool node', -0.5), 0.2);
+  ON('#cdL', W(5, 5, 'tool node', -0.3), 0.3); ON('#cdR', W(5, 5, 'or the orchestrator', -0.3), 0.3);
+  OFF(['#cdL', '#cdR'], S(6, 0) - 0.5, 0.25);
+
+  /* ── 6 Conditions to use it ── */
+  CAM(3000, 830, 1, S(6, 0) - 0.8, 1.4);
+  ON('#sgA', S(6, 0) - 0.3, 0.3);
+  ON(['#tw', '#twR'], S(6, 0) - 0.3, 0.4); ON('#clkG', S(6, 0) + 0.3, 0.3);
+  LB('c6a', S(6, 0) + 0.9, S(6, 1) - 0.05);
+  ON('#ttb', S(6, 1) + 0.1, 0.01); ON('#ttH', S(6, 1) + 0.15, 0.3); ON('#ttR', S(6, 1) + 0.3, 0.3);
+  tl.fromTo('#stp', { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.4)' }, W(6, 1, 'published', 0));
+  tl.to('#msL', { backgroundColor: GRN, duration: 0.3 }, W(6, 2, 'real time', 0));
+  LB('c6b', W(6, 2, 'real time', 0), S(6, 3) - 0.1);
+  TAG('#plO', W(6, 3, 'must be off', 0.2));
+  ON(['#lvr', '#lvP', '#lvT'], S(6, 0) + 0.3, 0.3); ON('#asyT', S(6, 3) + 0.0, 0.25); ON('#lmpT', S(6, 3) + 0.0, 0.25);
+  tl.set('#lmpT', { backgroundColor: AMB, color: INK }, S(6, 3) + 0.0); tl.set('#lmpT', { innerHTML: 'On' }, S(6, 3) + 0.0);
+  tl.to('#lvr', { rotation: -32, duration: 0.7, ease: 'power2.inOut' }, W(6, 3, 'must be off', -0.5));
+  tl.set('#lmpT', { backgroundColor: GRN, color: '#fff', innerHTML: 'Off' }, W(6, 3, 'must be off', 0.2));
+  ON('#netP', W(6, 4, 'networking', -0.4), 0.3); tl.to('#netP', { backgroundColor: '#ffd166', color: '#141b2d', duration: 0.3 }, W(6, 4, 'networking', -0.1));
+  ON('#sgA', W(6, 4, 'respond to the agent', -0.3), 0.3); LIT('sgA', CYD, W(6, 4, 'respond to the agent', 0.2));
+  LB('c6c', S(6, 4) + 0.5, S(6, 5) - 0.1); ON('#ar6', W(6, 4, 'respond to the agent', 0.2), 0.3); OFF('#ar6', S(6, 5) - 0.1, 0.2);
+  OFF('#plO', S(6, 5) - 0.05, 0.2);
+  ON('#clkT', W(6, 5, 'one hundred seconds', -0.1), 0.3);
+  tl.to('#clkH', { rotation: 250, duration: 1.8, ease: 'none' }, W(6, 5, 'one hundred seconds', 0.0));
+  TRAIN('#trn', W(6, 5, 'one hundred seconds', 0.0), 2000, 2140, 1.9);
+  LB('c6d', W(6, 5, 'action limit', 0), S(6, 6) - 0.1);
+  OFF(['#sgA', '#clkT', '#netP', '#asyT', '#lmpT', '#clkG', '#lvr', '#lvP', '#lvT', '#ttb', '#ttH', '#ttR', '#stp'], S(6, 6) - 0.35, 0.25);
+  CAM(3072, 1150, 1.25, S(6, 6) - 0.2, 1.4);
+  ON('#cbl', S(6, 6) + 0.5, 0.3); ON('#bell', S(6, 6) + 0.5, 0.3); POP('#cbp', S(6, 6) + 0.9);
+  tl.to('#bell', { rotation: 14, transformOrigin: '38px 8px', duration: 0.25, yoyo: true, repeat: 5 }, S(6, 6) + 1.2);
+  LB('c6e', S(6, 6) + 1.0, E(6, 6) + 0.1);
+  OFF(['#c6e', '#cbl', '#cbp', '#bell', '#ttb', '#ttH', '#ttR', '#stp', '#msH', '#tw', '#twR'], S(7, 0) + 0.3, 0.1);
+
+  /* ── 7 EXAM: the missing number ── */
+  SET(TXT_HIDE.concat(['#c6e', '#c6d', '#c6c', '#c6b', '#c6a', '#plO', '#nx2', '#cdL', '#cdR']), S(7, 0) + 0.6, 0);
+  CAMX(1650, 1250, 0.62, S(7, 0) + 0.6);
+  EXAMX('exB', 7, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.1 });
+  ON('#pb_L', S(7, 9) + 0.1, 0.3); ON('#pb_R', S(7, 10) + 0.1, 0.3);
+
+  /* ── 8 The Contoso case ── */
+  TAG('#plK', S(8, 0) + 0.1); ON('#rb', S(8, 0) + 0.2, 0.3);
+  OFF('#plK', S(8, 1) - 0.1, 0.2);
+  CAM(960, 1230, 1, S(8, 1) - 0.3, 1.3);
+  ON('#bbM', S(8, 1) + 0.4, 0.3); ON('#mar', S(8, 1) - 0.2, 0.3);
+  tl.set(['#crT', '#crU', '#slT', '#slU'], { opacity: 1 }, S(8, 1) + 0.3);
+  tl.set('#lk', { opacity: 0 }, S(8, 1) + 0.3); tl.set('#lk1', { opacity: 0 }, S(8, 1) + 0.3); tl.set('#lk2', { opacity: 1 }, S(8, 1) + 0.3);
+  ON('#sgD', S(8, 2) + 0.0, 0.3); LIT('sgD', CAND, S(8, 2) + 0.2);
+  tl.to('#rp', { y: 34, duration: 0.3, yoyo: true, repeat: 1 }, S(8, 2) + 0.3);
+  tl.fromTo('#nt', { opacity: 0, x: -660, y: -240 }, { opacity: 1, x: 0, y: 0, duration: 1.1, ease: 'power2.inOut' }, W(8, 2, 'title', -0.8));
+  tl.to('#nt', { x: -30, y: 140, opacity: 0, duration: 0.5, ease: 'power2.in' }, W(8, 2, 'title', 0.6));
+  tl.to('#crT', { backgroundColor: '#cfe0ff', borderColor: BLUE, color: '#1f3a8a', duration: 0.3 }, W(8, 2, 'title', 1.0)); tl.set('#crT', { innerHTML: IC('checkmark_circle', 'width:34px;height:34px;color:#2f5bd3;margin-right:8px') + 'title' }, W(8, 2, 'title', 1.0));
+  ON('#lk', S(8, 3) + 0.0, 0.3); tl.to('#lk', { y: -10, duration: 0.4, yoyo: true, repeat: 3 }, S(8, 3) + 0.4);
+  LB('c8a', W(8, 3, 'nobody asks', -0.5), S(8, 4) - 0.3);
+  OFF(['#sgD', '#nt', '#lk', '#crT', '#crU', '#slT', '#slU', '#bbM', '#mar', '#nex'], S(8, 4) - 0.35, 0.25);
+  CAM(1500, 1230, 1, S(8, 4) - 0.3, 1.3);
+  ON('#lmp', S(8, 4) + 0.1, 0.3); ON('#bdA', S(8, 4) + 0.2, 0.3);
+  { const t0 = S(8, 4) + 0.4, sp = 436; TRAIN('#trn', t0, 560, 1520, 2.4);
+    [0, 1, 2].forEach((k) => tl.set('#lp' + k, { backgroundColor: '#aeb6c6', borderColor: '#6b7280', scale: 1 }, S(8, 4) + 0.1)); [1480, 1735, 1990].forEach((x, k) => LAMP(k, t0 + (x - 880 - 560) / sp)); }
+  LB('c8b', W(8, 4, 'middle actions', -0.1), S(8, 5) - 0.45);
+  OFF(['#bdA', '#lmp', '#rb'], S(8, 5) - 0.35, 0.25);
+  CAM(2670, 1230, 1, S(8, 5) - 0.3, 1.3);
+  ON('#sgA', S(8, 5) + 0.0, 0.3); LIT('sgA', CYD, S(8, 5) + 0.2);
+  tl.fromTo('#nx2', { opacity: 0, x: -80 }, { opacity: 1, x: -140, duration: 0.5 }, S(8, 5) + 0.1); ON('#mr2', S(8, 5) + 0.2, 0.3);
+  tl.fromTo('#cT', { opacity: 0, y: -400, x: 0 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, W(8, 5, 'ticket i d', -0.2));
+  tl.to('#cT', { x: 370, duration: 1.1, ease: 'power2.inOut' }, W(8, 5, 'nexo shares', -0.2));
+  LB('c8c', W(8, 5, 'shares', -0.1), S(8, 6) - 0.45);
+  OFF(['#cT', '#nx2', '#mr2'], S(8, 6) - 0.35, 0.25);
+  CAM(2900, 1180, 1, S(8, 6) - 0.3, 1.3);
+  ON('#ttb', S(8, 6) + 0.0, 0.01); ON('#ttH', S(8, 6) + 0.05, 0.3); ON('#ttR', S(8, 6) + 0.1, 0.3);
+  tl.fromTo('#stp', { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'back.out(1.4)' }, W(8, 6, 'published', -0.3));
+  ON('#tAr', W(8, 6, 'added', -0.2), 0.3); ON('#tSl', W(8, 6, 'added', -0.1), 0.3);
+  LB('c8d', W(8, 6, 'published', 0.1));
+
+  /* ── 9 Studio (UI) ── */
+  OFF(['#c8d', '#ttb', '#ttH', '#ttR', '#stp', '#tAr', '#tSl', '#sgA'], S(9, 0) - 0.55, 0.25);
+  CAM(960, 1230, 1, S(9, 0) - 0.5, 1.2);
+  OFF(['#mar', '#nex'], S(9, 0) - 0.1, 0.3); ON('#mk', S(9, 0) + 0.1, 0.4);
+  OFF('#rp', S(9, 0) - 0.5, 0.2);
+  gsap.set('#uiS', { opacity: 0 });
+  UIIN('#uiS', S(9, 0) + 1.03);
+  ON('#cur', S(9, 0) + 2.0, 0.2);
+  ON('#uP0', S(9, 1) + 0.1, 0.3);
+  CUR(PU.ch0[0], PU.ch0[1], W(9, 1, 'designer', -0.4), 0.5); CLICK(PU.ch0[0], PU.ch0[1], W(9, 1, 'designer', 0.2));
+  tl.to('#uCh0', { borderColor: BLUE, duration: 0.2 }, W(9, 1, 'designer', 0.2));
+  CUR(PU.ch1[0], PU.ch1[1], W(9, 1, 'natural language', -0.3), 0.5);
+  tl.to('#uL0', { opacity: 0, duration: 0.2 }, S(9, 2) + 0.05); ON('#uL1', S(9, 2) + 0.25, 0.25);
+  CUR(PU.c1[0], PU.c1[1], S(9, 2) + 0.4, 0.6);
+  ON('#uP1', S(9, 2) + 0.3, 0.3); ON('#uC4', S(9, 2) + 0.5, 0.25);
+  ON('#uI0', S(9, 2) + 1.8, 0.25); ON('#uI1', S(9, 2) + 2.1, 0.25);
+  SLIDE('#uC2', S(9, 3) + 0.2); SLIDE('#uC3', S(9, 3) + 0.7); ON('#uP2', S(9, 3) + 0.4, 0.3); OFF('#uP1', S(9, 3) + 0.1, 0.2);
+  CUR(PU.c2[0], PU.c2[1], S(9, 3) + 0.4, 0.6);
+  OFF('#uP2', S(9, 4) + 0.1, 0.2);
+  ON('#uO0', W(9, 4, 'define', 0), 0.25);
+  CUR(PU.c4[0], PU.c4[1], S(9, 4) + 0.5, 0.6);
+  tl.to('#uC4', { height: 310, duration: 0.5 }, S(9, 5) + 0.2); ON('#uNet', S(9, 5) + 0.5, 0.3); ON('#uP3', S(9, 5) + 0.4, 0.3);
+  CUR(PU.net[0], PU.net[1], S(9, 5) + 0.3, 0.5);
+  OFF('#uP3', S(9, 6) + 0.2, 0.2);
+  CUR(PU.pub[0], PU.pub[1], S(9, 6) + 0.0, 0.3); CLICK(PU.pub[0], PU.pub[1], S(9, 6) + 0.3);
+  OFF('#uPubB', S(9, 6) + 0.4, 0.15); ON('#uPubD', S(9, 6) + 0.45, 0.25);
+  CUR(PU.tools[0], PU.tools[1], S(9, 6) + 0.4, 0.3); CLICK(PU.tools[0], PU.tools[1], S(9, 6) + 0.75);
+  NAV('#uiS', 1, S(9, 6) + 0.75, 4);
+  tl.to('#uL1', { opacity: 0, duration: 0.2 }, S(9, 6) + 0.8); ON('#uL2', S(9, 6) + 0.9, 0.25);
+  CUR(PU.add[0], PU.add[1], S(9, 6) + 1.0, 0.3); CLICK(PU.add[0], PU.add[1], S(9, 6) + 1.3);
+  ON('#uAT', S(9, 6) + 1.4, 0.25);
+  CUR(PU.fl[0], PU.fl[1], S(9, 6) + 1.6, 0.3); CLICK(PU.fl[0], PU.fl[1], S(9, 6) + 1.95);
+  ON('#uSel', S(9, 6) + 2.05, 0.25);
+  OFF('#cur', E(9, 6) - 0.4, 0.15);
+  tl.to('#uiS', { opacity: 0, duration: 0.3, ease: 'none' }, E(9, 6) - 0.2); tl.to('#uiS', { scale: 0.28, duration: 0.7, ease: 'power4.in' }, E(9, 6) - 0.2); OFF('#uiBack', E(9, 6) - 0.05, 0.3);
+
+  /* ── 10 EXAM: not a tool yet ── */
+  SET(['#mk', '#c8d'], S(10, 0) + 0.6, 0);
+  CAMX(960, 1230, 1, S(10, 0) + 0.6);
+  SET(['#mar', '#nex'], S(10, 0) + 0.6, 1);
+  EXAMX('exC', 10, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(10, 4), S(10, 5), S(10, 6)], end: S(11, 0) - 0.1 });
+  ON('#pc_L', S(10, 9) + 0.1, 0.3); ON('#pc_R', S(10, 10) + 0.1, 0.3);
+
+  /* ── 11 Rules to remember ── */
+  tl.set('#val', { x: -140, opacity: 0 }, S(11, 0) - 0.3); tl.set('#mgr', { x: 180, opacity: 0 }, S(11, 0) - 0.3);
+  TAG('#plB', S(11, 0) + 0.1);
+  tl.fromTo('#val', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5 }, S(11, 0) + 0.1); tl.fromTo('#mgr', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5 }, S(11, 0) + 0.2);
+  ON('#cdT', S(11, 0) + 0.7, 0.3);
+  BOB('#nex', S(11, 0) + 0.2, E(11, 6) + 2.5, 14);
+  tl.to('#nex', { x: 40, duration: 1.8, ease: 'power1.inOut' }, S(11, 0) + 2.6);
+  TRAIN('#trn', S(11, 1) + 0.2, 80, 960, 6.5);
+  OFF('#plB', S(11, 2) - 0.1, 0.25);
+  ON('#rb2', S(11, 1) + 0.15, 0.3);
+  [0, 1, 2, 3].forEach((k) => tl.to('#rl' + k, { opacity: 1, duration: 0.3 }, S(11, 2 + k) + 0.15));
+  OFF('#rb2', S(11, 6) - 0.3, 0.3);
+  OFF(['#mar', '#mgr', '#cdT', '#bbM'], S(11, 6) - 0.4, 0.25);
+  CAM(1400, 1230, 1, S(11, 6) - 0.2, 1.6);
+  ADD(R(1700, 860, 520, 140, `background:${NAVY};border:6px solid #141b2d;border-radius:18px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:42px;font-weight:800;color:#fff;line-height:1.2;opacity:0;text-wrap:balance`, 'dsg', 'Actions, connectors, and express mode'));
+  ON('#dsg', S(11, 6) + 0.3, 0.4); TAG('#nl', S(11, 6) + 0.8);
+  TRAIN('#trn', S(11, 6) + 0.8, 600, 1520, 6);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

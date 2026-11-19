@@ -1,0 +1,52 @@
+{"brand": "AB-620 · Module 2 · Lesson 1", "scenes": [
+ {"type": "split", "left": {"kicker": "Variables", "title": "A small named box", "sub": "The scope decides who can open it."},
+  "rows": [
+   {"icon": "braces", "title": "Variable = a named box", "desc": "Keeps a piece of data for later", "at": "small named box", "hi": true},
+   {"icon": "person", "title": "User's name · ticket number", "desc": "Typical examples", "at": "user's name", "hi": true},
+   {"icon": "key", "title": "Scope = who can open it", "desc": "One topic or the whole agent", "at": "scope decides", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Scope", "title": "Topic and global"},
+  "cols": [
+   {"icon": "branch_fork", "title": "Topic", "sub": "Default scope", "at": "Topic variables",
+    "items": [{"text": "Lives only in the topic that creates it", "at": "live only"}, {"text": "The default", "at": "default scope"}]},
+   {"icon": "globe", "title": "Global", "sub": "Prefix Global.", "accent": true, "at": "Global variables",
+    "items": [{"text": "Works in all topics", "at": "all topics"}]}],
+  "verdict": {"icon": "arrow_sync", "text": "Topic → global: reuse it without asking again", "at": "without asking"}},
+ {"type": "compare", "header": {"kicker": "Created for you", "title": "System and Environment"},
+  "cols": [
+   {"icon": "settings", "title": "System", "sub": "Created by Copilot Studio", "at": "System variables",
+    "items": [{"text": "System.Activity.Text = the user's last message", "at": "Activity dot Text"}]},
+   {"icon": "cloud", "title": "Environment", "sub": "Prefix Env. · created in Power Platform", "at": "Environment variables",
+    "items": [{"text": "Read-only inside Copilot Studio", "at": "read-only"}]}]},
+ {"type": "flow", "header": {"kicker": "Data types", "title": "The type is set once"},
+  "nodes": [
+   {"icon": "number_symbol", "title": "First assignment", "sub": "Sets the type", "at": "first assignment"},
+   {"icon": "number_symbol", "title": "A number", "sub": "→ type Number", "at": "type Number"},
+   {"icon": "error_circle", "title": "Text later", "sub": "→ Error", "accent": true, "at": "get an error"}],
+  "below": [
+   {"text": "String", "at": "String"}, {"text": "Boolean", "at": "Boolean"}, {"text": "Number", "at": "Number"}, {"text": "Table", "at": "Table"},
+   {"text": "Record", "at": "Record"}, {"text": "DateTime", "at": "DateTime"}, {"text": "Choice", "at": "Choice"}, {"text": "Blank", "at": "Blank"}]},
+ {"type": "flow", "header": {"kicker": "Environment variables", "title": "Parameters apart from logic"},
+  "nodes": [
+   {"icon": "bot", "title": "Same agent", "sub": "No node touched", "at": "same agent"},
+   {"icon": "beaker", "title": "Development", "sub": "Test address", "at": "test address"},
+   {"icon": "rocket", "title": "Production", "sub": "Real address", "accent": true, "at": "real one"}],
+  "below": [
+   {"icon": "send", "text": "Admin changes them → republish", "at": "republish", "solid": true},
+   {"icon": "key", "text": "Except secret-type ones", "at": "secret-type"}]},
+ {"type": "hub", "header": {"kicker": "Contoso", "title": "Three variables, three scopes"},
+  "center": {"icon": "bot", "title": "Contoso agent", "at": "start"},
+  "topLabel": "Variables",
+  "top": [
+   {"icon": "globe", "title": "Global.EmployeeId", "desc": "Every topic reuses it", "at": "Global dot EmployeeId", "hi": true},
+   {"icon": "settings", "title": "System.Activity.Text", "desc": "The user's last message", "at": "Activity dot Text", "hi": true},
+   {"icon": "cloud", "title": "Env.ApiBaseUrl", "desc": "Inventory base address", "at": "ApiBaseUrl", "hi": true}],
+  "bottomLabel": "One value per environment",
+  "bottom": [
+   {"icon": "beaker", "title": "Development", "at": "different value"},
+   {"icon": "rocket", "title": "Production", "at": "each environment"}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Data in several topics"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "several topics", "items": [{"text": "Change the scope to global", "at": "change the scope"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "classic trap", "items": [{"text": "Assign text to a numeric variable", "at": "assigning text"}]}],
+  "verdict": {"icon": "number_symbol", "text": "The type is fixed by the first assignment", "at": "type is fixed"}}
+]}

@@ -1,0 +1,9 @@
+{
+  "1": ["The workshop", [["Instructions", "How the agent behaves"], ["Knowledge", "What it answers from"], ["Tools", "How it takes action"], ["Where", "Web app, nothing to install"]]],
+  "2": ["Three things you build", [["Agent", "Chats and completes tasks"], ["Workflow", "Drag-and-drop automation"], ["Agent flow", "Classic flow, alone or as a tool"]]],
+  "4": ["Your first agent", [["Home", "Describe the agent, then Create"], ["Top bar", "Which environment"], ["Sections", "Overview · Knowledge · Tools · Topics · Settings"], ["Try it", "Test your agent"]]],
+  "5": ["The harness (engine)", [["Standard", "Rules, structured, repeatable"], ["Microsoft Copilot", "Multi-step reasoning (formerly GitHub Copilot harness)"], ["Copilot chat", "Extends Microsoft Copilot Chat"]]],
+  "6": ["Standard agent", [["First", "Best matching topic"], ["Topic", "Steps, questions, conditions"], ["Outside topics", "Answer from connected knowledge"]]],
+  "8": ["Publish and operate", [["Channels", "Teams · Microsoft Copilot · websites · mobile apps"], ["Analytics", "Performance and sessions"], ["Evaluations", "Test sets that measure quality"], ["Administration", "Inventory, security, costs"]]],
+  "10": ["Nexo at Contoso", [["Knowledge", "SharePoint IT guides"], ["Tool", "Open a ticket"], ["Channel", "Teams"], ["Result", "Team keeps the hard cases"]]]
+}

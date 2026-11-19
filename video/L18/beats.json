@@ -1,0 +1,518 @@
+{
+ "id": "L18",
+ "title": "Actions, connectors, and express mode",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 329.625,
+ "scenes": [
+  {
+   "title": "Steps from the shelves",
+   "start": 0.8,
+   "end": 22.08,
+   "sentences": [
+    {
+     "text": "Marta writes to Nexo that her laptop will not turn on, and CreateTicket must open a ticket fast.",
+     "start": 0.8,
+     "end": 6.794
+    },
+    {
+     "text": "Valeria opens the flow to add more steps.",
+     "start": 7.075,
+     "end": 9.591
+    },
+    {
+     "text": "Actions are the steps a flow performs, like the ingredients and tools of a kitchen.",
+     "start": 9.872,
+     "end": 14.586
+    },
+    {
+     "text": "Some come grouped by type, and others come from connectors to other systems.",
+     "start": 14.867,
+     "end": 19.132
+    },
+    {
+     "text": "Knowing the groups helps you find what you need quickly.",
+     "start": 19.413,
+     "end": 22.079
+    }
+   ]
+  },
+  {
+   "title": "The action catalog",
+   "start": 22.98,
+   "end": 44.815,
+   "sentences": [
+    {
+     "text": "The actions of an agent flow come in four groups.",
+     "start": 22.98,
+     "end": 25.731
+    },
+    {
+     "text": "AI capabilities holds generate text, process documents, Run a prompt, call an agent, and respond to the agent.",
+     "start": 26.012,
+     "end": 33.414
+    },
+    {
+     "text": "Human in the loop is for approvals or for asking for information.",
+     "start": 33.695,
+     "end": 37.427
+    },
+    {
+     "text": "Built-in tools holds loops, conditions, data operations, dates, and child flows.",
+     "start": 37.708,
+     "end": 42.912
+    },
+    {
+     "text": "The fourth group is Connectors.",
+     "start": 43.193,
+     "end": 44.814
+    }
+   ]
+  },
+  {
+   "title": "Connectors and Run a prompt",
+   "start": 45.715,
+   "end": 68.533,
+   "sentences": [
+    {
+     "text": "Connectors bring actions from other systems, such as Dataverse.",
+     "start": 45.715,
+     "end": 49.212
+    },
+    {
+     "text": "CreateTicket uses the Dataverse connector to add the ticket row.",
+     "start": 49.493,
+     "end": 53.46
+    },
+    {
+     "text": "Run a prompt lives inside AI capabilities, and it runs a prompt at one point in the flow.",
+     "start": 53.741,
+     "end": 59.287
+    },
+    {
+     "text": "Valeria selects Insert new action where she wants the step.",
+     "start": 59.568,
+     "end": 62.938
+    },
+    {
+     "text": "Then she chooses an existing prompt or a new one.",
+     "start": 63.219,
+     "end": 65.863
+    },
+    {
+     "text": "Here, the prompt summarizes Marta's text.",
+     "start": 66.144,
+     "end": 68.532
+    }
+   ]
+  },
+  {
+   "title": "Decide: where is Run a prompt",
+   "start": 69.433,
+   "end": 103.275,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 69.433,
+     "end": 70.307
+    },
+    {
+     "text": "Valeria wants a step that summarizes Marta's text with a prompt.",
+     "start": 70.588,
+     "end": 74.363
+    },
+    {
+     "text": "She selects Insert new action in CreateTicket.",
+     "start": 74.644,
+     "end": 77.246
+    },
+    {
+     "text": "Where should she look for Run a prompt?",
+     "start": 77.527,
+     "end": 79.296
+    },
+    {
+     "text": "Look under the Connectors group?",
+     "start": 79.577,
+     "end": 81.198
+    },
+    {
+     "text": "Look under AI capabilities?",
+     "start": 81.479,
+     "end": 83.312
+    },
+    {
+     "text": "Or look under Built-in tools?",
+     "start": 83.593,
+     "end": 85.192
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 85.473,
+     "end": 87.008
+    },
+    {
+     "text": "Look under AI capabilities.",
+     "start": 90.789,
+     "end": 92.666
+    },
+    {
+     "text": "Run a prompt is one of the AI capabilities, next to generate text and process documents.",
+     "start": 92.947,
+     "end": 98.599
+    },
+    {
+     "text": "Connectors bring actions from other systems, such as Dataverse, not prompts.",
+     "start": 98.88,
+     "end": 103.274
+    }
+   ]
+  },
+  {
+   "title": "The two-minute window",
+   "start": 104.175,
+   "end": 123.388,
+   "sentences": [
+    {
+     "text": "Now speed.",
+     "start": 104.175,
+     "end": 105.112
+    },
+    {
+     "text": "By default, a flow that takes more than two minutes to respond to the agent fails.",
+     "start": 105.393,
+     "end": 109.894
+    },
+    {
+     "text": "Marta would be left waiting, and Nexo would get an error.",
+     "start": 110.175,
+     "end": 113.16
+    },
+    {
+     "text": "Express mode helps here.",
+     "start": 113.441,
+     "end": 114.848
+    },
+    {
+     "text": "It speeds up flows with heavy processing and low data volume, so they finish inside that two-minute window.",
+     "start": 115.129,
+     "end": 121.358
+    },
+    {
+     "text": "Express mode is in preview.",
+     "start": 121.639,
+     "end": 123.387
+    }
+   ]
+  },
+  {
+   "title": "Two figures, kept apart",
+   "start": 124.288,
+   "end": 143.368,
+   "sentences": [
+    {
+     "text": "Two figures appear in Microsoft's pages, so keep them apart.",
+     "start": 124.288,
+     "end": 127.871
+    },
+    {
+     "text": "One hundred seconds is the action limit for a flow used as a tool.",
+     "start": 128.152,
+     "end": 132.204
+    },
+    {
+     "text": "Two minutes is the default window for an agent flow to respond to the agent, and that is the window express mode helps with.",
+     "start": 132.485,
+     "end": 140.143
+    },
+    {
+     "text": "When your flow is a tool, plan for one hundred seconds.",
+     "start": 140.424,
+     "end": 143.367
+    }
+   ]
+  },
+  {
+   "title": "Requirements and limits",
+   "start": 144.268,
+   "end": 171.313,
+   "sentences": [
+    {
+     "text": "Express mode has requirements.",
+     "start": 144.268,
+     "end": 146.102
+    },
+    {
+     "text": "The flow needs the When an agent calls a flow trigger, a Respond to the agent action, and a Copilot Studio plan.",
+     "start": 146.383,
+     "end": 153.144
+    },
+    {
+     "text": "It has no extra cost.",
+     "start": 153.425,
+     "end": 154.918
+    },
+    {
+     "text": "It also has limits.",
+     "start": 155.199,
+     "end": 156.563
+    },
+    {
+     "text": "It does not support Delay or webhooks.",
+     "start": 156.844,
+     "end": 158.976
+    },
+    {
+     "text": "It works poorly with lots of data, so keep each run under about one hundred actions and avoid very large connector responses.",
+     "start": 159.257,
+     "end": 167.064
+    },
+    {
+     "text": "Long processes are not for express mode; they work asynchronously.",
+     "start": 167.345,
+     "end": 171.312
+    }
+   ]
+  },
+  {
+   "title": "Decide: the long reconciliation",
+   "start": 172.213,
+   "end": 208.38,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 172.213,
+     "end": 173.087
+    },
+    {
+     "text": "Contoso also has a long reconciliation process that moves a lot of data.",
+     "start": 173.368,
+     "end": 178.338
+    },
+    {
+     "text": "The service manager asks Valeria whether express mode should handle it.",
+     "start": 178.619,
+     "end": 182.692
+    },
+    {
+     "text": "What should Valeria do?",
+     "start": 182.973,
+     "end": 184.274
+    },
+    {
+     "text": "Turn on express mode for it?",
+     "start": 184.555,
+     "end": 186.132
+    },
+    {
+     "text": "Add a Delay action to it?",
+     "start": 186.413,
+     "end": 187.948
+    },
+    {
+     "text": "Or let it run asynchronously?",
+     "start": 188.229,
+     "end": 189.828
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 190.109,
+     "end": 191.644
+    },
+    {
+     "text": "Let it run asynchronously.",
+     "start": 195.425,
+     "end": 196.875
+    },
+    {
+     "text": "Long processes with lots of data are asynchronous, and express mode is for heavy processing with little data.",
+     "start": 197.156,
+     "end": 203.832
+    },
+    {
+     "text": "Express mode for it is the trap, because it would not fit the two-minute window.",
+     "start": 204.113,
+     "end": 208.379
+    }
+   ]
+  },
+  {
+   "title": "The Contoso case",
+   "start": 209.28,
+   "end": 235.299,
+   "sentences": [
+    {
+     "text": "Here is the whole Contoso case.",
+     "start": 209.28,
+     "end": 211.263
+    },
+    {
+     "text": "CreateTicket starts with When an agent calls a flow.",
+     "start": 211.544,
+     "end": 214.572
+    },
+    {
+     "text": "A Dataverse connector inserts the ticket row, and a Run a prompt summarizes Marta's text.",
+     "start": 214.853,
+     "end": 220.399
+    },
+    {
+     "text": "The flow ends with Respond to the agent.",
+     "start": 220.68,
+     "end": 223.047
+    },
+    {
+     "text": "It does quite a lot of processing but moves little data, so Contoso turns on express mode, in preview, and it answers within the two-minute window.",
+     "start": 223.328,
+     "end": 232.095
+    },
+    {
+     "text": "The long reconciliation process does not use it.",
+     "start": 232.376,
+     "end": 235.298
+    }
+   ]
+  },
+  {
+   "title": "Build it in Copilot Studio",
+   "start": 236.199,
+   "end": 264.585,
+   "sentences": [
+    {
+     "text": "Here are the steps in Copilot Studio.",
+     "start": 236.199,
+     "end": 238.374
+    },
+    {
+     "text": "Open the agent flow.",
+     "start": 238.655,
+     "end": 240.04
+    },
+    {
+     "text": "Select Insert new action at the point where you want a step, and review the groups AI capabilities, Human in the loop, Built-in tools, and Connectors.",
+     "start": 240.321,
+     "end": 249.11
+    },
+    {
+     "text": "Add an action from a connector, such as Dataverse, then add a Run a prompt from AI capabilities.",
+     "start": 249.391,
+     "end": 255.235
+    },
+    {
+     "text": "Open Overview, select Edit under Details, and turn on Express mode, if your environment offers it.",
+     "start": 255.516,
+     "end": 261.574
+    },
+    {
+     "text": "Test that the flow responds in under two minutes.",
+     "start": 261.855,
+     "end": 264.584
+    }
+   ]
+  },
+  {
+   "title": "Decide: nothing comes back",
+   "start": 265.485,
+   "end": 299.625,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 265.485,
+     "end": 266.359
+    },
+    {
+     "text": "Valeria's new flow does heavy processing on little data.",
+     "start": 266.64,
+     "end": 269.946
+    },
+    {
+     "text": "But it never sends an answer back, and express mode cannot help it.",
+     "start": 270.227,
+     "end": 273.852
+    },
+    {
+     "text": "What must the flow have?",
+     "start": 274.133,
+     "end": 275.434
+    },
+    {
+     "text": "A Respond to the agent action?",
+     "start": 275.715,
+     "end": 277.548
+    },
+    {
+     "text": "A Delay action before the end?",
+     "start": 277.829,
+     "end": 279.62
+    },
+    {
+     "text": "Or a webhook that calls the agent?",
+     "start": 279.901,
+     "end": 281.884
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 282.165,
+     "end": 283.7
+    },
+    {
+     "text": "A Respond to the agent action.",
+     "start": 287.481,
+     "end": 289.315
+    },
+    {
+     "text": "Express mode requires the agent trigger, a Respond to the agent action, and a Copilot Studio plan.",
+     "start": 289.596,
+     "end": 296.059
+    },
+    {
+     "text": "Delay and webhooks are not supported in express mode at all.",
+     "start": 296.34,
+     "end": 299.624
+    }
+   ]
+  },
+  {
+   "title": "Rules to remember",
+   "start": 300.525,
+   "end": 328.424,
+   "sentences": [
+    {
+     "text": "Back at the market, Marta reads her ticket I D, and Nexo moves on.",
+     "start": 300.525,
+     "end": 304.535
+    },
+    {
+     "text": "Remember the four groups: AI capabilities, Human in the loop, Built-in tools, and Connectors.",
+     "start": 304.816,
+     "end": 310.362
+    },
+    {
+     "text": "Run a prompt is in AI capabilities.",
+     "start": 310.643,
+     "end": 313.116
+    },
+    {
+     "text": "Express mode, in preview, is for heavy processing with little data, inside the two-minute window.",
+     "start": 313.397,
+     "end": 319.178
+    },
+    {
+     "text": "It needs the agent trigger, Respond to the agent, and a Copilot Studio plan.",
+     "start": 319.459,
+     "end": 324.172
+    },
+    {
+     "text": "Long processes stay asynchronous.",
+     "start": 324.453,
+     "end": 326.351
+    },
+    {
+     "text": "Next, error handling in flows.",
+     "start": 326.632,
+     "end": 328.423
+    }
+   ]
+  }
+ ]
+}

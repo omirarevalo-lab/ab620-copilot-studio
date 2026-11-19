@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>F08 · Exam map and glossary · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { left: 100px; top: 130px; width: 1720px; height: 820px; }
+  #stage .uw .bar { font-size: 32px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage #gl .nav { display: none; } #stage #gl .main { left: 0; padding: 0; overflow: hidden; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  #exams .exam .xl { top: 120px; }
+  #exams .exam .xq { top: 170px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1240px; top: 330px; width: 560px; font-size: 38px; }
+  #exams .exam .xp { left: 120px; top: 664px; height: 300px; }
+  #exams .exam .xp .rm { height: 300px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* F08 · Exam map and glossary. "The trail map" in the 3840x2160 world.
+     Wide shot WC = (1920,1090) scale .55. Trail: trailhead x300-520 (Valeria), hills D1 x700-1800, D2 x1400-2900, D3 x2650-3350, hall x3280-3550, flags y1590-1900.
+     Closeup TH = (900,1480) scale 1 (frame x-60..1860, y940..2020). Annex A (hall facade) x3950-6200, annex B (hall interior) x6200-8300, cams (5200,1050) / (7250,1050) at scale 1. */
+  const BLUE = '#2f5bd3', TEAL = '#0f7b8a', AMB = '#d98a00', GRN = '#1e7f4f', RED = '#c4392f', PUR = '#8a5cd6', NAVY = '#1f2a44', OLD = '#5a6b8c';
+  const BLUEs = '#e6ecfb', TEALs = '#dff1f3', AMBs = '#fff3d6', GRNs = '#e3f4ea', REDs = '#fde8e6', PURs = '#efe7fb', OLDs = '#e7eaf1';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const T = (x, y, fs, col, t, id, ex, cls) => `<div class="px${cls ? ' ' + cls : ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const pers = (c, w) => person(c).replace('width="90" height="200"', `width="${w}" height="${Math.round(w * 200 / 90)}"`);
+  const CHW = (text, fs, icon) => Math.round(Math.max(...text.split('<br>').map((l) => l.length)) * fs * 0.58 + 76 + (icon ? fs * 1.3 : 0));
+  const CHC = (id, cx, y, text, col, fs, icon, bg, ex, w0) => { const w = w0 || CHW(text, fs, icon);
+    return H(id, `left:${Math.round(cx - w / 2)}px;top:${y}px;width:${w}px;border:6px solid ${col};border-radius:26px;background:${bg || '#fff'};color:${col};font-size:${fs}px;font-weight:800;line-height:1.12;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:14px;text-align:center;box-shadow:0 10px 30px rgba(16,24,40,.12);box-sizing:content-box;${ex || ''}`,
+      (icon ? IC(icon, `width:${Math.round(fs * 1.15)}px;height:${Math.round(fs * 1.15)}px;flex:0 0 auto`) : '') + `<span>${text}</span>`); };
+  const CHROW = (cx, y, items, col, bg, fs) => { const ws = items.map((it) => CHW(it[1], fs) + 12); const tot = ws.reduce((a, b) => a + b, 0) + 48 * (items.length - 1); let x = cx - tot / 2;
+    return items.map((it, i) => { const c = x + ws[i] / 2; x += ws[i] + 48; return CHC(it[0], c, y, it[1], col, fs, null, bg); }).join(''); };
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SWX = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, t + 0.1); };
+  const DRAW = (sel, t, d) => { ON(sel, t, 0.1); tl.fromTo(sel, { strokeDasharray: 6000, strokeDashoffset: 6000 }, { strokeDashoffset: 0, duration: d || 0.7, ease: 'none', immediateRender: false }, t); };
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const PULSEX = (sel, t, s) => tl.to(sel, { scale: s || 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.inOut' }, t);
+  const CHIP = (sel, a, b) => { FADEIN(sel, a, 0.4); OFF(sel, b, 0.3); };
+
+  const WC = [1914, 1000, 0.5], TH = [900, 1480, 1], TH0 = [860, 1480, 1.15];
+
+  /* ═════════ BACKGROUND ═════════ */
+  ADD(D('', 'left:-1400px;top:-900px;width:10600px;height:2500px;background:linear-gradient(#cfdff3,#eef4fb 52%,#f1f5ea)') +
+    [[-300, 1000, 380, '#c9d6ea'], [500, 1200, 330, '#d3deef'], [1500, 1400, 430, '#c9d6ea'], [2700, 1200, 360, '#d3deef'], [3500, 1100, 330, '#c9d6ea'], [4300, 1500, 400, '#c9d6ea'], [5400, 1300, 350, '#d3deef'], [6600, 1500, 420, '#c9d6ea'], [7800, 1300, 350, '#d3deef']].map((r) => D('', `left:${r[0]}px;top:${1500 - r[2]}px;width:${r[1]}px;height:${r[2]}px;border-radius:50% 50% 0 0 / 100% 100% 0 0;background:${r[3]}`)).join('') +
+    D('', 'left:-1400px;top:1490px;width:10600px;height:1000px;background:#dde7d0') + D('', 'left:-1400px;top:1490px;width:10600px;height:10px;background:#cbd8bd') + D('', 'left:-1400px;top:2010px;width:10600px;height:480px;background:#d3dfc5'));
+  const CLOUD = (id, x, y, s) => D(id, `left:${x}px;top:${y}px;width:${300 * s}px;height:${110 * s}px`, D('', `left:0;top:${40 * s}px;width:${300 * s}px;height:${70 * s}px;border-radius:${35 * s}px;background:#fff;opacity:.85`) + D('', `left:${50 * s}px;top:0;width:${120 * s}px;height:${100 * s}px;border-radius:50%;background:#fff;opacity:.85`) + D('', `left:${130 * s}px;top:${14 * s}px;width:${110 * s}px;height:${80 * s}px;border-radius:50%;background:#fff;opacity:.85`));
+  ADD(CLOUD('cl0', 500, 250, 1.4) + CLOUD('cl1', 1500, 520, 1.1) + CLOUD('cl2', 2450, 180, 1.5) + CLOUD('cl3', 3000, 520, 1.0) + CLOUD('cl4', 4600, 200, 1.4) + CLOUD('cl5', 1000, 800, 0.9) + CLOUD('cl6', 6900, 220, 1.3));
+  /* hills */
+  const HILL = (id, l, t, w, h) => D(id, `left:${l}px;top:${t}px;width:${w}px;height:${h}px;border-radius:50% 50% 0 0 / 100% 100% 0 0;background:#e9eee3;border:8px solid #c5cfba;border-bottom:0;box-sizing:border-box`);
+  ADD(HILL('hD2', 1400, 640, 1500, 860) + HILL('hD1', 700, 820, 1100, 680) + HILL('hD3', 2650, 1000, 700, 500));
+  /* trees (scenery, all in the lower meadow and between hills) */
+  const TREE = (x, y, s) => D('', `left:${x}px;top:${y}px;width:${90 * s}px;height:${150 * s}px`, D('', `left:${35 * s}px;top:${90 * s}px;width:${20 * s}px;height:${60 * s}px;background:#8a6a45`) + D('', `left:0;top:0;width:${90 * s}px;height:${110 * s}px;border-radius:50%;background:#9fc08a`));
+  ADD([[330, 1540, 1.3], [960, 1470, 1.0], [2060, 1400, 0.9], [3560, 1540, 1.2], [3700, 1380, 0.9], [650, 1960, 0.9], [1900, 1960, 1.0], [3300, 1950, 0.9], [2650, 1930, 0.8], [1300, 1950, 0.8]].map((t) => TREE(t[0], t[1], t[2])).join(''));
+  /* decor */
+  ADD([[150, 1500, 260, 110], [700, 1490, 220, 90], [1700, 1480, 300, 100], [2900, 1490, 260, 100], [3560, 1500, 200, 90], [4300, 1500, 300, 100], [5600, 1500, 260, 90], [6800, 1500, 300, 100], [7900, 1500, 240, 90]].map((b) => D('', `left:${b[0]}px;top:${b[1] - b[3] + 40}px;width:${b[2]}px;height:${b[3]}px;border-radius:50% 50% 30% 30%;background:#b4cfa0`)).join('') +
+    Array.from({ length: 140 }, (_, i) => { const x = 140 + (i * 337) % 3500, y = 1560 + (i * 211) % 420, c = ['#ffffff', '#ffd166', '#f4a6c0', '#c9b6f2'][i % 4]; return D('', `left:${x}px;top:${y}px;width:16px;height:16px;border-radius:50%;background:${c}`); }).join('') +
+    [[1000, 1930], [1500, 1990], [2300, 1940], [2750, 1990], [3450, 1900], [250, 1960]].map((r) => D('', `left:${r[0]}px;top:${r[1]}px;width:90px;height:50px;border-radius:50%;background:#aeb6bf`)).join('') +
+    Array.from({ length: 6 }, (_, i) => D('', `left:${110 + i * 70}px;top:1640px;width:14px;height:110px;background:#8a6a45`)).join('') + D('', 'left:100px;top:1670px;width:400px;height:12px;background:#8a6a45') + D('', 'left:100px;top:1710px;width:400px;height:12px;background:#8a6a45') +
+    D('', 'left:656px;top:1500px;width:14px;height:200px;background:#8a6a45') + D('', 'left:590px;top:1510px;width:150px;height:56px;background:#c8924f;clip-path:polygon(0 50%,15% 0,100% 0,100% 100%,15% 100%)'));
+  /* trail */
+  ADD(`<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4000" height="2200" viewBox="0 0 4000 2200"><path d="M120 1900 C500 1780 700 1930 1100 1830 S1700 1790 2100 1840 S2800 1880 3100 1720 S3330 1560 3410 1520" fill="none" stroke="#efe2c0" stroke-width="80" stroke-linecap="round" opacity="0" id="trail"/></svg>`);
+  /* summit hall */
+  ADD(D('hall', 'left:3280px;top:1220px;width:270px;height:290px', D('', 'left:0;top:76px;width:270px;height:214px;background:#f3f0ea;border:6px solid #1f2a44;border-bottom:0;box-sizing:border-box') + D('', 'left:-14px;top:0;width:298px;height:76px;background:#1f2a44;border-radius:12px 12px 0 0;color:#fff;font-size:60px;font-weight:800;text-align:center;line-height:76px', 'AB-620') + D('', 'left:92px;top:150px;width:86px;height:140px;background:#8a6a45;border-radius:10px 10px 0 0') + D('', 'left:24px;top:110px;width:50px;height:60px;background:#cfdff3;border:5px solid #1f2a44;box-sizing:border-box') + D('', 'left:196px;top:110px;width:50px;height:60px;background:#cfdff3;border:5px solid #1f2a44;box-sizing:border-box')));
+  ADD(D('', 'left:3410px;top:1090px;width:10px;height:130px;background:#5b6578') + D('hflag', 'left:3420px;top:1090px;width:110px;height:62px;background:#d98a00;border-radius:0 10px 10px 0;transform-origin:0 50%'));
+
+  /* ═════════ CHARACTERS ═════════ */
+  const VAL = (id, x, y) => H(id, `left:${x}px;top:${y}px;width:220px;height:440px;z-index:6`, D(id + 'B', 'left:0;top:0;width:220px;height:440px', `<svg width="220" height="440" viewBox="0 0 220 440">
+    <rect x="26" y="120" width="70" height="140" rx="26" fill="#8a5a3b"/><rect x="34" y="132" width="54" height="40" rx="12" fill="#a8704b"/>
+    <rect x="84" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="118" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="76" y="424" width="44" height="16" rx="8" fill="#141821"/><rect x="114" y="424" width="44" height="16" rx="8" fill="#141821"/>
+    <path d="M72 140 Q72 112 112 112 Q152 112 152 140 L158 308 L66 308 Z" fill="#8a5cd6"/><path d="M148 150 L190 226" stroke="#8a5cd6" stroke-width="26" stroke-linecap="round"/><circle cx="192" cy="230" r="14" fill="#f2c9a6"/>
+    <circle cx="112" cy="72" r="42" fill="#f2c9a6"/><path d="M66 72 Q66 26 114 26 Q158 28 158 72 Q150 48 112 46 Q84 46 66 72Z" fill="#2a1f2d"/><path d="M66 70 Q60 110 76 130 Q70 96 78 70Z" fill="#2a1f2d"/>
+    <circle cx="130" cy="78" r="5" fill="#141821"/><circle cx="104" cy="78" r="5" fill="#141821"/><path d="M110 98 Q118 104 126 98" stroke="#141821" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`));
+  ADD(VAL('val', 300, 1410));
+  /* laptop on a stump (scene 0) */
+  ADD(H('lap', 'left:560px;top:1700px;width:230px;height:150px', D('', 'left:40px;top:96px;width:150px;height:54px;border-radius:10px;background:#8a6a45') + D('', 'left:10px;top:0;width:210px;height:104px;border-radius:12px;background:#1f2a44') + D('', 'left:20px;top:10px;width:190px;height:78px;border-radius:6px;background:#fff') + D('lapN', 'left:80px;top:12px;width:72px;height:80px', miniBot(72))));
+
+  /* ═════════ SCENE 0 OBJECTS (trailhead closeup) ═════════ */
+  const THI = [['bot', BLUE, 'F01'], ['flow', PUR, 'F02'], ['wrench', AMB, 'F03'], ['plug_connected', NAVY, 'F04'], ['book_open', TEAL, 'F05'], ['building', BLUE, 'F06'], ['rocket', AMB, 'F07']];
+  ADD(THI.map((r, i) => H('th' + i, `left:${200 + i * 160}px;top:1120px;width:140px;height:180px;box-sizing:border-box;border:5px solid ${r[1]};border-radius:22px;background:#fff;box-shadow:0 10px 30px rgba(16,24,40,.12)`, IC(r[0], `position:absolute;left:30px;top:22px;width:74px;height:74px;color:${r[1]}`) + T(0, 112, 44, r[1], r[2], '', 'width:130px;text-align:center'))).join(''));
+  ADD(CHC('cVal', 480, 1330, 'Valeria · Contoso developer', NAVY, 40, null, '#fff') + CHC('cSev', 1250, 1330, 'seven classes', BLUE, 44, null, BLUEs) + CHC('cTwo', 1250, 1330, 'two months', AMB, 44, 'calendar', AMBs));
+  ADD(H('scRod', 'left:800px;top:1400px;width:580px;height:34px;border-radius:17px;background:#8a6a45') +
+    H('scP', 'left:820px;top:1420px;width:540px;height:420px;box-sizing:border-box;border:5px solid #cdbf9f;border-top:0;border-radius:0 0 18px 18px;background:#fbf6e6;box-shadow:0 14px 40px rgba(16,24,40,.2)',
+      T(30, 22, 44, NAVY, 'Skills measured') + [['Plan and configure…', BLUE], ['Integrate and extend…', TEAL], ['Test and manage…', AMB]].map((r, i) => D('', `left:30px;top:${96 + i * 66}px;width:20px;height:20px;border-radius:50%;background:${r[1]};margin-top:12px`) + T(64, 96 + i * 66, 38, '#141821', r[0])).join('') +
+      [0, 1, 2].map((i) => D('', `left:30px;top:${322 + i * 28}px;width:${420 - (i % 3) * 60}px;height:12px;border-radius:6px;background:#e1d8bd`)).join('')));
+  ADD(say('bWhere', 410, 1318, 'where to start?', 'blue') + CHC('cLong', 1090, 1735, 'long list', RED, 44, null, REDs));
+
+  /* ═════════ HILL SIGNS / PLAQUES / CHIPS ═════════ */
+  const SIGN = (id, l, t, w, col, d, name) => H(id, `left:${l}px;top:${t}px;width:${w}px;height:175px;border:7px solid ${col};border-radius:24px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:66px;font-weight:800;line-height:1.1;color:#141821;box-sizing:border-box`, `<span style="color:${col}">${d}</span><span>${name}</span>`);
+  const PLQ = (id, l, t, w, col, bg, txt) => H(id, `left:${l}px;top:${t}px;width:${w}px;height:100px;border:7px solid ${col};border-radius:50px;background:${bg};color:${col};font-size:64px;font-weight:800;text-align:center;line-height:86px;box-sizing:border-box`, txt);
+  ADD(SIGN('sg1', 860, 720, 780, BLUE, 'D1', 'Plan and configure') + PLQ('pl1', 1085, 915, 330, BLUE, BLUEs, '30–35 %') +
+    SIGN('sg2', 1730, 560, 840, TEAL, 'D2', 'Integrate and extend') + PLQ('pl2', 1985, 755, 330, TEAL, TEALs, '40–45 %') +
+    SIGN('sg3', 2680, 830, 640, AMB, 'D3', 'Test and manage') + PLQ('pl3', 2835, 1025, 330, AMB, AMBs, '20–25 %'));
+  ADD(CHROW(1250, 1050, [['c11', 'planning'], ['c12', 'topics']], BLUE, BLUEs, 56) + CHC('c13', 1250, 1175, 'agent flows', BLUE, 56, null, BLUEs) +
+    CHROW(2200, 890, [['c21', 'knowledge'], ['c22', 'tools']], TEAL, TEALs, 56) + CHROW(2200, 1010, [['c23', 'multi-agent'], ['c24', 'Azure services']], TEAL, TEALs, 56) +
+    CHC('c31', 2960, 1170, 'evaluation', AMB, 56, null, AMBs) + CHC('c32', 2960, 1290, 'ALM', AMB, 56, null, AMBs));
+
+  /* ═════════ FLAGS (scene 6, scene 9) ═════════ */
+  const FX = [740, 1130, 1470, 1810, 2150, 2490, 2830, 3170], FB = [1770, 1740, 1790, 1740, 1760, 1790, 1740, 1760];
+  const FC = [NAVY, BLUE, BLUE, BLUE, TEAL, TEAL, TEAL, AMB];
+  const FSUB = ['Fundamentals', 'planning', 'advanced<br>topics', 'agent<br>flows', 'knowledge<br>and tools', 'MCP and<br>multi-agent', 'Azure and<br>monitoring', 'evaluation<br>and ALM'];
+  ADD(FX.map((x, k) => { const b = FB[k], lines = FSUB[k].split('<br>'), w = Math.max(...lines.map((l) => l.length)) * 46 * 0.58 + 44;
+    return H('fl' + k, 'left:0;top:0;width:1px;height:1px', D('', `left:${x - 5}px;top:${b - 180}px;width:10px;height:180px;background:#5b6578;border-radius:5px`) + D('', `left:${x + 5}px;top:${b - 180}px;width:150px;height:84px;background:${FC[k]};border-radius:0 14px 14px 0;color:#fff;font-size:60px;font-weight:800;line-height:84px;text-align:center`, 'M' + k) + D('', `left:${x - 36}px;top:${b - 12}px;width:72px;height:24px;border-radius:50%;background:#b7c4a6`)) +
+      H('fs' + k, `left:${Math.round(x - w / 2)}px;top:${b + 34}px;width:${Math.round(w)}px;border:5px solid ${FC[k]};border-radius:20px;background:#fff;color:${FC[k]};font-size:46px;font-weight:800;line-height:52px;text-align:center;padding:6px 8px;box-sizing:border-box;box-shadow:0 8px 24px rgba(16,24,40,.12)`, FSUB[k]); }).join('') +
+    H('tick0', `left:${FX[0] + 172}px;top:${FB[0] - 184}px;width:76px;height:76px;border-radius:50%;background:${GRN};color:#fff;font-size:56px;font-weight:800;text-align:center;line-height:72px;border:4px solid #fff;box-sizing:border-box`, '✓'));
+  ADD(CHC('cHere', 1000, 1450, 'you are here, finishing', GRN, 46, null, GRNs) + CHC('cDone', 760, 1330, 'Module 0 done', GRN, 64, null, GRNs));
+  /* topic card at the trailhead (scene 6 s5) */
+  const TCI = [['document_text', 'theory', BLUE], ['video', 'video', TEAL], ['question_circle', 'questions', AMB], ['beaker', 'challenge', PUR]];
+  ADD(H('tcard', 'left:1020px;top:1180px;width:700px;height:380px;box-sizing:border-box;border:8px solid #1f2a44;border-radius:28px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.25)', T(32, 22, 50, NAVY, 'Every topic') +
+    TCI.map((r, i) => D('tc' + i, `left:${20 + (i % 2) * 340}px;top:${108 + Math.floor(i / 2) * 130}px;width:320px;height:114px;box-sizing:border-box;border:5px solid #c9ced8;border-radius:20px;background:#e7eaf1;color:#5b6578;font-size:40px;font-weight:800;display:flex;align-items:center;gap:14px;padding-left:16px`, IC(r[0], 'width:56px;height:56px;flex:0 0 auto') + r[1])).join('')));
+
+  /* ═════════ ANNEX A: hall facade ═════════ */
+  ADD(D('', 'left:3950px;top:300px;width:2300px;height:1200px;background:#f1eee6') + D('', 'left:3950px;top:300px;width:2300px;height:110px;background:#1f2a44') + D('', 'left:3950px;top:410px;width:2300px;height:14px;background:#d98a00') +
+    D('', 'left:4260px;top:424px;width:90px;height:1076px;background:#e4dfd3') + D('', 'left:6050px;top:424px;width:90px;height:1076px;background:#e4dfd3') + D('', 'left:3950px;top:1470px;width:2300px;height:40px;background:#cfc8b6') + Array.from({ length: 6 }, (_, i) => D('', `left:${4420 + i * 262}px;top:1020px;width:236px;height:430px;box-sizing:border-box;border:8px solid #d3dbea;background:linear-gradient(#e4ebf7,#f3f6fb);border-radius:14px 14px 0 0`, D('', 'left:0;top:200px;width:220px;height:8px;background:#d3dbea'))).join(''));
+  ADD(H('ban', 'left:4510px;top:660px;width:1380px;height:300px;border-radius:30px;background:#1f2a44;box-shadow:0 20px 60px rgba(16,24,40,.3)', T(50, 20, 120, '#fff', 'AB-620', 'abT') + T(50, 160, 40, '#c9d3ea', 'Designing and Building<br>Integrated AI Solutions<br>in Copilot Studio', 'abS', 'line-height:1.18;opacity:0')));
+  ADD(H('badge', 'left:5420px;top:690px;width:440px;height:280px;box-sizing:border-box;border:8px solid #2f5bd3;border-radius:30px;background:#fff;box-shadow:0 20px 50px rgba(16,24,40,.3);z-index:3', IC('shield_checkmark', `position:absolute;left:162px;top:14px;width:72px;height:72px;color:${BLUE}`) + T(0, 94, 34, '#141821', 'Microsoft Certified:<br>AI Agent Builder<br>Associate', '', 'width:424px;text-align:center;line-height:1.2;font-weight:800')));
+  /* three fact cards: dim from the start, lit when spoken */
+  ADD([['timer', '120<br>minutes'], ['person', 'proctored'], ['cursor_click', 'interactive<br>parts']].map((r, i) => H('cm' + (i + 1), `left:${4510 + i * 480}px;top:1040px;width:420px;height:220px;box-sizing:border-box;border:6px solid #c9ced8;border-radius:26px;background:#e7eaf1;color:#5b6578;font-size:52px;font-weight:800;line-height:1.1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;box-shadow:0 10px 30px rgba(16,24,40,.12)`, IC(r[0], 'width:76px;height:76px;flex:0 0 auto') + `<span style="white-space:nowrap">${r[1]}</span>`)).join('') +
+    CHC('cMat', 4880, 1010, 'matters more than it seems', AMB, 40, null, AMBs));
+  ADD(H('gaugeBar', 'left:4510px;top:1150px;width:1380px;height:56px;border-radius:28px;background:#b9c6e0') + H('gaugeFill', 'left:4510px;top:1150px;width:0px;height:56px;border-radius:28px 0 0 28px;background:#2f5bd3') +
+    H('gt0', 'left:4510px;top:1224px;font-size:40px;font-weight:800;color:#141821', '0') + H('gt1', 'left:5730px;top:1224px;width:160px;text-align:right;font-size:40px;font-weight:800;color:#141821', '1000') +
+    H('gLine', 'left:5472px;top:1086px;width:8px;height:150px;background:#141821') + H('gPass', 'left:5296px;top:1000px;width:360px;height:86px;box-sizing:border-box;border:6px solid #141821;border-radius:43px;background:#fff;color:#141821;font-size:52px;font-weight:800;text-align:center;line-height:72px', '700 · pass') +
+    H('gScal', 'left:4600px;top:1236px;width:380px;height:64px;box-sizing:border-box;border:6px solid #d98a00;border-radius:32px;background:#fff3d6;color:#d98a00;font-size:40px;font-weight:800;text-align:center;line-height:52px', 'scaled score'));
+
+  /* ═════════ ANNEX B: hall interior ═════════ */
+  ADD(D('', 'left:6200px;top:300px;width:2100px;height:1170px;background:#f4efe4') + D('', 'left:6200px;top:1340px;width:2100px;height:130px;background:#e8e0cd') + D('', 'left:6200px;top:1470px;width:2100px;height:240px;background:#d7ccb2') +
+    Array.from({ length: 8 }, (_, i) => D('', `left:${6200 + i * 280}px;top:1470px;width:6px;height:240px;background:#c7bb9e`)).join('') + D('', 'left:6200px;top:1465px;width:2100px;height:10px;background:#bfb293'));
+  ADD(D('wcl', 'left:6430px;top:770px;width:270px;height:270px;border-radius:50%;border:14px solid #1f2a44;background:#fff;box-sizing:border-box', Array.from({ length: 12 }, (_, i) => D('', `left:118px;top:4px;width:6px;height:${i % 3 ? 14 : 24}px;background:#1f2a44;transform-origin:3px 117px;transform:rotate(${i * 30}deg)`)).join('') + D('wcH', 'left:115px;top:50px;width:12px;height:76px;border-radius:6px;background:#1f2a44;transform-origin:6px 71px') + D('wcM', 'left:117px;top:26px;width:8px;height:100px;border-radius:4px;background:#d98a00;transform-origin:4px 95px') + D('', 'left:107px;top:107px;width:28px;height:28px;border-radius:50%;background:#1f2a44')) +
+    D('', 'left:6440px;top:1062px;width:250px;height:76px;border-radius:20px;background:#1f2a44;color:#fff;font-size:48px;font-weight:800;text-align:center;line-height:76px', '120 min'));
+  ADD(D('', 'left:7790px;top:640px;width:210px;height:160px;box-sizing:border-box;border:8px solid #8a6a45;background:#fff', IC('shield_checkmark', 'position:absolute;left:55px;top:30px;width:90px;height:90px;color:#2f5bd3')));
+  ADD(D('', 'left:7810px;top:850px;width:200px', pers('#1f2a44', 200).replace('</svg>', '<circle cx="36" cy="33" r="3" fill="#141821"/><circle cx="54" cy="33" r="3" fill="#141821"/><path d="M38 44 Q45 50 52 44" stroke="#141821" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>')) + D('', 'left:7885px;top:1010px;width:50px;height:70px;background:#fff;border:4px solid #141821;border-radius:8px'));
+  /* monitor */
+  ADD(D('', 'left:7150px;top:1200px;width:200px;height:60px;background:#1f2a44') + D('', 'left:7090px;top:1240px;width:320px;height:24px;border-radius:12px;background:#1f2a44') +
+    D('mon', 'left:6780px;top:740px;width:920px;height:460px;box-sizing:border-box;border:14px solid #1f2a44;border-radius:26px;background:#141b2d',
+      D('', 'left:0;top:0;width:892px;height:432px;overflow:hidden;background:#fff;border-radius:12px',
+        D('mnT', 'left:0;top:0;width:892px;height:432px', H('enT', 'left:36px;top:51px;width:370px;height:330px;box-sizing:border-box;border:6px solid #2f5bd3;border-radius:26px;background:#e6ecfb', IC('globe', 'position:absolute;left:119px;top:46px;width:120px;height:120px;color:#2f5bd3') + T(0, 186, 70, BLUE, 'English', '', 'width:358px;text-align:center')) +
+          D('trk', 'left:406px;top:214px;width:80px;height:0;border-top:8px dashed #aab3c8;opacity:0') +
+          H('spT', 'left:486px;top:51px;width:370px;height:330px;box-sizing:border-box;border:6px solid #d98a00;border-radius:26px;background:#fff3d6', IC('globe', 'position:absolute;left:119px;top:46px;width:120px;height:120px;color:#d98a00') + T(0, 186, 70, AMB, 'Spanish', '', 'width:358px;text-align:center'))) +
+        H('mnC', 'left:0;top:0;width:892px;height:432px', IC('calendar', 'position:absolute;left:70px;top:110px;width:200px;height:200px;color:#2f5bd3') + IC('arrow_clockwise', 'position:absolute;left:300px;top:140px;width:140px;height:140px;color:#d98a00') + T(470, 160, 76, NAVY, '24 hours')) +
+        H('mnL', 'left:0;top:0;width:892px;height:432px', D('', 'left:0;top:0;width:892px;height:76px;background:#2f5bd3;color:#fff;font-size:46px;font-weight:800;line-height:76px;padding-left:30px', 'Microsoft Learn') +
+          [['Q&amp;A', 'q and a'], ['Practice assessments', 'practice'], ['Profile', 'profile']].map((r, i) => D('rw' + i, `left:30px;top:${104 + i * 106}px;width:832px;height:88px;box-sizing:border-box;border:5px solid #c9ced8;border-radius:20px;background:#f3f5f9;font-size:44px;font-weight:800;line-height:78px;padding-left:28px;color:#141821`, r[0] + H('xx' + i, 'right:20px;top:8px;width:60px;height:60px;border-radius:50%;background:#c4392f;color:#fff;font-size:44px;text-align:center;line-height:56px', '✕'))).join('')) +
+        H('mnK', 'left:0;top:0;width:892px;height:432px', ['Ctrl', '+', 'F'].map((k, i) => D('', `left:${[110, 340, 440][i]}px;top:70px;width:${[210, 80, 140][i]}px;height:130px;box-sizing:border-box;${i === 1 ? '' : 'border:6px solid #141821;border-radius:22px;background:#f3f5f9;box-shadow:0 8px 0 #c9ced8;'}color:#141821;font-size:76px;font-weight:800;text-align:center;line-height:118px`, k)).join('') +
+          D('', 'left:80px;top:250px;width:732px;height:96px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:20px;background:#fff;display:flex;align-items:center;gap:16px;padding-left:24px;font-size:44px;font-weight:700;color:#5b6578', IC('search', 'width:52px;height:52px;color:#2f5bd3') + 'find on page')))) +
+    D('', 'left:6410px;top:1260px;width:1680px;height:34px;border-radius:10px;background:#8a6a45') + D('', 'left:6430px;top:1294px;width:1640px;height:176px;background:#a8825a') +
+    [0, 1, 2].map((i) => D('', `left:${6450 + i * 540}px;top:1316px;width:500px;height:130px;border:4px solid #8a6a45;border-radius:10px`)).join(''));
+  ADD(CHC('cRules', 7250, 630, 'rules of the room', NAVY, 52, null, '#fff') + CHC('cWk', 7250, 1325, 'about eight weeks later', AMB, 48, null, AMBs) + CHC('cRt', 7250, 1325, 'retake after 24 hours', NAVY, 48, null, '#fff') + CHC('cQk', 7250, 1325, 'quick checks only', RED, 48, null, REDs));
+
+  /* ═════════ GLOSSARY WINDOW (scenes 7-8) ═════════ */
+  const SVG84 = (inner) => `<svg width="84" height="84" viewBox="0 0 84 84">${inner}</svg>`;
+  const IC_TOPIC = SVG84('<rect x="4" y="4" width="30" height="22" rx="6" fill="#8a5cd6"/><rect x="50" y="31" width="30" height="22" rx="6" fill="#8a5cd6"/><rect x="4" y="58" width="30" height="22" rx="6" fill="#8a5cd6"/><path d="M19 26 V36 H50 M65 53 V69 H34" fill="none" stroke="#8a5cd6" stroke-width="5"/>');
+  const IC_BOX = SVG84('<path d="M8 28 L42 12 L76 28 V64 L42 80 L8 64 Z" fill="#c8924f" stroke="#7a5326" stroke-width="4" stroke-linejoin="round"/><path d="M8 28 L42 44 L76 28 M42 44 V80" fill="none" stroke="#7a5326" stroke-width="4"/>');
+  const IC_COIN = SVG84('<ellipse cx="42" cy="66" rx="30" ry="11" fill="#b87400"/><ellipse cx="42" cy="54" rx="30" ry="11" fill="#d98a00"/><ellipse cx="42" cy="42" rx="30" ry="11" fill="#b87400"/><ellipse cx="42" cy="30" rx="30" ry="11" fill="#ffd166"/>');
+  const IC_DOOR = SVG84('<rect x="10" y="8" width="64" height="70" rx="8" fill="#2f5bd3"/><rect x="15" y="13" width="25" height="60" fill="#e6ecfb"/><rect x="44" y="13" width="25" height="60" fill="#e6ecfb"/><circle cx="36" cy="44" r="3" fill="#2f5bd3"/><circle cx="48" cy="44" r="3" fill="#2f5bd3"/>');
+  const IC_GATE = SVG84('<rect x="8" y="14" width="10" height="64" rx="3" fill="#141821"/><rect x="12" y="26" width="66" height="18" rx="9" fill="#c4392f"/><rect x="30" y="26" width="10" height="18" fill="#fff"/><rect x="50" y="26" width="10" height="18" fill="#fff"/><rect x="12" y="54" width="66" height="18" rx="9" fill="#c4392f"/><rect x="30" y="54" width="10" height="18" fill="#fff"/><rect x="50" y="54" width="10" height="18" fill="#fff"/>');
+  const GI = (n, c) => IC(n, `width:84px;height:84px;color:${c}`);
+  const GC = (id, x, y, w, word, mean, icon) => D(id, `left:${x}px;top:${y}px;width:${w}px;height:290px;box-sizing:border-box;border:6px solid #c9ced8;border-radius:24px;background:#e7eaf1`,
+    D(id + 'i', 'left:24px;top:20px;width:84px;height:84px;opacity:.5', icon) + T(24, 116, 46, '#5b6578', word, id + 'w') + T(24, 178, 34, '#5b6578', mean, id + 'm', `font-weight:700;line-height:1.2;white-space:normal;width:${w - 48}px`));
+  const G7 = [['g1', 'Agent', 'chats and acts', miniBot(84), BLUE], ['g2', 'Topic', 'conversation with nodes', IC_TOPIC, PUR], ['g3', 'Tool', 'something it runs', GI('wrench', AMB), AMB], ['g4', 'Connector', 'wraps an API', GI('plug_connected', NAVY), NAVY],
+    ['g5', 'Knowledge', 'sources it looks up', GI('book_open', TEAL), TEAL], ['g6', 'Orchestration', 'decides what to use', GI('arrow_routing', PUR), PUR], ['g7', 'Harness', 'the engine', GI('settings', NAVY), NAVY]];
+  const G8 = [['h1', 'Environment', 'a separate building', GI('building', BLUE), BLUE], ['h2', 'Solution', 'the moving box', IC_BOX, '#7a5326'], ['h3', 'Dataverse', 'the database', GI('database', TEAL), TEAL],
+    ['h4', 'DLP', 'admin data policies', IC_GATE, NAVY], ['h5', 'Channel', 'where users chat', IC_DOOR, BLUE], ['h6', 'Copilot Credits', 'billing unit', IC_COIN, AMB]];
+  ADDU(uiWindow('gl', { title: 'Valeria\'s backpack · glossary', nav: [], on: -1, body:
+    D('sh1', 'left:0;top:0;width:1720px;height:742px', T(24, 20, 46, NAVY, 'Words so far · the agent') + G7.map((g, i) => GC(g[0], i < 4 ? 24 + i * 424 : 24 + (i - 4) * 564, i < 4 ? 90 : 404, i < 4 ? 400 : 540, g[1], g[2], g[3])).join('')) +
+    D('sh2', 'left:0;top:760px;width:1720px;height:742px', T(24, 20, 46, NAVY, 'Where Nexo lives') + G8.map((g, i) => GC(g[0], 24 + (i % 3) * 564, i < 3 ? 90 : 404, 540, g[1], g[2], g[3])).join('')) }));
+  const LIGHT = (g, t) => { tl.to('#' + g[0], { backgroundColor: '#ffffff', borderColor: g[4], duration: 0.35 }, t); tl.to('#' + g[0] + 'i', { opacity: 1, duration: 0.35 }, t); tl.to('#' + g[0] + 'w', { color: g[4], duration: 0.35 }, t); tl.to('#' + g[0] + 'm', { color: '#141821', duration: 0.35 }, t); tl.fromTo('#' + g[0], { scale: 1 }, { scale: 1.04, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, t); };
+
+  /* ═════════ SCENE 9 OBJECTS ═════════ */
+  ADD(H('sgd', 'left:760px;top:1450px;width:520px;height:440px;box-sizing:border-box;border:5px solid #cdbf9f;border-radius:18px;background:#fbf6e6;box-shadow:0 14px 40px rgba(16,24,40,.2)', T(30, 22, 46, NAVY, 'Study guide') + ['Skills measured', 'Exam details', 'Learn paths'].map((r, i) => D('', `left:30px;top:${112 + i * 90}px;width:460px;height:70px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:16px;background:#fff;font-size:38px;font-weight:700;line-height:62px;padding-left:20px;color:#141821`, r)).join('')));
+  ADD(H('calp', 'left:1320px;top:1300px;width:320px;height:360px;box-sizing:border-box;border:6px solid #1f2a44;border-radius:24px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2)', D('', 'left:0;top:0;width:308px;height:86px;border-radius:18px 18px 0 0;background:#1f2a44;color:#fff;font-size:44px;font-weight:800;text-align:center;line-height:86px', 'Exam date') +
+    Array.from({ length: 12 }, (_, i) => D('', `left:${20 + (i % 4) * 70}px;top:${110 + Math.floor(i / 4) * 66}px;width:56px;height:50px;border-radius:10px;background:${i === 9 ? '#fff3d6' : '#eef1f7'};${i === 9 ? 'border:4px solid #d98a00;' : ''}`)).join('')));
+  ADD(H('pin', 'left:1440px;top:1450px;width:64px;height:64px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#c4392f') + CHC('cPear', 1480, 1690, 'Pearson VUE', RED, 46, null, REDs));
+  ADD(H('lab', 'left:820px;top:1390px;width:560px;height:440px;box-sizing:border-box', D('', 'left:0;top:0;width:560px;height:400px;border-radius:20px;background:#1f2a44;padding:0', D('', 'left:14px;top:14px;width:532px;height:372px;border-radius:10px;background:#fff;overflow:hidden',
+      D('', 'left:0;top:0;width:532px;height:66px;background:#1e7f4f;color:#fff;font-size:38px;font-weight:800;line-height:66px;padding-left:22px', 'Lab environment ready') + D('lbN', 'left:30px;top:120px;width:150px;height:170px', miniBot(150)) +
+      [['document_text', 'instructions'], ['book_open', 'knowledge'], ['wrench', 'tool'], ['flow', 'topic']].map((r, i) => H('lp' + i, `left:210px;top:${88 + i * 70}px;width:300px;height:60px;box-sizing:border-box;border:4px solid ${GRN};border-radius:14px;background:#e3f4ea;font-size:36px;font-weight:800;color:#141821;display:flex;align-items:center;gap:12px;padding-left:12px`, IC(r[0], `width:40px;height:40px;color:${GRN}`) + r[1])).join(''))) + D('', 'left:-30px;top:400px;width:620px;height:30px;border-radius:10px;background:#8a93a6')));
+  ADD(H('bpk', 'left:830px;top:1380px;width:300px;height:420px', D('', 'left:0;top:60px;width:300px;height:360px;border-radius:70px 70px 30px 30px;background:#8a5a3b') + D('', 'left:40px;top:260px;width:220px;height:130px;border-radius:20px;background:#a8704b') + D('', 'left:30px;top:0;width:240px;height:90px;border-radius:50px 50px 0 0;border:12px solid #6b4328;border-bottom:0;box-sizing:border-box')) +
+    H('bw0', 'left:880px;top:1300px;width:210px;height:100px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:16px;background:#e6ecfb;color:#2f5bd3;font-size:38px;font-weight:800;text-align:center;line-height:90px', 'glossary') +
+    H('mist', 'left:1190px;top:1330px;width:540px;height:420px;box-sizing:border-box;border:6px solid #c4392f;border-radius:24px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.2)', T(30, 22, 48, RED, 'My mistakes') +
+      ['700 is scaled', 'domain weights', 'Learn rules'].map((r, i) => D('', `left:24px;top:${108 + i * 100}px;width:484px;height:80px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:16px;background:#f3f5f9;font-size:42px;font-weight:800;line-height:70px;padding-left:20px;color:#141821`, r + H('mk' + i, 'right:14px;top:10px;width:50px;height:50px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:36px;text-align:center;line-height:48px', '✓'))).join('')));
+  const WKS = [['D2', TEAL], ['D1', BLUE], ['D2', TEAL], ['D2', TEAL], ['D1', BLUE], ['D2', TEAL], ['D3', AMB], ['D3', AMB]];
+
+  /* ═════════ SCREEN LAYER ═════════ */
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    <div class="ov" id="kT0" style="left:0;top:150px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:8px 46px;border-radius:34px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:104px;font-weight:800;color:${NAVY};letter-spacing:-3px;white-space:nowrap">Exam map + glossary</span></div>
+    <div class="ov" id="brd" style="left:180px;top:120px;width:1560px;height:210px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:26px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.22)"><div style="position:absolute;left:30px;top:8px;font-size:46px;font-weight:800;color:#141821;white-space:nowrap">Valeria's plan · eight weeks</div>${WKS.map((w, i) => `<div style="position:absolute;left:${36 + i * 186}px;top:80px;width:170px;height:100px;box-sizing:border-box;border:4px dashed #c9ced8;border-radius:20px"></div><div id="wk${i}" style="position:absolute;left:${36 + i * 186}px;top:80px;width:170px;height:100px;border-radius:20px;background:${w[1]};color:#fff;font-size:56px;font-weight:800;text-align:center;line-height:100px;box-shadow:0 8px 24px rgba(16,24,40,.2);opacity:0">${w[0]}</div>`).join('')}</div>
+    <div class="tag amber" id="tRng" style="left:960px;top:140px;font-size:46px">ranges: every exam varies</div>
+    <div class="tag blue" id="tNx" style="left:960px;top:140px;font-size:46px">next: module 1 · planning the solution</div>
+    <div class="ov" id="cMap" style="left:0;top:140px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;border:6px solid ${NAVY};border-radius:26px;padding:10px 30px;color:${NAVY};font-size:60px;font-weight:800;box-shadow:0 10px 30px rgba(16,24,40,.12)">the map</span></div>
+    <div class="ov" id="cCheck" style="left:0;top:140px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;border:6px solid ${NAVY};border-radius:26px;padding:10px 30px;color:${NAVY};font-size:60px;font-weight:800;box-shadow:0 10px 30px rgba(16,24,40,.12)">check each stretch</span></div>
+    <div class="ov" id="rcw" style="left:650px;top:120px;width:620px;height:236px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:26px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.22)">${['Study by weight: D2 first', '700 is scaled', 'Build after every topic'].map((r, k) => `<div id="rb${k}" style="position:absolute;left:24px;top:${18 + k * 68}px;height:60px;opacity:.5;font-size:38px;font-weight:800;color:#141821;white-space:nowrap;line-height:60px"><i style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${[TEAL, GRN, BLUE][k]};margin-right:14px"></i>${r}</div>`).join('')}</div></div>`);
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (id, x, w, col, h4, inner) => `<div class="rm" id="${id}" style="left:${x}px;width:${w}px;border-color:${col};opacity:0"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const BAR = (fillW, id, ex) => bx('', 'left:28px;top:100px;width:762px;height:54px;border-radius:27px;background:#2d3a5c');
+  const EW = [['D2', TEAL], ['D1', BLUE], ['D2', TEAL], ['D2', TEAL], ['D1', BLUE], ['D2', TEAL], ['D3', AMB], ['D3', AMB]];
+  EXAMS(
+    mkExam('exA', { q: 'In her practice sessions, Valeria answers about seventy percent of the questions correctly. She thinks: seven hundred out of a thousand, so seventy percent is enough. Is she right?',
+      opts: ['No, seven hundred is a scaled score', 'Yes, seven hundred means seventy percent', 'Only if each domain reaches seventy'],
+      why: '<div id="exA_w1"><span class="g">Seven hundred</span> is a <span class="g">scaled score</span>.</div><div id="exA_w2">Not <span class="r">seventy percent</span> correct: aim <span class="g">well above</span> the line.</div>',
+      proof: rmX('pA_L', 0, 826, '#ffd166', 'Percent correct', BAR() + bx('pA_f', 'left:28px;top:100px;width:533px;height:54px;border-radius:27px 0 0 27px;background:#ffd166;color:#141b2d;font-size:40px;font-weight:800;text-align:center;line-height:54px', '70 %') +
+          bx('pA_q', 'left:576px;top:88px;width:78px;height:78px;border-radius:50%;border:6px solid #ffd166;color:#ffd166;font-size:48px;font-weight:800;text-align:center;line-height:66px;box-sizing:border-box;background:#1d2742', '?') +
+          bx('pA_n', 'left:28px;top:210px;width:440px;height:66px;box-sizing:border-box;border:5px solid #ffd166;border-radius:22px;color:#ffd166;font-size:36px;font-weight:800;text-align:center;line-height:56px', 'not the same scale')) +
+        rmX('pA_R', 854, 826, '#6be3a0', 'Scaled score', BAR() + bx('pA_f2', 'left:28px;top:100px;width:533px;height:54px;border-radius:27px 0 0 27px;background:#6b7fb0') + bx('pA_ln', 'left:559px;top:84px;width:6px;height:86px;background:#fff') +
+          bx('', 'left:455px;top:30px;width:230px;text-align:center;font-size:38px;font-weight:800;color:#fff;white-space:nowrap', '700 pass') +
+          bx('pA_ar', 'left:580px;top:119px;width:160px;height:16px;border-radius:8px;background:#6be3a0') + bx('pA_ah', 'left:736px;top:104px;width:0;height:0;border-left:36px solid #6be3a0;border-top:23px solid transparent;border-bottom:23px solid transparent') +
+          bx('', 'left:28px;top:160px;font-size:32px;font-weight:800;color:#c9d3ea', '0') + bx('', 'left:640px;top:160px;width:150px;text-align:right;font-size:32px;font-weight:800;color:#c9d3ea', '1000') +
+          bx('pA_h', 'left:28px;top:216px;width:250px;height:62px;box-sizing:border-box;border:5px solid #6be3a0;border-radius:22px;color:#6be3a0;font-size:36px;font-weight:800;text-align:center;line-height:52px;opacity:0', 'aim higher')) }),
+    mkExam('exB', { q: 'Valeria has eight weeks before her exam date. She wants to spend most of them where the exam weighs the most. Where should most of her study time go?',
+      opts: ['Plan and configure: planning and topics', 'Test and manage: evaluation and ALM', 'Integrate and extend: knowledge, tools'],
+      why: '<div id="exB_w1"><span class="g">Integrate and extend</span> weighs <span class="g">forty to forty-five percent</span>, almost <span class="g">half</span>.</div><div id="exB_w2">But <span class="y">all three count</span>: no domain is skipped.</div>',
+      proof: rmX('pB_P', 0, 1680, '#6be3a0', 'Eight weeks', EW.map((w, i) => bx('', `left:${64 + i * 196}px;top:84px;width:180px;height:112px;box-sizing:border-box;border-radius:18px;border:4px dashed #4a5a82;color:#8f9cc0;font-size:34px;font-weight:700;text-align:center;line-height:1.2;padding-top:6px`, `week ${i + 1}`)).join('') + EW.map((w, i) => bx('pwk' + i, `left:${64 + i * 196}px;top:84px;width:180px;height:112px;box-sizing:border-box;border-radius:18px;background:${w[1]};color:#fff;font-size:34px;font-weight:700;text-align:center;line-height:1.2;padding-top:6px;opacity:0`, `week ${i + 1}<br><b style="font-size:46px">${w[0]}</b>`)).join('') +
+          bx('pB_c', 'left:64px;top:216px;width:420px;height:64px;box-sizing:border-box;border:5px solid #6be3a0;border-radius:22px;color:#6be3a0;font-size:36px;font-weight:800;text-align:center;line-height:54px;opacity:0', 'most weeks on D2') +
+          bx('pB_ok', 'left:506px;top:212px;width:70px;height:70px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:50px;font-weight:800;text-align:center;line-height:66px;opacity:0', '✓')) }));
+  const XB = [360, 550, 740];
+  ['exA', 'exB'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1400, height: 170, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: [330, 432, 534][k], width: 1090, height: 92, fontSize: 36, duration: 1.3, ease: 'sine.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal) + 0.2, C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.5, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0, y: 20 }, { opacity: 0.6, y: 0, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.4 }, t - 0.5));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.6 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.2, 0.6);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.6 }, R);
+    ON(Gg + ' .ok', R + 0.2, 0.6);
+    tl.to(O, { opacity: 0.5, duration: 0.6 }, R);
+    XCOMP(id, R + 0.9);
+    OFF(X, o.end, 0.4);
+  };
+  const SCRT = ['#kT0', '#tRng', '#tNx', '#rcw', '#cMap', '#cCheck', '#brd'];
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.65, 0.3); OFF('#cur', S(i, 0) - 0.65, 0.2); tl.set(SCRT, { opacity: 0 }, S(i, 0) - 0.4); };
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.6, 0.3); ON('#scr', S(i, 0) - 0.6, 0.3); };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - TH0[0] * TH0[2], y: 540 - TH0[1] * TH0[2], scale: TH0[2] });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 }); gsap.set('#exA_ring,#exB_ring', { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set('#pin', { rotation: -45 });
+  const TOT = B.duration + 2.5;
+  [['cl0', 380], ['cl1', 300], ['cl2', -320], ['cl3', 260], ['cl4', 400], ['cl5', 240], ['cl6', -360]].forEach((c) => tl.to('#' + c[0], { x: c[1], duration: TOT, ease: 'none' }, 0));
+  tl.to('#wcM', { rotation: 360 * 14, duration: 290, ease: 'none' }, 0); tl.to('#wcH', { rotation: 360 * 14 / 12, duration: 290, ease: 'none' }, 0);
+
+  /* ═════════ 0 · Where do I start? ═════════ */
+  tl.set('#val', { x: -90 }, 0); ON('#val', 0.2, 0.4); tl.to('#val', { x: 0, duration: 2.2, ease: 'none' }, 0.3);
+  tl.to('#valB', { y: -12, duration: 0.25, yoyo: true, repeat: 8, ease: 'sine.inOut' }, 0.3);
+  ON('#lap', 0.6, 0.4); tl.to('#lapN', { y: -8, duration: 0.3, yoyo: true, repeat: 7, ease: 'sine.inOut' }, 1.0);
+  FADEIN('#cVal', S(0, 0) + 0.5, 0.4); OFF('#cVal', S(0, 3) - 0.5, 0.3);
+  THI.forEach((r, i) => FADEIN('#th' + i, S(0, 1) + 0.3 + i * 0.6, 0.35));
+  FADEIN('#cSev', W(0, 1, 'seven classes', -0.3), 0.4); OFF('#cSev', W(0, 1, 'and now', -0.05), 0.3);
+  FADEIN('#cTwo', W(0, 1, 'two months', -0.3), 0.4); OFF('#cTwo', S(0, 3) - 0.5, 0.3);
+  { const t = S(0, 2) + 0.15;
+    ON('#scRod', t, 0.3); tl.set('#scP', { opacity: 1 }, t + 0.1); tl.fromTo('#scP', { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.8, ease: 'power2.out', immediateRender: false }, t + 0.1); }
+  FADEIN('#cLong', W(0, 2, 'long', -0.3), 0.4);
+  tl.fromTo('#bWhere', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(0, 3) + 0.1);
+  tl.to('#val', { rotation: 3, duration: 0.3, yoyo: true, repeat: 3 }, S(0, 3) + 0.2);
+  DRAW('#trail', S(0, 4) + 0.1, 4.0);
+  tl.to('#valB', { y: -12, duration: 0.25, yoyo: true, repeat: 3, ease: 'sine.inOut' }, S(0, 4) + 0.4);
+  OFF(['#cLong', '#bWhere', '#scRod', '#scP', '#lap', '#th0', '#th1', '#th2', '#th3', '#th4', '#th5', '#th6'], S(0, 5) - 0.4, 0.35);
+  /* walking shot: Valeria follows the trail while the camera tracks her */
+  CAM(1000, 1450, 1.0, S(0, 5) - 0.15, 1.8, 'power2.inOut');
+  CAM(2000, 1450, 1.0, S(0, 5) + 1.7, E(0, 6) + 0.4 - (S(0, 5) + 1.7), 'none');
+  tl.to('#val', { x: 1100, duration: E(0, 6) + 0.4 - (S(0, 5) + 0.1), ease: 'none' }, S(0, 5) + 0.1);
+  tl.to('#valB', { y: -12, duration: 0.25, yoyo: true, repeat: Math.floor((E(0, 6) + 0.4 - (S(0, 5) + 0.1)) / 0.25) - 1, ease: 'sine.inOut' }, S(0, 5) + 0.1);
+  [['#hD1', 0], ['#hD2', 0.5], ['#hD3', 1.0]].forEach((h) => tl.to(h[0], { y: -16, duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.inOut' }, W(0, 5, 'heavy', 0.1) + h[1]));
+  FADEIN('#cCheck', S(0, 5) + 1.8, 0.4); OFF('#cCheck', S(0, 6) - 0.1, 0.3);
+  tl.fromTo('#kT0', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, S(0, 6) + 0.1); OFF('#kT0', E(0, 6) + 0.1, 0.2);
+
+  /* ═════════ 1 · The exam in a few lines ═════════ */
+  CAM(5200, 1000, 1.2, S(1, 0) - 0.3, 1.7, 'power2.inOut');
+  tl.fromTo('#ban', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.5)', immediateRender: false }, S(1, 0) + 0.9);
+  FADEIN('#abS', W(1, 0, 'designing', -0.1), 0.5);
+  [1, 2, 3].forEach((k) => FADEIN('#cm' + k, S(1, 0) + 1.2 + k * 0.25, 0.4));
+  tl.fromTo('#badge', { opacity: 0, y: -260, scale: 1.15 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'bounce.out', immediateRender: false }, S(1, 1) + 0.3);
+  const LITC = (sel, t) => { tl.to(sel, { backgroundColor: '#ffffff', borderColor: NAVY, color: NAVY, duration: 0.35 }, t); tl.fromTo(sel, { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, t); };
+  LITC('#cm1', W(1, 2, 'one hundred', -0.2)); LITC('#cm2', W(1, 2, 'proctored', -0.3)); LITC('#cm3', W(1, 2, 'interactive', -0.3));
+  OFF(['#cm1', '#cm2', '#cm3'], S(1, 3) - 0.1, 0.3);
+  ON('#gaugeBar', S(1, 3) + 0.05, 0.3); tl.fromTo('#gaugeFill', { opacity: 1, width: 0 }, { width: 966, duration: 1.2, ease: 'power2.out', immediateRender: false }, W(1, 3, 'seven hundred', -0.2));
+  FADEIN('#gLine', W(1, 3, 'seven hundred', 0.4), 0.3); FADEIN('#gPass', W(1, 3, 'seven hundred', 0.5), 0.4);
+  ON('#gt0', W(1, 3, 'out of', 0), 0.3); ON('#gt1', W(1, 3, 'one thousand', -0.1), 0.3);
+  FADEIN('#gScal', W(1, 4, 'scaled score', -0.2), 0.4); tl.fromTo('#gScal', { boxShadow: '0 0 0 0 rgba(217,138,0,0)' }, { boxShadow: '0 0 0 10px rgba(217,138,0,.35)', duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, W(1, 4, 'scaled score', 0.3));
+  FADEIN('#cMat', W(1, 4, 'matters', -0.2), 0.4);
+  OFF(['#gaugeBar', '#gaugeFill', '#gt0', '#gt1', '#gLine', '#gPass', '#gScal', '#cMat'], S(2, 0) - 0.95, 0.3);
+
+  /* ═════════ 2 · The rules of the room ═════════ */
+  CAM(7250, 1050, 1.0, S(2, 0) - 0.55, 1.5, 'power2.inOut');
+  FADEIN('#cRules', S(2, 0) + 0.6, 0.4);
+  FADEIN('#enT', S(2, 0) + 1.0, 0.4);
+  ON('#trk', W(2, 1, 'local versions', -0.3), 0.3); tl.fromTo('#spT', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, W(2, 1, 'including', 0));
+  FADEIN('#cWk', W(2, 1, 'eight weeks', -0.3), 0.4); OFF('#cWk', S(2, 2) - 0.1, 0.3);
+  SWX('#mnT', '#mnC', S(2, 2)); FADEIN('#cRt', W(2, 2, 'twenty four', -0.3), 0.4); OFF('#cRt', S(2, 3) - 0.1, 0.3);
+  SWX('#mnC', '#mnL', S(2, 3) + 0.1);
+  [['q and a', 0], ['practice', 1], ['profile', 2]].forEach((r) => { const t = W(2, 3, r[0], 0); ON('#xx' + r[1], t, 0.25); tl.to('#rw' + r[1], { borderColor: '#c4392f', backgroundColor: '#fde8e6', duration: 0.3 }, t); });
+  SWX('#mnL', '#mnK', S(2, 4) + 0.05);
+  FADEIN('#cQk', W(2, 5, 'quick check', -0.3), 0.4); PULSEX('#wcl', S(2, 5) + 0.3, 1.08); tl.to('#wcM', { rotation: '+=720', duration: 4, ease: 'none' }, S(2, 5) + 0.3);
+
+  /* ═════════ 3 · EXAM: seventy percent ═════════ */
+  toExam(3);
+  EXAMX('exA', 3, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 0.85 });
+  { const R = S(3, 8);
+    tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(3, 9) + 0.1, R + 1.8));
+    tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(3, 10) + 0.1);
+    ON('#exA_p', R + 1.8, 0.4);
+    ON('#pA_R', R + 1.8, 0.4); tl.set(['#pA_f2'], { opacity: 1 }, R);
+    ON('#pA_h', W(3, 10, 'aim', -0.2), 0.3);
+    ON('#pA_L', S(3, 10) + 0.1, 0.4); }
+
+  /* ═════════ 4 · Three domains, three weights ═════════ */
+  camAt(WC[0], WC[1], WC[2], S(4, 0) - 0.62); fromExam(4);
+  tl.set('#val', { x: 0, y: 0, rotation: 0 }, S(4, 0) - 0.7);
+  FADEIN('#cMap', S(4, 0) + 0.2, 0.4); OFF('#cMap', S(4, 2) - 0.5, 0.3);
+  [['#hD1', 0], ['#hD2', 0.5], ['#hD3', 1.0]].forEach((h) => tl.to(h[0], { y: -16, duration: 0.3, yoyo: true, repeat: 1, ease: 'power2.inOut' }, W(4, 1, 'three domains', 0) + h[1]));
+  const LITH = (h, bg, bd, t) => tl.to(h, { backgroundColor: bg, borderColor: bd, duration: 0.6 }, t);
+  /* D1 closeup */
+  OFF('#val', S(4, 2) - 0.6, 0.3);
+  CAM(1250, 1050, 0.9, S(4, 2) - 0.5, 1.3, 'power2.inOut');
+  LITH('#hD1', BLUEs, BLUE, S(4, 2)); POPX('#sg1', S(4, 2) + 0.5); POPX('#pl1', W(4, 2, 'thirty', -0.1));
+  ['planning', 'agent flows', 'topics'].forEach((w, i) => FADEIN(['#c11', '#c13', '#c12'][i], W(4, 3, w, -0.15), 0.4));
+  /* D2 closeup */
+  OFF(['#c11', '#c12', '#c13', '#sg1', '#pl1'], S(4, 4) - 0.15, 0.25);
+  CAM(2150, 1000, 0.9, S(4, 4) - 0.1, 1.3, 'power2.inOut');
+  LITH('#hD2', TEALs, TEAL, S(4, 4) + 0.3); POPX('#sg2', S(4, 4) + 0.9); POPX('#pl2', W(4, 4, 'forty', -0.1));
+  ['knowledge', 'tools', 'multi agent', 'azure'].forEach((w, i) => FADEIN(['#c21', '#c22', '#c23', '#c24'][i], W(4, 5, w, -0.15), 0.4));
+  /* D3 closeup */
+  OFF(['#c21', '#c22', '#c23', '#c24', '#sg2', '#pl2'], S(4, 6) - 0.15, 0.25);
+  CAM(2900, 1100, 0.9, S(4, 6) - 0.1, 1.3, 'power2.inOut');
+  LITH('#hD3', AMBs, AMB, S(4, 6) + 0.3); POPX('#sg3', S(4, 6) + 0.9); POPX('#pl3', W(4, 6, 'twenty', -0.1));
+  FADEIN('#c31', W(4, 7, 'evaluation', -0.15), 0.4); FADEIN('#c32', W(4, 7, 'a l m', -0.15), 0.4);
+  /* wide again: the three weights are ranges */
+  OFF(['#c31', '#c32'], S(4, 8) - 0.2, 0.25);
+  CAM(WC[0], WC[1], WC[2], S(4, 8) - 0.1, 1.4, 'power2.inOut'); ON('#val', S(4, 8) + 0.9, 0.4);
+  ['#sg1', '#pl1', '#sg2', '#pl2'].forEach((p, i) => FADEIN(p, S(4, 8) + 0.9 + i * 0.12, 0.4));
+  ['#pl1', '#pl2', '#pl3'].forEach((p, i) => tl.to(p, { rotation: 4, duration: 0.16, yoyo: true, repeat: 5, ease: 'sine.inOut' }, S(4, 8) + 1.5 + i * 0.25));
+  FADEIN('#tRng', S(4, 8) + 1.5, 0.4);
+  OFF(['#tRng', '#sg1', '#sg2', '#sg3', '#pl1', '#pl2', '#pl3'], E(4, 8) - 0.25, 0.3);
+
+  /* ═════════ 5 · EXAM: where the weeks go ═════════ */
+  toExam(5);
+  EXAMX('exB', 5, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 0.85 });
+  { const R = S(5, 8);
+    tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(5, 9) + 0.1, R + 1.8));
+    tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 10) + 0.1);
+    ON('#exB_p', R + 1.8, 0.4); ON('#pB_P', R + 1.8, 0.4);
+    [0, 2, 3, 5].forEach((i, k) => tl.fromTo('#pwk' + i, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, Math.max(R + 2.0, W(5, 9, 'forty', 0)) + k * 0.25));
+    ON('#pB_c', W(5, 9, 'almost half', 0), 0.3); ON('#pB_ok', W(5, 9, 'almost half', 0.3), 0.3);
+    [1, 4].forEach((i, k) => tl.fromTo('#pwk' + i, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(5, 10, 'all three', 0) + k * 0.3));
+    [6, 7].forEach((i, k) => tl.fromTo('#pwk' + i, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(5, 10, 'no domain', -0.2) + k * 0.3)); }
+
+  /* ═════════ 6 · How this course follows the map ═════════ */
+  camAt(1000, 1500, 0.85, S(6, 0) - 0.62); fromExam(6);
+  POPX('#fl0', S(6, 0) + 0.3); POPX('#fs0', S(6, 0) + 0.5);
+  tl.fromTo('#tick0', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', immediateRender: false }, W(6, 1, 'module zero', 0.1));
+  FADEIN('#cHere', W(6, 1, 'finishing', -0.6), 0.4); OFF('#cHere', S(6, 2) - 0.1, 0.3);
+  OFF('#val', S(6, 2) - 0.6, 0.3);
+  CAM(1500, 1500, 0.85, S(6, 2) - 0.4, 1.3, 'power2.inOut');
+  [['planning', 1], ['advanced topics', 2], ['agent flows', 3]].forEach((r) => { POPX('#fl' + r[1], W(6, 2, r[0], -0.45)); POPX('#fs' + r[1], W(6, 2, r[0], -0.3)); });
+  OFF(['#fl1', '#fs1', '#fl2', '#fs2'], S(6, 3) - 0.5, 0.3);
+  CAM(2600, 1500, 0.85, S(6, 3) - 0.4, 1.3, 'power2.inOut');
+  [['knowledge and tools', 4], ['m c p', 5], ['azure and monitoring', 6]].forEach((r) => { POPX('#fl' + r[1], W(6, 3, r[0], -0.45)); POPX('#fs' + r[1], W(6, 3, r[0], -0.3)); });
+  OFF(['#fl3', '#fs3'], S(6, 4) - 0.5, 0.3);
+  CAM(2750, 1500, 0.85, S(6, 4) - 0.4, 1.3, 'power2.inOut');
+  POPX('#fl7', W(6, 4, 'module seven', 0.1)); POPX('#fs7', W(6, 4, 'evaluation', -0.3));
+  OFF(['#fl1', '#fl2', '#fl3', '#fl4', '#fl5', '#fl6', '#fl7', '#fs1', '#fs2', '#fs3', '#fs4', '#fs5', '#fs6', '#fs7'], S(6, 5) - 0.5, 0.35);
+  CAM(950, 1560, 1.0, S(6, 5) - 0.5, 1.4, 'power2.inOut'); tl.set('#val', { opacity: 1 }, S(6, 5) - 0.45);
+  POPX('#tcard', S(6, 5) + 0.4);
+  [['theory', 0], ['video', 1], ['questions', 2], ['hands on', 3]].forEach((r) => { const t = W(6, 5, r[0], -0.1); tl.to('#tc' + r[1], { backgroundColor: '#ffffff', borderColor: TCI[r[1]][2], color: TCI[r[1]][2], duration: 0.3 }, t); tl.fromTo('#tc' + r[1], { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, t); });
+  OFF(['#tcard', '#fl0', '#fs0', '#tick0'], E(6, 5) - 0.1, 0.3);
+
+  /* ═════════ 7 · Words so far: the agent ═════════ */
+  UIIN2('#gl', S(7, 0) - 0.4);
+  G7.forEach((g, i) => LIGHT(g, S(7, i + 1) + 0.1));
+
+  /* ═════════ 8 · Words so far: where it lives ═════════ */
+  tl.to('#sh1', { y: -760, duration: 0.8, ease: 'power2.inOut' }, S(8, 0) - 0.1);
+  tl.to('#sh2', { y: -760, duration: 0.8, ease: 'power2.inOut' }, S(8, 0) - 0.1);
+  G8.forEach((g, i) => LIGHT(g, S(8, i + 1) + 0.1));
+  UIOUT2('#gl', E(8, 6) - 0.1);
+
+  /* ═════════ 9 · Valeria's plan ═════════ */
+  camAt(WC[0], WC[1], WC[2], E(8, 6) + 0.3);
+  ON('#brd', S(9, 0) + 0.1, 0.4);
+  /* s1 closeup: study guide + Pearson VUE */
+  CAM(TH[0], TH[1], TH[2], S(9, 0) + 0.5, 1.4, 'power2.inOut');
+  POPX('#sgd', S(9, 1) + 0.2); POPX('#calp', W(9, 1, 'books', -0.2));
+  tl.fromTo('#pin', { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.5, ease: 'bounce.out', immediateRender: false }, W(9, 1, 'pearson', -0.6));
+  FADEIN('#cPear', W(9, 1, 'pearson', -0.5), 0.4); OFF('#cPear', S(9, 2) + 0.6, 0.3); OFF('#pin', S(9, 2) + 0.6, 0.3);
+  /* s2: the eight weeks fill the plan board (screen) while the exam calendar stays */
+  [0, 2, 3, 5].forEach((i, k) => tl.fromTo('#wk' + i, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.6)', immediateRender: false }, W(9, 2, 'domain two', 0.3) + k * 0.35));
+  [1, 4].forEach((i, k) => tl.fromTo('#wk' + i, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.6)', immediateRender: false }, W(9, 2, 'weekly block', 0) + k * 0.4));
+  [6, 7].forEach((i, k) => tl.fromTo('#wk' + i, { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(1.6)', immediateRender: false }, W(9, 2, 'a l m', 0) + k * 0.4));
+  /* s3 closeup: lab + Nexo */
+  OFF(['#sgd', '#calp'], S(9, 3) - 0.4, 0.3);
+  POPX('#lab', S(9, 3) + 0.4);
+  [['every topic', 0], ['rebuilds', 1], ['piece', 2], ['nexo', 3]].forEach((r) => tl.fromTo('#lp' + r[1], { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.35, immediateRender: false }, W(9, 3, r[0], 0)));
+  tl.to('#lbN', { y: -10, duration: 0.3, yoyo: true, repeat: 5, ease: 'sine.inOut' }, W(9, 3, 'rebuilds', 0));
+  /* s4 closeup: glossary + mistakes */
+  OFF('#lab', S(9, 4) - 0.1, 0.3);
+  POPX('#bpk', S(9, 4) + 0.2); POPX('#bw0', W(9, 4, 'glossary', -0.3)); POPX('#mist', W(9, 4, 'and her', -0.2));
+  [0, 1, 2].forEach((i) => tl.fromTo('#mk' + i, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)', immediateRender: false }, W(9, 4, 'mistakes', -0.3) + i * 0.5));
+  /* s5: module zero done (closeup), recap replaces the board */
+  OFF(['#bpk', '#bw0', '#mist'], S(9, 5) - 0.1, 0.3);
+  OFF('#brd', S(9, 5) + 0.1, 0.3);
+  POPX('#fl0', S(9, 5) - 0.2);
+  tl.fromTo('#tick0', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', immediateRender: false }, S(9, 5) + 0.2);
+  tl.to('#tick0', { scale: 1.6, duration: 0.3, yoyo: true, repeat: 1, transformOrigin: '50% 50%' }, S(9, 5) + 0.7);
+  FADEIN('#cDone', S(9, 5) + 0.3, 0.4); OFF('#cDone', S(9, 6) - 0.1, 0.3);
+  ON('#rcw', S(9, 5) + 0.4, 0.4);
+  [S(9, 5) + 0.4, S(9, 5) + 0.9, S(9, 5) + 1.4].forEach((t, k) => tl.to('#rb' + k, { opacity: 1, duration: 0.4 }, t));
+  /* s6: pull back, walk to module one, slow push-in */
+  OFF('#rcw', S(9, 6) + 0.0, 0.3);
+  FADEIN('#tNx', S(9, 6) + 0.1, 0.4);
+  CAM(WC[0], WC[1], WC[2], S(9, 6) - 0.4, 1.4, 'power2.inOut');
+  POPX('#fl1', S(9, 6) + 0.1); POPX('#fs1', S(9, 6) + 0.25);
+  { const w0 = S(9, 6) - 0.3, w1 = TOT - 0.4;
+    tl.to('#val', { x: 470, duration: w1 - w0, ease: 'none' }, w0);
+    tl.to('#valB', { y: -14, duration: 0.3, yoyo: true, repeat: Math.floor((w1 - w0) / 0.6) - 1, ease: 'sine.inOut' }, w0);
+    CAM(1450, 1300, 0.68, S(9, 6) + 1.2, TOT - 0.3 - (S(9, 6) + 1.2), 'none');
+    tl.to('#hflag', { scaleX: 0.8, skewY: 6, duration: 0.5, yoyo: true, repeat: Math.floor((w1 - w0) / 0.5) - 1, ease: 'sine.inOut' }, w0);
+    PULSEX('#fl1', S(9, 6) + 0.9, 1.06); }
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

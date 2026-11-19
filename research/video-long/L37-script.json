@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Twelve red cases",
+    "caption": "Nexo's instructions changed over the weekend. Monday: twelve red cases. The first instinct is to rewrite the instructions again.",
+    "say": "Monday at Contoso. Over the weekend, the maker rewrote the instructions of Nexo, the I T agent, and ran the test set again. Monday morning, twelve cases are red. The first instinct is to rewrite the instructions again, and run again, and hope. But the real cause is not in the instructions at all. Today you learn to read the results before you change anything."
+  },
+  {
+    "title": "Read the graded exam",
+    "caption": "Three questions: what result did each case get, why, and did it improve? Tools: the result, Show activity map, Compare with.",
+    "say": "Keep this picture. Reading results is like reviewing a graded exam. You don't only look at the score. You ask three questions. What result did each answer get? Why did it get that result? And did this exam improve compared with the last one? Copilot Studio gives you one tool for each question: the result itself, the activity map, and Compare with."
+  },
+  {
+    "title": "Four results",
+    "caption": "Pass, Fail, Invalid, Error. Invalid: the case lacks what the method needs. Error: the evaluation failed to run.",
+    "say": "Every case gets one of four results. Pass and Fail are the grades you expect: the method judged the answer. Invalid means the case is missing what the method needs, like an expected response, keywords, or tools. Error means an execution failure while evaluating, so there is no grade at all. Only Pass and Fail say something about the answer. Invalid and Error tell you to look at the run first."
+  },
+  {
+    "title": "Decide: the demanding bar",
+    "caption": "Contoso raises the Compare meaning pass score to 95. Cases with an expected response now score below it. What result do they get?",
+    "say": "Your turn. Contoso raises the Compare meaning pass score to ninety five. Cases that have an expected response now score below that bar. What result do those cases get? Invalid, because the bar is too demanding? Error, because the method could not decide? Or Fail, because they scored below the bar? Decide before I answer. Fail. The case had everything the method needs, so it was graded. Invalid is only for missing material."
+  },
+  {
+    "title": "Why did it do that?",
+    "caption": "Show activity map: the sequence of decisions the agent made in one case, step by step, until it answered.",
+    "say": "When one case confuses you, open Show activity map. It shows the sequence of decisions Nexo made in that case, step by step, until it answered. Here, the user asked how to reconnect the V P N, and the map shows Nexo went to the Password reset topic first. Now you know why the answer was wrong, instead of guessing."
+  },
+  {
+    "title": "Did the change help?",
+    "caption": "Compare with: two runs of the same test set. Arrows mark cases that went from failing to passing, or the other way.",
+    "say": "To measure a change, use Compare with. It puts two runs of the same test set side by side. Arrows mark the cases that changed, from failing to passing, or the other way around. Contoso edits the instructions, runs the same set again, and sees five cases improve and one get worse. That one is the next case to open. Compare with only makes sense on the same test set."
+  },
+  {
+    "title": "Eighty-nine days",
+    "caption": "Results stay in Copilot Studio for 89 days. Export to CSV: question, expected response, method, score, agent response, result, analysis.",
+    "say": "Results do not stay forever. Copilot Studio keeps evaluation results for eighty nine days. To keep them longer, export them to a C S V file. Each row has the question, the expected response, the method, the score, the agent's response, the result, and the analysis. That file is your history, for audits and for comparisons months later."
+  },
+  {
+    "title": "Decide: a full year",
+    "caption": "Contoso's auditors want this quarter's evaluation results available for a full year. What should the maker do?",
+    "say": "Your turn. Contoso's auditors want this quarter's evaluation results available for a full year. What should the maker do? Export the results to C S V after each run? Ask an admin to extend the result retention? Or use Compare with to merge the older runs? Decide before I answer. Export to C S V. Results stay eighty nine days, and exporting is how you keep them longer. Compare with only puts two runs side by side."
+  },
+  {
+    "title": "The Evaluate tab",
+    "caption": "Microsoft Copilot harness: each run saved separately. Rerun: Recent results › Evaluate test set again. Duration = whole run, not response time.",
+    "say": "Everything so far is the standard harness. On the Microsoft Copilot harness, formerly GitHub Copilot harness, results live in the Evaluate tab. Each run is saved separately. To run a set again, open Recent results, then Evaluate test set again. The summary shows Score, Duration, Test cases, Data type, User profile, and Credits used. Duration is the whole run, not how fast the agent answered. Measure latency in Preview."
+  },
+  {
+    "title": "Who broke it?",
+    "caption": "A fail comes from the evaluation setup, the agent configuration, or a platform limitation. Check the setup first: dependencies, user profile auth, environment.",
+    "say": "On this harness, a fail can come from three places. The evaluation setup, owned by the evaluation author. The agent configuration, owned by the agent builder. Or a platform limitation, owned by the platform team. Check the setup first. Are the dependencies healthy? Is the authentication valid for the user profile? Is it the right environment? Only then blame the agent."
+  },
+  {
+    "title": "Decide: Monday morning",
+    "caption": "Twelve cases fail overnight. All call the Create Ticket tool, and the user profile's connection expired yesterday. What should the maker do first?",
+    "say": "Your turn. Back to Monday. Twelve cases fail overnight. All of them call the Create Ticket tool, and the connection for the user profile expired yesterday. What should the maker do first? Rewrite the instructions and run the set again? Restore the connection and rerun the same set? Or improve the Create Ticket tool description? Decide before I answer. Restore the connection and rerun. An expired connection is a setup issue. Leave the instructions alone."
+  },
+  {
+    "title": "Symptom, then fix",
+    "caption": "Low General quality → instructions. Missing or incorrect tool use → tool descriptions. Incorrect information → knowledge sources.",
+    "say": "When the agent really is the cause, match the symptom to the fix. Low General quality means improve the instructions. Missing or incorrect tool use means improve the tool descriptions. Incorrect information means check the knowledge sources. Change one thing, run the same set again, and use Compare with to see the effect."
+  },
+  {
+    "title": "Which failure first?",
+    "caption": "Triage order: safety and compliance, core business scenarios, the lowest-scoring evaluation, then recurring failures.",
+    "say": "With many failures, you need an order. First, safety and compliance. Then the core business scenarios, the ones Contoso cannot work without. Then the lowest scoring evaluation. Last, the failures that keep coming back. A low score on the cafeteria menu can wait. An answer that breaks a privacy rule cannot."
+  },
+  {
+    "title": "Decide: three failures",
+    "caption": "After a run: a vague cafeteria menu answer, a wrong order status, an answer that shares an employee's home address. Which do you triage first?",
+    "say": "Your turn. After a run, Nexo has three failures. A vague answer about the cafeteria menu, a wrong order status, and an answer that shares an employee's home address. Which one do you triage first? The wrong order status in a core scenario? The vague menu answer with the lowest score? Or the answer sharing an employee's address? Decide before I answer. The shared address. Safety and compliance come first, then core scenarios."
+  },
+  {
+    "title": "Estimate or final",
+    "caption": "Credits in Evaluate and Preview are near-real-time estimates. The Monitor tab shows the final, accurate consumption within a few hours.",
+    "say": "One last number: credits. Evaluation runs use Copilot Credits. The credits you see in Evaluate and in Preview are estimates, close to real time. The final, accurate consumption appears in the Monitor tab within a few hours, after the usage is processed. So for the real number, check Monitor later, not the run summary."
+  },
+  {
+    "title": "Read before you fix",
+    "caption": "Pass, Fail, Invalid, Error. High bar = Fail. Activity map = why. Compare with = effect. 89 days, then CSV. Setup first. Safety first.",
+    "say": "Back to Monday. The maker leaves the instructions alone, restores the connection, and runs the same set again. Compare with shows the twelve cases going from fail to pass. Remember for the exam. Four results: Pass, Fail, Invalid, Error. A demanding pass score gives Fail, not Invalid. Activity map explains one case. Compare with measures a change. Eighty nine days, then C S V. Check the setup first, and triage safety first."
+  }
+]

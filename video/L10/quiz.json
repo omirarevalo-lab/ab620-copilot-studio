@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Contoso's HR topic answers leave questions with a Generative answers node, but marketing documents keep slipping in. The answers must come only from the policies SharePoint site. What should Valeria turn on?",
+    "options": [
+      "Moderation level set to Highest",
+      "A separate fallback topic",
+      "Search only selected sources"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Valeria turned on Search only selected sources and chose the policies site. A user asks something that site does not cover. Which statement is true?",
+    "options": [
+      "It still falls back to all of the agent's sources",
+      "The selected sources replace the agent's sources",
+      "The chosen sources are added to the agent's"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "Contoso clears Send a message, saves the answer in a global variable, and shows it in an adaptive card. The agent is also published in Teams. What must Contoso add to the card?",
+    "options": [
+      "The citation rendering in the card",
+      "Nothing, Teams adds citations by itself",
+      "A second Generative answers node"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

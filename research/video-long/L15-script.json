@@ -1,0 +1,67 @@
+[
+  {
+    "title": "Who calls the tool",
+    "caption": "A tool can be called explicitly from a topic, or by the agent when it decides it needs it.",
+    "say": "Marta asks the Contoso agent about the stock of a product. Nexo needs a tool for that, the Check inventory tool. A tool can be called in two ways. You can call it explicitly from a topic, or the agent can call it by itself when it decides it needs it. The difference is who is in control. It is like a driver who follows a fixed route, versus one who chooses the way."
+  },
+  {
+    "title": "Classic orchestration",
+    "caption": "Classic orchestration: generative orchestration off. The agent answers only with topics; tools are called only explicitly from a topic.",
+    "say": "First, the fixed route. In classic orchestration, generative orchestration is turned off. The agent answers only with topics. Tools are called only explicitly, from inside a topic, at the step where you placed them. Nobody else picks them. Valeria draws the route, and Nexo follows it, stop by stop. You keep full control of the flow."
+  },
+  {
+    "title": "Generative orchestration",
+    "caption": "Generative orchestration: the orchestrator picks the most suitable tool or topic by itself, reading its name and description.",
+    "say": "Now the driver who chooses the way. With generative orchestration, the orchestrator picks the most suitable tool or topic by itself. The orchestrator is the part that decides which topic, tool, or knowledge to use to respond. To choose a tool, it reads the tool's name and description. So the description must say clearly what the tool does. A vague one leaves Nexo guessing."
+  },
+  {
+    "title": "Decide: the fixed route",
+    "caption": "Generative orchestration is off, and Check inventory must still run. In classic orchestration, how is a tool called?",
+    "say": "Your turn. Valeria turns generative orchestration off for a test agent. The Check inventory tool must still run. In classic orchestration, how is a tool called? By the orchestrator, by description? Explicitly, from inside a topic? Or by the user, from the chat window? Decide before I answer. Explicitly, from inside a topic. In classic orchestration the agent answers only with topics, so tools run only where a topic calls them. Picking a tool by name and description is generative orchestration, and that is turned off here."
+  },
+  {
+    "title": "Inside a topic",
+    "caption": "Add node, Add a tool, and an Action node appears. Trigger phrases only select topics, never tools.",
+    "say": "Back on the fixed route. To call a tool from a topic, Valeria selects Add node, then Add a tool, and picks the tool. An Action node appears in the topic. That node is the explicit call. One more rule, and the exam loves it. Trigger phrases start topics. They only select topics, never tools. You can use tools inside topics, but a trigger phrase never picks a tool."
+  },
+  {
+    "title": "Tool settings",
+    "caption": "Allow agent to decide dynamically, Ask the end user before running (No by default), Authentication, and Fill using.",
+    "say": "Each tool has its details. Allow agent to decide dynamically lets the agent pick the tool by itself. Ask the end user before running asks for confirmation first, and it is No by default. Authentication sets whether the tool runs with end user or maker credentials. And Fill using sets how the inputs are filled. Check inventory can show stock data, so Contoso turns on Ask the end user before running."
+  },
+  {
+    "title": "Decide: ask first",
+    "caption": "A sensitive tool must get the user's okay before it runs. Which setting should Valeria turn on?",
+    "say": "Your turn. The service manager is worried about a sensitive tool. Before it runs, the agent must get the user's okay. Which setting should Valeria turn on? Ask the end user before running? A trigger phrase that asks first? Or Authentication with maker credentials? Decide before I answer. Ask the end user before running. That setting asks the user for confirmation before the tool runs, and it is No by default. A trigger phrase only selects topics, never tools, so it cannot guard a tool."
+  },
+  {
+    "title": "When the tool finishes",
+    "caption": "After running: Don't respond (default), Write the response with generative AI, Send specific response, or Send an adaptive card.",
+    "say": "When the tool finishes, After running sets how the agent responds. There are four choices. Don't respond, which is the default. Write the response with generative A I. Send specific response. Or Send an adaptive card. Tools run in the user's context, so authentication must be enabled. At Contoso, Check inventory uses end user credentials, so each employee sees only what their account allows."
+  },
+  {
+    "title": "Two tools only for topics",
+    "caption": "Two tools exist only inside topics, not on the Tools page. Create search query rewrites the latest message into a clear query.",
+    "say": "Inside one aisle, Valeria opens a small booth with two special tools. They exist only inside topics, and you add them with Add a tool in a topic. They do not appear on the agent's Tools page, and the orchestrator cannot call them. The first is Create search query. It rewrites the user's latest message, plus the conversation context, into a clear query string. A follow up like, what about sick leave, becomes a full question."
+  },
+  {
+    "title": "Raw results, two steps",
+    "caption": "Perform custom search returns raw, unsummarized results in a variable. Generative answers finds and writes in one step.",
+    "say": "The second is Perform custom search. It searches the knowledge sources you set on the node, and returns the raw results, not summarized, in a variable. Then you can filter them, apply business rules, or feed a prompt. The two tools are often used in sequence. Compare the Generative answers node, which finds and writes the answer in one step. Here, retrieval and response are separate."
+  },
+  {
+    "title": "Add it in Copilot Studio",
+    "caption": "Tools page, Add a tool, Add and configure. Review Name and Description, ask before running, then Add node, Add a tool, test.",
+    "say": "Here are the steps in Copilot Studio. Open your agent and go to the Tools page. Select Add a tool, choose a tool, then Add and configure. In its settings, review the Name and Description, written so the orchestrator can understand them. Turn on Ask the end user before running if the action is sensitive. Now open a topic, select Add node, and choose Add a tool. Select the tool, and an Action node appears. Test in the chat, and check whether it asks for confirmation."
+  },
+  {
+    "title": "Decide: the raw results",
+    "caption": "Valeria wants raw search results in a variable, to filter with business rules. Which tool should she add inside the topic?",
+    "say": "Your turn. Valeria wants the raw search results in a variable. Then the topic will filter them with business rules. Which tool should she add inside the topic? Create search query? Generative answers node? Or Perform custom search? Decide before I answer. Perform custom search. It searches the knowledge sources set on the node and returns raw, unsummarized results in a variable. Generative answers finds and writes the answer in one step, and Create search query only rewrites the question."
+  },
+  {
+    "title": "Three rules to remember",
+    "caption": "Classic: explicit call from a topic. Generative: name and description. Trigger phrases pick topics. Search tools live only in topics.",
+    "say": "Back on the warehouse floor, Marta confirms, and Nexo brings her stock answer. Remember three things. Classic means an explicit call from a topic, and generative means the orchestrator picks by name and description. Trigger phrases select only topics, and Ask the end user before running asks for confirmation. Create search query and Perform custom search work only inside topics. Next, agent flows inside a topic."
+  }
+]

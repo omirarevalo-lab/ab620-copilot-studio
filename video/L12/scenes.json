@@ -1,0 +1,49 @@
+{"brand": "AB-620 · Module 2 · Lesson 5", "scenes": [
+ {"type": "split", "left": {"kicker": "Adaptive Cards", "title": "A form in the chat", "sub": "Everything arrives together on submit."},
+  "window": {"title": "Chat · Adaptive Card", "heading": "New ticket", "rail": ["apps", "bot", "chat", "card_ui", "settings"],
+   "cards": [
+    {"icon": "text_t", "title": "Text", "at": "with text"},
+    {"icon": "form", "title": "Fields", "at": "fields"},
+    {"icon": "cursor_click", "title": "Buttons", "at": "buttons"},
+    {"icon": "send", "title": "Submit", "desc": "All the details at once", "at": "gets everything", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "The right node", "title": "Collect data, or just show it"},
+  "cols": [
+   {"icon": "form", "title": "Ask with Adaptive Card", "sub": "Collects data", "accent": true, "at": "Ask with Adaptive",
+    "items": [{"text": "Needs at least one submit button", "at": "at least one"}]},
+   {"icon": "chat", "title": "Message · Question", "sub": "Informational cards", "at": "Message and Question",
+    "items": [{"text": "No response comes back", "at": "informational"}]}]},
+ {"type": "flow", "header": {"kicker": "Automatic variables", "title": "One variable per field"},
+  "nodes": [
+   {"icon": "send", "title": "Save the design", "at": "save the design"},
+   {"icon": "braces", "title": "Output variables", "sub": "Created automatically", "accent": true, "at": "output variables"},
+   {"icon": "settings", "title": "Edit Schema", "sub": "If one is not right", "at": "Edit Schema"},
+   {"icon": "branch_fork", "title": "Other nodes", "sub": "Use them in the topic", "at": "any other node"}]},
+ {"type": "path", "header": {"kicker": "Where you design it", "title": "Properties › Edit adaptive card"},
+  "crumbs": [
+   {"icon": "settings", "text": "Node properties", "at": "node properties"},
+   {"icon": "card_ui", "text": "Edit adaptive card", "accent": true, "at": "Edit adaptive"}],
+  "cards": [
+   {"icon": "cursor_click", "title": "Add elements with the mouse", "desc": "In the designer", "at": "with the mouse", "hi": true},
+   {"icon": "code", "title": "Or paste the card's JSON", "at": "J S O N", "hi": true},
+   {"icon": "braces", "title": "Power Fx for dynamic data", "desc": "With the topic's variables", "at": "Power F X", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Versions and channels", "title": "Schema 1.6 or earlier", "sub": "It depends on the channel."},
+  "rows": [
+   {"icon": "globe", "title": "Web Chat", "desc": "1.6 · without Action.Execute", "at": "Web Chat", "hi": true},
+   {"icon": "chat", "title": "Live chat widget", "desc": "Up to 1.5", "at": "live chat", "hi": true},
+   {"icon": "people_team", "title": "Teams", "desc": "Up to 1.5", "at": "Teams", "hi": true},
+   {"icon": "beaker", "title": "Test chat", "desc": "Shows 1.6 · it can fool you", "at": "test chat", "hi": true}]},
+ {"type": "chat", "window": {"title": "Teams · Contoso IT", "at": "start"},
+  "messages": [
+   {"from": "a", "text": "Report a problem", "list": ["Title", "Urgency"], "at": "title and an urgency"},
+   {"from": "u", "text": "Printer jammed · High", "at": "is sent"},
+   {"from": "a", "text": "Your ticket is registered.", "at": "confirms"}],
+  "side": {"heading": "Built for Teams",
+   "cards": [
+    {"icon": "braces", "title": "One variable per field", "at": "1:one variable", "hi": true},
+    {"icon": "card_ui", "title": "Schema 1.5", "desc": "Looks the same everywhere", "at": "one point five", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Several fields at once"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Ask with Adaptive Card", "at": "the answer is"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Design with 1.6 and assume Teams shows it", "at": "version one point six"}]}],
+  "verdict": {"icon": "people_team", "text": "Teams: up to 1.5", "at": "limit is"}}
+]}

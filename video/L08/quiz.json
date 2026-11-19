@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Contoso's vacation topic saves the employee number in a topic variable. The payroll and benefits topics need the same number without asking again. What should you do?",
+    "options": [
+      "Copy the question into every topic",
+      "Change the variable scope to global",
+      "Make it a new system variable instead"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Valeria first sets Global.EmployeeId to the number 4215. Later, a node saves the text E4215 in the same variable. What happens?",
+    "options": [
+      "An error: the type is already Number",
+      "It quietly converts itself to a String",
+      "The text is stored as the number zero"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "Nexo calls an inventory address that is different in development and in production. Contoso wants to move the agent without editing any node. What should you use?",
+    "options": [
+      "A global variable set in every topic",
+      "A system variable that holds the address",
+      "An environment variable for the address"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

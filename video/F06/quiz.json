@@ -1,0 +1,18 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "A team wants a place to develop and test a new agent before real employees use it. They also want to copy it and reset it when tests go wrong. Which environment type fits?",
+    "options": ["The default environment", "A production environment", "A sandbox environment"],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Nexo works well in the Nexo Dev environment. Now the team must take it to Nexo Prod, where real employees will use it. How do they move it?",
+    "options": ["Package it in a managed solution", "Rebuild the agent by hand in Prod", "Share the Dev agent with everyone"],
+    "right": 0,
+    "trap": 1
+  }
+]

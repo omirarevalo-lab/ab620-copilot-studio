@@ -1,0 +1,8 @@
+{
+  "1": ["AB-620", [["Earns", "Microsoft Certified: AI Agent Builder Associate"], ["Time", "120 minutes, proctored, interactive parts"], ["Pass", "700 / 1000, scaled score"]]],
+  "2": ["Rules of the room", [["Languages", "Includes Spanish; local versions ~8 weeks after English"], ["Retake", "After 24 hours"], ["Learn", "Open, but not Q&A, practice assessments or profile"], ["Search", "Ctrl+F on the page"]]],
+  "4": ["Domains", [["D1 Plan and configure", "30–35 % · planning, agent flows, topics"], ["D2 Integrate and extend", "40–45 % · knowledge, tools, multi-agent, Azure"], ["D3 Test and manage", "20–25 % · evaluation, ALM"]]],
+  "6": ["Course map", [["M0", "Fundamentals"], ["M1–M3", "Domain 1"], ["M4–M6", "Domain 2"], ["M7", "Domain 3"], ["Each topic", "Theory · video · questions · challenge"]]],
+  "7": ["Glossary: the agent", [["Agent", "AI assistant that chats and acts"], ["Topic", "Conversation designed with nodes"], ["Tool", "Capability the agent runs"], ["Connector", "Wrapper around an API"], ["Knowledge", "Sources the agent looks up"], ["Orchestration", "Deciding what to use per message"], ["Harness", "Engine that runs the agent"]]],
+  "8": ["Glossary: where it lives", [["Environment", "Power Platform space with apps and data"], ["Solution", "Container to move components"], ["Dataverse", "Power Platform database"], ["DLP", "Admin data policies"], ["Channel", "Where users chat with the agent"], ["Copilot Credits", "Billing unit for agent usage"]]]
+}

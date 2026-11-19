@@ -1,0 +1,65 @@
+{
+ "brand": "AB-620 · Basics · Lesson 5",
+ "scenes": [
+  { "type": "split",
+    "left": { "kicker": "Tools", "title": "The agent's hands", "sub": "Knowledge is what it reads; tools are what it does.", "pill": { "text": "Tools › Add a tool", "at": "Add a tool" } },
+    "rows": [
+      { "icon": "plug_connected", "title": "Connector", "at": "a connector", "hi": true },
+      { "icon": "flow", "title": "Agent flow", "at": "an agent flow", "hi": true },
+      { "icon": "sparkle", "title": "Prompt", "at": "a prompt", "hi": true },
+      { "icon": "globe", "title": "REST API", "at": "R E S T", "hi": true },
+      { "icon": "apps", "title": "MCP server", "at": "M C P", "hi": true },
+      { "icon": "window_dev_tools", "title": "Computer use", "at": "computer use", "hi": true }
+    ] },
+  { "type": "flow",
+    "header": { "kicker": "Connectors", "title": "A travel plug adapter" },
+    "nodes": [
+      { "icon": "bot", "title": "Your agent", "sub": "Always the same plug", "at": "Your device" },
+      { "icon": "plug_connected", "title": "Connector", "sub": "Ready-made actions", "accent": true, "at": "The adapter" },
+      { "icon": "apps", "title": "The service", "sub": "SharePoint · Outlook · Salesforce", "at": "SharePoint" }
+    ],
+    "below": [
+      { "icon": "checkmark_circle", "text": "No need to program the API call", "at": "do not need to program" },
+      { "icon": "flow", "text": "Also in Power Automate and Power Apps", "at": "Power Automate", "solid": true }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Connector types", "title": "Standard, premium, custom" },
+    "rows": [
+      { "icon": "checkmark_circle", "title": "Standard", "desc": "In all Copilot Studio plans · e.g. SharePoint", "at": "Standard connectors", "hi": true },
+      { "icon": "key", "title": "Premium", "desc": "Only in certain plans · not in the plan for Teams", "at": "Premium ones", "hi": true },
+      { "icon": "wrench", "title": "Custom", "desc": "You build it, usually from an OpenAPI spec", "at": "custom ones", "hi": true }
+    ] },
+  { "type": "compare",
+    "header": { "kicker": "Connections", "title": "Whose credentials?" },
+    "cols": [
+      { "icon": "person", "title": "User credentials", "sub": "The default", "tone": "good", "at": "By default",
+        "items": [ { "text": "Each user signs in with their own account", "at": "own account" } ] },
+      { "icon": "key", "title": "Maker credentials", "sub": "Use with care", "tone": "bad", "at": "maker credentials",
+        "items": [ { "text": "Needs an authenticated channel", "at": "authenticated channel" }, { "text": "Everyone acts with the maker's permissions", "at": "everyone would act" } ] }
+    ],
+    "verdict": { "icon": "people_team", "text": "Connections are shared from the Power Apps portal", "at": "Connections are shared" } },
+  { "type": "flow",
+    "header": { "kicker": "Governance", "title": "Data policies (DLP)" },
+    "nodes": [
+      { "icon": "person", "title": "Administrator", "sub": "Applies the policy", "at": "Administrators" },
+      { "icon": "shield_checkmark", "title": "Data policy", "sub": "Which connectors · which combinations", "accent": true, "at": "which connectors" },
+      { "icon": "plug_connected", "title": "Connectors", "sub": "Including custom and MCP", "at": "custom connectors" }
+    ],
+    "below": [
+      { "icon": "flag", "text": "Tool missing or failing? Check the policy first", "at": "does not appear", "solid": true }
+    ] },
+  { "type": "hub",
+    "header": { "kicker": "Contoso", "title": "Nexo's tools" },
+    "center": { "icon": "bot", "title": "Nexo", "at": "start" },
+    "topLabel": "Tools",
+    "top": [
+      { "icon": "ticket_diagonal", "title": "Help desk", "desc": "Premium connector", "at": "help desk connector" },
+      { "icon": "wrench", "title": "Purchase approvals", "desc": "Custom connector", "at": "custom connector" }
+    ],
+    "bottomLabel": "Checks",
+    "bottom": [
+      { "icon": "shield_checkmark", "title": "Data policies allow both", "at": "policies allow", "hi": true },
+      { "icon": "person", "title": "Each employee signs in once", "at": "signs in once", "hi": true }
+    ] }
+ ]
+}

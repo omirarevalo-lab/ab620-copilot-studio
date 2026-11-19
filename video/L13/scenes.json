@@ -1,0 +1,46 @@
+{"brand": "AB-620 · Module 2 · Lesson 6", "scenes": [
+ {"type": "flow", "header": {"kicker": "Custom prompts", "title": "A recipe for the model"},
+  "nodes": [
+   {"icon": "notepad", "title": "Instructions", "sub": "Always the same", "at": "recipe is the instructions"},
+   {"icon": "document_text", "title": "Input", "sub": "e.g. a ticket's text", "at": "is the input"},
+   {"icon": "sparkle", "title": "Model", "sub": "Processes it", "accent": true, "at": "model processes"},
+   {"icon": "checkmark_circle", "title": "Result", "at": "gives you a result"}]},
+ {"type": "compare", "header": {"kicker": "A single turn", "title": "One task, one result"},
+  "cols": [
+   {"icon": "sparkle", "title": "Prompt", "sub": "A single-turn tool based on a model", "accent": true, "at": "single-turn",
+    "items": [{"text": "Instructions", "at": "instructions,"}, {"text": "Inputs", "at": "inputs,"}, {"text": "Knowledge, if you want", "at": "knowledge"}]},
+   {"icon": "chat", "title": "Unlike a conversation", "at": "Unlike a conversation",
+    "items": [{"text": "Does one task and returns", "at": "does one task"}]}],
+  "verdict": {"icon": "dismiss_circle", "text": "No long dialogue with the user", "at": "long dialogue"}},
+ {"type": "terms", "header": {"kicker": "Three places", "title": "The same piece in three places"}, "cols": 3,
+  "items": [
+   {"icon": "toolbox", "term": "Agent tool", "def": "From Tools", "at": "agent tool"},
+   {"icon": "branch_fork", "term": "Node in a topic", "def": "Add a tool › New prompt", "at": "node inside"},
+   {"icon": "flow", "term": "Agent flow action", "def": "Run a prompt", "at": "Run a prompt"}]},
+ {"type": "split", "left": {"kicker": "The editor", "title": "Write, set up, test", "pill": {"text": "Specific · short · fallback output", "note": "e.g. answer \"not found\"", "at": "fallback output"}},
+  "window": {"title": "Prompt editor", "heading": "New prompt", "rail": ["apps", "bot", "toolbox", "sparkle", "settings"],
+   "cards": [
+    {"icon": "notepad", "title": "Instructions", "at": "write the instructions", "hi": true},
+    {"icon": "braces", "title": "Inputs", "at": "define inputs", "hi": true},
+    {"icon": "brain_circuit", "title": "Model", "at": "choose the model", "hi": true},
+    {"icon": "beaker", "title": "Test with sample data", "at": "sample data", "hi": true}]}},
+ {"type": "stats", "header": {"kicker": "Temperature", "title": "From zero to one"},
+  "items": [
+   {"icon": "temperature", "value": "0 – 1", "label": "The range", "at": "zero to one"},
+   {"icon": "temperature", "value": "0", "label": "Default · more predictable", "at": "default is zero", "accent": true},
+   {"icon": "brain_circuit", "value": "Off", "label": "Slider disabled with GPT-5 reasoning", "at": "G P T five"}],
+  "note": {"icon": "settings", "text": "Set in the prompt settings, not the agent settings", "at": "prompt settings"}},
+ {"type": "flow", "header": {"kicker": "Contoso", "title": "A ticket classifier"},
+  "nodes": [
+   {"icon": "sparkle", "title": "Prompt", "sub": "Classifies tickets", "at": "creates a prompt"},
+   {"icon": "ticket_diagonal", "title": "Ticket text", "sub": "Input", "at": "text of a ticket"},
+   {"icon": "tag", "title": "Category · urgency", "sub": "Output", "accent": true, "at": "category and urgency"}],
+  "below": [
+   {"icon": "temperature", "text": "Temperature 0 → same classification", "at": "temperature zero", "solid": true},
+   {"icon": "bot", "text": "Called as a tool on each request", "at": "as a tool"}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "A consistent classification"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Clear instructions", "at": "clear instructions"}, {"text": "Low temperature", "at": "low temperature"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Temperature control with GPT-5 reasoning", "at": "G P T five"}, {"text": "A child agent: heavier than a prompt", "at": "child agent"}]}],
+  "verdict": {"icon": "checkmark_circle", "text": "Clear instructions + low temperature", "at": "winning combination"}}
+]}

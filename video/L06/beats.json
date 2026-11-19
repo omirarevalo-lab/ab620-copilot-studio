@@ -1,0 +1,770 @@
+{
+ "id": "L06",
+ "title": "Reusable components",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 490.492,
+ "scenes": [
+  {
+   "title": "Three copies, three versions",
+   "start": 0.8,
+   "end": 26.117,
+   "sentences": [
+    {
+     "text": "Contoso has three agents: I T, H R and Sales.",
+     "start": 0.8,
+     "end": 4.576
+    },
+    {
+     "text": "Each one needs the same greeting and the same way to escalate to a human.",
+     "start": 4.856,
+     "end": 9.059
+    },
+    {
+     "text": "So a maker copies the topics from one agent into the other two.",
+     "start": 9.339,
+     "end": 12.944
+    },
+    {
+     "text": "A month later, someone fixes a bug in the I T greeting.",
+     "start": 13.224,
+     "end": 16.424
+    },
+    {
+     "text": "The H R and Sales copies still have the bug.",
+     "start": 16.704,
+     "end": 19.413
+    },
+    {
+     "text": "Three agents, three versions of the same piece.",
+     "start": 19.693,
+     "end": 22.317
+    },
+    {
+     "text": "By the end of this class you will know how to share pieces the right way.",
+     "start": 22.597,
+     "end": 26.117
+    }
+   ]
+  },
+  {
+   "title": "A box of Lego pieces",
+   "start": 27.017,
+   "end": 48.127,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 27.017,
+     "end": 28.489
+    },
+    {
+     "text": "Imagine a box of Lego pieces that every team in the company can use, but nobody can bend or break.",
+     "start": 28.769,
+     "end": 34.977
+    },
+    {
+     "text": "That is a component collection.",
+     "start": 35.257,
+     "end": 36.985
+    },
+    {
+     "text": "You package ready made pieces once, and reuse them in several agents, instead of copying and pasting.",
+     "start": 37.265,
+     "end": 43.452
+    },
+    {
+     "text": "Fix a piece in the box, and every agent that uses the box gets the fix.",
+     "start": 43.732,
+     "end": 48.127
+    }
+   ]
+  },
+  {
+   "title": "What goes in the box",
+   "start": 49.027,
+   "end": 75.293,
+   "sentences": [
+    {
+     "text": "What can a component collection contain?",
+     "start": 49.027,
+     "end": 51.075
+    },
+    {
+     "text": "Topics.",
+     "start": 51.355,
+     "end": 52.229
+    },
+    {
+     "text": "Tools.",
+     "start": 52.509,
+     "end": 53.363
+    },
+    {
+     "text": "Knowledge.",
+     "start": 53.643,
+     "end": 54.496
+    },
+    {
+     "text": "Flows.",
+     "start": 54.776,
+     "end": 55.608
+    },
+    {
+     "text": "Entities.",
+     "start": 55.888,
+     "end": 56.72
+    },
+    {
+     "text": "Child agents.",
+     "start": 57.0,
+     "end": 58.088
+    },
+    {
+     "text": "And M C P servers.",
+     "start": 58.368,
+     "end": 59.925
+    },
+    {
+     "text": "You make the piece once and use it in many agents.",
+     "start": 60.205,
+     "end": 62.936
+    },
+    {
+     "text": "For Contoso, one collection called Greeting and escalation holds two topics, Greeting and Escalate to a human, plus one tool called Create ticket.",
+     "start": 63.216,
+     "end": 72.56
+    },
+    {
+     "text": "All three agents add that one collection.",
+     "start": 72.84,
+     "end": 75.293
+    }
+   ]
+  },
+  {
+   "title": "Use, but do not touch",
+   "start": 76.193,
+   "end": 97.665,
+   "sentences": [
+    {
+     "text": "Who can change the pieces?",
+     "start": 76.193,
+     "end": 77.644
+    },
+    {
+     "text": "Once the collection is available in an agent, all the authors of that agent can use its components, but they cannot change them.",
+     "start": 77.924,
+     "end": 85.327
+    },
+    {
+     "text": "Only the creator of the collection, or a system customizer or an administrator, can edit it.",
+     "start": 85.607,
+     "end": 91.111
+    },
+    {
+     "text": "This way nobody breaks the shared piece by accident while working on their own agent.",
+     "start": 91.391,
+     "end": 96.041
+    },
+    {
+     "text": "The box stays clean.",
+     "start": 96.321,
+     "end": 97.665
+    }
+   ]
+  },
+  {
+   "title": "Why not copy and paste",
+   "start": 98.565,
+   "end": 121.045,
+   "sentences": [
+    {
+     "text": "Why not just copy and paste?",
+     "start": 98.565,
+     "end": 100.187
+    },
+    {
+     "text": "Because copies duplicate and fall out of sync.",
+     "start": 100.467,
+     "end": 102.877
+    },
+    {
+     "text": "When you fix the original, the copies stay old, exactly like at Contoso.",
+     "start": 103.157,
+     "end": 107.531
+    },
+    {
+     "text": "Two other ideas also fall short.",
+     "start": 107.811,
+     "end": 109.88
+    },
+    {
+     "text": "A child agent is not shared between agents, it belongs to one.",
+     "start": 110.16,
+     "end": 114.149
+    },
+    {
+     "text": "And exporting a whole agent is far too much when you only want a few pieces.",
+     "start": 114.429,
+     "end": 118.909
+    },
+    {
+     "text": "The collection is the clean answer.",
+     "start": 119.189,
+     "end": 121.045
+    }
+   ]
+  },
+  {
+   "title": "Decide: share without breaking",
+   "start": 121.945,
+   "end": 153.328,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 121.945,
+     "end": 122.82
+    },
+    {
+     "text": "Contoso wants the same topics and tool in its I T, H R and Sales agents, and the authors of those agents must not be able to change them.",
+     "start": 123.1,
+     "end": 132.081
+    },
+    {
+     "text": "What should the maker use?",
+     "start": 132.361,
+     "end": 133.663
+    },
+    {
+     "text": "A component collection?",
+     "start": 133.943,
+     "end": 135.265
+    },
+    {
+     "text": "Copy the topics by hand into each agent?",
+     "start": 135.545,
+     "end": 137.956
+    },
+    {
+     "text": "Or export the whole I T agent and import it three times?",
+     "start": 138.236,
+     "end": 141.841
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 142.121,
+     "end": 143.657
+    },
+    {
+     "text": "A component collection.",
+     "start": 147.437,
+     "end": 148.803
+    },
+    {
+     "text": "One source, used everywhere, and consumers cannot edit its components.",
+     "start": 149.083,
+     "end": 153.328
+    }
+   ]
+  },
+  {
+   "title": "Heavy boxes travel in a solution",
+   "start": 154.228,
+   "end": 180.932,
+   "sentences": [
+    {
+     "text": "Now the collection grows.",
+     "start": 154.228,
+     "end": 155.764
+    },
+    {
+     "text": "It starts to include connectors and environment variables.",
+     "start": 156.044,
+     "end": 159.116
+    },
+    {
+     "text": "How do you move it to production?",
+     "start": 159.396,
+     "end": 160.996
+    },
+    {
+     "text": "The recommendation is to use a solution as the carrier.",
+     "start": 161.276,
+     "end": 164.476
+    },
+    {
+     "text": "A solution is the Power Platform container for moving components between environments.",
+     "start": 164.756,
+     "end": 169.812
+    },
+    {
+     "text": "You add the collection to a solution, export the solution, and import it in the target.",
+     "start": 170.092,
+     "end": 175.169
+    },
+    {
+     "text": "Exporting the collection directly packages it as managed, and that is meant for simpler cases.",
+     "start": 175.449,
+     "end": 180.932
+    }
+   ]
+  },
+  {
+   "title": "Decide: the trip to production",
+   "start": 181.832,
+   "end": 212.617,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 181.832,
+     "end": 182.707
+    },
+    {
+     "text": "Contoso's collection now includes connectors and environment variables, and it must go from development to production.",
+     "start": 182.987,
+     "end": 189.963
+    },
+    {
+     "text": "What is recommended?",
+     "start": 190.243,
+     "end": 191.416
+    },
+    {
+     "text": "Rebuild the components by hand in production?",
+     "start": 191.696,
+     "end": 194.0
+    },
+    {
+     "text": "Export the collection directly, since it is already a package?",
+     "start": 194.28,
+     "end": 197.523
+    },
+    {
+     "text": "Or add the collection to a solution, then export and import that solution?",
+     "start": 197.803,
+     "end": 202.005
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 202.285,
+     "end": 203.821
+    },
+    {
+     "text": "Use a solution as the carrier.",
+     "start": 207.601,
+     "end": 209.436
+    },
+    {
+     "text": "A direct export is meant for simpler collections.",
+     "start": 209.716,
+     "end": 212.617
+    }
+   ]
+  },
+  {
+   "title": "Skills: reusable behavior",
+   "start": 213.517,
+   "end": 240.603,
+   "sentences": [
+    {
+     "text": "On the standard harness you share pieces with a collection.",
+     "start": 213.517,
+     "end": 216.44
+    },
+    {
+     "text": "On the Microsoft Copilot harness, formerly the GitHub Copilot harness, the reusable piece is a skill.",
+     "start": 216.72,
+     "end": 223.483
+    },
+    {
+     "text": "A skill has a name, a description, and instructions written in Markdown.",
+     "start": 223.763,
+     "end": 227.965
+    },
+    {
+     "text": "The orchestrator activates it when a user's request matches the description.",
+     "start": 228.245,
+     "end": 232.683
+    },
+    {
+     "text": "A skill can also carry supporting files.",
+     "start": 232.963,
+     "end": 235.267
+    },
+    {
+     "text": "You write it once, add it to many agents, and share it as a Markdown file or a package.",
+     "start": 235.547,
+     "end": 240.603
+    }
+   ]
+  },
+  {
+   "title": "Writing and adding a skill",
+   "start": 241.503,
+   "end": 267.793,
+   "sentences": [
+    {
+     "text": "The description is written for the model, not for people.",
+     "start": 241.503,
+     "end": 244.361
+    },
+    {
+     "text": "It is the signal the orchestrator matches, so write it for routing.",
+     "start": 244.641,
+     "end": 248.396
+    },
+    {
+     "text": "The name uses lowercase letters, numbers and hyphens, never starts or ends with a hyphen, and must be unique inside one agent.",
+     "start": 248.676,
+     "end": 256.761
+    },
+    {
+     "text": "You add a skill in the Build tab, under Skills, as a Markdown file with a front matter block holding the name and description, or as a zip with a skill file and supporting files.",
+     "start": 257.041,
+     "end": 267.793
+    }
+   ]
+  },
+  {
+   "title": "Skill, or something else?",
+   "start": 268.693,
+   "end": 298.107,
+   "sentences": [
+    {
+     "text": "When is a skill the right choice?",
+     "start": 268.693,
+     "end": 270.357
+    },
+    {
+     "text": "When the task is a repeatable pattern, it must run the same way each time, and it will be reused beyond one agent.",
+     "start": 270.637,
+     "end": 277.656
+    },
+    {
+     "text": "Otherwise pick something else.",
+     "start": 277.936,
+     "end": 279.472
+    },
+    {
+     "text": "A one off need belongs in the agent instructions.",
+     "start": 279.752,
+     "end": 282.909
+    },
+    {
+     "text": "A single external action is a tool.",
+     "start": 283.189,
+     "end": 285.323
+    },
+    {
+     "text": "A fixed sequence with defined inputs and outputs is a workflow, because a workflow enforces the order more strictly than Markdown can.",
+     "start": 285.603,
+     "end": 293.752
+    },
+    {
+     "text": "A capability with its own owner and life cycle is a connected agent.",
+     "start": 294.032,
+     "end": 298.107
+    }
+   ]
+  },
+  {
+   "title": "Decide: the strict sequence",
+   "start": 299.007,
+   "end": 332.485,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 299.007,
+     "end": 299.881
+    },
+    {
+     "text": "A process has five steps that must always run in the same order, with defined inputs and outputs, and the order must be enforced.",
+     "start": 300.161,
+     "end": 308.161
+    },
+    {
+     "text": "A maker wants to write it as a skill.",
+     "start": 308.441,
+     "end": 310.447
+    },
+    {
+     "text": "What should they use?",
+     "start": 310.727,
+     "end": 311.815
+    },
+    {
+     "text": "A single tool?",
+     "start": 312.095,
+     "end": 313.161
+    },
+    {
+     "text": "A workflow?",
+     "start": 313.441,
+     "end": 314.359
+    },
+    {
+     "text": "Or a skill, because it runs consistently?",
+     "start": 314.639,
+     "end": 317.092
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 317.372,
+     "end": 318.908
+    },
+    {
+     "text": "A workflow.",
+     "start": 322.688,
+     "end": 323.605
+    },
+    {
+     "text": "It enforces the order more strictly than Markdown instructions in a skill can.",
+     "start": 323.885,
+     "end": 328.6
+    },
+    {
+     "text": "A skill guides behavior, a workflow guarantees the sequence.",
+     "start": 328.88,
+     "end": 332.485
+    }
+   ]
+  },
+  {
+   "title": "Portable instructions",
+   "start": 333.385,
+   "end": 356.561,
+   "sentences": [
+    {
+     "text": "A skill travels to other agents, so write portable instructions.",
+     "start": 333.385,
+     "end": 337.097
+    },
+    {
+     "text": "Restate the tone, the audience and the policy the skill needs, inside the skill itself.",
+     "start": 337.377,
+     "end": 342.583
+    },
+    {
+     "text": "And avoid hard coding one agent's tools or data, because assumptions from one agent do not travel to another.",
+     "start": 342.863,
+     "end": 349.583
+    },
+    {
+     "text": "A skill that says use the H R lookup tool breaks the day it lands in the Sales agent, which has no such tool.",
+     "start": 349.863,
+     "end": 356.561
+    }
+   ]
+  },
+  {
+   "title": "Fixing a skill",
+   "start": 357.461,
+   "end": 380.533,
+   "sentences": [
+    {
+     "text": "How do you fix a skill?",
+     "start": 357.461,
+     "end": 358.763
+    },
+    {
+     "text": "If the upload fails, check for invalid front matter, or a name or description that is missing or empty.",
+     "start": 359.043,
+     "end": 365.272
+    },
+    {
+     "text": "If the skill fires when it should not, or does not fire when it should, refine the description, because the description is what routes it.",
+     "start": 365.552,
+     "end": 373.104
+    },
+    {
+     "text": "If it fires but gives the wrong output, refine the instructions.",
+     "start": 373.384,
+     "end": 377.053
+    },
+    {
+     "text": "To update a skill, edit the source file and use Replace.",
+     "start": 377.333,
+     "end": 380.533
+    }
+   ]
+  },
+  {
+   "title": "Decide: the eager skill",
+   "start": 381.433,
+   "end": 414.101,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 381.433,
+     "end": 382.308
+    },
+    {
+     "text": "A refunds skill keeps activating when users ask about shipping times, a request it was never built for.",
+     "start": 382.588,
+     "end": 388.732
+    },
+    {
+     "text": "Its output for real refund requests is perfect.",
+     "start": 389.012,
+     "end": 392.063
+    },
+    {
+     "text": "What should the maker refine?",
+     "start": 392.343,
+     "end": 393.793
+    },
+    {
+     "text": "The name, so it sounds more specific?",
+     "start": 394.073,
+     "end": 396.185
+    },
+    {
+     "text": "The instructions inside the skill?",
+     "start": 396.465,
+     "end": 398.343
+    },
+    {
+     "text": "Or the description?",
+     "start": 398.623,
+     "end": 399.711
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 399.991,
+     "end": 401.527
+    },
+    {
+     "text": "The description.",
+     "start": 405.307,
+     "end": 406.288
+    },
+    {
+     "text": "It is the routing signal the orchestrator matches.",
+     "start": 406.568,
+     "end": 409.533
+    },
+    {
+     "text": "Wrong output would mean the instructions, but here the routing is the problem.",
+     "start": 409.813,
+     "end": 414.101
+    }
+   ]
+  },
+  {
+   "title": "Memory, per user",
+   "start": 415.001,
+   "end": 434.852,
+   "sentences": [
+    {
+     "text": "One more feature of the Microsoft Copilot harness: memory, which is in preview.",
+     "start": 415.001,
+     "end": 420.164
+    },
+    {
+     "text": "The maker turns it on or off for each agent.",
+     "start": 420.444,
+     "end": 422.812
+    },
+    {
+     "text": "When it is on, the agent keeps a separate memory store for every user.",
+     "start": 423.092,
+     "end": 427.081
+    },
+    {
+     "text": "So what one person told the agent is never shared with another person.",
+     "start": 427.361,
+     "end": 431.415
+    },
+    {
+     "text": "Think of a locker per user, not one shared noticeboard.",
+     "start": 431.695,
+     "end": 434.852
+    }
+   ]
+  },
+  {
+   "title": "The steps",
+   "start": 435.752,
+   "end": 459.795,
+   "sentences": [
+    {
+     "text": "Here are the steps for a collection.",
+     "start": 435.752,
+     "end": 437.48
+    },
+    {
+     "text": "Open your agent and go to Settings.",
+     "start": 437.76,
+     "end": 439.915
+    },
+    {
+     "text": "Find the component collections section.",
+     "start": 440.195,
+     "end": 442.179
+    },
+    {
+     "text": "Create a new collection and give it a name.",
+     "start": 442.459,
+     "end": 444.741
+    },
+    {
+     "text": "Add components, for example a greeting topic and a tool.",
+     "start": 445.021,
+     "end": 448.371
+    },
+    {
+     "text": "Save the collection.",
+     "start": 448.651,
+     "end": 449.867
+    },
+    {
+     "text": "Then open another agent and add that collection.",
+     "start": 450.147,
+     "end": 453.069
+    },
+    {
+     "text": "Finally, check that you can use its components, but not edit them.",
+     "start": 453.349,
+     "end": 457.04
+    },
+    {
+     "text": "That last check proves the box is protected.",
+     "start": 457.32,
+     "end": 459.795
+    }
+   ]
+  },
+  {
+   "title": "One box, three agents",
+   "start": 460.695,
+   "end": 489.292,
+   "sentences": [
+    {
+     "text": "Back to Contoso.",
+     "start": 460.695,
+     "end": 461.953
+    },
+    {
+     "text": "The greeting and escalation pieces now live in one collection, used by the I T, H R and Sales agents, and one fix reaches all three.",
+     "start": 462.233,
+     "end": 471.321
+    },
+    {
+     "text": "When connectors arrived, the collection moved to production inside a solution.",
+     "start": 471.601,
+     "end": 476.017
+    },
+    {
+     "text": "On the Microsoft Copilot harness, reusable behavior is a skill.",
+     "start": 476.297,
+     "end": 480.436
+    },
+    {
+     "text": "Remember for the exam: consumers cannot edit, solutions carry heavy collections, and a skill that fires wrongly needs a better description.",
+     "start": 480.716,
+     "end": 489.292
+    }
+   ]
+  }
+ ]
+}

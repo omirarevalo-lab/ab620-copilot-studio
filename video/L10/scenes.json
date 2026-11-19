@@ -1,0 +1,49 @@
+{"brand": "AB-620 · Module 2 · Lesson 3", "scenes": [
+ {"type": "split", "left": {"kicker": "Generative answers node", "title": "The agent's librarian", "sub": "You decide which shelves it can search."},
+  "chain": [
+   {"icon": "chat", "title": "Question", "at": "takes a question"},
+   {"icon": "search", "title": "Searches your sources", "accent": true, "at": "searches the sources"},
+   {"icon": "document_text", "title": "Answer", "at": "writes an answer"}],
+  "rows": [{"icon": "book_open", "title": "You choose the shelves", "desc": "That is what the exam asks about", "at": "which shelves", "hi": true}]},
+ {"type": "path", "header": {"kicker": "Where to add it", "title": "Inside a topic"},
+  "crumbs": [
+   {"icon": "branch_fork", "text": "Topic", "at": "open a topic"},
+   {"icon": "cursor_click", "text": "Add node", "at": "Add node"},
+   {"icon": "settings", "text": "Advanced", "at": "Advanced"},
+   {"icon": "sparkle", "text": "Generative answers", "accent": true, "at": "choose Generative"}],
+  "cards": [
+   {"icon": "sparkle", "title": "Create generative answers", "desc": "The node that appears", "at": "Create generative", "hi": true},
+   {"icon": "settings", "title": "Its properties", "desc": "Input · sources · moderation · what to do with the answer", "at": "properties", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "The default", "title": "Search only selected sources: off"},
+  "nodes": [
+   {"icon": "settings", "title": "Toggle off", "sub": "The default", "at": "turned off"},
+   {"icon": "book_open", "title": "All agent sources", "sub": "Searched by the node", "accent": true, "at": "all of the agent's"},
+   {"icon": "arrow_sync", "title": "Kept in sync", "sub": "Add or remove at agent level", "at": "automatically"}],
+  "below": [{"icon": "checkmark_circle", "text": "This is the default behavior", "at": "default behavior", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Only the selected ones", "title": "Search only selected sources: on"},
+  "nodes": [
+   {"icon": "checkbox_checked", "title": "Toggle on", "at": "turned on"},
+   {"icon": "filter", "title": "Only your choice", "sub": "Replaces the agent's sources", "accent": true, "at": "replace the agent's"},
+   {"icon": "dismiss_circle", "title": "No fallback", "sub": "The others are not searched", "at": "no fallback"}],
+  "below": [{"icon": "shield_checkmark", "text": "Ideal for sensitive topics", "at": "sensitive", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Customizing the response", "title": "Show it in an Adaptive Card"},
+  "nodes": [
+   {"icon": "sparkle", "title": "Answer", "at": "show the answer"},
+   {"icon": "globe", "title": "Global variable", "sub": "Save the answer", "at": "global variable"},
+   {"icon": "card_ui", "title": "Your card", "sub": "You decide how", "accent": true, "at": "how to present"}],
+  "below": [
+   {"text": "Send a message checkbox", "at": "0:clear the Send", "strike": true},
+   {"icon": "checkmark_circle", "text": "Full control of the presentation", "at": "full control", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "Citations in Teams", "title": "Customized answers lose them"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Not customized", "sub": "Standard response", "tone": "good", "at": "In Teams",
+    "items": [{"text": "Citations arrive automatically", "at": "arrive automatically"}]},
+   {"icon": "card_ui", "title": "Customized", "sub": "Your own card", "accent": true, "at": "If you customize",
+    "items": [{"text": "Include the citation rendering yourself", "at": "citation rendering"}]}],
+  "verdict": {"icon": "flag", "text": "Remember it when you design the card", "at": "design the card"}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Only certain sources"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Search only selected sources", "at": "the answer is"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "\"It falls back to the agent's sources\"", "at": "falls back"}]}],
+  "verdict": {"icon": "filter", "text": "The selected sources replace them completely", "at": "completely replace"}}
+]}

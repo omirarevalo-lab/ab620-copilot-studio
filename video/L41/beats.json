@@ -1,0 +1,713 @@
+{
+ "id": "L41",
+ "title": "Microsoft IQ: Foundry IQ, Fabric IQ and Work IQ",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 462.0,
+ "scenes": [
+  {
+   "title": "Three questions on Tuesday",
+   "start": 0.8,
+   "end": 28.893,
+   "sentences": [
+    {
+     "text": "Tuesday morning at Contoso.",
+     "start": 0.8,
+     "end": 2.592
+    },
+    {
+     "text": "The HR agent gets three questions.",
+     "start": 2.872,
+     "end": 5.048
+    },
+    {
+     "text": "An employee asks about the parental leave policy.",
+     "start": 5.328,
+     "end": 8.187
+    },
+    {
+     "text": "The sales director asks for revenue by region.",
+     "start": 8.467,
+     "end": 11.411
+    },
+    {
+     "text": "A manager asks which meetings this week mention a renewal.",
+     "start": 11.691,
+     "end": 15.125
+    },
+    {
+     "text": "None of these answers lives in Copilot Studio.",
+     "start": 15.405,
+     "end": 18.392
+    },
+    {
+     "text": "The policy, the numbers and the meetings are kept by other teams, on other platforms.",
+     "start": 18.672,
+     "end": 23.6
+    },
+    {
+     "text": "By the end of this class you will know which Microsoft I Q capability answers each one.",
+     "start": 23.88,
+     "end": 28.893
+    }
+   ]
+  },
+  {
+   "title": "Three expert colleagues",
+   "start": 29.793,
+   "end": 54.388,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 29.793,
+     "end": 31.265
+    },
+    {
+     "text": "Microsoft I Q is like three expert colleagues sitting next to your agent.",
+     "start": 31.545,
+     "end": 36.153
+    },
+    {
+     "text": "The first one knows the official policies.",
+     "start": 36.433,
+     "end": 38.865
+    },
+    {
+     "text": "The second one knows the business numbers.",
+     "start": 39.145,
+     "end": 41.385
+    },
+    {
+     "text": "The third one knows how your teams work every day, their files, email, meetings and chats.",
+     "start": 41.665,
+     "end": 47.02
+    },
+    {
+     "text": "Your agent does not learn what they know.",
+     "start": 47.3,
+     "end": 49.263
+    },
+    {
+     "text": "It asks them.",
+     "start": 49.543,
+     "end": 50.545
+    },
+    {
+     "text": "Their names are Foundry I Q, Fabric I Q and Work I Q.",
+     "start": 50.825,
+     "end": 54.388
+    }
+   ]
+  },
+  {
+   "title": "Reuse, never copy",
+   "start": 55.288,
+   "end": 78.744,
+   "sentences": [
+    {
+     "text": "The key idea is reuse.",
+     "start": 55.288,
+     "end": 56.781
+    },
+    {
+     "text": "With a knowledge source, you pick and upload the content yourself in Copilot Studio.",
+     "start": 57.061,
+     "end": 61.691
+    },
+    {
+     "text": "With an I Q capability, the context already exists outside Copilot Studio, and someone else maintains it on another platform.",
+     "start": 61.971,
+     "end": 69.971
+    },
+    {
+     "text": "Your agent simply points to it, and you can select only the items you have access to.",
+     "start": 70.251,
+     "end": 75.136
+    },
+    {
+     "text": "Note that Fabric I Q and Work I Q are still in preview.",
+     "start": 75.416,
+     "end": 78.744
+    }
+   ]
+  },
+  {
+   "title": "Where you add them",
+   "start": 79.644,
+   "end": 101.82,
+   "sentences": [
+    {
+     "text": "Where do these colleagues join the agent?",
+     "start": 79.644,
+     "end": 81.671
+    },
+    {
+     "text": "On the Microsoft Copilot harness, which until late October was called the GitHub Copilot harness.",
+     "start": 81.951,
+     "end": 87.967
+    },
+    {
+     "text": "Same harness, new name, so the exam may still use the old one.",
+     "start": 88.247,
+     "end": 91.873
+    },
+    {
+     "text": "You open the Build tab and add each capability as a tool, in Tools.",
+     "start": 92.153,
+     "end": 96.207
+    },
+    {
+     "text": "The orchestrator then decides when to call it, based only on the tool's name and description.",
+     "start": 96.487,
+     "end": 101.82
+    }
+   ]
+  },
+  {
+   "title": "Foundry IQ: the policy expert",
+   "start": 102.72,
+   "end": 131.875,
+   "sentences": [
+    {
+     "text": "Foundry I Q is the policy expert.",
+     "start": 102.72,
+     "end": 105.045
+    },
+    {
+     "text": "It brings curated knowledge, such as policies and authoritative documents, from a knowledge base built in Microsoft Foundry.",
+     "start": 105.325,
+     "end": 112.835
+    },
+    {
+     "text": "Remember two exam facts.",
+     "start": 113.115,
+     "end": 114.629
+    },
+    {
+     "text": "An agent can have only one Foundry I Q connection.",
+     "start": 114.909,
+     "end": 118.173
+    },
+    {
+     "text": "And the connection uses one of four authentication types: A P I key, client certificate, service principal, or Microsoft Entra I D integrated.",
+     "start": 118.453,
+     "end": 128.181
+    },
+    {
+     "text": "Every type needs the Foundry I Q search service endpoint.",
+     "start": 128.461,
+     "end": 131.875
+    }
+   ]
+  },
+  {
+   "title": "Decide: the wrong answers",
+   "start": 132.775,
+   "end": 162.449,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 132.775,
+     "end": 133.649
+    },
+    {
+     "text": "The HR agent uses Foundry I Q, but its answers about leave are strange and incomplete.",
+     "start": 133.929,
+     "end": 139.796
+    },
+    {
+     "text": "Where do you fix it?",
+     "start": 140.076,
+     "end": 141.207
+    },
+    {
+     "text": "By removing the connection and adding it again?",
+     "start": 141.487,
+     "end": 143.983
+    },
+    {
+     "text": "In Copilot Studio, by editing the agent instructions?",
+     "start": 144.263,
+     "end": 147.569
+    },
+    {
+     "text": "Or in Microsoft Foundry, together with the knowledge base owner?",
+     "start": 147.849,
+     "end": 151.455
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 151.735,
+     "end": 153.271
+    },
+    {
+     "text": "You tune it in Microsoft Foundry, with the owner.",
+     "start": 153.551,
+     "end": 156.367
+    },
+    {
+     "text": "The knowledge base lives there, and removing the connection in Copilot Studio does not change it at all.",
+     "start": 156.647,
+     "end": 162.449
+    }
+   ]
+  },
+  {
+   "title": "Descriptions draw the borders",
+   "start": 163.349,
+   "end": 188.603,
+   "sentences": [
+    {
+     "text": "Because the orchestrator chooses tools from their descriptions, a vague description is a real problem.",
+     "start": 163.349,
+     "end": 169.173
+    },
+    {
+     "text": "Two tools may both claim the same question, or neither one gets called.",
+     "start": 169.453,
+     "end": 173.507
+    },
+    {
+     "text": "So rewrite every description in three parts.",
+     "start": 173.787,
+     "end": 176.283
+    },
+    {
+     "text": "When to use it.",
+     "start": 176.563,
+     "end": 177.629
+    },
+    {
+     "text": "What it returns.",
+     "start": 177.909,
+     "end": 178.933
+    },
+    {
+     "text": "And what it does not handle.",
+     "start": 179.213,
+     "end": 180.664
+    },
+    {
+     "text": "For example: use for H R policy questions, returns policy text, does not handle salaries or personal data.",
+     "start": 180.944,
+     "end": 188.603
+    }
+   ]
+  },
+  {
+   "title": "Fabric IQ: the numbers expert",
+   "start": 189.503,
+   "end": 217.375,
+   "sentences": [
+    {
+     "text": "Fabric I Q, in preview, is the numbers expert.",
+     "start": 189.503,
+     "end": 192.404
+    },
+    {
+     "text": "It grounds your agent in the Microsoft Fabric semantic model, with its measures, hierarchies and dimensions.",
+     "start": 192.684,
+     "end": 199.255
+    },
+    {
+     "text": "Because the agent uses that model, you do not rebuild the same metrics or data models in Copilot Studio.",
+     "start": 199.535,
+     "end": 205.977
+    },
+    {
+     "text": "Revenue by region already exists in Fabric, so the agent reuses it.",
+     "start": 206.257,
+     "end": 210.652
+    },
+    {
+     "text": "You need an agent on the Microsoft Copilot harness and access to the Fabric workspace and semantic model.",
+     "start": 210.932,
+     "end": 217.375
+    }
+   ]
+  },
+  {
+   "title": "Read the activity trace",
+   "start": 218.275,
+   "end": 241.709,
+   "sentences": [
+    {
+     "text": "How do you know it worked?",
+     "start": 218.275,
+     "end": 219.576
+    },
+    {
+     "text": "Open the Preview tab, keep End user preview off, ask a test question and read the activity trace step by step.",
+     "start": 219.856,
+     "end": 226.619
+    },
+    {
+     "text": "If there is no Fabric I Q call, check Tools and the description.",
+     "start": 226.899,
+     "end": 230.589
+    },
+    {
+     "text": "If a different tool was called, the borders between descriptions need to be clearer.",
+     "start": 230.869,
+     "end": 235.157
+    },
+    {
+     "text": "If you see an error, it is often a failed authentication, so check that the tool's credentials are current.",
+     "start": 235.437,
+     "end": 241.709
+    }
+   ]
+  },
+  {
+   "title": "Decide: the other tool answered",
+   "start": 242.609,
+   "end": 269.919,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 242.609,
+     "end": 243.484
+    },
+    {
+     "text": "You ask the agent for revenue by region.",
+     "start": 243.764,
+     "end": 246.153
+    },
+    {
+     "text": "The activity trace shows that the policy tool was called instead of Fabric I Q.",
+     "start": 246.433,
+     "end": 251.041
+    },
+    {
+     "text": "What do you change?",
+     "start": 251.321,
+     "end": 252.409
+    },
+    {
+     "text": "Make the tool descriptions clearer about what each one handles?",
+     "start": 252.689,
+     "end": 255.804
+    },
+    {
+     "text": "Remove Fabric I Q and use a knowledge source?",
+     "start": 256.084,
+     "end": 258.943
+    },
+    {
+     "text": "Or rebuild the revenue metrics inside Copilot Studio?",
+     "start": 259.223,
+     "end": 262.551
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 262.831,
+     "end": 264.367
+    },
+    {
+     "text": "Clarify the descriptions.",
+     "start": 264.647,
+     "end": 266.076
+    },
+    {
+     "text": "The orchestrator picked the wrong tool because the borders were vague.",
+     "start": 266.356,
+     "end": 269.919
+    }
+   ]
+  },
+  {
+   "title": "Work IQ: the teamwork expert",
+   "start": 270.819,
+   "end": 297.669,
+   "sentences": [
+    {
+     "text": "Work I Q, in preview, is the teamwork expert.",
+     "start": 270.819,
+     "end": 273.613
+    },
+    {
+     "text": "It gives the agent context about how people work in Microsoft three six five: files, email, meetings and chats.",
+     "start": 273.893,
+     "end": 281.381
+    },
+    {
+     "text": "You add it as a Model Context Protocol tool, an M C P tool.",
+     "start": 281.661,
+     "end": 285.779
+    },
+    {
+     "text": "And it is read-only, unless an administrator turns on write operations in the Microsoft three six five admin center.",
+     "start": 286.059,
+     "end": 293.504
+    },
+    {
+     "text": "Reading is the default.",
+     "start": 293.784,
+     "end": 295.149
+    },
+    {
+     "text": "Writing is a deliberate admin choice.",
+     "start": 295.429,
+     "end": 297.669
+    }
+   ]
+  },
+  {
+   "title": "Work IQ needs the admin",
+   "start": 298.569,
+   "end": 324.052,
+   "sentences": [
+    {
+     "text": "Work I Q also needs some admin work first.",
+     "start": 298.569,
+     "end": 301.3
+    },
+    {
+     "text": "A Global Administrator enables it once for the whole tenant.",
+     "start": 301.58,
+     "end": 305.143
+    },
+    {
+     "text": "The tenant needs a usage based billing plan in Copilot Studio.",
+     "start": 305.423,
+     "end": 309.433
+    },
+    {
+     "text": "And admins create a separate spending policy for Work I Q usage.",
+     "start": 309.713,
+     "end": 313.809
+    },
+    {
+     "text": "One more limit: every M C P server counts toward the agent's tool total, and extra servers are skipped for a turn, so keep the number of attached servers small.",
+     "start": 314.089,
+     "end": 324.052
+    }
+   ]
+  },
+  {
+   "title": "Decide: the shortcut tools",
+   "start": 324.952,
+   "end": 352.219,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 324.952,
+     "end": 325.827
+    },
+    {
+     "text": "A maker wants meeting and email context.",
+     "start": 326.107,
+     "end": 328.517
+    },
+    {
+     "text": "Instead of Work I Q, they add the separate Mail, Teams and OneDrive tools.",
+     "start": 328.797,
+     "end": 333.235
+    },
+    {
+     "text": "Is that the recommended choice?",
+     "start": 333.515,
+     "end": 335.179
+    },
+    {
+     "text": "Is it required, because Work I Q cannot read email?",
+     "start": 335.459,
+     "end": 338.573
+    },
+    {
+     "text": "Is it wrong, because those tools are a legacy experience on the standard harness and billing?",
+     "start": 338.853,
+     "end": 343.995
+    },
+    {
+     "text": "Or is it fine, because they read the same data?",
+     "start": 344.275,
+     "end": 346.963
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 347.243,
+     "end": 348.779
+    },
+    {
+     "text": "It is the legacy path.",
+     "start": 349.059,
+     "end": 350.467
+    },
+    {
+     "text": "Use Work I Q instead.",
+     "start": 350.747,
+     "end": 352.219
+    }
+   ]
+  },
+  {
+   "title": "Choose by who maintains it",
+   "start": 353.119,
+   "end": 376.793,
+   "sentences": [
+    {
+     "text": "So how do you choose?",
+     "start": 353.119,
+     "end": 354.335
+    },
+    {
+     "text": "Ask who maintains the context.",
+     "start": 354.615,
+     "end": 356.471
+    },
+    {
+     "text": "Policies tuned by another team point to Foundry I Q.",
+     "start": 356.751,
+     "end": 359.844
+    },
+    {
+     "text": "Business measures in a Fabric semantic model point to Fabric I Q.",
+     "start": 360.124,
+     "end": 364.348
+    },
+    {
+     "text": "Email, files and meetings point to Work I Q.",
+     "start": 364.628,
+     "end": 367.359
+    },
+    {
+     "text": "Documents you write and update yourself fit a normal knowledge source.",
+     "start": 367.639,
+     "end": 371.585
+    },
+    {
+     "text": "And a whole domain run by another Copilot Studio agent fits a connected agent.",
+     "start": 371.865,
+     "end": 376.793
+    }
+   ]
+  },
+  {
+   "title": "The steps in the product",
+   "start": 377.693,
+   "end": 403.373,
+   "sentences": [
+    {
+     "text": "Here are the steps.",
+     "start": 377.693,
+     "end": 378.803
+    },
+    {
+     "text": "Open your agent on the Microsoft Copilot harness and go to the Build tab.",
+     "start": 379.083,
+     "end": 383.627
+    },
+    {
+     "text": "In Tools, select Add a tool.",
+     "start": 383.907,
+     "end": 385.699
+    },
+    {
+     "text": "For Foundry I Q, create a new connection, pick the authentication type, enter the search service endpoint and choose the knowledge base.",
+     "start": 385.979,
+     "end": 393.915
+    },
+    {
+     "text": "For Fabric I Q, select it and add it.",
+     "start": 394.195,
+     "end": 396.541
+    },
+    {
+     "text": "For Work I Q, go to M C P and pick Work I Q.",
+     "start": 396.821,
+     "end": 400.128
+    },
+    {
+     "text": "Then rewrite each description and test in Preview.",
+     "start": 400.408,
+     "end": 403.373
+    }
+   ]
+  },
+  {
+   "title": "Decide: which colleague?",
+   "start": 404.273,
+   "end": 433.116,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 404.273,
+     "end": 405.148
+    },
+    {
+     "text": "The sales director wants revenue by region, and those measures are already modelled in a Fabric semantic model.",
+     "start": 405.428,
+     "end": 412.233
+    },
+    {
+     "text": "Which capability should the agent use?",
+     "start": 412.513,
+     "end": 414.54
+    },
+    {
+     "text": "A knowledge source with an exported spreadsheet?",
+     "start": 414.82,
+     "end": 417.316
+    },
+    {
+     "text": "Work I Q, because the director asks in a Teams chat?",
+     "start": 417.596,
+     "end": 420.775
+    },
+    {
+     "text": "Or Fabric I Q, because the measures live in the semantic model?",
+     "start": 421.055,
+     "end": 424.639
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 424.919,
+     "end": 426.455
+    },
+    {
+     "text": "Fabric I Q.",
+     "start": 426.735,
+     "end": 427.844
+    },
+    {
+     "text": "The numbers expert reuses the model, so nobody copies or rebuilds the metrics.",
+     "start": 428.124,
+     "end": 433.116
+    }
+   ]
+  },
+  {
+   "title": "Tuesday, solved",
+   "start": 434.016,
+   "end": 460.8,
+   "sentences": [
+    {
+     "text": "Back to Tuesday at Contoso.",
+     "start": 434.016,
+     "end": 435.744
+    },
+    {
+     "text": "The leave policy comes from Foundry I Q, tuned by the compliance team in Foundry.",
+     "start": 436.024,
+     "end": 441.08
+    },
+    {
+     "text": "Revenue by region comes from Fabric I Q and the existing semantic model.",
+     "start": 441.36,
+     "end": 445.989
+    },
+    {
+     "text": "The renewal meetings come from Work I Q, read-only because the admin did not enable writes.",
+     "start": 446.269,
+     "end": 451.987
+    },
+    {
+     "text": "Remember for the exam: one Foundry I Q connection, Work I Q is an M C P tool, and you choose by who maintains the context.",
+     "start": 452.267,
+     "end": 460.8
+    }
+   ]
+  }
+ ]
+}

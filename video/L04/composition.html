@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L04 · Responsible AI and moderation · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .dp { position: absolute; width: 100px; height: 70px; box-sizing: border-box; border-radius: 30px; background: #e6ecfb; border: 6px solid #2f5bd3; color: #2f5bd3; font-size: 40px; font-weight: 800; line-height: 50px; text-align: center; opacity: 0; }
+  .dp.red { border-color: #c4392f; background: #fde8e6; color: #c4392f; } .dp.gr { border-color: #1e7f4f; background: #e3f4ea; color: #1e7f4f; } .dp.inv { border-style: dashed; }
+  .sb.jag { box-sizing: border-box; width: 380px; height: 170px; display: flex; align-items: center; justify-content: center; border: none; background: #c4392f; color: #fff; padding: 0; box-shadow: none; letter-spacing: 4px; clip-path: polygon(0 12%, 8% 0, 18% 14%, 30% 0, 42% 14%, 55% 0, 68% 14%, 80% 0, 92% 12%, 100% 0, 96% 40%, 100% 62%, 94% 80%, 100% 100%, 88% 88%, 76% 100%, 62% 86%, 50% 100%, 38% 86%, 24% 100%, 12% 86%, 0 100%, 6% 60%, 0 38%); }
+  .sb.jag:after { display: none; }
+  .sb.inv { border-style: dashed; color: #7a4d00; } .sb.gry { border-color: #8a93a6; color: #5d6472; background: #eef1f7; } .sb.gry:after { border-top-color: #8a93a6; }
+  .bnr { position: absolute; left: 90px; top: 60px; width: 1740px; height: 150px; display: flex; align-items: center; gap: 24px; padding: 0 40px; box-sizing: border-box; background: #c4392f; color: #fff; border-radius: 24px; font-size: 42px; font-weight: 800; box-shadow: 0 20px 60px rgba(16,24,40,.3); opacity: 0; }
+  .bnr .ic { width: 80px; height: 80px; flex: 0 0 auto; }
+  .cfc { position: absolute; left: 1260px; top: 190px; font-family: Consolas, 'Courier New', monospace; font-size: 54px; font-weight: 800; color: #c4392f; background: #fff; border: 6px solid #c4392f; border-radius: 20px; padding: 10px 36px; box-shadow: 0 20px 60px rgba(16,24,40,.3); opacity: 0; }
+  .myth { position: absolute; left: 40px; top: 20px; width: 880px; height: 130px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; background: #fff; border: 8px solid #c4392f; border-radius: 30px; font-size: 62px; font-weight: 800; color: #141821; box-shadow: 0 30px 80px rgba(16,24,40,.25); opacity: 0; }
+  .strk { position: absolute; left: 24px; right: 24px; top: 50%; height: 9px; margin-top: -4px; background: #c4392f; border-radius: 5px; transform-origin: 0 50%; transform: scaleX(0); }
+  .gtog { display: flex; align-items: center; justify-content: space-between; width: 800px; height: 100px; box-sizing: border-box; padding: 0 28px; background: #fff; border: 6px solid #2f5bd3; border-radius: 26px; font-size: 38px; font-weight: 800; box-shadow: var(--shadow); }
+  .tgl2 { width: 110px; height: 58px; border-radius: 29px; background: #1e7f4f; position: relative; flex: 0 0 auto; }
+  .tgl2 i { position: absolute; left: 58px; top: 6px; width: 46px; height: 46px; border-radius: 50%; background: #fff; }
+  .card { width: 620px; height: 340px; box-sizing: border-box; background: #fff; border: 8px solid #1f2a44; border-radius: 34px; box-shadow: var(--shadow); padding: 30px 34px; font-size: 50px; font-weight: 800; line-height: 1.15; color: #141821; }
+  .card .ic { width: 96px; height: 96px; color: var(--accent); display: block; margin-bottom: 14px; }
+  .mm { position: absolute; height: 110px; display: flex; align-items: center; gap: 22px; font-size: 56px; font-weight: 800; background: #fff; border: 6px solid #c4392f; border-radius: 26px; padding: 0 34px; color: #141821; white-space: nowrap; box-shadow: var(--shadow); opacity: 0; }
+  .mm .ic { width: 70px; height: 70px; color: #c4392f; }
+  .mon { position: absolute; width: 640px; height: 520px; background: #1f2a44; border-radius: 30px; border: 12px solid #3a4a78; box-sizing: border-box; padding: 20px 24px; opacity: 0; }
+  .mon h5 { margin: 0 0 16px; color: #fff; font-size: 44px; font-weight: 800; }
+  .mon .ln { height: 56px; border-radius: 10px; background: #2d3a5c; margin-bottom: 14px; color: #fff; font-size: 38px; font-weight: 800; line-height: 56px; padding-left: 18px; font-family: Consolas, 'Courier New', monospace; }
+  .mon .ln span { opacity: 0; }
+  .sbar { position: absolute; left: 2480px; top: 150px; width: 1330px; height: 110px; box-sizing: border-box; display: flex; align-items: center; gap: 20px; padding: 0 30px; background: #fff; border: 6px solid #2f5bd3; border-radius: 26px; font-size: 56px; font-weight: 800; font-family: Consolas, 'Courier New', monospace; color: #141821; box-shadow: var(--shadow); opacity: 0; }
+  .sbar .ic { width: 64px; height: 64px; color: #2f5bd3; } .sbar i { font-style: normal; opacity: 0; }
+  .ghost { position: absolute; width: 380px; height: 140px; box-sizing: border-box; border: 6px dashed #8a93a6; border-radius: 30px; opacity: 0; }
+  .pnl { position: absolute; left: 0; width: 1228px; height: 190px; box-sizing: border-box; background: #fff; border: 4px solid var(--line2); border-radius: 22px; opacity: 0; }
+  .pnl .pt { position: absolute; left: 30px; top: 62px; width: 540px; display: flex; align-items: center; gap: 14px; font-size: 34px; font-weight: 800; }
+  .pnl .pt .ic { width: 52px; height: 52px; color: var(--accent); flex: 0 0 auto; }
+  .pnl .tw { position: absolute; left: 600px; top: 56px; width: 440px; }
+  .trk { position: relative; height: 16px; background: var(--line2); border-radius: 8px; margin-top: 20px; }
+  .trk .st { position: absolute; top: -8px; width: 14px; height: 32px; border-radius: 7px; background: #8a93a6; margin-left: -7px; }
+  .trk .kn, .trk2 .kn { position: absolute; left: -22px; top: -16px; width: 48px; height: 48px; border-radius: 50%; background: var(--accent); border: 6px solid #fff; box-sizing: border-box; box-shadow: 0 6px 16px rgba(16,24,40,.35); z-index: 2; }
+  .pnl .te { display: flex; justify-content: space-between; font-size: 26px; font-weight: 700; color: var(--muted); margin-top: 18px; }
+  .pnl .vp { position: absolute; right: 26px; top: 60px; min-width: 110px; text-align: center; font-size: 34px; font-weight: 800; background: #e6ecfb; color: var(--accent); border-radius: 999px; padding: 6px 22px; opacity: 0; }
+  .rtb { position: absolute; left: 0; top: 636px; width: 1228px; height: 76px; box-sizing: border-box; display: flex; align-items: center; gap: 24px; padding: 0 30px; background: #e3f4ea; border: 4px solid var(--green); border-radius: 22px; font-size: 34px; font-weight: 800; color: #14603b; opacity: 0; }
+  .rtb .wins { margin-left: auto; background: var(--green); color: #fff; border-radius: 999px; padding: 6px 26px; }
+  .trk2 { position: absolute; left: 100px; top: 230px; width: 1000px; height: 140px; }
+  .trk2 .rail { position: absolute; left: 0; top: 30px; width: 1000px; height: 16px; background: var(--line2); border-radius: 8px; }
+  .trk2 .st { position: absolute; top: 22px; width: 14px; height: 32px; border-radius: 7px; background: #8a93a6; margin-left: -7px; }
+  .trk2 .kn { top: 14px; }
+  .trk2 .sl { position: absolute; top: 66px; width: 180px; margin-left: -90px; text-align: center; font-size: 30px; font-weight: 700; color: var(--muted); }
+  .sk { height: 22px; border-radius: 11px; background: var(--line); margin: 30px 0; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L04 · Responsible AI and moderation. World 3840x2160: agent 1720,1010 · counter 1580,1440 · gates 2310 (out 960 / in 1230) · employees 2650/3050/3450 y1560 · tap: pipe y1135, nozzle 1110,1340, filter+dial 1425,1010, valve 1000,1480, Sources 420,1470, Tools 420,1790 · maker 2700,1014 · one-dial wiring (scene 6) and cards (scene 10) on the upper wall · monitors 2480,300 */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', NAVY = '#1f2a44';
+  const PX = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 46) + 'px;');
+  const SBX = (id, x, y, h, cls, fs) => say(id, x, y, h, cls).replace('style="', 'style="font-size:' + (fs || 44) + 'px;');
+  const BW = (id, x, y, h, cls, fs) => `<div class="w" id="${id}w" style="left:0;top:0">${SBX(id, x, y, h, cls, fs)}</div>`;
+  const MX = 2700, MY = 1014;
+
+  /* ───────── the tap (behind the agent) ───────── */
+  const fmLines = []; for (let x = 1350; x <= 1500; x += 15) fmLines.push(`<line x1="${x}" y1="1100" x2="${x}" y2="1260" stroke="#2f5bd3" stroke-width="3"/>`);
+  ADD(`<div class="w" id="tapG" style="left:0;top:0;width:3840px;height:2160px;opacity:0">
+    <svg class="w" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+      <path d="M720 1600 H860 V1640 H1000" fill="none" stroke="#8a93a6" stroke-width="40" stroke-linejoin="round"/><path d="M720 1890 H860 V1640" fill="none" stroke="#8a93a6" stroke-width="40" stroke-linejoin="round"/>
+      <path d="M720 1600 H860 V1640 H1000" fill="none" stroke="#c9ced8" stroke-width="12" stroke-linejoin="round"/><path d="M720 1890 H860 V1640" fill="none" stroke="#c9ced8" stroke-width="12" stroke-linejoin="round"/>
+      <rect x="1065" y="1135" width="725" height="90" rx="30" fill="#8a93a6"/><rect x="1065" y="1135" width="90" height="190" rx="30" fill="#8a93a6"/><rect x="1085" y="1300" width="50" height="42" rx="10" fill="#5d6472"/>
+      <rect x="1098" y="1066" width="24" height="76" fill="#5d6472"/><rect x="1040" y="1040" width="140" height="32" rx="16" fill="#c4392f"/>
+      <rect id="fGlow" x="1305" y="1060" width="240" height="240" rx="44" fill="#ffd166" opacity="0"/>
+      <rect x="1330" y="1085" width="190" height="190" rx="26" fill="#eaf0ff" stroke="#2f5bd3" stroke-width="8"/>
+      <g id="cm" stroke="#2f5bd3" stroke-width="7"><line x1="1375" y1="1100" x2="1375" y2="1260"/><line x1="1425" y1="1100" x2="1425" y2="1260"/><line x1="1475" y1="1100" x2="1475" y2="1260"/></g><g id="fm" opacity="0">${fmLines.join('')}</g>
+      <rect x="1410" y="1070" width="30" height="20" fill="#1f2a44"/><circle cx="1425" cy="1010" r="62" fill="#fff" stroke="#1f2a44" stroke-width="8"/>
+      <g id="nd"><path d="M1425 1010 L1425 962" stroke="#c4392f" stroke-width="11" stroke-linecap="round"/><circle cx="1425" cy="1010" r="9" fill="#1f2a44"/></g>
+      <rect id="vGlow" x="975" y="1455" width="270" height="290" rx="50" fill="#ffd166" opacity="0"/>
+      <rect x="1000" y="1480" width="220" height="240" rx="30" fill="#e6ecfb" stroke="#2f5bd3" stroke-width="8"/>
+      <text x="1110" y="1690" font-size="1" font-weight="800" fill="none" text-anchor="middle"></text>
+      <rect id="vg" x="1020" y="1535" width="180" height="36" rx="14" fill="#c4392f" opacity="0"/>
+      <rect x="1080" y="1720" width="60" height="112" fill="#8a93a6"/><rect x="900" y="1830" width="420" height="30" rx="14" fill="#5d6472"/>
+    </svg>
+    <div class="w" style="left:420px;top:1470px;width:300px;height:260px;box-sizing:border-box;border-radius:30px;background:#e3f4ea;border:8px solid #1e7f4f;color:#1e7f4f;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:64px;font-weight:800">${IC('document_text', 'width:100px;height:100px')}Sources</div>
+    <div class="w" style="left:420px;top:1790px;width:300px;height:200px;box-sizing:border-box;border-radius:30px;background:#1f2a44;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:64px;font-weight:800">${IC('wrench', 'width:80px;height:80px')}Tools</div>
+  </div>`);
+  gsap.set('#nd', { svgOrigin: '1425 1010', rotation: -60 }); gsap.set('#vg', { svgOrigin: '1020 1553' });
+
+  /* HR agent, counter, gates, employees */
+  ADD(agent('bot', 1720, 1010, { folder: 'HR' }));
+  ADD(`<div class="w" style="left:1580px;top:1440px;width:640px;height:90px;border-radius:20px;background:#1f2a44"></div><div class="w" style="left:1580px;top:1430px;width:640px;height:22px;border-radius:12px;background:#3a4a78"></div>`);
+  const gateG = (id, x, y) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px" width="240" height="270" viewBox="0 0 240 270"><rect x="10" y="60" width="26" height="210" rx="8" fill="#8a93a6"/><rect x="204" y="60" width="26" height="210" rx="8" fill="#8a93a6"/><rect x="10" y="36" width="220" height="44" rx="16" fill="#1f2a44"/><circle id="${id}_l" cx="120" cy="58" r="24" fill="#8a93a6" stroke="#fff" stroke-width="5"/></svg>`;
+  ADD(`<div class="w" id="gatesG" style="left:0;top:0;opacity:0">${gateG('outG', 2310, 960)}${gateG('inG', 2310, 1230)}</div>`);
+  ADD(PX('lbIn', 2430, 1520, 'In · user message', 'navy', 46) + PX('lbOut', 2430, 880, 'Out · agent answer', 'navy', 46));
+  ADD(`<div class="w" id="gxA" style="left:2580px;top:1250px;opacity:0">${IC('dismiss_circle', 'width:100px;height:100px;color:#c4392f;background:#fff;border-radius:50%')}</div>`);
+  ADD(`<div class="w" id="gxB" style="left:2580px;top:1250px;opacity:0">${IC('dismiss_circle', 'width:100px;height:100px;color:#c4392f;background:#fff;border-radius:50%')}</div>`);
+  ['#8a5cd6', '#1e7f4f', '#7a4d00'].forEach((c, k) => ADD(crowd('e' + k, 2650 + k * 400, 1560, c).replace('style="', 'style="opacity:0;')));
+  ADD(BW('q0', 2695, 1330, '#!*&amp;%', 'jag', 76) + BW('q1', 3095, 1330, 'A policy<br>question', '', 56) + BW('q2', 3495, 1330, "Ana's leave<br>balance?", '', 56));
+  ADD(SBX('a1', 3095, 1100, 'Invented<br>answer', 'inv', 56) + SBX('a2', 3495, 1100, 'Leave: ##', '', 60));
+  ADD(PX('n0', 2695, 1180, '1 · Harm', 'red', 54) + PX('n1', 3095, 960, '2 · Made up', 'amber', 54) + PX('n2', 3495, 960, '3 · Policy', 'purple', 54));
+
+  /* tap labels */
+  ADD(PX('rai', 1000, 860, 'Responsible AI = controls', 'navy', 68) + PX('lbMod', 1560, 790, 'Moderation · filters harm', 'blue', 66) + PX('lbVal', 1700, 1830, 'Grounding · requires sources', 'green', 64));
+  ADD(PX('lbLow', 1225, 960, 'Lowest', 'amber', 64) + PX('lbHigh', 1665, 960, 'Highest', 'blue', 64));
+  ADD(PX('lbFewer', 1620, 1830, 'fewer answers', 'blue', 66) + PX('lbRisk', 1620, 1830, 'more answers · more risk', 'red', 64) + PX('lbWater', 1620, 1830, 'finer filter → less water', 'blue', 64));
+
+  /* drops (answers as speech-bubble drops) */
+  let dn = 0;
+  const mkDrop = (cls, l, t) => { const id = 'dp' + (dn++); ADD(`<div class="dp ${cls || ''}" id="${id}" style="left:${l}px;top:${t}px">···</div>`); return '#' + id; };
+  const FALL = (t, cls, stop) => {
+    const d = mkDrop(cls, 1060, 1345);
+    tl.fromTo(d, { opacity: 0, scale: 0.5, y: 0 }, { opacity: 1, scale: 1, duration: 0.25 }, t);
+    if (stop) { tl.to(d, { y: 122, duration: 0.5, ease: 'power1.in' }, t + 0.2); tl.to(d, { scale: 1.5, opacity: 0, duration: 0.3 }, t + 0.8); }
+    else { tl.to(d, { y: 417, duration: 0.9, ease: 'power1.in' }, t + 0.2); tl.to(d, { opacity: 0, duration: 0.3 }, t + 1.3); }
+    return d;
+  };
+  const PIPE = (t, tools) => {
+    const y0 = tools ? 1856 : 1566, d = mkDrop('gr', 712, y0), t2 = t + 0.65 + (tools ? 0.5 : 0.15);
+    tl.fromTo(d, { opacity: 0, scale: 0.5, x: 0, y: 0 }, { opacity: 1, scale: 1, duration: 0.25 }, t);
+    tl.to(d, { x: 110, duration: 0.4, ease: 'none' }, t + 0.25);
+    tl.to(d, { y: 1606 - y0, duration: tools ? 0.5 : 0.15, ease: 'none' }, t + 0.65);
+    tl.to(d, { x: 350, duration: 0.6, ease: 'none' }, t2);
+    tl.to(d, { y: 1762 - y0, duration: 0.6, ease: 'power1.in' }, t2 + 0.6);
+    tl.to(d, { opacity: 0, duration: 0.3 }, t2 + 1.3);
+  };
+
+  /* maker */
+  ADD(maker('mk', MX, MY).replace('style="', 'style="opacity:0;'));
+
+  /* scene 6: one dial wired to tasks */
+  ADD(`<svg class="w" id="odS" style="left:0;top:0" width="3840" height="1200" viewBox="0 0 3840 1200">${[460, 640, 820].map((y, k) => cable('cw' + k, `M1080 650 C1350 650,1450 ${y},1700 ${y}`, BLUE, 14)).join('')}</svg>`);
+  ADD(`<svg class="w" id="odD" style="left:940px;top:490px;opacity:0" width="320" height="320" viewBox="0 0 320 320"><circle cx="160" cy="160" r="130" fill="#fff" stroke="#1f2a44" stroke-width="14"/><g id="odn"><path d="M160 160 L160 64" stroke="#c4392f" stroke-width="16" stroke-linecap="round"/><circle cx="160" cy="160" r="14" fill="#1f2a44"/></g></svg>`);
+  gsap.set('#odn', { svgOrigin: '160 160', rotation: 40 });
+  ['Creative writing', 'Other task', 'Other task'].forEach((t, k) => ADD(chip('tk' + k, 1700, 400 + k * 180, 'tasks_app', t, 'blue').replace('style="', 'style="width:640px;font-size:50px;')));
+  ADD(PX('odp', 1100, 400, 'Moderation level', 'navy', 52) + PX('odw', 1900, 975, 'one dial · every task', 'amber', 60));
+
+  /* scene 7: silent filter + control room */
+  ADD(`<svg class="w" id="sv7" style="left:0;top:0" width="3840" height="1200" viewBox="0 0 3840 1200">${cable('cn', 'M1480 585 H1830', '#8a93a6', 14, '18 14')}</svg>`);
+  ADD(chip('gn', 700, 520, 'sparkle', 'Generative answers node', 'blue').replace('style="', 'style="width:780px;font-size:52px;'));
+  ADD(BW('qn', 330, 470, 'Question', 'blue', 50));
+  ADD(`<div class="w" id="fl7" style="left:1530px;top:530px;width:110px;height:110px;border-radius:50%;background:#fff;border:7px solid #d98a00;box-sizing:border-box;color:#d98a00;display:flex;align-items:center;justify-content:center;opacity:0">${IC('filter', 'width:64px;height:64px')}</div>`);
+  ADD(`<div class="ghost" id="gb" style="left:1830px;top:515px"></div>` + PX('lbNone', 1700, 740, 'No answer · no sign', 'red', 58));
+  const mrow = (id, n) => Array.from({ length: n }, (_, k) => `<div class="ln"${k === 2 ? ` id="${id}"` : ''}>${k === 2 ? '<span>ContentFiltered</span>' : ''}</div>`).join('');
+  ADD(`<div class="mon" id="mon1" style="left:2480px;top:300px"><h5>Transcripts</h5>${mrow('hit1', 5)}</div><div class="mon" id="mon2" style="left:3170px;top:300px"><h5>Application Insights</h5>${mrow('hit2', 5)}</div>`);
+  const TXT = 'ContentFiltered';
+  ADD(`<div class="sbar" id="sbar">${IC('search')}${TXT.split('').map((c, k) => `<i id="sc${k}">${c}</i>`).join('')}</div>`);
+  ADD(PX('lbBug', 3145, 900, 'the filter, not a bug', 'red', 60));
+
+  /* scene 9: toggle, fallback */
+  ADD(`<div class="w gtog" id="gtog" style="left:250px;top:1320px;opacity:0"><span>Allow ungrounded responses</span><div class="tgl2" id="gt"><i id="gtk"></i></div></div>`);
+  ADD(SBX('fb', 1560, 1690, "Sorry, I can't answer<br>that from my sources", 'gry', 42) + SBX('fb2', 1560, 1690, "Sorry, I can't answer<br>that from my sources", 'gry', 42));
+  ADD(PX('lbFb', 1560, 1600, 'Fallback', 'navy', 48) + PX('lbNoMake', 660, 1225, 'no making things up', 'green', 54));
+
+  /* scene 10: cards */
+  const CARD = (id, x, ic, t) => `<div class="w card" id="${id}" style="left:${x}px;top:380px;opacity:0">${IC(ic)}${t}</div>`;
+  ADD(CARD('c0', 900, 'link', 'Allow ungrounded responses') + CARD('c1', 1600, 'temperature', 'Temperature') + CARD('c2', 2300, 'shield_checkmark', 'Content moderation'));
+  ADD(PX('s0a', 1210, 770, 'not harm', 'red', 56) + PX('s0b', 1210, 870, 'requires sources', 'green', 56) + PX('s1', 1910, 770, 'not harm', 'red', 56) + PX('s2', 2610, 770, 'harm', 'green', 56));
+  ADD(`<div class="mm" id="mm0" style="left:900px;top:990px">Moderation → invented answers${IC('dismiss_circle')}<i class="strk" id="mm0x"></i></div><div class="mm" id="mm1" style="left:900px;top:1140px">Ungrounded off → offensive content${IC('dismiss_circle')}<i class="strk" id="mm1x"></i></div>`);
+
+  /* scene 12 / 16: shields, aura, requests */
+  const SHD = [['Instructions', 'shield_checkmark', 1610, 640], ['Knowledge scope', 'book_open', 2190, 640], ['Tools', 'wrench', 1610, 770], ['Permissions', 'lock_closed', 2190, 770]];
+  SHD.forEach(([t, ic, x, y], k) => ADD(chip('sh' + k, x, y, ic, t, 'blue').replace('style="', 'style="width:560px;height:104px;font-size:50px;')));
+  ADD(`<div class="w" id="aura" style="left:1570px;top:880px;width:660px;height:760px;box-sizing:border-box;border:10px dashed #2f5bd3;border-radius:50%;opacity:0"></div>`);
+  ADD(BW('r2', 3495, 1330, "Ana's leave<br>balance?", '', 56) + SBX('ca', 2150, 1100, 'Leave: ##', '', 60));
+  ADD(BW('z0', 2695, 1330, '#!*&amp;%', 'jag', 76) + BW('z1', 3095, 1330, 'A policy<br>question', '', 56) + BW('z2', 3495, 1330, "Ana's leave<br>balance?", '', 56));
+  ADD(BW('ub', 3095, 1330, 'Question', 'blue', 44) + BW('ab', 2150, 1100, 'Answer', 'green', 44) + BW('hb', 3095, 1330, '#!*&amp;%', 'jag', 76));
+  ADD(PX('lbHarm', 2900, 880, 'moderation = harm only', 'amber', 60) + PX('lbOwn', 3000, 880, 'each user: own data only', 'green', 60));
+  ADD(`<div class="w" id="noteB" style="left:3480px;top:1330px"></div>`);
+
+  /* ───────── UI windows ───────── */
+  const nav4 = ['Overview', 'Topics', 'Settings', 'Test'];
+  const trackHTML = (id) => `<div class="trk"><i class="kn" id="${id}"></i>${[0, 1, 2, 3, 4].map((k) => `<b class="st" style="left:${k * 110}px"></b>`).join('')}</div>`;
+  const panel = (id, k, ic, name) => `<div class="pnl" id="${id}" style="top:${k * 215}px"><div class="pt">${IC(ic)}${name}</div><div class="tw">${trackHTML(id + 'k')}<div class="te"><span>Lowest</span><span>Highest</span></div></div><span class="vp" id="${id}v"></span></div>`;
+  ADDU(uiWindow('uiM', { title: 'Moderation level', nav: nav4, on: 2, bar: '<span class="hc" id="mHc" style="position:absolute;right:34px;top:14px;opacity:0">Standard harness</span>', body: `<div class="lay" style="opacity:1">${panel('pA', 0, 'bot', 'Agent')}${panel('pN', 1, 'flow', 'Generative answers node')}${panel('pP', 2, 'text_t', 'Prompt')}
+    <div class="rtb" id="rtb"><b>Runtime</b><span id="rtv" style="color:#1e7f4f">High</span><span class="wins">topic's level wins</span></div></div>` }));
+  gsap.set(['#pAk', '#pNk', '#pPk'], { x: 220 });
+
+  const hcN = `<span class="hc" id="hHc" style="position:absolute;right:34px;top:14px;background:#2f5bd3">${IC('sparkle')}Microsoft Copilot harness · formerly GitHub Copilot harness</span>`;
+  const LV = ['Minimum', 'Low', 'Medium', 'High', 'Maximum'];
+  ADDU(uiWindow('uiH', { title: 'HR agent', nav: ['Overview', 'Build', 'AI & behavior', 'Test'], on: 0, bar: hcN, body: `
+    <div class="lay" id="hL0" style="opacity:1"><div class="crumb">Overview</div><h3>HR agent</h3><div class="row"><b>Instructions</b><span class="btn">Open</span></div><div class="row"><b>Knowledge</b><span class="btn">Open</span></div><div class="row"><b>Tools</b><span class="btn">Open</span></div></div>
+    <div class="lay" id="hL1"><div class="crumb">Settings</div><h3>AI &amp; behavior</h3><div style="position:absolute;left:0;top:130px;font-size:40px;font-weight:800">Moderation level</div>
+      <div class="trk2"><div class="rail"></div><i class="kn" id="hk"></i>${LV.map((l, k) => `<b class="st" style="left:${k * 250}px"></b><span class="sl" id="hsl${k}" style="left:${k * 250}px">${l}</span>`).join('')}</div>
+      <span class="btn" id="hSave" style="position:absolute;left:0;top:450px;font-size:34px;padding:14px 40px">Save</span><span class="btn pri" id="hPub" style="position:absolute;left:210px;top:450px;font-size:34px;padding:14px 40px">Publish</span>
+      <div id="hNote" style="position:absolute;left:0;top:560px;opacity:0;display:flex;align-items:center;gap:14px;background:var(--amber-soft);border:3px solid var(--amber);border-radius:18px;padding:14px 24px;font-size:34px;font-weight:800;color:#7a4d00">${IC('alert', 'width:44px;height:44px;color:#d98a00')}active after save + publish</div></div>` }));
+  gsap.set('#hk', { x: 500 });
+
+  ADDU(uiWindow('uiT', { title: 'HR agent', nav: nav4, on: 0, body: `
+    <div class="lay" id="tL0" style="opacity:1"><div class="crumb">Overview</div><h3>HR agent</h3><div class="row"><b>Instructions</b><span class="btn">Open</span></div><div class="row"><b>Knowledge</b><span class="btn">Open</span></div></div>
+    <div class="lay" id="tL1"><div class="crumb">Topics</div><h3>Topics</h3><div class="row" id="tConv"><b>Conversation Start</b><span class="note">${IC('chat')}</span></div><div class="sk" style="width:520px"></div><div class="sk" style="width:380px"></div></div>
+    <div class="lay" id="tL2"><div class="crumb">Topics › Conversation Start</div><h3>Conversation Start</h3>
+      <div style="width:1080px;border:3px solid var(--line2);border-radius:22px;padding:26px 34px"><div style="display:flex;align-items:center;gap:14px;font-size:34px;font-weight:800;color:#2f5bd3;margin-bottom:18px">${IC('chat', 'width:46px;height:46px')}Message</div>
+        <div style="font-size:38px;font-weight:700;line-height:1.35"><span id="mn1" style="opacity:0">I am an artificial intelligence assistant,</span><br><span id="mn2" style="opacity:0">and my answers are generated.</span></div></div></div>` }));
+
+  ADDU(uiWindow('uiW', { title: 'HR agent', nav: nav4, on: 0, body: `
+    <div class="lay" id="wL0" style="opacity:1"><div class="crumb">Overview</div><h3>HR agent</h3><div class="row"><b>Instructions</b><span class="btn">Open</span></div><div class="row"><b>Knowledge</b><span class="btn">Open</span></div></div>
+    <div class="lay" id="wL1"><div class="crumb">Settings</div><h3>Settings</h3><div class="row"><b>Generative AI</b><span class="btn" id="wGen">Open</span></div><div class="sk" style="width:520px"></div><div class="sk" style="width:380px"></div></div>
+    <div class="lay" id="wL2"><div class="crumb">Settings › Generative AI</div><h3>Generative AI</h3>
+      <div class="row"><b>Content moderation</b><div class="dd" id="wDd"><span id="wDv0">Choose a level</span><span id="wDv1" style="position:absolute;left:22px;opacity:0;font-weight:800">Highest</span></div></div>
+      <div class="row"><b>Allow ungrounded responses</b><div class="tgl" id="wTg" style="background:#1e7f4f"><i id="wTk" style="left:58px"></i></div></div>
+      <span class="btn pri" id="wSave" style="margin-top:40px;font-size:34px;padding:14px 40px">Save</span><span id="wToast" style="opacity:0;margin-left:24px;font-size:34px;font-weight:800;color:#1e7f4f">✓ Saved</span></div>
+    <div class="lay" id="wL3"><div class="crumb">Test</div><h3>Test panel</h3>
+      <div id="wq1" style="opacity:0;width:560px;background:var(--accent);color:#fff;border-radius:24px;padding:18px 28px;font-size:34px;font-weight:700">Awkward question</div><div id="wr1" style="opacity:0;margin:14px 0 0 640px;display:inline-block;background:#fde8e6;color:#c4392f;border:3px solid #c4392f;border-radius:20px;padding:14px 26px;font-size:34px;font-weight:800">Filtered</div>
+      <div id="wq2" style="opacity:0;margin-top:30px;width:560px;background:var(--accent);color:#fff;border-radius:24px;padding:18px 28px;font-size:34px;font-weight:700">Outside your sources</div><div id="wr2" style="opacity:0;margin:14px 0 0 640px;display:inline-block;background:#eef1f7;color:#5d6472;border:3px solid #8a93a6;border-radius:20px;padding:14px 26px;font-size:34px;font-weight:800">Fallback</div></div>
+    <div class="lay" id="wL4"><div class="crumb">Topics › Conversation Start</div><h3>Conversation Start</h3>
+      <div style="width:1080px;border:3px solid var(--line2);border-radius:22px;padding:26px 34px"><div style="display:flex;align-items:center;gap:14px;font-size:34px;font-weight:800;color:#2f5bd3;margin-bottom:18px">${IC('chat', 'width:46px;height:46px')}AI notice</div>
+        <div style="font-size:38px;font-weight:700;line-height:1.35">I am an artificial intelligence assistant,<br>and my answers are generated.</div></div></div>` }));
+
+  /* cursor targets (before any tween) */
+  const PH = { nv2: PC('#uiH_nv2'), sv: PC('#hsl4'), save: PC('#hSave'), pub: PC('#hPub') };
+  const PT = { nv1: PC('#uiT_nv1'), conv: PC('#tConv') };
+  const PW = { nv2: PC('#uiW_nv2'), gen: PC('#wGen'), dd: PC('#wDd'), tg: PC('#wTg'), save: PC('#wSave'), nv3: PC('#uiW_nv3'), nv1: PC('#uiW_nv1') };
+
+  /* ───────── overlays ───────── */
+  ADDS(`<div class="ov kin title" id="ovTitle">Friday at Contoso<small>Responsible AI controls</small></div>
+    <div class="bnr" id="bnr">${IC('error_circle')}<span>The content was filtered due to Responsible AI restrictions</span></div><div class="cfc" id="cfc">ContentFiltered</div>
+    <div class="myth" id="myth">Highest = more answers${IC('dismiss_circle', 'width:70px;height:70px;color:#c4392f;margin-left:20px')}<i class="strk" id="mythX"></i></div>
+    <div class="rcard" id="rc0" style="left:100px;top:380px;border-color:#2f5bd3;color:#2f5bd3;font-size:46px">${IC('filter')}Highest filters more</div>
+    <div class="rcard" id="rc1" style="left:680px;top:380px;border-color:#8a5cd6;color:#8a5cd6;font-size:46px">${IC('flow')}Topic level wins (standard)</div>
+    <div class="rcard" id="rc2" style="left:1260px;top:380px;border-color:#1e7f4f;color:#1e7f4f;font-size:46px">${IC('gauge')}One dial (Microsoft Copilot harness)</div>`);
+
+  /* ───────── exam rooms ───────── */
+  const miniDial = (id, rot) => `<svg style="position:absolute;left:30px;top:80px" width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="110" r="76" fill="#fff"/><g id="${id}"><path d="M100 110 L100 52" stroke="#c4392f" stroke-width="13" stroke-linecap="round"/><circle cx="100" cy="110" r="11" fill="#1f2a44"/></g></svg>`;
+  const mdrop = (id, l, t, cls) => `<div class="dp ${cls || ''}" id="${id}" style="left:${l}px;top:${t}px">···</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'A maker wants the content moderation level that generates the most responses and accepts more risk. Which one?', opts: ["Medium, it balances answers and safety","Highest, it unlocks the most answers","Lowest"],
+      why: '<div id="exA_w1"><span class="g">Lowest</span> = more responses, <span class="r">more risk</span></div><div id="exA_w2"><span class="y">Highest</span> = strictest filter, fewer answers</div>',
+      proof: `<div class="rm" style="left:0;width:1100px;border-color:#7ea1e6"><h4>Lowest</h4>${miniDial('aNd')}${[0, 1, 2, 3, 4, 5].map((k) => mdrop('aD' + k, 280 + k * 130, k % 2 ? 190 : 130, k === 2 || k === 4 ? 'red' : '')).join('')}</div>
+        <div class="lb" id="aLb" style="left:1150px;top:90px;font-size:50px;opacity:0">more answers<br><span style="color:#ff8a80">more risk</span></div>` }),
+    mkExam('exB', { q: 'On the Microsoft Copilot harness, a maker lowers the moderation level to help one creative task. What is the effect?', opts: ["Nothing changes until an admin approves it","Every task, after you save and publish","Only that task's node uses the lower level"],
+      why: '<div id="exB_w1">One level for the <span class="g">whole agent</span></div><div id="exB_w2">Lower it → <span class="y">every task</span> follows</div>',
+      proof: `<div class="rm" style="left:0;width:1500px;border-color:#7ea1e6"><h4>One dial</h4>${miniDial('bNd')}
+        ${['Creative task', 'Task', 'Task'].map((t, k) => `<div class="xc bxc" id="bT${k}" style="left:${300 + k * 380}px;top:110px;width:340px;border-color:#6be3a0;justify-content:center">${t}</div>`).join('')}
+        <div class="lb" id="bLb" style="left:300px;top:215px;font-size:44px;opacity:0">every task · after save + publish</div></div>` }),
+    mkExam('exC', { q: 'The HR agent invents answers about policies that are not in its sources. What fixes it?', opts: ["Turn off Allow ungrounded responses","Lower the temperature of the model","Raise content moderation to Highest"],
+      why: '<div id="exC_w1">No source or tool → <span class="g">blocked</span>, fallback runs</div><div id="exC_w2">Moderation screens <span class="r">harm only</span></div>',
+      proof: `<div class="rm" style="left:0;width:1500px;border-color:#7ea1e6"><h4>Grounding</h4>
+        <div style="position:absolute;left:60px;top:150px;width:240px;height:130px;border-radius:26px;background:#e6ecfb;border:6px solid #2f5bd3"></div><div id="cGate" style="position:absolute;left:80px;top:160px;width:200px;height:30px;border-radius:12px;background:#c4392f;opacity:0"></div>
+        ${mdrop('cD', 120, 76, 'red inv')}
+        <div class="xc" id="cFb" style="left:380px;top:150px;width:940px;border-color:#8a93a6;color:#5d6472;font-size:38px;justify-content:center">Sorry, I can't answer that from my sources</div></div>
+        <div class="lb" id="cLb" style="left:1380px;top:100px;font-size:46px;opacity:0">invented<br>→ blocked</div>` }),
+    mkExam('exD', { q: "Any employee can ask the HR agent for a coworker's leave balance, and it answers. Which controls should stop this?", opts: ["Turn off Allow ungrounded responses in settings","Instructions, knowledge scope, tools, permissions","Raise content moderation to Maximum for all topics"],
+      why: '<div id="exD_w1">Not harmful → moderation <span class="r">sees no problem</span></div><div id="exD_w2">A <span class="g">policy</span> question, not a harm question</div>',
+      proof: `<div class="rm" style="left:0;width:1500px;border-color:#7ea1e6"><h4>Four controls</h4>
+        ${[['Instructions', 30, 90, 330], ['Knowledge scope', 400, 90, 460], ['Tools', 30, 190, 240], ['Permissions', 300, 190, 370]].map(([t, x, y, w], k) => `<div class="xc dxc" id="dS${k}" style="left:${x}px;top:${y}px;width:${w}px;justify-content:center">${t}</div>`).join('')}
+        <div class="sb" id="dRq" style="left:1230px;top:130px;font-size:38px;opacity:0;transform:none">Leave<br>balance?</div><div id="dX" style="position:absolute;left:1010px;top:110px;opacity:0">${IC('dismiss_circle', 'width:100px;height:100px;color:#ff8a80')}</div></div>` })
+  );
+
+  /* ═════════════════ TIMELINE ═════════════════ */
+  gsap.set('#world', { x: 960 - 2600 * 0.8, y: 540 - 1330 * 0.8, scale: 0.8 });
+  const PUL = (sel, t, s) => tl.fromTo(sel, { scale: 1 }, { scale: s || 1.1, duration: 0.25, yoyo: true, repeat: 3 }, t);
+  const GLOW = (sel, t) => tl.fromTo(sel, { opacity: 0 }, { opacity: 0.75, duration: 0.25, yoyo: true, repeat: 5 }, t);
+  const LIGHT = (id, t, c) => { tl.to('#' + id + '_l', { fill: c, duration: 0.15 }, t); tl.to('#' + id + '_l', { fill: '#8a93a6', duration: 0.2 }, t + 0.8); };
+  const DIAL = (t, deg, d) => tl.to('#nd', { rotation: deg, duration: d || 0.8, ease: 'power2.inOut' }, t);
+  const FINE = (t, on) => { tl.to('#fm', { opacity: on ? 1 : 0, duration: 0.4 }, t); tl.to('#cm', { opacity: on ? 0.25 : 1, duration: 0.4 }, t); };
+  const CAMI = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const KNOB = (sel, idx, t) => tl.to(sel, { x: idx * 110, duration: 0.5, ease: 'power2.inOut' }, t);
+  const TYPE = (t0, t1) => TXT.split('').forEach((c, k) => tl.set('#sc' + k, { opacity: 1 }, t0 + (t1 - t0) * k / TXT.length));
+
+  /* ── 0 Friday ── */
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.2);
+  tl.fromTo('#vign', { opacity: 0 }, { opacity: 0.6, duration: 0.5 }, 0.2);
+  OFF('#ovTitle', S(0, 1) - 0.3, 0.5); OFF('#vign', S(0, 1) - 0.3, 0.5);
+  [0, 1, 2].forEach((k) => {
+    tl.fromTo('#e' + k, { opacity: 0, x: 900 }, { opacity: 1, x: 0, duration: 2.0, ease: 'power1.out' }, S(0, 1) + 0.1 + k * 0.3);
+    tl.to('#e' + k, { y: -12, duration: 0.2, yoyo: true, repeat: 7, ease: 'sine.inOut' }, S(0, 1) + 0.3 + k * 0.3);
+  });
+  POP('#q0', W(0, 2, 'offensive', 0)); tl.fromTo('#q0w', { x: 0 }, { x: 10, duration: 0.07, yoyo: true, repeat: 7 }, W(0, 2, 'offensive', 0.5));
+  POP('#q1', S(0, 3) + 0.2); POP('#a1', W(0, 3, 'invents', 0));
+  POP('#q2', S(0, 4) + 0.2); POP('#a2', W(0, 4, 'gets it', 0));
+  tl.fromTo('#bot_e', { y: 0 }, { y: 14, duration: 0.3 }, S(0, 5)); tl.to('#bot_e', { y: 0, duration: 0.3 }, S(0, 6));
+  TAG('#n0', W(0, 5, 'Three', 0.2)); TAG('#n1', W(0, 5, 'each one', 0)); TAG('#n2', W(0, 5, 'different', 0.2));
+  OFF(['#e0', '#e1', '#e2', '#q0', '#q1', '#q2', '#a1', '#a2', '#n0', '#n1', '#n2'], S(1, 0) - 0.6, 0.5);
+
+  /* ── 1 The filter on the tap ── */
+  CAM(1200, 1450, 0.8, S(1, 0) - 0.5, 1.6);
+  ON('#tapG', S(1, 0) - 0.3, 0.5);
+  [0, 1, 2, 3].forEach((k) => FALL(W(1, 1, 'tap', 0) + k * 0.6));
+  TAG('#rai', S(1, 2) + 0.3); OFF('#rai', S(1, 3) - 0.1, 0.3);
+  GLOW('#fGlow', S(1, 3) + 0.2); TAG('#lbMod', S(1, 3) + 0.5);
+  DIAL(W(1, 3, 'how fine', -0.4), 60, 1.2); FINE(W(1, 3, 'how fine', -0.2), true);
+  GLOW('#vGlow', S(1, 4) + 0.2);
+  tl.fromTo('#vg', { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.4 }, W(1, 4, 'only lets out', 0));
+  FALL(W(1, 4, 'comes from', 0.2), 'inv', true); PIPE(W(1, 4, 'pipes', 0.3)); PIPE(W(1, 4, 'tools', -0.1), true);
+  TAG('#lbVal', S(1, 4) + 0.5);
+  PUL(['#lbMod', '#lbVal'], S(1, 5) + 0.2, 1.1);
+
+  /* ── 2 Two checkpoints ── */
+  OFF(['#lbMod', '#lbVal'], S(2, 0) - 0.5, 0.4);
+  CAM(2500, 1250, 0.8, S(2, 0) - 0.5, 1.6); OFF('#tapG', S(2, 0) - 0.4, 0.4);
+  POP('#gatesG', S(2, 0) + 0.3);
+  tl.fromTo('#inG_l', { fill: '#8a93a6' }, { fill: AMB, duration: 0.3, yoyo: true, repeat: 3 }, S(2, 0) + 0.8); tl.fromTo('#outG_l', { fill: '#8a93a6' }, { fill: AMB, duration: 0.3, yoyo: true, repeat: 3 }, S(2, 0) + 0.8);
+  TAG('#lbIn', S(2, 1) - 0.1);
+  ON('#ub', S(2, 1) + 0.05, 0.25); tl.to('#ubw', { x: -665, duration: 0.9, ease: 'power1.inOut' }, S(2, 1) + 0.1); LIGHT('inG', S(2, 1) + 0.95, GRN);
+  tl.to('#ubw', { x: -945, duration: 0.5, ease: 'none' }, S(2, 1) + 1.05); OFF('#ub', S(2, 1) + 1.4, 0.2);
+  TAG('#lbOut', S(2, 2) - 0.1);
+  ON('#ab', S(2, 2) + 0.05, 0.25); tl.to('#abw', { x: 280, duration: 0.7, ease: 'power1.inOut' }, S(2, 2) + 0.1); LIGHT('outG', S(2, 2) + 0.7, GRN);
+  tl.to('#abw', { x: 650, duration: 0.7, ease: 'none' }, S(2, 2) + 0.8); OFF('#ab', S(2, 2) + 1.4, 0.2);
+  POP('#hb', S(2, 3) + 0.2); tl.to('#hbw', { x: -665, duration: 1.1, ease: 'power1.inOut' }, S(2, 3) + 0.4);
+  tl.to('#inG_l', { fill: RED, duration: 0.2 }, S(2, 3) + 1.5); POP('#gxA', S(2, 3) + 1.5);
+  tl.to('#hb', { rotation: -6, duration: 0.15, yoyo: true, repeat: 3 }, S(2, 3) + 1.6);
+  tl.fromTo('#bnr', { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(2, 3, 'user sees', 0));
+  POP('#cfc', S(2, 4) + 0.2);
+  tl.to('#cfc', { x: 40, y: 700, duration: 1.1, ease: 'power2.inOut' }, S(2, 5) + 0.3);
+
+  /* ── 3 Where you set it (UI, standard harness) ── */
+  OFF(['#bnr', '#cfc', '#hb', '#gxA', '#lbIn', '#lbOut'], S(3, 0) - 0.4, 0.3);
+  tl.set(['#inG_l', '#outG_l'], { fill: '#8a93a6' }, S(3, 0) - 0.4);
+  ON('#mk', S(3, 0) - 0.7, 0.4);
+  CAM(MX + 530, MY + 225, 2.4, S(3, 0) - 0.5, 1.2, 'power2.in');
+  UIIN('#uiM', S(3, 0) + 0.4);
+  ON('#mHc', S(3, 1), 0.3);
+  POPX('#pA', W(3, 2, 'whole agent', -0.3)); POPX('#pN', W(3, 2, 'generative answers node', -0.3)); POPX('#pP', W(3, 2, 'prompt', -0.3));
+  const t33 = W(3, 3, 'disagree', -0.2);
+  KNOB('#pAk', 1, t33); tl.set('#pAv', { innerHTML: 'Low' }, t33); ON('#pAv', t33 + 0.3, 0.3);
+  KNOB('#pNk', 3, t33 + 0.3); tl.set('#pNv', { innerHTML: 'High' }, t33); ON('#pNv', t33 + 0.6, 0.3);
+  POPX('#rtb', W(3, 3, 'precedence', -0.5));
+  tl.to('#pN', { borderColor: GRN, duration: 0.3 }, W(3, 3, 'precedence', 0));
+  PUL('#pN', S(3, 4) + 0.2, 1.03); PUL('#rtb', S(3, 4) + 1.0, 1.03);
+
+  /* ── 4 Highest filters more ── */
+  OFF('#gatesG', S(3, 0) - 0.3, 0.3); ON('#tapG', S(4, 0) - 0.6, 0.3); OFF('#vg', S(4, 0) - 0.5, 0.2);
+  UIOUT('#uiM', S(4, 0) - 0.6); OFF('#mk', S(4, 0) - 0.3, 0.4);
+  CAM(1250, 1470, 0.85, S(4, 0) - 0.2, 1.4);
+  TAG('#lbLow', S(4, 0) + 1.0); TAG('#lbHigh', S(4, 0) + 1.9);
+  TAG('#lbFewer', S(4, 1) + 0.2); FALL(S(4, 1) + 1.0); FALL(S(4, 1) + 2.8);
+  DIAL(S(4, 2) - 0.1, -60, 1.0); FINE(S(4, 2), false); OFF('#lbFewer', S(4, 2) - 0.1, 0.3); TAG('#lbRisk', S(4, 2) + 0.4);
+  [0, 1, 2, 3, 4, 5].forEach((k) => FALL(S(4, 2) + 0.4 + k * 0.55, k === 2 || k === 4 ? 'red' : ''));
+  OFF(['#lbLow', '#lbHigh'], S(4, 3) - 0.1, 0.3);
+  POP('#myth', S(4, 3) + 0.1); tl.fromTo('#mythX', { scaleX: 0 }, { scaleX: 1, duration: 0.4 }, W(4, 3, 'more answers', 0));
+  OFF('#myth', S(4, 4) - 0.1, 0.3); OFF('#lbRisk', S(4, 4) - 0.1, 0.3);
+  DIAL(S(4, 4) + 0.1, 60, 1.0); FINE(S(4, 4) + 0.2, true);
+  TAG('#lbWater', S(4, 5) + 0.2); FALL(S(4, 5) + 0.8); FALL(S(4, 5) + 2.6);
+
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0), 0.4);
+    tl.fromTo(X + ' .xl, ' + X + ' .gh', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(i, 0) + 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.1);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    tl.fromTo(X + '_sc .fc', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: Math.max(0.5, (o.opt[0] - S(i, 1) - 1.2) / 3) }, S(i, 1) + 0.4);
+    OFF(X + ' .gh', R, 0.3); OFF(X + '_sc', R, 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 1.0, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.6, ease: 'power2.inOut' }, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+  /* ghost slots + scenario chips so the screen is never empty while the question is read */
+  const FILL = (id, chips) => {
+    document.getElementById(id + '_g').insertAdjacentHTML('afterbegin', [0, 1, 2].map((k) => `<div class="gh" style="position:absolute;left:120px;top:${410 + k * 138}px;width:1240px;height:118px;box-sizing:border-box;border:5px dashed #3a4a78;border-radius:22px;color:#3a4a78;font-size:44px;font-weight:800;display:flex;align-items:center;padding-left:46px">${'ABC'[k]}</div>`).join(''));
+    document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:860px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;align-self:flex-start;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`);
+  };
+  FILL('exA', ['Agent refuses too many questions', 'Wants more responses', 'Accepts more risk']);
+  FILL('exB', ['Microsoft Copilot harness', 'Lowers the level for one creative task']);
+  FILL('exC', ['HR agent', 'Policy not in its sources', 'The answers are invented']);
+  FILL('exD', ['Any employee', "Asks for a coworker's leave balance", 'The agent answers']);
+  /* ── 5 EXAM A ── */
+  OFF('#lbWater', S(5, 0) - 0.3, 0.3); OFF('#tapG', S(5, 0) + 0.5, 0.2);
+  EXAMX('exA', 5, { pause: 7, reveal: 8, trap: 1, right: 2, q: S(5, 1) - 0.1, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 0.1 });
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 9)); tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 10));
+  ON('#exA_p', S(5, 9) + 0.1, 0.4);
+  tl.set('#aNd', { svgOrigin: '100 110', rotation: 0 }, 0); tl.to('#aNd', { rotation: -60, duration: 0.8, ease: 'power2.inOut' }, S(5, 9) + 0.3);
+  [0, 1, 2, 3, 4, 5].forEach((k) => tl.fromTo('#aD' + k, { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 0.4 }, S(5, 9) + 0.8 + k * 0.2));
+  ON('#aLb', S(5, 10), 0.4);
+
+  /* ── 6 One dial on the Microsoft Copilot harness (UI → world) ── */
+  CAMI(MX + 530, MY + 225, 2.4, S(6, 0) - 0.6); ON('#mk', S(6, 0) - 0.6, 0.01);
+  UIIN('#uiH', S(6, 0) + 0.3);
+  PUL('#hHc', W(6, 0, 'formerly', 0), 1.04);
+  ON('#cur', S(6, 1) - 0.4, 0.2);
+  CUR(PH.nv2[0], PH.nv2[1], S(6, 1) - 0.3, 0.7); CLICK(PH.nv2[0], PH.nv2[1], W(6, 1, 'behavior', 0)); NAV('#uiH', 2, W(6, 1, 'behavior', 0), 4);
+  SWAP('#hL0', '#hL1', W(6, 1, 'behavior', 0.2));
+  LV.forEach((l, k) => { const w = W(6, 2, l.toLowerCase(), 0); tl.to('#hk', { x: k * 250, duration: 0.3, ease: 'power2.inOut' }, w - 0.1); tl.fromTo('#hsl' + k, { scale: 1 }, { scale: 1.2, color: BLUE, duration: 0.25, yoyo: true, repeat: 1 }, w); });
+  tl.to('#hk', { x: 250, duration: 0.5, ease: 'power2.inOut' }, S(6, 3));
+  tl.fromTo('#hsl1', { color: '#5d6472' }, { color: BLUE, fontWeight: 800, duration: 0.3 }, S(6, 3) + 0.3);
+  CUR(PH.save[0], PH.save[1], S(6, 3) + 0.4, 0.6); CLICK(PH.save[0], PH.save[1], W(6, 3, 'save', 0));
+  CUR(PH.pub[0], PH.pub[1], W(6, 3, 'save', 0.4), 0.5); CLICK(PH.pub[0], PH.pub[1], W(6, 3, 'publish', 0));
+  POPX('#hNote', W(6, 3, 'takes effect', 0));
+  OFF('#cur', S(6, 4) - 0.8, 0.2);
+  UIOUT('#uiH', S(6, 4) - 0.6); OFF('#mk', S(6, 4) - 0.3, 0.4);
+  CAM(1650, 800, 0.8, S(6, 4) - 0.3, 1.2);
+  ON('#odD', S(6, 4) + 0.1, 0.4); TAG('#odp', S(6, 4) + 0.1);
+  [0, 1, 2].forEach((k) => { POPX('#tk' + k, S(6, 4) + 0.3 + k * 0.2); tl.fromTo('#cw' + k, { opacity: 1, strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, S(6, 4) + 0.5 + k * 0.2); });
+  tl.to('#odn', { rotation: -50, duration: 1.0, ease: 'power2.inOut' }, W(6, 4, 'lowering', 0));
+  tl.to(['#tk0', '#tk1', '#tk2'], { opacity: 0.45, borderColor: AMB, color: AMB, duration: 0.6 }, W(6, 4, 'lowering', 0.3));
+  TAG('#odw', W(6, 4, 'every task', 0));
+
+  /* ── 7 The silent filter ── */
+  OFF(['#odD', '#odp', '#odw', '#tk0', '#tk1', '#tk2', '#cw0', '#cw1', '#cw2'], S(7, 0) - 0.4, 0.4);
+  CAM(1500, 850, 0.8, S(7, 0) - 0.4, 1.4);
+  POPX('#gn', S(7, 0) + 0.5);
+  ON('#qn', S(7, 1) - 0.2, 0.3); tl.to('#qnw', { x: 470, duration: 0.8, ease: 'power1.inOut' }, S(7, 1)); OFF('#qn', S(7, 1) + 0.8, 0.2);
+  POP('#fl7', W(7, 1, 'moderation filters', 0));
+  tl.set('#cn', { opacity: 1 }, W(7, 1, 'simply returns', 0));
+  ON('#gb', W(7, 1, 'no answer', 0.3), 0.4); TAG('#lbNone', W(7, 1, 'no sign', 0));
+  tl.to('#gb', { scale: 1.08, duration: 0.3, yoyo: true, repeat: 3 }, S(7, 2) + 0.2);
+  OFF(['#gn', '#fl7', '#gb', '#lbNone', '#cn'], S(7, 3) - 0.5, 0.4);
+  CAM(2700, 700, 0.85, S(7, 3) - 0.5, 1.4);
+  ON('#mon1', S(7, 3) - 0.2, 0.4); ON('#mon2', S(7, 3) + 1.6, 0.4);
+  ON('#sbar', W(7, 3, 'look for', -0.2), 0.3); TYPE(W(7, 3, 'look for', 0.1), E(7, 3) - 0.6);
+  [['#hit1', 0], ['#hit2', 0.25]].forEach(([h, d]) => { tl.to(h, { backgroundColor: RED, duration: 0.3 }, E(7, 3) - 0.4 + d); tl.to(h + ' span', { opacity: 1, duration: 0.3 }, E(7, 3) - 0.4 + d); });
+  TAG('#lbBug', S(7, 4) + 0.5);
+
+  /* ── 8 EXAM B ── */
+  OFF(['#mon1', '#mon2', '#sbar', '#lbBug'], S(8, 0) - 0.5, 0.3);
+  EXAMX('exB', 8, { pause: 7, reveal: 8, trap: 2, right: 1, q: S(8, 1) - 0.1, opt: [S(8, 4), S(8, 5), S(8, 6)], end: S(9, 0) - 0.1 });
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(8, 9)); tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(8, 9) + 1.8);
+  ON('#exB_p', S(8, 9) + 0.1, 0.4);
+  tl.set('#bNd', { svgOrigin: '100 110', rotation: 40 }, 0);
+  tl.fromTo('.bxc', { opacity: 0 }, { opacity: 1, duration: 0.3, stagger: 0.15 }, S(8, 9) + 0.4);
+  tl.to('#bNd', { rotation: -50, duration: 0.9, ease: 'power2.inOut' }, S(8, 9) + 2.2);
+  tl.to('.bxc', { borderColor: '#ffd166', opacity: 0.6, duration: 0.5 }, S(8, 9) + 2.6);
+  ON('#bLb', S(8, 9) + 2.8, 0.4);
+
+  /* ── 9 No source, no answer ── */
+  CAMI(1050, 1600, 1.1, S(9, 0) - 0.5); ON('#tapG', S(9, 0) - 0.5, 0.01);
+  GLOW('#vGlow', S(9, 0) + 0.3);
+  POPX('#gtog', W(9, 1, 'allow ungrounded', -0.2));
+  PIPE(S(9, 2) + 0.4); FALL(S(9, 2) + 3.0);
+  tl.to('#gt', { backgroundColor: '#8a93a6', duration: 0.25 }, W(9, 3, 'off', 0.1)); tl.to('#gtk', { x: -52, duration: 0.25 }, W(9, 3, 'off', 0.1));
+  tl.fromTo('#vg', { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.4 }, W(9, 3, 'no source', -0.8));
+  FALL(W(9, 3, 'no source', 0), 'red inv', true);
+  POP('#fb', W(9, 3, 'fallback', 0.1));
+  TAG('#lbFb', S(9, 4) + 0.2);
+  TAG('#lbNoMake', S(9, 5) + 0.3); PIPE(S(9, 5) + 1.2);
+
+  /* ── 10 One job each ── */
+  OFF(['#gtog', '#fb', '#lbFb', '#lbNoMake', '#bot'], S(10, 0) - 0.3, 0.3);
+  CAM(1950, 700, 0.8, S(10, 0) - 0.4, 1.4); OFF('#tapG', S(10, 0) - 0.3, 0.3);
+  ['c0', 'c1', 'c2'].forEach((c, k) => POPX('#' + c, S(10, 0) + 0.4 + k * 0.4));
+  TAG('#s0a', W(10, 1, 'does not', 0)); TAG('#s1', W(10, 2, 'does not', 0)); TAG('#s2', W(10, 3, 'filters harm', 0)); TAG('#s0b', W(10, 4, 'requires sources', -0.3));
+  POPX('#mm0', S(10, 5) + 0.2); tl.to('#mm0x', { scaleX: 1, duration: 0.4 }, W(10, 5, 'will not fix', 0));
+  POPX('#mm1', S(10, 6) + 0.2); tl.to('#mm1x', { scaleX: 1, duration: 0.4 }, W(10, 6, 'will not fix', 0));
+
+  /* ── 11 EXAM C ── */
+  OFF(['#c0', '#c1', '#c2', '#s0a', '#s0b', '#s1', '#s2', '#mm0', '#mm1'], S(11, 0) - 0.5, 0.3);
+  EXAMX('exC', 11, { pause: 6, reveal: 7, trap: 2, right: 0, q: S(11, 1) - 0.1, opt: [S(11, 3), S(11, 4), S(11, 5)], end: S(12, 0) - 0.1 });
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(11, 8)); tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(11, 9));
+  ON('#exC_p', S(11, 8) + 0.1, 0.4);
+  tl.fromTo('#cD', { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.4 }, S(11, 8) + 0.4);
+  tl.to('#cD', { y: 54, duration: 0.5, ease: 'power1.in' }, S(11, 8) + 0.9); tl.fromTo('#cGate', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(11, 8) + 0.6);
+  tl.to('#cD', { scale: 1.4, opacity: 0, duration: 0.3 }, S(11, 8) + 1.5);
+  tl.fromTo('#cFb', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.4 }, S(11, 8) + 1.8); ON('#cLb', S(11, 8) + 2.2, 0.4);
+
+  /* ── 12 Moderation is not policy ── */
+  ON('#bot', S(12, 0) - 0.6, 0.01); CAMI(2500, 1250, 0.8, S(12, 0) - 0.6); ON('#gatesG', S(12, 0) - 0.5, 0.01);
+  tl.to(['#e0', '#e1', '#e2'], { opacity: 1, duration: 0.3 }, S(12, 0) - 0.5);
+  POP('#r2', S(12, 0) + 0.8);
+  tl.to('#r2w', { x: -1065, duration: 1.0, ease: 'power1.inOut' }, S(12, 1) + 0.2); LIGHT('inG', S(12, 1) + 1.15, GRN);
+  tl.to('#r2w', { x: -1345, duration: 0.5, ease: 'none' }, S(12, 1) + 1.2); OFF('#r2', S(12, 1) + 1.6, 0.2);
+  tl.to('#outG_l', { fill: GRN, duration: 0.2 }, S(12, 1) + 1.8); tl.to('#outG_l', { fill: '#8a93a6', duration: 0.2 }, S(12, 2) + 0.5);
+  POP('#ca', S(12, 1) + 1.7); tl.to('#ca', { x: 1130, duration: 1.0, ease: 'power1.inOut' }, S(12, 1) + 2.1);
+  TAG('#lbHarm', S(12, 2) + 0.2);
+  OFF(['#lbHarm', '#ca'], S(12, 4) - 0.3, 0.3);
+  SHD.forEach((s, k) => { const w = ['instructions', 'knowledge scope', 'tools', 'permissions'][k]; tl.fromTo('#sh' + k, { opacity: 0, y: -60, scale: 1.2 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'back.out(1.6)' }, W(12, 4, w, -0.2)); });
+  ON('#aura', W(12, 4, 'permissions', 0.3), 0.5);
+  tl.set('#r2w', { x: 0 }, S(12, 4) + 5.0); POP('#r2', S(12, 4) + 5.1);
+  tl.to('#r2w', { x: -1095, duration: 1.0, ease: 'power1.inOut' }, S(12, 4) + 5.4);
+  tl.to('#aura', { borderColor: RED, duration: 0.2 }, S(12, 4) + 6.4); tl.to('#r2w', { x: -700, duration: 0.5, ease: 'back.out(2)' }, S(12, 4) + 6.4);
+  TAG('#lbOwn', W(12, 4, 'only reaches', 0));
+
+  /* ── 13 EXAM D ── */
+  OFF(['#e0', '#e1', '#e2', '#r2', '#lbOwn', '#aura', '#sh0', '#sh1', '#sh2', '#sh3'], S(13, 0) - 0.5, 0.3);
+  EXAMX('exD', 13, { pause: 6, reveal: 7, trap: 2, right: 1, q: S(13, 1) - 0.1, opt: [S(13, 3), S(13, 4), S(13, 5)], end: S(14, 0) - 0.1 });
+  tl.fromTo('#exD_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(13, 8)); tl.fromTo('#exD_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(13, 9));
+  ON('#exD_p', S(13, 8) + 0.1, 0.4);
+  tl.fromTo('.dxc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.25 }, S(13, 8) + 0.3);
+  ON('#dRq', S(13, 8) + 1.6, 0.3); tl.to('#dRq', { x: -160, duration: 0.7, ease: 'power1.inOut' }, S(13, 8) + 1.9);
+  ON('#dX', S(13, 8) + 2.6, 0.2); tl.to('#dRq', { x: 0, duration: 0.5, ease: 'back.out(2)' }, S(13, 8) + 2.6);
+
+  /* ── 14 Say it is an AI (UI → world) ── */
+  CAMI(MX + 530, MY + 225, 2.4, S(14, 0) - 0.6); ON('#mk', S(14, 0) - 0.6, 0.01);
+  UIIN('#uiT', S(14, 0) + 0.3);
+  ON('#cur', S(14, 1) - 0.4, 0.2);
+  CUR(PT.nv1[0], PT.nv1[1], S(14, 1) + 0.3, 0.7); CLICK(PT.nv1[0], PT.nv1[1], S(14, 1) + 1.1); NAV('#uiT', 1, S(14, 1) + 1.1, 4); SWAP('#tL0', '#tL1', S(14, 1) + 1.3);
+  CUR(PT.conv[0], PT.conv[1], W(14, 2, 'Conversation Start', -0.8), 0.6); CLICK(PT.conv[0], PT.conv[1], W(14, 2, 'Conversation Start', 0)); SWAP('#tL1', '#tL2', W(14, 2, 'Conversation Start', 0.3));
+  OFF('#cur', S(14, 3) - 0.3, 0.2);
+  ON('#mn1', W(14, 3, 'I am', 0), 0.4); ON('#mn2', W(14, 3, 'and my answers', -0.6), 0.4);
+  UIOUT('#uiT', S(14, 4) - 0.5); OFF('#mk', S(14, 4) - 0.2, 0.4);
+  CAM(2600, 1330, 0.8, S(14, 4) - 0.3, 1.2);
+  tl.set('#e1', { opacity: 1, x: 0 }, S(14, 4) - 0.2);
+  ADD(BW('nb', 3095, 1330, 'I am an artificial intelligence assistant,<br>and my answers are generated.', 'blue', 46));
+  POP('#nb', S(14, 4) + 0.1);
+  tl.to('#e1', { y: 22, duration: 0.3, yoyo: true, repeat: 3, ease: 'sine.inOut' }, S(14, 4) + 2.2);
+
+  /* ── 15 The steps (UI) ── */
+  OFF(['#nb', '#e1'], S(15, 0) - 0.95, 0.3);
+  CAMI(MX + 530, MY + 225, 2.4, S(15, 0) - 0.6); ON('#mk', S(15, 0) - 0.6, 0.01);
+  UIIN('#uiW', S(15, 0) + 0.3);
+  ON('#cur', S(15, 1) - 0.4, 0.2);
+  CUR(PW.nv2[0], PW.nv2[1], S(15, 1) - 0.3, 0.6); CLICK(PW.nv2[0], PW.nv2[1], W(15, 1, 'Settings', 0)); NAV('#uiW', 2, W(15, 1, 'Settings', 0), 4); SWAP('#wL0', '#wL1', W(15, 1, 'Settings', 0.2));
+  CUR(PW.gen[0], PW.gen[1], W(15, 1, 'Settings', 0.7), 0.6); CLICK(PW.gen[0], PW.gen[1], W(15, 1, 'Generative', 0.3)); SWAP('#wL1', '#wL2', W(15, 1, 'Generative', 0.5));
+  CUR(PW.dd[0], PW.dd[1], S(15, 2) + 0.2, 0.6); CLICK(PW.dd[0], PW.dd[1], W(15, 2, 'choose', 0)); OFF('#wDv0', W(15, 2, 'Highest', 0), 0.15); ON('#wDv1', W(15, 2, 'Highest', 0.05), 0.15);
+  CUR(PW.tg[0], PW.tg[1], S(15, 3) + 0.2, 0.6); CLICK(PW.tg[0], PW.tg[1], W(15, 3, 'off', 0.5)); tl.to('#wTg', { backgroundColor: '#8a93a6', duration: 0.2 }, W(15, 3, 'off', 0.55)); tl.to('#wTk', { x: -52, duration: 0.2 }, W(15, 3, 'off', 0.55));
+  CUR(PW.save[0], PW.save[1], S(15, 4) - 0.3, 0.5); CLICK(PW.save[0], PW.save[1], S(15, 4) + 0.15); ON('#wToast', S(15, 4) + 0.3, 0.2);
+  CUR(PW.nv3[0], PW.nv3[1], S(15, 5) - 0.2, 0.5); CLICK(PW.nv3[0], PW.nv3[1], S(15, 5) + 0.35); NAV('#uiW', 3, S(15, 5) + 0.35, 4); SWAP('#wL2', '#wL3', S(15, 5) + 0.5);
+  POPX('#wq1', W(15, 5, 'awkward', 0)); POPX('#wr1', W(15, 5, 'awkward', 0.9)); POPX('#wq2', W(15, 5, 'another', 0)); POPX('#wr2', W(15, 5, 'another', 1.2));
+  CUR(PW.nv1[0], PW.nv1[1], S(15, 6) - 0.1, 0.5); CLICK(PW.nv1[0], PW.nv1[1], S(15, 6) + 0.5); NAV('#uiW', 1, S(15, 6) + 0.5, 4); SWAP('#wL3', '#wL4', S(15, 6) + 0.8);
+  OFF('#cur', E(15, 6), 0.2);
+
+  /* ── 16 Friday, fixed ── */
+  CAMI(2600, 1330, 0.8, S(16, 0) - 0.9);
+  UIOUT('#uiW', S(16, 0) - 0.6); OFF('#mk', S(16, 0) - 0.3, 0.4);
+  tl.to(['#e0', '#e1', '#e2'], { opacity: 1, duration: 0.4 }, S(16, 0) - 0.3);
+  ['z0', 'z1', 'z2'].forEach((z, k) => POP('#' + z, S(16, 0) + 0.3 + k * 0.4));
+  tl.to('#z0w', { x: -265, duration: 1.2, ease: 'power1.inOut' }, S(16, 1) + 0.3);
+  tl.to('#inG_l', { fill: RED, duration: 0.2 }, S(16, 1) + 1.5); POP('#gxB', S(16, 1) + 1.5);
+  OFF(['#gxB', '#z0'], S(16, 2) - 0.4, 0.3);
+  tl.to('#inG_l', { fill: '#8a93a6', duration: 0.2 }, S(16, 2) - 0.4);
+  CAM(1300, 1500, 0.8, S(16, 2) - 0.4, 1.4); ON('#tapG', S(16, 2) - 0.4, 0.4);
+  POPX('#gtog', S(16, 2) + 0.2);
+  FALL(S(16, 2) + 1.2, 'red inv', true); POP('#fb2', S(16, 2) + 2.4);
+  OFF(['#gtog', '#fb2', '#tapG'], S(16, 3) - 0.3, 0.3);
+  CAM(2400, 1150, 0.8, S(16, 3) - 0.4, 1.4);
+  SHD.forEach((s, k) => POP('#sh' + k, S(16, 3) + 0.1 + k * 0.4));
+  ON('#aura', S(16, 3) + 0.5, 0.4);
+  tl.to('#z2w', { x: -1095, duration: 1.0, ease: 'power1.inOut' }, S(16, 3) + 1.2);
+  tl.to('#aura', { borderColor: RED, duration: 0.2 }, S(16, 3) + 2.2); tl.to('#z2w', { x: -700, duration: 0.5, ease: 'back.out(2)' }, S(16, 3) + 2.2);
+  OFF(['.sb', '#e0', '#e1', '#e2', '#aura', '#sh0', '#sh1', '#sh2', '#sh3', '#z1', '#z2', '#gatesG'], S(16, 4) - 0.2, 0.5);
+  ON('#uiBack', S(16, 4) - 0.1, 0.5);
+  [0, 1, 2].forEach((k) => POPX('#rc' + k, S(16, 4) + 0.4 + k * 0.9));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

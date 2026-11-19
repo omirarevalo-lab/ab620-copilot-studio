@@ -1,0 +1,456 @@
+{
+ "id": "L11",
+ "title": "Custom data and your own sources",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 262.544,
+ "scenes": [
+  {
+   "title": "Answers from our own articles",
+   "start": 0.8,
+   "end": 18.176,
+   "sentences": [
+    {
+     "text": "Contoso's support team keeps an incident database.",
+     "start": 0.8,
+     "end": 3.956
+    },
+    {
+     "text": "Marta asks about a printer fault, and the agent gives a general answer.",
+     "start": 4.237,
+     "end": 8.375
+    },
+    {
+     "text": "Valeria wants answers built only from the articles her own flow picks, each with a link.",
+     "start": 8.656,
+     "end": 13.839
+    },
+    {
+     "text": "Today you learn Custom data.",
+     "start": 14.12,
+     "end": 15.783
+    },
+    {
+     "text": "It is how you hand the node your own data.",
+     "start": 16.064,
+     "end": 18.175
+    }
+   ]
+  },
+  {
+   "title": "A tray for the cook",
+   "start": 19.076,
+   "end": 37.607,
+   "sentences": [
+    {
+     "text": "Picture a kitchen with a serving hatch.",
+     "start": 19.076,
+     "end": 21.123
+    },
+    {
+     "text": "Nexo is the cook.",
+     "start": 21.404,
+     "end": 22.64
+    },
+    {
+     "text": "Usually it takes ingredients from the pantry shelves.",
+     "start": 22.921,
+     "end": 25.758
+    },
+    {
+     "text": "With Custom data, you hand it a tray instead.",
+     "start": 26.039,
+     "end": 28.683
+    },
+    {
+     "text": "The information is not in a file or on a website.",
+     "start": 28.964,
+     "end": 31.907
+    },
+    {
+     "text": "You calculate it yourself, with a flow or a query, and the cook serves only what is on the tray.",
+     "start": 32.188,
+     "end": 37.606
+    }
+   ]
+  },
+  {
+   "title": "Where the option is",
+   "start": 38.507,
+   "end": 55.645,
+   "sentences": [
+    {
+     "text": "The option is in the properties of the Generative answers node, in the section called Classic data.",
+     "start": 38.507,
+     "end": 44.202
+    },
+    {
+     "text": "There you put a variable of type Table.",
+     "start": 44.483,
+     "end": 46.551
+    },
+    {
+     "text": "Use it when the source is a private A P I or the result of a flow, not a public site or a file.",
+     "start": 46.832,
+     "end": 52.783
+    },
+    {
+     "text": "At Contoso, the table comes out of a flow.",
+     "start": 53.064,
+     "end": 55.644
+    }
+   ]
+  },
+  {
+   "title": "The shape of the table",
+   "start": 56.545,
+   "end": 74.26,
+   "sentences": [
+    {
+     "text": "Each row in the table needs Content.",
+     "start": 56.545,
+     "end": 58.635
+    },
+    {
+     "text": "It is required, and it holds the article text.",
+     "start": 58.916,
+     "end": 61.731
+    },
+    {
+     "text": "Optionally, a row can have ContentLocation, the address used for the citation, and Title, the article title.",
+     "start": 62.012,
+     "end": 68.966
+    },
+    {
+     "text": "With ContentLocation filled in, the agent can cite the link of each article for Marta.",
+     "start": 69.247,
+     "end": 74.259
+    }
+   ]
+  },
+  {
+   "title": "Only three records",
+   "start": 75.16,
+   "end": 93.688,
+   "sentences": [
+    {
+     "text": "Now the limit.",
+     "start": 75.16,
+     "end": 76.119
+    },
+    {
+     "text": "Only the first three records are used to generate the answer.",
+     "start": 76.4,
+     "end": 79.834
+    },
+    {
+     "text": "So there is no point sending hundreds of rows and hoping the node reads them all.",
+     "start": 80.115,
+     "end": 84.508
+    },
+    {
+     "text": "Filter and sort the table before you pass it, with the most relevant rows on top.",
+     "start": 84.789,
+     "end": 89.567
+    },
+    {
+     "text": "Contoso's flow does exactly that, and returns three articles.",
+     "start": 89.848,
+     "end": 93.687
+    }
+   ]
+  },
+  {
+   "title": "Decide: hundreds of rows",
+   "start": 94.588,
+   "end": 128.707,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 94.588,
+     "end": 95.462
+    },
+    {
+     "text": "Contoso's incident flow finds hundreds of matching articles.",
+     "start": 95.743,
+     "end": 99.646
+    },
+    {
+     "text": "Valeria must pass them on.",
+     "start": 99.927,
+     "end": 101.462
+    },
+    {
+     "text": "What should she do with the table first?",
+     "start": 101.743,
+     "end": 103.704
+    },
+    {
+     "text": "Send every row and let the node read them all?",
+     "start": 103.985,
+     "end": 106.566
+    },
+    {
+     "text": "Filter and sort first, best rows on top?",
+     "start": 106.847,
+     "end": 109.47
+    },
+    {
+     "text": "Or pass the first three rows as they come?",
+     "start": 109.751,
+     "end": 111.84
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 112.121,
+     "end": 113.656
+    },
+    {
+     "text": "Filter and sort first, best rows on top.",
+     "start": 117.437,
+     "end": 120.082
+    },
+    {
+     "text": "Only the first three records are used, so the best rows go on top.",
+     "start": 120.363,
+     "end": 124.266
+    },
+    {
+     "text": "More rows do not raise the limit, and unsorted rows can miss the best.",
+     "start": 124.547,
+     "end": 128.706
+    }
+   ]
+  },
+  {
+   "title": "Only with your data",
+   "start": 129.607,
+   "end": 146.916,
+   "sentences": [
+    {
+     "text": "To answer only from your table, turn on Search only selected sources and select no sources.",
+     "start": 129.607,
+     "end": 135.536
+    },
+    {
+     "text": "Then put your variable in Custom data.",
+     "start": 135.817,
+     "end": 137.971
+    },
+    {
+     "text": "Turn off Web search and Allow the AI to use its own general knowledge.",
+     "start": 138.252,
+     "end": 142.411
+    },
+    {
+     "text": "Now the agent answers only from the three articles and cites each link.",
+     "start": 142.692,
+     "end": 146.915
+    }
+   ]
+  },
+  {
+   "title": "Decide: answer only from the table",
+   "start": 147.816,
+   "end": 182.127,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 147.816,
+     "end": 148.69
+    },
+    {
+     "text": "Contoso's flow returns a table of three articles, already in Custom data.",
+     "start": 148.971,
+     "end": 153.706
+    },
+    {
+     "text": "The agent must answer only from that table.",
+     "start": 153.987,
+     "end": 156.61
+    },
+    {
+     "text": "What should Valeria do with Search only selected sources?",
+     "start": 156.891,
+     "end": 159.983
+    },
+    {
+     "text": "Turn it on and select no sources?",
+     "start": 160.264,
+     "end": 162.375
+    },
+    {
+     "text": "Turn it on and select all sources?",
+     "start": 162.656,
+     "end": 164.788
+    },
+    {
+     "text": "Or leave it off and let the agent decide?",
+     "start": 165.069,
+     "end": 167.33
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 167.611,
+     "end": 169.146
+    },
+    {
+     "text": "Turn it on and select no sources.",
+     "start": 172.927,
+     "end": 175.059
+    },
+    {
+     "text": "Then the node searches no knowledge sources, so only your table is left.",
+     "start": 175.34,
+     "end": 179.456
+    },
+    {
+     "text": "Selecting all sources brings them back in.",
+     "start": 179.737,
+     "end": 182.126
+    }
+   ]
+  },
+  {
+   "title": "Set it up in the studio",
+   "start": 183.027,
+   "end": 205.141,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 183.027,
+     "end": 184.839
+    },
+    {
+     "text": "Open the Generative answers node and go to Properties.",
+     "start": 185.12,
+     "end": 188.426
+    },
+    {
+     "text": "Turn on Search only selected sources and select no sources.",
+     "start": 188.707,
+     "end": 192.631
+    },
+    {
+     "text": "Under Classic data, put your variable in Custom data.",
+     "start": 192.912,
+     "end": 196.026
+    },
+    {
+     "text": "Turn off Web search and Allow the AI to use its own general knowledge.",
+     "start": 196.307,
+     "end": 200.466
+    },
+    {
+     "text": "Then test a question and check that the citation uses ContentLocation.",
+     "start": 200.747,
+     "end": 205.14
+    }
+   ]
+  },
+  {
+   "title": "Decide: the required field",
+   "start": 206.041,
+   "end": 239.136,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 206.041,
+     "end": 206.915
+    },
+    {
+     "text": "Contoso is checking the table its flow returns before sending it to Custom data.",
+     "start": 207.196,
+     "end": 212.102
+    },
+    {
+     "text": "Valeria wants to know which field no row can be missing.",
+     "start": 212.383,
+     "end": 215.56
+    },
+    {
+     "text": "Which field is it?",
+     "start": 215.841,
+     "end": 216.971
+    },
+    {
+     "text": "ContentLocation, because it holds the link?",
+     "start": 217.252,
+     "end": 219.704
+    },
+    {
+     "text": "Title, because the answer needs a heading?",
+     "start": 219.985,
+     "end": 222.096
+    },
+    {
+     "text": "Or Content, because it holds the text?",
+     "start": 222.377,
+     "end": 224.659
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 224.94,
+     "end": 226.475
+    },
+    {
+     "text": "Content, because it holds the text.",
+     "start": 230.256,
+     "end": 232.26
+    },
+    {
+     "text": "Content is the only required field.",
+     "start": 232.541,
+     "end": 234.802
+    },
+    {
+     "text": "ContentLocation and Title are optional, so a row can leave them out.",
+     "start": 235.083,
+     "end": 239.135
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 240.036,
+   "end": 261.343,
+   "sentences": [
+    {
+     "text": "Back in the kitchen.",
+     "start": 240.036,
+     "end": 241.166
+    },
+    {
+     "text": "Marta asks again, and the answer comes only from the three articles, each with a link.",
+     "start": 241.447,
+     "end": 246.395
+    },
+    {
+     "text": "Remember three things.",
+     "start": 246.676,
+     "end": 247.912
+    },
+    {
+     "text": "Content is the only required field.",
+     "start": 248.193,
+     "end": 250.454
+    },
+    {
+     "text": "Only the first three records count, so filter and sort first.",
+     "start": 250.735,
+     "end": 254.275
+    },
+    {
+     "text": "And to answer only from your data, use Search only selected sources with no sources.",
+     "start": 254.556,
+     "end": 259.59
+    },
+    {
+     "text": "Next, Adaptive Cards.",
+     "start": 259.871,
+     "end": 261.342
+    }
+   ]
+  }
+ ]
+}

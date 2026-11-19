@@ -1,0 +1,68 @@
+{
+ "brand": "AB-620 · Basics · Lesson 3",
+ "scenes": [
+  { "type": "flow",
+    "header": { "kicker": "Orchestration", "title": "Deciding what to do with each message" },
+    "nodes": [
+      { "icon": "chat", "title": "Message", "sub": "The user writes", "at": "each message" },
+      { "icon": "arrow_routing", "title": "Orchestrator", "sub": "Like a receptionist", "accent": true, "at": "the orchestrator" },
+      { "icon": "cube_tree", "title": "The right piece", "sub": "Chosen for this message", "at": "chooses among" }
+    ],
+    "below": [
+      { "icon": "branch_fork", "text": "Topics", "at": "topics" },
+      { "icon": "toolbox", "text": "Tools", "at": "tools" },
+      { "icon": "bot", "text": "Other agents", "at": "other agents" },
+      { "icon": "book_open", "text": "Knowledge", "at": "knowledge sources" },
+      { "icon": "flag", "text": "Two ways to do it", "at": "two ways", "solid": true }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Classic mode", "title": "Trigger phrases", "sub": "The agent matches what the user typed.", "pill": { "text": "Predictable", "note": "but rigid", "at": "predictable" } },
+    "rows": [
+      { "icon": "chat", "title": "Each topic has trigger phrases", "at": "trigger phrases", "hi": true },
+      { "icon": "branch_fork", "title": "The most similar topic wins", "at": "most similar", "hi": true },
+      { "icon": "toolbox", "title": "Tools only from inside a topic", "at": "Tools are only", "hi": true },
+      { "icon": "book_open", "title": "Knowledge as plan B", "desc": "When no topic matches", "at": "plan B", "hi": true }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Generative mode · default", "title": "Descriptions", "sub": "You describe each piece well.", "pill": { "text": "You describe", "note": "the agent decides", "at": "You describe" } },
+    "rows": [
+      { "icon": "document_text", "title": "Chooses by description", "at": "by description", "hi": true },
+      { "icon": "cube_tree", "title": "Combines several pieces", "desc": "Topics, tools and knowledge in one answer", "at": "combine", "hi": true },
+      { "icon": "chat", "title": "Asks for missing data", "at": "missing data", "hi": true },
+      { "icon": "sparkle", "title": "Writes the final answer", "at": "final result", "hi": true }
+    ] },
+  { "type": "compare",
+    "header": { "kicker": "Generative mode", "title": "The description is everything" },
+    "cols": [
+      { "icon": "flag", "title": "Bad", "sub": "Too vague", "tone": "bad", "at": "A bad one",
+        "items": [ { "text": "“Answers questions.”", "at": "answers questions" } ] },
+      { "icon": "checkmark_circle", "title": "Good", "sub": "Specific, says what it does not do", "tone": "good", "at": "A good one",
+        "items": [ { "text": "“Checks the status of a ticket by its number; does not create tickets.”", "at": "checks the status" } ] }
+    ],
+    "verdict": { "icon": "document_text", "text": "1–2 sentences · active voice · the user's words", "at": "one or two sentences" } },
+  { "type": "path",
+    "header": { "kicker": "Settings and test pane", "title": "Where to change it, how to watch it" },
+    "crumbs": [
+      { "icon": "settings", "text": "Settings", "at": "Settings" },
+      { "icon": "sparkle", "text": "Generative AI", "at": "Generative A I" },
+      { "icon": "arrow_routing", "text": "Orchestration", "accent": true, "at": "orchestration option" }
+    ],
+    "cards": [
+      { "icon": "window_dev_tools", "title": "Test pane", "desc": "Chat with the agent while you build", "at": "test pane", "hi": true },
+      { "icon": "map", "title": "Activity map", "desc": "The plan in real time: topics, tools and their order", "at": "activity map", "hi": true }
+    ] },
+  { "type": "chat",
+    "window": { "title": "Nexo · IT support · Contoso", "at": "start" },
+    "messages": [
+      { "from": "u", "text": "My laptop won't turn on, and how is my other case going?", "at": "my laptop" },
+      { "from": "a", "text": "Your case #4821 is in progress.", "at": "checks the ticket status" },
+      { "from": "a", "text": "I opened a new ticket for the laptop.", "tool": { "title": "Ticket #4822", "result": "created" }, "at": "opens a new one" }
+    ],
+    "side": { "heading": "Two intentions", "at": "start",
+      "cards": [
+        { "icon": "branch_fork", "title": "Classic", "desc": "Only one topic fires", "at": "1:classic mode", "hi": true },
+        { "icon": "sparkle", "title": "Generative", "desc": "Both, in one answer", "at": "generative mode", "hi": true }
+      ] },
+    "close": { "html": "*Descriptions* make it orchestrate", "at": "That is the advantage" } }
+ ]
+}

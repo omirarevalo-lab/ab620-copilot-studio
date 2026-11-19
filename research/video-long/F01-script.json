@@ -1,0 +1,57 @@
+[
+ {
+  "title": "Same questions all day",
+  "caption": "Contoso's IT team answers the same questions all day: VPN, passwords, printers. Copilot Studio builds an assistant that answers for them.",
+  "say": "Monday at Contoso. The I T team has four people, and they answer the same questions all day. My V P N will not connect. I forgot my password. The printer is offline again. Every answer is already written in their guides, but someone still has to type it. What if an assistant answered those questions for them, right inside Teams? Today you meet the tool that builds it: Copilot Studio."
+ },
+ {
+  "title": "An assembly workshop",
+  "caption": "Copilot Studio is a low-code workshop: you choose the parts (instructions, knowledge, tools) and it assembles and publishes the agent.",
+  "say": "Copilot Studio is the Microsoft tool where you build A I assistants, called agents, with very little code. Picture an assembly workshop. You choose the parts: instructions that say how to behave, knowledge to answer from, and tools to take action. The workshop puts them together and publishes the result where your users already work. It is a web app in your browser, so there is nothing to install."
+ },
+ {
+  "title": "Three things you build",
+  "caption": "Agent: chats and completes tasks. Workflow: automation from a drag-and-drop designer. Agent flow: classic flow, alone or as an agent's tool.",
+  "say": "In this one studio you build three things. An agent is an A I assistant that chats and completes tasks. It follows your instructions, uses the knowledge you connect, and calls tools. A workflow is an automation you build with a drag and drop designer. An agent flow is the classic Copilot Studio flow, similar to Power Automate. It runs on its own, or hangs from an agent as a tool."
+ },
+ {
+  "title": "Decide: which piece?",
+  "caption": "Contoso wants an assistant that chats, answers from the IT guides and opens tickets. Workflow, agent, or agent flow?",
+  "say": "Your turn. Contoso wants an assistant that chats with employees, answers from the I T guides, and opens a ticket when the steps fail. Which piece do they build? A workflow from the drag and drop designer? An agent that chats and completes tasks? Or a classic agent flow that runs on its own? Decide before I answer. An agent. It chats, uses knowledge, and calls a tool. A flow can be one of its tools."
+ },
+ {
+  "title": "Your first agent",
+  "caption": "Sign in, describe the agent on Home and select Create. Check the environment, walk the sections, then try Test your agent.",
+  "say": "Let us open the studio. You sign in with your work or school account. The Home page shows your agents and a box to describe a new one. Select Create and describe, in plain language, what the agent should do. Check the top bar to see which environment you are in. Then walk through the sections: Overview, Knowledge, Tools, Topics, and Settings. Finally, ask something in the Test your agent panel."
+ },
+ {
+  "title": "The engine underneath",
+  "caption": "A harness is the engine. Standard: structured, repeatable. Microsoft Copilot: multi-step reasoning. Copilot chat: extends Copilot Chat.",
+  "say": "Everything you build runs on a harness, the engine that does the work behind the scenes. It changes how the agent reasons, how complex its work can be, and how it is billed. The standard harness is for rules and structured, repeatable conversations. The Microsoft Copilot harness, formerly the GitHub Copilot harness, is for multi step work that needs reasoning. The Copilot chat harness extends Microsoft Copilot Chat with your organization's knowledge."
+ },
+ {
+  "title": "How a standard agent answers",
+  "caption": "Standard harness: the agent picks the best topic. Outside your topics, it answers from connected knowledge, so it helps from minute one.",
+  "say": "This course uses the standard harness. Here, the agent understands what the user asked and looks for the best topic. A topic is a part of the conversation that you design, with steps, questions, and conditions. If the request falls outside your topics, the agent can still generate an answer from the knowledge you connected. That is why a new agent is useful from minute one: connect a SharePoint site, and it already answers."
+ },
+ {
+  "title": "Decide: which harness?",
+  "caption": "An HR agent for leave requests: same rules, same questions, same order every time. Which harness fits?",
+  "say": "Your turn. Contoso builds an H R agent for leave requests. Every conversation follows the same rules and the same questions, in the same order. Which harness fits? The standard harness, for structured rules? The Microsoft Copilot harness, for reasoning? Or the Copilot chat harness, for Copilot Chat? Decide before I answer. The standard harness. Rules and repeatable conversations are its job. The Microsoft Copilot harness is for multi step reasoning, and it is billed differently."
+ },
+ {
+  "title": "Publish and operate",
+  "caption": "Publish to channels: Teams, Microsoft Copilot, websites, mobile apps. Operate with Analytics, Evaluations and Administration.",
+  "say": "When the agent is ready, you publish it to the channels where people already work: Microsoft Teams, Microsoft Copilot, websites, mobile apps, and more. Once it is in production, you operate it from the same studio, with three areas. Analytics shows performance and sessions. Evaluations runs test sets that measure quality. Administration covers inventory, security, and costs."
+ },
+ {
+  "title": "Decide: which area?",
+  "caption": "Nexo is live in Teams. Before each change, the IT lead wants to measure answer quality with test questions. Which area?",
+  "say": "Your turn. Nexo is live in Teams. Before each change, the I T lead wants to measure answer quality with a set of test questions. Which area do they open? Analytics, for performance and sessions? Administration, for inventory and costs? Or Evaluations, for test sets and quality? Decide before I answer. Evaluations. Its test sets measure quality. Analytics shows how real sessions went, and Administration covers inventory, security, and costs."
+ },
+ {
+  "title": "Nexo goes live",
+  "caption": "Nexo: instructions, the IT guides as knowledge, a ticket tool, published in Teams. Repeated questions answered; the team takes the hard cases.",
+  "say": "Back to Contoso. The team builds an agent called Nexo. They write a few instructions, connect the SharePoint site with the I T guides as knowledge, add a tool to open tickets, and publish it in Teams. An employee types: my V P N will not connect. Nexo replies with the steps from the guide, and if that fails, it opens the ticket. The team stops answering repeats and focuses on the hard cases."
+ }
+]

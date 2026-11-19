@@ -1,0 +1,1777 @@
+{
+ "id": "L15",
+ "sha256": "8cf09162de7b59b9ca72c5d3691be60e23962732c69e9c05120d11807b77947e",
+ "generated": "2026-11-11T03:49:42.869Z",
+ "cues": [
+  {
+   "label": "check inventory",
+   "scene": 1,
+   "sentStart": 4.83,
+   "sentEnd": 8.03,
+   "wordT": 7.07,
+   "appears": 0,
+   "delta": -7.07,
+   "status": "ok"
+  },
+  {
+   "label": "explicitly from a topic",
+   "scene": 1,
+   "sentStart": 10.39,
+   "sentEnd": 16.42,
+   "wordT": 11.48,
+   "appears": 11.36,
+   "delta": -0.12,
+   "status": "ok"
+  },
+  {
+   "label": "who is in control",
+   "scene": 1,
+   "sentStart": 16.7,
+   "sentEnd": 18.62,
+   "wordT": 17.53,
+   "appears": 16.81,
+   "delta": -0.71,
+   "status": "ok"
+  },
+  {
+   "label": "fixed route",
+   "scene": 1,
+   "sentStart": 18.9,
+   "sentEnd": 23.28,
+   "wordT": 21.09,
+   "appears": 20.86,
+   "delta": -0.23,
+   "status": "ok"
+  },
+  {
+   "label": "chooses the way",
+   "scene": 1,
+   "sentStart": 18.9,
+   "sentEnd": 23.28,
+   "wordT": 22.46,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the fixed route",
+   "scene": 2,
+   "sentStart": 24.18,
+   "sentEnd": 25.54,
+   "wordT": 24.52,
+   "appears": 24.27,
+   "delta": -0.25,
+   "status": "ok"
+  },
+  {
+   "label": "fixed route",
+   "scene": 2,
+   "sentStart": 24.18,
+   "sentEnd": 25.54,
+   "wordT": 24.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "classic orchestration",
+   "scene": 2,
+   "sentStart": 25.82,
+   "sentEnd": 29.64,
+   "wordT": 26.3,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "generative orchestration",
+   "scene": 2,
+   "sentStart": 25.82,
+   "sentEnd": 29.64,
+   "wordT": 27.25,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "answers only with topics",
+   "scene": 2,
+   "sentStart": 29.92,
+   "sentEnd": 32.1,
+   "wordT": 30.65,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "topics",
+   "scene": 2,
+   "sentStart": 29.92,
+   "sentEnd": 32.1,
+   "wordT": 31.73,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 2,
+   "sentStart": 32.38,
+   "sentEnd": 37.5,
+   "wordT": 32.38,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "explicitly from inside a topic",
+   "scene": 2,
+   "sentStart": 32.38,
+   "sentEnd": 37.5,
+   "wordT": 33.66,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "nobody else picks them",
+   "scene": 2,
+   "sentStart": 37.78,
+   "sentEnd": 39.21,
+   "wordT": 37.78,
+   "appears": 37.93,
+   "delta": 0.15,
+   "status": "ok"
+  },
+  {
+   "label": "full control of the flow",
+   "scene": 2,
+   "sentStart": 43.52,
+   "sentEnd": 45.27,
+   "wordT": 44.02,
+   "appears": 43.67,
+   "delta": -0.35,
+   "status": "ok"
+  },
+  {
+   "label": "chooses the way",
+   "scene": 3,
+   "sentStart": 46.17,
+   "sentEnd": 48.11,
+   "wordT": 47.28,
+   "appears": 46.42,
+   "delta": -0.86,
+   "status": "ok"
+  },
+  {
+   "label": "generative orchestration",
+   "scene": 3,
+   "sentStart": 48.39,
+   "sentEnd": 54.3,
+   "wordT": 48.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 3,
+   "sentStart": 48.39,
+   "sentEnd": 54.3,
+   "wordT": 50.08,
+   "appears": 54.95,
+   "delta": 4.87,
+   "status": "otro momento"
+  },
+  {
+   "label": "the most suitable tool or topic",
+   "scene": 3,
+   "sentStart": 48.39,
+   "sentEnd": 54.3,
+   "wordT": 50.92,
+   "appears": 52.01,
+   "delta": 1.08,
+   "status": "tarde"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 3,
+   "sentStart": 54.58,
+   "sentEnd": 60.26,
+   "wordT": 54.94,
+   "appears": 54.95,
+   "delta": 0.01,
+   "status": "ok"
+  },
+  {
+   "label": "decides which topic tool or knowledge to use to respond",
+   "scene": 3,
+   "sentStart": 54.58,
+   "sentEnd": 60.26,
+   "wordT": 56.71,
+   "appears": 54.95,
+   "delta": -1.76,
+   "status": "ok"
+  },
+  {
+   "label": "knowledge",
+   "scene": 3,
+   "sentStart": 54.58,
+   "sentEnd": 60.26,
+   "wordT": 58.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "name and description",
+   "scene": 3,
+   "sentStart": 60.54,
+   "sentEnd": 63.8,
+   "wordT": 62.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "description",
+   "scene": 3,
+   "sentStart": 60.54,
+   "sentEnd": 63.8,
+   "wordT": 63.5,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "description",
+   "scene": 3,
+   "sentStart": 64.08,
+   "sentEnd": 66.77,
+   "wordT": 64.62,
+   "appears": 63.2,
+   "delta": -1.41,
+   "status": "ok"
+  },
+  {
+   "label": "generative orchestration",
+   "scene": 4,
+   "sentStart": 71.06,
+   "sentEnd": 74.71,
+   "wordT": 71.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "generative orchestration off",
+   "scene": 4,
+   "sentStart": 71.06,
+   "sentEnd": 74.71,
+   "wordT": 71.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "check inventory",
+   "scene": 4,
+   "sentStart": 74.99,
+   "sentEnd": 77.1,
+   "wordT": 75.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "classic orchestration",
+   "scene": 4,
+   "sentStart": 77.39,
+   "sentEnd": 80.22,
+   "wordT": 77.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "by the orchestrator by description",
+   "scene": 4,
+   "sentStart": 80.5,
+   "sentEnd": 82.49,
+   "wordT": 80.5,
+   "appears": 70.02,
+   "delta": -10.48,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 4,
+   "sentStart": 80.5,
+   "sentEnd": 82.49,
+   "wordT": 81.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "description",
+   "scene": 4,
+   "sentStart": 80.5,
+   "sentEnd": 82.49,
+   "wordT": 82.09,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "explicitly from inside a topic",
+   "scene": 4,
+   "sentStart": 82.77,
+   "sentEnd": 84.83,
+   "wordT": 82.77,
+   "appears": 70.02,
+   "delta": -12.75,
+   "status": "ok"
+  },
+  {
+   "label": "by the user from the chat window",
+   "scene": 4,
+   "sentStart": 85.12,
+   "sentEnd": 87.12,
+   "wordT": 85.37,
+   "appears": 70.02,
+   "delta": -15.35,
+   "status": "ok"
+  },
+  {
+   "label": "explicitly from inside a topic",
+   "scene": 4,
+   "sentStart": 92.72,
+   "sentEnd": 94.81,
+   "wordT": 92.72,
+   "appears": 70.02,
+   "delta": -22.7,
+   "status": "ok"
+  },
+  {
+   "label": "classic orchestration",
+   "scene": 4,
+   "sentStart": 95.09,
+   "sentEnd": 101.79,
+   "wordT": 95.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "answers only with topics",
+   "scene": 4,
+   "sentStart": 95.09,
+   "sentEnd": 101.79,
+   "wordT": 96.95,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 4,
+   "sentStart": 95.09,
+   "sentEnd": 101.79,
+   "wordT": 98.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 4,
+   "sentStart": 95.09,
+   "sentEnd": 101.79,
+   "wordT": 98.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "name and description",
+   "scene": 4,
+   "sentStart": 102.07,
+   "sentEnd": 107.74,
+   "wordT": 103.49,
+   "appears": 102.19,
+   "delta": -1.3,
+   "status": "ok"
+  },
+  {
+   "label": "description",
+   "scene": 4,
+   "sentStart": 102.07,
+   "sentEnd": 107.74,
+   "wordT": 104.19,
+   "appears": 95.12,
+   "delta": -9.08,
+   "status": "ok"
+  },
+  {
+   "label": "generative orchestration",
+   "scene": 4,
+   "sentStart": 102.07,
+   "sentEnd": 107.74,
+   "wordT": 104.9,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the fixed route",
+   "scene": 5,
+   "sentStart": 108.64,
+   "sentEnd": 109.9,
+   "wordT": 109.14,
+   "appears": 108.79,
+   "delta": -0.36,
+   "status": "ok"
+  },
+  {
+   "label": "fixed route",
+   "scene": 5,
+   "sentStart": 108.64,
+   "sentEnd": 109.9,
+   "wordT": 109.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add node",
+   "scene": 5,
+   "sentStart": 110.18,
+   "sentEnd": 115.64,
+   "wordT": 112.77,
+   "appears": 112.93,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "add a tool",
+   "scene": 5,
+   "sentStart": 110.18,
+   "sentEnd": 115.64,
+   "wordT": 113.63,
+   "appears": 113.83,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "action node",
+   "scene": 5,
+   "sentStart": 115.92,
+   "sentEnd": 118.05,
+   "wordT": 116.23,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the explicit call",
+   "scene": 5,
+   "sentStart": 118.33,
+   "sentEnd": 120.08,
+   "wordT": 119.21,
+   "appears": 118.48,
+   "delta": -0.72,
+   "status": "ok"
+  },
+  {
+   "label": "the exam loves it",
+   "scene": 5,
+   "sentStart": 120.36,
+   "sentEnd": 122.56,
+   "wordT": 121.46,
+   "appears": 121.01,
+   "delta": -0.45,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 5,
+   "sentStart": 122.84,
+   "sentEnd": 124.59,
+   "wordT": 122.84,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 5,
+   "sentStart": 122.84,
+   "sentEnd": 124.59,
+   "wordT": 124.15,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 5,
+   "sentStart": 124.87,
+   "sentEnd": 127.07,
+   "wordT": 125.97,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics never tools",
+   "scene": 5,
+   "sentStart": 124.87,
+   "sentEnd": 127.07,
+   "wordT": 125.97,
+   "appears": 126.2,
+   "delta": 0.23,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 5,
+   "sentStart": 124.87,
+   "sentEnd": 127.07,
+   "wordT": 126.7,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 5,
+   "sentStart": 127.35,
+   "sentEnd": 131.57,
+   "wordT": 128.25,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 5,
+   "sentStart": 127.35,
+   "sentEnd": 131.57,
+   "wordT": 128.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a trigger phrase",
+   "scene": 5,
+   "sentStart": 127.35,
+   "sentEnd": 131.57,
+   "wordT": 129.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 5,
+   "sentStart": 127.35,
+   "sentEnd": 131.57,
+   "wordT": 129.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger phrase",
+   "scene": 5,
+   "sentStart": 127.35,
+   "sentEnd": 131.57,
+   "wordT": 129.76,
+   "appears": 123.05,
+   "delta": -6.72,
+   "status": "ok"
+  },
+  {
+   "label": "allow agent to decide dynamically",
+   "scene": 6,
+   "sentStart": 134.33,
+   "sentEnd": 139,
+   "wordT": 134.33,
+   "appears": 134.38,
+   "delta": 0.04,
+   "status": "ok"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 6,
+   "sentStart": 139.28,
+   "sentEnd": 144.38,
+   "wordT": 139.28,
+   "appears": 139.32,
+   "delta": 0.04,
+   "status": "ok"
+  },
+  {
+   "label": "confirmation first",
+   "scene": 6,
+   "sentStart": 139.28,
+   "sentEnd": 144.38,
+   "wordT": 141.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no by default",
+   "scene": 6,
+   "sentStart": 139.28,
+   "sentEnd": 144.38,
+   "wordT": 143.42,
+   "appears": 143.59,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 6,
+   "sentStart": 139.28,
+   "sentEnd": 144.38,
+   "wordT": 144.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "authentication",
+   "scene": 6,
+   "sentStart": 144.66,
+   "sentEnd": 149.27,
+   "wordT": 144.66,
+   "appears": 144.7,
+   "delta": 0.04,
+   "status": "ok"
+  },
+  {
+   "label": "maker credentials",
+   "scene": 6,
+   "sentStart": 144.66,
+   "sentEnd": 149.27,
+   "wordT": 148.5,
+   "appears": 144.7,
+   "delta": -3.8,
+   "status": "ok"
+  },
+  {
+   "label": "fill using",
+   "scene": 6,
+   "sentStart": 149.55,
+   "sentEnd": 151.9,
+   "wordT": 149.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "check inventory",
+   "scene": 6,
+   "sentStart": 152.18,
+   "sentEnd": 157.83,
+   "wordT": 152.18,
+   "appears": 131.94,
+   "delta": -20.24,
+   "status": "ok"
+  },
+  {
+   "label": "can show stock data",
+   "scene": 6,
+   "sentStart": 152.18,
+   "sentEnd": 157.83,
+   "wordT": 152.88,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 6,
+   "sentStart": 152.18,
+   "sentEnd": 157.83,
+   "wordT": 155.71,
+   "appears": 139.32,
+   "delta": -16.39,
+   "status": "ok"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 7,
+   "sentStart": 168.75,
+   "sentEnd": 170.49,
+   "wordT": 168.75,
+   "appears": 139.32,
+   "delta": -29.42,
+   "status": "ok"
+  },
+  {
+   "label": "a trigger phrase that asks first",
+   "scene": 7,
+   "sentStart": 170.78,
+   "sentEnd": 172.59,
+   "wordT": 170.78,
+   "appears": 158.84,
+   "delta": -11.94,
+   "status": "ok"
+  },
+  {
+   "label": "a trigger phrase",
+   "scene": 7,
+   "sentStart": 170.78,
+   "sentEnd": 172.59,
+   "wordT": 170.78,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 7,
+   "sentStart": 170.78,
+   "sentEnd": 172.59,
+   "wordT": 171.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger phrase",
+   "scene": 7,
+   "sentStart": 170.78,
+   "sentEnd": 172.59,
+   "wordT": 171.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "authentication",
+   "scene": 7,
+   "sentStart": 172.87,
+   "sentEnd": 175.43,
+   "wordT": 173.38,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "authentication with maker credentials",
+   "scene": 7,
+   "sentStart": 172.87,
+   "sentEnd": 175.43,
+   "wordT": 173.38,
+   "appears": 158.84,
+   "delta": -14.54,
+   "status": "ok"
+  },
+  {
+   "label": "maker credentials",
+   "scene": 7,
+   "sentStart": 172.87,
+   "sentEnd": 175.43,
+   "wordT": 174.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 7,
+   "sentStart": 181.02,
+   "sentEnd": 182.79,
+   "wordT": 181.02,
+   "appears": 139.32,
+   "delta": -41.7,
+   "status": "ok"
+  },
+  {
+   "label": "no by default",
+   "scene": 7,
+   "sentStart": 183.07,
+   "sentEnd": 188.22,
+   "wordT": 187.31,
+   "appears": 183.2,
+   "delta": -4.11,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 7,
+   "sentStart": 183.07,
+   "sentEnd": 188.22,
+   "wordT": 187.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a trigger phrase only selects topics never tools",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 188.5,
+   "appears": 188.62,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "a trigger phrase",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 188.5,
+   "appears": 188.62,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 188.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger phrase",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 188.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only selects topics never tools",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 189.51,
+   "appears": 188.62,
+   "delta": -0.89,
+   "status": "ok"
+  },
+  {
+   "label": "topics",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 190.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics never tools",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 190.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 7,
+   "sentStart": 188.5,
+   "sentEnd": 193.23,
+   "wordT": 190.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "after running",
+   "scene": 8,
+   "sentStart": 194.13,
+   "sentEnd": 197.8,
+   "wordT": 195.47,
+   "appears": 194.15,
+   "delta": -1.32,
+   "status": "ok"
+  },
+  {
+   "label": "four choices",
+   "scene": 8,
+   "sentStart": 198.08,
+   "sentEnd": 199.4,
+   "wordT": 198.74,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "don't respond",
+   "scene": 8,
+   "sentStart": 199.68,
+   "sentEnd": 201.71,
+   "wordT": 199.68,
+   "appears": 199.98,
+   "delta": 0.29,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 8,
+   "sentStart": 199.68,
+   "sentEnd": 201.71,
+   "wordT": 201.37,
+   "appears": 199.98,
+   "delta": -1.39,
+   "status": "ok"
+  },
+  {
+   "label": "response",
+   "scene": 8,
+   "sentStart": 201.99,
+   "sentEnd": 204.1,
+   "wordT": 202.59,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "send specific response",
+   "scene": 8,
+   "sentStart": 204.38,
+   "sentEnd": 205.9,
+   "wordT": 204.38,
+   "appears": 204.67,
+   "delta": 0.29,
+   "status": "ok"
+  },
+  {
+   "label": "response",
+   "scene": 8,
+   "sentStart": 204.38,
+   "sentEnd": 205.9,
+   "wordT": 205.39,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "send an adaptive card",
+   "scene": 8,
+   "sentStart": 206.18,
+   "sentEnd": 207.78,
+   "wordT": 206.5,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 8,
+   "sentStart": 208.06,
+   "sentEnd": 212.24,
+   "wordT": 208.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "user context",
+   "scene": 8,
+   "sentStart": 208.06,
+   "sentEnd": 212.24,
+   "wordT": 209.58,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "authentication",
+   "scene": 8,
+   "sentStart": 208.06,
+   "sentEnd": 212.24,
+   "wordT": 210.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "authentication must be enabled",
+   "scene": 8,
+   "sentStart": 208.06,
+   "sentEnd": 212.24,
+   "wordT": 210.72,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "check inventory",
+   "scene": 8,
+   "sentStart": 212.52,
+   "sentEnd": 219.58,
+   "wordT": 213.35,
+   "appears": 194.15,
+   "delta": -19.2,
+   "status": "ok"
+  },
+  {
+   "label": "end user credentials",
+   "scene": 8,
+   "sentStart": 212.52,
+   "sentEnd": 219.58,
+   "wordT": 214.6,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "each employee sees only what their account allows",
+   "scene": 8,
+   "sentStart": 212.52,
+   "sentEnd": 219.58,
+   "wordT": 216.26,
+   "appears": 214.07,
+   "delta": -2.19,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 9,
+   "sentStart": 220.48,
+   "sentEnd": 224.7,
+   "wordT": 224.35,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only inside topics",
+   "scene": 9,
+   "sentStart": 224.98,
+   "sentEnd": 229.53,
+   "wordT": 225.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 9,
+   "sentStart": 224.98,
+   "sentEnd": 229.53,
+   "wordT": 226.12,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add a tool",
+   "scene": 9,
+   "sentStart": 224.98,
+   "sentEnd": 229.53,
+   "wordT": 227.82,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add a tool in a topic",
+   "scene": 9,
+   "sentStart": 224.98,
+   "sentEnd": 229.53,
+   "wordT": 227.82,
+   "appears": 228.24,
+   "delta": 0.42,
+   "status": "ok"
+  },
+  {
+   "label": "tools page",
+   "scene": 9,
+   "sentStart": 229.81,
+   "sentEnd": 234.22,
+   "wordT": 231.87,
+   "appears": 230.17,
+   "delta": -1.7,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 9,
+   "sentStart": 229.81,
+   "sentEnd": 234.22,
+   "wordT": 231.87,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the orchestrator cannot call them",
+   "scene": 9,
+   "sentStart": 229.81,
+   "sentEnd": 234.22,
+   "wordT": 232.75,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 9,
+   "sentStart": 229.81,
+   "sentEnd": 234.22,
+   "wordT": 233.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "create search query",
+   "scene": 9,
+   "sentStart": 234.5,
+   "sentEnd": 236.32,
+   "wordT": 235.41,
+   "appears": 234.66,
+   "delta": -0.75,
+   "status": "ok"
+  },
+  {
+   "label": "a clear query string",
+   "scene": 9,
+   "sentStart": 236.6,
+   "sentEnd": 242.63,
+   "wordT": 241.02,
+   "appears": 241.36,
+   "delta": 0.34,
+   "status": "ok"
+  },
+  {
+   "label": "what about sick leave",
+   "scene": 9,
+   "sentStart": 242.91,
+   "sentEnd": 246.41,
+   "wordT": 244.08,
+   "appears": 243.19,
+   "delta": -0.89,
+   "status": "ok"
+  },
+  {
+   "label": "a full question",
+   "scene": 9,
+   "sentStart": 242.91,
+   "sentEnd": 246.41,
+   "wordT": 245.54,
+   "appears": 245.61,
+   "delta": 0.07,
+   "status": "ok"
+  },
+  {
+   "label": "perform custom search",
+   "scene": 10,
+   "sentStart": 247.31,
+   "sentEnd": 249.4,
+   "wordT": 248.36,
+   "appears": 247.47,
+   "delta": -0.89,
+   "status": "ok"
+  },
+  {
+   "label": "knowledge",
+   "scene": 10,
+   "sentStart": 249.68,
+   "sentEnd": 256.45,
+   "wordT": 250.7,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "knowledge sources",
+   "scene": 10,
+   "sentStart": 249.68,
+   "sentEnd": 256.45,
+   "wordT": 250.7,
+   "appears": 232.35,
+   "delta": -18.35,
+   "status": "ok"
+  },
+  {
+   "label": "returns",
+   "scene": 10,
+   "sentStart": 249.68,
+   "sentEnd": 256.45,
+   "wordT": 253.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "raw results",
+   "scene": 10,
+   "sentStart": 249.68,
+   "sentEnd": 256.45,
+   "wordT": 254.08,
+   "appears": 253.95,
+   "delta": -0.13,
+   "status": "ok"
+  },
+  {
+   "label": "not summarized",
+   "scene": 10,
+   "sentStart": 249.68,
+   "sentEnd": 256.45,
+   "wordT": 254.76,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "variable",
+   "scene": 10,
+   "sentStart": 249.68,
+   "sentEnd": 256.45,
+   "wordT": 256.11,
+   "appears": 232.35,
+   "delta": -23.76,
+   "status": "ok"
+  },
+  {
+   "label": "filter",
+   "scene": 10,
+   "sentStart": 256.73,
+   "sentEnd": 260.27,
+   "wordT": 257.61,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "business rules",
+   "scene": 10,
+   "sentStart": 256.73,
+   "sentEnd": 260.27,
+   "wordT": 258.5,
+   "appears": 258.54,
+   "delta": 0.04,
+   "status": "ok"
+  },
+  {
+   "label": "a prompt",
+   "scene": 10,
+   "sentStart": 256.73,
+   "sentEnd": 260.27,
+   "wordT": 259.68,
+   "appears": 259.95,
+   "delta": 0.28,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 10,
+   "sentStart": 260.55,
+   "sentEnd": 263.02,
+   "wordT": 261.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "often used in sequence",
+   "scene": 10,
+   "sentStart": 260.55,
+   "sentEnd": 263.02,
+   "wordT": 261.78,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "generative answers node",
+   "scene": 10,
+   "sentStart": 263.3,
+   "sentEnd": 268.14,
+   "wordT": 263.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "generative answers",
+   "scene": 10,
+   "sentStart": 263.3,
+   "sentEnd": 268.14,
+   "wordT": 263.99,
+   "appears": 263.54,
+   "delta": -0.46,
+   "status": "ok"
+  },
+  {
+   "label": "one step",
+   "scene": 10,
+   "sentStart": 263.3,
+   "sentEnd": 268.14,
+   "wordT": 267.45,
+   "appears": 268.64,
+   "delta": 1.19,
+   "status": "otro momento"
+  },
+  {
+   "label": "retrieval",
+   "scene": 10,
+   "sentStart": 268.43,
+   "sentEnd": 270.71,
+   "wordT": 268.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "retrieval and response are separate",
+   "scene": 10,
+   "sentStart": 268.43,
+   "sentEnd": 270.71,
+   "wordT": 268.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "response",
+   "scene": 10,
+   "sentStart": 268.43,
+   "sentEnd": 270.71,
+   "wordT": 269.57,
+   "appears": 269.39,
+   "delta": -0.18,
+   "status": "ok"
+  },
+  {
+   "label": "copilot studio",
+   "scene": 11,
+   "sentStart": 271.61,
+   "sentEnd": 273.78,
+   "wordT": 273.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools page",
+   "scene": 11,
+   "sentStart": 274.06,
+   "sentEnd": 276.6,
+   "wordT": 276.04,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 11,
+   "sentStart": 274.06,
+   "sentEnd": 276.6,
+   "wordT": 276.04,
+   "appears": 271.74,
+   "delta": -4.3,
+   "status": "ok"
+  },
+  {
+   "label": "add a tool",
+   "scene": 11,
+   "sentStart": 276.88,
+   "sentEnd": 280.17,
+   "wordT": 277.18,
+   "appears": 275.95,
+   "delta": -1.23,
+   "status": "ok"
+  },
+  {
+   "label": "add and configure",
+   "scene": 11,
+   "sentStart": 276.88,
+   "sentEnd": 280.17,
+   "wordT": 279.27,
+   "appears": 277.5,
+   "delta": -1.77,
+   "status": "ok"
+  },
+  {
+   "label": "settings",
+   "scene": 11,
+   "sentStart": 280.45,
+   "sentEnd": 285.69,
+   "wordT": 281.15,
+   "appears": 280.48,
+   "delta": -0.67,
+   "status": "ok"
+  },
+  {
+   "label": "name and description",
+   "scene": 11,
+   "sentStart": 280.45,
+   "sentEnd": 285.69,
+   "wordT": 282.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "description",
+   "scene": 11,
+   "sentStart": 280.45,
+   "sentEnd": 285.69,
+   "wordT": 282.9,
+   "appears": 280.48,
+   "delta": -2.42,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 11,
+   "sentStart": 280.45,
+   "sentEnd": 285.69,
+   "wordT": 284.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 11,
+   "sentStart": 285.98,
+   "sentEnd": 290.03,
+   "wordT": 286.6,
+   "appears": 280.48,
+   "delta": -6.12,
+   "status": "ok"
+  },
+  {
+   "label": "add node",
+   "scene": 11,
+   "sentStart": 290.31,
+   "sentEnd": 293.91,
+   "wordT": 291.81,
+   "appears": 291.11,
+   "delta": -0.7,
+   "status": "ok"
+  },
+  {
+   "label": "add a tool",
+   "scene": 11,
+   "sentStart": 290.31,
+   "sentEnd": 293.91,
+   "wordT": 293.01,
+   "appears": 292.23,
+   "delta": -0.78,
+   "status": "ok"
+  },
+  {
+   "label": "action node",
+   "scene": 11,
+   "sentStart": 294.19,
+   "sentEnd": 296.71,
+   "wordT": 295.77,
+   "appears": 116.03,
+   "delta": -179.74,
+   "status": "ok"
+  },
+  {
+   "label": "it asks for confirmation",
+   "scene": 11,
+   "sentStart": 296.99,
+   "sentEnd": 300.23,
+   "wordT": 299.06,
+   "appears": 298.21,
+   "delta": -0.84,
+   "status": "ok"
+  },
+  {
+   "label": "variable",
+   "scene": 12,
+   "sentStart": 302.29,
+   "sentEnd": 305.32,
+   "wordT": 304.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "filter",
+   "scene": 12,
+   "sentStart": 305.6,
+   "sentEnd": 308.18,
+   "wordT": 306.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "business rules",
+   "scene": 12,
+   "sentStart": 305.6,
+   "sentEnd": 308.18,
+   "wordT": 307.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "create search query",
+   "scene": 12,
+   "sentStart": 310.94,
+   "sentEnd": 312.22,
+   "wordT": 310.94,
+   "appears": 301.24,
+   "delta": -9.69,
+   "status": "ok"
+  },
+  {
+   "label": "generative answers node",
+   "scene": 12,
+   "sentStart": 312.5,
+   "sentEnd": 313.95,
+   "wordT": 312.5,
+   "appears": 301.24,
+   "delta": -11.25,
+   "status": "ok"
+  },
+  {
+   "label": "generative answers",
+   "scene": 12,
+   "sentStart": 312.5,
+   "sentEnd": 313.95,
+   "wordT": 312.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "perform custom search",
+   "scene": 12,
+   "sentStart": 314.23,
+   "sentEnd": 315.72,
+   "wordT": 314.6,
+   "appears": 301.24,
+   "delta": -13.36,
+   "status": "ok"
+  },
+  {
+   "label": "perform custom search",
+   "scene": 12,
+   "sentStart": 321.32,
+   "sentEnd": 322.68,
+   "wordT": 321.32,
+   "appears": 301.24,
+   "delta": -20.07,
+   "status": "ok"
+  },
+  {
+   "label": "knowledge",
+   "scene": 12,
+   "sentStart": 322.96,
+   "sentEnd": 329.17,
+   "wordT": 324.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "knowledge sources",
+   "scene": 12,
+   "sentStart": 322.96,
+   "sentEnd": 329.17,
+   "wordT": 324.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "returns",
+   "scene": 12,
+   "sentStart": 322.96,
+   "sentEnd": 329.17,
+   "wordT": 326.61,
+   "appears": 323.08,
+   "delta": -3.53,
+   "status": "ok"
+  },
+  {
+   "label": "variable",
+   "scene": 12,
+   "sentStart": 322.96,
+   "sentEnd": 329.17,
+   "wordT": 328.8,
+   "appears": 323.37,
+   "delta": -5.44,
+   "status": "ok"
+  },
+  {
+   "label": "generative answers",
+   "scene": 12,
+   "sentStart": 329.45,
+   "sentEnd": 336.25,
+   "wordT": 329.45,
+   "appears": 329.57,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "one step",
+   "scene": 12,
+   "sentStart": 329.45,
+   "sentEnd": 336.25,
+   "wordT": 332.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "create search query",
+   "scene": 12,
+   "sentStart": 329.45,
+   "sentEnd": 336.25,
+   "wordT": 333.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only rewrites",
+   "scene": 12,
+   "sentStart": 329.45,
+   "sentEnd": 336.25,
+   "wordT": 334.74,
+   "appears": 329.57,
+   "delta": -5.17,
+   "status": "ok"
+  },
+  {
+   "label": "back on the warehouse floor",
+   "scene": 13,
+   "sentStart": 337.16,
+   "sentEnd": 341.78,
+   "wordT": 337.16,
+   "appears": 337.41,
+   "delta": 0.26,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 13,
+   "sentStart": 343.58,
+   "sentEnd": 350.09,
+   "wordT": 347.92,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "name and description",
+   "scene": 13,
+   "sentStart": 343.58,
+   "sentEnd": 350.09,
+   "wordT": 349,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "description",
+   "scene": 13,
+   "sentStart": 343.58,
+   "sentEnd": 350.09,
+   "wordT": 349.73,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 13,
+   "sentStart": 350.37,
+   "sentEnd": 356.24,
+   "wordT": 350.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 13,
+   "sentStart": 350.37,
+   "sentEnd": 356.24,
+   "wordT": 351.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 13,
+   "sentStart": 350.37,
+   "sentEnd": 356.24,
+   "wordT": 352.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "create search query",
+   "scene": 13,
+   "sentStart": 356.52,
+   "sentEnd": 361.19,
+   "wordT": 356.52,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "perform custom search",
+   "scene": 13,
+   "sentStart": 356.52,
+   "sentEnd": 361.19,
+   "wordT": 358.21,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only inside topics",
+   "scene": 13,
+   "sentStart": 356.52,
+   "sentEnd": 361.19,
+   "wordT": 359.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topics",
+   "scene": 13,
+   "sentStart": 356.52,
+   "sentEnd": 361.19,
+   "wordT": 360.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "agent flows inside a topic",
+   "scene": 13,
+   "sentStart": 361.47,
+   "sentEnd": 363.81,
+   "wordT": 361.86,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  }
+ ]
+}

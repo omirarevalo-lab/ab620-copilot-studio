@@ -1,0 +1,57 @@
+[
+ {
+  "title": "A confident answer from the wrong shelf",
+  "caption": "A leave question gets an answer from a marketing page. Valeria wants only the HR policies site, shown in a branded card.",
+  "say": "Contoso's HR agent is asked about parental leave. The answer sounds sure, but it quotes a marketing page. Valeria wants answers only from the HR policies site. And she wants to show them in a card with the company style. Today you learn how the Generative answers node does it."
+ },
+ {
+  "title": "A librarian in the topic",
+  "caption": "The node searches the sources you point to and writes the answer. You choose the shelves, not the words.",
+  "say": "Think of a librarian. You ask a question. The librarian goes to the shelves you point to, reads what is there, and writes you an answer. You never choose the words. You choose the shelves. That is the Generative answers node: a librarian that works inside one topic."
+ },
+ {
+  "title": "What the node does",
+  "caption": "The node answers from knowledge sources: Dataverse documents, SharePoint, websites. It is also the fallback when no topic matches.",
+  "say": "With this node, the agent answers from knowledge sources inside a topic. The sources can be documents in Dataverse, SharePoint sites, public websites and more. And when no topic matches a question, the agent uses generative answers as its fallback. The answer can also be saved to a variable."
+ },
+ {
+  "title": "Search only selected sources",
+  "caption": "Off, the default: all of the agent's sources. On: only the sources you select, which replace the agent's. No fallback.",
+  "say": "Here is the setting that fixes it. By default, Search only selected sources is off, and the node searches all of the agent's sources. Turn it on, and the node searches only the sources you select. They replace the agent's sources for that node. There is no fallback to the agent's sources."
+ },
+ {
+  "title": "Decide: only the HR shelf",
+  "caption": "Marketing documents keep slipping into HR answers, which must come only from the policies site. What should Valeria turn on?",
+  "say": "Your turn. Contoso's HR topic answers leave questions with a Generative answers node, but marketing documents keep slipping in. The answers must come only from the policies SharePoint site. What should Valeria turn on? Moderation level set to Highest? A separate fallback topic? Or Search only selected sources? Decide before I answer. Search only selected sources. Then the node uses only the sources you choose, and other departments cannot affect the answer. Moderation sets how strict the answers are, and a fallback topic does not choose the sources."
+ },
+ {
+  "title": "Customizing the answer",
+  "caption": "Save the answer in a global variable and clear Send a message. The agent stops replying right away, and you show it in a card.",
+  "say": "Next, the look of the answer. Valeria wants it in an adaptive card with the company style. So she saves the answer in a global variable. Then she clears the Send a message checkbox. Now the agent no longer returns the answer right away, and she presents it however she likes."
+ },
+ {
+  "title": "Decide: outside the chosen site",
+  "caption": "Search only selected sources is on with the policies site chosen. The question is outside that site. Which statement is true?",
+  "say": "Your turn. Valeria turned on Search only selected sources and chose the policies site. A user asks something that site does not cover. Which statement is true? It still falls back to all of the agent's sources? The selected sources replace the agent's sources? Or the chosen sources are added to the agent's? Decide before I answer. The selected sources replace the agent's sources. For that node, there is no fallback to the agent's other sources. So a question outside the chosen site is not rescued by the rest."
+ },
+ {
+  "title": "Citations and moderation",
+  "caption": "In Teams, citations are automatic only for uncustomized responses. Customize, and you render them. Moderation runs Lowest to Highest, default High.",
+  "say": "But there is a catch. In Teams, citations are returned automatically only for responses you have not customized. If you customize the answer, you must include the citation rendering yourself. The node also has its own moderation level, from Lowest to Highest. The default is High."
+ },
+ {
+  "title": "Decide: the Teams card",
+  "caption": "The answer is shown in a custom adaptive card and the agent is published in Teams. What must Contoso add to the card?",
+  "say": "Your turn. Contoso clears Send a message, saves the answer in a global variable, and shows it in an adaptive card. The agent is also published in Teams. What must Contoso add to the card? The citation rendering in the card? Nothing, Teams adds citations by itself? Or a second Generative answers node? Decide before I answer. The citation rendering in the card. In Teams, citations come back automatically only for responses you have not customized. Once you customize, you must include the citations yourself."
+ },
+ {
+  "title": "Set it up in the studio",
+  "caption": "Add node, Advanced, Generative answers; Properties, Input System.Activity.Text; turn on Search only selected sources; test.",
+  "say": "Here is how it looks in the studio. Open the Topics page and enter your topic. Select Add node, point to Advanced, and choose Generative answers. Open the node properties, and under Input select the System Activity Text variable. Turn on Search only selected sources and choose your source. Then test with a question that only another source knows, and see what happens."
+ },
+ {
+  "title": "Three rules to remember",
+  "caption": "Selected sources replace the agent's, no fallback. Clear Send a message and you add the citations. Moderation: Lowest to Highest, default High.",
+  "say": "Back in the records archive. Answers now come only from the policies site, and the card shows them in the company style. Remember three things. Search only selected sources replaces the agent's sources, with no fallback. Clearing Send a message means you add the citations yourself. And moderation goes from Lowest to Highest, with High as the default. Next, custom data and your own sources."
+ }
+]

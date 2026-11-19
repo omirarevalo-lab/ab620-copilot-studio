@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Contoso wants a ticket form in the chat, with a title and an urgency. The user must send both together with a button. Which node should Valeria use?",
+    "options": [
+      "A Message node with a card",
+      "Ask with Adaptive Card",
+      "A Question node with a card"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Valeria designed the ticket card with schema one point six, and it looks perfect in the test chat. Contoso's employees use Teams. What should she do?",
+    "options": [
+      "Keep schema one point six everywhere",
+      "Check it only in the authoring canvas",
+      "Design with schema one point five"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "A user closes the ticket card without selecting submit. The output variables stay empty. What should Valeria add right after the node?",
+    "options": [
+      "A Condition node that checks them",
+      "A Message that uses the title variable",
+      "Edit Schema with a new variable"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

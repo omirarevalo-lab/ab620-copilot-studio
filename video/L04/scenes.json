@@ -1,0 +1,47 @@
+{"brand": "AB-620 · Module 1 · Lesson 4", "scenes": [
+ {"type": "flow", "header": {"kicker": "Responsible AI", "title": "Speaking safely"},
+  "nodes": [
+   {"icon": "sparkle", "title": "Generative agent", "sub": "Writes new answers", "at": "generative agent"},
+   {"icon": "flag", "title": "Risks", "sub": "Harmful or made-up answers", "at": "harmful content"},
+   {"icon": "shield_checkmark", "title": "Controls", "sub": "Like the filter on a tap", "accent": true, "at": "set of controls"}],
+  "below": [{"icon": "settings", "text": "You decide how fine the filter is", "at": "how fine", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "Content moderation", "title": "Two extremes"},
+  "cols": [
+   {"icon": "shield_checkmark", "title": "Highest", "sub": "Strictest filter", "accent": true, "at": "Highest", "items": [{"text": "Fewer responses", "at": "fewer responses"}]},
+   {"icon": "globe", "title": "Lowest", "sub": "More permissive", "at": "Lowest", "items": [{"text": "More responses, more risk", "at": "more risk"}]}],
+  "verdict": {"icon": "checkmark_circle", "text": "Highest filters more, not less", "at": "Highest filters more"}},
+ {"type": "split", "left": {"kicker": "Where you set it", "title": "Three levels", "sub": "At runtime, the topic's level wins."},
+  "rows": [
+   {"icon": "bot", "title": "Agent", "at": "agent level", "hi": true},
+   {"icon": "sparkle", "title": "Generative answers node", "at": "Generative answers node", "hi": true},
+   {"icon": "document_text", "title": "Prompt", "at": "prompt level", "hi": true},
+   {"icon": "flag", "title": "Runtime: the topic's level wins", "desc": "General filter + a stricter one where it matters", "at": "takes precedence", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Grounding", "title": "Allow ungrounded responses: off"},
+  "nodes": [
+   {"icon": "chat", "title": "A turn", "sub": "No source or tool used", "at": "used no source"},
+   {"icon": "shield_checkmark", "title": "Blocked", "sub": "The response is not sent", "accent": true, "at": "is blocked"},
+   {"icon": "arrow_routing", "title": "Fallback", "sub": "Is triggered", "at": "fallback"}],
+  "below": [{"icon": "checkmark_circle", "text": "Best practice: stop it from making things up", "at": "best practice", "solid": true}]},
+ {"type": "chat", "window": {"title": "HR assistant · Contoso", "at": "start"},
+  "messages": [{"from": "a", "text": "Hi! I'm an AI assistant. My answers are generated, so double-check important details.", "at": "tell the user"}],
+  "side": {"heading": "Conversation Start", "at": "Conversation Start",
+   "cards": [
+    {"icon": "flag", "title": "Runs when the chat begins", "at": "runs when", "hi": true},
+    {"icon": "checkmark_circle", "title": "Builds trust", "desc": "Say the content is generated", "at": "builds trust", "hi": true}]},
+  "close": {"html": "Simple and *highly valued*", "at": "highly valued"}},
+ {"type": "hub", "header": {"kicker": "Contoso", "title": "The HR agent, both measures"},
+  "center": {"icon": "bot", "title": "HR agent", "at": "start"},
+  "topLabel": "Settings",
+  "top": [
+   {"icon": "shield_checkmark", "title": "Ungrounded: off", "desc": "No source → fallback", "at": "turns off"},
+   {"icon": "chat", "title": "AI notice", "desc": "In Conversation Start", "at": "Conversation Start"}],
+  "bottomLabel": "Result for the employee",
+  "bottom": [
+   {"icon": "checkmark_circle", "title": "Grounded answers", "at": "grounded answers", "hi": true},
+   {"icon": "person", "title": "Knows who they talk to", "at": "who they are talking", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Avoid ungrounded responses"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Turn off Allow ungrounded responses", "at": "turn off Allow"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap",
+    "items": [{"text": "\"Highest generates more responses\"", "at": "Highest generates"}, {"text": "\"Temperature filters harmful content\"", "at": "temperature"}]}]}
+]}

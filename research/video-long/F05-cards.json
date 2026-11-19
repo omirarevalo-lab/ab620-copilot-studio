@@ -1,0 +1,8 @@
+{
+  "1": ["Tools", [["What", "A capability the agent can run"], ["Types", "Connector · agent flow · prompt · REST API · MCP · computer use"], ["Generative", "Chosen by name and description"], ["Classic", "Only called from a topic"]]],
+  "2": ["Connector", [["Is", "A wrapper around an API"], ["Does", "Translates calls, ready-made actions"], ["Works in", "Copilot Studio · Power Automate · Power Apps · Logic Apps"]]],
+  "3": ["Three kinds", [["Standard", "All Copilot Studio plans (e.g. SharePoint)"], ["Premium", "Only certain plans; not the Teams plan"], ["Custom", "You build it, usually from OpenAPI"], ["Data policies", "Allow or block connectors, custom and MCP"]]],
+  "5": ["Connections", [["Connection", "Saved credentials for a service"], ["Default", "Each user signs in with their own"], ["Maker-provided", "Needs authenticated channel; all act as the maker"], ["Share", "Power Apps portal › Connections › Can use + share"]]],
+  "7": ["In the studio", [["1", "Tools page › Add a tool › Connector"], ["2", "Search the service, pick the action"], ["3", "Create new connection, sign in"], ["4", "Add and configure, improve name and description"], ["5", "Test pane: check the activity map"]]],
+  "8": ["Nexo can act", [["Help desk", "Premium connector"], ["Approvals", "Custom connector from OpenAPI"], ["Admins", "Data policies allow both"], ["Users", "Sign in once, own credentials"]]]
+}

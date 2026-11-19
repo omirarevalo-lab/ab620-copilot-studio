@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Valeria connects the Incident Analyst and gets the 400 error. The Foundry portal shows only Responses and A2A. Where can she enable the Activity protocol?",
+    "options": [
+      "In the connection form",
+      "In the Foundry portal",
+      "with the Python S D K"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "The data team offers an older test agent. When Valeria connects it, she sees 404, Version not found. What is the most likely cause?",
+    "options": [
+      "The Activity protocol is off",
+      "It was built in the old portal",
+      "its description is far too vague"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "The Incident Analyst has Activity enabled and comes from the new portal. Valeria fills in the Foundry project endpoint, a name and a description. What else does she enter to identify the agent?",
+    "options": [
+      "Its Foundry Agent Id",
+      "The Responses endpoint",
+      "an A P I key for it"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "CreateTicket must run at one exact moment, and Contoso does not want tickets created in other conversations. Where should Valeria add the flow?",
+    "options": [
+      "On the agent's own Tools page",
+      "In the Report problem topic",
+      "In all topics of the agent"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "CreateTicket is also an agent tool, and the service manager wants it used only when a topic calls it. Which setting should Valeria change?",
+    "options": [
+      "Turn off Allow agent to decide dynamically",
+      "Turn on Ask the end user before running",
+      "Remove the flow from the Report problem topic"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "A Contoso flow starts a job that runs for hours, but as a tool it must respond within 100 seconds. What should Valeria do?",
+    "options": [
+      "Turn on the Asynchronous response option",
+      "Move every action before the response",
+      "Reply early, work after the response"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

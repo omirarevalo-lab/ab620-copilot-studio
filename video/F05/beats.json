@@ -1,0 +1,402 @@
+{
+ "id": "F05",
+ "title": "Tools and connectors",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 270.347,
+ "scenes": [
+  {
+   "title": "Nexo can talk, but not act",
+   "start": 0.8,
+   "end": 27.083,
+   "sentences": [
+    {
+     "text": "Week four at Contoso.",
+     "start": 0.8,
+     "end": 2.315
+    },
+    {
+     "text": "An employee writes: the V P N steps did not work, please open a ticket.",
+     "start": 2.595,
+     "end": 7.053
+    },
+    {
+     "text": "Nexo found the right guide, but now it is stuck.",
+     "start": 7.333,
+     "end": 10.128
+    },
+    {
+     "text": "It can only say: please call the help desk.",
+     "start": 10.408,
+     "end": 12.904
+    },
+    {
+     "text": "The employee closes the chat, annoyed.",
+     "start": 13.184,
+     "end": 15.381
+    },
+    {
+     "text": "Nexo can read, but it cannot act.",
+     "start": 15.661,
+     "end": 17.795
+    },
+    {
+     "text": "Knowledge is what the agent reads.",
+     "start": 18.075,
+     "end": 20.165
+    },
+    {
+     "text": "Tools are what the agent does.",
+     "start": 20.445,
+     "end": 22.216
+    },
+    {
+     "text": "Today we give Nexo hands, and the adapters that connect them to real systems.",
+     "start": 22.496,
+     "end": 27.083
+    }
+   ]
+  },
+  {
+   "title": "Tools: the agent's hands",
+   "start": 27.983,
+   "end": 52.783,
+   "sentences": [
+    {
+     "text": "A tool is a capability the agent can run: read an email, create a ticket, check an inventory.",
+     "start": 27.983,
+     "end": 33.956
+    },
+    {
+     "text": "Think of the apps installed on the agent's phone.",
+     "start": 34.236,
+     "end": 36.625
+    },
+    {
+     "text": "The main types are a connector, an agent flow, a prompt, a REST A P I, an M C P server, and computer use.",
+     "start": 36.905,
+     "end": 43.988
+    },
+    {
+     "text": "With generative orchestration, the agent chooses a tool by its name and description.",
+     "start": 44.268,
+     "end": 49.367
+    },
+    {
+     "text": "In classic mode, a tool is only called from a topic.",
+     "start": 49.647,
+     "end": 52.783
+    }
+   ]
+  },
+  {
+   "title": "The travel adapter",
+   "start": 53.683,
+   "end": 80.619,
+   "sentences": [
+    {
+     "text": "The most common tool is a connector.",
+     "start": 53.683,
+     "end": 55.581
+    },
+    {
+     "text": "Picture a travel plug adapter.",
+     "start": 55.861,
+     "end": 57.632
+    },
+    {
+     "text": "Your device always has the same plug, and the adapter makes it fit in every country.",
+     "start": 57.912,
+     "end": 62.861
+    },
+    {
+     "text": "A connector is a wrapper around an A P I.",
+     "start": 63.141,
+     "end": 65.573
+    },
+    {
+     "text": "It translates the agent's calls into the language of each service, like SharePoint, Outlook or Salesforce, and it comes with ready-made actions.",
+     "start": 65.853,
+     "end": 74.28
+    },
+    {
+     "text": "The same connectors work in Copilot Studio, Power Automate, Power Apps and Azure Logic Apps.",
+     "start": 74.56,
+     "end": 80.619
+    }
+   ]
+  },
+  {
+   "title": "Standard, premium, custom",
+   "start": 81.519,
+   "end": 112.657,
+   "sentences": [
+    {
+     "text": "Connectors come in three kinds.",
+     "start": 81.519,
+     "end": 83.161
+    },
+    {
+     "text": "Standard ones, like SharePoint, are included in every Copilot Studio plan.",
+     "start": 83.441,
+     "end": 88.113
+    },
+    {
+     "text": "Premium ones are only available in certain plans.",
+     "start": 88.393,
+     "end": 91.465
+    },
+    {
+     "text": "Custom ones you build yourself, usually from an OpenAPI specification, when a service has no ready connector.",
+     "start": 91.745,
+     "end": 98.913
+    },
+    {
+     "text": "Watch one trap: the Copilot Studio plan for Teams does not allow premium connectors.",
+     "start": 99.193,
+     "end": 104.612
+    },
+    {
+     "text": "And administrators use data policies to allow or block connectors, custom connectors and M C P servers included.",
+     "start": 104.892,
+     "end": 112.657
+    }
+   ]
+  },
+  {
+   "title": "Decide: the payroll connector",
+   "start": 113.557,
+   "end": 149.316,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 113.557,
+     "end": 114.432
+    },
+    {
+     "text": "Contoso's H R team builds an agent with the Copilot Studio plan for Teams, included in Microsoft three sixty five.",
+     "start": 114.712,
+     "end": 122.883
+    },
+    {
+     "text": "The agent needs a premium connector for the payroll system.",
+     "start": 123.163,
+     "end": 126.619
+    },
+    {
+     "text": "What happens?",
+     "start": 126.899,
+     "end": 127.816
+    },
+    {
+     "text": "They need a plan with premium connectors?",
+     "start": 128.096,
+     "end": 130.208
+    },
+    {
+     "text": "It works, as all connectors are included?",
+     "start": 130.488,
+     "end": 132.792
+    },
+    {
+     "text": "Or it works once an admin data policy allows it?",
+     "start": 133.072,
+     "end": 135.952
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 136.232,
+     "end": 137.768
+    },
+    {
+     "text": "They need a plan with premium connectors.",
+     "start": 141.548,
+     "end": 143.724
+    },
+    {
+     "text": "The Teams plan does not allow premium ones, and a data policy cannot grant a license.",
+     "start": 144.004,
+     "end": 149.316
+    }
+   ]
+  },
+  {
+   "title": "Connections and credentials",
+   "start": 150.216,
+   "end": 179.069,
+   "sentences": [
+    {
+     "text": "A connector needs a connection: saved credentials for a service.",
+     "start": 150.216,
+     "end": 153.949
+    },
+    {
+     "text": "By default, it uses the credentials of the person chatting, so each employee signs in once and acts with their own permissions.",
+     "start": 154.229,
+     "end": 161.952
+    },
+    {
+     "text": "The alternative is maker provided credentials, which need an authenticated channel.",
+     "start": 162.232,
+     "end": 167.203
+    },
+    {
+     "text": "Use them with care: every user then acts with the permissions of the person who set up the tool.",
+     "start": 167.483,
+     "end": 172.752
+    },
+    {
+     "text": "Connections can be shared from the Power Apps portal, in Connections, with the Can use and share permission.",
+     "start": 173.032,
+     "end": 179.069
+    }
+   ]
+  },
+  {
+   "title": "Decide: the approvals system",
+   "start": 179.969,
+   "end": 213.128,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 179.969,
+     "end": 180.844
+    },
+    {
+     "text": "I T purchase approvals live in an internal system.",
+     "start": 181.124,
+     "end": 184.452
+    },
+    {
+     "text": "It has its own A P I and an OpenAPI description, but no ready connector.",
+     "start": 184.732,
+     "end": 189.724
+    },
+    {
+     "text": "How does Nexo get a tool for it?",
+     "start": 190.004,
+     "end": 191.775
+    },
+    {
+     "text": "Use computer use to click through its screens?",
+     "start": 192.055,
+     "end": 194.38
+    },
+    {
+     "text": "Build a custom connector from its OpenAPI?",
+     "start": 194.66,
+     "end": 197.391
+    },
+    {
+     "text": "Or add the system's website as a knowledge source?",
+     "start": 197.671,
+     "end": 200.252
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 200.532,
+     "end": 202.068
+    },
+    {
+     "text": "Build a custom connector.",
+     "start": 205.848,
+     "end": 207.32
+    },
+    {
+     "text": "The A P I exists, so you wrap it.",
+     "start": 207.6,
+     "end": 209.648
+    },
+    {
+     "text": "Computer use is for systems that only have a screen.",
+     "start": 209.928,
+     "end": 213.128
+    }
+   ]
+  },
+  {
+   "title": "Add a connector in the studio",
+   "start": 214.028,
+   "end": 238.385,
+   "sentences": [
+    {
+     "text": "Let's add one in the studio.",
+     "start": 214.028,
+     "end": 215.543
+    },
+    {
+     "text": "Open Nexo and go to the Tools page.",
+     "start": 215.823,
+     "end": 218.276
+    },
+    {
+     "text": "Select Add a tool, then Connector.",
+     "start": 218.556,
+     "end": 220.54
+    },
+    {
+     "text": "Search for the service and choose the action, like create a ticket.",
+     "start": 220.82,
+     "end": 224.233
+    },
+    {
+     "text": "If there is no connection yet, select Create new connection and sign in.",
+     "start": 224.513,
+     "end": 228.567
+    },
+    {
+     "text": "Select Add and configure, then improve the tool's name and description.",
+     "start": 228.847,
+     "end": 232.943
+    },
+    {
+     "text": "Finally, test a request in the test pane and watch the activity map show the tool running.",
+     "start": 233.223,
+     "end": 238.385
+    }
+   ]
+  },
+  {
+   "title": "Back to the ticket",
+   "start": 239.285,
+   "end": 269.147,
+   "sentences": [
+    {
+     "text": "Back to week four.",
+     "start": 239.285,
+     "end": 240.459
+    },
+    {
+     "text": "The team added the help desk's premium connector, and a developer built a custom connector for purchase approvals from its OpenAPI.",
+     "start": 240.739,
+     "end": 248.781
+    },
+    {
+     "text": "The admins checked the data policies, so both are allowed.",
+     "start": 249.061,
+     "end": 252.389
+    },
+    {
+     "text": "The same employee writes again.",
+     "start": 252.669,
+     "end": 254.376
+    },
+    {
+     "text": "Nexo signs them in once and opens the ticket with their own credentials.",
+     "start": 254.656,
+     "end": 258.944
+    },
+    {
+     "text": "Remember: premium needs the right plan, no connector means a custom one, and data policies decide what is allowed.",
+     "start": 259.224,
+     "end": 266.413
+    },
+    {
+     "text": "Next, where all of this lives: environments.",
+     "start": 266.693,
+     "end": 269.147
+    }
+   ]
+  }
+ ]
+}

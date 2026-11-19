@@ -1,0 +1,144 @@
+{
+ "id": "L29",
+ "title": "Connected agents in practice",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 92.808,
+ "scenes": [
+  {
+   "title": "Hand off to the specialist",
+   "start": 0.8,
+   "end": 18.323,
+   "sentences": [
+    {
+     "text": "A connected agent is a specialist.",
+     "start": 0.8,
+     "end": 2.869
+    },
+    {
+     "text": "It is like a receptionist who transfers a payroll question to Human Resources.",
+     "start": 3.149,
+     "end": 8.163
+    },
+    {
+     "text": "There are two ways to do this.",
+     "start": 8.443,
+     "end": 9.915
+    },
+    {
+     "text": "In both cases the specialist answers with its own sources, and the main agent gets the result back so it can continue the conversation.",
+     "start": 10.195,
+     "end": 18.323
+    }
+   ]
+  },
+  {
+   "title": "Orchestrator or Redirect",
+   "start": 19.223,
+   "end": 39.775,
+   "sentences": [
+    {
+     "text": "There are two ways.",
+     "start": 19.223,
+     "end": 20.311
+    },
+    {
+     "text": "One: the orchestrator decides by itself, based on the description.",
+     "start": 20.591,
+     "end": 24.665
+    },
+    {
+     "text": "Two: a topic redirects the conversation to the agent, and its inputs and outputs become topic variables.",
+     "start": 24.945,
+     "end": 31.644
+    },
+    {
+     "text": "Choose the orchestrator option when you want flexibility, and the Redirect when you want to control exactly when work is handed over.",
+     "start": 31.924,
+     "end": 39.775
+    }
+   ]
+  },
+  {
+   "title": "Reference in instructions",
+   "start": 40.675,
+   "end": 55.571,
+   "sentences": [
+    {
+     "text": "In the main agent's instructions, you can reference another agent by typing a forward slash and choosing its name.",
+     "start": 40.675,
+     "end": 47.373
+    },
+    {
+     "text": "This tells the main agent when to use that specialist.",
+     "start": 47.653,
+     "end": 50.704
+    },
+    {
+     "text": "It is a simple way to guide the orchestrator without writing complicated rules.",
+     "start": 50.984,
+     "end": 55.571
+    }
+   ]
+  },
+  {
+   "title": "Exam limits",
+   "start": 56.471,
+   "end": 73.271,
+   "sentences": [
+    {
+     "text": "Some limits show up on the exam.",
+     "start": 56.471,
+     "end": 58.156
+    },
+    {
+     "text": "A main agent with connected agents cannot also be used as a connected agent.",
+     "start": 58.436,
+     "end": 63.279
+    },
+    {
+     "text": "Child agents respect the Use general knowledge setting of the main agent.",
+     "start": 63.559,
+     "end": 67.996
+    },
+    {
+     "text": "And citations can be lost on the way back.",
+     "start": 68.276,
+     "end": 70.879
+    },
+    {
+     "text": "Memorize these three points very well.",
+     "start": 71.159,
+     "end": 73.271
+    }
+   ]
+  },
+  {
+   "title": "Clear descriptions",
+   "start": 74.171,
+   "end": 91.608,
+   "sentences": [
+    {
+     "text": "Everything depends on the descriptions.",
+     "start": 74.171,
+     "end": 76.219
+    },
+    {
+     "text": "If each agent has a clear and distinct description, the orchestrator hands work over well.",
+     "start": 76.499,
+     "end": 81.704
+    },
+    {
+     "text": "If they look alike, it hesitates.",
+     "start": 81.984,
+     "end": 83.883
+    },
+    {
+     "text": "Write what each specialist can do and what it cannot, with simple words, and do not repeat the same phrases across agents.",
+     "start": 84.163,
+     "end": 91.608
+    }
+   ]
+  }
+ ]
+}

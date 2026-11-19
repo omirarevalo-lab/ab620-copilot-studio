@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Nexo needs the Contoso API key in every environment. The security team says the key must never sit in the solution. What should Valeria do?",
+    "options": [
+      "Store the key as a Text variable in Dataverse",
+      "Use a Secret variable linked to Key Vault",
+      "Type the key into each topic after import"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "ApiBaseUrl holds the Dev address as its current value. Valeria will export NexoCore for Test, and Contoso does not want that address to travel. What should she do?",
+    "options": [
+      "Remove the current value before she exports",
+      "Delete the variable and build it again in Test",
+      "Change the variable type from Text to Secret"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "In Test, the admin updated the value of ApiBaseUrl. But the published Nexo still calls the old address. What should Valeria do?",
+    "options": [
+      "Edit the value directly inside the Nexo topic",
+      "Import the whole solution into Test again",
+      "Republish Nexo so it picks up the new value"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

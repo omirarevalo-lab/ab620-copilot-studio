@@ -1,0 +1,498 @@
+{
+ "id": "L12",
+ "title": "Adaptive Cards",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 302.649,
+ "scenes": [
+  {
+   "title": "One detail at a time",
+   "start": 0.8,
+   "end": 20.032,
+   "sentences": [
+    {
+     "text": "Marta wants to report a problem to Contoso's help team.",
+     "start": 0.8,
+     "end": 4.148
+    },
+    {
+     "text": "Her agent asks for the title, waits, then asks for the urgency, and waits again.",
+     "start": 4.429,
+     "end": 9.292
+    },
+    {
+     "text": "The service manager wants both details in every ticket, without the back and forth.",
+     "start": 9.573,
+     "end": 14.308
+    },
+    {
+     "text": "Valeria wants to hand Marta one sheet to fill in all at once.",
+     "start": 14.589,
+     "end": 17.98
+    },
+    {
+     "text": "Today you learn Adaptive Cards.",
+     "start": 18.261,
+     "end": 20.031
+    }
+   ]
+  },
+  {
+   "title": "A mini form in the chat",
+   "start": 20.932,
+   "end": 36.553,
+   "sentences": [
+    {
+     "text": "An Adaptive Card is a mini form inside the chat, with text, fields, and buttons.",
+     "start": 20.932,
+     "end": 25.774
+    },
+    {
+     "text": "It is the difference between asking for details one by one over the phone and handing someone a sheet to fill in all at once.",
+     "start": 26.055,
+     "end": 32.71
+    },
+    {
+     "text": "The agent gets everything together when the user selects submit.",
+     "start": 32.991,
+     "end": 36.552
+    }
+   ]
+  },
+  {
+   "title": "The right node",
+   "start": 37.453,
+   "end": 57.773,
+   "sentences": [
+    {
+     "text": "To collect data with a card, you use the Ask with Adaptive Card node.",
+     "start": 37.453,
+     "end": 41.42
+    },
+    {
+     "text": "The card needs at least one submit button, and it can have input fields.",
+     "start": 41.701,
+     "end": 45.668
+    },
+    {
+     "text": "What the user types is saved in variables you can use later in the conversation.",
+     "start": 45.949,
+     "end": 50.556
+    },
+    {
+     "text": "A card inside a Message or Question node is only informational.",
+     "start": 50.837,
+     "end": 54.868
+    },
+    {
+     "text": "It shows data, but it collects no response.",
+     "start": 55.149,
+     "end": 57.772
+    }
+   ]
+  },
+  {
+   "title": "Decide: which node",
+   "start": 58.673,
+   "end": 91.341,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 58.673,
+     "end": 59.547
+    },
+    {
+     "text": "Contoso wants a ticket form in the chat, with a title and an urgency.",
+     "start": 59.828,
+     "end": 64.051
+    },
+    {
+     "text": "The user must send both together with a button.",
+     "start": 64.332,
+     "end": 66.742
+    },
+    {
+     "text": "Which node should Valeria use?",
+     "start": 67.023,
+     "end": 68.643
+    },
+    {
+     "text": "A Message node with a card?",
+     "start": 68.924,
+     "end": 70.502
+    },
+    {
+     "text": "Ask with Adaptive Card?",
+     "start": 70.783,
+     "end": 72.254
+    },
+    {
+     "text": "Or a Question node with a card?",
+     "start": 72.535,
+     "end": 74.262
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 74.543,
+     "end": 76.078
+    },
+    {
+     "text": "Ask with Adaptive Card.",
+     "start": 79.859,
+     "end": 81.33
+    },
+    {
+     "text": "It is the node that needs at least one submit button and collects the response.",
+     "start": 81.611,
+     "end": 86.004
+    },
+    {
+     "text": "A card in a Message or Question node is only informational, so it collects nothing.",
+     "start": 86.285,
+     "end": 91.34
+    }
+   ]
+  },
+  {
+   "title": "Six input elements",
+   "start": 92.241,
+   "end": 113.42,
+   "sentences": [
+    {
+     "text": "A card can have six input elements.",
+     "start": 92.241,
+     "end": 94.267
+    },
+    {
+     "text": "Input Text, which can be multiline.",
+     "start": 94.548,
+     "end": 96.744
+    },
+    {
+     "text": "Input Number, with an optional minimum and maximum.",
+     "start": 97.025,
+     "end": 99.947
+    },
+    {
+     "text": "Input Date and Input Time.",
+     "start": 100.228,
+     "end": 101.912
+    },
+    {
+     "text": "Input Toggle, which returns true or false.",
+     "start": 102.193,
+     "end": 104.774
+    },
+    {
+     "text": "And Input ChoiceSet, a dropdown or radio buttons.",
+     "start": 105.055,
+     "end": 108.211
+    },
+    {
+     "text": "Mark a field as Required in the properties panel, and the form cannot be sent without it.",
+     "start": 108.492,
+     "end": 113.419
+    }
+   ]
+  },
+  {
+   "title": "Variables and clear ids",
+   "start": 114.32,
+   "end": 137.709,
+   "sentences": [
+    {
+     "text": "When you save the design, Copilot Studio automatically creates output variables from the inputs.",
+     "start": 114.32,
+     "end": 120.228
+    },
+    {
+     "text": "If they are not right, you fix the list and its types with Edit Schema.",
+     "start": 120.509,
+     "end": 124.242
+    },
+    {
+     "text": "Give each input a clear camel case I D, such as leave type, instead of a default one.",
+     "start": 124.523,
+     "end": 129.834
+    },
+    {
+     "text": "For a dropdown with dynamic choices, use a Power F X expression that points to a table with title and value columns.",
+     "start": 130.115,
+     "end": 137.708
+    }
+   ]
+  },
+  {
+   "title": "Versions by channel",
+   "start": 138.609,
+   "end": 159.719,
+   "sentences": [
+    {
+     "text": "Copilot Studio supports schema one point six and earlier, but it depends on the channel.",
+     "start": 138.609,
+     "end": 143.771
+    },
+    {
+     "text": "Web Chat supports one point six, without Action Execute.",
+     "start": 144.052,
+     "end": 147.699
+    },
+    {
+     "text": "The live chat widget and Teams go up to one point five.",
+     "start": 147.98,
+     "end": 151.371
+    },
+    {
+     "text": "The test chat renders one point six, so everything looks fine there.",
+     "start": 151.652,
+     "end": 155.427
+    },
+    {
+     "text": "The authoring canvas does not render version one point six cards at all.",
+     "start": 155.708,
+     "end": 159.718
+    }
+   ]
+  },
+  {
+   "title": "Decide: the Teams version",
+   "start": 160.619,
+   "end": 195.825,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 160.619,
+     "end": 161.492
+    },
+    {
+     "text": "Valeria designed the ticket card with schema one point six, and it looks perfect in the test chat.",
+     "start": 161.773,
+     "end": 167.426
+    },
+    {
+     "text": "Contoso's employees use Teams.",
+     "start": 167.707,
+     "end": 169.732
+    },
+    {
+     "text": "What should she do?",
+     "start": 170.013,
+     "end": 171.058
+    },
+    {
+     "text": "Keep schema one point six everywhere?",
+     "start": 171.339,
+     "end": 173.428
+    },
+    {
+     "text": "Check it only in the authoring canvas?",
+     "start": 173.709,
+     "end": 175.628
+    },
+    {
+     "text": "Or design with schema one point five?",
+     "start": 175.909,
+     "end": 178.17
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 178.451,
+     "end": 179.986
+    },
+    {
+     "text": "Design with schema one point five.",
+     "start": 183.767,
+     "end": 185.814
+    },
+    {
+     "text": "Teams stops at one point five, but the test chat shows one point six, so it fools you.",
+     "start": 186.095,
+     "end": 191.299
+    },
+    {
+     "text": "One point six fails in Teams, and the authoring canvas cannot render it.",
+     "start": 191.58,
+     "end": 195.824
+    }
+   ]
+  },
+  {
+   "title": "A card closed without submit",
+   "start": 196.725,
+   "end": 214.163,
+   "sentences": [
+    {
+     "text": "What if the user closes the card without selecting submit?",
+     "start": 196.725,
+     "end": 200.074
+    },
+    {
+     "text": "Then the output variables stay empty.",
+     "start": 200.355,
+     "end": 202.444
+    },
+    {
+     "text": "So add a Condition node after the Ask with Adaptive Card node.",
+     "start": 202.725,
+     "end": 206.436
+    },
+    {
+     "text": "And when cards are consecutive or retried, put a unique I D in each Action Submit data, such as action Submit I D.",
+     "start": 206.717,
+     "end": 214.162
+    }
+   ]
+  },
+  {
+   "title": "Decide: the closed card",
+   "start": 215.063,
+   "end": 251.165,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 215.063,
+     "end": 215.936
+    },
+    {
+     "text": "A user closes the ticket card without selecting submit.",
+     "start": 216.217,
+     "end": 219.672
+    },
+    {
+     "text": "Its outputs stay empty.",
+     "start": 219.953,
+     "end": 221.51
+    },
+    {
+     "text": "What should Valeria add right after the node?",
+     "start": 221.791,
+     "end": 224.115
+    },
+    {
+     "text": "A Condition node that checks them?",
+     "start": 224.396,
+     "end": 226.144
+    },
+    {
+     "text": "A Message that uses the title variable?",
+     "start": 226.425,
+     "end": 228.899
+    },
+    {
+     "text": "Or Edit Schema with a new variable?",
+     "start": 229.18,
+     "end": 231.291
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 231.572,
+     "end": 233.107
+    },
+    {
+     "text": "A Condition node that checks them.",
+     "start": 236.888,
+     "end": 238.658
+    },
+    {
+     "text": "If the card is closed without submit, the output variables stay empty, and the Condition node handles that case.",
+     "start": 238.939,
+     "end": 245.466
+    },
+    {
+     "text": "A Message that uses the title variable would show nothing, because that variable is empty.",
+     "start": 245.747,
+     "end": 251.164
+    }
+   ]
+  },
+  {
+   "title": "Set it up in the studio",
+   "start": 252.065,
+   "end": 276.383,
+   "sentences": [
+    {
+     "text": "Here it is in the studio.",
+     "start": 252.065,
+     "end": 253.472
+    },
+    {
+     "text": "Open a topic and select Add node under the node you want.",
+     "start": 253.753,
+     "end": 257.144
+    },
+    {
+     "text": "Choose Ask with Adaptive Card.",
+     "start": 257.425,
+     "end": 259.195
+    },
+    {
+     "text": "Select the three dots on the node, open Properties, and select Edit adaptive card.",
+     "start": 259.476,
+     "end": 264.488
+    },
+    {
+     "text": "Add inputs and a submit button, or paste the card J S O N.",
+     "start": 264.769,
+     "end": 268.779
+    },
+    {
+     "text": "Save, and Copilot Studio creates the output variables.",
+     "start": 269.06,
+     "end": 272.472
+    },
+    {
+     "text": "Review them with Edit Schema.",
+     "start": 272.753,
+     "end": 274.31
+    },
+    {
+     "text": "Then use one of them in a Message.",
+     "start": 274.591,
+     "end": 276.382
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 277.283,
+   "end": 301.448,
+   "sentences": [
+    {
+     "text": "Back to Marta and her ticket.",
+     "start": 277.283,
+     "end": 278.967
+    },
+    {
+     "text": "Marta fills in one card and sends it, and the agent confirms the ticket with its urgency.",
+     "start": 279.248,
+     "end": 284.751
+    },
+    {
+     "text": "Remember three things.",
+     "start": 285.032,
+     "end": 286.268
+    },
+    {
+     "text": "Ask with Adaptive Card collects several fields with buttons.",
+     "start": 286.549,
+     "end": 289.791
+    },
+    {
+     "text": "Teams stops at schema one point five, even if the test chat shows one point six.",
+     "start": 290.072,
+     "end": 295.042
+    },
+    {
+     "text": "And a closed card leaves empty variables, so add a Condition node after it.",
+     "start": 295.323,
+     "end": 299.674
+    },
+    {
+     "text": "Next, custom prompts.",
+     "start": 299.955,
+     "end": 301.447
+    }
+   ]
+  }
+ ]
+}

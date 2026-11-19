@@ -1,0 +1,48 @@
+{"brand": "AB-620 · Module 2 · Lesson 8", "scenes": [
+ {"type": "compare", "header": {"kicker": "Who decides", "title": "Two ways to call a tool"},
+  "cols": [
+   {"icon": "branch_fork", "title": "You", "sub": "A fixed route", "at": "By you",
+    "items": [{"text": "Explicitly, from a topic", "at": "explicitly"}]},
+   {"icon": "sparkle", "title": "The agent", "sub": "It chooses the way", "accent": true, "at": "by the agent",
+    "items": [{"text": "When it decides it needs it", "at": "decides"}]}]},
+ {"type": "flow", "header": {"kicker": "Classic orchestration", "title": "Generative orchestration: off"},
+  "nodes": [
+   {"icon": "branch_fork", "title": "Topics only", "at": "only with topics"},
+   {"icon": "toolbox", "title": "Tools", "sub": "Only called from a topic", "at": "called explicitly"},
+   {"icon": "dismiss_circle", "title": "Nobody picks them alone", "at": "Nobody picks"}],
+  "below": [{"icon": "checkmark_circle", "text": "Full control of the flow", "at": "full control", "solid": true}]},
+ {"type": "hub", "header": {"kicker": "Generative orchestration", "title": "On by default"},
+  "center": {"icon": "sparkle", "title": "Orchestrator", "at": "orchestrator picks"},
+  "topLabel": "It relies on",
+  "top": [
+   {"icon": "tag", "title": "Name", "at": "the name"},
+   {"icon": "document_text", "title": "Description", "at": "description"},
+   {"icon": "chat", "title": "Context", "at": "context"},
+   {"icon": "person", "title": "Intent", "at": "intent"}],
+  "bottomLabel": "So",
+  "bottom": [{"icon": "flag", "title": "Clear descriptions matter", "at": "clear descriptions", "hi": true}]},
+ {"type": "path", "header": {"kicker": "Inside a topic", "title": "Add node › Add a tool"},
+  "crumbs": [
+   {"icon": "cursor_click", "text": "Add node", "at": "Add node"},
+   {"icon": "toolbox", "text": "Add a tool", "at": "Add a tool"},
+   {"icon": "wrench", "text": "Pick the tool", "accent": true, "at": "pick the tool"}],
+  "cards": [
+   {"icon": "flow", "title": "An Action node appears", "at": "Action node", "hi": true},
+   {"icon": "flag", "title": "Trigger phrases select topics, never tools", "at": "trigger phrases", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Tool settings", "title": "Three key settings", "sub": "Check all three before you test."},
+  "window": {"title": "Tool · Details", "heading": "Settings", "rail": ["apps", "bot", "toolbox", "key", "settings"],
+   "cards": [
+    {"icon": "question_circle", "title": "Ask the end user before running", "desc": "No by default · asks for confirmation", "at": "Ask the end user", "hi": true},
+    {"icon": "key", "title": "Authentication", "desc": "Which credentials it runs with", "at": "Authentication", "hi": true},
+    {"icon": "arrow_reply", "title": "After running", "desc": "How the agent responds", "at": "After running", "hi": true}]}},
+ {"type": "split", "left": {"kicker": "Contoso", "title": "Check inventory"},
+  "rows": [
+   {"icon": "question_circle", "title": "Ask before running: on", "desc": "Confirms before it runs", "at": "turned on", "hi": true},
+   {"icon": "person", "title": "End user credentials", "at": "end user credentials", "hi": true},
+   {"icon": "document_text", "title": "A clear description", "desc": "The orchestrator picks it correctly", "at": "description", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Confirm before a sensitive action"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Ask the end user before running", "at": "the answer is"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Trigger phrases to pick tools", "at": "trigger phrases"}]}],
+  "verdict": {"icon": "branch_fork", "text": "Trigger phrases only select topics", "at": "only select topics"}}
+]}

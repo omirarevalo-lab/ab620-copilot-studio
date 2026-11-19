@@ -1,0 +1,26 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Contoso keeps its HR policies in a SharePoint site, with permissions for each department. Every employee must only get answers from documents they can already open. How do they add them?",
+    "options": [
+      "Upload copies of the documents as files",
+      "Add the SharePoint site as knowledge",
+      "Paste the policies into the instructions"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Sometimes Nexo still answers with no source at all, straight from the model's general knowledge. IT wants those answers blocked, so the Fallback topic runs instead. What do they change?",
+    "options": [
+      "Raise content moderation up to Highest",
+      "Turn on Use information from the web",
+      "Switch off Allow ungrounded responses"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

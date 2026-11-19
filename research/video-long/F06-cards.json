@@ -1,0 +1,8 @@
+{
+  "1": ["Environment", [["Is", "A space where apps, agents and flows live"], ["Like", "Separate office buildings: Dev · Test · Prod"], ["Belongs to", "One Entra tenant, one region"], ["Agent uses", "Connections and data from its own environment"]]],
+  "2": ["Types", [["Default", "One per tenant, shared, for experiments"], ["Production", "Permanent, real work"], ["Sandbox", "Dev and test, copy and reset"], ["Developer", "Personal, Developer Plan"], ["Trial", "Expires after 30 days"], ["Roles", "Environment Admin · Environment Maker"]]],
+  "3": ["Dataverse", [["Per environment", "Zero or one database"], ["Stores", "Tables with rows and columns"], ["For Copilot Studio", "Knowledge source · uploaded files · solutions"], ["Trap", "Admin role ≠ data access"]]],
+  "5": ["Solution", [["Groups", "Agents · flows · environment variables · connections"], ["Agents live in", "Default solution, or the preferred one"], ["Unmanaged", "Editable, in Dev"], ["Managed", "Sealed package for Test and Prod"], ["Pipelines", "Automate the trip"]]],
+  "7": ["On screen", [["Copilot Studio", "Environment picker in the top bar"], ["Admin center", "Manage › Environments"], ["Power Apps", "Solutions › New solution + publisher"], ["Then", "Add existing › agent › Export"]]],
+  "8": ["Nexo's three buildings", [["Dev", "Build, unmanaged solution"], ["Test", "Managed import, test data"], ["Prod", "Managed import, real data"], ["Each", "Own Dataverse, connections, data policies"]]]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "title": "A plan B for the flow",
+    "caption": "Errors in a flow are not an if, they are a when. The classic plan B pattern is called try catch.",
+    "say": "Marta asks Nexo for help with her laptop, and CreateTicket must save her ticket in Dataverse. Today the insert fails, and the flow stays silent. Valeria knows that errors in a flow are not an if, they are a when. Handling them is like having a plan B. If the main path fails, the flow knows what to do instead of staying silent. The classic pattern is called try catch."
+  },
+  {
+    "title": "Try and Catch scopes",
+    "caption": "Group the main actions in a scope called Try. Create another scope called Catch, right after it, to handle the error.",
+    "say": "A scope is a container that groups actions, so they can be handled together. Valeria adds a scope, names it Try, and moves the main actions inside it, such as the Dataverse insert. Then she adds another scope called Catch, right after the Try. The Try is the main path. The Catch is the plan B, and it only handles the error."
+  },
+  {
+    "title": "Run after",
+    "caption": "Run after defines when an action runs. Set it on the Catch, relative to the Try: has failed and has timed out.",
+    "say": "So when does the Catch run? That is decided by run after, a setting that defines when an action runs, based on the result of the previous one. Run after can check whether an action failed, timed out, was skipped, or succeeded. Valeria sets it on the Catch, relative to the Try. She selects has failed and has timed out. Now the Catch runs only when the Try fails."
+  },
+  {
+    "title": "Decide: when the Catch runs",
+    "caption": "Valeria opens the settings of the Catch scope. Which run after options should she select?",
+    "say": "Your turn. Valeria has put the Dataverse insert inside the Try scope. Now she opens the settings of the Catch scope. Which run after options should she select? Is successful and is skipped? Is skipped and has timed out? Or has failed or has timed out? Decide before I answer. Has failed or has timed out. The Catch must run when the Try fails or runs out of time. Is successful is the trap, because the Catch would then run only when everything went well."
+  },
+  {
+    "title": "Reading the error",
+    "caption": "Inside the Catch, result() returns the results of the Try actions. Filter array keeps the one that failed.",
+    "say": "Inside the Catch, Valeria needs to know what went wrong. The result function returns the results of the actions inside the Try scope. Some succeeded and one failed. With the Filter array action, she keeps only the one that failed, with its exact message. With that data she can log the error, or notify someone, such as the I T team."
+  },
+  {
+    "title": "Retry policy",
+    "caption": "A retry policy recovers from transient failures. Set it in the action settings. Exponential retries increase the interval.",
+    "say": "Some failures are transient. The network fails for a moment, and a later try works. A retry policy helps the flow recover from them. It is set in the action settings, with an initial interval and a maximum number of retries. Exponential retries are preferred, because they increase the interval between retries. Each wait is longer than the last, so the problem has more time to clear."
+  },
+  {
+    "title": "Decide: the external service",
+    "caption": "Sometimes the network fails for a moment, and a later try works. What should Valeria set on the external call?",
+    "say": "Your turn. CreateTicket also calls an external service. Sometimes the network fails for a moment, and a later try works. What should Valeria set on that call? An exponential retry policy? A Terminate with status Failed? Or a Catch with is successful? Decide before I answer. An exponential retry policy. A retry policy recovers from transient failures, and exponential retries increase the interval between retries. Terminate is the trap here, because it stops the flow instead of trying again."
+  },
+  {
+    "title": "Terminate",
+    "caption": "Terminate, with status Failed and a message, stops the flow and leaves a diagnosis.",
+    "say": "The Catch has one more job. When the error is logged and someone is notified, the flow should not pretend that all went well. Terminate is an action that stops the flow with a status and a message. Valeria adds Terminate at the end of the Catch, with status Failed and a short message. The run stops, and it leaves a diagnosis that anyone can read."
+  },
+  {
+    "title": "The Contoso case",
+    "caption": "CreateTicket: Dataverse insert in Try; Catch on has failed and has timed out; Filter array, log, notify IT, Terminate Failed.",
+    "say": "Here is the whole Contoso case. In CreateTicket, the Dataverse insert goes inside the Try scope. If it fails, the Catch scope runs, with run after on has failed and has timed out. It uses the result function and Filter array to get the exact message. It logs it, notifies the I T team, and ends with Terminate in status Failed. The call to the external service has an exponential retry policy, because sometimes the network fails for a moment, and a later retry works."
+  },
+  {
+    "title": "Build it in the designer",
+    "caption": "Try scope, Catch scope with run after, Filter array on result(), log or notify, Terminate Failed, exponential retry.",
+    "say": "Here are the steps. Open your agent flow in the designer. Add a scope, name it Try, and move the main actions inside it. Add another scope called Catch, right after the Try. In the Catch settings, configure run after with has failed and has timed out. Inside the Catch, use Filter array on the result of the Try. Log the error or notify I T, and add Terminate with status Failed and a message. Last, set an exponential retry policy on sensitive actions."
+  },
+  {
+    "title": "Decide: the exact message",
+    "caption": "The service manager wants the error of the Try actions logged with its exact message. What should Valeria add to read it?",
+    "say": "Your turn. The service manager wants each Try error logged with its exact message. Valeria must read it first. What should she add to read the error? An exponential retry on every action? Filter array on the result function? Or a Catch that runs after is successful? Decide before I answer. Filter array on the result function. The result function returns the Try results, and Filter array keeps the failed one. A Catch on is successful is the trap, because it only runs when everything went well."
+  },
+  {
+    "title": "Rules to remember",
+    "caption": "Try and Catch scopes; run after has failed and has timed out; result() and Filter array; exponential retry; Terminate Failed.",
+    "say": "Back at Contoso, Marta's ticket is saved, and when something fails, the I T team knows why. Remember the pattern. A Try scope holds the main actions. A Catch scope runs after has failed and has timed out, never is successful. The result function and Filter array give you the error. Exponential retry handles transient failures. Terminate with status Failed leaves a status and a message. Next, human in the loop."
+  }
+]

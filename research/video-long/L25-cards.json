@@ -1,0 +1,11 @@
+{
+"0": ["REST API tool", [["What", "Quick way to give the agent an API"], ["Picture", "A menu with dishes crossed out"], ["Contoso", "Orders API: create, get, delete"], ["Rule", "The agent uses only what is selected"]]],
+"1": ["Upload the specification", [["Where", "Tools, Add a tool, New tool, REST API"], ["Format", "OpenAPI, JSON version 2"], ["Version 3", "Translated to version 2 automatically"]]],
+"2": ["Description and solution", [["Improve", "Name and description of the tool"], ["Orchestrator", "Decides which tool to use and when"], ["Solution", "Chosen, or one is created"]]],
+"4": ["Choose operations", [["Operation", "One specific action of the API"], ["Selected", "Create order, Get order"], ["Not selected", "Delete order"], ["Each one", "A name and a description"]]],
+"5": ["Inputs and outputs", [["Must be", "Complete descriptions"], ["Inputs", "What data to send"], ["Outputs", "What it gets back"], ["Used by", "The orchestrator"]]],
+"7": ["Authentication", [["Options", "None, API key, OAuth 2.0"], ["API key", "Label, name, location (Header or Query)"], ["Who gives the key", "The user, at run time"], ["OAuth 2.0", "Client ID, secret, authorization and token URLs, scope"]]],
+"8": ["REST API or custom connector", [["REST API tool", "More direct for a single API"], ["Custom connector", "Reuse in Power Apps and flows"], ["Connector extras", "Policy templates"]]],
+"10": ["Steps", [["Start", "Tools, Add a tool, New tool, REST API"], ["Upload", "OpenAPI JSON v2 (v3 is translated)"], ["Describe", "Improve name and description"], ["Solution", "Choose, or let one be created"], ["Authentication", "None, API key, OAuth 2.0"], ["Operations", "Only the allowed ones, full input and output descriptions"]]],
+"11": ["Remember", [["Format", "OpenAPI JSON v2, v3 translated"], ["Authentication", "None, API key, OAuth 2.0"], ["Limit the agent", "Select operations"], ["Trap", "A spec without descriptions"]]]
+}

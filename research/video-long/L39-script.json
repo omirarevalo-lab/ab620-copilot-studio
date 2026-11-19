@@ -1,0 +1,62 @@
+[
+  {
+    "title": "One agent, three addresses",
+    "caption": "NexoCore moves from Dev to Test. The API address changes, and the API key must stay secret. Today: environment variables.",
+    "say": "NexoCore has arrived in Test, but there is a problem. Nexo calls a Contoso A P I, and that A P I has a different address in Dev and in Test. Nexo also needs an A P I key, and the security team says the key must stay secret. Valeria does not want to edit Nexo in every environment. Today you learn how environment variables solve both problems."
+  },
+  {
+    "title": "A value that changes by place",
+    "caption": "An environment variable travels with the solution. Its value is given for each environment when you import or deploy.",
+    "say": "Picture a chain of hotels built from one plan. The rooms are the same in every hotel, but the street address on the door changes. An environment variable works the same way. It is a value that changes depending on the environment, and it travels with the solution. Its value is given for each environment when you import or deploy. So the same agent works in Dev, Test, and Production without editing it."
+  },
+  {
+    "title": "The types",
+    "caption": "Types: Decimal number, Text, JSON, Two options, Data source, and Secret. A base URL fits the Text type.",
+    "say": "Every environment variable has a type. The types are Decimal number, Text, J S O N, Two options, Data source, and Secret. Contoso's A P I changes address between Dev and Test, so Valeria creates a variable for its base U R L, of type Text. She calls it Api Base Url. The key is different. A key should never be Text. For a key, there is Secret."
+  },
+  {
+    "title": "Secret and Key Vault",
+    "caption": "Secret stores only a reference to a secret in Azure Key Vault, in the same tenant. The real secret is not in Dataverse.",
+    "say": "The Secret type stores a reference to a secret in Azure Key Vault. Think of a claim ticket for a locked box in a bank vault. The real secret does not live in Dataverse or in the solution. Only the ticket travels. Only Azure Key Vault is supported as a store, and it must be in the same tenant. So Valeria creates Api Key, of type Secret, linked to the Key Vault secret."
+  },
+  {
+    "title": "Decide: where the key lives",
+    "caption": "Nexo needs the API key in every environment, and it must never sit in the solution. What should Valeria do?",
+    "say": "Your turn. Nexo needs the Contoso A P I key in every environment. The security team says the key must never sit in the solution. What should Valeria do? Store the key as a Text variable in Dataverse? Use a Secret variable linked to Key Vault? Or type the key into each topic after import? Decide before I answer. Use a Secret variable linked to Key Vault. Secret stores only a reference, so the real key stays out of the solution. Storing the real secret in Dataverse is the trap."
+  },
+  {
+    "title": "Two things before Secret works",
+    "caption": "Register the Microsoft.PowerPlatform resource provider in the subscription. Give the Key Vault Secrets User role to whoever creates the variable.",
+    "say": "Secret needs two things set up in Azure first. One, the admin registers the Microsoft dot Power Platform resource provider in the Azure subscription. Two, the person who creates the variable gets the Key Vault Secrets User role. That role allows reading secrets from Key Vault. At Contoso, the admin registers the provider and gives Valeria the role. Now her Api Key variable can link to the vault."
+  },
+  {
+    "title": "Default value and current value",
+    "caption": "Remove the current value before you export, so the Dev value does not travel. On import or deploy, you are asked for the new value.",
+    "say": "A variable can hold a default value and a current value. The current value is the value set in one environment, different from the default. Valeria set the Dev address as the current value, only in Dev. Before you export, you can remove the current value, so the development value is not exported. When you import, or deploy with Pipelines, you are asked for the value of the new environment."
+  },
+  {
+    "title": "Decide: the Dev address",
+    "caption": "ApiBaseUrl holds the Dev address as its current value. Contoso does not want it to travel to Test. What should Valeria do?",
+    "say": "Your turn. Api Base Url holds the Dev address as its current value. Valeria will export NexoCore for Test, and Contoso does not want that address to travel. What should she do? Remove the current value before she exports? Delete the variable and build it again in Test? Or change the variable type from Text to Secret? Decide before I answer. Remove the current value before she exports. Then the Dev value is not exported, and Test asks for its own value. Deleting the variable breaks what the solution carries."
+  },
+  {
+    "title": "In Copilot Studio",
+    "caption": "In Copilot Studio, variables are read-only. The published agent keeps its publish-time values: republish after a change. Secret is read at runtime.",
+    "say": "In Copilot Studio, environment variables are read-only. The published agent includes the values they had when it was published. So if a variable changes, you must republish the agent. The exception is Secret. Secret types are retrieved at runtime, so Nexo reads the key from Key Vault each time. Remember the pair. Text and the other types need a republish. Secret does not."
+  },
+  {
+    "title": "Decide: the old address",
+    "caption": "In Test, the admin updated ApiBaseUrl, but the published Nexo still calls the old address. What should Valeria do?",
+    "say": "Your turn. In Test, the admin updated the value of Api Base Url. But the published Nexo still calls the old address. What should Valeria do? Edit the value directly inside the Nexo topic? Import the whole solution into Test again? Or republish Nexo so it picks up the new value? Decide before I answer. Republish Nexo so it picks up the new value. The published agent keeps the values from publish time. Variables are read-only in Copilot Studio, so you cannot edit them from a topic."
+  },
+  {
+    "title": "The steps",
+    "caption": "Create the variable, set the value only in Dev, link the Secret, register the provider, give the role, remove the value, import, republish.",
+    "say": "Here are the steps in order. In your solution, create an environment variable and choose its type, Text for the base U R L. Set the default or current value only in Dev. For the key, choose Secret and link the Azure Key Vault secret. Register the resource provider in the Azure subscription. Give the Key Vault Secrets User role. Before you export, remove the development current value. Import into Test, enter its value, and republish if a variable changed."
+  },
+  {
+    "title": "The right address in every hotel",
+    "caption": "Value per environment. Secret is a Key Vault reference, same tenant. Remove the current value. Read-only: republish, except Secret.",
+    "say": "Back at Contoso. In Test, Nexo calls the Test address, and the key stays in Key Vault. Remember for the exam. An environment variable travels with the solution, with a value for each environment. Secret stores a reference to Azure Key Vault, in the same tenant, never the real secret in Dataverse. Remove the current value before you export. In Copilot Studio, republish after a change, except Secret. Next, Power Platform Pipelines."
+  }
+]

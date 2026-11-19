@@ -1,0 +1,703 @@
+{
+  "id": "L36",
+  "title": "Evaluation methods",
+  "voice": "af_heart",
+  "speed": 1,
+  "duration": 441.476,
+  "scenes": [
+    {
+      "title": "Green, but wrong",
+      "start": 0.8,
+      "end": 25.995,
+      "sentences": [
+        {
+          "text": "Tuesday at Contoso.",
+          "start": 0.8,
+          "end": 2.208
+        },
+        {
+          "text": "Nexo, the I T agent, answers a question about an order.",
+          "start": 2.488,
+          "end": 6.328
+        },
+        {
+          "text": "The expected code is C T four four seven one.",
+          "start": 6.608,
+          "end": 9.765
+        },
+        {
+          "text": "Nexo says C T four four one seven.",
+          "start": 10.045,
+          "end": 12.456
+        },
+        {
+          "text": "The evaluation shows green, because the method graded the meaning, and the meaning looked close.",
+          "start": 12.736,
+          "end": 18.069
+        },
+        {
+          "text": "In real life, that is a wrong order.",
+          "start": 18.349,
+          "end": 20.376
+        },
+        {
+          "text": "The test set was fine.",
+          "start": 20.656,
+          "end": 21.936
+        },
+        {
+          "text": "The grading rule was wrong.",
+          "start": 22.216,
+          "end": 23.752
+        },
+        {
+          "text": "Today you learn to pick the right one.",
+          "start": 24.032,
+          "end": 25.995
+        }
+      ]
+    },
+    {
+      "title": "First what, then how",
+      "start": 26.895,
+      "end": 49.055,
+      "sentences": [
+        {
+          "text": "Keep this picture.",
+          "start": 26.895,
+          "end": 28.068
+        },
+        {
+          "text": "Evaluating an agent is like grading an exam.",
+          "start": 28.348,
+          "end": 31.271
+        },
+        {
+          "text": "First you decide what you want to measure: the meaning, the exact words, a tool, safety.",
+          "start": 31.551,
+          "end": 36.436
+        },
+        {
+          "text": "Then you choose the grader with the right rule.",
+          "start": 36.716,
+          "end": 38.892
+        },
+        {
+          "text": "Some graders give a score, and you set the pass mark.",
+          "start": 39.172,
+          "end": 42.052
+        },
+        {
+          "text": "Others only say pass or fail.",
+          "start": 42.332,
+          "end": 44.188
+        },
+        {
+          "text": "Each test set can have several methods, and the wrong one gives misleading results.",
+          "start": 44.468,
+          "end": 49.055
+        }
+      ]
+    },
+    {
+      "title": "General quality, the default judge",
+      "start": 49.955,
+      "end": 73.731,
+      "sentences": [
+        {
+          "text": "The first grader is already on every test set.",
+          "start": 49.955,
+          "end": 52.6
+        },
+        {
+          "text": "General quality is turned on by default.",
+          "start": 52.88,
+          "end": 55.355
+        },
+        {
+          "text": "A language model grades each answer out of one hundred, looking at four things: relevance, groundedness, completeness, and abstention.",
+          "start": 55.635,
+          "end": 63.528
+        },
+        {
+          "text": "It needs no expected response, so it works from day one, even before anyone writes an answer key.",
+          "start": 63.808,
+          "end": 69.632
+        },
+        {
+          "text": "It is a good first check, but it judges quality, not exact facts.",
+          "start": 69.912,
+          "end": 73.731
+        }
+      ]
+    },
+    {
+      "title": "Meaning or wording",
+      "start": 74.631,
+      "end": 99.604,
+      "sentences": [
+        {
+          "text": "The next two graders both read the answer key.",
+          "start": 74.631,
+          "end": 77.127
+        },
+        {
+          "text": "Compare meaning checks whether the answer has the same intent as the expected response, so different wording is fine.",
+          "start": 77.407,
+          "end": 84.041
+        },
+        {
+          "text": "Its default pass score is fifty.",
+          "start": 84.321,
+          "end": 86.22
+        },
+        {
+          "text": "Text similarity is stricter about the words themselves.",
+          "start": 86.5,
+          "end": 89.615
+        },
+        {
+          "text": "It measures how close the wording is, with a cosine score from zero to one.",
+          "start": 89.895,
+          "end": 94.332
+        },
+        {
+          "text": "Use meaning for policies explained in your own words, similarity when the phrasing matters.",
+          "start": 94.612,
+          "end": 99.604
+        }
+      ]
+    },
+    {
+      "title": "Exact words, key words",
+      "start": 100.504,
+      "end": 122.936,
+      "sentences": [
+        {
+          "text": "Now the strict graders.",
+          "start": 100.504,
+          "end": 101.912
+        },
+        {
+          "text": "Exact match wants the answer character by character, so it is ideal for order codes, prices, and numbers.",
+          "start": 102.192,
+          "end": 108.592
+        },
+        {
+          "text": "Keyword match only looks for the words you list, and you choose Any or All.",
+          "start": 108.872,
+          "end": 112.691
+        },
+        {
+          "text": "With All, every expected word or phrase must appear for the case to pass.",
+          "start": 112.971,
+          "end": 117.344
+        },
+        {
+          "text": "These two give no score, only pass or fail, so use them when you need a clear yes or no.",
+          "start": 117.624,
+          "end": 122.936
+        }
+      ]
+    },
+    {
+      "title": "Decide: the order code",
+      "start": 123.836,
+      "end": 156.245,
+      "sentences": [
+        {
+          "text": "Your turn.",
+          "start": 123.836,
+          "end": 124.711
+        },
+        {
+          "text": "Contoso wants to be sure Nexo returns the order code with every character in the right place.",
+          "start": 124.991,
+          "end": 130.537
+        },
+        {
+          "text": "Which method should they add?",
+          "start": 130.817,
+          "end": 132.268
+        },
+        {
+          "text": "Compare meaning with its default pass score of fifty?",
+          "start": 132.548,
+          "end": 135.492
+        },
+        {
+          "text": "Exact match with the code as expected response?",
+          "start": 135.772,
+          "end": 138.78
+        },
+        {
+          "text": "Or General quality, which is turned on by default?",
+          "start": 139.06,
+          "end": 141.983
+        },
+        {
+          "text": "Decide before I answer.",
+          "start": 142.263,
+          "end": 143.799
+        },
+        {
+          "text": "Exact match.",
+          "start": 147.579,
+          "end": 148.624
+        },
+        {
+          "text": "Codes must match character by character.",
+          "start": 148.904,
+          "end": 151.101
+        },
+        {
+          "text": "Compare meaning tolerates near misses, and General quality needs no answer key.",
+          "start": 151.381,
+          "end": 156.245
+        }
+      ]
+    },
+    {
+      "title": "Did it use the tool?",
+      "start": 157.145,
+      "end": 177.849,
+      "sentences": [
+        {
+          "text": "Some answers are right only if the agent did something.",
+          "start": 157.145,
+          "end": 160.26
+        },
+        {
+          "text": "When a user reports a broken laptop, Nexo should call the Create Ticket tool, not just say sorry.",
+          "start": 160.54,
+          "end": 166.513
+        },
+        {
+          "text": "Tool use checks whether the expected tools or topics were used in the response.",
+          "start": 166.793,
+          "end": 171.359
+        },
+        {
+          "text": "You list them on the case, and the grader looks for them.",
+          "start": 171.639,
+          "end": 174.369
+        },
+        {
+          "text": "Like Exact match, it gives pass or fail, with no score.",
+          "start": 174.649,
+          "end": 177.849
+        }
+      ]
+    },
+    {
+      "title": "The safety inspector",
+      "start": 178.749,
+      "end": 203.979,
+      "sentences": [
+        {
+          "text": "Next, the safety inspector.",
+          "start": 178.749,
+          "end": 180.477
+        },
+        {
+          "text": "Content safety checks answers for four kinds of harm: hate, sexual content, violence, and self harm.",
+          "start": 180.757,
+          "end": 187.221
+        },
+        {
+          "text": "You set a severity threshold from zero to seven.",
+          "start": 187.501,
+          "end": 190.339
+        },
+        {
+          "text": "Zero is the strictest, and seven is the most permissive.",
+          "start": 190.619,
+          "end": 193.904
+        },
+        {
+          "text": "It gives pass or fail.",
+          "start": 194.184,
+          "end": 195.656
+        },
+        {
+          "text": "One detail the exam likes: you add one Content safety method for each type of content, so checking all four means four methods.",
+          "start": 195.936,
+          "end": 203.979
+        }
+      ]
+    },
+    {
+      "title": "Your own rule",
+      "start": 204.879,
+      "end": 227.716,
+      "sentences": [
+        {
+          "text": "When no built in grader fits, write your own.",
+          "start": 204.879,
+          "end": 207.353
+        },
+        {
+          "text": "A Custom method has two parts.",
+          "start": 207.633,
+          "end": 209.447
+        },
+        {
+          "text": "First, instructions that tell the grader what to judge, in plain language.",
+          "start": 209.727,
+          "end": 213.908
+        },
+        {
+          "text": "Second, at least two labels, and each label is marked as pass or fail.",
+          "start": 214.188,
+          "end": 218.369
+        },
+        {
+          "text": "Contoso writes, check that Nexo follows the H R privacy policy, with the labels Compliant, marked pass, and Non compliant, marked fail.",
+          "start": 218.649,
+          "end": 227.716
+        }
+      ]
+    },
+    {
+      "title": "The correct refusal",
+      "start": 228.616,
+      "end": 251.136,
+      "sentences": [
+        {
+          "text": "Here is the trap.",
+          "start": 228.616,
+          "end": 229.683
+        },
+        {
+          "text": "Some questions Nexo must refuse, like what does my manager earn.",
+          "start": 229.963,
+          "end": 234.016
+        },
+        {
+          "text": "A good refusal is the right answer.",
+          "start": 234.296,
+          "end": 236.387
+        },
+        {
+          "text": "But General quality can flag a correct refusal as needing improvement, even when it is exactly what you wanted.",
+          "start": 236.667,
+          "end": 243.323
+        },
+        {
+          "text": "So for cases where the agent should refuse, use a Custom method.",
+          "start": 243.603,
+          "end": 247.293
+        },
+        {
+          "text": "Your labels decide that a polite, correct refusal is a pass.",
+          "start": 247.573,
+          "end": 251.136
+        }
+      ]
+    },
+    {
+      "title": "Decide: the salary question",
+      "start": 252.036,
+      "end": 284.064,
+      "sentences": [
+        {
+          "text": "Your turn.",
+          "start": 252.036,
+          "end": 252.911
+        },
+        {
+          "text": "Nexo must refuse every question about salaries, and it does.",
+          "start": 253.191,
+          "end": 256.924
+        },
+        {
+          "text": "But General quality keeps marking those refusals as needing improvement.",
+          "start": 257.204,
+          "end": 261.449
+        },
+        {
+          "text": "What should Contoso do?",
+          "start": 261.729,
+          "end": 263.116
+        },
+        {
+          "text": "Set the Content safety threshold to zero?",
+          "start": 263.396,
+          "end": 265.764
+        },
+        {
+          "text": "Add Keyword match with the All option?",
+          "start": 266.044,
+          "end": 268.028
+        },
+        {
+          "text": "Or create a Custom method with two labels?",
+          "start": 268.308,
+          "end": 270.569
+        },
+        {
+          "text": "Decide before I answer.",
+          "start": 270.849,
+          "end": 272.385
+        },
+        {
+          "text": "Create a Custom method.",
+          "start": 276.165,
+          "end": 277.573
+        },
+        {
+          "text": "Expected refusals need your own rule.",
+          "start": 277.853,
+          "end": 280.157
+        },
+        {
+          "text": "Content safety and keywords do not judge a correct refusal.",
+          "start": 280.437,
+          "end": 284.064
+        }
+      ]
+    },
+    {
+      "title": "Nothing to grade",
+      "start": 284.964,
+      "end": 310.452,
+      "sentences": [
+        {
+          "text": "A grader needs material.",
+          "start": 284.964,
+          "end": 286.5
+        },
+        {
+          "text": "If a case is missing what the method needs, an expected response, keywords, or tools, the result is not fail.",
+          "start": 286.78,
+          "end": 293.628
+        },
+        {
+          "text": "It is Invalid.",
+          "start": 293.908,
+          "end": 294.953
+        },
+        {
+          "text": "Also check the set type.",
+          "start": 295.233,
+          "end": 296.705
+        },
+        {
+          "text": "Compare meaning, Text similarity, Exact match, and Tool use work only with single response cases.",
+          "start": 296.985,
+          "end": 303.3
+        },
+        {
+          "text": "Keyword match and Custom work with single responses and conversations.",
+          "start": 303.58,
+          "end": 307.889
+        },
+        {
+          "text": "After a run, always look for Invalid.",
+          "start": 308.169,
+          "end": 310.452
+        }
+      ]
+    },
+    {
+      "title": "One grader on the harness",
+      "start": 311.352,
+      "end": 336.043,
+      "sentences": [
+        {
+          "text": "Everything so far is the standard harness.",
+          "start": 311.352,
+          "end": 313.912
+        },
+        {
+          "text": "On the Microsoft Copilot harness, formerly GitHub Copilot harness, the Evaluate tab has only one test method today: General quality.",
+          "start": 314.192,
+          "end": 323.259
+        },
+        {
+          "text": "It is an A I based check of quality standards like relevance and completeness, and each test case gets pass or fail.",
+          "start": 323.539,
+          "end": 330.643
+        },
+        {
+          "text": "Compare meaning, Exact match, Tool use, and the rest belong to the standard harness.",
+          "start": 330.923,
+          "end": 336.043
+        }
+      ]
+    },
+    {
+      "title": "Same case, another run",
+      "start": 336.943,
+      "end": 356.321,
+      "sentences": [
+        {
+          "text": "Because the check is A I based, and the agent is too, the same case can pass on one run and fail on the next.",
+          "start": 336.943,
+          "end": 343.428
+        },
+        {
+          "text": "That is not a broken test.",
+          "start": 343.708,
+          "end": 345.223
+        },
+        {
+          "text": "It is how these systems behave.",
+          "start": 345.503,
+          "end": 347.273
+        },
+        {
+          "text": "So run your important scenarios more than once before you trust a result, and compare the runs on the same test set, as you learned in the last lesson.",
+          "start": 347.553,
+          "end": 356.321
+        }
+      ]
+    },
+    {
+      "title": "What a Pass does not show",
+      "start": 357.221,
+      "end": 378.907,
+      "sentences": [
+        {
+          "text": "One more limit.",
+          "start": 357.221,
+          "end": 358.267
+        },
+        {
+          "text": "A General quality pass does not show which knowledge sources Nexo used, or whether a tool really ran.",
+          "start": 358.547,
+          "end": 364.648
+        },
+        {
+          "text": "The answer could read well and still skip the tool.",
+          "start": 364.928,
+          "end": 367.488
+        },
+        {
+          "text": "For evidence, open the activity trace in the Preview tab and look at the Knowledge and Tool nodes.",
+          "start": 367.768,
+          "end": 373.379
+        },
+        {
+          "text": "The conversation history shows which model answered, and the Monitor tab shows the credits.",
+          "start": 373.659,
+          "end": 378.907
+        }
+      ]
+    },
+    {
+      "title": "Decide: proof of the tool",
+      "start": 379.807,
+      "end": 411.661,
+      "sentences": [
+        {
+          "text": "Your turn.",
+          "start": 379.807,
+          "end": 380.681
+        },
+        {
+          "text": "On the Microsoft Copilot harness, Nexo passes General quality.",
+          "start": 380.961,
+          "end": 385.143
+        },
+        {
+          "text": "The manager wants proof the Create Ticket tool ran.",
+          "start": 385.423,
+          "end": 388.303
+        },
+        {
+          "text": "Where do you look?",
+          "start": 388.583,
+          "end": 389.564
+        },
+        {
+          "text": "The Tool node in the Preview activity trace?",
+          "start": 389.844,
+          "end": 392.169
+        },
+        {
+          "text": "A Tool use method added to the Evaluate tab?",
+          "start": 392.449,
+          "end": 395.201
+        },
+        {
+          "text": "Or a second evaluation run that also shows pass?",
+          "start": 395.481,
+          "end": 398.532
+        },
+        {
+          "text": "Decide before I answer.",
+          "start": 398.812,
+          "end": 400.348
+        },
+        {
+          "text": "The Tool node in the trace.",
+          "start": 404.128,
+          "end": 405.621
+        },
+        {
+          "text": "The Evaluate tab offers only General quality, and a second pass proves nothing about tools.",
+          "start": 405.901,
+          "end": 411.661
+        }
+      ]
+    },
+    {
+      "title": "The right grader",
+      "start": 412.561,
+      "end": 440.276,
+      "sentences": [
+        {
+          "text": "Back to the order code.",
+          "start": 412.561,
+          "end": 413.884
+        },
+        {
+          "text": "Contoso adds Exact match, and C T four four one seven now fails, as it should.",
+          "start": 414.164,
+          "end": 419.668
+        },
+        {
+          "text": "Remember for the exam.",
+          "start": 419.948,
+          "end": 421.207
+        },
+        {
+          "text": "Codes and numbers, Exact match.",
+          "start": 421.487,
+          "end": 423.513
+        },
+        {
+          "text": "Same idea in other words, Compare meaning.",
+          "start": 423.793,
+          "end": 426.247
+        },
+        {
+          "text": "A tool call, Tool use.",
+          "start": 426.527,
+          "end": 428.084
+        },
+        {
+          "text": "Expected refusals, Custom.",
+          "start": 428.364,
+          "end": 430.156
+        },
+        {
+          "text": "Missing material, Invalid.",
+          "start": 430.436,
+          "end": 432.164
+        },
+        {
+          "text": "Safety, zero is strictest.",
+          "start": 432.444,
+          "end": 434.236
+        },
+        {
+          "text": "And on the Microsoft Copilot harness, General quality is the only method, pass or fail.",
+          "start": 434.516,
+          "end": 440.276
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L08 · Variables and scope · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 3 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .bl { position: absolute; left: 960px; top: 840px; transform: translateX(-50%); white-space: nowrap; font-size: 46px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; }
+  .bl.red { border-color: #c4392f; color: #c4392f; } .bl.green { border-color: #1e7f4f; color: #1e7f4f; } .bl.cb { border-color: #c08a4a; color: #8d6230; } .bl.go { border-color: #b8860b; color: #8a6508; } .bl.sl { border-color: #4a5a78; color: #4a5a78; } .bl.tl { border-color: #0f7b8a; color: #0f7b8a; }
+  .pl { position: absolute; left: 120px; top: 70px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .cdw { position: absolute; box-sizing: border-box; padding: 8px 14px; background: #fff; border: 5px solid #c08a4a; border-radius: 20px; font-weight: 800; color: #141821; text-align: center; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .cdw .ic { width: 52px; height: 52px; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 38px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 34px; border-radius: 16px; padding: 6px 18px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  .uw .nav div { font-size: 32px; } .uw .bar { font-size: 32px; } .uw .bar .hc { font-size: 32px; } .uw .row b { font-size: 36px; } .uw .btn { font-size: 32px; } .uw .crumb { font-size: 32px; } .uw .fld { font-size: 34px; } .uw .fld small { font-size: 32px; }
+  .uw .nc { box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 14px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 32px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L08 · Variables and scope. World 3840x2160 (+ extensions). "Nexo's house of topic rooms":
+     rooms Vacation/Payroll/Benefits at x 200/1420/2640 (1000x700, y 100-800) · hall y 840-1160 with gold shelf "Global" at x 1920 · ground plates y 1200
+     bottom row shifted by D=400: cabinet x 160-1160, lab table x 1500-2760 (surface y T), Env shed x 3000-3700 */
+  const D = 400, T = 1780 + D;
+  const CB = '#c08a4a', CBD = '#8d6230', GO = '#b8860b', GOD = '#7f5c06', SLT = '#4a5a78', SLD = '#34415c', TLC = '#0f7b8a', TLD = '#0a5560';
+  const GRN = '#1e7f4f', RED = '#c4392f', BLUE = '#2f5bd3', PUR = '#8a5cd6', NAVY = '#1f2a44';
+  const RX = [200, 1420, 2640];
+  const SB = (id, x, y, t, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:44px;');
+  const tg = (id, x, y, t, c, fs, bg) => `<div class="tag" id="${id}" style="left:${x}px;top:${y}px;font-size:${fs || 48}px;border:5px solid ${c};color:${bg ? '#fff' : c};${bg ? 'background:' + c + ';' : ''}">${t}</div>`;
+  const cd = (id, x, y, w, t, fs, c, ic) => `<div class="cdw" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;height:${Math.round(fs * 1.15 + 30)}px;font-size:${fs}px;border-color:${c || CB}">${ic ? IC(ic, 'color:' + (c || CB)) : ''}<span>${t}</span></div>`;
+  const bx = (id, x, y, w, col, dark, o) => { o = o || {}; const h = Math.round(w * 140 / 170); return `<svg class="w" id="${id}" style="left:${x}px;top:${y}px;overflow:visible${o.hide ? ';opacity:0' : ''}" width="${w}" height="${h}" viewBox="0 0 170 140">
+    <rect x="8" y="34" width="154" height="102" rx="10" fill="${col}" id="${id}_f"/>
+    <g id="${id}_lid"><rect x="2" y="10" width="166" height="34" rx="8" fill="${dark}"/></g>
+    ${o.slot === 'num' ? `<g id="${id}_sn"><circle cx="85" cy="92" r="30" fill="#fff"/><text x="85" y="106" font-size="40" font-weight="800" text-anchor="middle" fill="${dark}">#</text></g>` : ''}
+    ${o.slot === 'str' ? `<g id="${id}_ss"><rect x="30" y="70" width="110" height="44" rx="22" fill="#fff"/><text x="85" y="102" font-size="34" font-weight="800" text-anchor="middle" fill="${dark}">Aa</text></g>` : ''}
+    ${o.slot === 'blank' ? `<g id="${id}_sb"><rect x="30" y="70" width="110" height="44" rx="22" fill="none" stroke="#fff" stroke-width="5" stroke-dasharray="12 9"/></g>` : ''}
+    ${o.gear ? `<circle cx="85" cy="90" r="22" fill="none" stroke="#cfd8ea" stroke-width="6" stroke-dasharray="8 6"/>` : ''}
+    ${o.lock ? `<g id="${id}_lk"><rect x="62" y="74" width="46" height="40" rx="8" fill="#fff"/><path d="M70 74 v-12 a15 15 0 0 1 30 0 v12" fill="none" stroke="#fff" stroke-width="8"/><circle cx="85" cy="94" r="6" fill="${dark}"/></g>` : ''}
+    </svg>`; };
+  const human = (id, x, y, top, hair, hid) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px${hid ? ';opacity:0' : ''}" width="200" height="380" viewBox="0 0 200 380"><g id="${id}_b"><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></g></svg>`;
+  const PEN = (st) => `<svg class="w" style="${st}" width="90" height="90" viewBox="0 0 70 70"><path d="M10 60 L14 44 L44 14 a6 6 0 0 1 8 0 l4 4 a6 6 0 0 1 0 8 L26 56 Z" fill="currentColor"/></svg>`;
+
+  /* ───────── extensions + yard ───────── */
+  ADD(`<div class="w" style="left:3840px;top:0;width:1600px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="left:-1600px;top:0;width:1600px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)"></div>
+    <div class="w" style="left:-1600px;top:1250px;width:7040px;height:2200px;background:#e3e7ef"></div><div class="w" style="left:-1600px;top:1250px;width:7040px;height:6px;background:#d3d9e4"></div>`);
+
+  /* ───────── the house ───────── */
+  ADD(`<div class="w" style="left:-800px;top:1085px;width:5440px;height:46px;background:#d9c9a6;border-radius:12px;z-index:0"></div>`);
+  ADD(`<div class="w" style="left:-800px;top:-600px;width:5440px;height:1800px;background:#e6dcc6;border-radius:44px"></div>
+    <div class="w" style="left:-800px;top:840px;width:5440px;height:320px;background:#ece4d2;border:8px solid #cbbd9f;border-radius:24px;box-sizing:border-box"></div>`);
+  RX.forEach((rx, k) => ADD(`<div class="w" id="room${k}" style="left:${rx}px;top:100px;width:1000px;height:700px;background:#fbf7ee;border:8px solid #cbbd9f;border-radius:30px;box-sizing:border-box"></div>
+    <div class="w" style="left:${rx + 8}px;top:760px;width:984px;height:32px;background:#efe6d3"></div>
+    <div class="w" style="left:${rx + 440}px;top:640px;width:280px;height:28px;background:#9a7b4f;border-radius:8px"></div><div class="w" style="left:${rx + 460}px;top:668px;width:22px;height:112px;background:#9a7b4f"></div><div class="w" style="left:${rx + 678}px;top:668px;width:22px;height:112px;background:#9a7b4f"></div>`));
+  ADD(['Vacation', 'Payroll', 'Benefits'].map((n, k) => tg('ds' + k, RX[k] + 500, 112, n, NAVY, 64)).join(''));
+  gsap.set(['#ds0', '#ds1', '#ds2'], { opacity: 1 });
+  /* gold shelf Global (hall) */
+  ADD(`<div class="w" style="left:1470px;top:1060px;width:26px;height:76px;background:#7f5c06"></div><div class="w" style="left:2344px;top:1060px;width:26px;height:76px;background:#7f5c06"></div>
+    <div class="w" id="shelf" style="left:1470px;top:980px;width:900px;height:80px;background:${GO};border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:800;color:#fff;letter-spacing:2px">Global</div>`);
+  /* ground plates */
+  ADD(`<div class="w" id="plD" style="left:-800px;top:1200px;width:5440px;height:340px;background:#8fa6dc;border-radius:0 0 30px 30px;display:flex;align-items:flex-start;padding-top:14px;justify-content:flex-start;padding-left:2300px;box-sizing:border-box;font-size:64px;font-weight:800;color:${NAVY}">Development</div>
+    <div class="w" id="plP" style="left:-800px;top:1200px;width:5440px;height:340px;background:#3b4a6b;border-radius:0 0 30px 30px;display:flex;align-items:flex-start;padding-top:14px;justify-content:flex-start;padding-left:2300px;box-sizing:border-box;font-size:64px;font-weight:800;color:#fff">Production</div>`);
+  gsap.set('#plP', { x: 6300 }); gsap.set(['#plD', '#plP'], { opacity: 0 });
+
+  /* characters in the rooms */
+  ADD(agent('nV', RX[0] + 30, 300, { folder: '' }) + agent('nP', RX[1] + 30, 300, { folder: '' }) + agent('nB', RX[2] + 30, 300, { folder: '' }));
+  ADD(human('mV', RX[0] + 760, 410, '#e07a5f', '#5a3a28') + human('mP', RX[1] + 760, 410, '#e07a5f', '#5a3a28', true));
+  ADD(`<div class="w" id="ghost" style="left:${RX[1] + 510}px;top:517px;width:150px;height:123px;border:6px dashed #b9a98a;border-radius:14px;box-sizing:border-box;opacity:0"></div>`);
+  ADD(`<div class="w" id="puff" style="left:${RX[1] + 800}px;top:310px;font-size:90px;font-weight:800;color:#8a93a6;opacity:0">…</div>`);
+  /* speech bubbles */
+  ADD(SB('mbV1', RX[0] + 860, 235, 'Vacation days?', 'blue') + SB('nbV1', RX[0] + 240, 235, 'Your employee number?', '') + SB('mbV2', RX[0] + 860, 235, '4215', 'blue'));
+  ADD(SB('mbP1', RX[1] + 860, 235, 'Show my payslip', 'blue') + SB('nbP1', RX[1] + 240, 235, 'Your employee number?', '') + SB('nbP2', RX[1] + 240, 235, '?', ''));
+  ADD(SB('nbP3', RX[1] + 240, 235, 'Hi Marta, payslip for 4215', 'green') + SB('mbV3', RX[0] + 860, 235, '4215', 'blue'));
+  /* the variable box on the Vacation desk (group) */
+  ADD(`<div class="w" id="bg" style="left:${RX[0] + 440}px;top:430px;width:300px;height:330px;opacity:0">
+      ${tg('tA', 145, 0, 'EmployeeId', CB, 60)}${tg('tG1', 145, 0, 'Global.', GO, 60)}${tg('tG2', 145, 0, 'Global.EmployeeId', GO, 60)}
+      ${bx('bxB', 70, 87, 150, CB, CBD)}${tg('tD', 145, 225, 'Topic · default', CB, 44)}</div>`);
+  /* padlock shutter on the Vacation room */
+  ADD(`<div class="w" id="shut" style="left:${RX[0]}px;top:100px;width:1000px;height:700px;background:rgba(141,98,48,.16);border:14px solid ${CBD};border-radius:30px;box-sizing:border-box;opacity:0"></div>
+    <div class="w" id="padl" style="left:${RX[0] + 420}px;top:230px;width:160px;height:160px;border-radius:50%;background:#fff;border:8px solid ${CBD};display:flex;align-items:center;justify-content:center;color:${CBD};opacity:0">${IC('lock_closed', 'width:96px;height:96px')}</div>`);
+  /* dotted lines + lights (scene 2 s4) */
+  const dl = ['M1920 780 C 1920 700, 800 760, 780 620', 'M1920 780 C 1920 760, 2000 720, 2000 640', 'M1920 780 C 1920 700, 3200 760, 3220 640'];
+  ADD(`<svg class="w" id="dlS" style="left:0;top:0;opacity:0" width="3840" height="1200" viewBox="0 0 3840 1200">${dl.map((d, k) => `<path id="dl${k}" d="${d}" fill="none" stroke="${GRN}" stroke-width="14" stroke-linecap="round" stroke-dasharray="2 26" opacity="0"/>`).join('')}</svg>`);
+  [780, 2000, 3220].forEach((cx, k) => ADD(`<div class="w" id="lt${k}" style="left:${cx - 55}px;top:520px;width:110px;height:110px;border-radius:50%;background:#fff;border:8px solid ${GRN};color:${GRN};display:flex;align-items:center;justify-content:center;opacity:0">${IC('checkmark_circle', 'width:70px;height:70px')}</div>`));
+
+  /* ───────── lab table, Valeria, hero box ───────── */
+  ADD(human('vl', 1540, T - 300, '#8a5cd6', '#2d2236'));
+  ADD(`<div class="w" id="tabS" style="left:1500px;top:${T}px;width:1260px;height:28px;background:#9a7b4f;border-radius:10px"></div><div class="w" id="tabF" style="left:1520px;top:${T + 28}px;width:1220px;height:170px;background:#b69463;border-radius:0 0 14px 14px"></div>`);
+  ADD(`<div class="w" id="lap" style="left:2500px;top:${T - 190}px;width:260px;height:190px"><div class="w" style="left:10px;top:0;width:240px;height:150px;background:${NAVY};border-radius:12px"></div><div class="w" style="left:20px;top:10px;width:220px;height:130px;background:#e6ecfb;border-radius:6px"></div><div class="w" style="left:0;top:150px;width:260px;height:20px;background:#8a93a6;border-radius:8px"></div>
+      <div class="w" id="lapB" style="left:34px;top:48px;width:192px;height:56px;background:${BLUE};border-radius:12px;color:#fff;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;opacity:0">Republish</div></div>`);
+  ADD(bx('bxH', 1830, T - 346, 420, CB, CBD) + tg('tH', 2040, T - 230, 'EmployeeId', CB, 64));
+  ADD(`<svg class="w" id="key" style="left:2010px;top:${T - 100}px" width="60" height="60" viewBox="0 0 60 60" opacity="0"><circle id="keyC" cx="30" cy="30" r="22" fill="none" stroke="#ffd166" stroke-width="7" opacity="0"/><circle cx="30" cy="30" r="12" fill="#3a2a10"/><rect x="26" y="30" width="8" height="18" rx="3" fill="#3a2a10"/></svg>`);
+  ADD(cd('c4215', 1930, T - 720, 220, '4215', 52, CB) + cd('cName', 2290, T - 330, 220, 'name', 44, CB) + cd('cTick', 2290, T - 240, 380, 'ticket number', 44, CB));
+  ADD(cd('kC', 2290, T - 340, 380, 'one topic', 46, CB, 'key') + cd('kG', 2290, T - 440, 470, 'the whole agent', 46, GO, 'key'));
+
+  /* scene 5: boxes with slots, type chips */
+  ADD(bx('bxA', 1870, T - 214, 260, CB, CBD, { slot: 'num' }) + bx('bxS', 2200, T - 214, 260, CB, CBD, { slot: 'str' }) + bx('bxN', 1870, T - 214, 260, CB, CBD, { slot: 'blank', hide: true }));
+  ADD(tg('tNum', 2000, T - 290, 'Number', BLUE, 56));
+  ADD(cd('cE', 1875, T - 700, 250, 'Marta', 52, '#5d6472') + cd('cNum', 1890, T - 700, 220, '4215', 52, CB));
+  const TY = [['String', 'text_t'], ['Boolean', 'checkbox_checked'], ['Number', 'number_symbol'], ['Table', 'table'], ['Record', 'card_ui'], ['DateTime', 'calendar'], ['Choice', 'list'], ['Blank', 'question_circle']];
+  ADD(TY.map(([n, ic], k) => chip('ty' + k, 1700 + (k % 4) * 290, T - 470 + Math.floor(k / 4) * 105, ic, n, 'sm blue').replace('style="', 'style="width:270px;')).join(''));
+
+  /* ───────── system cabinet ───────── */
+  ADD(`<div class="w" style="left:160px;top:${D + 1380}px;width:1000px;height:720px;background:${SLD};border-radius:26px;border:8px solid #263149;box-sizing:border-box"></div>`);
+  [0, 1, 2, 3].forEach((k) => ADD(`<div class="w" id="dr${k}" style="left:200px;top:${D + 1520 + k * 140}px;width:760px;height:120px;background:#6f81a3;border-radius:14px;border:5px solid #8fa0c0;box-sizing:border-box;opacity:0"></div>
+    ${[0, 1, 2].map((j) => bx('sb' + k + j, 240 + j * 220, D + 1535 + k * 140, 110, SLT, '#34415c', { gear: true }).replace('<svg class="w"', '<svg class="w drb' + k + '"').replace('overflow:visible', 'overflow:visible;opacity:0')).join('')}`));
+  ADD(`<div class="w" id="gear" style="left:1000px;top:${D + 1410}px;width:130px;height:130px;border-radius:50%;background:${SLD};border:6px solid #8fa0c0;color:#cfd8ea;display:flex;align-items:center;justify-content:center;box-sizing:border-box">${IC('settings', 'width:80px;height:80px')}</div>`);
+  ADD(tg('tSysH', 660, D + 1285, 'System variables', SLT, 64));
+  ADD(`<div class="w" id="tray" style="left:1230px;top:${D + 1420}px;width:570px;height:600px;background:#f7f9fd;border:6px solid ${SLT};border-radius:28px;box-sizing:border-box;opacity:0"></div>`);
+  ADD(tg('tSys1', 1515, D + 1440, 'System.Activity.Text', SLT, 48) + tg('tSys2', 1515, D + 1440, 'System.User.DisplayName', SLT, 48));
+  ADD(cd('cMsg', 1250, D + 1580, 540, 'Show my payslip', 52, SLT) + cd('cNam', 1260, D + 1580, 300, 'Marta', 48, SLT));
+  ADD(human('vl3', 1600, D + 1650, '#8a5cd6', '#2d2236', true));
+  ADD(cd('cRd', 1260, D + 1750, 240, 'Marta', 46, SLT) + tg('tRd', 1380, D + 1680, 'read', GRN, 46));
+  ADD(`<svg class="w" id="arm" style="left:0;top:${D + 1500}px;opacity:0" width="1800" height="500" viewBox="0 ${D + 1500} 1800 500"><path d="M1620 ${D + 1810} L1520 ${D + 1800}" stroke="#8a5cd6" stroke-width="28" stroke-linecap="round"/><circle cx="1510" cy="${D + 1802}" r="22" fill="#f2c9a6"/></svg>`);
+  ADD(bx('nbx', 1380, D + 1960, 110, SLT, SLD, { hide: true }) + `<div class="w" id="nbxX" style="left:960px;top:${D + 1900}px;width:100px;height:100px;border-radius:50%;background:#fff;border:8px solid ${SLT};color:${SLT};display:flex;align-items:center;justify-content:center;opacity:0">${IC('dismiss_circle', 'width:64px;height:64px')}</div>`);
+
+  /* ───────── Env shed ───────── */
+  ADD(`<div class="w" id="shedG" style="left:0;top:0;width:3840px;height:2800px;opacity:0"><svg class="w" style="left:2980px;top:${D + 1260}px" width="740" height="130" viewBox="0 0 740 130"><path d="M0 130 L370 6 L740 130 Z" fill="${TLD}"/></svg>
+    <div class="w" id="shed" style="left:3000px;top:${D + 1380}px;width:700px;height:660px;background:#cfe7ea;border:8px solid ${TLC};box-sizing:border-box"></div>
+    <div class="w" style="left:3080px;top:${D + 1950}px;width:540px;height:24px;background:#8b9aa3;border-radius:8px"></div></div>`);
+  ADD(`<div class="w" id="bDev" style="left:3020px;top:${D + 1400}px;width:320px;height:80px;background:#fff;border:5px solid ${TLC};border-radius:16px;box-sizing:border-box;font-size:44px;font-weight:800;color:${TLD};display:flex;align-items:center;justify-content:center;opacity:0">Development</div>
+    <div class="w" id="bPrd" style="left:3360px;top:${D + 1400}px;width:320px;height:80px;background:#fff;border:5px solid ${TLC};border-radius:16px;box-sizing:border-box;font-size:44px;font-weight:800;color:${TLD};display:flex;align-items:center;justify-content:center;opacity:0">Production</div>`);
+  ADD(cd('vDev', 3020, D + 1490, 320, 'test server', 38, TLC, 'server') + cd('vPrd', 3360, D + 1490, 320, 'real server', 38, TLC, 'server'));
+  ADD(tg('tPP', 3350, D + 1285, 'Power Platform', TLC, 56));
+  ADD(tg('tEnv', 3350, D + 1580, 'Env.ApiBaseUrl', TLC, 52) + cd('uTest', 3170, D + 1670, 360, 'test.contoso.com', 36, TLC) + cd('uReal', 3170, D + 1670, 360, 'api.contoso.com', 36, TLC));
+  ADD(bx('envBox', 3250, D + 1785, 200, TLC, TLD, { lock: true, hide: true }));
+  ADD(agent('nX', 2560, D + 1500, { folder: '' }).replace('style="', 'style="opacity:0;') + SB('nbX', 2740, D + 1380, 'inventory address', 'blue'));
+  ADD(admin('adm', 2470, D + 1440).split('#1e7f4f').join('#243a73').replace('</svg>', '<rect x="262" y="250" width="34" height="22" rx="4" fill="#fff"/><circle cx="214" cy="150" r="6" fill="#141821"/><circle cx="246" cy="150" r="6" fill="#141821"/><path d="M214 176 Q230 188 246 176" stroke="#141821" stroke-width="5" fill="none"/></svg>').replace('style="', 'style="opacity:0;'));
+  ADD(`<div class="w" id="tab" style="left:2560px;top:${D + 1330}px;width:300px;height:170px;background:#fff;border:6px solid ${NAVY};border-radius:16px;box-sizing:border-box;font-size:40px;font-weight:800;color:${NAVY};display:flex;align-items:center;justify-content:center;opacity:0">Power Apps</div>`);
+  ADD(`<svg class="w" id="akey" style="left:2860px;top:${D + 1700}px;opacity:0" width="70" height="70" viewBox="0 0 24 24"><circle cx="8" cy="12" r="5" fill="none" stroke="#d98a00" stroke-width="2.4"/><path d="M13 12 H22 M19 12 v4 M16 12 v3" stroke="#d98a00" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>`);
+  ADD(human('vl2', 2800, D + 1620, '#8a5cd6', '#2d2236', true));
+  ADD(`<svg class="w" id="varm" style="left:0;top:${D + 1600}px;opacity:0" width="3800" height="500" viewBox="0 ${D + 1600} 3800 500"><path d="M2960 ${D + 1830} L3290 ${D + 1840}" stroke="#8a5cd6" stroke-width="26" stroke-linecap="round"/><circle cx="3296" cy="${D + 1840}" r="20" fill="#f2c9a6"/></svg>`);
+  ADD(PEN('left:3290px;top:' + (D + 1760) + 'px;color:#141821;opacity:0').replace('<svg class="w"', '<svg class="w" id="vpen"'));
+  /* secret box (scene 7 s6) */
+  ADD(bx('secBox', 2160, T - 165, 200, TLC, TLD, { lock: true, hide: true }) + tg('tSec', 2260, T - 255, 'Secret', TLC, 52) + cd('cRun', 2060, T - 340, 440, 'read at runtime', 38, TLC));
+
+  /* ───────── overlays ───────── */
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plB">Variables and scope</div><div class="pl" id="plC">Back to Marta</div>
+    <div class="ov kin q" id="ovT"><span>Variables and scope</span></div>
+    ${[['b01', 'asked again', 'red'], ['b11', 'one piece of data, for later', ''], ['b10', 'variable = a named box', 'cb'], ['b12', 'scope = who can open it', ''], ['b14', 'locked inside one topic', 'cb'],
+      ['b21', 'only in its own topic', 'cb'], ['b22', "Payroll can't see it", 'red'], ['b23', 'works in all topics', 'go'], ['b24', 'filled once, reused everywhere', 'green'],
+      ['b40', 'already filled', 'sl'], ['b41', 'created by Copilot Studio', 'sl'], ['b42', 'last thing the user typed', 'sl'], ['b43', "the user's name", 'sl'], ['b44', "you read them · you don't create them", 'sl'],
+      ['b50', "type = the box's shape", ''], ['b51', 'set by the first assignment', ''], ['b52', 'stays a Number', ''], ['b53', 'text later → error', 'red'],
+      ['b73', 'read-only in Copilot Studio', 'tl'], ['b77', 'next: formatted responses', ''], ['b75', 'same nodes, different value', 'tl'], ['b76', 'value changes → republish (except secret)', 'tl']].map(([id, t, c]) => LBH(id, t, c)).join('')}
+    <div class="ov" id="board" style="left:1000px;top:130px;width:800px;height:560px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:36px;box-shadow:var(--shadow)">
+      <div style="position:absolute;left:30px;top:20px;font-size:46px;font-weight:800;color:${NAVY}">Remember: four boxes</div>
+      <div class="w bl1" id="rl0" style="left:30px;top:100px;opacity:0;display:flex;gap:16px;font-size:32px;font-weight:800;white-space:nowrap"><span style="background:${CB};color:#fff;border-radius:16px;padding:10px 18px">Topic: default</span><span style="background:${GO};color:#fff;border-radius:16px;padding:10px 18px">Global.: all topics</span></div>
+      <div class="w" id="rl1" style="left:30px;top:222px;opacity:0;font-size:34px;font-weight:800;white-space:nowrap"><span style="background:${SLT};color:#fff;border-radius:16px;padding:10px 20px;display:inline-block">System.: from Copilot Studio</span></div>
+      <div class="w" id="rl2" style="left:30px;top:344px;opacity:0;font-size:34px;font-weight:800;white-space:nowrap"><span style="background:${TLC};color:#fff;border-radius:16px;padding:10px 20px;display:inline-block">Env.: Power Platform, read-only here</span></div>
+      <div class="w" id="rl3" style="left:30px;top:466px;opacity:0;font-size:34px;font-weight:800;white-space:nowrap"><span style="background:${BLUE};color:#fff;border-radius:16px;padding:10px 20px;display:inline-block"># Type: fixed by the first value</span></div>
+    </div>`);
+  gsap.set('#board', { opacity: 0 });
+  function LBH(id, t, c) { return `<div class="bl ${c}" id="${id}">${t}</div>`; }
+  /* ───────── exam rooms ───────── */
+  const rmRow = (id, x, y, w, t, bg, bd, col) => `<div class="pz" id="${id}" style="left:${x}px;top:${y}px;${bg ? 'background:' + bg + ';' : ''}${bd ? 'border-color:' + bd + ';' : ''}${col ? 'color:' + col + ';' : ''}opacity:0">${t}</div>`;
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>Scope: global</h4>
+      ${bx('pa_b', 90, 74, 80, GO, GOD).replace('class="w"', 'class="w" ').replace('overflow:visible', 'overflow:visible;opacity:0')}
+      ${rmRow('pa_t', 200, 80, 0, 'Global.EmployeeId', GO, GO, '#fff')}
+      <svg class="w" style="left:0;top:0" width="808" height="278" viewBox="0 0 808 278">${[150, 400, 650].map((x, k) => `<path id="pa_l${k}" d="M388 138 L${x} 204" stroke="${GRN}" stroke-width="7" stroke-linecap="round" fill="none" opacity="0"/>`).join('')}</svg>
+      ${['Vacation', 'Payroll', 'Benefits'].map((n, k) => rmRow('pa_n' + k, [55, 315, 555][k], 206, 0, n, '#1d2742', GRN, '#fff')).join('')}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4>Copied question</h4>
+      ${['Vacation', 'Payroll', 'Benefits'].map((n, k) => `<div class="pz" id="pa_c${k}" style="left:${10 + k * 266}px;top:80px;width:256px;height:116px;padding:6px 10px;background:#2d3a5c;border-color:#3a4a78;opacity:0;white-space:nowrap;line-height:1.25">${n}<div style="font-size:32px;font-weight:600;color:#ffd166">Your number?</div></div>`).join('')}
+      ${rmRow('pa_ch', 24, 214, 0, 'asks again ×3', RED, RED, '#fff')}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:#ffd166;opacity:0"><h4>First value 4215</h4>
+      ${bx('pb_b1', 40, 84, 190, GO, GOD, { slot: 'num' }).replace('overflow:visible', 'overflow:visible;opacity:0')}
+      ${rmRow('pb_c1', 280, 90, 0, 'E4215', '#fff', RED, '#141821')}${rmRow('pb_t1', 280, 168, 0, 'type mismatch', RED, RED, '#fff')}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${GRN};opacity:0"><h4>Start as text</h4>
+      ${bx('pb_b2', 40, 84, 190, GO, GOD, { slot: 'str' }).replace('overflow:visible', 'overflow:visible;opacity:0')}
+      ${rmRow('pb_c2', 280, 90, 0, 'E4215', '#fff', GRN, '#141821')}${rmRow('pb_t2', 280, 168, 0, 'accepted', GRN, GRN, '#fff')}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${TLC};opacity:0"><h4>Env.ApiBaseUrl</h4>
+      ${rmRow('pc_d', 24, 84, 0, 'Development: test', '#1d2742', TLC, '#fff')}${rmRow('pc_p', 400, 84, 0, 'Production: real', '#1d2742', TLC, '#fff')}
+      <div class="w" id="pc_ok" style="left:24px;top:172px;font-size:36px;font-weight:800;color:#6be3a0;display:flex;gap:12px;align-items:center;white-space:nowrap;opacity:0">${IC('checkmark_circle', 'width:48px;height:48px')}Nodes unchanged · no edits</div></div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4>Global variable</h4>
+      ${['Vacation', 'Payroll', 'Benefits'].map((n, k) => rmRow('pc_n' + k, [24, 270, 510][k], 84, 0, n, '#1d2742', '#3a4a78', '#fff')).join('')}
+      ${rmRow('pc_ch', 24, 172, 0, 'edit every topic', RED, RED, '#fff')}</div>`;
+  EXAMS(
+    mkExam('exA', { q: "Contoso's vacation topic saves the employee number in a topic variable. The payroll and benefits topics need the same number without asking again. What should you do?", opts: ['Copy the question into every topic', 'Change the variable scope to global', 'Make it a new system variable instead'],
+      why: `<div id="exA_w1"><span class="y">Change the scope</span> in the variable's <span class="g">properties panel</span></div><div id="exA_w2">Copying <span class="r">asks the user again</span> · you <span class="r">cannot create</span> system variables</div>`, proof: proofA }),
+    mkExam('exB', { q: 'Valeria first sets Global.EmployeeId to the number 4215. Later, a node saves the text E4215 in the same variable. What happens?', opts: ['An error: the type is already Number', 'It quietly converts itself to a String', 'The text is stored as the number zero'],
+      why: `<div id="exB_w1">The type comes from the <span class="g">first assignment</span> and <span class="y">does not change</span></div><div id="exB_w2">If an ID can have <span class="y">letters</span>, start it as <span class="g">text</span></div>`, proof: proofB }),
+    mkExam('exC', { q: 'Nexo calls an inventory address that is different in development and in production. Contoso wants to move the agent without editing any node. What should you use?', opts: ['A global variable set in every topic', 'A system variable that holds the address', 'An environment variable for the address'],
+      why: `<div id="exC_w1"><span class="g">Separates parameter from logic</span> · values set in <span class="y">Power Apps</span></div><div id="exC_w2">A global variable still means <span class="r">editing the agent</span></div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .pz').forEach((e) => { e.style.opacity = 0; });
+
+  /* ───────── UI window (scene 9) ───────── */
+  const navS = ['Topics', 'Tools', 'Knowledge', 'Settings'];
+  const chatB = (id, side, t, extra) => `<div class="w" id="${id}" style="${side}:24px;top:${extra.top}px;max-width:560px;box-sizing:border-box;padding:10px 22px;border-radius:20px;font-size:34px;font-weight:700;opacity:0;white-space:nowrap;${extra.st}">${t}</div>`;
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Nexo', nav: navS, on: 0, bar: `<span class="hc" id="uTestB">${IC('chat')}Test</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Topics</div><h3>Topics</h3>
+      ${['Vacation', 'Payroll', 'Benefits'].map((t, k) => `<div class="row" id="uR${k}" style="width:1100px"><b>${t}</b><span style="font-size:36px;color:var(--muted)">›</span></div>`).join('')}</div>
+    <div class="lay" id="uL1"><div class="crumb">Topics › Vacation</div><h3>Vacation</h3>
+      <div class="nc" id="uNode" style="width:640px;opacity:0"><small>Question node</small><div style="font-size:34px;font-weight:800">What is your employee number?</div></div>
+      <div class="fld" id="uFld" style="width:640px;height:118px;margin-top:26px;position:relative;opacity:0"><small>Save user response as</small>
+        <span id="uV1" style="position:absolute;left:22px;top:54px;font-size:36px;font-weight:700;color:var(--muted)">Create new variable</span>
+        <span id="uV2" style="position:absolute;left:22px;top:54px;font-size:36px;font-weight:800;color:${CBD};opacity:0">EmployeeId</span>
+        <span id="uV3" style="position:absolute;left:22px;top:54px;font-size:36px;font-weight:800;color:${GOD};opacity:0">Global.EmployeeId</span></div>
+      <div id="uPan" style="position:absolute;right:0;top:0;width:520px;height:440px;box-sizing:border-box;background:#fff;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);padding:20px 28px;opacity:0">
+        <div style="font-size:38px;font-weight:800;margin-bottom:18px">Variable properties</div>
+        <div style="font-size:32px;font-weight:700;color:var(--muted)">Name</div>
+        <div style="position:relative;height:56px"><span id="uN1" style="position:absolute;left:0;top:4px;font-size:38px;font-weight:800;color:${CBD}">EmployeeId</span><span id="uN2" style="position:absolute;left:0;top:4px;font-size:38px;font-weight:800;color:${GOD};opacity:0">Global.EmployeeId</span></div>
+        <div style="font-size:32px;font-weight:700;color:var(--muted);margin-top:16px">Scope</div>
+        <div style="display:flex;gap:14px;margin-top:10px"><span id="uSegT" style="width:210px;height:76px;box-sizing:border-box;border:4px solid ${CB};background:#f7ecdc;border-radius:16px;font-size:36px;font-weight:800;display:flex;align-items:center;justify-content:center">Topic</span><span id="uSegG" style="width:210px;height:76px;box-sizing:border-box;border:4px solid var(--line2);background:#fff;border-radius:16px;font-size:36px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--muted)">Global</span></div></div></div>
+    <div class="lay" id="uL2"><div class="crumb">Topics › Payroll</div><h3>Payroll</h3>
+      <div class="nc" style="width:900px"><small>Message</small><div style="position:relative;height:60px"><span style="position:absolute;left:0;top:6px;font-size:38px;font-weight:700">Hi, employee</span><span id="uX1" style="position:absolute;left:290px;top:6px;font-size:38px;font-weight:700;color:var(--muted)">{x}</span><span id="uX2" style="position:absolute;left:290px;top:2px;font-size:36px;font-weight:800;background:${GO};color:#fff;border-radius:14px;padding:4px 18px;opacity:0">Global.EmployeeId</span></div></div>
+      <div style="margin-top:34px"><span class="btn" id="uIns" style="display:inline-flex;align-items:center;gap:12px">${IC('braces', 'width:36px;height:36px')}Insert variable</span></div></div>
+    <div class="lay" id="uL3"><div class="crumb">Test chat</div><h3>Test chat</h3>
+      <div style="position:absolute;left:0;top:104px;width:640px;height:520px;box-sizing:border-box;border:3px solid var(--line2);border-radius:20px;background:#f7f9fd">
+        ${chatB('ch1', 'right', '4215', { top: 24, st: 'background:' + BLUE + ';color:#fff' })}${chatB('ch2', 'right', 'Show my payslip', { top: 120, st: 'background:' + BLUE + ';color:#fff' })}
+        <div class="w" id="ch3" style="left:24px;top:230px;box-sizing:border-box;padding:10px 22px;border-radius:20px;font-size:34px;font-weight:700;opacity:0;white-space:nowrap;background:#fff;border:3px solid ${GRN};display:flex;align-items:center;gap:12px">Payslip for employee 4215${IC('checkmark_circle', 'width:44px;height:44px;color:' + GRN)}</div></div>
+      <div id="uVars" style="position:absolute;left:672px;top:104px;width:556px;height:200px;box-sizing:border-box;border:3px solid var(--line2);border-radius:20px;padding:18px 24px;opacity:0"><div style="font-size:36px;font-weight:800;margin-bottom:14px">Variables</div><div id="uVr" style="font-size:34px;font-weight:700;color:${GOD};white-space:nowrap;opacity:0">Global.EmployeeId = 4215</div></div></div>` }));
+  const PU = { r0: PC('#uR0'), r1: PC('#uR1'), nav0: PC('#uiS_nv0'), fld: PC('#uV1'), v: PC('#uV2'), sg: PC('#uSegG'), ins: PC('#uIns'), tst: PC('#uTestB') };
+
+  /* ═════════════════ TIMELINE ═════════════════ */
+  const CAMX = (x, y, s, t) => tl.set('#world', { x: 960 - x * s, y: 540 - y * s, scale: s }, t);
+  const LAB = (id, a, b) => { TAG('#' + id, a); OFF('#' + id, b, 0.25); };
+  const LID = (id, t, open) => tl.to(`#${id}_lid`, { rotation: open ? -32 : 0, svgOrigin: '8 44', duration: 0.35, ease: 'power2.out' }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.1, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) + 0.2);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.5 }, S(i, 0) + 0.3 + k * 0.12));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', S(i, 9), 0.2);
+    OFF(X, o.end, 0.4);
+  };
+  const FILL = (id, i, chips) => { document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:830px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`); [S(i, 1) + 0.4, S(i, 2) + 0.1, S(i, 3) + 0.1].forEach((t, k) => ON(`#${id}_sc .fc:nth-child(${k + 1})`, t, 0.3)); OFF(`#${id}_sc`, S(i, 8) - 0.05, 0.25); };
+  FILL('exA', 3, ['Topic variable in Vacation', 'Payroll and Benefits need it', 'No second question']);
+  FILL('exB', 6, ['Global.EmployeeId = 4215', 'Later: the text E4215', 'Same variable']);
+  FILL('exC', 8, ['Test server in development', 'Real server in production', 'No node edited']);
+  const SH = (sel, t, d) => tl.fromTo(sel, { x: 0 }, { x: 8, duration: 0.06, yoyo: true, repeat: 5 }, t);
+
+  gsap.set('#world', { x: 960 - 700, y: 540 - 580, scale: 1 });
+  gsap.set(['#nP', '#nB'], { opacity: 0 });
+  gsap.set('#uiS', { opacity: 0 });
+
+  /* ── 0 Asked twice ── */
+  TAG('#plA', 0.3); OFF('#plA', S(0, 2) - 0.2, 0.3);
+  tl.fromTo('#nV', { y: 0 }, { y: -26, duration: 0.22, yoyo: true, repeat: 1, ease: 'power1.out' }, S(0, 0) + 0.4);
+  TAG('#mbV1', W(0, 0, 'vacation', -0.5)); OFF('#mbV1', S(0, 1) - 0.05, 0.25);
+  TAG('#nbV1', S(0, 1) + 0.1);
+  TAG('#mbV2', W(0, 1, 'types', 0));
+  POP('#bg', W(0, 1, 'types', -0.2)); TAG('#tA', W(0, 1, 'types', 0)); LID('bxB', W(0, 1, 'types', 0.1), false);
+  tl.set('#bxB_lid', { rotation: -32, svgOrigin: '8 44' }, 0);
+  OFF(['#nbV1', '#mbV2'], S(0, 2) - 0.3, 0.25);
+  CAM(1920, 580, 1, S(0, 2) - 0.2, 1.3); OFF(['#bg', '#tA'], S(0, 2) + 0.05, 0.25); ON('#nP', S(0, 2) + 0.9, 0.3);
+  OFF('#mV', S(0, 2) - 0.1, 0.3);
+  tl.fromTo('#mP', { x: -300, opacity: 0 }, { x: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, S(0, 2) + 0.9);
+  TAG('#mbP1', W(0, 2, 'payslip', -0.3));
+  tl.fromTo('#nP', { y: 0 }, { y: -22, duration: 0.2, yoyo: true, repeat: 1 }, S(0, 2) + 0.4);
+  OFF('#mbP1', S(0, 3) - 0.1, 0.25);
+  TAG('#nbP1', S(0, 3) + 0.1); ON('#ghost', S(0, 3) + 0.3, 0.3);
+  LAB('b01', W(0, 3, 'again', 0), S(0, 5) - 0.4);
+  tl.to('#mP_b', { y: 14, duration: 0.5, ease: 'power1.inOut' }, S(0, 4) + 0.05); TAG('#puff', S(0, 4) + 0.3);
+  tl.to('#mP_b', { y: 0, duration: 0.5 }, S(0, 5) + 0.1);
+  OFF(['#nbP1', '#puff', '#ghost'], S(0, 5) - 0.1, 0.25);
+  CAM(1990, 580, 1, S(0, 5), 3.6, 'sine.inOut');
+  tl.fromTo('#ovT', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, S(0, 5) + 0.2);
+  OFF('#ovT', S(0, 5) + 2.5, 0.35);
+  TAG('#plB', S(0, 5) + 2.9);
+
+  /* ── 1 A named box ── */
+  OFF(['#mP', '#nP'], S(1, 0) - 0.55, 0.01);
+  CAM(2150, T - 170, 1.4, S(1, 0) - 0.5, 1.9); TAG('#tH', S(1, 0) + 0.1); OFF(['#ds0', '#ds1', '#ds2'], S(1, 0) - 0.55, 0.2);
+  tl.fromTo('#vl', { y: 0 }, { y: -16, duration: 0.2, yoyo: true, repeat: 1 }, S(1, 0) + 0.8);
+  LAB('b10', S(1, 0) + 0.5, S(1, 1) - 0.1);
+  LID('bxH', S(1, 1) + 0.15, true);
+  tl.fromTo('#c4215', { opacity: 0, y: 0 }, { opacity: 1, y: 100, duration: 0.5 }, S(1, 1) + 0.5);
+  tl.to('#c4215', { y: 330, opacity: 0, duration: 0.6, ease: 'power2.in' }, S(1, 1) + 1.1);
+  LID('bxH', S(1, 1) + 1.7, false);
+  POPX('#cName', W(1, 1, 'name', -0.1)); POPX('#cTick', W(1, 1, 'ticket number', -0.1));
+  tl.fromTo('#cName,#cTick', { y: 0 }, { y: -12, duration: 0.7, yoyo: true, repeat: 3, ease: 'sine.inOut' }, W(1, 1, 'ticket number', 0.6));
+  LAB('b11', S(1, 1) + 0.3, S(1, 2) - 0.3);
+  OFF(['#cName', '#cTick'], S(1, 2) - 0.2, 0.25);
+  LAB('b12', S(1, 2) + 0.3, S(1, 3) - 0.3);
+  tl.set('#key', { opacity: 1 }, S(1, 2) + 0.1);
+  tl.fromTo('#keyC', { opacity: 0 }, { opacity: 1, duration: 0.3, yoyo: true, repeat: 5 }, S(1, 2) + 0.4);
+  POPX('#kC', W(1, 3, 'one topic', -0.1)); POPX('#kG', W(1, 3, 'whole agent', -0.2));
+  OFF(['#kC', '#kG', '#bxH', '#tH', '#key'], S(1, 4) - 0.3, 0.3);
+  CAM(560, 600, 1, S(1, 4) - 0.4, 1.7); ON(['#nV', '#bg', '#tA', '#ds0', '#ds1', '#ds2'], S(1, 4) + 1.0, 0.3);
+  ON('#shut', S(1, 4) + 0.9, 0.4); POP('#padl', W(1, 4, 'locked', 0));
+  LAB('b14', S(1, 4) + 1.4, S(2, 0) - 0.4);
+  OFF('#plB', S(1, 3) - 0.1, 0.3);
+
+  /* ── 2 Topic and Global ── */
+  OFF(['#shut', '#padl'], S(2, 0) - 0.1, 0.3);
+  CAM(700, 580, 1, S(2, 0) - 0.1, 1.2);
+  TAG('#tD', S(2, 0) + 0.3);
+  tl.to('#room0', { boxShadow: '0 0 0 14px rgba(192,138,74,.55)', duration: 0.4 }, S(2, 1) + 0.1);
+  LAB('b21', S(2, 1) + 0.3, S(2, 2) - 0.3);
+  tl.to('#room0', { boxShadow: '0 0 0 0 rgba(192,138,74,0)', duration: 0.4 }, S(2, 2) - 0.2);
+  CAM(1920, 580, 1, S(2, 2) - 0.2, 1.2); OFF(['#nV', '#bg', '#tA', '#tD'], S(2, 2) - 0.3, 0.25);
+  ON(['#mP', '#nP'], S(2, 2) + 0.9, 0.3); TAG('#nbP2', S(2, 2) + 1.2); tl.fromTo('#nP', { y: 0 }, { y: -20, duration: 0.2, yoyo: true, repeat: 1 }, S(2, 2) + 1.2);
+  ON('#ghost', S(2, 2) + 1.0, 0.3);
+  LAB('b22', S(2, 2) + 1.6, S(2, 3) - 0.3);
+  OFF(['#nbP2', '#ghost'], S(2, 3) - 0.1, 0.25);
+  CAM(1300, 700, 0.8, S(2, 3) - 0.2, 1.2); ON(['#nV', '#bg', '#tA', '#tD'], S(2, 3) - 0.1, 0.3);
+  OFF('#tD', S(2, 3) + 0.3, 0.2);
+  tl.to('#bg', { y: 340, duration: 0.7, ease: 'power2.inOut' }, S(2, 3) + 0.4);
+  tl.to('#bg', { x: 1135, duration: 1.3, ease: 'power2.inOut' }, S(2, 3) + 1.1);
+  tl.to('#bxB_f', { fill: GO, duration: 0.4 }, W(2, 3, 'global', 0.3)); tl.to('#bxB_lid rect', { fill: GOD, duration: 0.4 }, W(2, 3, 'global', 0.3));
+  OFF('#tA', W(2, 3, 'prefix', 0), 0.25); TAG('#tG1', W(2, 3, 'prefix', 0.4));
+  LAB('b23', W(2, 3, 'works', 0), S(2, 4) - 0.3);
+  CAM(1920, 560, 0.6, S(2, 4) - 0.3, 1.4); OFF(['#nV', '#nP', '#mP'], S(2, 4) - 0.4, 0.25);
+  OFF('#tG1', S(2, 4) + 0.1, 0.25); TAG('#tG2', S(2, 4) + 0.4);
+  ON('#dlS', W(2, 4, 'filled', 0.5), 0.01);
+  [0, 1, 2].forEach((k) => { const t = W(2, 4, 'filled', 0.6) + k * 0.9; ON('#dl' + k, t, 0.4); POP('#lt' + k, t + 0.4); });
+  LAB('b24', W(2, 4, 'reuses', -0.4), S(3, 0) - 0.4);
+  OFF(['#dlS', '#lt0', '#lt1', '#lt2'], S(3, 0) - 0.1, 0.2);
+
+  /* ── 3 EXAM A ── */
+  CAMX(985, D + 1700, 1, S(3, 0) + 0.6); tl.set(['#vl', '#tabS', '#tabF', '#lap'], { opacity: 0 }, S(3, 0) + 0.6);
+  EXAMX('exA', 3, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 0.1 });
+  const RW = S(3, 8);
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(3, 9)); tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(3, 10));
+  ON('#pa_L', S(3, 9) + 0.1, 0.3); ON('#pa_b', S(3, 9) + 0.5, 0.3); ON('#pa_t', S(3, 9) + 0.7, 0.3);
+  ['pa_n0', 'pa_n1', 'pa_n2'].forEach((n, k) => { ON('#' + n, S(3, 9) + 1.3 + k * 0.3, 0.3); ON('#pa_l' + k, S(3, 9) + 1.6 + k * 0.3, 0.3); });
+  ON('#pa_R', S(3, 10) + 0.1, 0.3);
+  [0, 1, 2].forEach((k) => ON('#pa_c' + k, S(3, 10) + 0.4 + k * 0.5, 0.3)); ON('#pa_ch', W(3, 10, 'asks', 0.2), 0.3);
+
+  /* ── 4 System variables ── */
+  ON('#tray', W(4, 2, 'system', -0.2), 0.4); OFF('#tray', S(4, 4) - 0.1, 0.25); TAG('#tSysH', S(4, 0) - 0.1); OFF('#tSysH', S(5, 0) - 0.6, 0.25);
+  tl.fromTo('#dr0,#dr1,#dr2,#dr3', { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.6, stagger: 0.25, ease: 'back.out(1.5)' }, S(4, 0) - 0.1);
+  ['.drb0', '.drb1', '.drb2', '.drb3'].forEach((c, k) => tl.fromTo(c, { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.1 }, S(4, 0) + 0.2 + k * 0.25));
+  LAB('b40', S(4, 0) + 0.8, S(4, 1) - 0.1);
+  tl.to('#gear', { backgroundColor: '#5b6c8e', color: '#ffd166', scale: 1.18, duration: 0.4, yoyo: true, repeat: 3 }, S(4, 1) + 0.3);
+  LAB('b41', S(4, 1) + 0.6, S(4, 2) - 0.3);
+  LID('sb00', S(4, 2) + 0.2, true);
+  TAG('#tSys1', W(4, 2, 'system', 0.0));
+  tl.fromTo('#cMsg', { opacity: 0, x: 0, y: 60, scale: 0.8 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.8, ease: 'power2.out' }, W(4, 2, 'system', 0.3));
+  LAB('b42', W(4, 2, 'last', 0), S(4, 3) - 0.3);
+  OFF(['#tSys1', '#cMsg'], S(4, 3) - 0.1, 0.25); LID('sb00', S(4, 3) - 0.1, false);
+  LID('sb10', S(4, 3) + 0.15, true);
+  TAG('#tSys2', S(4, 3) + 0.4);
+  tl.fromTo('#cNam', { opacity: 0, x: 0, y: 60, scale: 0.8 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.8, ease: 'power2.out' }, S(4, 3) + 0.5);
+  LAB('b43', W(4, 3, "user's", 0), S(4, 4) - 0.3);
+  OFF(['#tSys2', '#cNam'], S(4, 4) - 0.1, 0.25); LID('sb10', S(4, 4) - 0.1, false);
+  tl.fromTo('#vl3', { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out' }, S(4, 4) + 0.05);
+  ON('#cRd', S(4, 4) + 0.5, 0.3); ON('#arm', S(4, 4) + 0.6, 0.3); TAG('#tRd', W(4, 4, 'read', 0.1));
+  LAB('b44', W(4, 4, 'read', 0.3), S(5, 0) - 0.5);
+  OFF(['#tRd', '#cRd'], W(4, 4, 'create', -0.5), 0.25);
+  tl.fromTo('#nbx', { opacity: 0, x: 0 }, { opacity: 1, x: 0, duration: 0.3 }, W(4, 4, 'create', -0.4));
+  tl.to('#nbx', { x: -300, duration: 0.5, ease: 'power2.in' }, W(4, 4, 'create', 0)); tl.to('#nbx', { x: -180, duration: 0.3, ease: 'power2.out' }, W(4, 4, 'create', 0.5));
+  tl.set('#nbxX', { opacity: 1 }, W(4, 4, 'create', 0.5)); SH('#dr3', W(4, 4, 'create', 0.5));
+
+  /* ── 5 The type ── */
+  OFF(['#arm', '#vl3', '#nbx', '#nbxX', '#cRd', '#tRd'], S(5, 0) - 0.5, 0.25);
+  CAM(2200, T - 170, 1.25, S(5, 0) - 0.5, 1.5); ON(['#vl', '#tabS', '#tabF', '#lap'], S(5, 0) - 0.3, 0.3);
+  tl.set('#bxA', { opacity: 0 }, 0);
+  POP('#bxA', S(5, 0) + 0.15); POP('#bxS', S(5, 0) + 0.45);
+  LAB('b50', S(5, 0) + 0.8, S(5, 1) - 0.1);
+  OFF('#bxS', S(5, 1) + 0.15, 0.3); tl.to('#bxA_sn', { opacity: 0, duration: 0.2 }, S(5, 1) + 0.2); ON('#bxN', S(5, 1) + 0.3, 0.3);
+  LAB('b51', S(5, 1) + 0.6, S(5, 2) - 0.3);
+  tl.fromTo('#cNum', { opacity: 0, y: 0 }, { opacity: 1, y: 150, duration: 0.5 }, S(5, 2) + 0.1);
+  tl.to('#cNum', { y: 420, opacity: 0, duration: 0.5, ease: 'power2.in' }, S(5, 2) + 0.7);
+  OFF('#bxN', S(5, 2) + 1.0, 0.2); tl.to('#bxA_sn', { opacity: 1, duration: 0.01 }, S(5, 2) + 1.2);
+  TAG('#tNum', W(5, 2, 'stays', 0.2));
+  LAB('b52', W(5, 2, 'stays', 0.4), S(5, 3) - 0.3);
+  OFF('#tNum', S(5, 3) - 0.2, 0.25);
+  tl.fromTo('#cE', { opacity: 0, y: 0 }, { opacity: 1, y: 440, duration: 0.7, ease: 'power2.in' }, S(5, 3) + 0.0);
+  tl.to('#cE', { y: 370, duration: 0.25, yoyo: true, repeat: 3 }, S(5, 3) + 0.8);
+  tl.to('#bxA_f', { fill: RED, duration: 0.2, yoyo: true, repeat: 3 }, W(5, 3, 'error', -0.3));
+  LAB('b53', W(5, 3, 'error', -0.2), S(5, 4) - 0.1);
+  OFF(['#cE'], S(5, 3) + 2.4, 0.25); OFF('#bxA', S(5, 4) - 0.1, 0.25);
+  tl.to('.chip.sm', { opacity: 0.4, duration: 0.4 }, S(5, 0) + 0.2);
+  ['string', 'boolean', 'number', 'table', 'record', 'datetime', 'choice', 'blank'].forEach((w, k) => { tl.to('#ty' + k, { opacity: 1, borderColor: BLUE, color: BLUE, scale: 1.08, duration: 0.3, yoyo: false }, W(5, 4, w, -0.15)); });
+  OFF('.chip.sm', S(6, 0) - 0.5, 0.3);
+
+  /* ── 6 EXAM B ── */
+  CAMX(3100, D + 1650, 1.2, S(6, 0) + 0.6); tl.set(['#shedG', '#nX'], { opacity: 1 }, S(6, 0) + 0.6); tl.set(['#vl', '#tabS', '#tabF', '#lap'], { opacity: 0 }, S(6, 0) + 0.6);
+  EXAMX('exB', 6, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(6, 4), S(6, 5), S(6, 6)], end: S(7, 0) - 0.1 });
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(6, 9)); tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(6, 10));
+  ON('#pb_L', S(6, 9) + 0.1, 0.3); ON('#pb_b1', S(6, 9) + 0.4, 0.3); ON('#pb_c1', S(6, 9) + 0.5, 0.3);
+  tl.fromTo('#pb_c1', { x: 0 }, { x: -70, duration: 0.3, yoyo: true, repeat: 3 }, W(6, 9, 'does not', 0)); ON('#pb_t1', W(6, 9, 'does not', 0.5), 0.3);
+  ON('#pb_R', S(6, 10) + 0.1, 0.3); ON('#pb_b2', S(6, 10) + 0.4, 0.3); ON('#pb_c2', S(6, 10) + 0.15, 0.3); ON('#pb_t2', S(6, 10) + 0.5, 0.3);
+
+  /* ── 7 Environment variables ── */
+  tl.fromTo('#nX', { y: 0 }, { y: -20, duration: 0.2, yoyo: true, repeat: 1 }, S(7, 0) + 0.4);
+  TAG('#nbX', S(7, 0) + 0.2);
+  TAG('#tPP', W(7, 3, 'power platform', -0.2)); OFF('#tPP', S(7, 4) - 0.1, 0.25);
+  tl.fromTo(['#bDev', '#bPrd'], { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', stagger: 0.9 }, W(7, 1, 'development', 0));
+  tl.fromTo(['#vDev'], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45 }, W(7, 1, 'test', 0)); tl.fromTo(['#vPrd'], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45 }, W(7, 1, 'real', 0));
+  OFF('#nbX', S(7, 2) - 0.2, 0.25);
+  POP('#envBox', W(7, 2, 'env dot', 0)); TAG('#tEnv', W(7, 2, 'env dot', 0.3)); ON('#uTest', W(7, 2, 'env dot', 1.0), 0.4);
+  tl.set('#envBox_lid', { rotation: 0 }, 0);
+  OFF('#nX', S(7, 3) - 0.1, 0.3);
+  tl.fromTo('#vl2', { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, S(7, 3) + 0.1);
+  ON('#varm', S(7, 3) + 0.5, 0.3); ON('#vpen', S(7, 3) + 0.5, 0.3);
+  tl.fromTo('#vpen', { x: 0 }, { x: -40, duration: 0.12, yoyo: true, repeat: 5 }, W(7, 3, 'read-only', -0.2));
+  LAB('b73', W(7, 3, 'read-only', 0), S(7, 4) - 0.3);
+  OFF(['#vl2', '#varm', '#vpen'], S(7, 4) - 0.1, 0.3);
+  tl.fromTo('#adm', { opacity: 0, x: -140 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, S(7, 4) + 0.1);
+  tl.set('#tab', { opacity: 1, scale: 0.7 }, W(7, 4, 'power apps', -0.3)); tl.to('#tab', { scale: 1, duration: 0.35, ease: 'back.out(1.6)' }, W(7, 4, 'power apps', -0.3));
+  ON('#akey', S(7, 4) + 0.5, 0.3);
+  tl.to('#akey', { x: 455, y: 150, duration: 1.2, ease: 'power2.inOut' }, S(7, 4) + 0.7);
+  tl.to('#envBox_lk', { opacity: 0, duration: 0.2 }, S(7, 4) + 1.9); LID('envBox', S(7, 4) + 1.9, true); OFF('#akey', S(7, 4) + 2.2, 0.3); 
+  OFF('#uTest', W(7, 4, 'power apps', 0.8), 0.25); ON('#uReal', W(7, 4, 'power apps', 0.8) + 0.3, 0.3);
+  OFF(['#adm', '#tab'], S(7, 5) - 0.3, 0.2);
+  CAM(1920, 720, 0.8, S(7, 5) - 0.3, 1.5); ON(['#nP', '#mP'], S(7, 5) + 1.0, 0.3); OFF(['#ds0', '#ds2'], S(7, 5) - 0.4, 0.2); ON(['#plD', '#plP'], S(7, 5) - 0.4, 0.25); OFF(['#bDev', '#bPrd', '#vDev', '#vPrd', '#tEnv', '#uReal', '#uTest', '#envBox', '#shedG'], S(7, 5) - 0.4, 0.25);
+  tl.to('#plD', { x: -6300, duration: 2.0, ease: 'power2.inOut' }, W(7, 5, 'moves', 0)); tl.to('#plP', { x: 0, duration: 2.0, ease: 'power2.inOut' }, W(7, 5, 'moves', 0));
+  LAB('b75', W(7, 5, 'without', 0), S(7, 6) - 0.4);
+  CAM(2150, T - 60, 1.35, S(7, 6) - 0.3, 1.5); ON(['#vl', '#tabS', '#tabF', '#lap'], S(7, 6) - 0.4, 0.3);
+  POP('#lapB', W(7, 6, 'republish', -0.2));
+  tl.fromTo('#lapB', { scale: 1 }, { scale: 1.12, duration: 0.3, yoyo: true, repeat: 5 }, W(7, 6, 'republish', 0.4));
+  POP('#secBox', W(7, 6, 'secret', -0.1)); TAG('#tSec', W(7, 6, 'secret', 0.2)); ON('#cRun', W(7, 6, 'runtime', -0.4), 0.3);
+  LAB('b76', S(7, 6) + 1.5, S(8, 0) - 0.4);
+
+  /* ── 8 EXAM C ── */
+  CAMX(2630, T - 110, 2, S(8, 0) + 0.6);
+  tl.set(['#secBox', '#tSec', '#cRun', '#lapB'], { opacity: 0 }, S(8, 0) + 0.6);
+  EXAMX('exC', 8, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(8, 4), S(8, 5), S(8, 6)], end: S(9, 0) - 0.1 });
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(8, 9)); tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(8, 10));
+  ON('#pc_L', S(8, 9) + 0.1, 0.3); ON('#pc_d', S(8, 9) + 0.3, 0.3); ON('#pc_p', S(8, 9) + 0.7, 0.3); ON('#pc_ok', W(8, 9, 'power apps', 0.2), 0.3);
+  ON('#pc_R', S(8, 10) + 0.1, 0.3); [0, 1, 2].forEach((k) => ON('#pc_n' + k, S(8, 10) + 0.4 + k * 0.5, 0.3)); ON('#pc_ch', W(8, 10, 'editing', 0), 0.3);
+
+  /* ── 9 Studio (UI) ── */
+  UIIN('#uiS', S(9, 0) + 0.5);
+  ON('#cur', S(9, 0) + 1.5, 0.2);
+  CUR(PU.r0[0], PU.r0[1], S(9, 1) + 0.1, 0.8); CLICK(PU.r0[0], PU.r0[1], W(9, 1, 'vacation', 0.5));
+  tl.to('#uL0', { opacity: 0, duration: 0.2 }, W(9, 1, 'vacation', 0.55)); ON('#uL1', W(9, 1, 'vacation', 0.6), 0.25);
+  ON('#uNode', W(9, 1, 'question node', 0), 0.3); ON('#uFld', W(9, 1, 'employee', 0.2), 0.3);
+  CUR(PU.fld[0], PU.fld[1], S(9, 2) + 0.05, 0.7); CLICK(PU.fld[0], PU.fld[1], W(9, 2, 'create', 0));
+  tl.to('#uV1', { opacity: 0, duration: 0.2 }, W(9, 2, 'employeeid', -0.2)); ON('#uV2', W(9, 2, 'employeeid', 0), 0.25);
+  CUR(PU.v[0] + 40, PU.v[1], S(9, 3) + 0.05, 0.6); CLICK(PU.v[0] + 40, PU.v[1], S(9, 3) + 0.7);
+  tl.fromTo('#uPan', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.4, ease: 'power2.out' }, W(9, 3, 'variable properties', 0));
+  CUR(PU.sg[0], PU.sg[1], W(9, 3, 'scope', 0), 0.6); CLICK(PU.sg[0], PU.sg[1], W(9, 3, 'global', 0));
+  tl.to('#uSegT', { backgroundColor: '#fff', borderColor: '#c9ced8', color: '#5d6472', duration: 0.2 }, W(9, 3, 'global', 0.05)); tl.to('#uSegG', { backgroundColor: '#f6e9bd', borderColor: GO, color: GOD, duration: 0.2 }, W(9, 3, 'global', 0.05));
+  OFF(['#uN1', '#uV2'], W(9, 3, 'global', 0.5), 0.2); ON(['#uN2', '#uV3'], W(9, 3, 'global', 0.75), 0.25);
+  CUR(PU.nav0[0], PU.nav0[1], S(9, 4) + 0.05, 0.5); CLICK(PU.nav0[0], PU.nav0[1], S(9, 4) + 0.6);
+  tl.to('#uL1', { opacity: 0, duration: 0.2 }, S(9, 4) + 0.65); ON('#uL0', S(9, 4) + 0.7, 0.2);
+  CUR(PU.r1[0], PU.r1[1], S(9, 4) + 0.75, 0.4); CLICK(PU.r1[0], PU.r1[1], S(9, 4) + 1.2);
+  tl.to('#uL0', { opacity: 0, duration: 0.2 }, S(9, 4) + 1.25); ON('#uL2', S(9, 4) + 1.3, 0.25);
+  CUR(PU.ins[0], PU.ins[1], W(9, 4, 'insert', -0.4), 0.5); CLICK(PU.ins[0], PU.ins[1], W(9, 4, 'insert', 0.2));
+  OFF('#uX1', W(9, 4, 'insert', 0.3), 0.2); ON('#uX2', W(9, 4, 'insert', 0.55), 0.25);
+  CUR(PU.tst[0], PU.tst[1], S(9, 5) + 0.05, 0.5); CLICK(PU.tst[0], PU.tst[1], S(9, 5) + 0.6);
+  tl.to('#uL2', { opacity: 0, duration: 0.2 }, S(9, 5) + 0.65); ON('#uL3', S(9, 5) + 0.7, 0.2);
+  ON('#ch1', S(9, 5) + 0.85, 0.2); ON('#ch2', S(9, 5) + 1.3, 0.2); ON('#ch3', S(9, 5) + 1.75, 0.2); ON('#uVars', S(9, 5) + 1.9, 0.25); ON('#uVr', S(9, 5) + 2.15, 0.2);
+  OFF('#cur', E(9, 5) - 0.45, 0.15);
+  UIOUT('#uiS', E(9, 5) - 0.4);
+
+  /* ── 10 One box for the whole agent ── */
+  CAMX(1920, 640, 0.62, S(9, 0) + 1.2); tl.set(['#mP', '#nP', '#nB'], { opacity: 1 }, S(9, 0) + 1.2); tl.set('#nV', { opacity: 0 }, S(9, 0) + 1.2); tl.set(['#ds0', '#ds2'], { opacity: 1 }, S(9, 0) + 1.2);
+  TAG('#plC', S(10, 0) + 0.1);
+  tl.to('#shelf', { boxShadow: '0 0 0 12px rgba(184,134,11,.45)', duration: 0.5, yoyo: true, repeat: 3 }, S(10, 0) + 0.3);
+  CAM(700, 580, 1, S(10, 1) - 0.1, 1.2); OFF(['#nB', '#nP', '#bg', '#tG2'], S(10, 1) - 0.3, 0.25); ON('#nV', S(10, 1) + 0.5, 0.3);
+  OFF('#mP', S(10, 1) - 0.1, 0.25); ON('#mV', S(10, 1) + 0.1, 0.3);
+  TAG('#mbV3', W(10, 1, 'types', 0.0));
+  CAM(2400, 700, 0.8, W(10, 1, 'payroll', -0.4), 1.4);
+  OFF(['#mV', '#nV', '#mbV3'], W(10, 1, 'payroll', -0.5), 0.25);
+  ON(['#mP', '#nP', '#bg', '#tG2'], W(10, 1, 'payroll', 0.2), 0.3); TAG('#nbP3', W(10, 1, 'payroll', 0.5));
+  OFF('#plC', S(10, 2) - 0.1, 0.25);
+  OFF('#ds2', S(10, 2) - 0.3, 0.2);
+  ON('#board', S(10, 2) + 0.05, 0.35);
+  [0, 1, 2, 3].forEach((k) => { tl.to('#rl' + k, { opacity: 0.3, duration: 0.3 }, S(10, 2) + 0.3); tl.to('#rl' + k, { opacity: 1, duration: 0.3 }, S(10, 3 + k) + 0.15); });
+  tl.fromTo('#nP', { y: 0 }, { y: -40, duration: 0.7, yoyo: true, repeat: 32, ease: 'sine.inOut' }, S(10, 2));
+  tl.to('#shelf', { boxShadow: '0 0 0 12px rgba(184,134,11,.45)', duration: 0.6, yoyo: true, repeat: 31 }, S(10, 3));
+  TAG('#b77', S(10, 7) + 0.1);
+  CAM(2440, 700, 0.8, S(10, 7), 6, 'sine.inOut');
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+
+</script>
+</body>
+</html>

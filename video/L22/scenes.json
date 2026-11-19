@@ -1,0 +1,31 @@
+{"brand": "AB-620 · Module 4 · Lesson 1", "scenes": [
+ {"type": "compare", "header": {"kicker": "Two families, two ideas", "title": "A library or a phone call"},
+  "cols": [
+   {"icon": "book_open", "title": "The library", "sub": "Someone copied the books into a catalog", "at": "the library", "items": [{"text": "Indexed ahead of time", "at": "copied the books"}]},
+   {"icon": "phone", "title": "The phone call", "sub": "Ask the data owner right then", "accent": true, "at": "the phone call,", "items": [{"text": "Asked in real time", "at": "right then"}]}],
+  "verdict": {"icon": "arrow_routing", "text": "When to use each one", "at": "when to use"}},
+ {"type": "flow", "header": {"kicker": "Copilot connectors", "title": "Index, then answer"},
+  "nodes": [
+   {"icon": "globe", "title": "External content", "at": "external content"},
+   {"icon": "cube_tree", "title": "Microsoft Graph", "sub": "The index", "accent": true, "at": "Microsoft Graph"},
+   {"icon": "chat", "title": "Answer", "sub": "With citations", "at": "give citations"}],
+  "below": [
+   {"icon": "shield_checkmark", "text": "Respects source permissions", "at": "1:permissions", "solid": true},
+   {"icon": "key", "text": "Set up by the tenant admin", "at": "tenant admin"}]},
+ {"type": "flow", "header": {"kicker": "Power Platform connectors", "title": "Real-time knowledge · preview"},
+  "nodes": [
+   {"icon": "chat", "title": "Each question", "at": "each question"},
+   {"icon": "person", "title": "User's identity", "sub": "Against the source system", "accent": true, "at": "identity of the user"},
+   {"icon": "database", "title": "Source system", "sub": "Data is not replicated", "at": "do not replicate"}],
+  "below": [{"icon": "table", "text": "Only metadata is indexed: table and column names", "at": "metadata", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "Which one for which data", "title": "A simple rule"},
+  "cols": [
+   {"icon": "book_open", "title": "Hardly changes", "sub": "Manuals · policies", "at": "hardly changes", "items": [{"text": "Copilot connectors", "at": "use Copilot connectors"}]},
+   {"icon": "timer", "title": "Changes every minute", "sub": "Inventory", "accent": true, "at": "every minute", "items": [{"text": "Power Platform connectors", "at": "use Power Platform"}]}],
+  "verdict": {"icon": "arrow_sync", "text": "Both cases: mixed mode", "at": "mixed mode"}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Which family?"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0",
+    "items": [{"text": "By the minute, not replicated → real-time knowledge", "at": "real-time knowledge"}, {"text": "Citations, stable content → Copilot connectors", "at": "Copilot connectors"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "classic trap", "items": [{"text": "Forget the scope ExternalItem.Read.All", "at": "External Item"}]}]}
+]}

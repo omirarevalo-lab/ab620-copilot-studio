@@ -1,0 +1,32 @@
+{"brand": "AB-620 · Module 5 · Lesson 6", "scenes": [
+ {"type": "flow", "header": {"kicker": "Fabric data agents", "title": "Ask your data"},
+  "nodes": [
+   {"icon": "chat", "title": "Your question", "at": "your question"},
+   {"icon": "code", "title": "A query", "sub": "Read-only", "accent": true, "at": "into a query"},
+   {"icon": "person", "title": "Your permissions", "at": "own permissions"}],
+  "below": [{"icon": "table", "text": "It queries the tables for you", "at": "querying the tables", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "Sources and queries", "title": "Up to five sources, read-only"},
+  "cols": [
+   {"icon": "database", "title": "Sources", "sub": "Up to five", "at": "five data sources",
+    "items": [{"text": "Warehouse · lakehouse", "at": "warehouse"}, {"text": "Power BI semantic models", "at": "semantic models"}, {"text": "KQL databases", "at": "K Q L databases"}]},
+   {"icon": "code", "title": "Queries", "sub": "Always read-only", "accent": true, "at": "translates",
+    "items": [{"text": "SQL · DAX · KQL", "at": "S Q L"}]}],
+  "verdict": {"icon": "person", "text": "Runs with the asker's permissions", "at": "permissions"}},
+ {"type": "stats", "header": {"kicker": "Result limits", "title": "Short summaries, not endless lists"},
+  "items": [
+   {"icon": "table", "value": "25 × 25", "label": "Rows by columns per answer", "at": "twenty-five rows", "accent": true},
+   {"icon": "globe", "value": "English", "label": "The only language", "at": "only in English"},
+   {"icon": "brain_circuit", "value": "Fixed", "label": "You cannot change the model", "at": "language model"}]},
+ {"type": "split", "left": {"kicker": "Requirements", "title": "Paid Fabric capacity", "sub": "Check with your admin first."},
+  "rows": [
+   {"icon": "money", "title": "F2 or higher", "at": "F two", "hi": true},
+   {"icon": "data_bar_vertical", "title": "Or Power BI Premium with Fabric", "at": "Premium", "hi": true},
+   {"icon": "dismiss_circle", "title": "The trial is not enough", "at": "trial", "hi": true},
+   {"icon": "bot", "title": "Added as an external agent · preview", "at": "external agent", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "For the exam", "title": "Limitations that get asked"}, "cols": 2,
+  "items": [
+   {"icon": "arrow_routing", "term": "Redirect node", "def": "It cannot be the target", "at": "Redirect node"},
+   {"icon": "notepad", "term": "Instructions", "def": "It cannot be referenced", "at": "referenced"},
+   {"icon": "bot", "term": "Microsoft Copilot", "def": "Fails if the main agent is deployed there", "at": "Microsoft Copilot"},
+   {"icon": "gauge", "term": "Agent evaluation", "def": "Not supported", "at": "Agent evaluation"}]}
+]}

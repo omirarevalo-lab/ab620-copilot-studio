@@ -1,0 +1,637 @@
+{
+ "brand": "AB-620 · Security and governance",
+ "style": "v2",
+ "scenes": [
+  {
+   "type": "flow",
+   "header": {
+    "title": "Monday morning at Contoso"
+   },
+   "nodes": [
+    {
+     "icon": "person",
+     "title": "A maker",
+     "sub": "Builds an HR agent",
+     "at": "#1"
+    },
+    {
+     "icon": "lock_closed",
+     "title": "No authentication",
+     "sub": "To test faster",
+     "at": "test faster",
+     "accent": true
+    },
+    {
+     "icon": "link",
+     "title": "Link shared",
+     "sub": "Gets around",
+     "at": "#2"
+    },
+    {
+     "icon": "people_team",
+     "title": "Anyone can chat",
+     "sub": "With HR knowledge",
+     "at": "#3"
+    }
+   ],
+   "below": [
+    {
+     "icon": "question_circle",
+     "text": "Who should have stopped this?",
+     "at": "#4",
+     "solid": true
+    }
+   ]
+  },
+  {
+   "type": "compare",
+   "header": {
+    "title": "The alarm and the guard"
+   },
+   "cols": [
+    {
+     "icon": "alert",
+     "title": "Security scan",
+     "sub": "The alarm",
+     "at": "#1",
+     "items": [
+      {
+       "text": "Rings when you weaken a setting",
+       "at": "#2"
+      },
+      {
+       "text": "You can still walk through",
+       "at": "still walk"
+      }
+     ]
+    },
+    {
+     "icon": "shield_checkmark",
+     "title": "Data policy",
+     "sub": "The guard",
+     "accent": true,
+     "at": "#3",
+     "items": [
+      {
+       "text": "Posted by the administrator",
+       "at": "#4"
+      },
+      {
+       "text": "Does not let you pass",
+       "at": "does not let"
+      }
+     ]
+    }
+   ],
+   "verdict": {
+    "icon": "arrow_routing",
+    "text": "One warns · the other prevents",
+    "at": "#5"
+   }
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "The alarm in action",
+    "sub": "Each warning = a default was weakened."
+   },
+   "rows": [
+    {
+     "icon": "globe",
+     "title": "No authentication",
+     "desc": "Instead of Authenticate with Microsoft",
+     "at": "#1",
+     "hi": true
+    },
+    {
+     "icon": "key",
+     "title": "Maker credentials",
+     "desc": "Instead of the end user's",
+     "at": "#3",
+     "hi": true
+    },
+    {
+     "icon": "people_team",
+     "title": "Shared with everyone",
+     "desc": "Default: shared with nobody",
+     "at": "#4",
+     "hi": true
+    },
+    {
+     "icon": "rocket",
+     "title": "Can still publish",
+     "desc": "A warning never blocks",
+     "at": "#7",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "header": {
+    "title": "The guard: data policies"
+   },
+   "nodes": [
+    {
+     "icon": "person",
+     "title": "Administrator",
+     "sub": "Power Platform, per environment",
+     "at": "#1"
+    },
+    {
+     "icon": "plug_connected",
+     "title": "Connectors",
+     "sub": "Allowed or blocked",
+     "at": "#2"
+    },
+    {
+     "icon": "dismiss_circle",
+     "title": "Capability gone",
+     "sub": "Blocked for every maker",
+     "at": "#5",
+     "accent": true
+    }
+   ],
+   "below": [
+    {
+     "icon": "chat",
+     "text": "Channels",
+     "at": "4:Channels"
+    },
+    {
+     "icon": "book_open",
+     "text": "Knowledge",
+     "at": "knowledge"
+    },
+    {
+     "icon": "toolbox",
+     "text": "Tools",
+     "at": "tools"
+    },
+    {
+     "icon": "server",
+     "text": "MCP servers",
+     "at": "M C P"
+    }
+   ]
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "Three groups in every data policy",
+    "sub": "Every connector lands in one."
+   },
+   "rows": [
+    {
+     "icon": "building",
+     "title": "Business",
+     "desc": "Usable · e.g. SharePoint",
+     "at": "#1",
+     "hi": true
+    },
+    {
+     "icon": "globe",
+     "title": "Non-business",
+     "desc": "Usable · e.g. a social network",
+     "at": "#1",
+     "lag": 0.6,
+     "hi": true
+    },
+    {
+     "icon": "dismiss_circle",
+     "title": "Blocked",
+     "desc": "No agent can use it",
+     "at": "#2",
+     "hi": true
+    },
+    {
+     "icon": "error_circle",
+     "title": "Business + Non-business in one agent",
+     "desc": "Instant error, in real time",
+     "at": "#5",
+     "hi": true
+    },
+    {
+     "icon": "person",
+     "title": "Need a blocked connector?",
+     "desc": "Ask the admin to move it to another group",
+     "at": "#6",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "trap",
+   "question": {
+    "text": "An agent works in development. In production, adding the same tool fails at once with an error. What stopped it?",
+    "at": "#1"
+   },
+   "options": [
+    {
+     "text": "The security scan",
+     "kind": "trap",
+     "at": "#3"
+    },
+    {
+     "text": "The development data policy",
+     "at": "#3",
+     "lag": 0.4
+    },
+    {
+     "text": "The production data policy",
+     "kind": "right",
+     "at": "#3",
+     "lag": 0.8
+    }
+   ],
+   "reveal": {
+    "at": "#5"
+   },
+   "why": {
+    "html": "Production blocks it, development allows it: policies are set *per environment*. Check the target environment while you design.",
+    "at": "#6"
+   }
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "Credentials and Teams",
+    "sub": "A second admin lever."
+   },
+   "rows": [
+    {
+     "icon": "settings",
+     "title": "Control maker-provided credentials",
+     "desc": "Power Platform admin center",
+     "at": "#1",
+     "hi": true
+    },
+    {
+     "icon": "person",
+     "title": "End user signs in at runtime",
+     "desc": "No maker credentials on tools",
+     "at": "#3",
+     "hi": true
+    },
+    {
+     "icon": "chat",
+     "title": "Teams + custom AD auth",
+     "desc": "No SSO for connectors: sign in to each",
+     "at": "#5",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "hub",
+   "center": {
+    "icon": "book_open",
+    "title": "Knowledge",
+    "at": "#0"
+   },
+   "top": [
+    {
+     "icon": "document_text",
+     "title": "Uploaded documents",
+     "at": "#2"
+    },
+    {
+     "icon": "building",
+     "title": "SharePoint and OneDrive",
+     "at": "#3"
+    },
+    {
+     "icon": "globe",
+     "title": "Public websites",
+     "at": "#4"
+    }
+   ],
+   "topLabel": "One connector each",
+   "bottom": [
+    {
+     "icon": "dismiss_circle",
+     "title": "Block websites only",
+     "at": "#5"
+    },
+    {
+     "icon": "filter",
+     "title": "Endpoint filtering",
+     "at": "#7"
+    }
+   ],
+   "bottomLabel": "Finer control"
+  },
+  {
+   "type": "flow",
+   "header": {
+    "title": "Closing the Monday door"
+   },
+   "nodes": [
+    {
+     "icon": "plug_connected",
+     "title": "Chat without Microsoft Entra ID authentication",
+     "sub": "The connector",
+     "at": "#2"
+    },
+    {
+     "icon": "shield_checkmark",
+     "title": "Blocked",
+     "sub": "In the data policy",
+     "at": "#3",
+     "accent": true
+    },
+    {
+     "icon": "lock_closed",
+     "title": "Sign-in only",
+     "sub": "Microsoft, or manual",
+     "at": "#5"
+    }
+   ],
+   "below": [
+    {
+     "text": "No authentication",
+     "strike": true,
+     "at": "#4"
+    },
+    {
+     "icon": "shield_checkmark",
+     "text": "The guard closes the door",
+     "at": "#7",
+     "solid": true
+    }
+   ]
+  },
+  {
+   "type": "trap",
+   "question": {
+    "text": "An admin must prevent any agent from being published without authentication. What do you do?",
+    "at": "#1"
+   },
+   "options": [
+    {
+     "text": "Rely on the security scan",
+     "kind": "trap",
+     "at": "#2"
+    },
+    {
+     "text": "Block the Chat without Microsoft Entra ID authentication connector",
+     "kind": "right",
+     "at": "#3"
+    },
+    {
+     "text": "Enforce Control maker-provided credentials",
+     "at": "#4"
+    }
+   ],
+   "reveal": {
+    "at": "#6"
+   },
+   "why": {
+    "html": "The scan only *warns*, and that setting controls *credentials*, not sign-in. When the question says *prevent*, think data policy.",
+    "at": "#7"
+   }
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "Zoned governance",
+    "sub": "Three zones by purpose and risk."
+   },
+   "rows": [
+    {
+     "icon": "person",
+     "title": "Zone 1 · Citizen",
+     "desc": "Private, read-only, Agent Builder or SharePoint agents",
+     "at": "#3",
+     "hi": true
+    },
+    {
+     "icon": "people_team",
+     "title": "Zone 2 · Partnered",
+     "desc": "IT-approved makers, coach, IT-managed environments",
+     "at": "#4",
+     "hi": true
+    },
+    {
+     "icon": "code",
+     "title": "Zone 3 · Professional",
+     "desc": "ALM, strongest controls, SLAs",
+     "at": "#5",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "What each zone adds",
+    "sub": "Controls arrive through the environment."
+   },
+   "rows": [
+    {
+     "icon": "person",
+     "title": "Zone 1",
+     "desc": "Microsoft 365 + Power Platform connectors only · user context · sharing off",
+     "at": "#1",
+     "hi": true
+    },
+    {
+     "icon": "people_team",
+     "title": "Zone 2",
+     "desc": "Advanced connector policies · approved sources · environment groups · pipelines · IT approval to publish",
+     "at": "#2",
+     "hi": true
+    },
+    {
+     "icon": "code",
+     "title": "Zone 3",
+     "desc": "Advanced connector policies · Microsoft Purview · shared via Integrated apps",
+     "at": "#3",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "trap",
+   "question": {
+    "text": "HR benefits agent: built by an IT-approved maker, used by other departments, shared HR data, no SLA. Which zone?",
+    "at": "#6"
+   },
+   "options": [
+    {
+     "text": "Zone 1 · Citizen",
+     "kind": "trap",
+     "at": "#7"
+    },
+    {
+     "text": "Zone 2 · Partnered",
+     "kind": "right",
+     "at": "#7",
+     "lag": 0.4
+    },
+    {
+     "text": "Zone 3 · Professional",
+     "at": "#7",
+     "lag": 0.8
+    }
+   ],
+   "reveal": {
+    "at": "#9"
+   },
+   "why": {
+    "html": "Ask: *who builds* · *who uses* · *what data* · *how critical*. Others use it → not Zone 1. No SLA → not Zone 3.",
+    "at": "#10"
+   }
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "Environment groups",
+    "sub": "Rules at scale."
+   },
+   "rows": [
+    {
+     "icon": "cube_tree",
+     "title": "One group per environment",
+     "desc": "No overlap, no nesting",
+     "at": "#1",
+     "hi": true
+    },
+    {
+     "icon": "lock_closed",
+     "title": "Tenant rules inherited",
+     "desc": "Sharing, generative AI, transcripts: read-only",
+     "at": "#2",
+     "hi": true
+    },
+    {
+     "icon": "warning",
+     "title": "Environment admin can't override",
+     "desc": "Changes go through a tenant admin",
+     "at": "#4",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "Microsoft Agent 365",
+    "sub": "One place to see and control agents."
+   },
+   "rows": [
+    {
+     "icon": "sparkle",
+     "title": "Automatic registration",
+     "desc": "No setup from the maker",
+     "at": "#2",
+     "hi": true
+    },
+    {
+     "icon": "list",
+     "title": "Inventory",
+     "desc": "Power Platform admin center › Manage › Inventory",
+     "at": "#3",
+     "hi": true
+    },
+    {
+     "icon": "book_open",
+     "title": "Agent registry",
+     "desc": "Microsoft 365 admin center",
+     "at": "#4",
+     "hi": true
+    },
+    {
+     "icon": "dismiss_circle",
+     "title": "Block an agent",
+     "desc": "No channels · makers can still test",
+     "at": "#5",
+     "hi": true
+    },
+    {
+     "icon": "eye",
+     "title": "Purview logs every action",
+     "desc": "Audit logs and DLP tracking",
+     "at": "#6",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "trap",
+   "question": {
+    "text": "An agent set to No authentication is used all week. What do admins see for those chats?",
+    "at": "#1"
+   },
+   "options": [
+    {
+     "text": "Full conversation telemetry",
+     "kind": "trap",
+     "at": "#3"
+    },
+    {
+     "text": "Aggregated counts only",
+     "at": "#3",
+     "lag": 0.4
+    },
+    {
+     "text": "Nothing for unauthenticated sessions",
+     "kind": "right",
+     "at": "#3",
+     "lag": 0.8
+    }
+   ],
+   "reveal": {
+    "at": "#5"
+   },
+   "why": {
+    "html": "Telemetry needs a *signed-in session*, a qualifying license, and a non-multitenant agent.",
+    "at": "#6"
+   }
+  },
+  {
+   "type": "split",
+   "left": {
+    "title": "What to remember",
+    "sub": "Now Monday morning can't happen."
+   },
+   "rows": [
+    {
+     "icon": "alert",
+     "title": "Scan warns",
+     "desc": "The alarm",
+     "at": "#1",
+     "hi": true
+    },
+    {
+     "icon": "shield_checkmark",
+     "title": "Policy blocks",
+     "desc": "Per environment, by connector, three groups",
+     "at": "#2",
+     "hi": true
+    },
+    {
+     "icon": "plug_connected",
+     "title": "Block one connector",
+     "desc": "To stop agents without sign-in",
+     "at": "#4",
+     "hi": true
+    },
+    {
+     "icon": "cube_tree",
+     "title": "Zones by risk",
+     "desc": "Builder, users, data, criticality",
+     "at": "#5",
+     "hi": true
+    },
+    {
+     "icon": "eye",
+     "title": "Agent 365 sees all",
+     "desc": "If users sign in",
+     "at": "#6",
+     "hi": true
+    }
+   ]
+  }
+ ]
+}

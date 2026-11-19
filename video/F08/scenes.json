@@ -1,0 +1,61 @@
+{
+ "brand": "AB-620 · Basics · Lesson 8",
+ "scenes": [
+  { "type": "stats",
+    "header": { "kicker": "The exam", "title": "AB-620 at a glance", "sub": "AI Agent Builder Associate certification." },
+    "items": [
+      { "icon": "flag", "value": "120 min", "label": "proctored", "at": "one hundred twenty" },
+      { "icon": "checkmark_circle", "value": "700", "label": "out of 1000 to pass", "at": "seven hundred", "accent": true },
+      { "icon": "arrow_routing", "value": "24 h", "label": "before a retake", "at": "twenty-four hours" },
+      { "icon": "globe", "value": "ES · EN", "label": "English is updated first", "at": "Spanish" }
+    ],
+    "note": { "icon": "flag", "text": "700 is a scaled score — not 70 % correct", "at": "1:scaled score" } },
+  { "type": "bars",
+    "header": { "kicker": "Skills measured", "title": "Three domains" },
+    "items": [
+      { "label": "Plan and configure agent solutions", "sub": "Domain 1", "value": 33, "range": "30–35 %", "at": "plan and configure" },
+      { "label": "Integrate and extend agents", "sub": "Domain 2 · the heaviest", "value": 43, "range": "40–45 %", "at": "integrate and extend", "hiAt": "heaviest" },
+      { "label": "Test and manage agents", "sub": "Domain 3", "value": 23, "range": "20–25 %", "at": "test and manage" }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Inside each domain", "title": "What you will be asked" },
+    "rows": [
+      { "icon": "document_text", "title": "Domain 1", "desc": "Plan the solution · agent flows · topics", "at": "first domain", "hi": true },
+      { "icon": "plug_connected", "title": "Domain 2", "desc": "Knowledge · tools · MCP · other agents · Azure", "at": "In the second", "hi": true },
+      { "icon": "clipboard_task_list_ltr", "title": "Domain 3", "desc": "Test sets · solutions · environment variables · pipelines", "at": "In the third", "hi": true }
+    ] },
+  { "type": "roadmap",
+    "header": { "kicker": "This course", "title": "Eight modules" },
+    "stops": [
+      { "icon": "map", "title": "Module 0", "sub": "Fundamentals", "at": "Module zero" },
+      { "icon": "document_text", "title": "Modules 1–3", "sub": "Domain 1", "at": "one to three" },
+      { "icon": "plug_connected", "title": "Modules 4–6", "sub": "Domain 2 · the biggest", "at": "Four to six" },
+      { "icon": "clipboard_task_list_ltr", "title": "Module 7", "sub": "Domain 3 · evaluation and ALM", "at": "module seven" }
+    ],
+    "notes": [
+      { "icon": "checkmark_circle", "text": "Each topic: theory · video · questions · hands-on challenge", "at": "Each topic comes" }
+    ] },
+  { "type": "terms",
+    "header": { "kicker": "Essential glossary", "title": "The vocabulary" },
+    "cols": 2,
+    "items": [
+      { "icon": "bot", "term": "Agent", "def": "The assistant", "at": "Agent," },
+      { "icon": "branch_fork", "term": "Topic", "def": "The designed conversation", "at": "Topic," },
+      { "icon": "toolbox", "term": "Tool", "def": "What the agent runs", "at": "Tool," },
+      { "icon": "plug_connected", "term": "Connector", "def": "The wrapper of an API", "at": "Connector," },
+      { "icon": "book_open", "term": "Knowledge", "def": "The sources it looks up", "at": "Knowledge," },
+      { "icon": "cloud", "term": "Environment", "def": "Where everything lives", "at": "Environment," },
+      { "icon": "cube_tree", "term": "Solution", "def": "The moving box", "at": "Solution," },
+      { "icon": "shield_checkmark", "term": "DLP", "def": "The data policies", "at": "D L P" },
+      { "icon": "chat", "term": "Channel", "def": "Where the user chats", "at": "Channel," },
+      { "icon": "settings", "term": "Harness", "def": "The engine", "at": "harness" }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Study plan", "title": "Learn by doing", "pill": { "text": "Learning by doing", "note": "works best", "at": "Learning by doing" } },
+    "rows": [
+      { "icon": "data_bar_vertical", "title": "Split your hours by domain weight", "desc": "More for domain 2", "at": "split your hours", "hi": true },
+      { "icon": "bot", "title": "Build something every week with Nexo", "desc": "In your lab environment", "at": "Build something", "hi": true },
+      { "icon": "checkmark_circle", "title": "Last week: glossary + missed questions", "at": "last week", "hi": true }
+    ] }
+ ]
+}

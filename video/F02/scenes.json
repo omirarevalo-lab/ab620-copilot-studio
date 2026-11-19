@@ -1,0 +1,63 @@
+{
+ "brand": "AB-620 · Basics · Lesson 2",
+ "scenes": [
+  { "type": "split",
+    "left": { "kicker": "Anatomy of an agent", "title": "Four pieces", "sub": "Every agent is built from the same four pieces." },
+    "grid": [
+      { "icon": "document_text", "title": "Instructions", "desc": "How it behaves", "at": "instructions", "hi": true },
+      { "icon": "book_open", "title": "Knowledge", "desc": "What it knows", "at": "knowledge", "hi": true },
+      { "icon": "toolbox", "title": "Tools", "desc": "What it can do", "at": "tools are", "hi": true },
+      { "icon": "branch_fork", "title": "Topics", "desc": "Fixed scripts you control", "at": "topics are", "hi": true }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "An analogy", "title": "The new employee", "sub": "Each piece is something you hand to a new hire." },
+    "rows": [
+      { "icon": "document_text", "title": "Job description", "desc": "= Instructions", "at": "job description", "hi": true },
+      { "icon": "book_open", "title": "Folder of documents", "desc": "= Knowledge", "at": "folder", "hi": true },
+      { "icon": "key", "title": "Access to systems", "desc": "= Tools", "at": "access to systems", "hi": true },
+      { "icon": "chat", "title": "Scripts for delicate calls", "desc": "= Topics", "at": "scripts for delicate", "hi": true }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Piece 1", "title": "Instructions", "sub": "Written on the Overview page.", "pill": { "text": "Clear", "note": "and free of contradictions", "at": "Keep them clear" } },
+    "window": { "title": "Overview · Instructions", "heading": "Example: Nexo", "rail": ["apps", "bot", "flow", "toolbox", "settings"], "at": "Overview page",
+      "cards": [
+        { "icon": "person", "title": "Who it is", "desc": "You are Nexo, an IT help assistant", "at": "who the agent is", "hi": true },
+        { "icon": "chat", "title": "How it talks", "desc": "Answer briefly", "at": "how it talks", "hi": true },
+        { "icon": "shield_checkmark", "title": "What it must not do", "desc": "If you don't know, offer a ticket", "at": "must not do", "hi": true }
+      ] } },
+  { "type": "compare",
+    "header": { "kicker": "Knowing and doing", "title": "Knowledge reads · tools act" },
+    "cols": [
+      { "icon": "book_open", "title": "Knowledge", "sub": "The answer is in a document", "at": "1:you use knowledge",
+        "items": [ { "text": "Websites", "at": "websites" }, { "text": "Files", "at": "files" }, { "text": "SharePoint", "at": "SharePoint" }, { "text": "Dataverse", "at": "Dataverse" } ] },
+      { "icon": "toolbox", "title": "Tools", "sub": "Query a live system or change something", "accent": true, "at": "you use a tool",
+        "items": [ { "text": "Connector", "at": "connector" }, { "text": "Agent flow", "at": "agent flow" }, { "text": "API", "at": "A P I" }, { "text": "MCP server", "at": "M C P" } ] }
+    ],
+    "verdict": { "icon": "arrow_routing", "text": "One reads · the other acts", "at": "One reads" } },
+  { "type": "flow",
+    "header": { "kicker": "Piece 4", "title": "Topics: scripts you design" },
+    "nodes": [
+      { "icon": "flag", "title": "Trigger", "sub": "Starts the topic", "at": "trigger" },
+      { "icon": "chat", "title": "Question", "sub": "Asks for data", "at": "a question" },
+      { "icon": "branch_fork", "title": "Condition", "sub": "Chooses a path", "at": "a condition" },
+      { "icon": "send", "title": "Message", "sub": "Answers", "at": "a message" }
+    ],
+    "below": [
+      { "icon": "checkmark_circle", "text": "Use it when you need precision", "at": "precision" },
+      { "icon": "flag", "text": "Serious incident: always the same questions", "at": "serious incident", "solid": true },
+      { "icon": "sparkle", "text": "Everything else: let the agent combine", "at": "For everything else" }
+    ] },
+  { "type": "hub",
+    "header": { "kicker": "Contoso", "title": "Nexo, all together" },
+    "center": { "icon": "bot", "title": "Nexo", "at": "start" },
+    "topLabel": "Its four pieces",
+    "top": [
+      { "icon": "document_text", "title": "Instructions", "desc": "Set the tone", "at": "instructions set" },
+      { "icon": "book_open", "title": "Knowledge", "desc": "SharePoint IT guides", "at": "knowledge is" },
+      { "icon": "ticket_diagonal", "title": "Tool", "desc": "Creates tickets", "at": "tool creates" },
+      { "icon": "branch_fork", "title": "Topic", "desc": "Serious incidents", "at": "topic for serious" }
+    ],
+    "bottomLabel": "For every message",
+    "bottom": [ { "icon": "arrow_routing", "title": "The agent decides", "desc": "which piece to use · next lesson: how", "at": "decides which piece", "hi": true } ] }
+ ]
+}

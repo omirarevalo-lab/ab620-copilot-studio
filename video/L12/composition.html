@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L12 · Adaptive Cards · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  .bl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 950px; white-space: nowrap; font-size: 42px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; }
+  .bl.red { border-color: #c4392f; color: #c4392f; } .bl.green { border-color: #1e7f4f; color: #1e7f4f; } .bl.vi { border-color: #7b5cd6; color: #7b5cd6; } .bl.go { border-color: #b8860b; color: #8a6508; } .bl.tl { border-color: #0f7b8a; color: #0f7b8a; } .bl.nv { border-color: #1f2a44; color: #1f2a44; } .bl.gr { border-color: #6b7280; color: #5b6578; }
+  .pl { position: absolute; left: 120px; top: 60px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .bub { position: absolute; box-sizing: border-box; padding: 0 24px; height: 70px; display: flex; align-items: center; border-radius: 26px; font-size: 44px; font-weight: 700; white-space: nowrap; background: #fff; border: 4px solid #2f5bd3; color: #141821; opacity: 0; }
+  .bub.me { background: #e07a5f; border-color: #e07a5f; color: #fff; }
+  .bub.crm { background: #f4ead2; border-color: #b0926a; color: #141821; }
+  .nl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 940px; font-size: 40px; font-weight: 800; padding: 10px 30px; border-radius: 999px; background: #fff; border: 4px solid #1f2a44; color: #1f2a44; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 38px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 32px; border-radius: 16px; padding: 2px 16px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  .xp .mp { position: absolute; box-sizing: border-box; border-radius: 16px; color: #fff; font-weight: 800; font-size: 32px; padding: 6px 12px; }
+  .uw .nav div { font-size: 32px; } .uw .bar { font-size: 32px; } .uw .bar .hc { font-size: 32px; } .uw .row b { font-size: 36px; } .uw .btn { font-size: 32px; } .uw .crumb { font-size: 32px; } .uw .fld { font-size: 34px; } .uw .fld small { font-size: 32px; } .uw .dd { font-size: 34px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 10px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 32px; font-weight: 700; color: var(--muted); margin-bottom: 2px; }
+  .uw .mn { position: absolute; background: #fff; border: 3px solid var(--line2); border-radius: 16px; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; font-size: 34px; font-weight: 700; }
+  .uw .mn div { padding: 10px 24px; }
+  .uw .vc { display: inline-block; font-size: 32px; font-weight: 800; padding: 2px 16px; border-radius: 999px; background: #e0a21e; color: #3b2a00; }
+  #ovT { top: 200px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L12 · Adaptive Cards. The Contoso check-in hall, world 3840x2160.
+     Phone corner x80-360 · counter x400-1900 y1230-1470 · Marta x420 · laptop x640 · reply screen x700-1800 y290-714 · manager+stub x800-1500
+     · Valeria enters to x940 · Nexo x1660 y790 · clipboard x1290 · variable rail x700-2900 y1540-1660 · gate wall x2110-4170 y400-1450
+     · Valeria's desk front-left x100-600 y1640 · veil (scenes 2,5,8) y200-1500 · scene 4 board x600-2304 y340-1108 · fork x1700-2120 y1240-1540 · lane y1750-1850. */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#e0a21e', VIO = '#7b5cd6', TLC = '#0f7b8a', CRM = '#f4ead2', CORAL = '#e07a5f', INK = '#141821', GRY = '#6b7280', G15 = '#2f6fdb', G16 = '#7b5cd6';
+  const hmn = (id, x, y, top, hair, extra) => `<svg class="w ${extra || ''}" id="${id}" style="left:${x}px;top:${y}px" width="200" height="380" viewBox="0 0 200 380"><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`;
+  const bub = (id, x, y, w, t, cls, vis) => `<div class="bub ${vis ? '' : 'h'} ${cls || ''}" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;${vis ? 'opacity:1' : ''}">${t}</div>`;
+  const chipX = (id, x, y, t, icn, col, st) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;padding:6px 22px;box-sizing:border-box;display:flex;align-items:center;gap:12px;background:#fff;border:4px solid ${col};border-radius:999px;font-size:44px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow);color:${col};${st || ''}">${icn ? IC(icn, 'width:40px;height:40px;color:' + col) : ''}${t}</div>`;
+  /* teal form sheet (520x420). o.info = informational (stamp, no Submit); o.vis = visible from frame 1 */
+  const SHEET = (id, x, y, o) => {
+    o = o || {};
+    const fld = (k, t) => `<div id="${id}_f${k}" style="height:76px;margin-top:14px;border-radius:14px;box-sizing:border-box;background:${o.info ? '#d9eef0' : '#fff'};color:${o.info ? '#0b5560' : INK};font-size:42px;font-weight:800;display:flex;align-items:center;padding:0 22px;border:4px solid ${o.info ? '#d9eef0' : '#fff'}">${t}</div>`;
+    const bottom = o.info
+      ? `<div id="${id}_st" style="margin:26px auto 0;width:310px;height:84px;box-sizing:border-box;border:6px solid #5b6578;border-radius:14px;color:#5b6578;background:#fff;font-size:44px;font-weight:800;display:flex;align-items:center;justify-content:center;transform:rotate(-6deg)">info only</div>`
+      : `<div id="${id}_sb" style="height:92px;margin-top:22px;border-radius:16px;background:${NAVY};color:#fff;font-size:46px;font-weight:800;display:flex;align-items:center;justify-content:center">Submit</div>`;
+    return `<div class="w ${o.vis ? '' : 'h'}" id="${id}" style="left:${x}px;top:${y}px;width:520px;height:420px;box-sizing:border-box;background:${TLC};border-radius:26px;box-shadow:var(--shadow);padding:20px 24px"><div style="height:64px;font-size:48px;font-weight:800;color:#fff;display:flex;align-items:center;gap:14px">${IC('card_ui', 'width:48px;height:48px')}New ticket</div>${fld(0, 'Title')}${fld(1, 'Urgency: High')}${bottom}</div>`;
+  };
+  const VT = (id, x, y, t, grey) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;height:64px;padding:0 24px;box-sizing:border-box;display:flex;align-items:center;border-radius:999px;background:${grey ? '#c9ced8' : AMB};color:${grey ? '#5b6578' : '#3b2a00'};font-size:44px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow)">${t}</div>`;
+  const PILL = (id, x, y, t, col, bg, st) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;height:64px;padding:0 24px;box-sizing:border-box;display:flex;align-items:center;gap:10px;border-radius:999px;background:${bg || '#fff'};border:4px solid ${col};color:${col};font-size:44px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow);${st || ''}">${t}</div>`;
+
+  /* backdrop patches so close-up framings never reveal a world edge */
+  ADD(`<div class="w" style="left:-1300px;top:-420px;width:6400px;height:1920px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="left:-1300px;top:1500px;width:6400px;height:1100px;background:#e3e7ef"></div><div class="w" style="left:-1300px;top:1500px;width:6400px;height:6px;background:#d3d9e4"></div>`);
+  const __h0 = document.getElementById('world').children.length;
+  /* counter (x400-1900) */
+  ADD(`<div class="w" id="ctr" style="left:400px;top:1230px;width:1500px;height:240px"><div style="position:absolute;left:0;top:0;width:1500px;height:70px;background:#cfd6e2;border-radius:14px 14px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:70px;width:1500px;height:170px;background:#9aa5b6"></div></div>`);
+  /* phone corner (far left) */
+  ADD(`<div class="w" id="phT" style="left:80px;top:1130px;width:280px;height:100px;background:#c9ced8;border-radius:10px;box-shadow:var(--shadow)"></div>`);
+  ADD(`<svg class="w" id="phn" style="left:120px;top:1030px" width="200" height="100" viewBox="0 0 200 100"><rect x="10" y="40" width="180" height="56" rx="14" fill="#5b6578"/><rect x="30" y="52" width="140" height="28" rx="8" fill="#8a93a6"/><path d="M20 36 Q20 8 56 8 L144 8 Q180 8 180 36" fill="none" stroke="#1f2a44" stroke-width="22" stroke-linecap="round"/></svg>`);
+  ADD(PILL('phL', 70, 930, 'one by one', NAVY));
+  /* reply screen on the back wall + bubbles */
+  ADD(`<div class="w" id="scr" style="left:700px;top:290px;width:1100px;height:460px;box-sizing:border-box;background:${NAVY};border-radius:24px;box-shadow:var(--shadow)"><div style="height:60px;background:#2d3a5c;color:#fff;font-size:36px;font-weight:700;display:flex;align-items:center;padding-left:26px;box-sizing:border-box;border-radius:24px 24px 0 0;gap:12px">${IC('chat', 'width:36px;height:36px')}Chat</div></div>`);
+  ADD(bub('m0', 1296, 366, 480, 'Report a problem', 'me', true));
+  ADD(bub('n1', 740, 444, 220, 'Title?', '', false));
+  ADD(bub('m1', 1396, 522, 380, 'Printer fault', 'me', false));
+  ADD(bub('n2', 740, 600, 300, 'Urgency?', '', false));
+  ADD(bub('dots', 1646, 600, 130, '...', 'me', false));
+  ADD(bub('m2', 1576, 600, 200, 'High', 'me', false));
+  ADD(bub('nGot', 740, 444, 560, 'Printer fault · High', 'crm', false));
+  ADD(bub('conf', 740, 444, 1040, 'I registered your ticket with High urgency', 'crm', false));
+  ADD(`<div class="w" id="inbar" style="left:724px;top:676px;width:1052px;height:62px;box-sizing:border-box;background:#fff;border-radius:16px;display:flex;align-items:center;padding-left:24px;font-size:40px;font-weight:700;color:#8a93a6">Type a message</div>`);
+  /* service manager (older, grey vest, clipboard) + ticket stub with two empty slots */
+  ADD(hmn('mgr', 1340, 870, '#8a93a6', '#d9dde6', 'h'));
+  ADD(`<div class="w h" id="mgrC" style="left:1306px;top:1060px;width:90px;height:120px;box-sizing:border-box;background:#b0926a;border-radius:10px;padding:10px 8px"><div style="width:100%;height:100%;background:#fff;border-radius:6px"></div></div>`);
+  ADD(`<div class="w h" id="stub" style="left:800px;top:870px;width:440px;height:150px;box-sizing:border-box;background:#fff;border:5px solid #8a93a6;border-radius:16px;box-shadow:var(--shadow)"><div style="position:absolute;left:20px;top:30px;width:190px;height:88px;box-sizing:border-box;border:5px dashed #8a93a6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;color:#5b6578">Title</div><div style="position:absolute;left:226px;top:30px;width:196px;height:88px;box-sizing:border-box;border:5px dashed #8a93a6;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;color:#5b6578">Urgency</div></div>`);
+  /* clipboard with a tick list (scene 1) */
+  ADD(`<div class="w h" id="clb" style="left:1290px;top:780px;width:340px;height:380px;box-sizing:border-box;background:#b0926a;border-radius:18px;box-shadow:var(--shadow)"><div style="position:absolute;left:100px;top:-14px;width:140px;height:36px;background:${NAVY};border-radius:10px"></div><div style="position:absolute;left:18px;top:30px;width:304px;height:332px;box-sizing:border-box;background:#fff;border-radius:10px;padding:16px 18px"><div style="font-size:44px;font-weight:800;color:${TLC};margin-bottom:12px">Ticket</div><div style="display:flex;align-items:center;gap:14px;font-size:44px;font-weight:700;height:84px">${IC('checkmark_circle', 'width:52px;height:52px;color:' + TLC)}Title</div><div style="display:flex;align-items:center;gap:14px;font-size:44px;font-weight:700;height:84px">${IC('checkmark_circle', 'width:52px;height:52px;color:' + TLC)}Urgency</div></div></div>`);
+  ADD(PILL('clL', 1300, 1170, 'all at once', TLC));
+  ADD(`<svg class="w h" id="arr1" style="left:0;top:0;overflow:visible;pointer-events:none" width="3840" height="2160" viewBox="0 0 3840 2160"><defs><marker id="ah" markerWidth="4" markerHeight="4" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="${TLC}"/></marker></defs><path id="arr1p" d="M380 1050 C560 760 1000 740 1250 940" fill="none" stroke="${TLC}" stroke-width="16" stroke-linecap="round" marker-end="url(#ah)"/></svg>`);
+  /* Valeria (enters from the left holding one sheet), Marta, laptop */
+  ADD(hmn('val', 860, 870, VIO, '#30242c', 'h'));
+  ADD(SHEET('shV', 1060, 780));
+  ADD(hmn('mar', 420, 870, CORAL, '#3a2a22'));
+  ADD(`<div class="w" id="lapM" style="left:640px;top:1120px;width:260px;height:110px;box-sizing:border-box;background:${NAVY};border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#5d6472">${IC('chat', 'width:64px;height:64px')}</div></div>`);
+  ADD(SHEET('sh1', 700, 790));
+  ADD(`<div class="w h" id="tap1" style="left:915px;top:1085px;width:90px;height:90px;box-sizing:border-box;border-radius:50%;border:8px solid ${NAVY}"></div>`);
+  /* corridor "Custom prompts" (scene 11, far left side) */
+  ADD(`<div class="w h" id="corr" style="left:-380px;top:760px;width:400px;height:720px;box-sizing:border-box;background:linear-gradient(90deg,#3a4a78,#1f2a44);border:14px solid ${NAVY};border-bottom:none;border-radius:26px 26px 0 0"></div>`);
+  ADD(`<div class="w h" id="signN" style="left:-500px;top:560px;width:640px;height:150px;box-sizing:border-box;background:${NAVY};border-radius:24px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:20px;color:#fff;font-size:58px;font-weight:800">${IC('sparkle', 'width:64px;height:64px;color:#ffd166')}Custom prompts</div>`);
+  { const wd = document.getElementById('world'), g = document.createElement('div'); g.id = 'hallG'; g.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0'; const kids = Array.from(wd.children).slice(__h0); wd.insertBefore(g, kids[0]); kids.forEach((k) => g.appendChild(k)); }
+  const __d0 = document.getElementById('world').children.length;
+  /* Valeria's lab desk (front-left, from L01) + Valeria at the desk (scene 10) */
+  ADD(`<div class="w" id="vdesk" style="left:100px;top:1640px;width:520px;height:160px"><div style="height:26px;background:#aeb6c6;border-radius:10px 10px 0 0"></div><div style="height:134px;background:#c9ced8"></div></div>`);
+  ADD(hmn('val10', 420, 1260, VIO, '#30242c', 'h'));
+  ADD(`<div class="w" id="vlap" style="left:150px;top:1520px;width:300px;height:116px;box-sizing:border-box;background:${NAVY};border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#5d6472">Copilot Studio</div></div>`);
+  { const wd = document.getElementById('world'), g = document.createElement('div'); g.id = 'deskG'; g.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0;opacity:0'; const kids = Array.from(wd.children).slice(__d0); wd.insertBefore(g, kids[0]); kids.forEach((k) => g.appendChild(k)); }
+  /* variable rail (front-centre) */
+  ADD(`<div class="w" id="rail" style="left:700px;top:1540px;width:2200px;height:120px;box-sizing:border-box;background:#77808f;border-radius:14px;box-shadow:var(--shadow)"><div style="position:absolute;left:0;right:0;top:12px;height:14px;background:#5f6875;border-radius:8px"></div><div style="position:absolute;left:0;right:0;bottom:12px;height:14px;background:#5f6875;border-radius:8px"></div></div>`);
+  ADD(`<div class="w h" id="railL" style="left:720px;top:1560px;height:80px;display:flex;align-items:center;font-size:44px;font-weight:800;color:#fff;white-space:nowrap">Variables</div>`);
+
+  /* Nexo (blue robot, check-in agent) with a chest badge */
+  ADD(agent('nx', 1660, 790, { folder: '' }).replace('width="360" height="500"', 'width="330" height="458"'));
+  ADD(`<div class="w" id="nxBd" style="left:1754px;top:1064px;width:74px;height:74px;box-sizing:border-box;border-radius:50%;background:#fff;border:6px solid ${TLC};display:flex;align-items:center;justify-content:center;color:${TLC}">${IC('card_ui', 'width:42px;height:42px')}</div>`);
+  ADD(`<div class="w h" id="nxBg" style="left:1738px;top:1048px;width:106px;height:106px;box-sizing:border-box;border-radius:50%;border:8px solid #ffd166;box-shadow:0 0 40px 12px rgba(255,209,102,.6)"></div>`);
+
+  /* ── scene 2: topic strip + node tag + two sheets ── */
+  ADD(`<div class="w h" id="strip" style="left:520px;top:810px;width:1060px;height:120px;box-sizing:border-box;background:#fff;border:5px solid #c9ced8;border-radius:22px;box-shadow:var(--shadow)"></div>`);
+  ADD(PILL('trg', 560, 838, 'Trigger', '#5b6578', '#eef1f7'));
+  ADD(`<div class="w h" id="strL" style="left:735px;top:868px;width:110px;height:8px;background:#c9ced8;border-radius:4px"></div>`);
+  ADD(`<div class="w h" id="ntg" style="left:850px;top:828px;width:560px;height:84px;box-sizing:border-box;background:${NAVY};color:#fff;border-radius:999px;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;white-space:nowrap">Ask with Adaptive Card</div>`);
+  ADD(`<svg class="w h" id="bdC" style="left:0;top:0;overflow:visible;pointer-events:none" width="3840" height="2160" viewBox="0 0 3840 2160"><path d="M1754 1090 C1640 1090 1520 960 1414 872" fill="none" stroke="${TLC}" stroke-width="8" stroke-dasharray="18 14" stroke-linecap="round"/></svg>`);
+  ADD(`<div class="w h" id="clip2" style="left:1090px;top:912px;width:60px;height:90px;box-sizing:border-box;background:${NAVY};border-radius:10px"></div>`);
+  ADD(SHEET('sh2', 860, 980));
+  ADD(VT('vt0', 1440, 1086, 'title'));
+  ADD(VT('vt1', 1440, 1186, 'urgency'));
+  ADD(PILL('tgM', 1560, 900, 'Message', NAVY));
+  ADD(PILL('tgQ', 1820, 900, 'Question', NAVY));
+  ADD(SHEET('sh2b', 1560, 990, { info: true }));
+  ADD(`<div class="w h" id="tap2" style="left:1775px;top:1135px;width:90px;height:90px;box-sizing:border-box;border-radius:50%;border:8px solid ${NAVY}"></div>`);
+  ADD(`<div class="w h" id="rGlow" style="left:700px;top:1530px;width:2200px;height:140px;box-sizing:border-box;border:8px solid #ffd166;border-radius:20px;box-shadow:0 0 40px 10px rgba(255,209,102,.5)"></div>`);
+
+  /* ── scene 4: display wall with six slots ── */
+  const SLOT = (id, c, r, label, inner) => `<div class="w h" id="${id}" style="left:${636 + c * 556}px;top:${376 + r * 366}px;width:520px;height:330px;box-sizing:border-box;background:#fff;border:6px solid #c9ced8;border-radius:22px;box-shadow:var(--shadow)"><div style="position:absolute;left:26px;top:14px;font-size:42px;font-weight:800;color:${NAVY};white-space:nowrap">${label}</div>${inner}</div>`;
+  const AB = (x, y, w, h, extra) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;${extra}"></div>`;
+  const TX = (x, y, t, st) => `<div style="position:absolute;left:${x}px;top:${y}px;white-space:nowrap;font-weight:800;${st}">${t}</div>`;
+  ADD(`<div class="w h" id="board" style="left:600px;top:340px;width:1704px;height:768px;box-sizing:border-box;background:#f8f9fb;border:8px solid ${NAVY};border-radius:30px;box-shadow:var(--shadow)"></div>`);
+  ADD(SLOT('sl0', 0, 0, 'Input.Text',
+    AB(26, 84, 464, 128, 'background:#fff;border:5px solid #8a93a6;border-radius:14px') + TX(46, 92, 'Printer fault', `font-size:42px;color:${INK}`) + AB(46, 160, 300, 14, 'background:#dfe3ec;border-radius:7px') + AB(46, 184, 200, 14, 'background:#dfe3ec;border-radius:7px') +
+    `<div id="sl0_t" class="h" style="position:absolute;left:26px;top:228px;padding:2px 22px;border-radius:999px;border:4px solid ${TLC};color:${TLC};font-size:38px;font-weight:800;white-space:nowrap;background:#fff">multiline</div>`));
+  ADD(SLOT('sl1', 1, 0, 'Input.Number',
+    AB(26, 112, 300, 100, 'background:#fff;border:5px solid #8a93a6;border-radius:14px') + TX(50, 122, '3', `font-size:60px;color:${INK}`) + AB(246, 119, 74, 86, 'background:#eef1f7;border-radius:10px') + TX(268, 112, '▲', 'font-size:30px;color:#5b6578') + TX(268, 156, '▼', 'font-size:30px;color:#5b6578') +
+    `<div id="sl1_t" class="h" style="position:absolute;left:26px;top:238px;padding:2px 22px;border-radius:999px;border:4px solid ${TLC};color:${TLC};font-size:38px;font-weight:800;white-space:nowrap;background:#fff">min · max (optional)</div>`));
+  ADD(SLOT('sl2', 2, 0, 'Input.Date',
+    `<svg style="position:absolute;left:26px;top:90px" width="260" height="210" viewBox="0 0 260 210"><rect x="4" y="4" width="252" height="202" rx="18" fill="#fff" stroke="#8a93a6" stroke-width="5"/><path d="M4 22 a18 18 0 0 1 18 -18 h216 a18 18 0 0 1 18 18 v38 h-252 z" fill="${TLC}"/>${[0, 1, 2, 3, 4, 5].map((k) => [0, 1, 2].map((r) => `<rect x="${24 + k * 36}" y="${80 + r * 40}" width="26" height="26" rx="6" fill="${k === 3 && r === 1 ? TLC : '#dfe3ec'}"/>`).join('')).join('')}</svg>` + TX(310, 150, 'Date', `font-size:46px;color:${GRY}`)));
+  ADD(SLOT('sl3', 0, 1, 'Input.Time',
+    `<svg style="position:absolute;left:26px;top:90px" width="210" height="210" viewBox="0 0 210 210"><circle cx="105" cy="105" r="98" fill="#fff" stroke="#8a93a6" stroke-width="6"/><path d="M105 105 V44" stroke="${NAVY}" stroke-width="10" stroke-linecap="round"/><path d="M105 105 L148 130" stroke="${TLC}" stroke-width="10" stroke-linecap="round"/><circle cx="105" cy="105" r="9" fill="${NAVY}"/></svg>` + TX(270, 150, '10:30', `font-size:56px;color:${INK}`)));
+  ADD(SLOT('sl4', 1, 1, 'Input.Toggle',
+    TX(34, 150, 'false', `font-size:46px;color:${GRY}`) + `<svg style="position:absolute;left:170px;top:134px" width="150" height="80" viewBox="0 0 150 80"><rect x="3" y="3" width="144" height="74" rx="37" id="sl4_bg" fill="${TLC}"/><circle id="sl4_k" cx="112" cy="40" r="28" fill="#fff"/></svg>` + TX(344, 150, 'true', `font-size:46px;color:${TLC}`)));
+  ADD(SLOT('sl5', 2, 1, 'Input.ChoiceSet',
+    AB(26, 86, 330, 76, 'background:#fff;border:5px solid #8a93a6;border-radius:14px') + TX(46, 94, 'High', `font-size:42px;color:${INK}`) + `<svg style="position:absolute;left:300px;top:112px" width="40" height="26" viewBox="0 0 40 26"><path d="M4 4 L20 22 L36 4" fill="none" stroke="#5b6578" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>` +
+    [['High', 26, 1], ['Medium', 160, 0], ['Low', 372, 0]].map(([t, x, on]) => `<div style="position:absolute;left:${x}px;top:204px;display:flex;align-items:center;gap:8px;font-size:36px;font-weight:700;color:${INK};white-space:nowrap"><span style="display:inline-block;width:30px;height:30px;box-sizing:border-box;border-radius:50%;border:5px solid ${TLC};background:${on ? TLC : '#fff'}"></span>${t}</div>`).join('')));
+  ADD(SHEET('sh4', 1208, 480));
+  ADD(PILL('reqP', 640, 584, '★ Required', '#5b6578', '#eef1f7'));
+  ADD(`<svg class="w h" id="reqL" style="left:0;top:0;overflow:visible;pointer-events:none" width="3840" height="2160" viewBox="0 0 3840 2160"><path d="M950 616 H1208" fill="none" stroke="#5b6578" stroke-width="6" stroke-dasharray="14 12" stroke-linecap="round"/></svg>`);
+  ADD(`<div class="w h" id="lock4" style="left:1760px;top:760px;width:100px;height:100px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:50%;display:flex;align-items:center;justify-content:center;color:${NAVY}">${IC('lock_closed', 'width:56px;height:56px')}</div>`);
+
+  /* ── scene 5: Valeria saves, schema panel, ids, dynamic list ── */
+  ADD(hmn('val5', 600, 1100, VIO, '#30242c', 'h'));
+  ADD(`<div class="w h" id="savB" style="left:640px;top:980px;height:76px;padding:0 34px;box-sizing:border-box;display:flex;align-items:center;border-radius:16px;background:${NAVY};color:#fff;font-size:44px;font-weight:800">Save</div>`);
+  ADD(SHEET('sh5', 1000, 980));
+  ADD(VT('t50', 1560, 1086, 'title'));
+  ADD(VT('t51', 1560, 1186, 'urgency'));
+  ADD(VT('t51g', 1400, 1566, 'urgncy', true));
+  ADD(`<div class="w h" id="schP" style="left:1640px;top:900px;width:680px;height:330px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:26px;box-shadow:var(--shadow)"><div style="display:flex;align-items:center;gap:14px;height:90px;padding:0 26px;font-size:48px;font-weight:800;color:${NAVY}">${IC('wrench', 'width:52px;height:52px')}Edit Schema</div>
+    <div style="margin:10px 26px 0;height:100px;display:flex;align-items:center;gap:24px;border-top:4px solid #e2e5eb"><span style="display:inline-block;height:60px;padding:0 24px;border-radius:999px;background:${AMB};color:#3b2a00;font-size:44px;font-weight:800;line-height:60px">title</span><span style="font-size:42px;font-weight:700;color:#5b6578">String</span></div>
+    <div style="margin:0 26px;height:100px;display:flex;align-items:center;gap:24px;border-top:4px solid #e2e5eb"><span style="display:inline-block;height:60px;padding:0 24px;border-radius:999px;background:${AMB};color:#3b2a00;font-size:44px;font-weight:800;line-height:60px">urgency</span><span style="font-size:42px;font-weight:700;color:#5b6578">String</span></div></div>`);
+  ADD(`<div class="w h" id="idBad" style="left:700px;top:1090px;height:100px;padding:0 40px;box-sizing:border-box;display:flex;align-items:center;border-radius:999px;background:#c9ced8;color:#5b6578;font-size:68px;font-weight:800;text-decoration:line-through;white-space:nowrap">input1</div>`);
+  ADD(`<div class="w h" id="idGood" style="left:1180px;top:1090px;height:100px;padding:0 40px;box-sizing:border-box;display:flex;align-items:center;border-radius:999px;background:${AMB};color:#3b2a00;font-size:68px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow)">leaveType</div>`);
+  ADD(`<div class="w h" id="dd5" style="left:620px;top:980px;width:600px;height:96px;box-sizing:border-box;background:#fff;border:6px solid ${TLC};border-radius:18px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:44px;font-weight:800;color:${NAVY}">Input.ChoiceSet<svg width="44" height="30" viewBox="0 0 44 30"><path d="M4 6 L22 24 L40 6" fill="none" stroke="${NAVY}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>`);
+  ADD(`<div class="w h" id="ddL" style="left:620px;top:1090px;width:600px;height:260px;box-sizing:border-box;background:#fff;border:5px solid #c9ced8;border-radius:18px;box-shadow:var(--shadow);padding:10px 0">${['High', 'Medium', 'Low'].map((t) => `<div style="height:76px;display:flex;align-items:center;padding:0 28px;font-size:44px;font-weight:700;color:${INK}">${t}</div>`).join('')}</div>`);
+  ADD(PILL('fx5', 1290, 1060, 'Power Fx', NAVY, '#eef1f7'));
+  ADD(`<div class="w h" id="tb5" style="left:1620px;top:940px;width:700px;height:396px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:22px;box-shadow:var(--shadow);overflow:hidden"><div style="display:flex;height:84px;background:#dbe8fb;font-size:44px;font-weight:800;color:${NAVY}"><div style="width:350px;display:flex;align-items:center;padding-left:28px;box-sizing:border-box">title</div><div style="flex:1;display:flex;align-items:center;padding-left:28px;border-left:4px solid #fff">value</div></div>${[['High', 'high'], ['Medium', 'medium'], ['Low', 'low']].map(([a, b]) => `<div style="display:flex;height:96px;font-size:44px;font-weight:700;color:${INK};border-top:4px solid #e2e5eb"><div style="width:350px;display:flex;align-items:center;padding-left:28px;box-sizing:border-box">${a}</div><div style="flex:1;display:flex;align-items:center;padding-left:28px;border-left:4px solid #e2e5eb">${b}</div></div>`).join('')}</div>`);
+  ADD(`<svg class="w h" id="cb5" style="left:0;top:0;overflow:visible;pointer-events:none" width="3840" height="2160" viewBox="0 0 3840 2160"><path d="M1620 1092 H1560" fill="none" stroke="${NAVY}" stroke-width="10" stroke-linecap="round"/><path d="M1290 1092 H1236" fill="none" stroke="${NAVY}" stroke-width="10" stroke-linecap="round"/></svg>`);
+
+  /* ── scene 6: gate wall (x2110-4170) ── */
+  const DOOR = (id, x, name, ver, col, extra) => `<div class="w" id="${id}" style="left:${x}px;top:1010px;width:430px;height:470px">
+    <div style="position:absolute;left:0;top:0;width:430px;height:76px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;color:${NAVY};white-space:nowrap">${name}</div>
+    <div style="position:absolute;left:0;top:90px;width:430px;height:380px;box-sizing:border-box;background:#f8f9fb;border:14px solid ${NAVY};border-bottom:none;border-radius:24px 24px 0 0"></div>
+    <div id="${id}_s" style="position:absolute;left:140px;top:140px;width:150px;height:150px;border-radius:50%;background:${col};color:#fff;font-size:68px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)">${ver}</div>
+    ${extra || ''}
+    <div class="h" id="${id}_gl" style="position:absolute;left:-14px;top:-14px;width:458px;height:498px;box-sizing:border-box;border:10px solid #ffd166;border-radius:30px;box-shadow:0 0 40px 12px rgba(255,209,102,.6)"></div></div>`;
+  ADD(`<div class="w" id="gw" style="left:2110px;top:520px;width:2060px;height:980px;background:#dfe4ef;border-radius:30px 30px 0 0"></div>`);
+  ADD(DOOR('gTC', 2180, 'Test chat', '1.6', G16));
+  ADD(DOOR('gWC', 2700, 'Web Chat', '1.6', G16, `<div class="h" id="nae" style="position:absolute;left:0;top:320px;width:430px;height:76px;box-sizing:border-box;background:#fff;border:5px solid #5b6578;border-radius:14px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:46px;font-weight:800;color:#5b6578;white-space:nowrap">no Action.Execute</div>`));
+  ADD(DOOR('gTM', 3170, 'Teams', '1.5', G15));
+  ADD(DOOR('gLW', 3640, 'Live chat widget', '1.5', G15));
+  ADD(`<div class="w" id="acw" style="left:2180px;top:600px;width:430px;height:270px;box-sizing:border-box;background:${NAVY};border-radius:20px;box-shadow:var(--shadow)"><div style="height:64px;display:flex;align-items:center;padding-left:24px;font-size:40px;font-weight:800;color:#fff;white-space:nowrap">Authoring canvas</div><div style="position:absolute;left:24px;top:80px;width:190px;height:170px;box-sizing:border-box;background:#c9ced8;border:5px dashed ${VIO};border-radius:14px;padding:10px 14px"><div style="font-size:44px;font-weight:800;color:#8a7bb8">1.6</div><div style="margin-top:10px;height:16px;background:#b3b9c6;border-radius:8px"></div><div style="margin-top:12px;height:16px;width:70%;background:#b3b9c6;border-radius:8px"></div></div><div style="position:absolute;left:250px;top:116px;color:#8a93a6">${IC('dismiss_circle', 'width:96px;height:96px')}</div></div>`);
+  ADD(PILL('acN', 2650, 700, 'does not render 1.6', '#5b6578'));
+  ADD(hmn('val6', 1950, 1100, VIO, '#30242c', 'h'));
+
+  /* ── scene 8: closed card, rail slots, fork sign, retried cards ── */
+  ADD(hmn('mar8', 900, 1000, CORAL, '#3a2a22', 'h'));
+  ADD(SHEET('sh8a', 1200, 960));
+  ADD(`<div class="w h" id="x8" style="left:1680px;top:920px;width:80px;height:80px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:50%;display:flex;align-items:center;justify-content:center;color:${NAVY}">${IC('dismiss_circle', 'width:52px;height:52px')}</div>`);
+  ADD(`<div class="w h" id="tap8" style="left:1675px;top:915px;width:90px;height:90px;box-sizing:border-box;border-radius:50%;border:8px solid ${NAVY}"></div>`);
+  ADD(`<div class="w h" id="sl80" style="left:1060px;top:1556px;width:210px;height:88px;box-sizing:border-box;border:5px dashed ${AMB};border-radius:16px;background:#8a93a6;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;color:#fff">Title</div>`);
+  ADD(`<div class="w h" id="sl81" style="left:1330px;top:1556px;width:250px;height:88px;box-sizing:border-box;border:5px dashed ${AMB};border-radius:16px;background:#8a93a6;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;color:#fff">Urgency</div>`);
+  ADD(`<div class="w h" id="lane" style="left:1640px;top:1750px;width:760px;height:100px;box-sizing:border-box;background:#77808f;border-radius:14px;box-shadow:var(--shadow)"><div style="position:absolute;left:0;right:0;top:10px;height:12px;background:#5f6875;border-radius:6px"></div><div style="position:absolute;left:0;right:0;bottom:10px;height:12px;background:#5f6875;border-radius:6px"></div></div>`);
+  ADD(`<div class="w h" id="chute" style="left:1640px;top:1660px;width:90px;height:100px;background:#77808f"></div>`);
+  ADD(`<div class="w h" id="fk" style="left:1470px;top:1240px;width:430px;height:150px;box-sizing:border-box;background:#fff;border:10px solid ${GRN};border-radius:24px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:16px;font-size:54px;font-weight:800;color:${NAVY}">${IC('branch_fork', 'width:62px;height:62px;color:' + GRN)}Condition</div>`);
+  ADD(`<div class="w h" id="fkP" style="left:1660px;top:1390px;width:50px;height:150px;background:#8a93a6"></div>`);
+  ADD(`<svg class="w h" id="fkS" style="left:0;top:0;overflow:visible;pointer-events:none" width="3840" height="2160" viewBox="0 0 3840 2160"><defs><marker id="ah2" markerWidth="3.5" markerHeight="3.5" refX="3" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6 z" fill="#fff"/></marker></defs><path d="M1685 1720 V1800 H2330" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="26 18" marker-end="url(#ah2)"/><path d="M1800 1600 H2400" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-dasharray="26 18" marker-end="url(#ah2)"/></svg>`);
+  ADD(PILL('lbE', 1830, 1680, 'empty', '#5b6578'));
+  ADD(PILL('lbF', 2080, 1450, 'filled', TLC));
+  ADD(SHEET('sh8b', 1050, 940));
+  ADD(SHEET('sh8c', 1670, 940));
+  ADD(PILL('stA', 1040, 1380, 'actionSubmitId: 1', NAVY));
+  ADD(PILL('stB', 1660, 1380, 'actionSubmitId: 2', NAVY));
+  ADD(`<div class="w h" id="nA" style="left:1510px;top:925px;width:76px;height:76px;box-sizing:border-box;border-radius:50%;background:${AMB};color:#3b2a00;font-size:48px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)">1</div>`);
+  ADD(`<div class="w h" id="nB" style="left:2130px;top:925px;width:76px;height:76px;box-sizing:border-box;border-radius:50%;background:${AMB};color:#3b2a00;font-size:48px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)">2</div>`);
+  ADD(`<div class="w h" id="mag" style="left:1500px;top:1344px;width:140px;height:140px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:50%;display:flex;align-items:flex-end;justify-content:flex-end;color:${NAVY}">${IC('search', 'width:56px;height:56px')}</div>`);
+  ADD(`<div class="w h" id="mTick" style="left:2140px;top:1372px;width:100px;height:100px;box-sizing:border-box;background:#fff;border:6px solid ${TLC};border-radius:50%;display:flex;align-items:center;justify-content:center;color:${TLC}">${IC('checkmark_circle', 'width:64px;height:64px')}</div>`);
+
+  /* ── overlays (screen space) ── */
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plB">Adaptive Cards</div><div class="pl" id="plD">Back in the check-in hall</div>
+    ${[['c0a', 'one detail at a time', 'nv'], ['c0b', 'both in every ticket', 'go'], ['c0c', 'one sheet, all at once', 'tl'],
+      ['c1a', 'mini form', 'tl'], ['c1b', 'a sheet to fill in', 'tl'], ['c1c', 'the agent gets everything together', 'nv'],
+      ['c2a', 'at least one submit button', 'nv'], ['c2b', 'saved in variables', 'go'], ['c2c', 'collects no response', 'gr'],
+      ['c4', 'cannot be sent without it', 'nv'],
+      ['c5a', 'output variables, automatically', 'go'], ['c5b', 'fix with Edit Schema', 'nv'], ['c5c', 'clear camelCase id', 'go'], ['c5d', 'dynamic list: a table', 'nv'],
+      ['c6a', 'schema 1.6 and earlier', 'vi'], ['c6b', '1.6 without Action.Execute', 'vi'], ['c6c', 'up to 1.5', ''], ['c6d', 'it all looks fine here', 'nv'], 
+      ['c8a', 'closed without Submit', 'gr'], ['c8b', 'variables stay empty', 'go'], ['c8c', 'add a Condition node right after', 'green'], ['c8d', 'unique id on retries', 'nv'],
+      ['c10', 'designer or JSON', 'nv']].map(([id, t, c, tp]) => `<div class="bl ${c}" id="${id}"${tp ? ` style="top:${tp}px"` : ''}>${t}</div>`).join('')}
+    <div class="ov kin q" id="ovT"><span>Adaptive Cards</span></div>
+    <div class="nl" id="nlNext">next lesson</div>
+    <div class="h" id="rec" style="position:absolute;left:auto;right:120px;top:150px;width:880px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:26px;box-shadow:var(--shadow);padding:22px 26px;display:flex;flex-direction:column;gap:14px"><div id="recH" style="font-size:46px;font-weight:800;color:${NAVY};white-space:nowrap">Remember: three rules</div>
+    ${[['Ask with Adaptive Card collects fields', TLC, IC('card_ui', 'width:48px;height:48px;color:' + TLC)], ['Teams stops at schema 1.5', G15, `<span style="display:inline-flex;align-items:center;justify-content:center;width:62px;height:48px;border-radius:24px;background:${G15};color:#fff;font-size:32px;font-weight:800">1.5</span>`], ['Closed card → add a Condition node', GRN, IC('branch_fork', 'width:48px;height:48px;color:' + GRN)]].map(([tx, c, ic], k) => `<div id="rl${k}" style="box-sizing:border-box;padding:8px 18px;background:#f3f5f9;border-left:12px solid ${c};border-radius:14px;font-size:38px;font-weight:800;color:${INK};line-height:1.2;opacity:.3;display:flex;align-items:center;gap:14px;white-space:nowrap">${ic}${tx}</div>`).join('')}</div>`);
+
+  /* ── exam rooms ── */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const msh = (x, y, o) => `<div class="mp" style="left:${x}px;top:${y}px;width:252px;height:${o.info ? 204 : 206}px;background:${TLC};padding:6px 12px">
+      <div style="height:38px;line-height:38px;white-space:nowrap">New ticket</div><div style="height:40px;margin-top:5px;border-radius:8px;background:${o.info ? '#d9eef0' : '#fff'};color:${o.info ? '#0b5560' : INK};line-height:40px;padding:0 10px">Title</div><div style="height:40px;margin-top:5px;border-radius:8px;background:${o.info ? '#d9eef0' : '#fff'};color:${o.info ? '#0b5560' : INK};line-height:40px;padding:0 10px">Urgency</div>
+      ${o.info ? `<div style="position:absolute;right:10px;bottom:8px;height:40px;line-height:34px;padding:0 10px;border:4px solid #5b6578;border-radius:8px;background:#fff;color:#5b6578;font-size:32px;transform:rotate(-6deg)">info only</div>` : `<div style="height:42px;margin-top:6px;border-radius:8px;background:${NAVY};line-height:42px;text-align:center">Submit</div>`}</div>`;
+  const rail = (x, y, w, dashed) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w}px;height:22px;box-sizing:border-box;border-radius:10px;${dashed ? 'border:4px dashed #8a93a6' : 'background:#77808f'}"></div>`;
+  const sq = (x, y, col, t) => `<div class="mp" style="left:${x}px;top:${y}px;width:150px;height:130px;background:${col};font-size:48px;text-align:center;line-height:60px;padding-top:12px">${t}<div style="margin:8px auto 0;height:12px;width:100px;background:#fff;opacity:.85;border-radius:6px"></div><div style="margin:8px auto 0;height:12px;width:100px;background:#fff;opacity:.85;border-radius:6px"></div></div>`;
+  const mg = (x, y, bar) => `<div style="position:absolute;left:${x}px;top:${y}px;width:150px;height:170px;box-sizing:border-box;background:#f8f9fb;border:6px solid #3a4a78;border-radius:12px 12px 0 0"><div style="height:44px;background:#3a4a78;color:#fff;font-size:32px;font-weight:800;text-align:center;line-height:38px">Teams</div><div style="margin:14px auto 0;width:72px;height:72px;border-radius:50%;background:${G15};color:#fff;font-size:32px;font-weight:800;display:flex;align-items:center;justify-content:center">1.5</div></div>${bar ? `<div style="position:absolute;left:${x - 14}px;top:${y + 70}px;width:14px;height:100px;background:${RED}"></div>` : ''}`;
+  const arrow = (x, y) => `<svg style="position:absolute;left:${x}px;top:${y}px" width="70" height="50" viewBox="0 0 70 50"><path d="M4 25 H54 M40 8 L58 25 L40 42" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>Ask with Adaptive Card</h4>
+      ${msh(28, 76, {})}${arrow(300, 140)}${rail(380, 216, 380)}
+      ${pz(388, 160, 'title', `background:${AMB};color:#3b2a00;border-color:${AMB}`)}${pz(500, 160, 'urgency', `background:${AMB};color:#3b2a00;border-color:${AMB}`)}
+      ${pz(388, 240, 'Variables', 'background:transparent;border-color:transparent;padding:0')}${IC('checkmark_circle', 'position:absolute;left:716px;top:90px;width:60px;height:60px;color:#6be3a0')}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4>Message / Question card</h4>
+      ${msh(28, 76, { info: true })}${arrow(300, 140)}${rail(380, 216, 380, true)}
+      ${pz(388, 240, 'no variables', 'background:transparent;border-color:transparent;padding:0;color:#9fb8ff')}${pz(388, 120, 'collects nothing', 'background:#8a2b23;border-color:#c4392f')}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4>Schema 1.5</h4>
+      ${sq(30, 86, TLC, '1.5')}${arrow(196, 140)}${mg(280, 76, false)}${sq(470, 86, TLC, '1.5')}${IC('checkmark_circle', 'position:absolute;left:660px;top:96px;width:60px;height:60px;color:#6be3a0')}
+      ${pz(470, 226, 'works in Teams', `background:#1e5f3b;border-color:${GRN}`)}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4>Schema 1.6 everywhere</h4>
+      ${sq(30, 86, VIO, '1.6').replace('class="mp"', 'class="mp" data-r="1"').replace('background:' + VIO, 'background:' + VIO + ';outline:5px solid ' + RED)}${arrow(196, 140)}${mg(280, 76, true)}
+      ${IC('dismiss_circle', 'position:absolute;left:470px;top:96px;width:60px;height:60px;color:#ff8a80')}${pz(470, 170, 'limit is 1.5', 'background:#8a2b23;border-color:#c4392f')}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${GRN};opacity:0"><h4>Condition node</h4>
+      ${rail(28, 134, 262)}${rail(520, 134, 270)}
+      <div style="position:absolute;left:290px;top:92px;width:230px;height:66px;box-sizing:border-box;background:#fff;border:6px solid ${GRN};border-radius:16px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:32px;font-weight:800;color:${NAVY}">${IC('branch_fork', 'width:36px;height:36px;color:' + GRN)}Condition</div>
+      <div style="position:absolute;left:378px;top:158px;width:22px;height:34px;background:#77808f"></div>${rail(378, 184, 400)}
+      ${pz(560, 62, 'filled', `background:${TLC};border-color:${TLC}`)}${pz(440, 220, 'empty', 'background:#5b6578;border-color:#8a93a6')}${IC('checkmark_circle', 'position:absolute;left:716px;top:54px;width:60px;height:60px;color:#6be3a0')}</div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4>Message with the title</h4>
+      <div style="position:absolute;left:28px;top:90px;width:740px;height:84px;box-sizing:border-box;background:#fff;border:5px solid #8a93a6;border-radius:22px;display:flex;align-items:center;gap:10px;padding:0 22px;font-size:34px;font-weight:700;color:${INK};white-space:nowrap">I registered your ticket with<span style="display:inline-block;width:130px;height:46px;box-sizing:border-box;border:4px dashed ${RED};border-radius:10px"></span></div>
+      ${pz(28, 200, 'the variable is empty', 'background:#8a2b23;border-color:#c4392f')}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'Contoso wants a ticket form in the chat, with a title and an urgency. The user must send both together with a button. Which node should Valeria use?', opts: ['A Message node with a card', 'Ask with Adaptive Card', 'A Question node with a card'],
+      why: `<div id="exA_w1">It is the node that needs <span class="g">at least one submit button</span> and collects the response</div><div id="exA_w2">A card in a Message or Question node is <span class="r">only informational</span>, so it collects nothing</div>`, proof: proofA }),
+    mkExam('exB', { q: "Valeria designed the ticket card with schema 1.6, and it looks perfect in the test chat. Contoso's employees use Teams. What should she do?", opts: ['Keep schema 1.6 everywhere', 'Check it only in the authoring canvas', 'Design with schema 1.5'],
+      why: `<div id="exB_w1">Teams <span class="y">stops at 1.5</span>, but the test chat shows 1.6, so it fools you</div><div id="exB_w2">1.6 <span class="r">fails in Teams</span>, and the authoring canvas <span class="r">cannot render it</span></div>`, proof: proofB }),
+    mkExam('exC', { q: 'A user closes the ticket card without selecting submit. The output variables stay empty. What should Valeria add right after the node?', opts: ['A Condition node that checks them', 'A Message that uses the title variable', 'Edit Schema with a new variable'],
+      why: `<div id="exC_w1">The output variables stay empty, and the <span class="g">Condition node</span> handles that case</div><div id="exC_w2">A Message with the title variable would show <span class="r">nothing</span>, because it is empty</div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ── UI window (scene 10): Copilot Studio · Contoso help agent ── */
+  const navS = ['Topics', 'Tools', 'Knowledge', 'Settings'];
+  const amberTag = (t) => `<span class="vc">${t}</span>`;
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Contoso help agent', nav: navS, on: 0, bar: `<span class="hc">${IC('chat')}Test chat</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Topics › Ticket</div><h3>Ticket</h3>
+      <div class="nc" id="uTrig" style="left:0;top:110px;width:520px"><small>Trigger</small><div style="font-size:34px;font-weight:800">Ticket</div></div>
+      <div style="position:absolute;left:30px;top:218px;width:6px;height:40px;background:#c9ced8"></div>
+      <span class="btn" id="uAdd" style="position:absolute;left:0;top:258px">+ Add node</span>
+      <div class="nc" id="uNode" style="left:0;top:258px;width:520px;opacity:0"><small>Node</small><div style="font-size:34px;font-weight:800">Ask with Adaptive Card</div></div>
+      <span class="btn" id="uDot" style="position:absolute;left:545px;top:290px;opacity:0">...</span>
+      <div class="mn" id="uMenu" style="left:0;top:318px;width:520px"><div>Send a message</div><div>Ask a question</div><div id="uMi2" style="background:#e6ecfb">Ask with Adaptive Card</div><div>Condition</div></div>
+      <div class="mn" id="uMenu2" style="left:545px;top:344px;width:260px"><div id="uMp0">Properties</div><div>Delete</div></div>
+      <div id="uVars" style="position:absolute;left:0;top:380px;height:60px;display:flex;align-items:center;gap:14px;opacity:0">${amberTag('title')}${amberTag('urgency')}<span class="btn" id="uEs">Edit Schema</span></div>
+      <div class="nc" id="uMsg" style="left:0;top:470px;width:560px;opacity:0"><small>Message</small><div style="font-size:32px;font-weight:700;line-height:1.35">I registered your ticket with ${amberTag('urgency')} urgency</div></div>
+      <div id="uPan" style="position:absolute;left:600px;top:60px;width:620px;box-sizing:border-box;background:#f7f9fd;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);padding:18px 24px;opacity:0">
+        <div style="font-size:40px;font-weight:800">Properties</div>
+        <div style="margin-top:12px;font-size:32px;font-weight:700;color:var(--muted)">Ask with Adaptive Card</div>
+        <span class="btn pri" id="uEdit" style="margin-top:18px;display:inline-block">Edit adaptive card</span></div>
+      <div id="uDes" style="position:absolute;left:600px;top:60px;width:620px;box-sizing:border-box;background:#f7f9fd;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);padding:18px 24px;opacity:0">
+        <div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:38px;font-weight:800">Edit adaptive card</div><span class="btn pri" id="uSave">Save</span></div>
+        <div style="margin-top:12px;display:flex;gap:12px"><span class="btn" id="uTabD" style="border-color:#2f5bd3;color:#2f5bd3">Designer</span><span class="btn" id="uTabJ">JSON</span></div>
+        <div class="fld" id="uF0" style="margin-top:14px;height:68px;opacity:0;font-weight:800">Title</div>
+        <div class="fld" id="uF1" style="margin-top:12px;height:68px;opacity:0;font-weight:800">Urgency: High</div>
+        <div id="uSb" style="margin-top:12px;height:68px;border-radius:12px;background:#1f2a44;color:#fff;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;opacity:0">Submit</div></div>
+      <div id="uSch" style="position:absolute;left:600px;top:60px;width:620px;box-sizing:border-box;background:#f7f9fd;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);padding:18px 24px;opacity:0">
+        <div style="font-size:40px;font-weight:800">Edit Schema</div>
+        <div style="margin-top:14px;display:flex;align-items:center;gap:18px;height:64px;border-top:3px solid var(--line)">${amberTag('title')}<span style="font-size:32px;font-weight:700;color:var(--muted)">String</span></div>
+        <div style="display:flex;align-items:center;gap:18px;height:64px;border-top:3px solid var(--line)">${amberTag('urgency')}<span style="font-size:32px;font-weight:700;color:var(--muted)">String</span></div></div>
+    </div>` }));
+  const PU = { add: PC('#uAdd'), mi2: PC('#uMi2'), dot: PC('#uDot'), mp0: PC('#uMp0'), edit: PC('#uEdit'), save: PC('#uSave'), es: PC('#uEs'), tabj: PC('#uTabJ'), msg: PC('#uMsg') };
+
+  window.__timelines = window.__timelines || {}; window.__timelines['main'] = tl;
+  /* ═══════ TIMELINE ═══════ */
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const LB = (id, a, b) => { tl.fromTo('#' + id, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' }, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const PULSE = (sel, t, s) => tl.to(sel, { scale: s || 1.06, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t);
+  const TAP = (sel, t) => tl.fromTo(sel, { opacity: 0.95, scale: 0.4 }, { opacity: 0, scale: 1.5, duration: 0.55, ease: 'power2.out', immediateRender: false }, t);
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.35 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', R + 1.95, 0.15);
+    ON('#' + o.pf + '_L', R + 2.0, 0.25); ON('#' + o.pf + '_R', R + 2.35, 0.25);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  gsap.set('#world', { x: 960 - 1170 * 0.7, y: 540 - 960 * 0.7, scale: 0.7 });
+  gsap.set('#sl4_k', { x: 0 });
+  gsap.set(['#gw', '#gTC', '#gWC', '#gTM', '#gLW', '#acw'], { opacity: 0 }); gsap.set('#acN', { opacity: 0 });
+  const board = ['#board', '#sl0', '#sl1', '#sl2', '#sl3', '#sl4', '#sl5'];
+  const s2g = ['#strip', '#trg', '#strL', '#ntg', '#bdC', '#clip2', '#sh2', '#vt0', '#vt1', '#tgM', '#tgQ', '#sh2b', '#tap2', '#rGlow'];
+  const s5g = ['#val5', '#savB', '#sh5', '#t50', '#t51', '#t51g', '#schP', '#idBad', '#idGood', '#dd5', '#ddL', '#fx5', '#tb5', '#cb5'];
+  const s8g = ['#mar8', '#sh8a', '#x8', '#tap8', '#sl80', '#sl81', '#lane', '#chute', '#fk', '#fkP', '#fkS', '#lbE', '#lbF', '#sh8b', '#sh8c', '#stA', '#stB', '#nA', '#nB', '#mag', '#mTick'];
+
+  /* ── 0 One detail at a time ── */
+  TAG('#plA', 0.3);
+  BOB('#nx,#nxBd', S(0, 0) + 0.3, S(0, 3) + 1.5, 22);
+  BOB('#mar', S(0, 1) + 0.3, S(0, 3) + 1.5, 16);
+  ON('#n1', W(0, 1, 'title', -0.1), 0.3);
+  ON('#m1', W(0, 1, 'waits', -0.1), 0.3);
+  ON('#n2', W(0, 1, 'urgency', -0.1), 0.3);
+  ON('#dots', W(0, 1, 'again', -0.2), 0.3);
+  LB('c0a', W(0, 1, 'again', 0.1), S(0, 2) + 0.3);
+  ON(['#mgr', '#mgrC'], S(0, 2) + 0.1, 0.3);
+  POP('#stub', W(0, 2, 'both', -0.1));
+  LB('c0b', W(0, 2, 'both', 0.35), S(0, 3) - 0.1);
+  OFF(['#mgr', '#mgrC', '#stub', '#n1', '#n2', '#dots'], S(0, 3) - 0.05, 0.3);
+  ON('#val', S(0, 3) - 0.1, 0.1);
+  ON('#shV', Math.min(S(0, 3) + 1.6, W(0, 3, 'one sheet', -0.15)), 0.3);
+  tl.fromTo('#val', { x: -1250 }, { x: 0, duration: 1.9, ease: 'power1.out' }, S(0, 3) - 0.1);
+  ON('#m2', W(0, 3, 'wants', 0), 0.3);
+  tl.to('#m1', { x: -266, y: 433, scale: 0.3, opacity: 0, duration: 0.7, ease: 'power2.in' }, W(0, 3, 'one sheet', 0.0));
+  tl.to('#m2', { x: -356, y: 355, scale: 0.3, opacity: 0, duration: 0.7, ease: 'power2.in' }, W(0, 3, 'one sheet', 0.0));
+  PULSE('#shV', W(0, 3, 'one sheet', 0.75), 1.05);
+  LB('c0c', W(0, 3, 'all at once', 0.0), S(0, 4) - 0.1);
+  tl.to('#world', { opacity: 0.12, duration: 0.3 }, S(0, 4) + 0.05); tl.to('#world', { opacity: 1, duration: 0.35 }, E(0, 4) - 0.55);
+  OFF('#plA', S(0, 4) - 0.05, 0.25);
+  ON('#ovT', S(0, 4) + 0.15, 0.3); OFF('#ovT', E(0, 4) - 0.6, 0.25); TAG('#plB', E(0, 4) - 0.4);
+
+  /* ── 1 A mini form in the chat ── */
+  CAM(1030, 757, 0.9, S(1, 0) - 0.25, 1.5);
+  OFF(['#shV', '#val'], S(1, 0) - 0.3, 0.25);
+  BOB('#nx,#nxBd', S(1, 0) + 0.3, S(1, 2) + 2.0, 20);
+  tl.fromTo('#sh1', { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' }, W(1, 0, 'mini form', -0.35));
+  LB('c1a', W(1, 0, 'mini form', 0.3), W(1, 1, 'phone', -0.3));
+  PULSE('#sh1_f0', W(1, 0, 'text', 0.0), 1.04); PULSE('#sh1_f1', W(1, 0, 'fields', 0.0), 1.04); PULSE('#sh1_sb', W(1, 0, 'buttons', 0.0), 1.06);
+  OFF('#sh1', S(1, 1) - 0.1, 0.3);
+  POP('#phL', W(1, 1, 'one by one', -0.1));
+  POP('#clb', W(1, 1, 'sheet', -0.2)); POP('#clL', W(1, 1, 'all at once', -0.2));
+  ON('#arr1', W(1, 1, 'sheet', 0.3), 0.01);
+  tl.fromTo('#arr1p', { strokeDasharray: 1500, strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: 0.7, ease: 'power2.inOut', immediateRender: false }, W(1, 1, 'sheet', 0.3));
+  tl.to('#phn,#phT,#phL', { opacity: 0.4, duration: 0.4 }, W(1, 1, 'all at once', 0.4));
+  LB('c1b', W(1, 1, 'all at once', 0.5), S(1, 2) - 0.15);
+  OFF(['#arr1', '#clb', '#clL', '#phL'], S(1, 2) - 0.25, 0.25);
+  tl.to('#phn,#phT', { opacity: 1, duration: 0.3 }, S(1, 2) - 0.2);
+  ON('#sh1', S(1, 2) - 0.15, 0.3);
+  PULSE('#sh1_sb', W(1, 2, 'gets', -0.5), 1.1);
+  TAP('#tap1', W(1, 2, 'gets', -0.5));
+  tl.to('#sh1', { x: 550, y: 60, scale: 0.6, duration: 0.9, ease: 'power2.inOut' }, W(1, 2, 'gets', -0.1));
+  ON('#nGot', W(1, 2, 'gets', 0.9), 0.3);
+  LB('c1c', W(1, 2, 'everything', 0.0), S(2, 0) - 0.1);
+  OFF('#sh1', S(2, 0) - 0.5, 0.3);
+
+  /* ── 2 The right node ── */
+  CAM(1450, 1250, 0.9, S(2, 0) - 0.3, 1.5);
+  OFF(['#nGot'], S(2, 0) - 0.2, 0.2);
+  OFF('#hallG', S(2, 0) - 0.2, 0.4);
+  ON('#railL', S(2, 0) + 0.5, 0.3);
+  OFF('#plB', S(2, 0) + 0.4, 0.3);
+  ON('#nxBg', S(2, 0) + 0.1, 0.3); tl.to('#nxBg', { scale: 1.15, duration: 0.4, yoyo: true, repeat: 3 }, S(2, 0) + 0.1);
+  ON(['#strip', '#trg', '#strL'], W(2, 0, 'Ask with', -0.8), 0.3);
+  TAG('#ntg', W(2, 0, 'Ask with', -0.3)); ON('#bdC', W(2, 0, 'Ask with', 0.1), 0.4);
+  OFF('#nxBg', W(2, 0, 'node', 0.5), 0.3);
+  ON('#clip2', W(2, 1, 'card', 0.0), 0.3);
+  tl.fromTo('#sh2', { opacity: 0, y: -140 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.4)' }, W(2, 1, 'card', 0.0));
+  LB('c2a', W(2, 1, 'submit', 0.0), W(2, 2, 'saved', -0.3));
+  tl.to('#sh2_sb', { boxShadow: '0 0 0 8px #ffd166', duration: 0.3, yoyo: true, repeat: 3 }, W(2, 1, 'submit', 0.0));
+  PULSE('#sh2_f0', W(2, 1, 'input', 0.0), 1.04); PULSE('#sh2_f1', W(2, 1, 'input', 0.4), 1.04);
+  ON(['#vt0', '#vt1'], W(2, 2, 'types', 0.0), 0.3);
+  tl.to('#vt0', { y: 480, duration: 0.5, ease: 'power2.in' }, W(2, 2, 'saved', -0.1));
+  tl.to('#vt0', { x: -440, duration: 0.5, ease: 'power2.out' }, W(2, 2, 'saved', 0.4));
+  tl.to('#vt1', { y: 380, duration: 0.5, ease: 'power2.in' }, W(2, 2, 'saved', 0.2));
+  tl.to('#vt1', { x: -40, duration: 0.5, ease: 'power2.out' }, W(2, 2, 'saved', 0.7));
+  LB('c2b', W(2, 2, 'saved', 0.1), S(2, 3) - 0.1);
+  OFF(['#nx', '#nxBd', '#bdC'], S(2, 3) - 0.3, 0.3);
+  tl.fromTo('#sh2b', { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.4)' }, S(2, 3) + 0.1);
+  SLIDE('#tgM', W(2, 3, 'Message', -0.1)); SLIDE('#tgQ', W(2, 3, 'Question', -0.1));
+  TAP('#tap2', W(2, 4, 'collects', -0.4));
+  LB('c2c', W(2, 4, 'collects', 0.0), S(3, 0) - 0.1);
+
+  /* ── 3 EXAM A ── */
+  OFF(['#plB'], S(3, 0), 0.1);
+  CAM(1450, 840, 0.8, S(3, 1), 0.1);
+  tl.set('#hallG', { opacity: 1 }, S(3, 1));
+  SET(['#mar', '#phn', '#phT', '#scr', '#m0', '#inbar', '#lapM'], S(3, 1), 0);
+  SET(s2g, S(3, 1), 0);
+  EXAMX('exA', 3, { pf: 'pa', pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 0.1 });
+
+  /* ── 4 Six input elements ── */
+  ON('#board', S(4, 0) + 0.1, 0.3);
+  ['#sl0', '#sl1', '#sl2', '#sl3', '#sl4', '#sl5'].forEach((s, k) => POP(s, S(4, 0) + 0.35 + k * 0.14));
+  const HL = (k, a, b) => { tl.to('#sl' + k, { borderColor: TLC, scale: 1.04, duration: 0.25 }, a); tl.to('#sl' + k, { borderColor: '#c9ced8', scale: 1, duration: 0.25 }, b); };
+  HL(0, W(4, 1, 'Input Text', -0.1), S(4, 2) - 0.1); ON('#sl0_t', W(4, 1, 'multiline', -0.05), 0.3);
+  HL(1, W(4, 2, 'Input Number', -0.1), S(4, 3) - 0.1); ON('#sl1_t', W(4, 2, 'optional', -0.4), 0.3);
+  HL(2, W(4, 3, 'Input Date', -0.1), S(4, 4) - 0.1); HL(3, W(4, 3, 'Input Time', -0.1), S(4, 4) - 0.1);
+  HL(4, W(4, 4, 'Input Toggle', -0.1), S(4, 5) - 0.1);
+  tl.to('#sl4_k', { x: -72, duration: 0.3 }, W(4, 4, 'false', -0.1)); tl.to('#sl4_bg', { attr: { fill: '#8a93a6' }, duration: 0.3 }, W(4, 4, 'false', -0.1));
+  HL(5, W(4, 5, 'Input ChoiceSet', -0.1), S(4, 6) - 0.1);
+  OFF(['#board', '#sl0', '#sl1', '#sl2', '#sl3', '#sl4', '#sl5'], W(4, 6, 'Required', -0.35), 0.3);
+  ON('#sh4', W(4, 6, 'Required', -0.1), 0.3);
+  ON(['#reqP', '#reqL'], W(4, 6, 'Required', 0.1), 0.3);
+  tl.to('#sh4_sb', { opacity: 0.45, duration: 0.3 }, W(4, 6, 'cannot', -0.2));
+  POP('#lock4', W(4, 6, 'cannot', -0.2));
+  LB('c4', W(4, 6, 'cannot', 0.1), S(5, 0) - 0.1);
+
+  /* ── 5 Variables and clear ids ── */
+  CAM(1450, 1250, 0.9, S(5, 0) - 0.3, 1.4);
+  OFF(board.concat(['#sh4', '#reqP', '#reqL', '#lock4']), S(5, 0) - 0.25, 0.3);
+  OFF('#hallG', S(5, 0) - 0.1, 0.3);
+  ON(['#val5', '#sh5'], S(5, 0) + 0.1, 0.3);
+  POP('#savB', W(5, 0, 'save', -0.2));
+  PULSE('#savB', W(5, 0, 'save', 0.3), 1.12);
+  ON(['#t50', '#t51'], W(5, 0, 'automatically', -1.0), 0.3);
+  tl.to('#t50', { y: 480, duration: 0.5, ease: 'power2.in' }, W(5, 0, 'automatically', -0.5));
+  tl.to('#t50', { x: -460, duration: 0.5, ease: 'power2.out' }, W(5, 0, 'automatically', 0.0));
+  tl.to('#t51', { y: 380, duration: 0.5, ease: 'power2.in' }, W(5, 0, 'automatically', -0.3));
+  tl.to('#t51', { x: -160, duration: 0.5, ease: 'power2.out' }, W(5, 0, 'automatically', 0.2));
+  LB('c5a', W(5, 0, 'automatically', 0.1), S(5, 1) - 0.1);
+  OFF('#savB', S(5, 1) - 0.1, 0.25);
+  OFF('#t51', S(5, 1) + 0.2, 0.15); ON('#t51g', S(5, 1) + 0.2, 0.15);
+  POP('#schP', W(5, 1, 'fix', -0.1));
+  LB('c5b', W(5, 1, 'Edit Schema', -0.2), S(5, 2) - 0.1);
+  OFF('#t51g', W(5, 1, 'types', 0.3), 0.15); ON('#t51', W(5, 1, 'types', 0.3), 0.15);
+  OFF(['#schP', '#sh5', '#val5'], S(5, 2) - 0.1, 0.3);
+  POP('#idGood', W(5, 2, 'camel case', -0.1));
+  LB('c5c', W(5, 2, 'camel case', 0.2), S(5, 3) - 0.1);
+  POP('#idBad', W(5, 2, 'default one', -0.4));
+  OFF(['#idGood', '#idBad', '#t50', '#t51'], S(5, 3) - 0.15, 0.3);
+  POP('#dd5', W(5, 3, 'dropdown', -0.1));
+  ON(['#ddL'], W(5, 3, 'dynamic', 0.0), 0.3);
+  POP('#fx5', W(5, 3, 'Power F X', -0.1));
+  POP('#tb5', W(5, 3, 'table', -0.5)); ON('#cb5', W(5, 3, 'table', -0.2), 0.3);
+  PULSE('#tb5', W(5, 3, 'title', 0.0), 1.03);
+  LB('c5d', W(5, 3, 'table', 0.4), S(6, 0) - 0.1);
+
+  /* ── 6 Versions by channel ── */
+  CAM(3125, 1000, 0.8, S(6, 0) - 0.5, 1.8);
+  ON(['#gw', '#gTC', '#gWC', '#gTM', '#gLW', '#acw'], S(6, 0) - 0.3, 0.3);
+  OFF(['#dd5', '#ddL', '#fx5', '#tb5', '#cb5'], S(6, 0) - 0.8, 0.3);
+  LB('c6a', S(6, 0) + 0.4, W(6, 1, 'Web Chat', -0.1));
+  const GL = (g, a, b) => { ON('#' + g + '_gl', a, 0.25); tl.to('#' + g + '_s', { scale: 1.2, duration: 0.25, yoyo: true, repeat: 1 }, a); OFF('#' + g + '_gl', b, 0.3); };
+  GL('gWC', W(6, 1, 'Web Chat', 0.0), S(6, 2) - 0.1);
+  ON('#nae', W(6, 1, 'without', -0.1), 0.3);
+  LB('c6b', W(6, 1, 'without', 0.1), S(6, 2) - 0.15);
+  GL('gLW', W(6, 2, 'live chat', 0.0), S(6, 3) - 0.1); GL('gTM', W(6, 2, 'Teams', -0.2), S(6, 3) - 0.1);
+  LB('c6c', W(6, 2, 'Teams', 0.3), S(6, 3) - 0.15);
+  GL('gTC', W(6, 3, 'test chat', 0.0), S(6, 4) - 0.1);
+  ON('#val6', S(6, 3) + 0.05, 0.2);
+  tl.to('#val6', { x: 380, duration: 1.7, ease: 'power1.inOut' }, S(6, 3) + 0.2);
+  OFF('#val6', S(6, 3) + 1.5, 0.3);
+  LB('c6d', W(6, 3, 'everything', -0.1), S(6, 4) - 0.2);
+  CAM(2400, 1000, 1.0, S(6, 4) - 0.2, 1.3);
+  OFF(['#nae', '#gTM', '#gLW'], S(6, 4) - 0.3, 0.3);
+  POP('#acN', W(6, 4, 'canvas', -0.4));
+
+  /* ── 7 EXAM B ── */
+  SET(['#gw', '#gTC', '#gWC', '#gTM', '#gLW', '#acw', '#acN', '#val6'], S(7, 1), 0);
+  CAM(1500, 1400, 0.9, S(7, 1), 0.1);
+  EXAMX('exB', 7, { pf: 'pb', pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.1 });
+
+  /* ── 8 A card closed without submit ── */
+  ON(['#mar8', '#sh8a', '#x8'], S(8, 0) + 0.05, 0.3);
+  TAP('#tap8', W(8, 0, 'closes', 0.0));
+  PULSE('#x8', W(8, 0, 'closes', 0.0), 1.2);
+  tl.to('#sh8a,#x8', { scale: 0.1, opacity: 0, duration: 0.5, ease: 'power2.in' }, W(8, 0, 'closes', 0.5));
+  LB('c8a', W(8, 0, 'closes', 0.35), S(8, 1) - 0.1);
+  OFF('#mar8', S(8, 1) - 0.05, 0.3);
+  ON(['#sl80', '#sl81'], W(8, 1, 'empty', -0.2), 0.3);
+  LB('c8b', W(8, 1, 'empty', 0.25), S(8, 2) - 0.1);
+  POP('#fk', W(8, 2, 'Condition node', -0.1)); ON('#fkP', W(8, 2, 'Condition node', 0.1), 0.2);
+  ON(['#lane', '#chute', '#fkS'], W(8, 2, 'Condition node', 0.3), 0.4);
+  POP('#lbE', W(8, 2, 'Condition node', 0.7)); POP('#lbF', W(8, 2, 'Condition node', 1.0));
+  LB('c8c', W(8, 2, 'Condition', 0.4), S(8, 3) - 0.1);
+  OFF(['#fk', '#fkP', '#fkS', '#lane', '#chute', '#lbE', '#lbF', '#sl80', '#sl81'], S(8, 3) - 0.1, 0.3);
+  ON(['#sh8b', '#sh8c'], W(8, 3, 'consecutive', -0.2), 0.3);
+  POP('#stA', W(8, 3, 'unique', -0.1)); POP('#nA', W(8, 3, 'unique', -0.1));
+  POP('#stB', W(8, 3, 'unique', 0.4)); POP('#nB', W(8, 3, 'unique', 0.4));
+  LB('c8d', W(8, 3, 'unique', 0.3), S(9, 0) - 0.1);
+  ON('#mag', W(8, 3, 'action Submit I D', -0.2), 0.3);
+  tl.to('#mag', { x: 620, duration: 0.8, ease: 'power2.inOut' }, W(8, 3, 'action Submit I D', 0.2));
+  OFF('#mag', W(8, 3, 'action Submit I D', 1.0), 0.15);
+  POP('#mTick', W(8, 3, 'action Submit I D', 1.1));
+
+  /* ── 9 EXAM C ── */
+  SET(s8g, S(9, 1), 0);
+  tl.set('#hallG', { opacity: 1 }, S(9, 1));
+  CAM(350, 1560, 1.15, S(9, 1), 0.1);
+  tl.set('#deskG', { opacity: 1 }, S(9, 1));
+  EXAMX('exC', 9, { pf: 'pc', pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(9, 4), S(9, 5), S(9, 6)], end: S(10, 0) - 0.1 });
+
+  /* ── 10 Set it up in the studio ── */
+  UIIN('#uiS', S(10, 0) + 0.6);
+  ON('#cur', S(10, 0) + 1.5, 0.2);
+  CUR(PU.add[0], PU.add[1], W(10, 1, 'Add node', -0.5), 0.6); CLICK(PU.add[0], PU.add[1], W(10, 1, 'Add node', 0.1));
+  ON('#uMenu', W(10, 1, 'Add node', 0.25), 0.2);
+  CUR(PU.mi2[0], PU.mi2[1], W(10, 2, 'Choose', 0.1), 0.5); CLICK(PU.mi2[0], PU.mi2[1], W(10, 2, 'Card', -0.1));
+  OFF('#uMenu', W(10, 2, 'Card', 0.1), 0.15); OFF('#uAdd', W(10, 2, 'Card', 0.1), 0.15);
+  ON('#uNode', W(10, 2, 'Card', 0.2), 0.25);
+  ON('#uDot', W(10, 3, 'three dots', -0.5), 0.2);
+  CUR(PU.dot[0], PU.dot[1], W(10, 3, 'three dots', -0.4), 0.5); CLICK(PU.dot[0], PU.dot[1], W(10, 3, 'three dots', 0.2));
+  ON('#uMenu2', W(10, 3, 'three dots', 0.4), 0.2);
+  CUR(PU.mp0[0], PU.mp0[1], W(10, 3, 'Properties', -0.4), 0.4); CLICK(PU.mp0[0], PU.mp0[1], W(10, 3, 'Properties', 0.05));
+  OFF('#uMenu2', W(10, 3, 'Properties', 0.2), 0.15); ON('#uPan', W(10, 3, 'Properties', 0.35), 0.3);
+  CUR(PU.edit[0] + 135, PU.edit[1] + 18, W(10, 3, 'Edit adaptive card', -0.6), 0.5); CLICK(PU.edit[0] + 135, PU.edit[1] + 18, W(10, 3, 'adaptive card', 0.1));
+  OFF('#uPan', S(10, 4) - 0.05, 0.15); ON('#uDes', S(10, 4) - 0.05, 0.25);
+  POP('#uF0', W(10, 4, 'inputs', 0.0)); POP('#uF1', W(10, 4, 'inputs', 0.45)); POP('#uSb', W(10, 4, 'submit button', 0.0));
+  CUR(PU.tabj[0], PU.tabj[1], W(10, 4, 'J S O N', -0.6), 0.5);
+  tl.to('#uTabJ', { borderColor: '#2f5bd3', color: '#2f5bd3', duration: 0.2 }, W(10, 4, 'J S O N', 0.0));
+  LB('c10', W(10, 4, 'or paste', 0.0), S(10, 5) - 0.1);
+  CUR(PU.save[0], PU.save[1], S(10, 5) - 0.3, 0.5); CLICK(PU.save[0], PU.save[1], W(10, 5, 'Save', 0.15));
+  OFF('#uDes', W(10, 5, 'creates', -0.1), 0.2);
+  ON('#uVars', W(10, 5, 'output variables', -0.2), 0.3);
+  CUR(PU.es[0], PU.es[1], S(10, 6) - 0.5, 0.5); CLICK(PU.es[0], PU.es[1], S(10, 6) + 0.05);
+  ON('#uSch', S(10, 6) + 0.2, 0.25);
+  OFF('#uSch', S(10, 7) - 0.05, 0.2);
+  ON('#uMsg', S(10, 7) + 0.1, 0.3);
+  CUR(PU.msg[0] + 330, PU.msg[1], S(10, 7) + 0.1, 0.6);
+  OFF('#cur', E(10, 7) - 0.7, 0.15);
+  tl.to('#uiS', { opacity: 0, scale: 0.28, duration: 0.7, ease: 'power3.in' }, E(10, 7) - 0.45);
+  OFF('#uiBack', E(10, 7) + 0.25, 0.4);
+  CAM(1110, 760, 0.8, E(10, 7) - 0.4, 1.4);
+  SET(['#mar', '#phn', '#phT', '#scr', '#m0', '#inbar', '#lapM'], E(10, 7) - 0.3, 1);
+  OFF('#deskG', E(10, 7) - 0.4, 0.3);
+
+  /* ── 11 Three rules to remember ── */
+  TAG('#plD', S(11, 0) + 0.2);
+  tl.fromTo('#val', { x: 0 }, { x: 400, opacity: 1, duration: 1.0, ease: 'power1.inOut' }, S(11, 0) + 0.1);
+  BOB('#nx,#nxBd', S(11, 0) + 0.3, S(11, 6), 22);
+  tl.fromTo('#sh1', { opacity: 0, x: 0, y: 0, scale: 1 }, { opacity: 1, duration: 0.4 }, S(11, 1) + 0.0);
+  PULSE('#sh1_f0', W(11, 1, 'fills', 0.0), 1.04); PULSE('#sh1_f1', W(11, 1, 'fills', 0.5), 1.04);
+  PULSE('#sh1_sb', W(11, 1, 'sends', -0.3), 1.1);
+  tl.to('#sh1', { x: 550, y: 60, scale: 0.6, duration: 0.9, ease: 'power2.inOut' }, W(11, 1, 'sends', 0.0));
+  OFF('#sh1', W(11, 1, 'sends', 1.4), 0.3);
+  ON('#conf', W(11, 1, 'confirms', -0.1), 0.35);
+  OFF(['#conf', '#scr', '#m0', '#inbar'], S(11, 2) + 0.05, 0.2);
+  ON('#rec', S(11, 2) + 0.15, 0.35);
+  tl.to('#rl0', { opacity: 1, duration: 0.35 }, S(11, 3) + 0.15);
+  tl.to('#rl1', { opacity: 1, duration: 0.35 }, S(11, 4) + 0.15);
+  tl.to('#rl2', { opacity: 1, duration: 0.35 }, S(11, 5) + 0.15);
+  OFF('#rec', S(11, 6) - 0.3, 0.25);
+  OFF('#plD', S(11, 6) - 0.3, 0.25);
+  OFF(['#lapM', '#sh1', '#mar'], S(11, 6) - 0.3, 0.3);
+  CAM(-420, 960, 0.9, S(11, 6) - 0.2, 1.5);
+  ON(['#corr', '#signN'], S(11, 6) - 0.6, 0.3);
+  TAG('#nlNext', S(11, 6) + 0.4);
+  BOB('#signN', S(11, 6) + 1.0, B.duration + 2.6, 14);
+  tl.to('#world', { scale: 0.93, duration: Math.max(1, B.duration + 2.6 - (S(11, 6) + 1.7)), ease: 'none' }, S(11, 6) + 1.7);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

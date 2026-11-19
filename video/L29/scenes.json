@@ -1,0 +1,30 @@
+{"brand": "AB-620 · Module 5 · Lesson 3", "scenes": [
+ {"type": "flow", "header": {"kicker": "Connected agents", "title": "Hand off to the specialist"},
+  "nodes": [
+   {"icon": "person", "title": "Receptionist", "sub": "The main agent", "at": "receptionist"},
+   {"icon": "people_team", "title": "Human Resources", "sub": "The specialist", "accent": true, "at": "Human Resources"},
+   {"icon": "book_open", "title": "Own sources", "at": "own sources"},
+   {"icon": "arrow_reply", "title": "Result back", "sub": "The conversation goes on", "at": "gets the result"}]},
+ {"type": "compare", "header": {"kicker": "Two ways", "title": "Orchestrator or Redirect"},
+  "cols": [
+   {"icon": "sparkle", "title": "The orchestrator decides", "sub": "Based on the description", "at": "orchestrator decides", "items": []},
+   {"icon": "arrow_routing", "title": "Redirect from a topic", "sub": "The topic hands it over", "accent": true, "at": "topic redirects",
+    "items": [{"text": "Inputs and outputs = topic variables", "at": "inputs and outputs"}]}],
+  "verdict": {"icon": "checkmark_circle", "text": "Flexibility → orchestrator · exact control → Redirect", "at": "control exactly"}},
+ {"type": "split", "left": {"kicker": "Reference in instructions", "title": "Type / and pick the agent", "sub": "Guide the orchestrator without complicated rules."},
+  "window": {"title": "Main agent · Instructions", "heading": "Instructions", "rail": ["apps", "bot", "notepad", "toolbox", "settings"],
+   "cards": [
+    {"icon": "text_t", "title": "Type a forward slash", "at": "forward slash", "hi": true},
+    {"icon": "bot", "title": "Choose its name", "at": "choosing its name", "hi": true},
+    {"icon": "sparkle", "title": "When to use that specialist", "at": "when to use", "hi": true}]}},
+ {"type": "terms", "header": {"kicker": "Exam limits", "title": "Three points to memorize"}, "cols": 3,
+  "items": [
+   {"icon": "dismiss_circle", "term": "No double role", "def": "A main agent with connected agents cannot be a connected agent", "at": "cannot also"},
+   {"icon": "book_open", "term": "General knowledge", "def": "Child agents follow the main agent's setting", "at": "Use general knowledge"},
+   {"icon": "link", "term": "Citations", "def": "Can be lost on the way back", "at": "citations"}]},
+ {"type": "compare", "header": {"kicker": "Clear descriptions", "title": "Everything depends on them"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Clear and distinct", "tone": "good", "at": "clear and distinct", "items": [{"text": "It hands work over well", "at": "hands work over"}]},
+   {"icon": "flag", "title": "Alike", "tone": "bad", "at": "look alike", "items": [{"text": "It hesitates", "at": "hesitates"}]}],
+  "verdict": {"icon": "document_text", "text": "Say what each one can and cannot do", "at": "cannot"}}
+]}

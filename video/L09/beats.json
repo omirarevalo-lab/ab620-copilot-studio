@@ -1,0 +1,491 @@
+{
+ "id": "L09",
+ "title": "Formatted responses",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 273.186,
+ "scenes": [
+  {
+   "title": "The same ticket, two answers",
+   "start": 0.8,
+   "end": 21.187,
+   "sentences": [
+    {
+     "text": "Contoso's help desk agent looks up a ticket.",
+     "start": 0.8,
+     "end": 3.38
+    },
+    {
+     "text": "On Monday it says the ticket is in progress.",
+     "start": 3.661,
+     "end": 6.028
+    },
+    {
+     "text": "On Tuesday, same ticket, it says someone is probably working on it.",
+     "start": 6.309,
+     "end": 10.319
+    },
+    {
+     "text": "The service manager wants the exact status, every time.",
+     "start": 10.6,
+     "end": 13.948
+    },
+    {
+     "text": "And when users must pick a request type, they type whatever they like.",
+     "start": 14.229,
+     "end": 17.94
+    },
+    {
+     "text": "Today you learn how to give each answer the right shape.",
+     "start": 18.221,
+     "end": 21.186
+    }
+   ]
+  },
+  {
+   "title": "A note or a form",
+   "start": 22.087,
+   "end": 37.585,
+   "sentences": [
+    {
+     "text": "Think of two ways to answer a customer.",
+     "start": 22.087,
+     "end": 24.112
+    },
+    {
+     "text": "A handwritten note can say anything, in any words.",
+     "start": 24.393,
+     "end": 27.23
+    },
+    {
+     "text": "A form with checkboxes only accepts the boxes you print.",
+     "start": 27.511,
+     "end": 30.987
+    },
+    {
+     "text": "A good agent chooses the shape on purpose.",
+     "start": 31.268,
+     "end": 33.592
+    },
+    {
+     "text": "Sometimes exact text, sometimes buttons, sometimes a card.",
+     "start": 33.873,
+     "end": 37.584
+    }
+   ]
+  },
+  {
+   "title": "The Message node",
+   "start": 38.485,
+   "end": 53.579,
+   "sentences": [
+    {
+     "text": "The Message node sends a message to the user.",
+     "start": 38.485,
+     "end": 41.066
+    },
+    {
+     "text": "It can carry basic formatting and variables, like the user's name.",
+     "start": 41.347,
+     "end": 45.1
+    },
+    {
+     "text": "It can show images, videos and cards.",
+     "start": 45.381,
+     "end": 47.855
+    },
+    {
+     "text": "It can add quick replies and message variations.",
+     "start": 48.136,
+     "end": 50.994
+    },
+    {
+     "text": "The Question node can do all of this too.",
+     "start": 51.275,
+     "end": 53.578
+    }
+   ]
+  },
+  {
+   "title": "Decide: a less robotic greeting",
+   "start": 54.479,
+   "end": 86.443,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 54.479,
+     "end": 55.352
+    },
+    {
+     "text": "Contoso's greeting uses exactly the same words every single time.",
+     "start": 55.633,
+     "end": 59.942
+    },
+    {
+     "text": "Users say the agent sounds robotic, and the meaning must stay the same.",
+     "start": 60.223,
+     "end": 64.36
+    },
+    {
+     "text": "What should you add?",
+     "start": 64.641,
+     "end": 65.643
+    },
+    {
+     "text": "Quick replies under the greeting?",
+     "start": 65.924,
+     "end": 67.566
+    },
+    {
+     "text": "Message variations on the node?",
+     "start": 67.847,
+     "end": 69.659
+    },
+    {
+     "text": "Or an adaptive card with the greeting?",
+     "start": 69.94,
+     "end": 71.859
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 72.14,
+     "end": 73.675
+    },
+    {
+     "text": "Message variations on the node.",
+     "start": 77.456,
+     "end": 79.354
+    },
+    {
+     "text": "The agent picks one of several wordings at random each time.",
+     "start": 79.635,
+     "end": 82.962
+    },
+    {
+     "text": "Quick replies and cards change the shape, not the wording.",
+     "start": 83.243,
+     "end": 86.442
+    }
+   ]
+  },
+  {
+   "title": "Suggesting is not forcing",
+   "start": 87.343,
+   "end": 105.553,
+   "sentences": [
+    {
+     "text": "Now the request type.",
+     "start": 87.343,
+     "end": 88.707
+    },
+    {
+     "text": "Valeria adds quick replies: hardware, software, access.",
+     "start": 88.988,
+     "end": 92.486
+    },
+    {
+     "text": "They look like a choice, but they only suggest.",
+     "start": 92.767,
+     "end": 95.283
+    },
+    {
+     "text": "The user can ignore them and type anything at all.",
+     "start": 95.564,
+     "end": 98.4
+    },
+    {
+     "text": "To make the user pick from a list, use a Question node with multiple choice.",
+     "start": 98.681,
+     "end": 102.926
+    },
+    {
+     "text": "Then the answer is always one of your options.",
+     "start": 103.207,
+     "end": 105.552
+    }
+   ]
+  },
+  {
+   "title": "Decide: one of three types",
+   "start": 106.453,
+   "end": 137.116,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 106.453,
+     "end": 107.327
+    },
+    {
+     "text": "A ticket must be labelled hardware, software or access, and nothing else.",
+     "start": 107.608,
+     "end": 111.938
+    },
+    {
+     "text": "Users must not be able to type a different type.",
+     "start": 112.219,
+     "end": 114.884
+    },
+    {
+     "text": "What should Contoso use?",
+     "start": 115.165,
+     "end": 116.615
+    },
+    {
+     "text": "A multiple choice Question node?",
+     "start": 116.896,
+     "end": 118.751
+    },
+    {
+     "text": "Quick replies on a Message node?",
+     "start": 119.032,
+     "end": 120.887
+    },
+    {
+     "text": "Or message variations for each type?",
+     "start": 121.168,
+     "end": 123.364
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 123.645,
+     "end": 125.18
+    },
+    {
+     "text": "A multiple choice Question node.",
+     "start": 128.961,
+     "end": 130.795
+    },
+    {
+     "text": "The user must pick one of your options.",
+     "start": 131.076,
+     "end": 133.102
+    },
+    {
+     "text": "Quick replies only suggest, and the user can still type freely.",
+     "start": 133.383,
+     "end": 137.115
+    }
+   ]
+  },
+  {
+   "title": "After running",
+   "start": 138.016,
+   "end": 160.856,
+   "sentences": [
+    {
+     "text": "Next, tools.",
+     "start": 138.016,
+     "end": 139.06
+    },
+    {
+     "text": "When a tool finishes, the After running option decides how the agent responds.",
+     "start": 139.341,
+     "end": 143.948
+    },
+    {
+     "text": "Don't respond is the default: the agent folds the output into its own answer.",
+     "start": 144.229,
+     "end": 148.9
+    },
+    {
+     "text": "Write the response with generative AI lets the AI write the reply.",
+     "start": 149.181,
+     "end": 153.49
+    },
+    {
+     "text": "Send specific response uses your own template with variables.",
+     "start": 153.771,
+     "end": 157.482
+    },
+    {
+     "text": "And Send an adaptive card shows an interactive card.",
+     "start": 157.763,
+     "end": 160.855
+    }
+   ]
+  },
+  {
+   "title": "Exact text with a template",
+   "start": 161.756,
+   "end": 181.289,
+   "sentences": [
+    {
+     "text": "Back to the ticket.",
+     "start": 161.756,
+     "end": 162.864
+    },
+    {
+     "text": "With Send specific response, Valeria writes a template with two output variables, the ticket number and the status.",
+     "start": 163.145,
+     "end": 169.886
+    },
+    {
+     "text": "She can even use Power Fx formulas.",
+     "start": 170.167,
+     "end": 172.427
+    },
+    {
+     "text": "The model does not rewrite it.",
+     "start": 172.708,
+     "end": 174.286
+    },
+    {
+     "text": "So the user always sees Ticket four eight two one, status In progress, word for word.",
+     "start": 174.567,
+     "end": 179.771
+    },
+    {
+     "text": "Every single time.",
+     "start": 180.052,
+     "end": 181.288
+    }
+   ]
+  },
+  {
+   "title": "Decide: the exact status",
+   "start": 182.189,
+   "end": 219.124,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 182.189,
+     "end": 183.063
+    },
+    {
+     "text": "After the ticket lookup tool runs, the service manager wants the same exact sentence with the number and the status.",
+     "start": 183.344,
+     "end": 190.127
+    },
+    {
+     "text": "No rewording by the model.",
+     "start": 190.408,
+     "end": 191.964
+    },
+    {
+     "text": "Which After running option fits?",
+     "start": 192.245,
+     "end": 194.036
+    },
+    {
+     "text": "Write the response with generative AI?",
+     "start": 194.317,
+     "end": 196.556
+    },
+    {
+     "text": "Don't respond, the default setting?",
+     "start": 196.837,
+     "end": 198.671
+    },
+    {
+     "text": "Or Send specific response, a template?",
+     "start": 198.952,
+     "end": 201.234
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 201.515,
+     "end": 203.05
+    },
+    {
+     "text": "Send specific response, a template.",
+     "start": 206.831,
+     "end": 208.984
+    },
+    {
+     "text": "The model does not rewrite it, so the text is exactly what you defined.",
+     "start": 209.265,
+     "end": 213.211
+    },
+    {
+     "text": "Generative AI rewords the reply, and Don't respond folds it into the agent's own answer.",
+     "start": 213.492,
+     "end": 219.123
+    }
+   ]
+  },
+  {
+   "title": "Shape the answers in the studio",
+   "start": 220.024,
+   "end": 247.901,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 220.024,
+     "end": 221.836
+    },
+    {
+     "text": "Open a topic, select Add node, and add a Message node.",
+     "start": 222.117,
+     "end": 225.508
+    },
+    {
+     "text": "Type the text and use the variable icon to insert a value.",
+     "start": 225.789,
+     "end": 229.65
+    },
+    {
+     "text": "On the node toolbar, select Add, then Quick reply.",
+     "start": 229.931,
+     "end": 233.108
+    },
+    {
+     "text": "To force a choice, add a Question node with multiple choice instead.",
+     "start": 233.389,
+     "end": 237.335
+    },
+    {
+     "text": "Then open the ticket tool, find After running, and choose Send specific response.",
+     "start": 237.616,
+     "end": 242.522
+    },
+    {
+     "text": "Write the template with output variables, and compare it in the test chat with Don't respond.",
+     "start": 242.803,
+     "end": 247.9
+    }
+   ]
+  },
+  {
+   "title": "The right shape for each answer",
+   "start": 248.801,
+   "end": 271.985,
+   "sentences": [
+    {
+     "text": "Back at the help desk.",
+     "start": 248.801,
+     "end": 250.08
+    },
+    {
+     "text": "Every user now sees the exact ticket status, and every ticket has a valid type.",
+     "start": 250.361,
+     "end": 255.31
+    },
+    {
+     "text": "Remember three shapes.",
+     "start": 255.591,
+     "end": 256.891
+    },
+    {
+     "text": "Message variations change the wording at random.",
+     "start": 257.172,
+     "end": 260.03
+    },
+    {
+     "text": "Quick replies only suggest, and a multiple choice Question forces the choice.",
+     "start": 260.311,
+     "end": 265.003
+    },
+    {
+     "text": "After a tool, Send specific response gives exact text from your template.",
+     "start": 265.284,
+     "end": 269.678
+    },
+    {
+     "text": "Next, the generative answers node.",
+     "start": 269.959,
+     "end": 271.984
+    }
+   ]
+  }
+ ]
+}

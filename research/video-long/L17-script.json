@@ -1,0 +1,62 @@
+[
+  {
+    "title": "A recipe for the agent",
+    "caption": "An agent flow is a sequence of automatic steps the agent can run, like a recipe: input ingredients, an output dish.",
+    "say": "Marta tells the Contoso agent that her laptop will not turn on. Nexo needs to open a ticket, and Valeria builds the tool for it. An agent flow is a sequence of automatic steps that the agent can run. Think of a recipe, with input ingredients and an output dish. For the agent to use it, the recipe must start and end in a very specific way."
+  },
+  {
+    "title": "It starts and ends in a special way",
+    "caption": "A tool flow starts with the When an agent calls the flow trigger and ends with Respond to the agent.",
+    "say": "The start is the trigger called When an agent calls the flow. The end is the action called Respond to the agent. In between go the actions you want, the steps that do the work. Other triggers belong to other scenarios, such as Power Apps or schedules. Without this start and this end, Nexo cannot use the flow as a tool."
+  },
+  {
+    "title": "The inputs",
+    "caption": "Inputs are defined in the trigger. With generative orchestration, the agent fills them from the conversation or asks for them.",
+    "say": "Now the inputs. Inputs are defined in the trigger, at the start of the flow. CreateTicket needs two of them, a title and an urgency. With generative orchestration, the agent fills the inputs from the conversation context. When something is missing, it generates questions to ask for it. Marta said her laptop will not turn on, so Nexo takes the title from her message and asks for the urgency."
+  },
+  {
+    "title": "A Custom value",
+    "caption": "A Custom value is a fixed value on an input. It replaces the automatic filling, and the agent no longer asks.",
+    "say": "But what if every ticket starts with the same urgency? The service manager says all new tickets begin as Medium. Valeria sets a Custom value on the urgency input. A Custom value is a fixed value that replaces the automatic filling. Once it is set, the agent no longer asks for that input. Nexo only takes the title from Marta, and the urgency is always Medium."
+  },
+  {
+    "title": "Decide: always Medium",
+    "caption": "Every ticket must start as Medium, but Nexo still asks Marta for the urgency. What should Valeria do?",
+    "say": "Your turn. The service manager wants every ticket to start as Medium. Today, Nexo still asks Marta for the urgency each time. What should Valeria do? Add a Question node for urgency? Set a Custom value of Medium? Or remove urgency from the trigger? Decide before I answer. Set a Custom value of Medium. With a fixed Custom value, the agent no longer asks for that input. A Question node would still ask Marta, which is exactly what the manager wants to stop."
+  },
+  {
+    "title": "Only the outputs arrive",
+    "caption": "Outputs are defined in Respond to the agent. Internal flow variables never reach the agent; only explicit outputs do.",
+    "say": "Now the other end. Outputs are defined in Respond to the agent. CreateTicket returns one output, the ticket I D. Inside the flow there can be many internal variables, but they do not reach the agent. Only the outputs you define in Respond to the agent arrive. They appear as variables in the tool node of a topic, or the orchestrator uses them to write the response."
+  },
+  {
+    "title": "Conditions to use it",
+    "caption": "The flow must be published, respond in real time with Asynchronous response Off, and answer within 100 seconds.",
+    "say": "A few more conditions before Nexo can use the flow. First, it must be published. Second, it must respond in real time. So the Asynchronous response option must be Off. You find it under Networking, inside Respond to the agent. The flow must also answer within the action limit of one hundred seconds. A separate callback feature with Asynchronous response On exists for long flows, but it is not the pattern for a tool."
+  },
+  {
+    "title": "Decide: the missing number",
+    "caption": "The flow keeps the ticket ID in an internal variable, and Nexo never shares it. What should Valeria do?",
+    "say": "Your turn. Valeria's flow keeps the ticket I D in an internal variable. Nexo runs the flow, but never shares the number with Marta. What should Valeria do? Ask Nexo to read the flow variable? Copy the variable into the topic? Or add it to Respond to the agent? Decide before I answer. Add it to Respond to the agent. Only the outputs defined there reach the agent, as variables or for the response. Internal variables never arrive, so Nexo cannot read them, no matter how you ask."
+  },
+  {
+    "title": "The Contoso case",
+    "caption": "CreateTicket: title from the message, urgency fixed as Medium, ticketId returned by Respond to the agent. Published before it was added.",
+    "say": "Here is the whole Contoso case. Marta writes that her laptop will not turn on. Nexo calls CreateTicket and fills the title from her message. The urgency comes from the Custom value, Medium, so nobody asks. The middle actions create the ticket. At the end, Respond to the agent returns the ticket I D, and Nexo shares it with Marta. And the flow was published before it was added."
+  },
+  {
+    "title": "Build it in Copilot Studio",
+    "caption": "Create the agent flow, check the trigger, add inputs and actions, add Respond to the agent, keep Asynchronous response Off, publish, add it.",
+    "say": "Here are the steps in Copilot Studio. Create a new agent flow, with the designer or with natural language. Check that the trigger is When an agent calls the flow, and add the inputs title and urgency. Add the middle actions that do the work. At the end, add Respond to the agent and define the output ticket I D. Check that Asynchronous response is Off. Then publish the flow, and add it from Tools, Add a tool, Flow."
+  },
+  {
+    "title": "Decide: not a tool yet",
+    "caption": "The flow has the right trigger, Respond to the agent, and Asynchronous response Off, but it does not show up as a tool.",
+    "say": "Your turn. Valeria's new flow has the right trigger and Respond to the agent. Asynchronous response is Off, but the flow does not show up as a tool. What should Valeria do? Publish the flow, then add it? Turn on Asynchronous response? Or set a Custom value on each input? Decide before I answer. Publish the flow, then add it. A flow must be published before the agent can use it as a tool. Asynchronous response on breaks the real time rule, and Custom values do not make it appear."
+  },
+  {
+    "title": "Rules to remember",
+    "caption": "Start with When an agent calls the flow, end with Respond to the agent. Only explicit outputs arrive. Published, Off, 100 seconds.",
+    "say": "Back at the rail yard, Marta reads her ticket I D, and Nexo moves on. Remember the rules. The flow starts with When an agent calls the flow and ends with Respond to the agent. Inputs live in the trigger, and a Custom value stops the questions. Only explicit outputs reach the agent. It must be published, with Asynchronous response Off, and answer within one hundred seconds. Next, actions, connectors, and express mode."
+  }
+]

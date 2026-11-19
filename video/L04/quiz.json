@@ -1,0 +1,50 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 7,
+    "question": "A maker wants the content moderation level that generates the most responses and accepts more risk. Which one?",
+    "options": [
+      "Medium, it balances answers and safety",
+      "Highest, it unlocks the most answers",
+      "Lowest"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "On the Microsoft Copilot harness, a maker lowers the moderation level to help one creative task. What is the effect?",
+    "options": [
+      "Nothing changes until an admin approves it",
+      "Every task, after you save and publish",
+      "Only that task's node uses the lower level"
+    ],
+    "right": 1,
+    "trap": 2
+  },
+  {
+    "scene": 11,
+    "pauseSentence": 6,
+    "question": "The HR agent invents answers about policies that are not in its sources. What fixes it?",
+    "options": [
+      "Turn off Allow ungrounded responses",
+      "Lower the temperature of the model",
+      "Raise content moderation to Highest"
+    ],
+    "right": 0,
+    "trap": 2
+  },
+  {
+    "scene": 13,
+    "pauseSentence": 6,
+    "question": "Any employee can ask the HR agent for a coworker's leave balance, and it answers. Which controls should stop this?",
+    "options": [
+      "Turn off Allow ungrounded responses in settings",
+      "Instructions, knowledge scope, tools, permissions",
+      "Raise content moderation to Maximum for all topics"
+    ],
+    "right": 1,
+    "trap": 2
+  }
+]

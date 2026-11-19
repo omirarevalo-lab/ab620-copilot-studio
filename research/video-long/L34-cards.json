@@ -1,0 +1,14 @@
+{
+  "1": ["Black box and cockpit", [["Application Insights", "Records everything, query later (Azure)"], ["Monitor tab", "Health at a glance (Microsoft Copilot harness)"]]],
+  "2": ["Turn it on", [["Where", "Settings › Advanced › Application Insights"], ["Paste", "Connection string"], ["Switch", "Enable logging"]]],
+  "3": ["Extra switches", [["Log conversation details", "User, name, message text"], ["Log sensitive Activity properties", "Sensitive activity details"], ["Node execution events", "One event per node that runs"]]],
+  "4": ["Where the data lands", [["Table", "customEvents"], ["designMode True", "Test canvas"], ["designMode False", "Real users"]]],
+  "6": ["KQL idea", [["From", "customEvents"], ["Where", "customDimensions['designMode'] == \"False\""], ["Then", "Group by message or topic"]]],
+  "7": ["Ready dashboard", [["Workbook", "Copilot Studio Dashboard (preview)"], ["Share", "Reader role on the resource"]]],
+  "8": ["Admin control", [["Block", "Application Insights in Copilot Studio connector (data policy)"], ["Not admin control", "Toggles inside one agent"], ["Also", "Environment-level telemetry (preview): traces, spans"]]],
+  "10": ["Monitor tab", [["Open", "Agent › Monitor › date range"], ["Percentages", "Vs previous period"], ["Unpublished", "Empty metrics"], ["Delay", "Up to an hour"]]],
+  "11": ["Overview", [["Cards", "Sessions, users, duration, success rate"], ["Autonomous", "Runs and fail rate"], ["Session", "One user–agent conversation"]]],
+  "12": ["Reactions", [["Counts", "Thumbs up and down"], ["Asks to turn on feedback", "User feedback off (Settings › Safety & access)"]]],
+  "13": ["Sessions list", [["Range", "Past 28 days"], ["Shows", "Status, tools used, credits"], ["Open", "Full transcript, tool calls, knowledge"]]],
+  "14": ["Billing number", [["Total estimated credits used", "Source of truth for billing"], ["Split by", "Production, Preview, evaluations"], ["Updates", "A few times a day"]]]
+}

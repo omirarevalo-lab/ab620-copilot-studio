@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "A partner team has no Swagger file, only a Postman collection for their API. How can they start their custom connector?",
+    "options": [
+      "Only after they write a Swagger file first",
+      "From the Postman collection they have",
+      "only from scratch, typing every operation"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Valeria moves the solution with the connector from Dev to Test. What lets the connector find the right connection in each environment?",
+    "options": [
+      "The same connection, shared by both",
+      "A new key typed into the agent each time",
+      "connection references in the solution"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "The security team asks whether the data policy covers the new Inventory API custom connector. What should Valeria answer?",
+    "options": [
+      "Yes, data policies cover it too",
+      "No, custom connectors are exempt",
+      "only when it runs inside a flow"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

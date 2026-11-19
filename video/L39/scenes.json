@@ -1,0 +1,33 @@
+{"brand": "AB-620 · Module 7 · Lesson 5", "scenes": [
+ {"type": "split", "left": {"kicker": "Environment variables", "title": "Same agent, different environment", "sub": "One menu, one local detail."},
+  "rows": [
+   {"icon": "tag", "title": "The table number", "desc": "Changes in each restaurant", "at": "table number", "hi": true},
+   {"icon": "document_text", "title": "The same menu", "desc": "The agent is not edited", "at": "menu is the same", "hi": true},
+   {"icon": "beaker", "title": "Dev · Test · Production", "at": "Dev, Test", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "The types", "title": "Six types"}, "cols": 3,
+  "items": [
+   {"icon": "number_symbol", "term": "Decimal number", "def": "", "at": "Decimal"},
+   {"icon": "text_t", "term": "Text", "def": "e.g. an API base URL", "at": "Text,"},
+   {"icon": "braces", "term": "JSON", "def": "", "at": "J S O N"},
+   {"icon": "checkbox_checked", "term": "Two options", "def": "", "at": "Two options"},
+   {"icon": "database", "term": "Data source", "def": "", "at": "Data source"},
+   {"icon": "lock_closed", "term": "Secret", "def": "e.g. a password, never Text", "at": "Secret"}]},
+ {"type": "flow", "header": {"kicker": "Secret and Key Vault", "title": "Only a reference is stored"},
+  "nodes": [
+   {"icon": "lock_closed", "title": "Secret variable", "sub": "Stores a reference", "at": "stores a reference"},
+   {"icon": "key", "title": "Azure Key Vault", "sub": "The only one supported", "accent": true, "at": "Azure Key Vault"}],
+  "below": [
+   {"text": "The secret in Dataverse or the solution", "at": "does not live", "strike": true},
+   {"icon": "settings", "text": "Register the resource provider", "at": "resource provider"},
+   {"icon": "person", "text": "Key Vault Secrets User role", "at": "Secrets User", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "When you export and import", "title": "Each environment, its own values"},
+  "nodes": [
+   {"icon": "dismiss_circle", "title": "Remove the current value", "sub": "Before you export", "at": "remove the current"},
+   {"icon": "send", "title": "Import", "at": "When you import"},
+   {"icon": "form", "title": "Enter the new value", "sub": "For that environment", "accent": true, "at": "asked for the value"}],
+  "below": [{"icon": "shield_checkmark", "text": "No development setup in production", "at": "nobody carries", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "In Copilot Studio", "title": "Read-only, frozen at publish time"},
+  "cols": [
+   {"icon": "send", "title": "Other types", "sub": "Values from when it was published", "at": "published agent", "items": [{"text": "Republish after a change", "at": "republish"}]},
+   {"icon": "lock_closed", "title": "Secret", "sub": "Retrieved at runtime", "accent": true, "at": "except with Secret", "items": [{"text": "No republish needed", "at": "at runtime"}]}]}
+]}

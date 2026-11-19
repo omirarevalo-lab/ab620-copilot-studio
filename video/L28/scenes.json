@@ -1,0 +1,39 @@
+{"brand": "AB-620 · Module 5 · Lesson 2", "scenes": [
+ {"type": "split", "left": {"kicker": "Multi-agent design", "title": "Where does each capability go?"},
+  "rows": [
+   {"icon": "bot", "title": "Child agents", "desc": "Inside the same main agent", "at": "child agents", "hi": true},
+   {"icon": "people_team", "title": "Lightweight", "desc": "One use case, one team", "at": "lightweight", "hi": true},
+   {"icon": "dismiss_circle", "title": "No own settings, authentication or deployment", "at": "no settings", "hi": true},
+   {"icon": "send", "title": "Not published separately", "at": "not published", "hi": true}]},
+ {"type": "hub", "header": {"kicker": "Connected and external", "title": "Other agents to hand work to"},
+  "center": {"icon": "sparkle", "title": "Orchestrator", "at": "#0"},
+  "topLabel": "Connected agents",
+  "top": [
+   {"icon": "bot", "title": "Copilot Studio agents", "desc": "Same environment · own publishing", "at": "connected agents"},
+   {"icon": "document_text", "title": "Chosen by description", "at": "based on their descriptions"}],
+  "bottomLabel": "External agents",
+  "bottom": [
+   {"icon": "arrow_sync", "title": "A2A", "at": "A two A"},
+   {"icon": "cloud", "title": "Microsoft Foundry", "at": "Foundry"},
+   {"icon": "data_bar_vertical", "title": "Fabric data agents", "at": "Fabric"},
+   {"icon": "code", "title": "M365 Agents SDK", "at": "Microsoft three"}]},
+ {"type": "split", "left": {"kicker": "When to split", "title": "Start simple", "sub": "Split when tool selection gets worse."},
+  "rows": [
+   {"icon": "gauge", "title": "Selection accuracy drops", "at": "accuracy", "hi": true},
+   {"icon": "number_symbol", "title": "More than 30–40 options", "desc": "Tools, topics and agents", "at": "thirty to forty", "hi": true},
+   {"icon": "copy", "title": "Descriptions look alike", "at": "look alike", "hi": true},
+   {"icon": "people_team", "title": "Teams · channels · settings · ALM · reuse", "at": "several teams", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "The cost of splitting", "title": "Splitting has a price", "sub": "Do not split without a reason."},
+  "cols": [
+   {"icon": "flag", "title": "Each extra hop", "tone": "bad", "at": "extra orchestration",
+    "items": [{"text": "Adds latency", "at": "latency"}, {"text": "More to test and govern", "at": "test and govern"}]},
+   {"icon": "checkmark_circle", "title": "One agent that works well", "tone": "good", "at": "single agent",
+    "items": [{"text": "Beats many slow, hard-to-test agents", "at": "better than"}]}]},
+ {"type": "compare", "header": {"kicker": "Contoso and the exam", "title": "Child or connected?"},
+  "cols": [
+   {"icon": "bot", "title": "Child agent", "sub": "Software licenses", "at": "Software licenses",
+    "items": [{"text": "One team, one use case", "at": "one use case"}]},
+   {"icon": "people_team", "title": "Connected agent", "sub": "Human resources", "accent": true, "at": "Human resources",
+    "items": [{"text": "Own team, channels and publishing", "at": "own team"}]}],
+  "verdict": {"icon": "checkmark_circle", "text": "Justify: team · ALM · publishing · reuse", "at": "justify"}}
+]}

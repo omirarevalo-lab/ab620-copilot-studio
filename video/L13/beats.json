@@ -1,0 +1,498 @@
+{
+ "id": "L13",
+ "title": "Custom prompts",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 292.238,
+ "scenes": [
+  {
+   "title": "Two tickets, two different answers",
+   "start": 0.8,
+   "end": 18.901,
+   "sentences": [
+    {
+     "text": "The service desk at Contoso has a new problem.",
+     "start": 0.8,
+     "end": 3.636
+    },
+    {
+     "text": "Marta sends two tickets that are almost the same, and the agent puts them in different categories.",
+     "start": 3.917,
+     "end": 9.186
+    },
+    {
+     "text": "The service manager is not happy.",
+     "start": 9.467,
+     "end": 11.578
+    },
+    {
+     "text": "Valeria has an idea: a saved recipe for the model, called a custom prompt.",
+     "start": 11.859,
+     "end": 16.722
+    },
+    {
+     "text": "Nexo gets it as a new badge.",
+     "start": 17.003,
+     "end": 18.9
+    }
+   ]
+  },
+  {
+   "title": "A recipe with variable ingredients",
+   "start": 19.801,
+   "end": 39.033,
+   "sentences": [
+    {
+     "text": "Think of a recipe with variable ingredients.",
+     "start": 19.801,
+     "end": 22.424
+    },
+    {
+     "text": "The recipe is the instructions, and it stays the same every time.",
+     "start": 22.705,
+     "end": 26.651
+    },
+    {
+     "text": "What changes is the input, for example the text of a ticket.",
+     "start": 26.932,
+     "end": 30.515
+    },
+    {
+     "text": "The model reads the instructions and the input, does the task once, and returns one result.",
+     "start": 30.796,
+     "end": 36.214
+    },
+    {
+     "text": "The recipe is saved, so you can reuse it.",
+     "start": 36.495,
+     "end": 39.032
+    }
+   ]
+  },
+  {
+   "title": "One turn, one result",
+   "start": 39.933,
+   "end": 59.104,
+   "sentences": [
+    {
+     "text": "A prompt is a single-turn tool based on a model.",
+     "start": 39.933,
+     "end": 42.898
+    },
+    {
+     "text": "It has instructions, inputs and, if you want, knowledge to consult.",
+     "start": 43.179,
+     "end": 47.018
+    },
+    {
+     "text": "Unlike a conversation, it does one task and returns the result.",
+     "start": 47.299,
+     "end": 51.308
+    },
+    {
+     "text": "It does not keep a dialogue going with the user.",
+     "start": 51.589,
+     "end": 53.978
+    },
+    {
+     "text": "A child agent is heavier.",
+     "start": 54.259,
+     "end": 56.007
+    },
+    {
+     "text": "For one small task, a prompt is the lighter choice.",
+     "start": 56.288,
+     "end": 59.103
+    }
+   ]
+  },
+  {
+   "title": "Three doors for the same prompt",
+   "start": 60.004,
+   "end": 75.14,
+   "sentences": [
+    {
+     "text": "You can use the same prompt in three places.",
+     "start": 60.004,
+     "end": 62.392
+    },
+    {
+     "text": "As an agent tool, from the Tools tab.",
+     "start": 62.673,
+     "end": 64.998
+    },
+    {
+     "text": "As a node inside a topic, with Add a tool and New prompt.",
+     "start": 65.279,
+     "end": 68.67
+    },
+    {
+     "text": "Or as the Run a prompt action inside an agent flow.",
+     "start": 68.951,
+     "end": 72.171
+    },
+    {
+     "text": "Same instructions, same inputs, three doors.",
+     "start": 72.452,
+     "end": 75.139
+    }
+   ]
+  },
+  {
+   "title": "Decide: how many turns",
+   "start": 76.04,
+   "end": 109.945,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 76.04,
+     "end": 76.914
+    },
+    {
+     "text": "Valeria explains custom prompts to the service manager.",
+     "start": 77.195,
+     "end": 80.5
+    },
+    {
+     "text": "She compares a prompt with a long chat about the same ticket.",
+     "start": 80.781,
+     "end": 83.98
+    },
+    {
+     "text": "How many turns does a prompt have?",
+     "start": 84.261,
+     "end": 86.031
+    },
+    {
+     "text": "As many turns as the user needs?",
+     "start": 86.312,
+     "end": 88.231
+    },
+    {
+     "text": "Two, it asks for missing input?",
+     "start": 88.512,
+     "end": 90.431
+    },
+    {
+     "text": "Or only one, then it returns?",
+     "start": 90.712,
+     "end": 92.588
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 92.869,
+     "end": 94.404
+    },
+    {
+     "text": "Only one, then it returns.",
+     "start": 98.185,
+     "end": 99.87
+    },
+    {
+     "text": "A prompt does one task and returns the result, and that is its whole run.",
+     "start": 100.151,
+     "end": 104.31
+    },
+    {
+     "text": "A conversation keeps a dialogue going, and a child agent is heavier for a small task.",
+     "start": 104.591,
+     "end": 109.944
+    }
+   ]
+  },
+  {
+   "title": "Inside the prompt editor",
+   "start": 110.845,
+   "end": 130.416,
+   "sentences": [
+    {
+     "text": "Inside the prompt editor, Valeria writes the instructions by hand, with help from Copilot, or from a template.",
+     "start": 110.845,
+     "end": 117.522
+    },
+    {
+     "text": "She defines the inputs, such as the ticket text.",
+     "start": 117.803,
+     "end": 120.468
+    },
+    {
+     "text": "Good instructions are clear and short, and they include a fallback output.",
+     "start": 120.749,
+     "end": 124.674
+    },
+    {
+     "text": "If the text has too little information, the prompt answers not found instead of guessing a category.",
+     "start": 124.955,
+     "end": 130.415
+    }
+   ]
+  },
+  {
+   "title": "The temperature dial",
+   "start": 131.316,
+   "end": 150.463,
+   "sentences": [
+    {
+     "text": "Temperature goes from zero to one, and zero is the default.",
+     "start": 131.316,
+     "end": 134.835
+    },
+    {
+     "text": "At zero the responses are more predictable.",
+     "start": 135.116,
+     "end": 137.654
+    },
+    {
+     "text": "With the G P T five reasoning model the slider appears disabled.",
+     "start": 137.935,
+     "end": 142.094
+    },
+    {
+     "text": "It is set in the prompt settings, not in the agent settings.",
+     "start": 142.375,
+     "end": 145.659
+    },
+    {
+     "text": "Valeria leaves the temperature at zero whenever she wants consistent results.",
+     "start": 145.94,
+     "end": 150.462
+    }
+   ]
+  },
+  {
+   "title": "Decide: the same classification every time",
+   "start": 151.363,
+   "end": 190.772,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 151.363,
+     "end": 152.236
+    },
+    {
+     "text": "Contoso's prompt classifies tickets, but two nearly identical tickets got different categories.",
+     "start": 152.517,
+     "end": 158.319
+    },
+    {
+     "text": "The service manager wants similar tickets to always get the same classification.",
+     "start": 158.6,
+     "end": 163.207
+    },
+    {
+     "text": "What should Valeria change?",
+     "start": 163.488,
+     "end": 164.938
+    },
+    {
+     "text": "Lower the temperature to zero?",
+     "start": 165.219,
+     "end": 166.882
+    },
+    {
+     "text": "Raise the temperature near one?",
+     "start": 167.163,
+     "end": 168.762
+    },
+    {
+     "text": "Or move the slider into agent settings?",
+     "start": 169.043,
+     "end": 171.239
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 171.52,
+     "end": 173.055
+    },
+    {
+     "text": "Lower the temperature to zero.",
+     "start": 176.836,
+     "end": 178.52
+    },
+    {
+     "text": "At zero the responses are more predictable, so similar tickets always get the same classification.",
+     "start": 178.801,
+     "end": 184.795
+    },
+    {
+     "text": "A high temperature is for creative results, and it is set in the prompt settings, not the agent.",
+     "start": 185.076,
+     "end": 190.771
+    }
+   ]
+  },
+  {
+   "title": "The Contoso case: Classify ticket",
+   "start": 191.672,
+   "end": 213.123,
+   "sentences": [
+    {
+     "text": "Contoso builds the prompt called Classify ticket.",
+     "start": 191.672,
+     "end": 194.508
+    },
+    {
+     "text": "Its input is the ticket text.",
+     "start": 194.789,
+     "end": 196.602
+    },
+    {
+     "text": "Its instructions ask for one category out of hardware, software or access, and one urgency out of high, medium or low.",
+     "start": 196.883,
+     "end": 204.498
+    },
+    {
+     "text": "If a ticket has too little information, the prompt answers not found.",
+     "start": 204.779,
+     "end": 208.532
+    },
+    {
+     "text": "With temperature zero, five similar tickets get the same classification.",
+     "start": 208.813,
+     "end": 213.122
+    }
+   ]
+  },
+  {
+   "title": "Add it as a tool",
+   "start": 214.023,
+   "end": 232.66,
+   "sentences": [
+    {
+     "text": "Adding it as a tool takes a few steps.",
+     "start": 214.023,
+     "end": 216.24
+    },
+    {
+     "text": "Open the agent and go to the Tools tab.",
+     "start": 216.521,
+     "end": 219.038
+    },
+    {
+     "text": "Select Add a tool, then New tool, and choose Prompt.",
+     "start": 219.319,
+     "end": 222.219
+    },
+    {
+     "text": "Write the instructions, add the input, choose the model, and leave the temperature at zero.",
+     "start": 222.5,
+     "end": 227.427
+    },
+    {
+     "text": "Type sample data and select Test.",
+     "start": 227.708,
+     "end": 229.819
+    },
+    {
+     "text": "Then select Save, and Add and configure.",
+     "start": 230.1,
+     "end": 232.659
+    }
+   ]
+  },
+  {
+   "title": "Decide: where a prompt cannot go",
+   "start": 233.56,
+   "end": 266.228,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 233.56,
+     "end": 234.434
+    },
+    {
+     "text": "The service manager likes prompts.",
+     "start": 234.715,
+     "end": 236.634
+    },
+    {
+     "text": "Now he asks where a prompt can be attached.",
+     "start": 236.915,
+     "end": 239.09
+    },
+    {
+     "text": "Which place does not take a prompt?",
+     "start": 239.371,
+     "end": 241.268
+    },
+    {
+     "text": "As a tool of your agent?",
+     "start": 241.549,
+     "end": 243.042
+    },
+    {
+     "text": "As a publishing channel?",
+     "start": 243.323,
+     "end": 244.708
+    },
+    {
+     "text": "Or as a node inside a topic?",
+     "start": 244.989,
+     "end": 246.866
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 247.147,
+     "end": 248.682
+    },
+    {
+     "text": "As a publishing channel.",
+     "start": 252.463,
+     "end": 253.848
+    },
+    {
+     "text": "A prompt is used as an agent tool, as a topic node with Add a tool and New prompt, or as the Run a prompt action in a flow.",
+     "start": 254.129,
+     "end": 262.086
+    },
+    {
+     "text": "Channels are how users reach the agent, so a prompt never goes there.",
+     "start": 262.367,
+     "end": 266.227
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 267.128,
+   "end": 291.037,
+   "sentences": [
+    {
+     "text": "Back to the two tickets.",
+     "start": 267.128,
+     "end": 268.45
+    },
+    {
+     "text": "The prompt is saved as a tool, and now similar requests get the same category and urgency.",
+     "start": 268.731,
+     "end": 274.17
+    },
+    {
+     "text": "Remember three things.",
+     "start": 274.451,
+     "end": 275.687
+    },
+    {
+     "text": "A prompt is a recipe: same instructions, changing inputs, one result.",
+     "start": 275.968,
+     "end": 280.34
+    },
+    {
+     "text": "It is single-turn, lighter than a child agent.",
+     "start": 280.621,
+     "end": 283.415
+    },
+    {
+     "text": "Clear instructions and temperature zero give consistent classifications.",
+     "start": 283.696,
+     "end": 288.111
+    },
+    {
+     "text": "Next, the Send H T T P request node.",
+     "start": 288.392,
+     "end": 291.036
+    }
+   ]
+  }
+ ]
+}

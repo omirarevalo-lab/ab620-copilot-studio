@@ -1,0 +1,129 @@
+{
+ "id": "L25",
+ "title": "REST API tool",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 92.544,
+ "scenes": [
+  {
+   "title": "The API menu",
+   "start": 0.8,
+   "end": 16.165,
+   "sentences": [
+    {
+     "text": "The REST A P I tool is like handing the agent a menu and crossing out the dishes you do not want it to order.",
+     "start": 0.8,
+     "end": 7.179
+    },
+    {
+     "text": "You upload the description of the A P I and choose which operations the agent can use.",
+     "start": 7.459,
+     "end": 12.621
+    },
+    {
+     "text": "Anything you do not select, the agent simply cannot use.",
+     "start": 12.901,
+     "end": 16.165
+    }
+   ]
+  },
+  {
+   "title": "Upload the spec",
+   "start": 17.065,
+   "end": 38.897,
+   "sentences": [
+    {
+     "text": "In Tools, New tool, REST A P I, you upload an Open A P I specification in JSON, version two.",
+     "start": 17.065,
+     "end": 23.956
+    },
+    {
+     "text": "If it is version three, it is translated to version two automatically.",
+     "start": 24.236,
+     "end": 28.311
+    },
+    {
+     "text": "Then you improve the description, because the orchestrator uses it to decide when to call the tool, and you choose a solution.",
+     "start": 28.591,
+     "end": 35.545
+    },
+    {
+     "text": "Remember, a version three file converts by itself.",
+     "start": 35.825,
+     "end": 38.897
+    }
+   ]
+  },
+  {
+   "title": "Choose operations",
+   "start": 39.797,
+   "end": 55.269,
+   "sentences": [
+    {
+     "text": "You select only the operations you want to expose: for example, create and get, but not delete.",
+     "start": 39.797,
+     "end": 45.877
+    },
+    {
+     "text": "You give each one a name and a description, and the descriptions of inputs and outputs must be complete.",
+     "start": 46.157,
+     "end": 51.917
+    },
+    {
+     "text": "This is how you give the agent only the power it needs.",
+     "start": 52.197,
+     "end": 55.269
+    }
+   ]
+  },
+  {
+   "title": "Authentication",
+   "start": 56.169,
+   "end": 73.5,
+   "sentences": [
+    {
+     "text": "There are three authentication options: none, A P I key, or O Auth two point zero.",
+     "start": 56.169,
+     "end": 61.567
+    },
+    {
+     "text": "With an A P I key, you define the label, the name, and the location, either header or query.",
+     "start": 61.847,
+     "end": 67.095
+    },
+    {
+     "text": "The user provides the key at run time.",
+     "start": 67.375,
+     "end": 69.529
+    },
+    {
+     "text": "With O Auth, you also enter the details of the identity provider.",
+     "start": 69.809,
+     "end": 73.5
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 74.4,
+   "end": 91.344,
+   "sentences": [
+    {
+     "text": "If a question asks you to limit what the agent can do with an A P I, the answer is to select operations.",
+     "start": 74.4,
+     "end": 80.544
+    },
+    {
+     "text": "And here is the trap: uploading a specification without descriptions, because the orchestrator uses them to decide when to call the tool.",
+     "start": 80.824,
+     "end": 88.931
+    },
+    {
+     "text": "These are two easy ideas to remember.",
+     "start": 89.211,
+     "end": 91.344
+    }
+   ]
+  }
+ ]
+}

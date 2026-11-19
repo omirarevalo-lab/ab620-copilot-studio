@@ -1,0 +1,621 @@
+{
+ "id": "L21",
+ "title": "Monitor agent flows and their cost",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 414.299,
+ "scenes": [
+  {
+   "title": "The missing tickets",
+   "start": 0.8,
+   "end": 25.155,
+   "sentences": [
+    {
+     "text": "Thursday at Contoso.",
+     "start": 0.8,
+     "end": 2.272
+    },
+    {
+     "text": "Employees complain that some of their tickets were never created.",
+     "start": 2.552,
+     "end": 5.837
+    },
+    {
+     "text": "The I T agent calls a flow named Create ticket, and somewhere it fails.",
+     "start": 6.117,
+     "end": 10.469
+    },
+    {
+     "text": "On the same day, finance asks a second question: how much are these agent flows costing us?",
+     "start": 10.749,
+     "end": 16.509
+    },
+    {
+     "text": "Two questions, one place to look.",
+     "start": 16.789,
+     "end": 18.859
+    },
+    {
+     "text": "By the end of this class you will know where to find the failed runs, how to fix them, and how the bill is counted.",
+     "start": 19.139,
+     "end": 25.155
+    }
+   ]
+  },
+  {
+   "title": "The car dashboard",
+   "start": 26.055,
+   "end": 46.801,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 26.055,
+     "end": 27.527
+    },
+    {
+     "text": "A flow in production needs a dashboard, like a car.",
+     "start": 27.807,
+     "end": 30.687
+    },
+    {
+     "text": "The dashboard tells you whether everything is running fine, and how much fuel you use.",
+     "start": 30.967,
+     "end": 35.596
+    },
+    {
+     "text": "In Copilot Studio that dashboard has three tabs, and the fuel is measured in Copilot Credits, the unit for Copilot Studio capacity.",
+     "start": 35.876,
+     "end": 44.281
+    },
+    {
+     "text": "Health on one side, fuel on the other.",
+     "start": 44.561,
+     "end": 46.801
+    }
+   ]
+  },
+  {
+   "title": "Three tabs",
+   "start": 47.701,
+   "end": 70.901,
+   "sentences": [
+    {
+     "text": "The three tabs each have one job.",
+     "start": 47.701,
+     "end": 49.813
+    },
+    {
+     "text": "Overview shows the flow details: name, description, connections and owners, plus the most recent runs.",
+     "start": 50.093,
+     "end": 56.664
+    },
+    {
+     "text": "From Overview you can also turn the flow off or delete it.",
+     "start": 56.944,
+     "end": 60.123
+    },
+    {
+     "text": "Activity shows the run history, with the status and duration of each run.",
+     "start": 60.403,
+     "end": 64.819
+    },
+    {
+     "text": "Analytics summarizes the activity: the number of runs, the error rate, and the trends over time.",
+     "start": 65.099,
+     "end": 70.901
+    }
+   ]
+  },
+  {
+   "title": "Activity: diagnose and resubmit",
+   "start": 71.801,
+   "end": 93.697,
+   "sentences": [
+    {
+     "text": "Activity is where you work.",
+     "start": 71.801,
+     "end": 73.316
+    },
+    {
+     "text": "Select a run to open its details and see exactly where it failed.",
+     "start": 73.596,
+     "end": 77.436
+    },
+    {
+     "text": "You can also select several runs at once to resubmit them, which means sending them again, or to cancel the ones still in progress.",
+     "start": 77.716,
+     "end": 85.204
+    },
+    {
+     "text": "One more detail for the exam: Analytics can take up to thirty minutes to reflect new runs, so a missing number there is not always a problem.",
+     "start": 85.484,
+     "end": 93.697
+    }
+   ]
+  },
+  {
+   "title": "Decide: where are the failures?",
+   "start": 94.597,
+   "end": 128.265,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 94.597,
+     "end": 95.472
+    },
+    {
+     "text": "The team wants to see each failed run of Create ticket, open its details, and send the failed runs again after the fix.",
+     "start": 95.752,
+     "end": 103.048
+    },
+    {
+     "text": "Which tab do they open?",
+     "start": 103.328,
+     "end": 104.757
+    },
+    {
+     "text": "Activity, because it keeps all run details?",
+     "start": 105.037,
+     "end": 107.533
+    },
+    {
+     "text": "Overview, because it lists the latest runs?",
+     "start": 107.813,
+     "end": 110.075
+    },
+    {
+     "text": "Or Analytics, because it charts the error rate?",
+     "start": 110.355,
+     "end": 112.851
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 113.131,
+     "end": 114.667
+    },
+    {
+     "text": "Activity.",
+     "start": 118.447,
+     "end": 119.343
+    },
+    {
+     "text": "It holds the full run history, the details of each run, and Resubmit.",
+     "start": 119.623,
+     "end": 123.932
+    },
+    {
+     "text": "Analytics only gives the numbers, and Overview only the latest runs.",
+     "start": 124.212,
+     "end": 128.265
+    }
+   ]
+  },
+  {
+   "title": "Contoso fixes the flow",
+   "start": 129.165,
+   "end": 151.24,
+   "sentences": [
+    {
+     "text": "Watch Contoso do it.",
+     "start": 129.165,
+     "end": 130.552
+    },
+    {
+     "text": "They open the Activity tab of Create ticket.",
+     "start": 130.832,
+     "end": 133.349
+    },
+    {
+     "text": "Two runs have the status failed.",
+     "start": 133.629,
+     "end": 135.443
+    },
+    {
+     "text": "They open the details, and both stopped at the same step: the Dataverse connection.",
+     "start": 135.723,
+     "end": 140.416
+    },
+    {
+     "text": "They fix the connection, select the two failed runs, and resubmit them.",
+     "start": 140.696,
+     "end": 144.621
+    },
+    {
+     "text": "The tickets are created.",
+     "start": 144.901,
+     "end": 146.373
+    },
+    {
+     "text": "Then they open Analytics to watch the error rate come down over the next half hour.",
+     "start": 146.653,
+     "end": 151.24
+    }
+   ]
+  },
+  {
+   "title": "What a flow costs",
+   "start": 152.14,
+   "end": 175.017,
+   "sentences": [
+    {
+     "text": "Now the fuel.",
+     "start": 152.14,
+     "end": 153.143
+    },
+    {
+     "text": "Each action in an agent flow consumes capacity: thirteen Copilot Credits for every hundred actions.",
+     "start": 153.423,
+     "end": 159.908
+    },
+    {
+     "text": "Tests in the designer or in the test chat, called test runs, do not consume capacity.",
+     "start": 160.188,
+     "end": 165.457
+    },
+    {
+     "text": "And users with a Microsoft three six five Copilot license are not charged when the flow is triggered with the trigger called when an agent calls the flow.",
+     "start": 165.737,
+     "end": 175.017
+    }
+   ]
+  },
+  {
+   "title": "Do the math",
+   "start": 175.917,
+   "end": 198.864,
+   "sentences": [
+    {
+     "text": "Let us do the math the exam likes.",
+     "start": 175.917,
+     "end": 177.795
+    },
+    {
+     "text": "Contoso's flow has twenty actions, and it runs five hundred times.",
+     "start": 178.075,
+     "end": 182.064
+    },
+    {
+     "text": "Twenty times five hundred is ten thousand actions.",
+     "start": 182.344,
+     "end": 185.437
+    },
+    {
+     "text": "Ten thousand divided by a hundred is a hundred blocks, and each block costs thirteen credits.",
+     "start": 185.717,
+     "end": 191.627
+    },
+    {
+     "text": "So about one thousand three hundred Copilot Credits.",
+     "start": 191.907,
+     "end": 194.723
+    },
+    {
+     "text": "The tests they ran earlier in the designer added nothing to that number.",
+     "start": 195.003,
+     "end": 198.864
+    }
+   ]
+  },
+  {
+   "title": "When the tank is empty",
+   "start": 199.764,
+   "end": 221.708,
+   "sentences": [
+    {
+     "text": "What happens when prepaid capacity runs out?",
+     "start": 199.764,
+     "end": 202.26
+    },
+    {
+     "text": "New runs are blocked.",
+     "start": 202.54,
+     "end": 203.841
+    },
+    {
+     "text": "The runs already in progress finish normally.",
+     "start": 204.121,
+     "end": 206.468
+    },
+    {
+     "text": "And the agent keeps responding in interactions that do not use flows.",
+     "start": 206.748,
+     "end": 210.673
+    },
+    {
+     "text": "The agent does not stop working completely, that is the trap.",
+     "start": 210.953,
+     "end": 214.367
+    },
+    {
+     "text": "To avoid interruptions, you can link a pay as you go plan, so the flows keep running when the prepaid capacity is gone.",
+     "start": 214.647,
+     "end": 221.708
+    }
+   ]
+  },
+  {
+   "title": "Decide: out of capacity",
+   "start": 222.608,
+   "end": 248.34,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 222.608,
+     "end": 223.483
+    },
+    {
+     "text": "In the middle of the day, Contoso's prepaid capacity runs out.",
+     "start": 223.763,
+     "end": 227.261
+    },
+    {
+     "text": "What happens?",
+     "start": 227.541,
+     "end": 228.459
+    },
+    {
+     "text": "The agent stops answering until capacity is added?",
+     "start": 228.739,
+     "end": 231.939
+    },
+    {
+     "text": "All runs in progress are cancelled right away?",
+     "start": 232.219,
+     "end": 234.693
+    },
+    {
+     "text": "Or new flow runs are blocked, the agent talks on?",
+     "start": 234.973,
+     "end": 237.875
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 238.155,
+     "end": 239.691
+    },
+    {
+     "text": "The third one.",
+     "start": 243.471,
+     "end": 244.431
+    },
+    {
+     "text": "Only new flow runs are blocked.",
+     "start": 244.711,
+     "end": 246.524
+    },
+    {
+     "text": "The agent keeps talking.",
+     "start": 246.804,
+     "end": 248.34
+    }
+   ]
+  },
+  {
+   "title": "One unit, three meters",
+   "start": 249.24,
+   "end": 274.397,
+   "sentences": [
+    {
+     "text": "Copilot Credits are the single unit across all three harnesses, but what counts is different.",
+     "start": 249.24,
+     "end": 254.723
+    },
+    {
+     "text": "On the standard harness, credits are metered per event, at defined rates for each interaction type.",
+     "start": 255.003,
+     "end": 260.656
+    },
+    {
+     "text": "On the Microsoft Copilot harness, formerly the GitHub Copilot harness, billing is usage based: the language model tokens, the tools called, including knowledge and M C P, and the harness runtime itself.",
+     "start": 260.936,
+     "end": 274.397
+    }
+   ]
+  },
+  {
+   "title": "When the meter starts",
+   "start": 275.297,
+   "end": 302.081,
+   "sentences": [
+    {
+     "text": "The timing differs too.",
+     "start": 275.297,
+     "end": 276.663
+    },
+    {
+     "text": "Standard and Copilot chat agents accrue credits at runtime only, when a published agent handles interactions.",
+     "start": 276.943,
+     "end": 283.769
+    },
+    {
+     "text": "The Microsoft Copilot harness is the only one that bills from build time as well.",
+     "start": 284.049,
+     "end": 289.084
+    },
+    {
+     "text": "So authoring, previewing and evaluating also use credits.",
+     "start": 289.364,
+     "end": 293.012
+    },
+    {
+     "text": "And the Microsoft three six five Copilot license exception for authenticated users does not apply to the Microsoft Copilot harness.",
+     "start": 293.292,
+     "end": 302.081
+    }
+   ]
+  },
+  {
+   "title": "Decide: the preview bill",
+   "start": 302.981,
+   "end": 335.948,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 302.981,
+     "end": 303.856
+    },
+    {
+     "text": "Contoso's makers spent a week authoring and previewing a new agent.",
+     "start": 304.136,
+     "end": 308.019
+    },
+    {
+     "text": "Nothing was published yet, but Copilot Credits were consumed.",
+     "start": 308.299,
+     "end": 311.776
+    },
+    {
+     "text": "Which harness is the agent on?",
+     "start": 312.056,
+     "end": 313.827
+    },
+    {
+     "text": "The standard harness for agents?",
+     "start": 314.107,
+     "end": 315.877
+    },
+    {
+     "text": "The Microsoft Copilot harness?",
+     "start": 316.157,
+     "end": 318.013
+    },
+    {
+     "text": "Or the Copilot chat harness?",
+     "start": 318.293,
+     "end": 319.957
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 320.237,
+     "end": 321.773
+    },
+    {
+     "text": "The Microsoft Copilot harness.",
+     "start": 325.553,
+     "end": 327.452
+    },
+    {
+     "text": "It is the only one that bills from build time, so authoring, previewing and evaluating use credits.",
+     "start": 327.732,
+     "end": 333.663
+    },
+    {
+     "text": "The other two bill at runtime only.",
+     "start": 333.943,
+     "end": 335.948
+    }
+   ]
+  },
+  {
+   "title": "Four cost drivers",
+   "start": 336.848,
+   "end": 361.437,
+   "sentences": [
+    {
+     "text": "On the Microsoft Copilot harness, four things drive consumption.",
+     "start": 336.848,
+     "end": 340.837
+    },
+    {
+     "text": "The model, because reasoning models meter premium tokens.",
+     "start": 341.117,
+     "end": 344.637
+    },
+    {
+     "text": "The organizational context the agent draws in.",
+     "start": 344.917,
+     "end": 347.755
+    },
+    {
+     "text": "The number of tools and actions.",
+     "start": 348.035,
+     "end": 349.741
+    },
+    {
+     "text": "And the complexity of the task and orchestration.",
+     "start": 350.021,
+     "end": 352.624
+    },
+    {
+     "text": "A Copilot Credits estimator helps you plan from representative scenarios, but treat its results as directional, a compass, not a quote.",
+     "start": 352.904,
+     "end": 361.437
+    }
+   ]
+  },
+  {
+   "title": "The steps",
+   "start": 362.337,
+   "end": 388.937,
+   "sentences": [
+    {
+     "text": "Here are the steps.",
+     "start": 362.337,
+     "end": 363.447
+    },
+    {
+     "text": "In Copilot Studio, open the flows list and select your agent flow.",
+     "start": 363.727,
+     "end": 367.929
+    },
+    {
+     "text": "Review Overview: name, connections, owners and recent runs.",
+     "start": 368.209,
+     "end": 372.071
+    },
+    {
+     "text": "Go to Activity and review the status and duration of each run.",
+     "start": 372.351,
+     "end": 376.233
+    },
+    {
+     "text": "Select a failed run and open its details.",
+     "start": 376.513,
+     "end": 379.052
+    },
+    {
+     "text": "Select the failed runs and use Resubmit.",
+     "start": 379.332,
+     "end": 381.807
+    },
+    {
+     "text": "Open Analytics for the number of runs and the error rate.",
+     "start": 382.087,
+     "end": 385.159
+    },
+    {
+     "text": "Then estimate the cost at thirteen credits per hundred actions.",
+     "start": 385.439,
+     "end": 388.937
+    }
+   ]
+  },
+  {
+   "title": "Dashboard read",
+   "start": 389.837,
+   "end": 413.099,
+   "sentences": [
+    {
+     "text": "Back to Contoso.",
+     "start": 389.837,
+     "end": 391.096
+    },
+    {
+     "text": "The missing tickets were found in Activity, fixed at the connection, and resubmitted.",
+     "start": 391.376,
+     "end": 395.771
+    },
+    {
+     "text": "Finance got its number: about one thousand three hundred credits for five hundred runs.",
+     "start": 396.051,
+     "end": 401.021
+    },
+    {
+     "text": "Remember for the exam: Activity is history and resubmit, an empty tank blocks only new runs, test runs are free, and only the Microsoft Copilot harness bills from build time.",
+     "start": 401.301,
+     "end": 413.099
+    }
+   ]
+  }
+ ]
+}

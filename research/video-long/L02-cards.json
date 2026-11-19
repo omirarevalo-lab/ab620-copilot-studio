@@ -1,0 +1,12 @@
+{
+"1": ["Three doors", [["No authentication", "Open door"], ["Authenticate with Microsoft", "Company badge (Entra ID)"], ["Authenticate manually", "Your own lock (OAuth 2)"]]],
+"2": ["No authentication", [["Who can chat", "Anyone with the link"], ["Classic mistake", "Used on internal data"]]],
+"4": ["Channel rule", [["Teams", "Authenticate with Microsoft only"], ["Microsoft 365", "Authenticate with Microsoft only"]]],
+"5": ["Teams helpdesk", [["Audience", "Employees in Teams"], ["Answer", "Authenticate with Microsoft"]]],
+"7": ["User variables", [["User.Id", "Who it is"], ["User.DisplayName", "Name"], ["User.IsLoggedIn", "Signed in?"], ["User.AccessToken", "Manual authentication"]]],
+"9": ["Customer portal", [["Users", "No Microsoft account"], ["Answer", "Authenticate manually, generic OAuth 2"]]],
+"10": ["Entra Agent ID", [["Created", "Automatically, when the agent is created"], ["Opt out", "None (since May 2026)"], ["Bring your own", "No"]]],
+"11": ["What changes", [["Users", "Same OAuth flow"], ["Admins", "Entra admin center, audit logs, life cycle, Conditional Access"], ["Find it", "Settings › Advanced › Metadata"]]],
+"12": ["Limits", [["Agent Builder agents", "No Agent ID"], ["Directory quota reached", "Agent cannot be created"]]],
+"14": ["Steps", [["1", "Settings › Security › Authentication"], ["2", "Choose an option"], ["3", "Save, then Publish"]]]
+}

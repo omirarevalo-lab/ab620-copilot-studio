@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L21 · Monitor agent flows and their cost · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .tk { position: absolute; width: 120px; height: 78px; display: flex; align-items: center; justify-content: center; background: #fff; border: 6px solid #2f5bd3; border-radius: 16px; color: #2f5bd3; box-sizing: border-box; opacity: 0; }
+  .tk .ic { width: 46px; height: 46px; }
+  .stn { position: absolute; top: 1142px; width: 200px; height: 230px; background: #dfe5f2; border: 6px solid #8a93a6; border-radius: 22px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; color: #5d6472; }
+  .stn .ic { width: 90px; height: 90px; margin-top: 30px; }
+  .stn i.lamp { position: absolute; left: 82px; top: 20px; width: 36px; height: 36px; border-radius: 50%; background: #b6bdcc; }
+  .dtab { position: absolute; top: 612px; width: 380px; height: 66px; border-radius: 20px; background: #2d3a5c; border: 3px solid #5b6b97; color: #cfd8ee; font-size: 40px; font-weight: 800; display: flex; align-items: center; justify-content: center; opacity: 0; }
+  .tb { padding: 12px 36px; font-size: 34px; font-weight: 700; color: #5d6472; border-bottom: 6px solid rgba(47,91,211,0); }
+  .rr { position: absolute; left: 0; width: 1228px; height: 66px; display: flex; align-items: center; gap: 22px; border-bottom: 2px solid var(--line); font-size: 32px; border-radius: 10px; }
+  .ck { width: 38px; height: 38px; border: 4px solid #8a93a6; border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-left: 10px; }
+  .ck i { font-style: normal; color: #fff; font-size: 28px; font-weight: 800; opacity: 0; }
+  .st { width: 240px; font-weight: 800; } .st.ok { color: #1e7f4f; } .st.bad { color: #c4392f; } .st.run { color: #d98a00; }
+  .du { width: 190px; } .tm { width: 190px; color: #5d6472; }
+  .stp { position: absolute; left: 0; width: 900px; height: 76px; display: flex; align-items: center; gap: 18px; padding: 0 20px; border-radius: 16px; font-size: 34px; font-weight: 700; border: 4px solid transparent; }
+  .stp .ic { width: 44px; height: 44px; }
+  .ut { position: absolute; top: 0; height: 290px; background: #f3f5f9; border-radius: 22px; padding: 22px 28px; border: 3px solid #e2e5eb; }
+  .ut small { display: block; font-size: 32px; font-weight: 700; color: #5d6472; }
+  .ut b { display: block; font-size: 92px; line-height: 1.1; margin-top: 18px; }
+  .clk { position: absolute; left: 0; top: 330px; display: inline-flex; align-items: center; gap: 14px; background: #fff3d6; border: 3px solid #d98a00; color: #7a4d00; border-radius: 999px; padding: 10px 28px; font-size: 32px; font-weight: 800; opacity: 0; }
+  .clk .ic { width: 40px; height: 40px; color: #d98a00; }
+  .stepcap { position: absolute; left: 56px; top: 712px; width: 1228px; height: 80px; border-radius: 18px; background: #e6ecfb; color: #2f5bd3; font-size: 40px; font-weight: 800; display: flex; align-items: center; padding: 0 30px; opacity: 0; }
+  .cc { position: absolute; height: 112px; display: flex; align-items: center; justify-content: center; padding: 0 34px; border-radius: 26px; background: #fff; border: 6px solid #2f5bd3; color: #141821; font-size: 56px; font-weight: 800; white-space: nowrap; opacity: 0; box-sizing: border-box; }
+  .cc.op { background: none; border: none; color: #5d6472; padding: 0 6px; }
+  .cs { position: absolute; width: 320px; height: 104px; display: flex; align-items: center; justify-content: center; text-align: center; border-radius: 24px; background: #fff; border: 6px solid #8a5cd6; color: #8a5cd6; font-size: 34px; font-weight: 800; line-height: 1.12; box-sizing: border-box; opacity: 0; }
+  .dr { position: absolute; width: 390px; height: 140px; display: flex; align-items: center; gap: 16px; padding: 0 22px; border-radius: 24px; background: #fff; border: 6px solid #b6bdcc; color: #5d6472; font-size: 34px; font-weight: 800; line-height: 1.12; box-sizing: border-box; opacity: 0; }
+  .dr i.lp { flex: 0 0 38px; height: 38px; border-radius: 50%; background: #b6bdcc; }
+  .tbar { position: absolute; height: 28px; border-radius: 14px; }
+  .ovb { position: absolute; inset: 0; background: #f4f6fa; opacity: 0; }
+  #stage #uiBack { background: #eef1f7; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L21 · Monitor agent flows and their cost.
+     World 3840x2160: dashboard 700,70 (1400x700) · agent 300,870 · belt y1372 x420-1900 · stations 800/1080/1360 · cable gap 1625-1675 y1250 · Dataverse 1740,1050 · tank 2280,950 ·
+     test window 700,1560 · finance desk 1500-2100,1740 · harness district: Standard 2780 · glass tower 3130 · chat 3520 (base y1400) */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44';
+  const D = (id, st, html) => `<div class="w" id="${id}" style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const PL = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + fs + 'px;');
+  const SB = (id, x, y, t, fs, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:' + fs + 'px;');
+  const pulse = (sel, t, col) => tl.fromTo(sel, { boxShadow: '0 0 0 0 rgba(217,138,0,0)' }, { boxShadow: `0 0 0 10px ${col || 'rgba(217,138,0,.85)'}`, duration: 0.25, yoyo: true, repeat: 1 }, t);
+
+  /* ═════════ WORLD: pipes, cables ═════════ */
+  const sparkSvg = [[1650, 1214, 1636, 1240, 1664, 1240, 1648, 1274], [1628, 1232, 1646, 1250, 1630, 1268], [1676, 1226, 1660, 1250, 1678, 1266]].map((p) => `<polyline points="${p.join(',')}" fill="none" stroke="#ffb000" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`).join('');
+  ADD(`<svg class="w" id="pipes" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+    <path d="M2330 1450 L2330 1490 L900 1490 L900 1415" fill="none" stroke="#b9c0cf" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/>
+    ${cable('pfuel', 'M2330 1450 L2330 1490 L900 1490 L900 1415', '#6aa0ff', 14)}
+    ${cable('ppay', 'M2480 1700 L2480 1450', GRN, 24)}
+    <path d="M1560 1250 L1625 1250" stroke="${RED}" stroke-width="18" stroke-linecap="round" id="cbL"/><path d="M1675 1250 L1740 1250" stroke="${RED}" stroke-width="18" stroke-linecap="round" id="cbR"/>
+    ${cable('cbOk', 'M1560 1250 L1740 1250', GRN, 18)}
+    <g id="sp">${sparkSvg}</g>
+  </svg>`);
+  ADD(`<svg class="w" id="cpipes" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">${cable('cpA', 'M2945 1500 C 2945 1440, 3200 1450, 3280 1390', PUR, 14)}${cable('cpB', 'M3280 1500 L3280 1390', PUR, 14)}${cable('cpC', 'M3615 1500 C 3615 1440, 3360 1450, 3280 1390', PUR, 14)}</svg>`);
+
+  /* tank (prepaid capacity) */
+  ADD(D('tank', 'left:2280px;top:950px;width:400px;height:500px;border:10px solid #8a93a6;border-radius:30px;background:#f8f9fb;overflow:hidden', D('tkFill', 'left:0;bottom:0;width:380px;height:430px;background:linear-gradient(#8cb4ff,#5b8be6)')));
+  ADD(PL('lbTank', 2470, 860, 'Prepaid capacity', 'navy', 48) + PL('tEmpty', 2480, 1160, 'EMPTY', 'red', 64));
+
+  /* harness district */
+  const bricks = 'repeating-linear-gradient(0deg,#b4533f 0 28px,#e8dccf 28px 32px),#b4533f';
+  ADD(`<div id="hd" style="opacity:0">` +
+    D('hStd', 'left:2780px;top:1060px;width:260px;height:340px;border-radius:14px;border:6px solid #8a3a2a;box-sizing:border-box;background:' + bricks) +
+    D('hGls', 'left:3130px;top:920px;width:300px;height:480px;border-radius:18px;border:6px solid #5b8be6;box-sizing:border-box;background:linear-gradient(135deg,#e6f0ff,#bcd4ff 55%,#e6f0ff)', IC('sparkle', 'position:absolute;left:100px;top:40px;width:100px;height:100px;color:#2f5bd3')) +
+    D('hChat', 'left:3520px;top:1060px;width:260px;height:340px;border-radius:40px;border:6px solid #8a93a6;box-sizing:border-box;background:#f3f5f9', IC('chat', 'position:absolute;left:80px;top:40px;width:100px;height:100px;color:#5d6472')) +
+    PL('lbStd', 2910, 985, 'Standard', 'navy', 44) + PL('lbGls', 3280, 842, 'Microsoft Copilot harness', 'blue', 44) + PL('lbFor', 3280, 764, 'formerly GitHub Copilot harness', 'amber', 36) + PL('lbChat', 3650, 985, 'Copilot chat', 'navy', 44) + `</div>`);
+  /* meters (dials) inside each building */
+  const dial = (id, cx, cy) => {
+    let t = ''; for (let k = 0; k < 12; k++) { const a = (k / 12) * 2 * Math.PI; t += `<line id="${id}_t${k}" x1="${70 + 52 * Math.sin(a)}" y1="${70 - 52 * Math.cos(a)}" x2="${70 + 62 * Math.sin(a)}" y2="${70 - 62 * Math.cos(a)}" stroke="#8a93a6" stroke-width="7" stroke-linecap="round"/>`; }
+    return `<svg class="w" id="${id}" style="left:${cx - 70}px;top:${cy - 70}px;opacity:0" width="140" height="140" viewBox="0 0 140 140"><circle cx="70" cy="70" r="66" fill="#fff" stroke="#1f2a44" stroke-width="6"/>${t}
+      <g id="${id}_n"><line x1="70" y1="70" x2="70" y2="30" stroke="#c4392f" stroke-width="8" stroke-linecap="round"/></g><circle cx="70" cy="70" r="9" fill="#1f2a44"/></svg>`;
+  };
+  ADD(dial('mStd', 2910, 1290) + dial('mGls', 3280, 1300) + dial('mChat', 3650, 1290));
+  gsap.set(['#mStd_n', '#mGls_n', '#mChat_n'], { rotation: -40, svgOrigin: '70 70' });
+  /* coins (Copilot Credits) */
+  const coin = (id, x, y, t, s) => D(id, `left:${x}px;top:${y}px;width:${s || 120}px;height:${s || 120}px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe9a8,#f2b705);border:6px solid #b98400;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:${(s || 120) * 0.42}px;font-weight:800;color:#6b4a00;opacity:0`, t);
+  ADD(coin('cnS', 2850, 1090, 'CC') + coin('cnG', 3220, 1090, 'CC') + coin('cnC', 3590, 1090, 'CC'));
+  ADD(PL('lbCC', 2480, 800, 'Copilot Credits', 'amber', 56));
+  /* cost pipe chips (Microsoft Copilot harness meter) */
+  const CS = (id, x, t) => `<div class="cs" id="${id}" style="left:${x}px;top:1500px">${t}</div>`;
+  ADD(CS('csA', 2785, 'LLM tokens') + CS('csB', 3120, 'Tools<br>knowledge · MCP') + CS('csC', 3455, 'Runtime'));
+  ADD(PL('lbStdD', 2910, 1430, 'per event · defined rates', 'blue', 40));
+
+  /* ═════════ WORLD: dashboard ═════════ */
+  const ptA = (a) => [260 + 200 * Math.cos(a * Math.PI / 180), 270 - 200 * Math.sin(a * Math.PI / 180)];
+  const arc = (a0, a1, col) => { const p = ptA(a0), q = ptA(a1); return `<path d="M${p[0]} ${p[1]} A200 200 0 0 1 ${q[0]} ${q[1]}" fill="none" stroke="${col}" stroke-width="46" stroke-linecap="butt"/>`; };
+  const needle = (id) => `<g id="${id}"><line x1="260" y1="270" x2="260" y2="92" stroke="#fff" stroke-width="14" stroke-linecap="round"/><circle cx="260" cy="270" r="24" fill="#fff"/></g>`;
+  ADD(`<div class="w" id="dash" style="left:700px;top:70px;width:1400px;height:720px;background:#1f2a44;border-radius:50px;box-shadow:0 30px 80px rgba(16,24,40,.35)">
+    <div class="w" id="dashGlow" style="left:-14px;top:-14px;width:1428px;height:748px;border-radius:62px;box-shadow:0 0 0 0 rgba(255,209,102,0);"></div>
+    <div class="w" style="left:30px;top:30px;width:1340px;height:660px;background:#101a33;border-radius:36px"></div>
+    <div class="w" style="left:70px;top:50px;font-size:44px;font-weight:800;color:#cfd8ee;white-space:nowrap">Create ticket · agent flow</div>
+    <svg class="w" style="left:90px;top:110px" width="520" height="330" viewBox="0 0 520 330">${arc(180, 120, '#c4392f')}${arc(120, 60, '#d98a00')}${arc(60, 0, '#2fae6a')}${needle('nH')}</svg>
+    <svg class="w" style="left:790px;top:110px" width="520" height="330" viewBox="0 0 520 330">${arc(180, 0, '#6aa0ff')}<text x="60" y="322" font-size="40" font-weight="800" fill="#cfd8ee" text-anchor="middle">E</text><text x="460" y="322" font-size="40" font-weight="800" fill="#cfd8ee" text-anchor="middle">F</text>${needle('nF')}</svg>
+    ${H('dHl', 'left:90px;top:436px;width:520px;text-align:center;font-size:64px;font-weight:800;color:#fff', 'Health')}
+    ${H('dFl', 'left:790px;top:436px;width:520px;text-align:center;font-size:64px;font-weight:800;color:#fff', 'Fuel')}
+    ${H('dCr', 'left:790px;top:514px;width:520px;text-align:center;font-size:44px;font-weight:800;color:#ffd166', 'Copilot Credits')}
+    ${['Overview', 'Activity', 'Analytics'].map((n, k) => `<div class="dtab" id="dt${k}" style="left:${100 + k * 410}px">${n}</div>`).join('')}</div>`);
+  gsap.set('#nH', { rotation: -78, svgOrigin: '260 270' }); gsap.set('#nF', { rotation: -80, svgOrigin: '260 270' });
+
+  /* ═════════ WORLD: factory ═════════ */
+  ADD(D('dv', 'left:1740px;top:1050px;width:340px;height:322px;background:#1f2a44;border-radius:26px', IC('database', 'position:absolute;left:125px;top:26px;width:90px;height:90px;color:#8cb4ff') +
+    '<div class="w" style="left:0;top:130px;width:340px;text-align:center;font-size:60px;font-weight:800;color:#fff">Dataverse</div>' + [0, 1].map((k) => `<div class="w" style="left:40px;top:${220 + k * 50}px;width:260px;height:30px;border-radius:8px;background:#2d3a5c"></div>`).join('')));
+  [[800, 'send'], [1080, 'document_text'], [1360, 'ticket_diagonal']].forEach(([x, ic], k) => ADD(`<div class="stn" id="st${k}" style="left:${x}px"><i class="lamp" id="la${k}"></i>${IC(ic)}</div>`));
+  ADD(D('belt', 'left:420px;top:1372px;width:1480px;height:40px;background:#4a5468;border-radius:20px') + D('beltLine', 'left:440px;top:1388px;width:1440px;height:6px;background:repeating-linear-gradient(90deg,#8a93a6 0 30px,transparent 30px 60px)'));
+  ADD(agent('ag', 300, 870, { folder: '' }));
+  ADD(`<svg class="w" style="left:300px;top:870px" width="360" height="500" viewBox="0 0 360 500"><path d="M62 190 Q62 100 180 100 Q298 100 298 190" fill="none" stroke="#141821" stroke-width="10"/><rect x="42" y="168" width="26" height="64" rx="12" fill="#141821"/><rect x="292" y="168" width="26" height="64" rx="12" fill="#141821"/><path d="M62 232 Q70 262 130 262" fill="none" stroke="#141821" stroke-width="8"/></svg>`);
+  /* meter under station 3 */
+  ADD(H('meter', 'left:1380px;top:1430px;width:160px;height:122px;background:#fff;border:6px solid #1f2a44;border-radius:18px;overflow:hidden;box-sizing:border-box', D('mFill', 'left:0;bottom:0;width:148px;height:6px;background:linear-gradient(#ffd166,#f2b705)') + '<div class="w" style="left:0;top:10px;width:148px;text-align:center;font-size:34px;font-weight:800;color:#1f2a44">credits</div>'));
+  /* employees, user, technician, finance */
+  ADD(crowd('em0', 230, 1580, '#8a5cd6') + crowd('em1', 520, 1580, '#d98a00') + crowd('em2', 800, 1580, '#1e7f4f') + crowd('usr', 380, 1580, '#2f5bd3'));
+  ADD(crowd('tech', 1640, 1480, '#1e7f4f'));
+  ADD(crowd('fin', 1620, 1600, '#8a5cd6') + D('desk', 'left:1500px;top:1740px;width:600px;height:110px;border-radius:14px;background:#c9ced8') + D('deskL1', 'left:1530px;top:1850px;width:20px;height:50px;background:#c9ced8') + D('deskL2', 'left:2050px;top:1850px;width:20px;height:50px;background:#c9ced8') +
+    D('calc', 'left:1960px;top:1640px;width:120px;height:100px;border-radius:14px;background:#1f2a44;color:#6be3a0;font-size:36px;font-weight:800;display:flex;align-items:center;justify-content:center', '0'));
+  /* test window (designer) */
+  ADD(H('twin', 'left:700px;top:1560px;width:520px;height:300px;border-radius:22px;background:#fff;border:6px solid #1f2a44;overflow:hidden;box-sizing:border-box',
+    '<div class="w" style="left:0;top:0;width:508px;height:62px;background:#1f2a44;color:#fff;font-size:34px;font-weight:700;display:flex;align-items:center;padding-left:22px">Designer · Test run</div>' +
+    D('twBelt', 'left:30px;top:170px;width:450px;height:20px;border-radius:10px;background:#4a5468') + [0, 1, 2].map((k) => `<div class="w tw" id="tw${k}" style="left:${40 + k * 130}px;top:128px;width:60px;height:40px;border-radius:10px;background:#fff;border:5px solid #2f5bd3;box-sizing:border-box"></div>`).join('')));
+  ADD(PL('tFree', 1410, 1700, 'free', 'green', 72));
+  /* cards */
+  const TK = (id, left) => `<div class="tk" id="${id}" style="left:${left}px;top:1294px">${IC('ticket_diagonal')}</div>`;
+  ADD(['tk0', 'tk1', 'tk2', 'tk3'].map((i) => TK(i, 560)).join('') + ['tk4', 'tk5', 'tk6'].map((i) => TK(i, 560)).join('') + TK('tk7', 960) + TK('tk8', 1180) + ['tk9', 'tk10', 'tk11'].map((i) => TK(i, 560)).join('') + TK('tkU', 560));
+  /* bubbles, tags */
+  ADD(SB('b0', 275, 1440, 'ticket?', 60) + SB('b1', 565, 1440, 'ticket?', 60) + SB('b2', 845, 1440, 'ticket?', 60));
+  ADD(PL('lbBelt', 1000, 1050, 'Create ticket', 'navy', 52) + PL('tLost', 1520, 1030, 'Ticket lost', 'red', 56) + SB('bFin', 1700, 1470, 'How much do flows cost?', 52));
+  ADD(PL('tOk', 1900, 980, 'created', 'green', 52));
+
+  /* ═════════ UI windows (generated per prefix) ═════════ */
+  const RUNS = [['Succeeded', '2.1 s', '09:12', 'ok'], ['Failed', '1.4 s', '09:40', 'bad'], ['Succeeded', '2.3 s', '10:05', 'ok'], ['Failed', '1.5 s', '10:31', 'bad'], ['In progress', '…', '10:58', 'run']];
+  const TABS = (p, hide) => `<div id="${p}_tabs" style="position:absolute;left:56px;top:24px;display:flex;gap:10px${hide ? ';opacity:0' : ''}">${['Overview', 'Activity', 'Analytics'].map((n, k) => `<div class="tb" id="${p}_tb${k}"${k === 0 ? ' style="color:#2f5bd3;border-bottom-color:#2f5bd3"' : ''}>${n}</div>`).join('')}</div>`;
+  const ovLay = (p) => `<div class="lay" id="${p}_ov" style="top:130px;opacity:0">
+    ${[['Name', 'Create ticket', 0, 0], ['Description', 'Creates IT tickets in Dataverse', 584, 0], ['Connections', 'Dataverse', 0, 116], ['Owners', 'IT team', 584, 116]].map((f, k) => `<div class="fld" id="${p}_f${k}" style="position:absolute;left:${f[2]}px;top:${f[3]}px;width:560px"><small>${f[0]}</small>${f[1]}</div>`).join('')}
+    <div id="${p}_rh" style="position:absolute;left:0;top:236px;font-size:34px;font-weight:800">Recent runs</div>
+    ${[0, 1, 2].map((k) => `<div class="rr" id="${p}_o${k}" style="top:${284 + k * 56}px;height:52px"><span class="st ${RUNS[k][3]}" style="margin-left:10px">${RUNS[k][0]}</span><span class="du">${RUNS[k][1]}</span><span class="tm">${RUNS[k][2]}</span></div>`).join('')}
+    <span class="btn" id="${p}_bOff" style="position:absolute;left:0;top:462px;font-size:32px">Turn off</span><span class="btn" id="${p}_bDel" style="position:absolute;left:190px;top:462px;font-size:32px;color:#c4392f;border-color:#c4392f">Delete</span></div>`;
+  const acLay = (p) => `<div class="lay" id="${p}_ac" style="top:130px;opacity:0">
+    <div style="position:absolute;left:0;top:-6px;font-size:44px;font-weight:800">Run history</div>
+    <div style="position:absolute;right:0;top:0;display:flex;gap:16px"><span class="btn" id="${p}_bR" style="font-size:32px;opacity:.4">Resubmit</span><span class="btn" id="${p}_bC" style="font-size:32px;opacity:.4">Cancel</span></div>
+    <div class="rr" style="top:70px;height:56px;font-weight:800;color:#5d6472;font-size:30px"><span style="width:52px"></span><span id="${p}_hS" style="width:240px;border-radius:8px">Status</span><span id="${p}_hD" class="du" style="border-radius:8px">Duration</span><span class="tm">Started</span></div>
+    ${RUNS.map((r, k) => `<div class="rr" id="${p}_r${k}" style="top:${134 + k * 70}px"><span class="ck" id="${p}_c${k}"><i>✓</i></span><span class="st ${r[3]}">${r[0]}</span><span class="du">${r[1]}</span><span class="tm">${r[2]}</span></div>`).join('')}</div>`;
+  const dtLay = (p) => `<div class="lay" id="${p}_dt" style="top:130px;opacity:0">
+    <div id="${p}_back" style="position:absolute;left:0;top:-4px;font-size:32px;font-weight:700;color:#2f5bd3">‹ Run history</div>
+    <div style="position:absolute;left:0;top:44px;font-size:44px;font-weight:800">Run details · <span style="color:#c4392f">Failed</span></div>
+    ${[['checkmark_circle', 'When an agent calls the flow', '#1e7f4f'], ['checkmark_circle', 'Get ticket data', '#1e7f4f'], ['error_circle', 'Dataverse connection', '#c4392f'], ['dismiss_circle', 'Send ticket number', '#8a93a6']].map((s, k) => `<div class="stp" id="${p}_s${k}" style="top:${130 + k * 92}px;color:${s[2]}">${IC(s[0])}<span style="color:${k === 3 ? '#8a93a6' : '#141821'}">${s[1]}</span>${k === 2 ? '<span style="margin-left:auto;font-size:30px;color:#c4392f">Stopped here</span>' : ''}</div>`).join('')}</div>`;
+  const anLay = (p, pts, col, n1, n2) => `<div class="lay" id="${p}_an" style="top:130px;opacity:0">
+    <div class="ut" id="${p}_t0" style="left:0;width:360px"><small>Runs</small><b>500</b></div>
+    <div class="ut" id="${p}_t1" style="left:384px;width:360px"><small>Error rate</small><b id="${p}_e1" style="color:${n2 ? '#c4392f' : '#1e7f4f'}">${n1}</b>${n2 ? `<b id="${p}_e2" style="position:absolute;left:28px;top:94px;color:#1e7f4f;opacity:0">${n2}</b>` : ''}</div>
+    <div class="ut" id="${p}_t2" style="left:768px;width:460px"><small>Trend</small><svg width="400" height="190" viewBox="0 0 400 190" style="margin-top:10px"><line x1="0" y1="180" x2="400" y2="180" stroke="#c9ced8" stroke-width="3"/><polyline id="${p}_ln" points="${pts}" fill="none" stroke="${col}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="clk" id="${p}_clk">${IC('timer')}Up to 30 min to update</div></div>`;
+  const NAVS = ['Agents', 'Flows', 'Tools', 'Settings'];
+  const PTS_MIX = '0,120 60,70 120,100 180,40 240,90 300,60 400,110', PTS_DOWN = '0,30 70,50 140,90 210,120 280,150 400,165';
+
+  /* window F (scenes 2-3) */
+  ADDU(uiWindow('uiF', { title: 'Flows · Create ticket', nav: NAVS, on: 1, body: TABS('uiF') + ovLay('uiF') + acLay('uiF') + dtLay('uiF') + anLay('uiF', PTS_MIX, '#2f5bd3', '4%') }));
+  const PF = { tb1: PC('#uiF_tb1'), tb2: PC('#uiF_tb2'), tb0: PC('#uiF_tb0'), bOff: PC('#uiF_bOff'), bDel: PC('#uiF_bDel'), f0: PC('#uiF_f0'), r1: PC('#uiF_r1 .st'), r1c: PC('#uiF_c1'), r3c: PC('#uiF_c3'), r4c: PC('#uiF_c4'), bR: PC('#uiF_bR'), bC: PC('#uiF_bC'), back: PC('#uiF_back'), rh: PC('#uiF_rh') };
+  /* window G (scene 5) */
+  ADDU(uiWindow('uiG', { title: 'Flows · Create ticket', nav: NAVS, on: 1, body: TABS('uiG') + ovLay('uiG') + acLay('uiG') + dtLay('uiG') + anLay('uiG', PTS_DOWN, '#1e7f4f', '12%', '2%') }));
+  const PG = { tb1: PC('#uiG_tb1'), tb2: PC('#uiG_tb2'), r1: PC('#uiG_r1 .st'), r1c: PC('#uiG_c1') };
+  /* window H (scene 14) */
+  ADDU(uiWindow('uiH', { title: 'Flows', nav: NAVS, on: 1, body: `
+    <div class="lay" id="uiH_ls" style="top:40px;opacity:0"><div style="font-size:44px;font-weight:800;margin-bottom:20px">Flows</div>
+      ${['Create ticket', 'Reset password', 'Order laptop'].map((n, k) => `<div class="rr" id="uiH_l${k}" style="top:${80 + k * 76}px;height:70px;font-weight:800">${IC('flow', 'width:44px;height:44px;margin-left:12px;color:#2f5bd3')}<span id="uiH_ln${k}">${n}</span></div>`).join('')}</div>` + TABS('uiH', true) + ovLay('uiH') + acLay('uiH') + dtLay('uiH') + anLay('uiH', PTS_DOWN, '#1e7f4f', '2%') +
+    `<div class="w" id="uiH_est" style="left:56px;top:640px;opacity:0;background:#fff3d6;border:4px solid #d98a00;color:#7a4d00;border-radius:20px;padding:12px 28px;font-size:40px;font-weight:800;display:flex;gap:16px;align-items:center">${IC('money', 'width:50px;height:50px;color:#d98a00')}13 credits per 100 actions</div>` +
+    ['The steps', 'Open the flows list, select the agent flow', 'Review Overview', 'Go to Activity', 'Open a failed run', 'Select the failed runs · Resubmit', 'Open Analytics', 'Estimate the cost'].map((t, k) => `<div class="stepcap" id="uiH_c${k}">${k ? k + ' · ' : ''}${t}</div>`).join('') }));
+  const PH = { l0: PC('#uiH_ln0'), tb0: PC('#uiH_tb0'), tb1: PC('#uiH_tb1'), tb2: PC('#uiH_tb2'), r1: PC('#uiH_r1 .st'), r1c: PC('#uiH_c1'), r3c: PC('#uiH_c3'), bR: PC('#uiH_bR'), back: PC('#uiH_back'), rh: PC('#uiH_rh') };
+
+  /* ═════════ OVERLAYS ═════════ */
+  ADDS(`<div class="ov kin title" id="ovT0">Thursday at Contoso<small>Monitor agent flows and their cost</small></div>
+    <div class="ovb" id="ovB0"></div><div class="ovb" id="ovB15"></div><div class="ov kin" id="ovT5" style="top:110px;font-size:84px">By the end of this class</div><div class="ov kin" id="ovT15" style="top:60px;font-size:84px">Remember for the exam</div>
+    <div class="chk" id="ck0" style="left:520px;top:300px">${IC('checkmark_circle')}Find the failed runs</div><div class="chk" id="ck1" style="left:520px;top:450px">${IC('checkmark_circle')}Fix them</div><div class="chk" id="ck2" style="left:520px;top:600px">${IC('checkmark_circle')}Count the bill</div>
+    <div class="chk" id="rc0" style="left:300px;top:200px">${IC('checkmark_circle')}Activity = history + resubmit</div><div class="chk" id="rc1" style="left:300px;top:370px">${IC('checkmark_circle')}Empty tank blocks only new runs</div><div class="chk" id="rc2" style="left:300px;top:540px">${IC('checkmark_circle')}Test runs are free</div><div class="chk" id="rc3" style="left:300px;top:710px">${IC('checkmark_circle')}Microsoft Copilot harness bills from build</div>
+    <div class="w" id="calcP" style="left:0;top:0;width:1920px;height:520px;background:#ffffff;border-radius:0 0 40px 40px;box-shadow:0 30px 80px rgba(16,24,40,.2);opacity:0"></div>
+    <div class="cc" id="m0" style="left:140px;top:90px;width:360px;border-color:#2f5bd3">20 actions</div><div class="cc op" id="mx" style="left:510px;top:90px">×</div><div class="cc" id="m1" style="left:580px;top:90px;width:360px">500 runs</div><div class="cc op" id="me" style="left:950px;top:90px">=</div><div class="cc" id="m2" style="left:1030px;top:90px;width:640px;border-color:#1e7f4f;color:#1e7f4f">10,000 actions</div>
+    <div class="cc" id="m3" style="left:140px;top:250px;width:660px;border-color:#2f5bd3">÷ 100 = 100 blocks</div><div class="cc" id="m4" style="left:830px;top:250px;width:260px;border-color:#d98a00;color:#d98a00">× 13</div><div class="cc" id="m5" style="left:1120px;top:250px;width:640px;border-color:#1e7f4f;background:#e3f4ea;color:#14603b">≈ 1,300 credits</div>
+    <div class="cc" id="m6" style="left:1120px;top:380px;width:520px;height:76px;font-size:38px;border-color:#1e7f4f;color:#1e7f4f;opacity:0">Designer tests: +0</div>`);
+  gsap.set('#ovT0', { opacity: 1 });
+
+  /* ═════════ EXAMS ═════════ */
+  const rmTile = (id, x, w, h4, col) => `<div class="tile" id="${id}" style="left:${x}px;width:${w}px;border-color:${col || '#3a4a78'}"><h4>${h4}</h4>`;
+  const pr = (id, left, top, html, st) => `<div class="w" id="${id}" style="left:${left}px;top:${top}px;opacity:0;${st || ''}">${html}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'The team wants to see each failed run of Create ticket, open its details, and send the failed runs again after the fix. Which tab do they open?',
+      opts: ['Activity, because it keeps all run details?', 'Overview, because it lists the latest runs?', 'Or Analytics, because it charts the error rate?'],
+      why: '<div id="exA_w1"><span class="g">Activity</span> keeps the full history, the details and <span class="g">Resubmit</span></div><div id="exA_w2">Analytics = <span class="r">numbers only</span> · Overview = <span class="r">latest runs only</span></div>',
+      proof: `<div class="rm" style="left:0;width:1060px;border-color:#3a4a78"><h4>Activity</h4>
+          ${[['Failed', 'Dataverse step', '#ff8a80'], ['Failed', 'Dataverse step', '#ff8a80'], ['Succeeded', '2.3 s', '#6be3a0']].map((r, k) => pr('pA_r' + k, 28, 96 + k * 62, `<span id="pA_k${k}" style="width:40px;height:40px;border:4px solid #8a93a6;border-radius:9px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:30px;font-weight:800"><i id="pA_i${k}" style="font-style:normal;opacity:0">✓</i></span><span style="color:${r[2]};font-weight:800;width:200px">${r[0]}</span><span style="color:#cfd8ee;font-size:34px">${r[1]}</span>`, 'display:flex;align-items:center;gap:22px;font-size:38px;width:1000px;height:56px;opacity:1')).join('')}</div>
+        <div class="rm" style="left:1120px;width:560px;border-color:#3a4a78"><h4>Actions</h4>
+          <div class="chip sm" id="pA_re" style="left:40px;top:110px;border-color:#6be3a0;color:#14603b;opacity:0">${IC('arrow_clockwise')}Resubmit</div>
+          <div class="chip sm" id="pA_ca" style="left:40px;top:200px;opacity:0">${IC('dismiss_circle')}Cancel</div></div>` }),
+    mkExam('exB', { q: "In the middle of the day, Contoso's prepaid capacity runs out. What happens?",
+      opts: ['The agent stops answering until capacity is added?', 'All runs in progress are cancelled right away?', 'Or new flow runs are blocked, the agent talks on?'],
+      why: '<div id="exB_w1"><span class="r">New flow runs</span> are blocked</div><div id="exB_w2">Runs in progress <span class="g">finish</span> · the agent <span class="g">keeps answering</span></div>',
+      proof: `<div class="tile" id="pB_a" style="left:0;opacity:0"><h4>New runs</h4><div class="w" style="left:40px;top:100px">${IC('dismiss_circle', 'width:90px;height:90px;color:#ff8a80')}</div><div class="lb" style="left:160px;top:120px;color:#ff8a80">blocked</div></div>
+        <div class="tile" id="pB_b" style="left:580px;opacity:0"><h4>In progress</h4><div class="w" style="left:40px;top:100px">${IC('checkmark_circle', 'width:90px;height:90px;color:#6be3a0')}</div><div class="lb" style="left:160px;top:120px;color:#6be3a0">finish</div></div>
+        <div class="tile" id="pB_c" style="left:1160px;opacity:0"><h4>Agent chat</h4><div class="w" style="left:40px;top:100px">${IC('chat', 'width:90px;height:90px;color:#6be3a0')}</div><div class="lb" style="left:160px;top:120px;color:#6be3a0">answering</div></div>` }),
+    mkExam('exC', { q: "Contoso's makers spent a week authoring and previewing a new agent. Nothing was published yet, but Copilot Credits were consumed. Which harness is the agent on?",
+      opts: ['The standard harness for agents?', 'The Microsoft Copilot harness?', 'Or the Copilot chat harness?'],
+      why: '<div id="exC_w1">Only the <span class="g">Microsoft Copilot harness</span> bills from <span class="g">build time</span></div><div id="exC_w2">The other two bill at <span class="r">runtime only</span></div>',
+      proof: `<div class="rm" style="left:0;width:1680px;border-color:#3a4a78"><h4>Microsoft Copilot harness meter</h4>
+          <div class="w" style="left:210px;top:178px;width:1200px;height:10px;border-radius:5px;background:#3a4a78"></div>
+          <div class="w" id="pC_bar" style="left:210px;top:98px;width:0px;height:50px;border-radius:25px;background:linear-gradient(90deg,#ffd166,#f2b705)"></div>
+          ${['Build', 'Preview', 'Evaluate', 'Publish', 'Run'].map((n, k) => `<div class="w" style="left:${180 + k * 300}px;top:152px;width:60px;height:60px;border-radius:50%;background:#1d2742;border:8px solid ${k === 0 ? '#ffd166' : '#8a93a6'};box-sizing:border-box" id="pC_d${k}"></div><div class="lb" style="left:${210 + k * 300 - 100}px;top:222px;width:200px;text-align:center;color:#fff;font-size:44px">${n}</div>`).join('')}</div>` }));
+
+  /* exam driver (L02 pattern; ring counts 3-2-1 inside the silence, answer after) */
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.3, 0.5);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.05);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    ON(X + '_ring', Pz, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 1.0, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.6, ease: 'power2.inOut' }, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+  /* fade the world / ui / overlays out completely before an exam room fades in */
+  const toExam = (i, extra) => { OFF(['#world', '#uiBack', '.uw', '.ov', '.ovb', '.chk', '.cc', '#calcP'].concat(extra || []), S(i, 0) - 0.8, 0.3); OFF('#cur', S(i, 0) - 0.8, 0.2); };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - 1920 * 0.5, y: 540 - 1080 * 0.5, scale: 0.5 });
+  gsap.set('.tag,.sb,.chip,.capi,.lab,.chk,.cs,.cc', { opacity: 0 });
+  gsap.set('#exams .chip', { opacity: 0 });
+  gsap.set(['#cbOk', '#pfuel', '#ppay', '#cpA', '#cpB', '#cpC'], { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 }); gsap.set(['#usr', '#tech'], { opacity: 0 });
+  gsap.set('#exams .xp', { opacity: 0 });
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+
+  /* ═════════ 0 · The missing tickets ═════════ */
+  ADD(PL('lbQ1', 1030, 800, 'Failed runs?', 'red', 56) + PL('lbQ2', 1750, 800, 'Cost?', 'amber', 56));
+  OFF('#ovT0', E(0, 0) + 0.2, 0.5);
+  const Q = (id) => (id[0] === '#' ? id : '#' + id);
+  const fall = (id0, t) => { const id = Q(id0); tl.to(id, { x: '+=40', y: 380, rotation: 45, duration: 0.7, ease: 'power2.in' }, t); tl.to(id, { borderColor: RED, duration: 0.2 }, t); OFF(id, t + 0.55, 0.2); };
+  const land = (id0, t) => { const id = Q(id0); tl.to(id, { x: '+=130', scale: 0.4, duration: 0.5, ease: 'power2.in' }, t); OFF(id, t + 0.3, 0.2); };
+  const ride = (id0, t, d, x) => { const id = Q(id0); ON(id, t, 0.2); tl.fromTo(id, { x: 0 }, { x: x, duration: d, ease: 'none', immediateRender: false }, t); };
+  /* the cable sparks flicker until Contoso fixes it (scene 5, sentence 4) */
+  const FIX = S(5, 4) + 1.7;
+  tl.fromTo('#sp', { opacity: 1 }, { opacity: 0.2, duration: 0.18, yoyo: true, repeat: Math.floor((FIX - 0.2) / 0.18), ease: 'none' }, 0.1);
+  tl.set('#sp', { opacity: 0 }, FIX);
+  POP('#b0', W(0, 1, 'complain', 0)); POP('#b1', W(0, 1, 'complain', 0.35)); POP('#b2', W(0, 1, 'complain', 0.7));
+  ride('tk0', S(0, 1) + 0.5, 2.6, 1190); land('tk0', S(0, 1) + 3.1);
+  ride('tk1', S(0, 1) + 1.1, 2.4, 1010); fall('tk1', S(0, 1) + 3.5);
+  ride('tk2', S(0, 1) + 1.6, 2.4, 1010); fall('tk2', S(0, 1) + 4.0);
+  CAM(1130, 1380, 1.0, S(0, 2) - 0.4, 1.3);
+  OFF(['#b0', '#b1', '#b2'], S(0, 2) - 0.5, 0.3);
+  TAG('#lbBelt', W(0, 2, 'Create ticket', 0));
+  ride('tk3', S(0, 2) + 0.8, 3.0, 1010); CAM(1290, 1380, 1.0, S(0, 2) + 1.4, 2.6, 'power1.inOut'); fall('tk3', S(0, 2) + 3.8);
+  TAG('#tLost', S(0, 2) + 3.9);
+  OFF('#tLost', S(0, 3) - 0.5, 0.3);
+  CAM(1290, 1430, 1.0, S(0, 3) - 0.5, 1.3);
+  POP('#bFin', S(0, 3) + 0.2);
+  OFF(['#bFin', '#lbBelt'], S(0, 4) - 0.6, 0.3);
+  CAM(1400, 450, 1.2, S(0, 4) - 0.5, 1.4);
+  TAG('#lbQ1', S(0, 4) + 0.1); TAG('#lbQ2', S(0, 4) + 0.7);
+  tl.to('#dashGlow', { boxShadow: '0 0 0 18px rgba(255,209,102,.9)', duration: 0.5 }, W(0, 4, 'one place', 0));
+  /* checklist over a plain panel */
+  OFF(['#lbQ1', '#lbQ2'], S(0, 5) - 0.4, 0.25);
+  ON('#ovB0', S(0, 5) - 0.1, 0.4); ON('#ovT5', S(0, 5) + 0.2, 0.4);
+  POPX('#ck0', W(0, 5, 'find', 0)); POPX('#ck1', W(0, 5, 'fix', 0)); POPX('#ck2', W(0, 5, 'bill', -0.2));
+  OFF(['#ck0', '#ck1', '#ck2', '#ovB0', '#ovT5'], E(0, 5) + 0.15, 0.4);
+
+  /* ═════════ 1 · The car dashboard ═════════ */
+  camAt(1400, 450, 1.2, E(0, 5) + 0.1);
+  ADD(PL('lbCar', 1400, 800, 'Like a car dashboard', 'navy', 60)); gsap.set('#lbCar', { opacity: 0 });
+  TAG('#lbCar', W(1, 1, 'car', 0)); OFF('#lbCar', S(1, 2) - 0.2, 0.3);
+  tl.to('#nH', { rotation: -10, svgOrigin: '260 270', duration: 1.4, ease: 'power2.inOut' }, W(1, 1, 'dashboard', 0.3));
+  tl.to('#nH', { rotation: 58, svgOrigin: '260 270', duration: 1.4, ease: 'back.out(1.6)' }, W(1, 2, 'running fine', 0));
+  tl.to('#nF', { rotation: 14, svgOrigin: '260 270', duration: 1.6, ease: 'power2.inOut' }, W(1, 2, 'how much fuel', 0));
+  [0, 1, 2].forEach((k) => POPX('#dt' + k, W(1, 3, 'three tabs', 0.1 + k * 0.3)));
+  TAG('#dCr', W(1, 3, 'Copilot Credits', 0));
+  POP('#dHl', W(1, 4, 'Health', 0)); POP('#dFl', W(1, 4, 'fuel', 0));
+  tl.to('#dashGlow', { boxShadow: '0 0 0 0 rgba(255,209,102,0)', duration: 0.4 }, S(1, 0));
+
+  /* ═════════ 2 · Three tabs (UI) ═════════ */
+  const TB = (p, k, t) => [0, 1, 2].forEach((i) => tl.to(`#${p}_tb${i}`, { color: i === k ? BLUE : '#5d6472', borderBottomColor: i === k ? BLUE : 'rgba(47,91,211,0)', duration: 0.15 }, t));
+  gsap.set('#uiF_ov', { opacity: 1 });
+  UIIN('#uiF', S(2, 0) - 0.2); ON('#cur', S(2, 0) + 0.8, 0.3);
+  CUR(PF.tb0[0] + 120, PF.tb0[1] + 90, S(2, 0) + 0.9, 0.7);
+  pulse('#uiF_tb0', W(2, 0, 'three tabs', 0)); pulse('#uiF_tb1', W(2, 0, 'three tabs', 0.3)); pulse('#uiF_tb2', W(2, 0, 'three tabs', 0.6));
+  ['f0', 'f1', 'f2', 'f3'].forEach((f, k) => pulse('#uiF_' + f, [W(2, 1, 'name', 0), W(2, 1, 'description', 0), W(2, 1, 'connections', 0), W(2, 1, 'owners', 0)][k]));
+  CUR(PF.rh[0] + 100, PF.rh[1] + 40, W(2, 1, 'most recent runs', -0.3), 0.6); pulse('#uiF_rh', W(2, 1, 'most recent runs', 0));
+  CUR(PF.bOff[0], PF.bOff[1], S(2, 2) + 0.2, 0.6); pulse('#uiF_bOff', W(2, 2, 'turn the flow off', 0.4));
+  CUR(PF.bDel[0], PF.bDel[1], W(2, 2, 'delete', -0.5), 0.5); pulse('#uiF_bDel', W(2, 2, 'delete', 0.1));
+  CUR(PF.tb1[0], PF.tb1[1], S(2, 3) - 0.3, 0.6); CLICK(PF.tb1[0], PF.tb1[1], S(2, 3)); TB('uiF', 1, S(2, 3)); SWAP('#uiF_ov', '#uiF_ac', S(2, 3) + 0.05);
+  pulse('#uiF_hS', W(2, 3, 'status', 0)); pulse('#uiF_hD', W(2, 3, 'duration', 0));
+  CUR(PF.tb2[0], PF.tb2[1], S(2, 4) - 0.3, 0.6); CLICK(PF.tb2[0], PF.tb2[1], S(2, 4)); TB('uiF', 2, S(2, 4)); SWAP('#uiF_ac', '#uiF_an', S(2, 4) + 0.05);
+  pulse('#uiF_t0', W(2, 4, 'number of runs', 0)); pulse('#uiF_t1', W(2, 4, 'error rate', 0)); pulse('#uiF_t2', W(2, 4, 'trends', 0));
+
+  /* ═════════ 3 · Activity: diagnose and resubmit ═════════ */
+  CUR(PF.tb1[0], PF.tb1[1], S(3, 0) - 0.2, 0.6); CLICK(PF.tb1[0], PF.tb1[1], S(3, 0) + 0.2); TB('uiF', 1, S(3, 0) + 0.2); SWAP('#uiF_an', '#uiF_ac', S(3, 0) + 0.25);
+  CUR(PF.r1[0], PF.r1[1], S(3, 1) - 0.1, 0.6); CLICK(PF.r1[0], PF.r1[1], S(3, 1) + 0.6); tl.to('#uiF_r1', { backgroundColor: '#fde8e6', duration: 0.2 }, S(3, 1) + 0.6);
+  SWAP('#uiF_ac', '#uiF_dt', S(3, 1) + 0.9);
+  tl.to('#uiF_s2', { backgroundColor: '#fde8e6', borderColor: RED, duration: 0.3 }, W(3, 1, 'exactly', 0)); pulse('#uiF_s2', W(3, 1, 'where it failed', 0), 'rgba(196,57,47,.7)');
+  CUR(PF.back[0] + 60, PF.back[1], S(3, 2) - 0.3, 0.6); CLICK(PF.back[0] + 60, PF.back[1], S(3, 2)); SWAP('#uiF_dt', '#uiF_ac', S(3, 2) + 0.1);
+  const tick = (p, k, t, on) => { tl.to(`#${p}_c${k}`, { backgroundColor: on ? BLUE : '#ffffff', borderColor: on ? BLUE : '#8a93a6', duration: 0.15 }, t); tl.to(`#${p}_c${k} i`, { opacity: on ? 1 : 0, duration: 0.1 }, t); };
+  const btnOn = (sel, t, on) => tl.to(sel, { opacity: on ? 1 : 0.4, backgroundColor: on ? BLUE : '#ffffff', color: on ? '#ffffff' : '#141821', borderColor: on ? BLUE : '#c9ced8', duration: 0.2 }, t);
+  CUR(PF.r1c[0], PF.r1c[1], W(3, 2, 'select several', -0.2), 0.5); CLICK(PF.r1c[0], PF.r1c[1], W(3, 2, 'select several', 0.3)); tick('uiF', 1, W(3, 2, 'select several', 0.3), true);
+  CUR(PF.r3c[0], PF.r3c[1], W(3, 2, 'select several', 0.7), 0.4); CLICK(PF.r3c[0], PF.r3c[1], W(3, 2, 'select several', 1.1)); tick('uiF', 3, W(3, 2, 'select several', 1.1), true);
+  CUR(PF.bR[0], PF.bR[1], W(3, 2, 'resubmit', -0.5), 0.5); btnOn('#uiF_bR', W(3, 2, 'resubmit', 0), true); pulse('#uiF_bR', W(3, 2, 'resubmit', 0.1));
+  tick('uiF', 1, W(3, 2, 'cancel', -0.4), false); tick('uiF', 3, W(3, 2, 'cancel', -0.4), false); btnOn('#uiF_bR', W(3, 2, 'cancel', -0.4), false);
+  CUR(PF.r4c[0], PF.r4c[1], W(3, 2, 'cancel', -0.6), 0.4); CLICK(PF.r4c[0], PF.r4c[1], W(3, 2, 'cancel', 0)); tick('uiF', 4, W(3, 2, 'cancel', 0), true);
+  CUR(PF.bC[0], PF.bC[1], W(3, 2, 'cancel', 0.6), 0.5); btnOn('#uiF_bC', W(3, 2, 'cancel', 0.9), true);
+  CUR(PF.tb2[0], PF.tb2[1], S(3, 3) - 0.3, 0.6); CLICK(PF.tb2[0], PF.tb2[1], S(3, 3) + 0.1); TB('uiF', 2, S(3, 3) + 0.1); SWAP('#uiF_ac', '#uiF_an', S(3, 3) + 0.15);
+  POPX('#uiF_clk', W(3, 3, 'thirty minutes', -0.5));
+  OFF(['#uiF', '#uiBack', '#cur'], E(3, 3) + 0.1, 0.4);
+
+  /* ═════════ 4 · EXAM: where are the failures? ═════════ */
+  toExam(4);
+  EXAMX('exA', 4, { pause: 6, reveal: 7, trap: 2, right: 0, opt: [S(4, 3), S(4, 4), S(4, 5)], end: S(5, 0) - 0.6 });
+  const PRA = Math.max(S(4, 8) + 0.2, S(4, 7) + 1.7);
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, PRA);
+  tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(4, 9) + 0.1, PRA + 1));
+  ON('#exA_p', PRA, 0.4);
+  [0, 1, 2].forEach((k) => tl.set('#pA_r' + k, { opacity: 1 }, 0));
+  ON('#pA_re', W(4, 8, 'Resubmit', -0.4), 0.3); ON('#pA_ca', W(4, 8, 'Resubmit', -0.2), 0.3);
+  [0, 1].forEach((k) => { tl.to(`#pA_k${k}`, { backgroundColor: GRN, borderColor: GRN, duration: 0.2 }, W(4, 8, 'details of each', 0.2 * k)); tl.to(`#pA_i${k}`, { opacity: 1, duration: 0.1 }, W(4, 8, 'details of each', 0.2 * k)); });
+  tl.fromTo('#pA_re', { boxShadow: '0 0 0 0 rgba(107,227,160,0)' }, { boxShadow: '0 0 0 10px rgba(107,227,160,.9)', duration: 0.3, yoyo: true, repeat: 3 }, W(4, 8, 'Resubmit', 0));
+
+  /* ═════════ 5 · Contoso fixes the flow ═════════ */
+  tl.set('#world', { opacity: 1 }, S(5, 0) + 0.6);
+  camAt(1140, 1380, 1.0, S(5, 0) - 0.5);
+  gsap.set('#uiG_ov', { opacity: 1 });
+  UIIN('#uiG', S(5, 0) + 0.05); ON('#cur', S(5, 0) + 0.9, 0.3);
+  CUR(PG.tb1[0], PG.tb1[1], S(5, 1) - 0.1, 0.7); CLICK(PG.tb1[0], PG.tb1[1], W(5, 1, 'Activity', 0)); TB('uiG', 1, W(5, 1, 'Activity', 0)); SWAP('#uiG_ov', '#uiG_ac', W(5, 1, 'Activity', 0.05));
+  tl.to('#uiG_r1', { backgroundColor: '#fde8e6', duration: 0.25 }, W(5, 2, 'failed', 0)); tl.to('#uiG_r3', { backgroundColor: '#fde8e6', duration: 0.25 }, W(5, 2, 'failed', 0.2));
+  pulse('#uiG_r1', W(5, 2, 'failed', 0), 'rgba(196,57,47,.7)'); pulse('#uiG_r3', W(5, 2, 'failed', 0.2), 'rgba(196,57,47,.7)');
+  CUR(PG.r1[0], PG.r1[1], S(5, 3) - 0.2, 0.5); CLICK(PG.r1[0], PG.r1[1], S(5, 3) + 0.2); SWAP('#uiG_ac', '#uiG_dt', S(5, 3) + 0.4);
+  tl.to('#uiG_s2', { backgroundColor: '#fde8e6', borderColor: RED, duration: 0.3 }, W(5, 3, 'Dataverse', -0.2)); pulse('#uiG_s2', W(5, 3, 'Dataverse', 0), 'rgba(196,57,47,.7)');
+  UIOUT('#uiG', S(5, 4) - 0.5); OFF('#cur', S(5, 4) - 0.5, 0.3);
+  camAt(1140, 1380, 1.0, S(5, 4) - 0.4);
+  /* technician reconnects the cable */
+  tl.to('#tech', { opacity: 1, duration: 0.3 }, S(5, 4) + 0.2);
+  tl.to('#tech', { y: -150, duration: 0.8, ease: 'power2.inOut' }, S(5, 4) + 0.3);
+  ADD(PL('tFix', 1890, 1560, 'Reconnect', 'green', 52)); gsap.set('#tFix', { opacity: 0 });
+  TAG('#tFix', S(5, 4) + 0.4);
+  ON('#cbOk', S(5, 4) + 1.2, 0.3); tl.fromTo('#cbOk', { strokeDasharray: 200, strokeDashoffset: 200 }, { strokeDashoffset: 0, duration: 0.5, ease: 'power2.out', immediateRender: false }, S(5, 4) + 1.2);
+  OFF(['#cbL', '#cbR'], S(5, 4) + 1.6, 0.2);
+  tl.to('#la2', { backgroundColor: '#2fae6a', duration: 0.3 }, S(5, 4) + 1.7);
+  ADD(PL('tResub', 700, 1440, 'Resubmit', 'blue', 56)); gsap.set('#tResub', { opacity: 0 });
+  TAG('#tResub', W(5, 4, 'resubmit', 0)); OFF(['#tFix'], S(5, 5) - 0.7, 0.3);
+  ride('tk4', S(5, 5) - 0.6, 1.6, 1190); land('tk4', S(5, 5) + 1.0); ride('tk5', S(5, 5) - 0.2, 1.6, 1190); land('tk5', S(5, 5) + 1.4);
+  TAG('#tOk', S(5, 5) + 0.9); OFF(['#tOk', '#tResub', '#tech'], S(5, 6) - 0.2, 0.2);
+  /* Analytics: error rate comes down */
+  UIIN('#uiG', S(5, 6) - 0.1); ON('#cur', S(5, 6) + 0.7, 0.3);
+  tl.set(['#uiG_ov', '#uiG_ac', '#uiG_dt'], { opacity: 0 }, S(5, 6) - 0.3); tl.set('#uiG_an', { opacity: 1 }, S(5, 6) - 0.2); TB('uiG', 2, S(5, 6) - 0.2);
+  CUR(PG.tb2[0], PG.tb2[1], S(5, 6) + 0.7, 0.6); CLICK(PG.tb2[0], PG.tb2[1], S(5, 6) + 1.3);
+  tl.fromTo('#uiG_ln', { strokeDasharray: 520, strokeDashoffset: 520 }, { strokeDashoffset: 0, duration: 2.6, ease: 'power1.inOut', immediateRender: false }, W(5, 6, 'error rate', 0));
+  tl.to('#uiG_e1', { opacity: 0, duration: 0.3 }, W(5, 6, 'come down', 0)); ON('#uiG_e2', W(5, 6, 'come down', 0.1), 0.3);
+  POPX('#uiG_clk', W(5, 6, 'half hour', -0.2));
+  UIOUT('#uiG', E(5, 6) + 0.1); OFF('#cur', E(5, 6) + 0.1, 0.3);
+
+  /* ═════════ 6 · What a flow costs ═════════ */
+  camAt(1140, 1380, 1.0, S(6, 0) - 0.3);
+  OFF('#lbBelt', S(6, 0) - 0.5, 0.2);
+  const lamp = (k, t, col) => tl.to('#la' + k, { backgroundColor: col || '#ffd166', duration: 0.2 }, t);
+  const coinDrop = (id, t) => { tl.fromTo(id, { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, t); tl.to(id, { y: 360, duration: 0.8, ease: 'power2.in' }, t + 0.2); OFF(id, t + 0.95, 0.15); };
+  ADD(coin('cnD1', 1400, 1060, '13', 100) + coin('cnD2', 1400, 1060, '13', 100)); gsap.set(['#cnD1', '#cnD2'], { opacity: 0 });
+  ADD(PL('tCred', 1300, 960, '13 credits per 100 actions', 'amber', 56)); gsap.set('#tCred', { opacity: 0 });
+  ON('#meter', W(6, 1, 'Each action', -0.3), 0.3);
+  [0, 1, 2].forEach((k) => lamp(k, W(6, 1, 'Each action', 0) + k * 0.5));
+  TAG('#tCred', W(6, 1, 'thirteen', -0.2));
+  coinDrop('#cnD1', W(6, 1, 'thirteen', 0.3)); tl.to('#mFill', { height: 60, duration: 0.5 }, W(6, 1, 'thirteen', 1.3));
+  coinDrop('#cnD2', W(6, 1, 'hundred', 0.3)); tl.to('#mFill', { height: 100, duration: 0.5 }, W(6, 1, 'hundred', 1.3));
+  [0, 1, 2].forEach((k) => lamp(k, S(6, 2) - 0.4, '#b6bdcc')); OFF('#tCred', S(6, 2) - 0.4, 0.3);
+  /* test run window */
+  camAt(1140, 1380, 1.0, S(6, 2) - 0.1);
+  ON('#twin', W(6, 2, 'Tests', 0), 0.4); [0, 1, 2].forEach((k) => { tl.fromTo('#tw' + k, { x: 0 }, { x: 330, duration: 1.8, ease: 'none', repeat: 2, immediateRender: false }, W(6, 2, 'test runs', 0.2 + k * 0.5)); });
+  TAG('#tFree', W(6, 2, 'do not consume', -0.2)); gsap.set('#tFree', { opacity: 0 });
+  OFF(['#twin', '#tFree'], S(6, 3) - 0.3, 0.3);
+  /* licensed user through the agent-called gate */
+  ADD(PL('tM365', 470, 1420, 'Microsoft 365 Copilot', 'purple', 48) + PL('tTrig', 700, 1060, 'When an agent calls the flow', 'blue', 44) + PL('tNo', 1200, 1610, 'not charged', 'green', 56));
+  gsap.set(['#tM365', '#tTrig', '#tNo'], { opacity: 0 });
+  tl.to('#usr', { opacity: 1, duration: 0.3 }, W(6, 3, 'Microsoft three six five', -0.4));
+  TAG('#tM365', W(6, 3, 'Microsoft three six five', 0)); TAG('#tNo', W(6, 3, 'not charged', 0)); TAG('#tTrig', W(6, 3, 'trigger called', 0));
+  ride('tkU', W(6, 3, 'trigger called', 0.6), 2.2, 1190); land('tkU', W(6, 3, 'trigger called', 2.8));
+
+  /* ═════════ 7 · Do the math ═════════ */
+  OFF(['#tM365', '#tTrig', '#tNo', '#usr'], S(7, 0) - 0.5, 0.3);
+  camAt(1290, 1430, 1.0, S(7, 0) - 0.4);
+  ON('#calcP', S(7, 0) + 0.2, 0.3);
+  POPX('#m0', W(7, 1, 'twenty', 0)); POPX('#mx', W(7, 1, 'five hundred', -0.4)); POPX('#m1', W(7, 1, 'five hundred', 0));
+  POPX('#me', W(7, 2, 'ten thousand', -0.3)); POPX('#m2', W(7, 2, 'ten thousand', 0));
+  POPX('#m3', W(7, 3, 'divided', 0)); POPX('#m4', W(7, 3, 'thirteen', 0)); POPX('#m5', S(7, 4) + 0.1);
+  tl.to('#fin', { y: 14, duration: 0.25, yoyo: true, repeat: 3 }, S(7, 4) + 0.5);
+  POPX('#m6', W(7, 5, 'tests', 0));
+  OFF(['#calcP', '.cc'], E(7, 5) + 0.15, 0.4);
+
+  /* ═════════ 8 · When the tank is empty ═════════ */
+  camAt(1500, 1470, 0.8, S(8, 0) - 0.3);
+  tl.set('#em0', { opacity: 0 }, S(7, 0)); tl.set('#em0', { opacity: 1 }, S(14, 0));
+  ADD(D('barr', 'left:780px;top:1250px;width:26px;height:122px;background:#c4392f;border-radius:10px;opacity:0') + PL('tBlock', 890, 1050, 'new runs blocked', 'red', 56) + SB('sAg', 640, 800, 'Still answering', 56, 'green') + SB('sEm', 565, 1440, 'Hi!', 56, 'blue') + PL('tMyth', 1100, 900, 'agent stops completely', 'red', 56) + PL('tPay', 2440, 1760, 'Pay-as-you-go', 'green', 48) + PL('tFin', 1900, 980, 'finish normally', 'green', 52));
+  ADD(D('myK', 'left:800px;top:935px;width:600px;height:10px;background:#c4392f;border-radius:5px;transform:rotate(-4deg);opacity:0'));
+  gsap.set(['#tBlock', '#sAg', '#sEm', '#tMyth', '#tPay', '#tFin'], { opacity: 0 });
+  TAG('#lbTank', S(8, 0) + 0.2);
+  tl.to('#tkFill', { height: 0, duration: 1.8, ease: 'power1.inOut' }, S(8, 0) + 0.6); POPX('#tEmpty', S(8, 0) + 2.3);
+  ride('tk6', S(8, 1), 0.7, 90); ON('#barr', S(8, 1) - 0.2, 0.2); TAG('#tBlock', S(8, 1) + 0.3);
+  tl.to('#tk6', { x: 40, duration: 0.2, yoyo: true, repeat: 1 }, S(8, 1) + 0.9); OFF('#tk6', S(8, 1) + 1.3, 0.2);
+  ON('#tk7', S(8, 1) + 0.4, 0.3); ON('#tk8', S(8, 1) + 0.4, 0.3);
+  tl.to('#tk7', { x: 790, duration: 1.8, ease: 'none' }, S(8, 2)); land('tk7', S(8, 2) + 1.8); tl.to('#tk8', { x: 570, duration: 1.4, ease: 'none' }, S(8, 2)); land('tk8', S(8, 2) + 1.4);
+  TAG('#tFin', S(8, 2) + 1.6); OFF(['#tFin', '#tBlock'], S(8, 3) - 0.2, 0.3);
+  POP('#sEm', S(8, 3) + 0.1); POP('#sAg', S(8, 3) + 0.6);
+  OFF(['#sEm', '#sAg'], S(8, 4) - 0.3, 0.3);
+  TAG('#tMyth', S(8, 4) + 0.1); ON('#myK', S(8, 4) + 0.9, 0.2);
+  OFF(['#tMyth', '#myK'], S(8, 5) - 0.3, 0.3);
+  TAG('#tPay', W(8, 5, 'pay as you go', 0)); ON('#ppay', W(8, 5, 'pay as you go', 0.4), 0.2);
+  tl.fromTo('#ppay', { strokeDasharray: 260, strokeDashoffset: 260 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.out', immediateRender: false }, W(8, 5, 'pay as you go', 0.4));
+  tl.to('#tkFill', { height: 200, duration: 1.2 }, W(8, 5, 'keep running', -0.5)); OFF('#tEmpty', W(8, 5, 'keep running', -0.5), 0.3);
+  tl.to('#barr', { y: -140, opacity: 0, duration: 0.6 }, W(8, 5, 'keep running', 0));
+  ride('tk9', W(8, 5, 'keep running', 0.2), 2.4, 1190); land('tk9', W(8, 5, 'keep running', 2.6));
+
+  /* ═════════ 9 · EXAM: out of capacity ═════════ */
+  toExam(9, ['#tkFill']);
+  EXAMX('exB', 9, { pause: 6, reveal: 7, trap: 0, right: 2, opt: [S(9, 3), S(9, 4), S(9, 5)], end: S(10, 0) - 0.6 });
+  const PRB = Math.max(S(9, 8) + 0.2, S(9, 7) + 1.7);
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, PRB);
+  tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(9, 9) + 0.1, PRB + 1));
+  ON('#exB_p', PRB, 0.4);
+  ON('#pB_a', PRB, 0.4); ON('#pB_b', S(9, 9) + 0.1, 0.4); ON('#pB_c', S(9, 9) + 0.9, 0.4);
+
+  /* ═════════ 10 · One unit, three meters ═════════ */
+  camAt(2967, 1235, 1.1, S(10, 0) - 0.7);
+  tl.set('#hd', { opacity: 1 }, S(10, 0) - 0.7);
+  tl.set(['#tank', '#lbTank', '#tEmpty', '#tPay', '#ppay', '#pipes', '#dash', '#dv', '#desk', '#deskL1', '#deskL2', '#fin', '#calc'], { opacity: 0 }, S(10, 0) - 0.7);
+  ON('#world', S(10, 0) - 0.2, 0.3);
+  ON(['#lbStd', '#lbGls', '#lbFor', '#lbChat'], S(10, 0) - 0.1, 0.3);
+  ['mStd', 'mGls', 'mChat'].forEach((m) => ON('#' + m, S(10, 0), 0.4));
+  TAG('#lbCC', S(10, 0) + 0.2);
+  POP('#cnS', W(10, 0, 'single unit', 0)); POP('#cnG', W(10, 0, 'single unit', 0.25)); POP('#cnC', W(10, 0, 'single unit', 0.5));
+  OFF(['#cnS', '#cnG', '#cnC', '#lbCC'], S(10, 1) - 0.4, 0.3);
+  TAG('#lbStdD', S(10, 1) + 0.5);
+  for (let k = 0; k < 12; k++) tl.to('#mStd_t' + k, { stroke: AMB, duration: 0.12 }, S(10, 1) + 1.0 + k * 0.28);
+  tl.to('#mStd_n', { rotation: 60, svgOrigin: '70 70', duration: 3.3, ease: 'none' }, S(10, 1) + 1.0);
+  OFF(['#lbStdD'], S(10, 2) - 0.2, 0.3);
+  ['csA', 'csB', 'csC'].forEach((c, k) => { POPX('#' + c, [W(10, 2, 'language model', 0), W(10, 2, 'tools called', 0), W(10, 2, 'runtime itself', 0)][k]); const cb = '#cp' + 'ABC'[k]; ON(cb, [W(10, 2, 'language model', 0.2), W(10, 2, 'tools called', 0.2), W(10, 2, 'runtime itself', 0.2)][k], 0.2); tl.fromTo(cb, { strokeDasharray: 400, strokeDashoffset: 400 }, { strokeDashoffset: 0, duration: 0.7, ease: 'power2.out', immediateRender: false }, [W(10, 2, 'language model', 0.2), W(10, 2, 'tools called', 0.2), W(10, 2, 'runtime itself', 0.2)][k]); });
+  tl.to('#mGls_n', { rotation: 70, svgOrigin: '70 70', duration: 4.5, ease: 'none' }, W(10, 2, 'language model', 0.6));
+
+  /* ═════════ 11 · When the meter starts ═════════ */
+  OFF(['#csA', '#csB', '#csC', '#cpA', '#cpB', '#cpC'], E(10, 2) + 0.2, 0.4);
+  const SX = 2560, CHW = 210, GAP = 30, STEPS = ['Build', 'Preview', 'Evaluate', 'Publish', 'Run'];
+  ADD(STEPS.map((n, k) => `<div class="cs" id="tl${k}" style="left:${SX + k * (CHW + GAP)}px;top:1470px;width:${CHW}px;height:64px;font-size:36px;color:${k === 4 ? '#fff' : '#5d6472'};border-color:${k === 4 ? '#2f5bd3' : '#8a93a6'};background:${k === 4 ? '#2f5bd3' : '#fff'}">${n}</div>`).join(''));
+  ADD(`<div class="w" id="tlTr" style="left:${SX}px;top:1556px;width:1180px;height:28px;border-radius:14px;background:#e2e5eb;opacity:0"></div><div class="w" id="tlTr2" style="left:${SX}px;top:1604px;width:1180px;height:28px;border-radius:14px;background:#e2e5eb;opacity:0"></div>` +
+    `<div class="tbar" id="tbS" style="left:${SX + 4 * (CHW + GAP)}px;top:1556px;width:0px;background:#2f5bd3"></div><div class="tbar" id="tbM" style="left:${SX}px;top:1604px;width:0px;background:#8a5cd6"></div>` +
+    `<div class="lab" id="tlL1" style="left:2060px;top:1546px;width:480px;text-align:right;font-size:34px;color:#2f5bd3">Standard · chat</div><div class="lab" id="tlL2" style="left:2060px;top:1594px;width:480px;text-align:right;font-size:34px;color:#8a5cd6">Microsoft Copilot</div>`);
+  gsap.set(['#tbS', '#tbM'], { opacity: 0 });
+  STEPS.forEach((n, k) => POPX('#tl' + k, S(11, 0) + 0.3 + k * 0.28));
+  ON('#tlTr', S(11, 1) - 0.2, 0.3); ON('#tlTr2', S(11, 1) - 0.2, 0.3); ON('#tlL1', S(11, 1) - 0.2, 0.3); ON('#tlL2', S(11, 1) - 0.2, 0.3);
+  ON('#tbS', W(11, 1, 'runtime only', 0), 0.1); tl.to('#tbS', { width: CHW, duration: 0.8, ease: 'power2.out' }, W(11, 1, 'runtime only', 0));
+  tl.to('#mStd_n', { rotation: 10, svgOrigin: '70 70', duration: 0.3 }, W(11, 1, 'runtime only', 0)); tl.to('#mChat_n', { rotation: 45, svgOrigin: '70 70', duration: 1.5 }, W(11, 1, 'runtime only', 0));
+  ON('#tbM', W(11, 2, 'build time', -0.6), 0.1); tl.to('#tbM', { width: 1180, duration: 2.2, ease: 'power1.inOut' }, W(11, 2, 'build time', -0.6));
+  tl.to('#mGls_n', { rotation: 160, svgOrigin: '70 70', duration: 5, ease: 'none' }, W(11, 2, 'build time', 0));
+  ADD(D('lic', 'left:2100px;top:925px;width:480px;height:110px;border-radius:26px;background:#fff;border:6px solid #8a5cd6;color:#8a5cd6;box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;font-size:34px;font-weight:800;line-height:1.15;opacity:0', 'Microsoft 365 Copilot<br>license exception') + PL('tNoApply', 2420, 1070, 'does not apply', 'red', 52));
+  gsap.set('#tNoApply', { opacity: 0 });
+  OFF(['#lbStd', '#lbChat'], S(11, 4) - 0.2, 0.3); ON('#lic', S(11, 4), 0.3); tl.to('#lic', { x: 550, duration: 0.7, ease: 'power2.in' }, S(11, 4) + 1.4); tl.to('#lic', { x: 150, rotation: -6, duration: 0.5, ease: 'power2.out' }, S(11, 4) + 2.1);
+  tl.fromTo('#hGls', { x: 0 }, { x: 8, duration: 0.06, yoyo: true, repeat: 5 }, S(11, 4) + 2.1); TAG('#tNoApply', S(11, 4) + 2.1);
+  OFF(['#lic', '#tNoApply', '.cs', '#tlTr', '#tlTr2', '#tbS', '#tbM', '#tlL1', '#tlL2'], E(11, 4) + 0.15, 0.4);
+
+  /* ═════════ 12 · EXAM: the preview bill ═════════ */
+  toExam(12);
+  EXAMX('exC', 12, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(12, 4), S(12, 5), S(12, 6)], end: S(13, 0) - 0.6 });
+  const PRC = Math.max(S(12, 9) + 0.2, S(12, 8) + 1.7);
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, PRC);
+  tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(12, 10) + 0.1, PRC + 1));
+  ON('#exC_p', PRC, 0.4);
+  tl.to('#pC_bar', { width: 1200, duration: 3.0, ease: 'power1.inOut' }, W(12, 9, 'build time', 0));
+  [0, 1, 2, 3, 4].forEach((k) => tl.to('#pC_d' + k, { borderColor: '#ffd166', duration: 0.2 }, W(12, 9, 'build time', 0) + k * 0.7));
+
+  /* ═════════ 13 · Four cost drivers ═════════ */
+  camAt(2967, 1235, 1.1, S(13, 0) - 0.7);
+  ON('#world', S(13, 0) - 0.2, 0.3);
+  OFF(['#lbStd', '#lbChat', '#lbGls', '#lbFor', '#mStd', '#mChat'], S(13, 0) - 0.7, 0.01);
+  tl.set(['#hStd', '#hChat'], { opacity: 0.25 }, S(13, 0) - 0.7);
+  const DR = (id, x, y, ic, t) => `<div class="dr" id="${id}" style="left:${x}px;top:${y}px"><i class="lp"></i>${t}</div>`;
+  ADD(DR('d0', 2710, 790, '', 'Model: reasoning = premium tokens') + DR('d1', 2710, 945, '', 'Context drawn in') + DR('d2', 3440, 790, '', 'Tools and actions') + DR('d3', 3440, 945, '', 'Task and orchestration complexity'));
+  ADD(chip('est', 2880, 1590, 'map', 'Credits estimator: directional', '').replace('class="chip "', 'class="chip" ').replace('style="', 'style="width:810px;height:110px;font-size:40px;border-color:#d98a00;color:#7a4d00;'));
+  gsap.set(['#d0', '#d1', '#d2', '#d3', '#est'], { opacity: 0 });
+  [['#d0', 1, 'model'], ['#d1', 2, 'context'], ['#d2', 3, 'tools'], ['#d3', 4, 'complexity']].forEach(([d, j, w]) => {
+    ON(d, S(13, j), 0.3);
+    tl.to(d, { borderColor: PUR, color: PUR, duration: 0.3 }, S(13, j) + 0.1); tl.to(d + ' .lp', { backgroundColor: PUR, duration: 0.3 }, S(13, j) + 0.1);
+    pulse(d, S(13, j) + 0.1, 'rgba(138,92,214,.7)');
+  });
+  POP('#est', W(13, 5, 'estimator', 0)); tl.to('#est', { rotation: 4, duration: 0.15, yoyo: true, repeat: 5, transformOrigin: '50% 50%' }, W(13, 5, 'directional', 0));
+  OFF(['#d0', '#d1', '#d2', '#d3', '#est'], E(13, 5) + 0.15, 0.4);
+
+  /* ═════════ 14 · The steps (UI) ═════════ */
+  const capShow = (k, t0, t1) => { ON('#uiH_c' + k, t0, 0.25); OFF('#uiH_c' + k, t1, 0.2); };
+  UIIN('#uiH', S(14, 0) + 0.1); ON('#cur', S(14, 0) + 1.0, 0.3);
+  gsap.set('#uiH_ls', { opacity: 1 });
+  capShow(0, S(14, 0) + 0.5, S(14, 1) - 0.1);
+  capShow(1, S(14, 1), S(14, 2) - 0.1); CUR(PH.l0[0], PH.l0[1], W(14, 1, 'select', -0.4), 0.7); CLICK(PH.l0[0], PH.l0[1], W(14, 1, 'select', 0.3));
+  SWAP('#uiH_ls', '#uiH_ov', W(14, 1, 'select', 0.4)); ON('#uiH_tabs', W(14, 1, 'select', 0.5), 0.2);
+  capShow(2, S(14, 2), S(14, 3) - 0.1); CUR(PH.rh[0] + 100, PH.rh[1], S(14, 2) + 0.3, 0.7); pulse('#uiH_f2', W(14, 2, 'connections', 0)); pulse('#uiH_rh', W(14, 2, 'recent runs', 0));
+  capShow(3, S(14, 3), S(14, 4) - 0.1); CUR(PH.tb1[0], PH.tb1[1], S(14, 3) - 0.1, 0.6); CLICK(PH.tb1[0], PH.tb1[1], S(14, 3) + 0.3); TB('uiH', 1, S(14, 3) + 0.3); SWAP('#uiH_ov', '#uiH_ac', S(14, 3) + 0.35);
+  pulse('#uiH_hS', W(14, 3, 'status', 0)); pulse('#uiH_hD', W(14, 3, 'duration', 0));
+  capShow(4, S(14, 4), S(14, 5) - 0.1); CUR(PH.r1[0], PH.r1[1], S(14, 4) - 0.1, 0.6); CLICK(PH.r1[0], PH.r1[1], S(14, 4) + 0.5); SWAP('#uiH_ac', '#uiH_dt', S(14, 4) + 0.7);
+  tl.to('#uiH_s2', { backgroundColor: '#fde8e6', borderColor: RED, duration: 0.3 }, S(14, 4) + 1.2);
+  capShow(5, S(14, 5), S(14, 6) - 0.1); CUR(PH.back[0] + 60, PH.back[1], S(14, 5) - 0.1, 0.5); CLICK(PH.back[0] + 60, PH.back[1], S(14, 5) + 0.1); SWAP('#uiH_dt', '#uiH_ac', S(14, 5) + 0.2);
+  CUR(PH.r1c[0], PH.r1c[1], S(14, 5) + 0.5, 0.4); CLICK(PH.r1c[0], PH.r1c[1], S(14, 5) + 0.9); tick('uiH', 1, S(14, 5) + 0.9, true);
+  CUR(PH.r3c[0], PH.r3c[1], S(14, 5) + 1.1, 0.3); CLICK(PH.r3c[0], PH.r3c[1], S(14, 5) + 1.4); tick('uiH', 3, S(14, 5) + 1.4, true);
+  CUR(PH.bR[0], PH.bR[1], S(14, 5) + 1.6, 0.4); btnOn('#uiH_bR', S(14, 5) + 1.8, true); CLICK(PH.bR[0], PH.bR[1], S(14, 5) + 2.0);
+  capShow(6, S(14, 6), S(14, 7) - 0.1); CUR(PH.tb2[0], PH.tb2[1], S(14, 6) - 0.1, 0.6); CLICK(PH.tb2[0], PH.tb2[1], S(14, 6) + 0.3); TB('uiH', 2, S(14, 6) + 0.3); SWAP('#uiH_ac', '#uiH_an', S(14, 6) + 0.35);
+  tl.fromTo('#uiH_ln', { strokeDasharray: 520, strokeDashoffset: 520 }, { strokeDashoffset: 0, duration: 1.8, ease: 'power1.inOut', immediateRender: false }, S(14, 6) + 0.6);
+  capShow(7, S(14, 7), E(14, 7) + 0.1); POPX('#uiH_est', W(14, 7, 'thirteen', 0));
+  UIOUT('#uiH', E(14, 7) + 0.1); OFF('#cur', E(14, 7) + 0.1, 0.3);
+
+  /* ═════════ 15 · Dashboard read ═════════ */
+  camAt(1920, 1080, 0.5, S(15, 0) - 0.5);
+  ON('#world', S(15, 0) - 0.5, 0.01);
+  tl.set(['#hd', '#mStd', '#mGls', '#mChat'], { opacity: 0 }, S(14, 0)); tl.set(['#tank', '#tkFill', '#pipes', '#dash', '#dv', '#desk', '#deskL1', '#deskL2', '#fin', '#calc'], { opacity: 1 }, S(14, 0)); tl.set('#hStd,#hChat', { opacity: 1 }, S(14, 0));
+  ADD(PL('tA', 900, 960, 'Activity', 'blue', 64) + PL('tC', 1350, 960, 'Connection fixed', 'green', 64) + PL('tR', 1850, 960, 'Resubmitted', 'blue', 64) + PL('finTot', 1990, 1540, '≈ 1,300 credits', 'green', 64));
+  gsap.set(['#tA', '#tC', '#tR', '#finTot'], { opacity: 0 });
+  ride('tk10', S(15, 1) - 0.6, 2.4, 1190); land('tk10', S(15, 1) + 1.8); ride('tk11', S(15, 1) + 0.0, 2.4, 1190); land('tk11', S(15, 1) + 2.4);
+  tl.to('#nH', { rotation: 58, svgOrigin: '260 270', duration: 0.5 }, S(15, 0));
+  TAG('#tA', W(15, 1, 'Activity', 0)); TAG('#tC', W(15, 1, 'connection', 0)); TAG('#tR', W(15, 1, 'resubmitted', 0));
+  OFF(['#tA', '#tC', '#tR'], S(15, 2) - 0.3, 0.3);
+  TAG('#finTot', W(15, 2, 'one thousand', 0)); tl.to('#fin', { y: 14, duration: 0.25, yoyo: true, repeat: 3 }, W(15, 2, 'one thousand', 0.3));
+  OFF('#finTot', S(15, 3) - 0.4, 0.3);
+  ON('#ovB15', S(15, 3) - 0.3, 0.4); ON('#ovT15', S(15, 3) + 0.1, 0.4);
+  POPX('#rc0', W(15, 3, 'Activity', 0)); POPX('#rc1', W(15, 3, 'empty tank', 0)); POPX('#rc2', W(15, 3, 'test runs', 0)); POPX('#rc3', W(15, 3, 'only the Microsoft', 0));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

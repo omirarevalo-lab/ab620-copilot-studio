@@ -1,0 +1,45 @@
+{"brand": "AB-620 · Module 3 · Lesson 3", "scenes": [
+ {"type": "flow", "header": {"kicker": "Error handling", "title": "A plan B for the flow", "sub": "Errors are not an if, they are a when."},
+  "nodes": [
+   {"icon": "flow", "title": "Main path", "at": "main path"},
+   {"icon": "error_circle", "title": "It fails", "at": "fails"},
+   {"icon": "arrow_routing", "title": "Plan B", "sub": "Instead of staying silent", "accent": true, "at": "instead of staying"}],
+  "below": [{"icon": "shield_checkmark", "text": "The pattern: try catch", "at": "classic pattern", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Try and Catch scopes", "title": "The whole pattern"},
+  "nodes": [
+   {"icon": "cube_tree", "title": "Try", "sub": "Scope with the main actions", "at": "called Try"},
+   {"icon": "shield_checkmark", "title": "Catch", "sub": "Scope for the error", "accent": true, "at": "called Catch"}],
+  "below": [
+   {"icon": "error_circle", "text": "Run after: has failed", "at": "has failed", "solid": true},
+   {"icon": "timer", "text": "Run after: has timed out", "at": "has timed out", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Reading the error", "title": "Inside the Catch"},
+  "nodes": [
+   {"icon": "code", "title": "result()", "sub": "Results of the Try actions", "at": "result function"},
+   {"icon": "filter", "title": "Filter array", "sub": "Keep the failed one", "at": "Filter array"},
+   {"icon": "document_text", "title": "Log it", "sub": "In a list", "at": "log the error"},
+   {"icon": "mail", "title": "Notify", "sub": "The responsible team", "accent": true, "at": "notify"}]},
+ {"type": "compare", "header": {"kicker": "The run after trap", "title": "Which option on the Catch?"},
+  "cols": [
+   {"icon": "flag", "title": "is successful", "sub": "Catch runs only when there is no error", "tone": "bad", "at": "is successful",
+    "items": [{"text": "The opposite of what you want", "at": "opposite"}]},
+   {"icon": "checkmark_circle", "title": "On the Catch", "sub": "Relative to the Try", "tone": "good", "at": "Set it on the Catch",
+    "items": [{"text": "has failed + has timed out", "at": "has failed"}]}]},
+ {"type": "split", "left": {"kicker": "Retries", "title": "For transient failures", "sub": "The ones that go away on their own."},
+  "rows": [
+   {"icon": "settings", "title": "In the action settings", "at": "action settings", "hi": true},
+   {"icon": "timer", "title": "Initial interval", "at": "initial interval", "hi": true},
+   {"icon": "arrow_clockwise", "title": "Maximum number of retries", "at": "maximum number", "hi": true},
+   {"icon": "chart_multiple", "title": "Exponential: preferred", "desc": "The interval grows between retries", "at": "Exponential", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Terminate · Contoso", "title": "Keep the failure visible"},
+  "nodes": [
+   {"icon": "error_circle", "title": "Insert fails", "sub": "CreateTicket → Dataverse", "at": "fails when inserting"},
+   {"icon": "shield_checkmark", "title": "Catch", "sub": "Logs it and notifies IT", "at": "Catch logs"},
+   {"icon": "dismiss_circle", "title": "Terminate: Failed", "sub": "With a message", "accent": true, "at": "status Failed"}],
+  "below": [{"text": "Terminate: Succeeded hides the error", "at": "Succeeded", "strike": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Log the error of a group of actions"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0",
+    "items": [{"text": "Catch scope: has failed + has timed out", "at": "Catch scope"}, {"text": "result() + Filter array", "at": "plus result"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Run after: is successful", "at": "is successful"}]}],
+  "verdict": {"icon": "arrow_clockwise", "text": "Temporary failures: exponential retry", "at": "exponential retry"}}
+]}

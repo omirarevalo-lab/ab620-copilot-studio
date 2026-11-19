@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Valeria reads one ticket with a GET and leaves the body as it is. What does the body hold by default?",
+    "options": [
+      "An object with the ticket data",
+      "No Content, nothing is sent",
+      "A text string with the ticket"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Marta asks about a ticket that does not exist, the tickets API fails, and the topic stops. The service manager wants the topic to reply and go on. What should Valeria choose in Error handling?",
+    "options": [
+      "Keep the default, Raise an error",
+      "Set a longer request timeout",
+      "Switch to Continue on error"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "With Continue on error, the error body waits in a variable of type Any. Which node converts it into a structured record?",
+    "options": [
+      "Parse value, into a record",
+      "Send a message, as plain text",
+      "The On Error system topic"
+    ],
+    "right": 0,
+    "trap": 2
+  }
+]

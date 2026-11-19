@@ -1,0 +1,417 @@
+{
+ "id": "F06",
+ "title": "Environments, Dataverse, and solutions",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 262.824,
+ "scenes": [
+  {
+   "title": "Changes on the live agent",
+   "start": 0.8,
+   "end": 27.629,
+   "sentences": [
+    {
+     "text": "Week five at Contoso.",
+     "start": 0.8,
+     "end": 2.293
+    },
+    {
+     "text": "A maker tries a new incident topic directly on the live Nexo.",
+     "start": 2.573,
+     "end": 6.541
+    },
+    {
+     "text": "For an hour, employees get half finished questions.",
+     "start": 6.821,
+     "end": 9.701
+    },
+    {
+     "text": "Then a colleague opens Copilot Studio to help, and Nexo is not even in their list of agents.",
+     "start": 9.981,
+     "end": 15.677
+    },
+    {
+     "text": "Two problems, one cause: nobody planned where Nexo lives, or how changes travel to the people who use it.",
+     "start": 15.957,
+     "end": 22.592
+    },
+    {
+     "text": "Today we fix that with three ideas: environments, Dataverse, and solutions.",
+     "start": 22.872,
+     "end": 27.629
+    }
+   ]
+  },
+  {
+   "title": "Separate office buildings",
+   "start": 28.529,
+   "end": 53.46,
+   "sentences": [
+    {
+     "text": "An environment is a space where your apps, agents and flows live.",
+     "start": 28.529,
+     "end": 32.348
+    },
+    {
+     "text": "Picture separate office buildings: one for development, one for testing, one for production.",
+     "start": 32.628,
+     "end": 38.004
+    },
+    {
+     "text": "What you build in one building does not appear in another until you move it.",
+     "start": 38.284,
+     "end": 42.273
+    },
+    {
+     "text": "That is why the colleague could not see Nexo.",
+     "start": 42.553,
+     "end": 44.815
+    },
+    {
+     "text": "Each environment belongs to one Entra tenant and one region.",
+     "start": 45.095,
+     "end": 48.892
+    },
+    {
+     "text": "And an agent only uses connections and data from its own environment.",
+     "start": 49.172,
+     "end": 53.46
+    }
+   ]
+  },
+  {
+   "title": "Types of environment",
+   "start": 54.36,
+   "end": 82.984,
+   "sentences": [
+    {
+     "text": "Environments come in types.",
+     "start": 54.36,
+     "end": 55.853
+    },
+    {
+     "text": "Default: one per tenant, shared by everyone, for experiments, not for production.",
+     "start": 56.133,
+     "end": 61.04
+    },
+    {
+     "text": "Production: permanent, for real work.",
+     "start": 61.32,
+     "end": 63.496
+    },
+    {
+     "text": "Sandbox: for development and testing, with options to copy and reset it.",
+     "start": 63.776,
+     "end": 68.32
+    },
+    {
+     "text": "Developer: a personal one, with the Developer Plan.",
+     "start": 68.6,
+     "end": 71.523
+    },
+    {
+     "text": "Trial: for trying things out, and it expires after thirty days.",
+     "start": 71.803,
+     "end": 75.792
+    },
+    {
+     "text": "Two built in roles matter: Environment Admin manages everything, and Environment Maker creates resources.",
+     "start": 76.072,
+     "end": 82.984
+    }
+   ]
+  },
+  {
+   "title": "Dataverse: the database",
+   "start": 83.884,
+   "end": 109.975,
+   "sentences": [
+    {
+     "text": "Inside each building there can be one database: Dataverse.",
+     "start": 83.884,
+     "end": 87.447
+    },
+    {
+     "text": "Each environment has zero or one.",
+     "start": 87.727,
+     "end": 89.881
+    },
+    {
+     "text": "It stores information in tables, with rows and columns.",
+     "start": 90.161,
+     "end": 93.532
+    },
+    {
+     "text": "It matters to Copilot Studio for three reasons.",
+     "start": 93.812,
+     "end": 96.521
+    },
+    {
+     "text": "Its tables can be a knowledge source.",
+     "start": 96.801,
+     "end": 98.764
+    },
+    {
+     "text": "It stores the files you upload as knowledge.",
+     "start": 99.044,
+     "end": 101.348
+    },
+    {
+     "text": "And solutions depend on it.",
+     "start": 101.628,
+     "end": 103.228
+    },
+    {
+     "text": "One trap: being Environment Admin does not give you access to the data.",
+     "start": 103.508,
+     "end": 107.732
+    },
+    {
+     "text": "That access is granted separately.",
+     "start": 108.012,
+     "end": 109.975
+    }
+   ]
+  },
+  {
+   "title": "Decide: a place to build",
+   "start": 110.875,
+   "end": 142.839,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 110.875,
+     "end": 111.749
+    },
+    {
+     "text": "A team wants a place to develop and test a new agent before real employees use it.",
+     "start": 112.029,
+     "end": 117.043
+    },
+    {
+     "text": "They also want to copy it and reset it when tests go wrong.",
+     "start": 117.323,
+     "end": 120.693
+    },
+    {
+     "text": "Which environment type fits?",
+     "start": 120.973,
+     "end": 122.595
+    },
+    {
+     "text": "The default environment?",
+     "start": 122.875,
+     "end": 124.283
+    },
+    {
+     "text": "A production environment?",
+     "start": 124.563,
+     "end": 126.056
+    },
+    {
+     "text": "Or a sandbox environment?",
+     "start": 126.336,
+     "end": 128
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 128.28,
+     "end": 129.816
+    },
+    {
+     "text": "A sandbox.",
+     "start": 133.596,
+     "end": 134.599
+    },
+    {
+     "text": "It is made for development and testing, with copy and reset.",
+     "start": 134.879,
+     "end": 138.527
+    },
+    {
+     "text": "The default one is shared by everyone, and production is for real work.",
+     "start": 138.807,
+     "end": 142.839
+    }
+   ]
+  },
+  {
+   "title": "Solutions: the moving box",
+   "start": 143.739,
+   "end": 171.165,
+   "sentences": [
+    {
+     "text": "To move work between buildings, you use a moving box: a solution.",
+     "start": 143.739,
+     "end": 147.813
+    },
+    {
+     "text": "It groups components, like agents, flows, environment variables and connections, so they travel together.",
+     "start": 148.093,
+     "end": 154.344
+    },
+    {
+     "text": "Agents are always created inside a solution: the default one, unless you set a preferred solution.",
+     "start": 154.624,
+     "end": 160.789
+    },
+    {
+     "text": "In development the box is unmanaged, so you can edit it.",
+     "start": 161.069,
+     "end": 164.227
+    },
+    {
+     "text": "For test and production you export it managed, a sealed package.",
+     "start": 164.507,
+     "end": 168.176
+    },
+    {
+     "text": "Power Platform Pipelines can automate the trip.",
+     "start": 168.456,
+     "end": 171.165
+    }
+   ]
+  },
+  {
+   "title": "Decide: the trip to production",
+   "start": 172.065,
+   "end": 204.093,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 172.065,
+     "end": 172.94
+    },
+    {
+     "text": "Nexo works well in the Nexo Dev environment.",
+     "start": 173.22,
+     "end": 175.993
+    },
+    {
+     "text": "Now the team must take it to Nexo Prod, where real employees will use it.",
+     "start": 176.273,
+     "end": 180.583
+    },
+    {
+     "text": "How do they move it?",
+     "start": 180.863,
+     "end": 181.993
+    },
+    {
+     "text": "Package it in a managed solution?",
+     "start": 182.273,
+     "end": 184.151
+    },
+    {
+     "text": "Rebuild the agent by hand in Prod?",
+     "start": 184.431,
+     "end": 186.5
+    },
+    {
+     "text": "Or share the Dev agent with everyone?",
+     "start": 186.78,
+     "end": 188.807
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 189.087,
+     "end": 190.623
+    },
+    {
+     "text": "A managed solution.",
+     "start": 194.403,
+     "end": 195.64
+    },
+    {
+     "text": "You export it from Dev and import it into Prod.",
+     "start": 195.92,
+     "end": 198.629
+    },
+    {
+     "text": "Rebuilding by hand invites mistakes, and Dev is for building, not for real users.",
+     "start": 198.909,
+     "end": 204.093
+    }
+   ]
+  },
+  {
+   "title": "Find it in the portals",
+   "start": 204.993,
+   "end": 232.975,
+   "sentences": [
+    {
+     "text": "Let's look at it on screen.",
+     "start": 204.993,
+     "end": 206.465
+    },
+    {
+     "text": "In Copilot Studio, find the environment picker in the top bar.",
+     "start": 206.745,
+     "end": 210.5
+    },
+    {
+     "text": "Switch environments, and the list of agents changes.",
+     "start": 210.78,
+     "end": 213.809
+    },
+    {
+     "text": "If you have permission, the Power Platform admin center shows every environment and its type, under Manage, Environments.",
+     "start": 214.089,
+     "end": 221.407
+    },
+    {
+     "text": "Then, in the Power Apps portal, open Solutions and create a solution called Nexo, with its publisher.",
+     "start": 221.687,
+     "end": 227.959
+    },
+    {
+     "text": "Use Add existing to add the agent, and export it as unmanaged or managed.",
+     "start": 228.239,
+     "end": 232.975
+    }
+   ]
+  },
+  {
+   "title": "Three buildings for Nexo",
+   "start": 233.875,
+   "end": 261.624,
+   "sentences": [
+    {
+     "text": "Back to week five.",
+     "start": 233.875,
+     "end": 235.069
+    },
+    {
+     "text": "Contoso now has three environments: Nexo Dev, Nexo Test and Nexo Prod.",
+     "start": 235.349,
+     "end": 240.704
+    },
+    {
+     "text": "Makers build Nexo in Dev, inside a solution called Nexo.",
+     "start": 240.984,
+     "end": 244.888
+    },
+    {
+     "text": "When it is ready, they export it as managed, import it into Test, and then into Prod.",
+     "start": 245.168,
+     "end": 249.925
+    },
+    {
+     "text": "Each building has its own Dataverse and its own connections, so real data stays in production.",
+     "start": 250.205,
+     "end": 255.731
+    },
+    {
+     "text": "An admin sets different data policies for each one.",
+     "start": 256.011,
+     "end": 259.04
+    },
+    {
+     "text": "Next: how to test and publish Nexo.",
+     "start": 259.32,
+     "end": 261.624
+    }
+   ]
+  }
+ ]
+}

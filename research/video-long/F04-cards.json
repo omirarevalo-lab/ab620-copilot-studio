@@ -1,0 +1,8 @@
+{
+  "1": ["The librarian", [["Knowledge", "Sources the agent looks up"], ["Grounded", "Answer comes from your sources"], ["Result", "Fewer made-up answers, with citations"]]],
+  "2": ["The shelves", [["Public website", "Bing, only your URLs"], ["Uploaded files", "Stored in Dataverse"], ["SharePoint", "Sites and libraries"], ["Dataverse", "Tables in the environment"], ["Copilot connectors", "Enterprise data, Microsoft Search"], ["Where to add", "At creation · Knowledge page · generative answers node"]]],
+  "3": ["Who can see what", [["User's sign-in", "SharePoint · Dataverse · enterprise connectors"], ["Effect", "Each person sees only what they can open"], ["Needs", "User authentication"], ["Custom response", "Add the citations yourself"]]],
+  "5": ["Settings › Generative AI", [["Allow ungrounded responses", "Off: no source or tool → blocked, Fallback runs"], ["Use information from the web", "Whole public web with Bing"], ["Content moderation", "Lowest to Highest, default High"]]],
+  "7": ["In the studio", [["1", "Knowledge page › Add knowledge"], ["2", "Source type, URL, name, clear description"], ["3", "Wait for Ready"], ["4", "Settings › Generative AI"], ["5", "Test pane: look for the citation"]]],
+  "8": ["Nexo, grounded", [["Knowledge", "IT SharePoint + VPN vendor site"], ["Setting", "Allow ungrounded responses off"], ["Instructions", "Always cite the source document"]]]
+}

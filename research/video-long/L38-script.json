@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Moving day",
+    "caption": "Contoso wants Nexo moved from development to the Test environment. Today: how to pack an agent so it travels safely.",
+    "say": "Moving day at Contoso. Valeria has built Nexo, the I T agent, in her development environment. Now the service manager wants Nexo in the Test environment, so Marta and her team can try it. But an agent does not travel loose. It travels packed, with everything it needs, and a few rules decide whether it arrives working. Today you learn how solutions carry your agent between environments."
+  },
+  {
+    "title": "Every agent lives in a box",
+    "caption": "A solution groups everything in your agent. Every agent is created in one: the default solution, unless you set a preferred solution.",
+    "say": "Keep this picture. A solution is a box that groups everything in your agent, like a moving crate you pack in one place and open in another. Every Copilot Studio agent lives inside a solution. If you set nothing, the agent is created in the default solution. If you set a preferred solution, your agents are created in that one instead. So the question is never whether Nexo has a box, only which box."
+  },
+  {
+    "title": "Your own label",
+    "caption": "To move agents, use a custom solution with your own publisher and prefix. Keep just one publisher: it cannot change in managed.",
+    "say": "To move agents between environments, it is best to use a custom solution with your own publisher and its prefix. The publisher is the owner label on the crate. Contoso creates the NexoCore solution, with the publisher Contoso and the prefix nexo, and sets it as the preferred solution. Now Nexo is born inside it. Keep just one publisher, because you cannot change the publisher of a component in a managed solution."
+  },
+  {
+    "title": "Develop, then deploy",
+    "caption": "Unmanaged solutions are for development; managed solutions are for deployment. You get managed by exporting the unmanaged one as managed.",
+    "say": "Solutions come in two kinds. Unmanaged solutions are for development: the crate is open, and Valeria can keep changing what is inside. Managed solutions are for deployment: the crate is sealed for the trip. You do not build a managed solution from scratch. You get it by exporting the unmanaged one as managed. Develop unmanaged, deploy managed."
+  },
+  {
+    "title": "Decide: the right crate",
+    "caption": "Valeria finishes Nexo inside NexoCore. Contoso wants Nexo in the Test environment. Which solution should she import in Test?",
+    "say": "Your turn. Valeria finishes building Nexo inside the NexoCore solution. Now Contoso wants Nexo in the Test environment. Which solution should she import in Test? The unmanaged one, so Test can keep editing it? A managed export made from the unmanaged one? Or the default solution with every agent inside? Decide before I answer. A managed export made from the unmanaged one. Managed solutions are for deployment, and you get one by exporting as managed. Unmanaged is for development, so it stays where Valeria builds."
+  },
+  {
+    "title": "Pack the late arrivals",
+    "caption": "Topics or flows added after the agent joined the solution: add them with Advanced, Add required objects before you export.",
+    "say": "Here is a step people forget. Components you add after putting the agent in the solution, such as new topics or flows, are not packed by themselves. Before you export, add them with Advanced, Add required objects. Valeria adds a new topic and a new flow to Nexo, so she uses Add required objects first. And one more rule: removing the agent from the solution does not remove its components."
+  },
+  {
+    "title": "The dotted name",
+    "caption": "Export trap: you cannot export a solution that has a topic with dots in its name. Rename the topic, then export.",
+    "say": "Now one export trap. You cannot export a solution that has a topic with dots in its name. Valeria tries to export NexoCore, and the export is blocked. She checks the topics and finds one whose name has dots in it. She renames that topic, and the export goes through. If a solution will not export, look at the topic names first."
+  },
+  {
+    "title": "Decide: the blocked export",
+    "caption": "New topic and flow added with Add required objects. The export is refused; one topic has dots in its name. What should Valeria do?",
+    "say": "Your turn. Valeria adds a new topic and a new flow with Add required objects. Her export is refused, and one topic has dots in its name. What should she do? Change the publisher of the NexoCore components? Remove Nexo from the solution and add it back? Or rename the topic that has dots in its name? Decide before I answer. Rename the topic that has dots in its name. Dots in a topic name block the export. The publisher is not the problem, and you keep just one."
+  },
+  {
+    "title": "Unpack and clean up",
+    "caption": "After you import: set up authentication again and publish. Local changes on a managed agent: Solution Layers, Remove unmanaged layer.",
+    "say": "The crate arrives in Test. After you import, you must set up authentication again and publish the agent. Import alone is not the finish line. Later, someone in Test changes something locally on the managed Nexo. To remove those local changes, open Solution Layers, select the unmanaged layer, and choose Remove unmanaged layer. Nexo goes back to what was imported."
+  },
+  {
+    "title": "Decide: local edits in Test",
+    "caption": "In Test, someone changed the managed Nexo locally. Contoso wants Nexo back exactly as imported. What should Valeria do?",
+    "say": "Your turn. In Test, someone changed the managed Nexo locally. Contoso wants Nexo back exactly as it was imported. What should Valeria do? Remove the unmanaged layer in Solution Layers? Remove Nexo from the solution to drop the edits? Or change the publisher of the edited components? Decide before I answer. Remove the unmanaged layer in Solution Layers. Local changes sit in the unmanaged layer, and removing it clears them. Removing the agent from the solution does not remove its components."
+  },
+  {
+    "title": "In Copilot Studio",
+    "caption": "Custom solution and publisher, preferred solution, agent inside, Add required objects, export as managed, import, authentication and publish.",
+    "say": "Here are the steps in order. Create a custom solution with your own publisher and prefix. Set it as the preferred solution, so your agents are created in it. Create the agent, or add the existing one to the solution. After adding new topics or flows, use Advanced, Add required objects. Export the solution as managed, from the unmanaged one. Import it in the other environment. Then set up authentication again and publish the agent."
+  },
+  {
+    "title": "Packed and delivered",
+    "caption": "Default unless preferred. One publisher. Unmanaged develops, managed deploys. Add required objects. Dots block export. Auth and publish. Remove unmanaged layer.",
+    "say": "Back to moving day. NexoCore arrives sealed in Test, Valeria sets up authentication and publishes, and Marta's team starts testing. Remember for the exam. Agents go in the default solution unless you set a preferred one. Keep one publisher. Unmanaged develops, managed deploys. Add required objects before export. Dots in a topic name block the export. Removing the agent keeps its components. Next, environment variables."
+  }
+]

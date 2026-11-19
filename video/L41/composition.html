@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L41 · Microsoft IQ · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .cf { position: absolute; left: 0; top: 0; width: 260px; height: 180px; display: flex; align-items: center; justify-content: center; background: #8a5cd6; color: #fff; font-size: 40px; font-weight: 800; border-radius: 22px; border: 5px solid #fff; box-sizing: border-box; backface-visibility: hidden; }
+  .trr { display: flex; align-items: center; gap: 14px; height: 66px; border-bottom: 2px solid var(--line); font-size: 30px; padding: 0 8px; }
+  .trr .ic { width: 38px; height: 38px; }
+  .tcase { position: absolute; left: 0; top: 0; right: 0; opacity: 0; }
+  .hint { margin-top: 24px; display: flex; align-items: center; gap: 14px; background: var(--amber-soft); border: 3px solid var(--amber); border-radius: 18px; padding: 14px 20px; font-size: 30px; font-weight: 800; color: #7a4d00; }
+  .hint .ic { width: 40px; height: 40px; color: var(--amber); }
+  .brow { position: absolute; left: 30px; width: 1440px; height: 112px; display: flex; align-items: center; gap: 24px; font-size: 52px; font-weight: 700; color: #141821; opacity: 0; }
+  .brow .l { width: 690px; } .brow .ar { width: 70px; font-size: 56px; font-weight: 800; color: #8a93a6; }
+  .brow .rr { color: #fff; border-radius: 22px; padding: 12px 28px; font-size: 52px; font-weight: 800; white-space: nowrap; }
+  .tcard { position: absolute; height: 120px; display: flex; align-items: center; gap: 18px; padding: 0 30px; box-sizing: border-box; background: #fff; border: 7px solid var(--accent); border-radius: 28px; font-size: 48px; font-weight: 800; color: var(--accent); box-shadow: var(--shadow); opacity: 0; white-space: nowrap; }
+  .tcard .ic { width: 64px; height: 64px; }
+  .bars div { position: absolute; bottom: 0; width: 18%; border-radius: 8px 8px 0 0; }
+  .stab { position: absolute; top: 100px; width: 232px; height: 80px; box-sizing: border-box; border: 4px solid #b79ae6; border-radius: 18px; background: #efe8fa; color: #8a5cd6; font-size: 36px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+  .cdn { position: absolute; background: #fff; border-radius: 24px; border: 6px solid #8a5cd6; box-shadow: var(--shadow); opacity: 0; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L41 · Microsoft IQ. Layout (world 3840x2160): maker 420,1040 · agent 1720,1010 · toolbox 2200,1230 · Foundry library 300,140 · Fabric tower 2900,120 · Work IQ office 2900,1560 · admin 3380,900 */
+  const PX = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + Math.max(fs || 34, 52) + 'px;');
+  const BLUE = '#2f5bd3', PUR = '#8a5cd6', GRN = '#1e7f4f';
+
+  /* ───────── world: cables first (behind everything) ───────── */
+  const dF = 'M1200 800 C 1600 800, 2000 1000, 2250 1230', dX = 'M3080 900 C 2950 1080, 2600 1050, 2370 1230', dW = 'M2900 1900 C 2750 1900, 2650 1500, 2500 1345';
+  ADD(`<svg class="w" id="cabs" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+    ${cable('gF', dF, '#8a93a6', 10, '18 16')}${cable('gX', dX, '#8a93a6', 10, '18 16')}${cable('gW', dW, '#8a93a6', 10, '18 16')}
+    ${cable('cbF', dF, BLUE, 14)}${cable('cbX', dX, BLUE, 14)}${cable('cbW', dW, BLUE, 14)}
+    ${cable('cbA', 'M2030 1300 C 2100 1300, 2120 1335, 2200 1335', BLUE, 14)}
+    ${cable('cbRef', 'M1830 1040 C 1650 900, 1450 650, 1210 620', BLUE, 12)}
+    ${cable('cbCA', 'M930 1650 C 1250 1700, 1550 1600, 1760 1440', BLUE, 12)}
+    ${cable('lnAdm', 'M3400 1200 C 3200 1250, 2950 1300, 2780 1310', '#c4392f', 6, '16 14')}
+  </svg>`);
+
+  /* Foundry IQ: library with binders, librarian (teal) and compliance team */
+  let binders = '';
+  for (let r = 0; r < 2; r++) for (let k = 0; k < 6; k++) { const x = 70 + k * 85, y = 230 + r * 220, c = ['#3a6fdc', '#5b8be6', '#2a4fb0'][(k + r) % 3]; binders += `<g id="bd${r * 6 + k}"><rect x="${x}" y="${y}" width="68" height="150" rx="8" fill="${c}" stroke="#fff" stroke-width="3"/><rect x="${x + 12}" y="${y + 20}" width="44" height="30" rx="4" fill="#fff" opacity=".85"/></g>`; }
+  ADD(`<div class="w" id="bF" style="left:300px;top:140px;width:900px;height:800px;opacity:0">
+    <svg class="w" style="left:0;top:0" width="900" height="780" viewBox="0 0 900 780">
+      <rect x="10" y="120" width="880" height="640" rx="30" fill="#e6ecfb" stroke="#7ea1e6" stroke-width="8"/><rect x="0" y="60" width="900" height="90" rx="26" fill="#2f5bd3"/>
+      <text x="450" y="125" font-size="54" font-weight="800" fill="#fff" text-anchor="middle">Microsoft Foundry</text>
+      <rect x="50" y="380" width="520" height="16" rx="6" fill="#8fa6dc"/><rect x="50" y="600" width="520" height="16" rx="6" fill="#8fa6dc"/>${binders}
+      <rect x="600" y="650" width="280" height="110" rx="14" fill="#c9d8f7"/>
+      <circle cx="690" cy="470" r="34" fill="#f2c9a6"/><path d="M640 650 Q640 520 690 508 Q740 520 740 650 Z" fill="#0f6f85"/>
+      <circle cx="800" cy="570" r="22" fill="#f2c9a6"/><path d="M768 650 Q768 600 800 592 Q832 600 832 650 Z" fill="#1f2a44"/>
+      <circle cx="852" cy="570" r="22" fill="#f2c9a6"/><path d="M820 650 Q820 600 852 592 Q884 600 884 650 Z" fill="#7a4d00"/>
+    </svg>
+    ${PX('dF', 450, -50, 'knows policies', 'blue', 46)}${PX('nF', 450, -50, 'Foundry IQ', 'blue', 54)}${PX('lbLeave', 190, 150, 'Leave policy', 'blue', 40)}${PX('lbKB', 330, 650, 'Knowledge base', 'blue', 40)}${PX('lbTeam', 760, 790, 'Compliance team', 'blue', 56)}
+  </div>`);
+  /* Fabric IQ: data tower, semantic-model block (3 tabs), analyst (purple) */
+  ADD(`<div class="w" id="bX" style="left:2900px;top:220px;width:800px;height:900px;opacity:0">
+    <svg class="w" style="left:0;top:0" width="800" height="820" viewBox="0 0 800 820">
+      <rect x="150" y="300" width="500" height="500" rx="30" fill="#efe8fa" stroke="#8a5cd6" stroke-width="8"/><rect x="130" y="250" width="540" height="70" rx="20" fill="#8a5cd6"/>
+      <path d="M200 740 H600" stroke="#8a93a6" stroke-width="6"/>
+      ${[[210, 160], [300, 260], [390, 200], [480, 330], [570, 240]].map(([x, h]) => `<rect x="${x - 25}" y="${740 - h}" width="56" height="${h}" rx="6" fill="${h > 250 ? '#8a5cd6' : '#b79ae6'}"/>`).join('')}
+      <circle cx="75" cy="560" r="34" fill="#f2c9a6"/><path d="M25 800 Q25 600 75 590 Q125 600 125 800 Z" fill="#8a5cd6"/>
+    </svg>
+    <div class="w" id="semB" style="left:20px;top:10px;width:760px;height:210px;background:#fff;border:6px solid #8a5cd6;border-radius:28px;box-shadow:var(--shadow);opacity:0;box-sizing:border-box">
+      <div style="position:absolute;left:0;right:0;top:14px;text-align:center;font-size:48px;font-weight:800;color:#8a5cd6">Semantic model</div>
+      ${['measures', 'hierarchies', 'dimensions'].map((t, k) => `<div class="stab" id="stab${k}" style="left:${14 + k * 242}px">${t}</div>`).join('')}</div>
+    ${PX('dX', 400, -85, 'business numbers', 'purple', 46)}${PX('nX', 400, -85, 'Fabric IQ', 'purple', 54)}${PX('pvX', 400, 835, 'Preview', 'amber', 54)}
+  </div>`);
+  /* Work IQ: open office with floating icons, assistant (green) */
+  ADD(`<div class="w" id="bW" style="left:2900px;top:1500px;width:940px;height:600px;opacity:0">
+    <svg class="w" style="left:0;top:0" width="940" height="600" viewBox="0 0 940 600">
+      <rect x="0" y="60" width="900" height="500" rx="40" fill="#e3f4ea" stroke="#7fc6a0" stroke-width="8"/>
+      ${[60, 330, 600].map((x) => `<rect x="${x}" y="440" width="240" height="24" rx="8" fill="#8a93a6"/><rect x="${x + 20}" y="464" width="14" height="80" fill="#8a93a6"/><rect x="${x + 206}" y="464" width="14" height="80" fill="#8a93a6"/><rect x="${x + 70}" y="370" width="100" height="70" rx="8" fill="#1f2a44"/>`).join('')}
+      <circle cx="840" cy="370" r="34" fill="#f2c9a6"/><path d="M790 550 Q790 420 840 408 Q890 420 890 550 Z" fill="#1e7f4f"/>
+    </svg>
+    ${PX('dW', 330, -50, 'how teams work', 'green', 46)}${PX('nW', 130, -35, 'Work IQ', 'green', 54)}${PX('pvW', 450, -35, 'Preview', 'amber', 54)}
+  </div>`);
+  const wd = (id, x, y, ic, lb) => disc(id, x, y, ic, lb).replace('class="capi"', 'class="capi wd"');
+  ADD(`<style>.wd .disc { border-color: #1e7f4f; color: #1e7f4f; } .capi.wd { width: 300px; } .wd b { font-size: 52px; white-space: nowrap; }</style>${wd('wi0', 3010, 1740, 'document_text', 'Files')}${wd('wi1', 3220, 1740, 'mail', 'Email')}${wd('wi2', 3430, 1740, 'calendar', 'Meetings')}${wd('wi3', 3640, 1740, 'chat', 'Chats')}`);
+  /* admin tower (scene 10-11) */
+  ADD(admin('adm', 3380, 900) + PX('nAdm', 3610, 760, 'Microsoft 365<br>admin center', 'navy', 40));
+  gsap.set('#adm', { opacity: 0 });
+
+  /* maker, agent, toolbox */
+  ADD(maker('mk', 420, 1040) + agent('bot', 1720, 1010, { folder: 'HR' }) + PX('tagBot', 1900, 1500, 'HR agent', 'blue', 56));
+  ADD(`<div class="w" id="tb" style="left:2200px;top:1230px;width:300px;height:220px;border-radius:36px;background:#1f2a44;box-shadow:0 20px 50px rgba(16,24,40,.3);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#fff;font-size:60px;font-weight:800">${IC('wrench', 'width:92px;height:92px')}Tools</div>
+    <div class="w" id="sF" style="left:2236px;top:1216px;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid #8a93a6;box-sizing:border-box"></div>
+    <div class="w" id="sX" style="left:2356px;top:1216px;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid #8a93a6;box-sizing:border-box"></div>
+    <div class="w" id="sW" style="left:2486px;top:1331px;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid #8a93a6;box-sizing:border-box"></div>`);
+  ADD(PX('lbSock', 2420, 1110, 'Foundry IQ: 1 connection', 'blue', 46));
+
+  /* people with questions (scene 0, 16) */
+  const PCOL = ['#8a5cd6', '#1e7f4f', '#7a4d00'], PXS = [1300, 1855, 2435];
+  PXS.forEach((x, k) => ADD(crowd('p' + k, x, 1650, PCOL[k])));
+  ADD(say('bb0', 1345, 1530, 'Parental leave policy?') + say('bb1', 1900, 1530, 'Revenue by region?') + say('bb2', 2480, 1530, 'Meetings about a renewal?'));
+  ADD(say('an0', 1345, 1500, 'Leave policy', 'green') + say('an1', 1880, 1500, 'Revenue by region', 'green') + say('an2', 2510, 1500, 'Renewal meetings', 'green'));
+  ADD(`<div class="lab" id="qm0" style="left:1600px;top:880px;font-size:130px;color:#d98a00">?</div><div class="lab" id="qm1" style="left:2060px;top:880px;font-size:130px;color:#d98a00">?</div><div class="lab" id="qm2" style="left:1830px;top:780px;font-size:130px;color:#d98a00">?</div>`);
+  ADD(PX('roP', 2800, 1290, `${IC('eye', 'width:56px;height:56px;vertical-align:-8px')} Read-only`, 'green', 56));
+  gsap.set('#bot_fold text', { attr: { 'font-size': 52, y: 408 } });
+  gsap.set(['.sb'], { opacity: 0 }); gsap.set(['#an0', '#an1', '#an2'], { fontSize: 58 });
+
+  /* scene 1: envelopes */
+  [0, 1, 2].forEach((k) => ADD(`<div class="w" id="env${k}" style="left:1850px;top:1060px;width:100px;height:100px;border-radius:50%;background:#fff;border:6px solid #2f5bd3;color:#2f5bd3;display:flex;align-items:center;justify-content:center;opacity:0">${IC('question_circle', 'width:64px;height:64px')}</div>`));
+
+  /* scene 2: reuse, never copy */
+  ADD(chip('docMv', 1000, 1230, 'document_text', 'Document', 'sm blue') + PX('lbKS', 1300, 1640, 'Knowledge source: you upload', 'blue', 46) + PX('lbIQ', 1480, 700, 'IQ: points to it', 'blue', 46));
+  ADD(`<div class="w" id="cpIc" style="left:1380px;top:780px;width:130px;height:130px;border-radius:30px;background:#fff;border:6px solid #8a93a6;color:#8a93a6;display:flex;align-items:center;justify-content:center;opacity:0">${IC('copy', 'width:80px;height:80px')}<i id="cpX" style="position:absolute;left:-20px;right:-20px;top:58px;height:12px;border-radius:6px;background:#c4392f;transform:rotate(-35deg);opacity:0"></i></div>
+    <div class="w" id="filt" style="left:1495px;top:800px;width:130px;height:130px;border-radius:50%;background:#fff;border:7px solid #d98a00;color:#d98a00;display:flex;align-items:center;justify-content:center;opacity:0">${IC('filter', 'width:76px;height:76px')}</div>`);
+  ADD(PX('lbAcc', 1560, 945, 'only what you can access', 'amber', 46));
+
+  /* scene 4: keys + door */
+  ADD(`<svg class="w" id="ring" style="left:1500px;top:330px;opacity:0" width="320" height="320" viewBox="0 0 320 320"><circle cx="160" cy="160" r="120" fill="none" stroke="#8a93a6" stroke-width="18"/></svg>
+    ${[[1615, 325], [1735, 445], [1615, 565], [1495, 445]].map(([x, y]) => `<div class="w ringk" style="left:${x}px;top:${y}px;color:#d98a00;opacity:0">${IC('key', 'width:90px;height:90px')}</div>`).join('')}`);
+  const KEYS = ['API key', 'Client certificate', 'Service principal', 'Entra ID integrated'];
+  KEYS.forEach((t, k) => ADD(chip('k' + k, 1900, 330 + k * 115, 'key', t, 'blue').replace('class="chip', 'class="chip kc').replace('style="', 'style="width:620px;height:96px;font-size:44px;')));
+  ADD(`<svg class="w" id="door" style="left:2700px;top:140px;opacity:0" width="200" height="370" viewBox="0 0 260 480"><rect x="10" y="10" width="240" height="460" rx="14" fill="#1f2a44"/><rect x="34" y="34" width="192" height="436" fill="#e6ecfb"/><circle cx="196" cy="260" r="12" fill="#1f2a44"/></svg>` + PX('lbDoor', 2800, 530, 'Search Service<br>endpoint', 'navy', 52));
+  ADD(`<div class="w" id="plg2" style="left:2020px;top:960px;width:100px;height:100px;border-radius:24px;background:#fff;border:6px solid #2f5bd3;color:#2f5bd3;display:flex;align-items:center;justify-content:center;opacity:0">${IC('plug_connected', 'width:64px;height:64px')}</div>`);
+
+  /* scene 6: tool cards, bubble, description card */
+  ADD(`<div class="tcard" id="tcA" style="left:1250px;top:260px;width:420px">${IC('wrench')}Policy tool</div><div class="tcard" id="tcB" style="left:2330px;top:260px;width:420px">${IC('wrench')}Other tool</div>
+    <svg class="w" id="arrs" style="left:0;top:0" width="3840" height="1200" viewBox="0 0 3840 1200"><path id="arA" d="M1480 390 L1850 500" stroke="#c4392f" stroke-width="12" stroke-linecap="round" fill="none" opacity="0"/><path id="arB" d="M2550 390 L2150 500" stroke="#c4392f" stroke-width="12" stroke-linecap="round" fill="none" opacity="0"/></svg>`);
+  ADD('<div class="w" id="qbw" style="left:0;top:0">' + say('qb', 1990, 600, 'Parental leave?', 'blue') + '</div>');
+  ADD(`<div class="w" id="dcard" style="left:1250px;top:430px;width:900px;height:430px;background:#fff;border:7px solid #2f5bd3;border-radius:34px;box-shadow:var(--shadow);opacity:0;padding:26px 34px;font-size:46px;font-weight:700;line-height:1.35;color:#141821">
+    <div style="color:#2f5bd3;font-weight:800">Policy tool · description</div>
+    <div id="dl0" style="opacity:0;margin-top:8px"><span style="color:#2f5bd3;font-weight:800">When to use:</span> HR policy questions</div>
+    <div id="dl1" style="opacity:0"><span style="color:#1e7f4f;font-weight:800">Returns:</span> policy text</div>
+    <div id="dl2" style="opacity:0"><span style="color:#c4392f;font-weight:800">Not:</span> salaries, personal data</div></div>`);
+
+  /* scene 7: rebuild chart, revenue chart */
+  const chart = (id, x, y, w, h, col, title) => `<div class="cdn" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;border-color:${col}">${title ? `<div style="position:absolute;left:0;right:0;top:14px;text-align:center;font-size:40px;font-weight:800;color:#141821">${title}</div>` : ''}
+    <div class="bars" style="position:absolute;left:36px;right:36px;bottom:30px;top:${title ? 80 : 40}px">${[40, 70, 55, 90, 65].map((p, k) => `<div class="cb ${id}b" style="left:${k * 20 + 1}%;height:${p}%;background:${col}"></div>`).join('')}</div></div>`;
+  ADD(chart('chRb', 2230, 560, 360, 250, '#8a93a6', '') + `<div class="w" id="rbP" style="left:2110px;top:620px;opacity:0">${person('#2f5bd3')}</div><div class="lab" id="rbX" style="left:2330px;top:520px;font-size:260px;color:#c4392f">✕</div>` + PX('lbNoRb', 2410, 450, "don't rebuild", 'red', 48));
+  ADD(chart('chRev', 3070, 760, 460, 330, '#8a5cd6', 'Revenue by region'));
+
+  /* scene 10-11: Work IQ read-only, MCP bay */
+  ADD(`<div class="w" id="plugW" style="left:2470px;top:1300px;width:100px;height:100px;border-radius:50%;background:#fff;border:7px solid #1e7f4f;color:#1e7f4f;display:flex;align-items:center;justify-content:center;opacity:0">${IC('plug_connected', 'width:60px;height:60px')}</div>`);
+  ADD(PX('lbMcp', 2660, 1560, 'MCP tool', 'green', 46));
+  ADD(`<div class="w" id="eyeD" style="left:2620px;top:1090px;width:120px;height:120px;border-radius:50%;background:#fff;border:7px solid #1e7f4f;color:#1e7f4f;display:flex;align-items:center;justify-content:center;opacity:0">${IC('eye', 'width:70px;height:70px')}</div>` + PX('lbRO', 3040, 1120, 'Read-only', 'green', 46));
+  ADD(`<div class="w" id="penD" style="left:2620px;top:1250px;width:120px;height:120px;border-radius:50%;background:#fff;border:7px solid #8a93a6;color:#8a93a6;display:flex;align-items:center;justify-content:center;opacity:0"><svg width="70" height="70" viewBox="0 0 70 70"><path d="M10 60 L14 44 L44 14 a6 6 0 0 1 8 0 l4 4 a6 6 0 0 1 0 8 L26 56 Z" fill="currentColor"/></svg>
+    <div id="penLk" style="position:absolute;right:-18px;bottom:-14px;width:60px;height:60px;border-radius:50%;background:#c4392f;color:#fff;display:flex;align-items:center;justify-content:center">${IC('lock_closed', 'width:36px;height:36px')}</div></div>` + PX('lbWr', 3060, 1280, 'admin enables writes', 'red', 42) + PX('lbDef', 3060, 1280, 'default: read', 'green', 46));
+  ADD(`<div class="w" id="bay" style="left:2130px;top:1520px;width:730px;height:320px;background:#fff;border:7px solid #1f2a44;border-radius:34px;box-shadow:var(--shadow);opacity:0">
+    <div style="position:absolute;left:30px;top:16px;font-size:48px;font-weight:800;color:#1f2a44">MCP servers</div>
+    ${[0, 1, 2, 3].map((k) => `<div class="w mcp" id="mc${k}" style="left:${24 + k * 176}px;top:150px;width:150px;height:110px;border-radius:24px;background:#e3f4ea;border:6px solid #1e7f4f;color:#1e7f4f;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;gap:6px;box-sizing:border-box;${k === 3 ? 'opacity:0' : ''}">${IC('plug_connected', 'width:40px;height:40px')}MCP</div>`).join('')}</div>`);
+  ADD(PX('lbSkip', 2360, 1860, 'skipped this turn', 'amber', 52) + PX('lbFew', 2480, 1955, 'Keep MCP servers few', 'green', 52));
+
+  /* scene 13: decision board + connected agent */
+  const BR = [['Another team\'s policies', 'Foundry IQ', BLUE], ['Fabric semantic model', 'Fabric IQ', PUR], ['Email, files, meetings', 'Work IQ', GRN], ['Your own documents', 'Knowledge source', '#1f2a44'], ['Another agent\'s domain', 'Connected agent', '#d98a00']];
+  ADD(`<div class="w" id="board" style="left:1330px;top:250px;width:1500px;height:770px;background:#fff;border:8px solid #1f2a44;border-radius:40px;box-shadow:var(--shadow);opacity:0">
+    <div style="position:absolute;left:34px;top:18px;font-size:60px;font-weight:800;color:#1f2a44">Who maintains the context?</div>
+    ${BR.map(([l, r, c], k) => `<div class="brow" id="br${k}" style="top:${108 + k * 126}px"><span class="l">${l}</span><span class="ar">→</span><span class="rr" style="background:${c}">${r}</span></div>`).join('')}</div>`);
+  ADD(`<div class="w" id="bot2" style="left:780px;top:1550px;opacity:0">${miniBot(150)}</div>` + PX('lbBot2', 855, 1470, 'Other agent', 'amber', 44));
+
+  /* ───────── UI windows ───────── */
+  const nav4 = ['Overview', 'Build', 'Tools', 'Preview'];
+  const hcOld = `<span class="hc" id="hcOld" style="position:absolute;right:34px;top:14px">${IC('sparkle')}GitHub Copilot harness<i id="hcStk" style="position:absolute;left:-6px;right:-6px;top:50%;height:6px;margin-top:-3px;background:#ff6b5f;border-radius:3px;opacity:0"></i></span>`;
+  const hcNew = `<span class="hc" id="hcNew" style="position:absolute;right:34px;top:14px;background:#2f5bd3;opacity:0">${IC('sparkle')}Microsoft Copilot harness</span>`;
+  ADDU(uiWindow('uiB', { title: 'HR agent', nav: nav4, on: 0, bar: hcOld + hcNew, body: `
+    <div class="lay" id="bL0" style="opacity:1"><div class="crumb">Overview</div><h3>HR agent</h3>
+      <div id="bC1" style="opacity:0;margin-top:20px;display:flex;align-items:center;gap:16px;background:var(--green-soft);border:3px solid var(--green);border-radius:18px;padding:16px 26px;font-size:32px;font-weight:800;width:1000px;color:#14603b">${IC('checkmark_circle', 'width:44px;height:44px')}Microsoft Copilot harness · renamed Oct 2026</div>
+      <div id="bC2" style="opacity:0;margin-top:20px;display:flex;align-items:center;gap:16px;background:var(--amber-soft);border:3px solid var(--amber);border-radius:18px;padding:16px 26px;font-size:32px;font-weight:800;width:1000px;color:#7a4d00">${IC('alert', 'width:44px;height:44px')}Exam may still say: GitHub Copilot harness</div></div>
+    <div class="lay" id="bL1"><div class="crumb">Build › Tools</div><h3>Tools</h3><span class="btn pri" id="btnAdd">+ Add tool</span>
+      <div id="bCard" style="opacity:0;margin-top:34px;width:800px;border:3px solid var(--line2);border-radius:20px;padding:26px 30px"><div style="font-size:32px;font-weight:800;margin-bottom:18px">New tool</div>
+        <div class="fld" id="fNm" style="width:700px"><small>Name</small>HR policy tool</div><div class="fld" id="fDs" style="width:700px;margin-top:18px"><small>Description</small>Use for HR policy questions</div></div>
+      <div id="hiNm" style="position:absolute;left:30px;top:322px;width:740px;height:98px;border:6px solid #d98a00;border-radius:18px;opacity:0"></div><div id="hiDs" style="position:absolute;left:30px;top:442px;width:740px;height:98px;border:6px solid #d98a00;border-radius:18px;opacity:0"></div></div>
+    <div id="lbOrch" style="position:absolute;right:40px;top:400px;width:330px;background:#d98a00;color:#fff;font-size:34px;font-weight:800;border-radius:22px;padding:18px 24px;line-height:1.2;opacity:0">Orchestrator reads these</div>` }));
+  const PB = { nv1: PC('#uiB_nv1'), nv2: PC('#uiB_nv2'), add: PC('#btnAdd') };
+
+  ADDU(uiWindow('uiP', { title: 'HR agent · Preview', nav: nav4, on: 3, body: `
+    <div class="lay" style="opacity:1;left:56px;top:40px"><div class="crumb">Preview</div>
+      <div class="row" style="width:640px" id="euRow"><b>End user preview: <span id="euV">Off</span></b><div class="tgl" id="tglE"><i></i></div></div>
+      <div id="chatQ" style="opacity:0;margin-top:40px;width:560px;background:var(--accent);color:#fff;border-radius:24px;padding:20px 28px;font-size:32px;font-weight:700">Revenue by region?</div></div>
+    <div id="trace" style="position:absolute;left:720px;top:30px;width:520px;height:700px;background:#f3f5f9;border-radius:22px;padding:22px 26px;opacity:0"><div style="font-size:36px;font-weight:800;margin-bottom:12px;display:flex;gap:12px;align-items:center">${IC('history', 'width:44px;height:44px;color:#2f5bd3')}Activity trace</div><div style="position:relative">
+      <div class="tcase" id="tc1"><div class="trr">${IC('checkmark_circle', 'color:#1e7f4f')}Question received</div><div class="trr">${IC('checkmark_circle', 'color:#1e7f4f')}Answer written</div><div class="trr" style="color:#c4392f;border:3px dashed #c4392f;border-radius:12px;margin-top:10px">${IC('dismiss_circle')}No Fabric IQ step</div><div class="hint">${IC('lightbulb')}Check Tools + description</div></div>
+      <div class="tcase" id="tc2"><div class="trr">${IC('checkmark_circle', 'color:#1e7f4f')}Question received</div><div class="trr" style="background:var(--amber-soft);color:#7a4d00;font-weight:800">${IC('wrench', 'color:#d98a00')}Called: Policy tool</div></div>
+      <div class="tcase" id="tc3"><div class="trr">${IC('checkmark_circle', 'color:#1e7f4f')}Question received</div><div class="trr" style="background:var(--red-soft);color:#c4392f;font-weight:800">${IC('error_circle')}Fabric IQ: error</div><div class="hint">${IC('key')}Check credentials</div></div></div></div>` }));
+  const PP = { nv3: PC('#uiP_nv3'), tgl: PC('#tglE') };
+
+  ADDU(uiWindow('uiA', { title: 'Admin center', nav: ['Home', 'Copilot', 'Billing', 'Spending'], on: 1, body: `
+    <div class="lay" style="opacity:1"><div id="gaB" style="opacity:0;display:inline-flex;align-items:center;gap:12px;background:#e6ecfb;border:3px solid var(--accent);color:var(--accent);border-radius:999px;padding:8px 24px;font-size:30px;font-weight:800">${IC('person', 'width:36px;height:36px')}Global Administrator</div>
+      <div class="row" style="margin-top:26px"><b>Enable Work IQ</b><span style="display:flex;align-items:center;gap:18px"><span id="aOnce" style="opacity:0;font-size:30px;font-weight:800;color:var(--green)">once · whole tenant</span><div class="tgl" id="tglA"><i id="tglAK"></i></div></span></div>
+      <div class="row" id="aBill" style="opacity:0"><b>Billing: usage-based plan</b><span class="note">${IC('checkmark_circle')}</span></div>
+      <div id="aSpend" style="opacity:0;margin-top:30px;width:1100px;display:flex;align-items:center;gap:20px;background:#f3f5f9;border:3px solid var(--line2);border-radius:22px;padding:22px 30px;font-size:34px;font-weight:800">${IC('money', 'width:56px;height:56px;color:#2f5bd3')}Spending policy: Work IQ<span style="margin-left:auto;font-size:28px;color:var(--muted);font-weight:700">separate</span></div></div>` }));
+  const PA = { tgl: PC('#tglA') };
+
+  ADDU(uiWindow('uiS', { title: 'HR agent', nav: nav4, on: 0, bar: `<span class="hc" style="position:absolute;right:34px;top:14px;background:#2f5bd3">${IC('sparkle')}Microsoft Copilot harness</span>`, body: `
+    <div class="lay" id="sL1"><div class="crumb">Build › Tools</div><h3>Tools</h3><span class="btn pri" id="sAdd">+ Add a tool</span></div>
+    <div class="lay" id="sL2"><div class="crumb">Tools › Add a tool</div><h3>Add a tool</h3>
+      <div class="row"><b>Foundry IQ</b><span class="btn" id="sB0">Select</span></div><div class="row"><b>Fabric IQ</b><span class="btn" id="sB1">Add</span></div><div class="row"><b>MCP</b><span class="btn" id="sB2">Open</span></div>
+      <div id="sToast" style="opacity:0;position:absolute;right:0;top:0;background:var(--green);color:#fff;font-size:30px;font-weight:800;padding:14px 28px;border-radius:14px">✓ Fabric IQ added</div></div>
+    <div class="lay" id="sL3"><div class="crumb">Foundry IQ</div><h3>Foundry IQ</h3><span class="btn pri" id="sCreate">Create new connection</span>
+      <div id="sF1" style="opacity:0;margin-top:26px;position:relative"><div class="fld" style="width:760px;position:relative;height:92px"><small>Authentication type</small><span id="sAuthV0">Choose…</span><span id="sAuthV1" style="position:absolute;left:22px;bottom:12px;opacity:0;font-weight:700">API key</span></div>
+        <div id="sAuthL" style="opacity:0;position:absolute;left:0;top:92px;width:760px;background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(16,24,40,.25);z-index:5;padding:6px 0;font-size:30px">${KEYS.map((t, k) => `<div style="padding:12px 24px;${k === 0 ? 'background:#e6ecfb;font-weight:800;color:#2f5bd3' : ''}">${t}</div>`).join('')}</div></div>
+      <div class="fld" id="sF2" style="opacity:0;margin-top:20px;width:760px"><small>Search service endpoint</small>https://…</div>
+      <div class="fld" id="sF3" style="opacity:0;margin-top:20px;width:760px"><small>Knowledge base</small>HR policies</div></div>
+    <div class="lay" id="sL5"><div class="crumb">Add a tool › MCP</div><h3>MCP</h3><div class="row"><b>Work IQ (Preview)</b><span class="btn" id="sW0">Add</span></div></div>
+    <div class="lay" id="sL6"><div class="crumb">HR policy tool</div><h3>Description</h3><div class="fld" id="sDesc" style="width:1100px;height:140px;position:relative"><small>Description</small><span id="dOld">Handles HR things</span><span id="dNew" style="position:absolute;left:22px;top:52px;opacity:0;font-weight:700">Use for HR policy questions · returns policy text · not salaries</span></div></div>
+    <div class="lay" id="sL7"><div class="crumb">Preview</div><h3>Test it</h3><div style="width:560px;background:var(--accent);color:#fff;border-radius:24px;padding:20px 28px;font-size:32px;font-weight:700">Parental leave policy?</div><div class="note" style="margin-top:30px">${IC('history', 'color:#2f5bd3')}<span style="color:#141821">Read the activity trace</span></div></div>` }));
+  const PS = { nv1: PC('#uiS_nv1'), nv2: PC('#uiS_nv2'), nv3: PC('#uiS_nv3'), add: PC('#sAdd'), b0: PC('#sB0'), b1: PC('#sB1'), b2: PC('#sB2'), cr: PC('#sCreate'), w0: PC('#sW0'), ds: PC('#sDesc'), au: PC('#sF1 .fld') };
+
+  /* ───────── overlays ───────── */
+  ADDS(`<div class="ov kin title" id="ovTitle">Tuesday at Contoso<small>Microsoft IQ capabilities</small></div><div class="ov kin q" id="ovQ" style="top:130px"><span>Which Microsoft IQ capability?</span></div>
+    <div id="ovNames" style="position:absolute;left:0;right:0;top:880px;display:flex;justify-content:flex-start;padding-left:70px;gap:30px">${[['n1', 'Foundry IQ', BLUE], ['n2', 'Fabric IQ', PUR], ['n3', 'Work IQ', GRN]].map(([i, t, c]) => `<span id="${i}" style="opacity:0;background:#fff;color:${c};border:5px solid ${c};border-radius:999px;padding:10px 34px;font-size:62px;font-weight:800;box-shadow:var(--shadow)">${t}</span>`).join('')}</div>
+    <div class="chk" id="rq1" style="left:100px;top:50px">${IC('checkmark_circle')}Microsoft Copilot harness agent</div><div class="chk" id="rq2" style="left:100px;top:170px">${IC('checkmark_circle')}Access to workspace + semantic model</div>
+    <div id="rcBack" style="position:absolute;left:0;top:0;width:1920px;height:1080px;background:#eef1f7;opacity:0"></div>
+    <div class="rcard" id="rcd0" style="left:100px;top:375px;border-color:#2f5bd3;color:#2f5bd3">${IC('plug_connected')}One Foundry IQ connection</div>
+    <div class="rcard" id="rcd1" style="left:680px;top:375px;border-color:#1e7f4f;color:#1e7f4f">${IC('server')}Work IQ = MCP tool</div>
+    <div class="rcard" id="rcd2" style="left:1260px;top:375px;border-color:#1f2a44;color:#1f2a44">${IC('people_team')}Choose by who maintains it</div>`);
+  gsap.set('#ovNames span', { opacity: 0 });
+
+  /* ───────── exam rooms ───────── */
+  const bindersMini = [0, 1, 2, 3, 4, 5].map((k) => `<rect x="${50 + k * 76}" y="100" width="58" height="110" rx="8" fill="#3a6fdc" stroke="#fff" stroke-width="3" ${k === 1 ? 'id="pfBd"' : ''}/>`).join('');
+  const rmDesc = (a, b) => `<div style="position:absolute;left:28px;top:80px;font-size:38px;font-weight:700;color:#cfd8ee;line-height:1.3">${a}</div>`;
+  EXAMS(
+    mkExam('exA', { q: "The agent's Foundry IQ answers about leave are strange and incomplete. Where do you fix it?", opts: ['Remove the connection and add it again', 'In Copilot Studio, edit the agent instructions', 'In Microsoft Foundry, with the knowledge base owner'],
+      why: '<div id="exA_w1"><span class="y">Knowledge base</span> lives in <span class="g">Foundry</span> · fix it with the owner</div><div id="exA_w2">Removing the connection → <span class="r">nothing changes</span></div>',
+      proof: `<div class="rm" style="left:0;border-color:#7ea1e6"><h4>Microsoft Foundry</h4><svg style="position:absolute;left:20px;top:40px" width="520" height="240" viewBox="0 0 520 240">${bindersMini}<rect x="40" y="220" width="460" height="12" rx="5" fill="#8fa6dc"/></svg>
+          <div id="pfWr" style="position:absolute;left:560px;top:130px;color:#ffd166">${IC('wrench', 'width:100px;height:100px')}</div><div class="lb" style="left:540px;top:236px;font-size:34px;color:#fff">owner tunes it</div></div>
+        <div class="rm" style="left:880px;border-color:#8a93a6"><h4>Copilot Studio</h4>
+          <div style="position:absolute;left:60px;top:110px;width:260px;height:150px;border-radius:26px;background:#1f2a44;border:4px solid #3a4a78;color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;gap:10px">${IC('wrench', 'width:50px;height:50px')}Tools</div>
+          <div id="pfPlug" style="position:absolute;left:330px;top:140px;width:100px;height:90px;border-radius:22px;background:#fff;border:6px solid #2f5bd3;color:#2f5bd3;display:flex;align-items:center;justify-content:center">${IC('plug_connected', 'width:56px;height:56px')}</div>
+          <div id="pfX" style="position:absolute;left:560px;top:150px;color:#ff8a80;opacity:0">${IC('dismiss_circle', 'width:90px;height:90px')}</div></div>
+        <div class="lb" id="exA_lb" style="left:0;width:1680px;text-align:center;top:330px;opacity:0">Removing the connection changes nothing in Foundry</div>` }),
+    mkExam('exB', { q: 'You ask for revenue by region. The trace shows the policy tool was called instead of Fabric IQ. What do you change?', opts: ['Make the tool descriptions clearer', 'Replace Fabric IQ with a knowledge source', 'Rebuild the revenue metrics in Copilot Studio'],
+      why: '<div id="exB_w1"><span class="r">Vague borders</span> → the wrong tool answered</div><div id="exB_w2">Fix → <span class="g">clearer descriptions</span></div>',
+      proof: `<div class="rm" id="bRa" style="left:0;border-color:#8a93a6;border-style:dashed"><h4>Policy tool</h4>${rmDesc('Use for HR policy questions')}</div>
+        <div class="rm" id="bRb" style="left:880px;border-color:#8a93a6;border-style:dashed"><h4>Fabric IQ</h4>${rmDesc('Use for revenue and measures')}</div>
+        <div class="chip sm" id="bQ" style="left:640px;top:320px;width:480px;font-size:34px;opacity:0;border-color:#2f5bd3;color:#2f5bd3">${IC('question_circle')}Revenue by region?</div>
+        <div id="bOk" style="position:absolute;left:1600px;top:200px;color:#6be3a0;opacity:0">${IC('checkmark_circle', 'width:90px;height:90px')}</div>` }),
+    mkExam('exC', { q: 'A maker wants email and meeting context and adds the separate Mail, Teams and OneDrive tools instead of Work IQ. Is that the recommended choice?', opts: ['Yes, Work IQ cannot read email', 'No, they are a legacy experience on the standard harness and billing', 'Yes, they read the same data'],
+      why: '<div id="exC_w1">Mail, Teams, OneDrive = <span class="y">legacy</span> · standard harness and billing</div><div id="exC_w2">Use <span class="g">Work IQ</span> instead</div>',
+      proof: `<div class="rm" id="cRa" style="left:0;border-color:#8a93a6"><h4>Separate tools</h4>
+          ${[['mail', 'Mail'], ['chat', 'Teams'], ['cloud', 'OneDrive']].map(([ic, t], k) => `<div class="chip sm cg" style="left:${24 + k * 250}px;top:100px;width:236px;font-size:34px;padding:0 12px;gap:8px;opacity:1">${IC(ic)}${t}</div>`).join('')}
+          <div class="lb" id="cLg" style="left:28px;top:220px;font-size:38px;color:#ff8a80;opacity:0">legacy · standard harness</div></div>
+        <div class="rm" id="cRb" style="left:880px;border-color:#3a4a78"><h4>Work IQ</h4><div style="position:absolute;left:30px;top:100px">${miniBot(110)}</div><div id="cLn" style="position:absolute;left:160px;top:152px;width:300px;height:14px;border-radius:7px;background:#3a4a78"></div>
+          <div class="chip sm" style="left:480px;top:118px;width:250px;opacity:1;border-color:#3a4a78;color:#cfd8ee;background:#1d2742" id="cWq">${IC('mail')}Work IQ</div></div>` }),
+    mkExam('exD', { q: 'The sales director wants revenue by region, and the measures are already modelled in a Fabric semantic model. Which capability?', opts: ['A knowledge source with an exported spreadsheet', 'Work IQ, because the question came in a Teams chat', 'Fabric IQ'],
+      why: '<div id="exD_w1">Measures already in the <span class="g">semantic model</span></div><div id="exD_w2">Reuse it → <span class="g">Fabric IQ</span>, nobody copies metrics</div>',
+      proof: `<div class="tile" id="dTile" style="left:0;top:20px;width:640px;height:260px"><h4>Fabric IQ</h4><div id="dCube" style="position:absolute;left:20px;top:84px;width:590px;height:150px;border-radius:22px;background:#8a5cd6;border:5px solid #fff;color:#fff;box-sizing:border-box"><div style="position:absolute;left:0;right:0;top:10px;text-align:center;font-size:34px;font-weight:800">Semantic model</div>
+          ${['measures', 'hierarchies', 'dimensions'].map((t, k) => `<div style="position:absolute;top:70px;left:${10 + k * 190}px;width:180px;height:60px;border-radius:14px;background:#fff;color:#8a5cd6;font-size:28px;font-weight:800;display:flex;align-items:center;justify-content:center">${t}</div>`).join('')}</div></div>
+        <div id="dLn" style="position:absolute;left:640px;top:140px;width:800px;height:14px;border-radius:7px;background:#3a4a78"></div>
+        ${chart('dChart', 680, 60, 340, 230, '#8a5cd6', '').replace('class="cdn"', 'class="cdn" ').replace('opacity:0', 'opacity:0')}
+        <div style="position:absolute;left:1470px;top:40px">${person('#0f6f85').replace('width="90" height="200"', 'width="110" height="240"')}</div><div class="lb" style="left:1420px;top:290px;font-size:40px;color:#fff">Sales director</div>` })
+  );
+
+  /* ═════════════════ TIMELINE ═════════════════ */
+  gsap.set('#world', { x: 960 - 1950 * 0.8, y: 540 - 1380 * 0.8, scale: 0.8 });
+  gsap.set(['#bF', '#bX', '#bW'], { opacity: 0 });
+  gsap.set(['.cb'], { transformOrigin: '50% 100%' });
+
+  /* ── 0 Tuesday ── */
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.2);
+  tl.fromTo('#vign', { opacity: 0 }, { opacity: 0.6, duration: 0.5 }, 0.2);
+  OFF('#ovTitle', S(0, 1) - 0.6, 0.4); OFF('#vign', S(0, 1) - 0.3, 0.5); tl.set('#ovTitle', { display: 'none' }, S(0, 1) - 0.1);
+  [0, 1, 2].forEach((k) => {
+    tl.fromTo('#p' + k, { opacity: 0, x: 1000 }, { opacity: 1, x: 0, duration: 2.2, ease: 'power1.out' }, S(0, 1) + 0.1 + k * 0.35);
+    tl.to('#p' + k, { y: -12, duration: 0.2, yoyo: true, repeat: 9, ease: 'sine.inOut' }, S(0, 1) + 0.3 + k * 0.35);
+    POP('#bb' + k, S(0, 2 + k) + 0.3);
+  });
+  tl.fromTo('#bot_e', { y: 0 }, { y: 14, duration: 0.3 }, S(0, 5));
+  tl.fromTo('#bot_fold', { rotation: 0 }, { rotation: 8, svgOrigin: '298 390', duration: 0.12, yoyo: true, repeat: 5 }, S(0, 5) + 0.3);
+  ['#qm0', '#qm1', '#qm2'].forEach((q, k) => POP(q, S(0, 5) + 0.9 + k * 0.4));
+  tl.to('#bot_e', { y: 0, duration: 0.3 }, S(0, 6));
+  OFF(['.sb', '#p0', '#p1', '#p2', '#qm0', '#qm1', '#qm2'], S(0, 6) - 0.2, 0.5);
+  CAM(1920, 1080, 0.5, S(0, 6) - 0.3, 2.0);
+  tl.to(['#bF', '#bX', '#bW'], { opacity: 0.35, duration: 0.8 }, S(0, 6) + 0.3);
+  tl.fromTo('#ovQ', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, S(0, 7) - 0.1);
+
+  /* ── 1 Three expert colleagues ── */
+  OFF('#ovQ', S(1, 1) - 0.4, 0.4);
+  ON('#tagBot', S(1, 0), 0.4);
+  CAM(750, 540, 0.85, S(1, 2) - 0.4, 1.5);
+  tl.to('#bF', { opacity: 1, duration: 0.5 }, S(1, 2)); TAG('#dF', S(1, 2) + 0.3);
+  CAM(2711, 560, 0.85, S(1, 3) - 0.4, 1.5);
+  tl.to('#bX', { opacity: 1, duration: 0.5 }, S(1, 3)); TAG('#dX', S(1, 3) + 0.3);
+  CAM(2640, 1480, 0.8, S(1, 4) - 0.4, 1.5);
+  tl.to('#bW', { opacity: 1, duration: 0.5 }, S(1, 4)); TAG('#dW', S(1, 4) + 0.3);
+  [['wi0', 'files'], ['wi1', 'email'], ['wi2', 'meetings'], ['wi3', 'chats']].forEach(([id, w]) => POP('#' + id, W(1, 4, w, -0.1)));
+  CAM(1920, 1000, 0.5, S(1, 5) - 0.3, 1.6);
+  ['#gF', '#gX', '#gW'].forEach((g) => ON(g, S(1, 5) + 0.2, 0.4));
+  [['env0', -1150, -560], ['env1', 1400, -480], ['env2', 1450, 700]].forEach(([e, dx, dy], k) => {
+    const t0 = S(1, 5) + 0.6 + k * 0.45;
+    ON('#' + e, t0, 0.2); tl.to('#' + e, { x: dx, y: dy, duration: 1.4, ease: 'power1.inOut' }, t0); OFF('#' + e, t0 + 1.4, 0.3);
+  });
+  [['n1', 'Foundry'], ['n2', 'Fabric'], ['n3', 'Work']].forEach(([n, w]) => POPX('#' + n, W(1, 7, w, -0.1)));
+
+  /* ── 2 Reuse, never copy ── */
+  OFF('#ovNames span', S(2, 0) - 0.2, 0.4); OFF(['#dF', '#dX', '#dW'], S(2, 0) - 0.2, 0.4);
+  tl.to('#wi0,#wi1,#wi2,#wi3', { opacity: 0, duration: 0.4 }, S(2, 0));
+  CAM(1250, 950, 0.65, S(2, 0) - 0.3, 1.5);
+  ON('#docMv', W(2, 1, 'upload', -0.3), 0.3);
+  tl.to('#docMv', { x: 960, y: 140, duration: 1.8, ease: 'power2.inOut' }, W(2, 1, 'upload', -0.2));
+  tl.to('#docMv', { opacity: 0, scale: 0.3, duration: 0.3 }, W(2, 1, 'upload', 1.7));
+  TAG('#lbKS', W(2, 1, 'pick', 0.3));
+  tl.fromTo('#cbRef', { opacity: 1, strokeDasharray: 1500, strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out' }, S(2, 2) + 0.3);
+  TAG('#lbIQ', W(2, 2, 'someone else', -0.2));
+  POP('#cpIc', W(2, 2, 'another platform', -0.3));
+  tl.fromTo('#cpX', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(2, 3, 'simply points', -0.4));
+  OFF(['#cpIc'], S(2, 3) + 1.6, 0.4);
+  POP('#filt', W(2, 3, 'access', -0.4)); TAG('#lbAcc', W(2, 3, 'access', -0.2));
+  ['bd0', 'bd2', 'bd4', 'bd5', 'bd6', 'bd9', 'bd10', 'bd11'].forEach((b) => tl.to('#' + b, { opacity: 0.25, duration: 0.5 }, W(2, 3, 'access', 0.2)));
+  tl.to('#bd1,#bd3,#bd7,#bd8', { stroke: '#ffd166', strokeWidth: 8, duration: 0.4 }, W(2, 3, 'access', 0.3));
+  OFF(['#filt', '#lbAcc', '#lbIQ', '#lbKS'], S(2, 4) - 0.2, 0.4);
+  tl.to('#bd0,#bd2,#bd4,#bd5,#bd6,#bd9,#bd10,#bd11', { opacity: 1, duration: 0.4 }, S(2, 4) - 0.1);
+  tl.to('#bd1,#bd3,#bd7,#bd8', { stroke: '#fff', strokeWidth: 3, duration: 0.3 }, S(2, 4) - 0.1);
+  OFF('#cbRef', S(2, 4) - 0.2, 0.4);
+  CAM(2095, 1100, 0.55, S(2, 4) - 0.3, 1.5);
+  [['#pvX', 'Fabric'], ['#pvW', 'Work']].forEach(([p, w]) => { TAG(p, W(2, 4, w, -0.1)); tl.to(p, { scale: 1.25, duration: 0.25, yoyo: true, repeat: 3 }, W(2, 4, w, 0.4)); });
+
+  /* ── 3 Where you add them (UI) ── */
+  OFF(['#pvX', '#pvW'], S(3, 0) - 0.3, 0.3);
+  CAM(950, 1265, 2.4, S(3, 0) - 0.3, 1.2, 'power2.in');
+  UIIN('#uiB', S(3, 0) + 0.4);
+  ON('#hcOld', S(3, 0) + 0.6, 0.3);
+  tl.fromTo('#hcStk', { opacity: 0 }, { opacity: 1, duration: 0.25 }, S(3, 1) + 0.3);
+  tl.fromTo('#hcNew', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35 }, S(3, 1) + 0.6);
+  tl.set('#hcOld', { opacity: 0 }, S(3, 1) + 0.65);
+  POPX('#bC1', W(3, 1, 'until late', 0));
+  POPX('#bC2', W(3, 2, 'old one', -0.6));
+  ON('#cur', S(3, 3) - 0.5, 0.2);
+  tl.to('#bL0', { opacity: 0, duration: 0.2 }, S(3, 3));
+  CUR(PB.nv1[0], PB.nv1[1], S(3, 3) - 0.3, 0.7); CLICK(PB.nv1[0], PB.nv1[1], W(3, 3, 'Build', 0)); NAV('#uiB', 1, W(3, 3, 'Build', 0), 4);
+  CUR(PB.nv2[0], PB.nv2[1], W(3, 3, 'Build', 0.5), 0.6); CLICK(PB.nv2[0], PB.nv2[1], W(3, 3, 'in Tools', 0)); NAV('#uiB', 2, W(3, 3, 'in Tools', 0), 4);
+  ON('#bL1', W(3, 3, 'in Tools', 0.1), 0.25);
+  CUR(PB.add[0], PB.add[1], W(3, 3, 'in Tools', 0.6), 0.6); CLICK(PB.add[0], PB.add[1], S(3, 3) + 3.0);
+  ON('#bCard', S(3, 4) - 0.2, 0.35);
+  tl.fromTo('#hiNm', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(3, 4, 'name', 0)); tl.fromTo('#hiDs', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(3, 4, 'description', 0));
+  POPX('#lbOrch', W(3, 4, 'orchestrator', 0));
+  OFF('#cur', S(3, 4) + 1.5, 0.2);
+
+  /* ── 4 Foundry IQ ── */
+  UIOUT('#uiB', S(4, 0) - 0.6);
+  CAM(750, 560, 0.9, S(4, 0) - 0.1, 1.4);
+  ON('#bF', S(4, 0), 0.01); SWAP('#dF', '#nF', S(4, 0) + 0.2); tl.set('#nF', { y: 0 }, S(4, 0) + 0.7);
+  TAG('#lbKB', W(4, 1, 'knowledge base', -0.1));
+  TAG('#lbLeave', W(4, 1, 'policies', 0));
+  tl.to('#bd1 rect:first-child', { fill: '#ffd166', duration: 0.3 }, W(4, 1, 'policies', 0.1));
+  tl.fromTo('#bd1', { opacity: 1 }, { opacity: 0.4, duration: 0.15, yoyo: true, repeat: 5 }, W(4, 1, 'policies', 0.2));
+  OFF('#lbKB', S(4, 2), 0.3);
+  CAM(1500, 950, 0.62, S(4, 2) - 0.1, 1.5);
+  ON('#cbA', S(4, 2) + 0.5, 0.4);
+  tl.fromTo('#cbF', { opacity: 1, strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out' }, S(4, 3) + 0.3);
+  OFF('#gF', S(4, 3) + 0.6, 0.3);
+  tl.to('#sF', { borderColor: '#2f5bd3', duration: 0.2 }, S(4, 3) + 1.4);
+  TAG('#lbSock', W(4, 3, 'only one', 0));
+  const b2 = W(4, 3, 'connection', 0.3);
+  ON('#plg2', b2 - 0.3, 0.2);
+  tl.to('#plg2', { x: 180, y: 220, duration: 0.8, ease: 'power2.in' }, b2 - 0.2);
+  tl.to('#plg2', { x: 60, y: 110, borderColor: '#c4392f', color: '#c4392f', duration: 0.5, ease: 'back.out(3)' }, b2 + 0.6);
+  OFF('#plg2', S(4, 4) - 0.3, 0.3);
+  CAM(2450, 800, 0.8, S(4, 4) - 0.3, 1.4);
+  OFF('#lbSock', S(4, 4) - 0.3, 0.3);
+  ON('#ring', S(4, 4), 0.3); ON('.ringk', S(4, 4), 0.3);
+  KEYS.forEach((t, k) => SLIDE('#k' + k, W(4, 4, ['A P I', 'client', 'service', 'Entra'][k], -0.2)));
+  POP('#door', S(4, 5)); TAG('#lbDoor', S(4, 5) + 0.3);
+  tl.to('.kc', { x: 700, opacity: 0, duration: 0.8, stagger: 0.18, ease: 'power2.in' }, S(4, 5) + 1.2);
+
+  /* ── 5 EXAM A ── */
+  OFF(['#ring', '.ringk', '#door', '#lbDoor', '#lbLeave'], S(5, 0), 0.2);
+  EXAM('exA', 5, { pause: 6, reveal: 7, trap: 1, right: 2, q: S(5, 1) - 0.1, opt: [S(5, 3), S(5, 4), S(5, 5)], end: S(6, 0) - 0.1 });
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 7) + 1.8);
+  tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 8));
+  ON('#exA_p', S(5, 8) + 0.1, 0.4);
+  tl.to('#pfWr', { x: -310, y: -30, rotation: -25, duration: 0.8, ease: 'power2.inOut' }, S(5, 8) + 0.3);
+  tl.to('#pfBd', { fill: '#ffd166', duration: 0.3 }, S(5, 8) + 1.1);
+  tl.to('#pfPlug', { x: 150, y: 40, opacity: 0.4, duration: 0.8 }, W(5, 8, 'removing', 0));
+  ON('#pfX', W(5, 8, 'removing', 0.6), 0.3);
+  ON('#exA_lb', W(5, 8, 'does not change', -0.3), 0.4);
+
+  /* ── 6 Descriptions draw the borders ── */
+  CAM(2000, 640, 0.9, S(6, 0) - 0.4, 0.01);
+  OFF('.kc', S(6, 0), 0.01);
+  POPX('#tcA', S(6, 0) + 0.2); POPX('#tcB', S(6, 0) + 0.5); POP('#qb', S(6, 0) + 1.2);
+  ON('#arA', S(6, 1), 0.3); ON('#arB', S(6, 1) + 0.2, 0.3);
+  tl.fromTo('#qbw', { x: 0 }, { x: 14, duration: 0.07, yoyo: true, repeat: 7 }, S(6, 1) + 0.6);
+  OFF(['#arA', '#arB'], W(6, 1, 'neither', 0), 0.3);
+  tl.to(['#tcA', '#tcB'], { opacity: 0.45, duration: 0.4 }, W(6, 1, 'neither', 0));
+  OFF('#qb', S(6, 2) - 0.1, 0.3);
+  tl.to('#tcA', { opacity: 1, duration: 0.3 }, S(6, 2));
+  ON('#dcard', S(6, 2) + 0.3, 0.4);
+  ON('#dl0', S(6, 3), 0.3); ON('#dl1', S(6, 4), 0.3); ON('#dl2', S(6, 5), 0.3);
+  OFF('#dcard', S(6, 6) + 3.6, 0.4);
+  tl.to('#tcB', { opacity: 1, duration: 0.3 }, S(6, 6) + 3.8);
+  tl.set('#qbw', { x: 560, y: -330 }, S(6, 6) + 3.9);
+  ON('#qb', S(6, 6) + 4.0, 0.2);
+  tl.to('#qbw', { x: -330, y: -80, duration: 0.8, ease: 'power2.inOut' }, S(6, 6) + 4.2);
+
+  /* ── 7 Fabric IQ ── */
+  OFF(['#tcA', '#tcB', '#qb'], S(7, 0) - 0.4, 0.4);
+  CAM(2700, 620, 0.85, S(7, 0) - 0.4, 1.5);
+  tl.to('#bX', { opacity: 1, duration: 0.4 }, S(7, 0)); ON('#nX', S(7, 0) + 0.4, 0.3); ON('#pvX', S(7, 0) + 0.7, 0.3);
+  POP('#semB', S(7, 1) - 0.1);
+  [['measures', 0], ['hierarchies', 1], ['dimensions', 2]].forEach(([w, k]) => tl.to('#stab' + k, { backgroundColor: '#8a5cd6', borderColor: '#8a5cd6', color: '#ffffff', duration: 0.3 }, W(7, 1, w, -0.1)));
+  CAM(2500, 760, 0.72, S(7, 2) - 0.3, 1.4);
+  ON('#chRb', S(7, 2), 0.3); ON('#rbP', S(7, 2), 0.3);
+  tl.fromTo('.chRbb', { scaleY: 0 }, { scaleY: 1, duration: 0.3, stagger: 0.25 }, S(7, 2) + 0.3);
+  tl.fromTo('#rbX', { opacity: 0, scale: 0.4 }, { opacity: 0.9, scale: 1, duration: 0.4, ease: 'back.out(2)' }, W(7, 2, 'do not rebuild', 0.1));
+  TAG('#lbNoRb', W(7, 2, 'do not rebuild', 0.2));
+  OFF(['#chRb', '#rbP', '#rbX', '#lbNoRb'], S(7, 3) - 0.2, 0.3);
+  CAM(2470, 850, 0.7, S(7, 3) - 0.3, 1.3);
+  tl.set('#chRev', { x: 0, y: 0 }, 0);
+  tl.fromTo('#chRev', { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.6 }, S(7, 3));
+  tl.fromTo('.chRevb', { scaleY: 0 }, { scaleY: 1, duration: 0.3, stagger: 0.12 }, S(7, 3) + 0.2);
+  tl.fromTo('#cbX', { opacity: 1, strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 1.2, ease: 'power2.out' }, S(7, 3) + 0.8);
+  OFF('#gX', S(7, 3) + 1.0, 0.3);
+  tl.to('#chRev', { x: -910, y: 120, duration: 1.8, ease: 'power2.inOut' }, S(7, 3) + 1.4);
+  tl.to('#sX', { borderColor: '#2f5bd3', duration: 0.2 }, S(7, 3) + 3.0);
+  ON('#rq1', S(7, 4), 0.4); ON('#rq2', S(7, 4) + 2.6, 0.4);
+  OFF(['#chRev', '#semB', '#pvX'], S(8, 0) - 0.5, 0.3);
+
+  /* ── 8 Activity trace (UI) ── */
+  OFF(['#rq1', '#rq2'], S(8, 0) - 0.5, 0.3);
+  CAM(950, 1265, 2.4, S(8, 0) - 0.3, 1.2, 'power2.in');
+  UIIN('#uiP', S(8, 0) + 0.4);
+  ON('#cur', S(8, 1) - 0.4, 0.2);
+  CUR(PP.nv3[0], PP.nv3[1], S(8, 1) - 0.3, 0.6); CLICK(PP.nv3[0], PP.nv3[1], W(8, 1, 'Preview tab', 0));
+  CUR(PP.tgl[0], PP.tgl[1], W(8, 1, 'preview off', -0.8), 0.7); tl.fromTo('#tglE', { scale: 1 }, { scale: 1.12, duration: 0.2, yoyo: true, repeat: 3 }, W(8, 1, 'preview off', 0));
+  POPX('#chatQ', W(8, 1, 'test question', 0)); ON('#trace', W(8, 1, 'activity trace', 0), 0.4);
+  OFF('#cur', W(8, 1, 'step by step', 0), 0.2);
+  ON('#tc1', S(8, 2), 0.35); OFF('#tc1', S(8, 3), 0.2); ON('#tc2', S(8, 3) + 0.25, 0.35); OFF('#tc2', S(8, 4), 0.2); ON('#tc3', S(8, 4) + 0.25, 0.35);
+
+  /* ── 9 EXAM B ── */
+  OFF('#uiP', S(9, 0) - 0.4, 0.2); OFF('#uiBack', S(9, 0) - 0.4, 0.2);
+  EXAM('exB', 9, { pause: 7, reveal: 8, trap: 2, right: 0, q: S(9, 1) - 0.1, opt: [S(9, 4), S(9, 5), S(9, 6)], end: S(10, 0) - 0.1 });
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(9, 9));
+  tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(9, 9) + 2.2);
+  ON('#exB_p', S(9, 8) + 1.8, 0.4);
+  ON('#bQ', S(9, 8) + 2.0, 0.3);
+  tl.set(['#bRa', '#bRb'], { borderStyle: 'solid', borderColor: '#2f5bd3' }, S(9, 9) + 0.2);
+  tl.to('#bRb', { borderColor: '#6be3a0', duration: 0.3 }, S(9, 9) + 1.4);
+  tl.to('#bQ', { x: 410, y: -120, duration: 0.9, ease: 'power2.inOut' }, S(9, 9) + 1.2);
+  ON('#bOk', S(9, 9) + 2.2, 0.3);
+
+  /* ── 10 Work IQ ── */
+  CAM(2640, 1380, 0.8, S(10, 0) - 0.4, 0.01);
+
+  ON('#bW', S(10, 0) - 0.4, 0.01);
+  tl.to('#bX', { opacity: 0.2, duration: 0.01 }, S(10, 0) - 0.4);
+  ON('#nW', S(10, 0), 0.3); ON('#pvW', S(10, 0) + 0.3, 0.3);
+  [['wi0', 'files'], ['wi1', 'email'], ['wi2', 'meetings'], ['wi3', 'chats']].forEach(([id, w]) => POP('#' + id, W(10, 1, w, -0.1)));
+  tl.fromTo('#cbW', { opacity: 1, strokeDasharray: 1700, strokeDashoffset: 1700 }, { strokeDashoffset: 0, duration: 1.0, ease: 'power2.out' }, S(10, 2));
+  OFF('#gW', S(10, 2) + 0.5, 0.3);
+  POP('#plugW', W(10, 2, 'M C P', -0.3)); TAG('#lbMcp', W(10, 2, 'M C P', 0));
+  tl.to('#sW', { borderColor: '#1e7f4f', duration: 0.2 }, S(10, 2) + 1.2);
+  OFF('#lbMcp', S(10, 3) - 0.1, 0.3);
+  POP('#eyeD', W(10, 3, 'read-only', -0.3)); TAG('#lbRO', W(10, 3, 'read-only', 0));
+  POP('#penD', W(10, 3, 'unless', 0));
+  POP('#adm', W(10, 3, 'administrator', -0.2)); TAG('#nAdm', W(10, 3, 'administrator', 0.2));
+  ON('#lnAdm', W(10, 5, 'deliberate', -1.0), 0.4);
+  tl.to('#penLk', { opacity: 0, duration: 0.3 }, W(10, 5, 'deliberate', -0.6));
+  tl.to('#penD', { borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, W(10, 5, 'deliberate', -0.6));
+  TAG('#lbWr', W(10, 5, 'deliberate', -0.5));
+  OFF('#lbWr', E(10, 5) + 0.3, 0.3); tl.to('#penLk', { opacity: 1, duration: 0.3 }, E(10, 5) + 0.3);
+  tl.to('#penD', { borderColor: '#8a93a6', color: '#8a93a6', duration: 0.3 }, E(10, 5) + 0.3); OFF('#lnAdm', E(10, 5) + 0.3, 0.3);
+  TAG('#lbDef', E(10, 5) + 0.5);
+
+  /* ── 11 Work IQ needs the admin (UI) ── */
+  OFF(['#lbDef', '#lbRO', '#eyeD', '#penD'], S(11, 0) - 0.4, 0.3);
+  CAM(3600, 1160, 3.0, S(11, 0) - 0.3, 1.0, 'power2.in');
+  UIIN('#uiA', S(11, 0) + 0.4);
+  POPX('#gaB', S(11, 0) + 1.0);
+  ON('#cur', S(11, 1) - 0.4, 0.2);
+  CUR(PA.tgl[0], PA.tgl[1], S(11, 1) - 0.3, 0.7); CLICK(PA.tgl[0], PA.tgl[1], W(11, 1, 'enables', 0));
+  tl.to('#tglA', { backgroundColor: '#1e7f4f', duration: 0.2 }, W(11, 1, 'enables', 0.05)); tl.to('#tglAK', { x: 52, duration: 0.2 }, W(11, 1, 'enables', 0.05));
+  POPX('#aOnce', W(11, 1, 'once', 0));
+  OFF('#cur', S(11, 2) - 0.2, 0.2);
+  POPX('#aBill', S(11, 2)); POPX('#aSpend', S(11, 3));
+  UIOUT('#uiA', S(11, 4) - 0.6);
+  CAM(1850, 1560, 0.9, S(11, 4) - 0.2, 1.4);
+  ON('#bay', S(11, 4) + 0.3, 0.4);
+  tl.fromTo('#mc3', { opacity: 0, x: 500 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power2.out' }, S(11, 4) + 2.2);
+  tl.to('#mc0', { opacity: 0.3, backgroundColor: '#fff3d6', borderColor: '#d98a00', color: '#d98a00', duration: 0.4 }, S(11, 4) + 3.4);
+  TAG('#lbSkip', S(11, 4) + 3.6);
+  TAG('#lbFew', S(11, 4) + 4.6);
+
+  /* ── 12 EXAM C ── */
+  OFF(['#lbSkip', '#lbFew', '#bay'], S(12, 0) - 0.2, 0.2);
+  EXAM('exC', 12, { pause: 7, reveal: 8, trap: 2, right: 1, q: S(12, 1) - 0.1, opt: [S(12, 4), S(12, 5), S(12, 6)], end: S(13, 0) - 0.1 });
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(12, 8) + 1.8);
+  tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(12, 9));
+  ON('#exC_p', S(12, 8) + 1.8, 0.4);
+  tl.to('.cg', { opacity: 0.35, duration: 0.6 }, W(12, 8, 'legacy', 0)); ON('#cLg', W(12, 8, 'legacy', 0.2), 0.4);
+  tl.to('#cRb', { borderColor: '#6be3a0', duration: 0.3 }, S(12, 9)); tl.to('#cLn', { backgroundColor: '#6be3a0', duration: 0.4 }, S(12, 9) + 0.2);
+  tl.to('#cWq', { borderColor: '#6be3a0', color: '#1e7f4f', backgroundColor: '#fff', duration: 0.3 }, S(12, 9) + 0.2);
+
+  /* ── 13 Choose by who maintains it ── */
+  CAM(1920, 1080, 0.5, S(13, 0) - 0.4, 0.01);
+  OFF(['#plugW', '#lbMcp', '#nAdm'], S(13, 0) - 0.4, 0.01);
+  tl.to(['#bF', '#bX', '#bW'], { opacity: 1, duration: 0.01 }, S(13, 0) - 0.4);
+  ON('#board', S(13, 0), 0.4);   [['br0', 2, '#bF'], ['br1', 3, '#bX'], ['br2', 4, '#bW'], ['br3', 5, '#bot_fold'], ['br4', 6, '#bot2']].forEach(([r, j, b]) => {
+    SLIDE('#' + r, S(13, j));
+    if (j < 5) tl.fromTo(b, { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, transformOrigin: '50% 50%' }, S(13, j) + 0.3);
+  });
+  tl.fromTo('#bot_fold', { rotation: 0 }, { rotation: 10, svgOrigin: '298 390', duration: 0.15, yoyo: true, repeat: 5 }, S(13, 5) + 0.3);
+  ON('#bot2', S(13, 6), 0.4); TAG('#lbBot2', S(13, 6) + 0.2);
+  tl.fromTo('#cbCA', { opacity: 1, strokeDasharray: 1200, strokeDashoffset: 1200 }, { strokeDashoffset: 0, duration: 1.0, ease: 'power2.out' }, S(13, 6) + 0.5);
+  OFF(['#board', '#bot2', '#cbCA', '#lbBot2'], E(13, 6) + 0.3, 0.3);
+
+  /* ── 14 The steps in the product (UI) ── */
+  CAM(950, 1265, 2.4, S(14, 0) - 0.3, 1.2, 'power2.in');
+  UIIN('#uiS', S(14, 0) + 0.3);
+  ON('#cur', S(14, 1) - 0.3, 0.2);
+  CUR(PS.nv1[0], PS.nv1[1], S(14, 1) + 0.6, 0.6); CLICK(PS.nv1[0], PS.nv1[1], W(14, 1, 'Build', 0)); NAV('#uiS', 1, W(14, 1, 'Build', 0), 4);
+  ON('#sL1', W(14, 1, 'Build', 0.1), 0.25);
+  CUR(PS.nv2[0], PS.nv2[1], S(14, 2) - 0.1, 0.5); CLICK(PS.nv2[0], PS.nv2[1], W(14, 2, 'In Tools', 0.3)); NAV('#uiS', 2, W(14, 2, 'In Tools', 0.3), 4);
+  CUR(PS.add[0], PS.add[1], W(14, 2, 'select', -0.1), 0.5); CLICK(PS.add[0], PS.add[1], W(14, 2, 'Add a tool', 0.1));
+  SWAP('#sL1', '#sL2', W(14, 2, 'Add a tool', 0.4));
+  CUR(PS.b0[0], PS.b0[1], S(14, 3), 0.5); CLICK(PS.b0[0], PS.b0[1], S(14, 3) + 0.7); SWAP('#sL2', '#sL3', S(14, 3) + 0.9);
+  CUR(PS.cr[0], PS.cr[1], S(14, 3) + 1.2, 0.5); CLICK(PS.cr[0], PS.cr[1], W(14, 3, 'new connection', 0)); ON('#sF1', W(14, 3, 'new connection', 0.3), 0.3);
+  ON('#sAuthL', W(14, 3, 'pick the authentication', 0), 0.2); CUR(PS.au[0], PS.au[1] + 60, W(14, 3, 'pick the authentication', 0), 0.5);
+  OFF('#sAuthL', W(14, 3, 'enter', -0.4), 0.2); OFF('#sAuthV0', W(14, 3, 'enter', -0.4), 0.1); ON('#sAuthV1', W(14, 3, 'enter', -0.35), 0.1);
+  ON('#sF2', W(14, 3, 'enter', 0), 0.3); ON('#sF3', W(14, 3, 'choose the knowledge', 0), 0.3);
+  SWAP('#sL3', '#sL2', S(14, 4) - 0.1);
+  CUR(PS.b1[0], PS.b1[1], S(14, 4), 0.5); CLICK(PS.b1[0], PS.b1[1], W(14, 4, 'add it', 0)); POPX('#sToast', W(14, 4, 'add it', 0.1));
+  OFF('#sToast', S(14, 5) - 0.1, 0.2);
+  CUR(PS.b2[0], PS.b2[1], S(14, 5) - 0.2, 0.5); CLICK(PS.b2[0], PS.b2[1], W(14, 5, 'M C P', 0)); SWAP('#sL2', '#sL5', W(14, 5, 'M C P', 0.3));
+  CUR(PS.w0[0], PS.w0[1], W(14, 5, 'pick', -0.1), 0.5); CLICK(PS.w0[0], PS.w0[1], W(14, 5, 'pick', 0.5));
+  SWAP('#sL5', '#sL6', S(14, 6));
+  CUR(PS.ds[0], PS.ds[1], S(14, 6) + 0.2, 0.5); CLICK(PS.ds[0], PS.ds[1], W(14, 6, 'rewrite', 0)); OFF('#dOld', W(14, 6, 'rewrite', 0.1), 0.2); ON('#dNew', W(14, 6, 'rewrite', 0.2), 0.3);
+  CUR(PS.nv3[0], PS.nv3[1], W(14, 6, 'test', -0.4), 0.6); CLICK(PS.nv3[0], PS.nv3[1], W(14, 6, 'Preview', 0)); NAV('#uiS', 3, W(14, 6, 'Preview', 0), 4); SWAP('#sL6', '#sL7', W(14, 6, 'Preview', 0.2));
+  OFF('#cur', E(14, 6), 0.2);
+
+  /* ── 15 EXAM D ── */
+  OFF('#uiS', S(15, 0) - 0.4, 0.2); OFF('#uiBack', S(15, 0) - 0.4, 0.2);
+  EXAM('exD', 15, { pause: 6, reveal: 7, trap: 1, right: 2, q: S(15, 1) - 0.1, opt: [S(15, 3), S(15, 4), S(15, 5)], end: S(16, 0) - 0.1 });
+  tl.fromTo('#exD_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(15, 7) + 1.8);
+  tl.fromTo('#exD_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(15, 8));
+  ON('#exD_p', S(15, 7) + 1.8, 0.4);
+  tl.fromTo('#dCube', { boxShadow: '0 0 0 0 rgba(255,209,102,0)' }, { boxShadow: '0 0 0 14px rgba(255,209,102,.9)', duration: 0.4 }, S(15, 8));
+  ON('#dChart', S(15, 8) + 0.3, 0.3);
+  tl.fromTo('.dChartb', { scaleY: 0 }, { scaleY: 1, duration: 0.3, stagger: 0.1 }, S(15, 8) + 0.4);
+  tl.to('#dChart', { x: 360, duration: 1.6, ease: 'power2.inOut' }, S(15, 8) + 1.2);
+  tl.to('#dLn', { backgroundColor: '#6be3a0', duration: 0.6 }, S(15, 8) + 1.2);
+
+  /* ── 16 Tuesday, solved ── */
+  CAM(1920, 1080, 0.5, S(16, 0) - 0.4, 0.01);
+  OFF('#tagBot', S(16, 0) - 0.4, 0.2);
+  [0, 1, 2].forEach((k) => tl.fromTo('#p' + k, { opacity: 0 }, { opacity: 1, duration: 0.5 }, S(16, 0) - 0.3));
+  [['an0', '#bF', '#cbF', 1], ['an1', '#bX', '#cbX', 2], ['an2', '#bW', '#cbW', 3]].forEach(([a, b, c, j]) => {
+    POP('#' + a, S(16, j) + 0.2);
+    tl.fromTo(b, { scale: 1 }, { scale: 1.05, duration: 0.3, yoyo: true, repeat: 3, transformOrigin: '50% 50%' }, S(16, j) + 0.2);
+    tl.fromTo(c, { strokeWidth: 14 }, { strokeWidth: 28, duration: 0.3, yoyo: true, repeat: 3 }, S(16, j) + 0.2);
+  });
+  TAG('#lbTeam', W(16, 1, 'compliance', 0));
+  POP('#roP', W(16, 3, 'read-only', 0));
+  OFF(['.sb', '#roP', '#p0', '#p1', '#p2', '#lbTeam'], S(16, 4) - 0.2, 0.5);
+  ON('#rcBack', S(16, 4) - 0.2, 0.5);
+  [0, 1, 2].forEach((k) => POPX('#rcd' + k, S(16, 4) + 0.4 + k * 0.9));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

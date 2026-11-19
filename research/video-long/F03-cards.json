@@ -1,0 +1,12 @@
+{
+"1": ["Two receptionists", [["Classic", "List of phrases, one department"], ["Generative", "Understands, several departments"]]],
+"2": ["Classic orchestration", [["Chooses by", "Trigger phrases"], ["Two wishes", "Only one topic runs"]]],
+"4": ["What changes", [["Topics", "Description vs trigger phrases"], ["Tools", "Chosen vs only from a topic"], ["Knowledge", "Proactive vs fallback"], ["Missing data", "Asks itself vs Question nodes"]]],
+"6": ["Good description", [["Length", "One or two sentences"], ["Style", "Active voice, user keywords"], ["Border", "Says what it does not do"]]],
+"7": ["Twin descriptions", [["Similar descriptions", "Unpredictable selection"], ["Fix", "Different descriptions with borders"]]],
+"10": ["Switch and watch", [["Setting", "Settings › Generative AI › Orchestration: Yes"], ["Trigger shows", "The agent chooses"], ["Watch", "Test pane › activity map"]]],
+"11": ["Admin switch", [["Generative off in environment", "Agents there use classic only"]]],
+"12": ["Three harnesses", [["Standard", "Topics and flows"], ["Microsoft Copilot harness", "Reasoning, skills, memory, Copilot Credits"], ["Copilot chat harness", "Extends Microsoft Copilot Chat"]]],
+"13": ["Moving harness", [["Transfer", "Not possible, either way"], ["A move is", "Re-architecture"]]],
+"15": ["Microsoft Copilot harness tabs", [["Build", "Identity, knowledge, tools, skills, model, memory"], ["Preview", "Test"], ["Evaluate", "Test sets, quality"], ["Monitor", "Health, sessions, credits"]]]
+}

@@ -1,0 +1,41 @@
+{"brand": "AB-620 · Module 5 · Lesson 1", "scenes": [
+ {"type": "hub", "header": {"kicker": "MCP · Model Context Protocol", "title": "A universal plug"},
+  "center": {"icon": "apps", "title": "MCP server", "at": "lets a server"},
+  "topLabel": "Offers",
+  "top": [{"icon": "toolbox", "title": "Tools", "at": "tools and"}, {"icon": "document_text", "title": "Resources", "at": "resources"}],
+  "bottomLabel": "Used from",
+  "bottom": [
+   {"icon": "bot", "title": "Copilot Studio", "at": "from Copilot Studio"},
+   {"icon": "sparkle", "title": "Other compatible clients", "at": "other compatible"},
+   {"icon": "search", "title": "The agent reads its tool list", "at": "only reads", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Allowed transport", "title": "Streamable HTTP only"},
+  "nodes": [
+   {"icon": "bot", "title": "Copilot Studio", "at": "In Copilot Studio"},
+   {"icon": "checkmark_circle", "title": "Streamable HTTP", "sub": "The only transport", "accent": true, "at": "Streamable"},
+   {"icon": "apps", "title": "MCP server", "sub": "Must offer it", "at": "H T T P"}],
+  "below": [
+   {"text": "SSE — not supported since August 2025", "at": "S S E", "strike": true},
+   {"icon": "flag", "text": "Check it first: a classic trap", "at": "classic exam trap", "solid": true}]},
+ {"type": "path", "header": {"kicker": "The wizard · recommended", "title": "Tools › Add a tool › New tool › MCP"},
+  "crumbs": [
+   {"icon": "toolbox", "text": "Tools", "at": "Go to Tools"},
+   {"icon": "cursor_click", "text": "Add a tool", "at": "Add a tool"},
+   {"icon": "wrench", "text": "New tool", "at": "New tool"},
+   {"icon": "apps", "text": "Model Context Protocol", "accent": true, "at": "Model Context Protocol"}],
+  "cards": [
+   {"icon": "tag", "title": "Name · description · server URL", "at": "type a name", "hi": true},
+   {"icon": "sparkle", "title": "The orchestrator reads the description", "desc": "Write it clearly", "at": "orchestrator reads", "hi": true},
+   {"icon": "flag", "title": "Needs generative orchestration", "at": "also needs", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Authentication", "title": "None · API key · OAuth 2.0"},
+  "rows": [
+   {"icon": "key", "title": "OAuth 2.0: three modes", "desc": "Dynamic discovery · Dynamic · Manual", "at": "three modes", "hi": true},
+   {"icon": "wrench", "title": "Other way: a custom connector", "desc": "Built from an OpenAPI file", "at": "custom connector", "hi": true},
+   {"icon": "tag", "title": "x-ms-agentic-protocol", "desc": "Marks the operation", "at": "agentic protocol", "hi": true},
+   {"icon": "plug_connected", "title": "Then create the connection", "at": "create the connection", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Governance and the exam", "title": "DLP governs MCP too"},
+  "nodes": [
+   {"icon": "bot", "title": "Add to agent", "at": "Add to agent"},
+   {"icon": "plug_connected", "title": "Power Platform connectors", "sub": "Under the hood", "at": "uses Power Platform"},
+   {"icon": "shield_checkmark", "title": "Data policies (DLP)", "sub": "Block unapproved servers", "accent": true, "at": "D L P"}],
+  "below": [{"icon": "sparkle", "text": "The orchestrator picks tools → generative orchestration required", "at": "is required", "solid": true}]}
+]}

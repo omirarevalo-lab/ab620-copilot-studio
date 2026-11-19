@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>F03 · Generative orchestration vs classic topics · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .dr { position: absolute; width: 240px; height: 500px; box-sizing: border-box; background: #fff; border: 8px solid #1f2a44; border-radius: 120px 120px 0 0; display: flex; align-items: center; justify-content: center; color: #2f5bd3; isolation: isolate; }
+  .dr .ic { width: 120px; height: 120px; }
+  .dr .dg { position: absolute; inset: -30px; border-radius: 150px 150px 24px 24px; background: #ffd166; opacity: 0; z-index: -1; }
+  .pl { position: absolute; width: 392px; height: 128px; box-sizing: border-box; border-radius: 22px; background: #fff; border: 5px solid #1f2a44; font-size: 44px; font-weight: 700; line-height: 1.15; color: #141821; opacity: 0; box-shadow: var(--shadow); }
+  .pl span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 8px; }
+  .rec { position: absolute; width: 180px; height: 400px; isolation: isolate; opacity: 0; }
+  .rec .gl { position: absolute; left: -40px; top: 20px; width: 260px; height: 400px; border-radius: 130px; background: #ffd166; opacity: 0; z-index: -1; }
+  .wc { position: absolute; display: flex; align-items: center; gap: 16px; padding: 14px 28px; background: #fff; border: 6px solid; border-radius: 30px; font-size: 46px; font-weight: 800; white-space: nowrap; box-shadow: var(--shadow); opacity: 0; }
+  .wc .ic { width: 58px; height: 58px; }
+  .bn { position: absolute; left: 50%; top: 70px; padding: 18px 54px; background: #fff; border: 8px solid #1f2a44; border-radius: 44px; font-size: 70px; font-weight: 800; white-space: nowrap; color: #141821; box-shadow: 0 30px 80px rgba(16,24,40,.2); opacity: 0; }
+  .sbar2 { position: absolute; width: 40px; background: repeating-linear-gradient(0deg, #c4392f 0 40px, #fff 40px 80px); border: 5px solid #141821; border-radius: 10px; box-sizing: border-box; opacity: 0; }
+  .tcard { position: absolute; left: 360px; top: 260px; width: 1200px; height: 460px; box-sizing: border-box; background: #fff; border: 8px solid #2f5bd3; border-radius: 36px; padding: 34px 44px; box-shadow: 0 30px 80px rgba(16,24,40,.25); opacity: 0; }
+  .tcard h5 { margin: 0 0 24px; font-size: 56px; font-weight: 800; display: flex; align-items: center; gap: 18px; }
+  .tcard h5 .ic { width: 70px; height: 70px; color: #2f5bd3; }
+  .tcard .lb2 { font-size: 40px; font-weight: 700; color: #5d6472; margin-bottom: 22px; }
+  .phs { position: absolute; left: 0; height: 80px; border-radius: 22px; background: #eef1f7; }
+  .phr { display: block; width: fit-content; margin-bottom: 20px; font-size: 56px; font-weight: 800; background: #e6ecfb; color: #2f5bd3; border-radius: 22px; padding: 12px 40px; opacity: 0; }
+  .bar2 { position: absolute; height: 40px; width: 240px; border-radius: 20px; background: #c9ced8; opacity: 0; overflow: hidden; }
+  .bar2 i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: #2f5bd3; border-radius: 20px; }
+  .envp { position: absolute; width: 740px; height: 360px; box-sizing: border-box; background: #fff; border: 7px solid #1f2a44; border-radius: 30px; padding: 24px 34px; box-shadow: var(--shadow); opacity: 0; }
+  .envp small { display: block; font-size: 44px; font-weight: 700; color: #5d6472; }
+  .envp b { display: block; font-size: 54px; font-weight: 800; margin: 18px 0 30px; line-height: 1.1; }
+  .envt { display: flex; align-items: center; gap: 24px; font-size: 64px; font-weight: 800; color: #c4392f; }
+  .envt i { width: 170px; height: 90px; border-radius: 45px; background: #8a93a6; position: relative; display: block; }
+  .envt i:after { content: ""; position: absolute; left: 8px; top: 8px; width: 74px; height: 74px; border-radius: 50%; background: #fff; }
+  .bd { position: absolute; box-sizing: border-box; opacity: 0; }
+  .trg { position: absolute; left: 34px; top: 92px; font-size: 42px; font-weight: 800; padding: 14px 30px; border-radius: 16px; background: #eef1f7; color: #5d6472; }
+  .trg.b { background: #e6ecfb; color: #2f5bd3; opacity: 0; }
+  .opt { display: flex; align-items: center; gap: 22px; font-size: 42px; font-weight: 700; padding: 16px 0; }
+  .rd { width: 44px; height: 44px; border-radius: 50%; border: 5px solid #8a93a6; box-sizing: border-box; position: relative; display: block; }
+  .rd s { position: absolute; inset: 6px; border-radius: 50%; background: #2f5bd3; display: block; transform: scale(0); }
+  .mn { height: 80px; border: 5px solid #8a93a6; border-radius: 18px; font-size: 36px; font-weight: 800; color: #8a93a6; display: flex; align-items: center; padding: 0 26px; margin-bottom: 26px; box-sizing: border-box; background: #fff; }
+  .fc2 { position: relative; display: flex; align-items: center; gap: 16px; height: 110px; padding: 0 30px; border: 5px solid #c9ced8; border-radius: 22px; font-size: 40px; font-weight: 800; background: #fff; margin-bottom: 22px; width: 560px; box-sizing: border-box; opacity: 0; }
+  .fc2 .ic { width: 56px; height: 56px; color: #2f5bd3; }
+  .stp { position: absolute; right: 34px; top: 16px; font-size: 32px; font-weight: 800; background: #ffffff26; padding: 6px 22px; border-radius: 999px; opacity: 0; }
+  #board { position: absolute; left: 90px; top: 60px; width: 1740px; box-sizing: border-box; background: #fff; border-radius: 36px; box-shadow: 0 30px 80px rgba(16,24,40,.25); padding: 26px 36px 20px; opacity: 0; }
+  #board h2 { margin: 0 0 6px; font-size: 64px; font-weight: 800; }
+  .brow { display: grid; grid-template-columns: 340px 650px 650px; align-items: center; height: 118px; border-bottom: 3px solid #e2e5eb; font-size: 42px; font-weight: 800; opacity: 0; line-height: 1.15; }
+  .brow.bhd { height: 80px; font-size: 50px; }
+  .bgc { color: #2f5bd3; } .bcc { color: #5d6472; }
+  .tw { position: absolute; top: 300px; width: 830px; height: 440px; box-sizing: border-box; background: #fff; border: 8px solid #2f5bd3; border-radius: 36px; padding: 30px 40px; font-size: 54px; font-weight: 700; line-height: 1.25; box-shadow: 0 30px 80px rgba(16,24,40,.25); opacity: 0; }
+  .tw h5 { margin: 0 0 20px; font-size: 50px; font-weight: 800; color: #2f5bd3; display: flex; align-items: center; gap: 16px; }
+  .tw h5 .ic { width: 64px; height: 64px; }
+  .tw .nt { color: #c4392f; }
+  .uw .nav div { font-size: 34px; } .uw .crumb, .uw .btn, .uw .fld, .uw .fld small, .uw .dd, .uw .bar, .uw .bar .hc { font-size: 32px; }
+  .sk { height: 22px; border-radius: 11px; background: var(--line); margin: 30px 0; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* F03 · Generative orchestration vs classic topics. World 3840x2160.
+     Lobby (cam 1200,1100 @0.8): doors y470-970 at x 360/760/1160/1560/1960 · plates y990 · receptionists top 1140 (classic 650, generative 1410) · Nexo 850,1100 · desk 480-1580 y1480 · employee 1860,1460.
+     Harness district x2320-3740 (cam 2640,1100) · maker 2400,1560 · admin scene bottom strip y1620-2100. */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', NAVY = '#1f2a44', PUR = '#8a5cd6';
+  const PX = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 46) + 'px;');
+  const SBX = (id, x, y, h, cls, fs) => say(id, x, y, h, cls).replace('style="', 'style="font-size:' + (fs || 44) + 'px;');
+  const MX = 2400, MY = 1560;
+  const DX = { st: 360, cr: 760, tl: 1160, kn: 1560, ot: 1960 };
+
+  /* ───────── district (ghost until scene 12) ───────── */
+  const brick = 'background-color:#c98f6b;background-image:linear-gradient(#a8704f 4px,transparent 4px),linear-gradient(90deg,#a8704f 4px,transparent 4px);background-size:92px 46px;border:8px solid #8a5a40;border-radius:16px 16px 0 0';
+  ADD(`<div class="bd" id="bd1" style="left:2320px;top:620px;width:460px;height:880px;${brick}"></div>
+    <div class="bd" id="bd2" style="left:2800px;top:560px;width:460px;height:940px;background:linear-gradient(160deg,#dbe9ff,#a9c7ff 60%,#7ea1e6);border:8px solid #2f5bd3;border-radius:24px 24px 0 0">${IC('sparkle', 'position:absolute;left:180px;top:30px;width:100px;height:100px;color:#fff')}</div>
+    <div class="bd" id="bd3" style="left:3280px;top:620px;width:460px;height:880px;background:#efe6ff;border:8px solid #8a5cd6;border-radius:110px 110px 0 0">${IC('chat', 'position:absolute;left:130px;top:80px;width:200px;height:200px;color:#8a5cd6')}</div>`);
+  ADD(PX('sg1', 2550, 490, 'Standard<br>harness', 'navy', 52) + PX('sg2', 3030, 430, 'Microsoft Copilot<br>harness', 'blue', 50) + PX('sg3', 3510, 490, 'Copilot chat<br>harness', 'purple', 52));
+  ADD(PX('p1a', 2550, 900, 'topics', 'navy', 46) + PX('p1b', 2550, 1000, 'flows', 'navy', 46));
+  ADD(PX('p2a', 3030, 700, 'skills', 'blue', 46) + PX('p2b', 3030, 800, 'memory', 'blue', 46) + PX('p2c', 3030, 900, 'sandbox', 'blue', 46) + PX('p2d', 3030, 1000, 'Copilot Credits', 'blue', 46));
+  ADD(PX('fm', 3030, 1110, 'formerly: GitHub<br>Copilot harness', 'navy', 48) + PX('nogh', 3030, 1250, 'NOT the GitHub<br>Copilot service', 'red', 46) + PX('prev', 3030, 1110, 'production-ready<br>preview', 'amber', 44));
+
+  /* ───────── lobby ───────── */
+  const DOORS = [['st', 'clipboard_task_list_ltr'], ['cr', 'ticket_diagonal'], ['tl', 'wrench'], ['kn', 'book_open'], ['ot', 'bot']];
+  ADD(DOORS.map(([k, ic]) => `<div class="dr" id="dr${k}" style="left:${DX[k] - 120}px;top:470px"><i class="dg" id="dg${k}"></i>${IC(ic)}</div>`).join(''));
+  ADD(PX('sgst', DX.st, 380, 'Ticket status', 'navy', 48) + PX('sgcr', DX.cr, 430, 'Create ticket', 'navy', 48) + PX('sgtl', DX.tl, 380, 'Tools', 'navy', 48) + PX('sgkn', DX.kn, 430, 'Knowledge', 'navy', 48) + PX('sgot', DX.ot, 380, 'Other agent', 'navy', 48));
+  const PLT = { st: ['Checks ticket status', 'Handles ticket requests'], cr: ['Creates a new ticket', 'Manages ticket questions'], tl: ['Runs actions'], kn: ['Answers from docs'], ot: ['Hands off to a partner'] };
+  ADD(Object.keys(PLT).map((k) => `<div class="pl" id="pl${k}" style="left:${DX[k] - 196}px;top:990px">${PLT[k].map((t, i) => `<span id="pl${k}${i}"${i ? ' style="opacity:0"' : ''}>${t}</span>`).join('')}</div>`).join(''));
+  const cbl = (id, d, col, w, dash) => cable(id, d, col, w, dash);
+  const DB = 985;
+  ADD(`<svg class="w" id="cabS" style="left:0;top:0" width="3840" height="1500" viewBox="0 0 3840 1500">
+    ${cbl('cC', `M650 1150 C650 1040 ${DX.st} 1080 ${DX.st} ${DB}`, '#5d6472', 14)}
+    ${cbl('gS', `M1410 1150 C1410 1030 ${DX.st} 1070 ${DX.st} ${DB}`, BLUE, 14, '4 28')}
+    ${cbl('gC', `M1410 1150 C1410 1040 ${DX.cr} 1060 ${DX.cr} ${DB}`, BLUE, 14, '4 28')}
+    ${cbl('g3S', `M1410 1150 C1410 1030 ${DX.st} 1070 ${DX.st} ${DB}`, BLUE, 14)}
+    ${cbl('g3C', `M1410 1150 C1410 1040 ${DX.cr} 1060 ${DX.cr} ${DB}`, BLUE, 14)}
+    ${cbl('g3T', `M1410 1150 C1410 1040 ${DX.tl} 1050 ${DX.tl} ${DB}`, BLUE, 14)}
+    ${cbl('g3K', `M1410 1150 C1410 1040 ${DX.kn} 1050 ${DX.kn} ${DB}`, BLUE, 14)}
+    ${cbl('g3O', `M1410 1150 C1410 1030 ${DX.ot} 1070 ${DX.ot} ${DB}`, BLUE, 14)}
+    ${cbl('nS', `M905 1280 C500 1280 ${DX.st} 1180 ${DX.st} ${DB}`, BLUE, 14)}
+    ${cbl('nC', `M905 1250 C700 1250 ${DX.cr} 1150 ${DX.cr} ${DB}`, BLUE, 14)}
+    <line id="brd" x1="560" y1="450" x2="560" y2="1130" stroke="#c4392f" stroke-width="12" stroke-dasharray="22 16" stroke-linecap="round" opacity="0"/>
+  </svg>`);
+  ADD(PX('bd1n', DX.st, 1040, '1', 'blue', 50) + PX('bd2n', DX.cr, 1040, '2', 'blue', 50) + PX('pName', DX.st, 790, 'Name', 'blue', 46) + PX('pIO', DX.st, 880, 'Inputs / outputs', 'blue', 46) + PX('lbBrd', 560, 1180, 'border', 'amber', 54));
+
+  const rec = (id, cx, col, extra) => `<div class="rec" id="${id}" style="left:${cx - 90}px;top:1140px"><i class="gl" id="${id}g"></i><div style="transform:scale(2);transform-origin:0 0;width:90px;height:200px">${person(col)}</div>${extra || ''}</div>`;
+  ADD(rec('rC', 650, '#8a93a6', `<svg style="position:absolute;left:120px;top:210px" width="130" height="160" viewBox="0 0 130 160"><rect x="8" y="14" width="114" height="140" rx="12" fill="#fff" stroke="#5d6472" stroke-width="7"/><rect x="38" y="4" width="54" height="22" rx="8" fill="#5d6472"/><path d="M28 56 H102 M28 84 H102 M28 112 H80" stroke="#8a93a6" stroke-width="8" stroke-linecap="round"/></svg>`));
+  ADD(rec('rG', 1410, '#2f5bd3', `<div style="position:absolute;left:150px;top:20px;width:80px;height:80px;border-radius:50%;background:#2f5bd3;color:#fff;display:flex;align-items:center;justify-content:center">${IC('sparkle', 'width:50px;height:50px')}</div>`));
+  ADD(agent('nexo', 850, 1100, { folder: '' }));
+  ADD(`<div class="w" id="desk1" style="left:480px;top:1480px;width:1100px;height:130px;border-radius:20px;background:#1f2a44;color:#fff;font-size:60px;font-weight:800;display:flex;align-items:center;justify-content:center">Nexo · IT agent</div><div class="w" id="desk2" style="left:480px;top:1470px;width:1100px;height:22px;border-radius:12px;background:#3a4a78"></div>`);
+  ADD(`<div class="w" id="emp" style="left:1860px;top:1460px;width:135px;height:300px;opacity:0"><div style="transform:scale(1.5);transform-origin:0 0;width:90px;height:200px">${person('#8a5cd6')}</div></div>`);
+  ADD(`<div class="wc" id="wc1" style="left:1600px;top:1230px;border-color:${RED};color:${RED}">${IC('warning')}Laptop will not turn on</div><div class="wc" id="wc2" style="left:1640px;top:1345px;border-color:${BLUE};color:${BLUE}">${IC('document_text')}How is case 123?</div>`);
+  ADD(PX('lost', 1930, 1700, 'lost', 'navy', 50));
+  ADD(`<div class="w" id="qm" style="left:965px;top:960px;width:130px;height:130px;border-radius:50%;background:#fff;border:8px solid #d98a00;color:#d98a00;font-size:100px;font-weight:800;display:flex;align-items:center;justify-content:center;opacity:0">?</div>`);
+  ADD(PX('lbC', 650, 1640, 'Classic: phrase list', 'navy', 46) + PX('lbG', 1410, 1640, 'Generative: understands,<br>several departments', 'blue', 46));
+  /* bars for classic similarity */
+  ADD(`<div class="bar2" id="bs1" style="left:${DX.st - 120}px;top:1000px"><i id="bs1i"></i></div><div class="bar2" id="bs2" style="left:${DX.cr - 120}px;top:1000px"><i id="bs2i"></i></div>`);
+  ADD(PX('best', DX.st, 1070, 'best match', 'green', 46));
+  /* scene 3 extras */
+  ADD(`<div class="w" id="nbot" style="left:1640px;top:1290px;opacity:0">${miniBot(230)}</div>` + PX('dfl', 1750, 1230, 'Default for new agents', 'green', 46));
+  ADD(`<svg class="w" id="pbox" style="left:1900px;top:1530px;opacity:0" width="440" height="200" viewBox="0 0 440 200"><rect x="6" y="6" width="428" height="188" rx="16" fill="#e2c9a0" stroke="#8a5a40" stroke-width="8"/><rect x="190" y="6" width="60" height="188" fill="#c9a574"/><text x="220" y="124" font-size="44" font-weight="800" fill="#4a2f12" text-anchor="middle" paint-order="stroke" stroke="#e2c9a0" stroke-width="10">Prebuilt agent</text></svg>` + PX('cfg', 2120, 1450, 'config decides', 'amber', 46));
+  /* coin (scene 7) */
+  ADD(`<div class="w" id="coin" style="left:1530px;top:1190px;width:120px;height:120px;border-radius:50%;background:#ffd166;border:8px solid #d98a00;color:#7a4d00;font-size:70px;font-weight:800;display:flex;align-items:center;justify-content:center;opacity:0">?</div>` + PX('unp', 1640, 1130, 'unpredictable', 'red', 46));
+  /* scene 9 */
+  ADD(SBX('dev', 1030, 990, 'Device?', 'blue', 52) + SBX('rep', 1928, 1240, 'Case 123: in progress<br>New ticket: created', 'green', 52));
+  ADD(PX('c123', 1000, 1330, 'case 123', 'purple', 46) + PX('ovar', 360, 1060, 'output variable', 'purple', 46));
+  /* scene 11 admin */
+  ADD(admin('adm', 100, 1600).replace('style="', 'style="opacity:0;'));
+  ADD(`<div class="envp" id="envp" style="left:640px;top:1720px"><small>Environment: Production</small><b>Generative<br>orchestration</b><div class="envt"><i></i>Off</div></div>`);
+  ADD([0, 1, 2].map((k) => `<div class="w" id="rb${k}" style="left:1430px;top:${1690 + k * 140}px;opacity:0">${miniBot(110)}</div>` + chip('ry' + k, 1560, 1700 + k * 140, '', 'Agent: Yes', 'blue').replace('style="', 'style="width:340px;height:100px;font-size:44px;') + PX('rc' + k, 2160, 1704 + k * 140, 'classic only', 'red', 46)).join(''));
+  ADD(PX('ewin', 1000, 1612, 'The environment rule wins', 'navy', 60));
+  /* scene 13 vans */
+  const van = (id, x, y, flip) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px;opacity:0${flip ? ';transform:scaleX(-1)' : ''}" width="300" height="190" viewBox="0 0 300 190"><rect x="10" y="40" width="190" height="110" rx="10" fill="#fff" stroke="#1f2a44" stroke-width="8"/><path d="M200 70 H250 L290 110 V150 H200 Z" fill="#fff" stroke="#1f2a44" stroke-width="8" stroke-linejoin="round"/><circle cx="70" cy="156" r="26" fill="#1f2a44"/><circle cx="240" cy="156" r="26" fill="#1f2a44"/><g transform="translate(70 -6)"><rect x="6" y="48" width="52" height="40" rx="14" fill="#2f5bd3"/><circle cx="24" cy="66" r="5" fill="#fff"/><circle cx="40" cy="66" r="5" fill="#fff"/></g></svg>`;
+  ADD(van('vanR', 3250, 1540, true) + van('vanL', 2200, 1540));
+  ADD(`<div class="sbar2" id="barr" style="left:2770px;top:1500px;height:280px"></div><div class="w" id="barx" style="left:2740px;top:1400px;opacity:0">${IC('dismiss_circle', 'width:100px;height:100px;color:#c4392f;background:#fff;border-radius:50%')}</div>`);
+  ADD(`<div class="w" id="sbot" style="left:2450px;top:1230px;opacity:0">${miniBot(200)}</div>` + PX('okp', 2550, 1170, 'Working: no need to move', 'green', 52));
+  ADD(`<svg class="w" id="crane" style="left:2960px;top:1080px;opacity:0" width="320" height="420" viewBox="0 0 320 420"><rect x="40" y="380" width="200" height="30" rx="8" fill="#5d6472"/><rect x="100" y="60" width="40" height="324" fill="#d98a00"/><path d="M100 80 L240 30 M100 160 L240 70" stroke="#d98a00" stroke-width="14" fill="none"/><rect x="60" y="40" width="260" height="30" rx="8" fill="#d98a00"/><line x1="290" y1="70" x2="290" y2="200" stroke="#1f2a44" stroke-width="8"/><rect x="250" y="200" width="80" height="60" rx="8" fill="#2f5bd3"/></svg>` + PX('rearch', 3110, 1570, 're-architecture', 'amber', 50));
+  /* maker */
+  ADD(maker('mk', MX, MY).replace('style="', 'style="opacity:0;'));
+
+  /* ───────── UI windows ───────── */
+  const NAV5 = ['Overview', 'Topics', 'Settings', 'Tools', 'Test'];
+  const winHTML = (w, bar) => uiWindow(w, { title: 'Nexo · IT agent', nav: NAV5, on: 0, bar: bar || '', body: `
+    <div class="lay" id="${w}_L0" style="opacity:1"><div class="crumb">Overview</div><h3>Nexo</h3><div class="row"><b>Instructions</b><span class="btn">Open</span></div><div class="row"><b>Knowledge</b><span class="btn">Open</span></div><div class="row"><b>Tools</b><span class="btn">Open</span></div></div>
+    <div class="lay" id="${w}_L1"><div class="crumb">Settings</div><h3>Settings</h3><div class="row"><b>Generative AI</b><span class="btn" id="${w}_gen">Open</span></div><div class="sk" style="width:520px"></div><div class="sk" style="width:380px"></div></div>
+    <div class="lay" id="${w}_L2"><div class="crumb">Settings › Generative AI</div><h3>Generative AI</h3><div style="font-size:40px;font-weight:800;margin-bottom:12px">Orchestration</div><div style="font-size:34px;color:var(--muted);margin-bottom:22px;width:1100px;line-height:1.3">Use generative orchestration for your agent's responses?</div>
+      <div class="opt" id="${w}_yes"><i class="rd"><s></s></i>Yes</div><div class="opt" id="${w}_no"><i class="rd"><s style="transform:scale(1)"></s></i>No</div></div>
+    <div class="lay" id="${w}_L3"><div class="crumb">Topics › Ticket status</div><h3>Ticket status</h3><div style="position:relative;width:1080px;height:400px;border:3px solid var(--line2);border-radius:22px;padding:26px 34px;box-sizing:border-box">
+      <div style="font-size:36px;font-weight:800;color:var(--accent);display:flex;gap:14px;align-items:center">${IC('flow', 'width:46px;height:46px')}Trigger</div>
+      <div class="trg" id="${w}_tr0">User says a phrase</div><div class="trg b" id="${w}_tr1">The agent chooses</div>
+      <div class="fld" id="${w}_ds" style="position:absolute;left:34px;top:190px;width:1010px;height:170px;opacity:0"><small>Description</small>
+        <span id="${w}_dsA" style="position:absolute;left:22px;top:52px;font-size:34px;opacity:0">Checks tickets.</span><span id="${w}_dsB" style="position:absolute;left:22px;top:52px;right:22px;font-size:34px;line-height:1.3">Checks the status of an existing ticket. Does not create tickets.</span></div></div></div>
+    <div class="lay" id="${w}_L4"><div class="crumb">Test</div><h3>Test panel</h3>
+      <div id="${w}_q" style="opacity:0;position:absolute;left:56px;top:140px;width:520px;background:var(--accent);color:#fff;border-radius:24px;padding:20px 28px;font-size:36px;font-weight:700;line-height:1.3;box-sizing:border-box">My laptop will not turn on, and how is case 123 going?</div>
+      <div id="${w}_mp" style="opacity:0;position:absolute;left:680px;top:130px;width:520px"><div style="font-size:36px;font-weight:800;margin-bottom:22px;color:var(--muted)">Activity map</div>
+        <div class="mn" id="${w}_n0">Plan: 2 intentions</div><div class="mn" id="${w}_n1">Ticket status</div><div class="mn" id="${w}_n2">Create ticket</div><div class="mn" id="${w}_n3">Reply</div></div></div>
+    <div class="lay" id="${w}_L5"><div class="crumb">Topics</div><h3>Topics</h3><div class="row" id="${w}_trow"><b>Ticket status</b><span class="btn">Open</span></div><div class="row"><b>Create ticket</b><span class="btn">Open</span></div></div>
+    <div class="lay" id="${w}_L6"><div class="crumb">Tools › Get ticket</div><h3>Get ticket</h3>
+      <div class="fld" id="${w}_tn" style="width:1000px;margin-bottom:26px"><small>Name</small>Get ticket status</div>
+      <div class="fld" id="${w}_td" style="width:1000px"><small>Description</small>Gets the status of an existing ticket from its case number.</div></div>` });
+  const stepsBar = [1, 2, 3, 4, 5, 6].map((k) => `<span class="stp" id="uiS_sp${k}">Step ${k}</span>`).join('');
+  ADDU(winHTML('uiO', ''));
+  ADDU(winHTML('uiS', stepsBar));
+  const hcF = `<span class="hc" id="fHc" style="position:absolute;right:34px;top:14px;background:#2f5bd3">${IC('sparkle')}Microsoft Copilot harness</span>`;
+  ADDU(uiWindow('uiF', { title: 'Nexo · IT agent', nav: ['Build', 'Preview', 'Evaluate', 'Monitor'], on: 0, bar: hcF, body: `
+    <div class="lay" id="fL0" style="opacity:1"><div class="crumb">Build</div><h3>Build</h3><div style="display:flex;flex-wrap:wrap;gap:22px 30px;width:1220px">
+      ${[['person', 'Identity'], ['book_open', 'Knowledge'], ['wrench', 'Tools'], ['sparkle', 'Skills'], ['brain_circuit', 'Model'], ['database', 'Memory']].map(([ic, t], k) => `<div class="fc2" id="fb${k}">${IC(ic)}${t}</div>`).join('')}</div></div>
+    <div class="lay" id="fL1"><div class="crumb">Preview</div><h3>Preview</h3><div style="width:640px;background:var(--accent);color:#fff;border-radius:24px;padding:18px 28px;font-size:36px;font-weight:700">Hi Nexo, can you help me?</div><div style="margin:20px 0 0 120px;width:640px;background:#eef1f7;border:3px solid var(--line2);border-radius:24px;padding:18px 28px;font-size:36px;font-weight:700">Sure. What do you need?</div><div style="margin-top:34px;font-size:38px;font-weight:800;color:var(--muted)">Test your agent before you publish</div></div>
+    <div class="lay" id="fL2"><div class="crumb">Evaluate</div><h3>Evaluate</h3><div class="row"><b>Test set: ticket questions</b><span class="note">${IC('checkmark_circle')}Quality</span></div><div class="row"><b>Test set: new tickets</b><span class="note">${IC('checkmark_circle')}Quality</span></div><div style="margin-top:30px;font-size:38px;font-weight:800;color:var(--muted)">Test sets measure quality</div></div>
+    <div class="lay" id="fL3"><div class="crumb">Monitor</div><h3>Monitor</h3><div style="display:flex;flex-wrap:wrap;gap:22px 30px;width:1220px">
+      ${[['gauge', 'Health'], ['flag', 'Outcomes'], ['person_feedback', 'Reactions'], ['history', 'Sessions'], ['money', 'Credit usage']].map(([ic, t], k) => `<div class="fc2" id="fm${k}">${IC(ic)}${t}</div>`).join('')}</div></div>
+    <div class="lay" id="fL4"><div class="crumb">Life cycle</div><h3>Life cycle</h3><div style="display:flex;align-items:center;gap:16px;flex-wrap:nowrap">
+      ${['Create', 'Build', 'Test', 'Publish', 'Monitor'].map((t, k) => `${k ? IC('arrow_up_right', 'width:44px;height:44px;color:#8a93a6;transform:rotate(45deg)') : ''}<div class="fc2" id="fs${k}" style="width:210px;height:100px;padding:0 20px;justify-content:center;margin:0">${t}</div>`).join('')}</div></div>
+    <div class="lay" id="fL5"><div class="crumb">Settings › Orchestration</div><h3>Orchestration settings</h3><div id="fLk" style="position:relative;width:1000px;height:300px;border:4px dashed #8a93a6;border-radius:24px;background:#eef1f7;padding:30px 40px;box-sizing:border-box;color:#8a93a6;font-size:40px;font-weight:700;line-height:1.5">Orchestration mode<br>Plan and tool settings
+        <div style="position:absolute;right:40px;top:30px;width:110px;height:110px;border-radius:50%;background:#1f2a44;color:#fff;display:flex;align-items:center;justify-content:center">${IC('lock_closed', 'width:62px;height:62px')}</div>
+        <div id="fEn" style="position:absolute;left:40px;bottom:30px;opacity:0;background:#e6ecfb;color:#2f5bd3;border:4px solid #2f5bd3;border-radius:16px;padding:6px 26px;font-size:42px;font-weight:800">One enhanced model</div></div></div>` }));
+  gsap.set(['#uiO_yes .rd s'], { scale: 0 }); gsap.set(['#uiS_yes .rd s'], { scale: 0 });
+  gsap.set(['#uiO_dsA', '#uiS_dsB'], { opacity: 1 });
+  gsap.set('#uiS_dsA', { opacity: 1 }); gsap.set('#uiS_dsB', { opacity: 0 }); gsap.set('#uiO_dsA', { opacity: 0 });
+
+  /* cursor targets (before any tween) */
+  const P = (w) => ({ nv0: PC(`#${w}_nv0`), nv1: PC(`#${w}_nv1`), nv2: PC(`#${w}_nv2`), nv3: PC(`#${w}_nv3`), nv4: PC(`#${w}_nv4`), gen: PC(`#${w}_gen`), yes: PC(`#${w}_yes`), trow: PC(`#${w}_trow`), tr: PC(`#${w}_tr0`), ds: PC(`#${w}_ds`), tn: PC(`#${w}_tn`), td: PC(`#${w}_td`) });
+  const PO = P('uiO'), PS = P('uiS');
+  const PF = { n0: PC('#uiF_nv0'), n1: PC('#uiF_nv1'), n2: PC('#uiF_nv2'), n3: PC('#uiF_nv3') };
+
+  /* ───────── overlays ───────── */
+  const DIMHTML = '<div class="ov" id="ovDim" style="left:0;top:0;width:1920px;height:1080px;background:#eef1f7"></div>';
+  const ROWS = [['Topics', 'description', 'trigger phrases'], ['Tools', 'name + description', 'only from a topic'], ['Knowledge', 'searched proactively', 'fallback, when no topic matches'], ['Several items', 'combined in one answer', 'one topic only'], ['Missing data', 'asks for it itself', 'Question nodes'], ['Response', 'writes it itself', 'Message nodes']];
+  const GD = [['text_t', 'One or two sentences'], ['send', 'Active voice'], ['search', 'Words users would say'], ['dismiss_circle', 'Says what it does not do']];
+  const RC = [['sparkle', 'Generative: description + name', BLUE], ['clipboard_task_list_ltr', 'Classic: trigger phrases', '#5d6472'], ['wrench', 'Classic tools: only from topics', PUR], ['warning', 'Overlapping descriptions: unpredictable', AMB], ['cube_tree', 'No moves between harnesses', RED]];
+  const RCP = [[130, 260], [690, 260], [1250, 260], [130, 620], [1020, 620]];
+  ADDS(DIMHTML + `<div class="ov kin title" id="ovTitle">Monday at Contoso<small>Generative orchestration vs classic topics</small></div>
+    <div class="bn" id="bnA">Orchestration = the decision</div><div class="bn" id="bnB">Standard harness · two modes</div><div class="bn" id="bnC">Harness = the runtime under the agent</div>
+    <div class="tcard" id="tcard"><h5>${IC('clipboard_task_list_ltr')}Topic: Ticket status</h5><div class="lb2">Trigger phrases</div><div style="position:relative;height:230px"><div class="phs" id="phs1" style="top:0;width:520px"></div><div class="phs" id="phs2" style="top:100px;width:640px"></div><span class="phr" id="ph1" style="position:absolute;left:0;top:0">check my ticket</span><span class="phr" id="ph2" style="position:absolute;left:0;top:100px">where is my case</span></div></div>
+    <div id="board"><h2>What changes in practice?</h2><div class="brow bhd" id="bhr"><div></div><div class="bgc">Generative</div><div class="bcc">Classic</div></div>${ROWS.map((r, k) => `<div class="brow" id="br${k}"><div>${r[0]}</div><div class="bgc">${r[1]}</div><div class="bcc">${r[2]}</div></div>`).join('')}</div>
+    <div class="ov kin" id="gdT" style="top:130px;font-size:84px">A good description</div>
+    ${GD.map(([ic, t], k) => `<div class="chk" id="gd${k}" style="left:960px;top:${330 + k * 150}px;width:880px;height:120px;font-size:50px">${IC(ic)}${t}</div>`).join('')}
+    <div class="tw" id="gdS" style="left:100px;top:330px;width:780px;height:570px"><h5>${IC('clipboard_task_list_ltr')}Ticket status</h5>Checks the status of an existing ticket; <span class="nt">does not create tickets.</span></div>
+    <div class="tw" id="twL" style="left:90px"><h5>${IC('clipboard_task_list_ltr')}Ticket status</h5>Checks the status of an existing ticket; <span class="nt">does not create tickets.</span></div>
+    <div class="tw" id="twR" style="left:1000px"><h5>${IC('ticket_diagonal')}Create ticket</h5>Creates a new ticket; <span class="nt">does not check existing ones.</span></div>
+    <div class="tw" id="twG" style="left:450px;width:1020px;height:420px;border-color:#8a93a6"><h5 style="color:#5d6472">${IC('history')}Generated from trigger phrases</h5><div class="sk" style="width:700px"></div><div class="sk" style="width:520px"></div><div class="sk" style="width:620px"></div></div>
+    <div class="tag amber" id="rvw" style="left:960px;top:800px;font-size:70px;padding:12px 50px">Review</div>
+    <div class="ov kin" id="rcT" style="top:110px;font-size:84px">Remember for the exam</div>
+    ${RC.map(([ic, t, c], k) => `<div class="rcard" id="rk${k}" style="left:${RCP[k][0]}px;top:${RCP[k][1]}px;width:${k === 4 ? 770 : k === 3 ? 870 : 540}px;height:300px;border-color:${c};color:${c};font-size:50px">${IC(ic)}${t}</div>`).join('')}`);
+  gsap.set('.bn', { xPercent: -50 });
+
+  /* ───────── exam rooms ───────── */
+  EXAMS(
+    mkExam('exA', { q: 'An agent uses classic orchestration. A maker adds a tool with a perfect name and description, and expects the agent to choose it on its own when users ask. Will it work?', opts: ['Yes, because the description is very clear', 'No, classic only calls tools from a topic', 'Or yes, but only as a fallback choice here'],
+      why: '<div id="exA_w1">Classic: a tool runs <span class="r">only from a topic</span></div><div id="exA_w2">Choosing tools on its own is a <span class="g">generative</span> skill</div>',
+      proof: `<div class="xc" id="aC1" style="left:0;top:20px;width:520px;border-color:#c4392f;opacity:0">Agent alone</div><div id="aL1" style="position:absolute;left:540px;top:59px;width:500px;height:8px;background:#ff8a80;border-radius:4px;opacity:0"></div><div id="aX1" style="position:absolute;left:740px;top:18px;opacity:0">${IC('dismiss_circle', 'width:90px;height:90px;color:#ff8a80')}</div>
+        <div class="xc" id="aC2" style="left:0;top:170px;width:520px;opacity:0">A topic calls it</div><div id="aL2" style="position:absolute;left:540px;top:209px;width:500px;height:8px;background:#6be3a0;border-radius:4px;opacity:0"></div><div id="aX2" style="position:absolute;left:740px;top:168px;opacity:0">${IC('checkmark_circle', 'width:90px;height:90px;color:#6be3a0')}</div>
+        <div class="tile" style="left:1060px;width:560px;height:300px;border-color:#7ea1e6"><h4>Tools room</h4>${IC('wrench', 'position:absolute;left:50px;top:120px;width:110px;height:110px;color:#fff')}${IC('lock_closed', 'position:absolute;left:230px;top:130px;width:90px;height:90px;color:#ffd166')}</div>
+        <div class="lb" id="aLb" style="left:0;top:300px;font-size:48px;opacity:0">Choosing tools alone = generative</div>` }),
+    mkExam('exB', { q: 'A generative agent has two topics, Reset password and Unlock account. For the same request, sometimes one runs, sometimes the other. What should the maker fix?', opts: ['Switch the agent to classic orchestration instead', 'Add many more trigger phrases to both topics', 'Or rewrite both descriptions so they differ'],
+      why: '<div id="exB_w1">Similar descriptions → <span class="r">unpredictable</span></div><div id="exB_w2">Different, and saying what each <span class="g">does not do</span></div>',
+      proof: `<div class="tile" style="left:0;width:700px;height:210px;border-color:#7ea1e6"><h4>Reset password</h4><div style="position:absolute;left:28px;top:80px;right:20px;font-size:34px;font-weight:600;line-height:1.25">Resets a password; does not unlock accounts</div></div>
+        <div class="tile" style="left:760px;width:700px;height:210px;border-color:#7ea1e6"><h4>Unlock account</h4><div style="position:absolute;left:28px;top:80px;right:20px;font-size:34px;font-weight:600;line-height:1.25">Unlocks an account; does not reset passwords</div></div>
+        <div class="xc" id="bR1" style="left:0;top:250px;width:560px;opacity:0">${IC('checkmark_circle')}"I forgot my password"</div><div class="xc" id="bR2" style="left:760px;top:250px;width:560px;opacity:0">${IC('checkmark_circle')}"I am locked out"</div>
+        <div class="lb" id="bLb" style="left:1490px;top:40px;font-size:44px;opacity:0">no coin<br>flip</div>` }),
+    mkExam('exC', { q: "Contoso's standard harness agent works well. A team member wants to switch it to the Microsoft Copilot harness. What is true?", opts: ['It cannot be transferred, a move means rebuilding', 'It moves by itself when the harness leaves preview', 'Or there is a Settings button that converts it'],
+      why: '<div id="exC_w1">No transfer <span class="r">between harnesses</span></div><div id="exC_w2">A move is <span class="y">re-architecture</span>: only for a clear benefit</div>',
+      proof: `<div class="tile" style="left:0;width:520px;height:250px;border-color:#7ea1e6"><h4>Standard harness</h4></div><div class="tile" style="left:1100px;width:520px;height:250px;border-color:#7ea1e6"><h4>Microsoft Copilot harness</h4></div>
+        <div class="sbar2" id="cB" style="left:790px;top:20px;height:210px"></div><div id="cX" style="position:absolute;left:740px;top:70px;opacity:0">${IC('dismiss_circle', 'width:140px;height:140px;color:#ff8a80;background:#1d2742;border-radius:50%')}</div>
+        <div class="xc" id="cR" style="left:0;top:290px;width:900px;opacity:0">${IC('building')}Move = rebuild (re-architecture)</div>` })
+  );
+    document.querySelectorAll('.xp .sbar2').forEach((e) => { e.style.opacity = 0; });
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0), 0.4);
+    tl.fromTo(X + ' .xl, ' + X + ' .gh', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(i, 0) + 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.1);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    tl.fromTo(X + '_sc .fc', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: Math.max(0.5, (o.opt[0] - S(i, 1) - 1.2) / 3) }, S(i, 1) + 0.4);
+    OFF(X + ' .gh', R, 0.3); OFF(X + '_sc', R, 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 1.0, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.6, ease: 'power2.inOut' }, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+  const FILL = (id, chips) => {
+    document.getElementById(id + '_g').insertAdjacentHTML('afterbegin', [0, 1, 2].map((k) => `<div class="gh" style="position:absolute;left:120px;top:${410 + k * 138}px;width:1240px;height:118px;box-sizing:border-box;border:5px dashed #3a4a78;border-radius:22px;color:#3a4a78;font-size:44px;font-weight:800;display:flex;align-items:center;padding-left:46px">${'ABC'[k]}</div>`).join(''));
+    document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:860px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;align-self:flex-start;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`);
+  };
+  FILL('exA', ['Classic orchestration', 'Tool with a perfect name and description', 'Expects the agent to choose it']);
+  FILL('exB', ['Generative agent', 'Two topics: Reset password, Unlock account', 'Same request, different topic']);
+  FILL('exC', ['Standard harness agent', 'Works well', 'Switch to the Microsoft Copilot harness']);
+
+  /* ═════════════════ TIMELINE ═════════════════ */
+  gsap.set('#world', { x: 960 - 1371 * 0.7, y: 540 - 1090 * 0.7, scale: 0.7 });
+  const CAMI = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const POP2 = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)', immediateRender: false }, t);
+  const TAG2 = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)', immediateRender: false }, t);
+  const PUL = (sel, t, s) => tl.fromTo(sel, { scale: 1 }, { scale: s || 1.1, duration: 0.25, yoyo: true, repeat: 3, immediateRender: false }, t);
+  const LIT = (sel, t, c) => { if (c) tl.set(sel, { backgroundColor: c }, t); tl.to(sel, { opacity: 0.85, duration: 0.3 }, t); };
+  const DIM = (sel, t) => tl.to(sel, { opacity: 0, duration: 0.3 }, t);
+  const FLASH = (sel, t, n) => tl.fromTo(sel, { opacity: 0 }, { opacity: 0.85, duration: 0.22, yoyo: true, repeat: (n || 2) * 2 - 1, immediateRender: false }, t);
+  const DRAW = (id, t, d) => tl.fromTo('#' + id, { opacity: 1, strokeDasharray: 3000, strokeDashoffset: 3000 }, { strokeDashoffset: 0, duration: d || 0.9, ease: 'power2.out', immediateRender: false }, t);
+  const DOT = (id, t) => { tl.fromTo('#' + id, { opacity: 0, strokeDashoffset: 200 }, { opacity: 1, strokeDashoffset: 0, duration: 1.2, ease: 'none', immediateRender: false }, t); };
+  const WALK = (id, t, d) => { tl.fromTo(id, { opacity: 0, x: 900 }, { opacity: 1, x: 0, duration: d, ease: 'power1.out', immediateRender: false }, t); tl.to(id, { y: -10, duration: 0.2, yoyo: true, repeat: Math.floor(d / 0.2) - 1, ease: 'sine.inOut' }, t + 0.1); };
+  const SW = (from, to, t) => { OFF(from, t, 0.2); tl.fromTo(to, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power2.out' }, t + 0.24); };
+  const DOORLIT = (k, t, c) => LIT('#dg' + k, t, c || '#ffd166');
+
+  /* ── 0 One message, two wishes ── */
+  tl.set('#ovDim', { opacity: 1 }, 0);
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.2);
+  OFF('#ovTitle', S(0, 1) - 0.9, 0.4); OFF('#ovDim', S(0, 1) - 0.45, 0.5);
+  WALK('#emp', S(0, 1) + 0.1, 2.4);
+  POP2('#wc1', W(0, 1, 'laptop', 0)); POP2('#wc2', W(0, 1, 'other case', 0));
+  PUL(['#wc1', '#wc2'], S(0, 2), 1.06);
+  TAG('#sgcr', W(0, 3, 'creates tickets', 0)); DOORLIT('cr', W(0, 3, 'creates tickets', 0));
+  TAG('#sgst', W(0, 3, 'checks ticket', 0)); DOORLIT('st', W(0, 3, 'checks ticket', 0));
+  DIM(['#dgcr', '#dgst'], S(0, 4) - 0.1);
+  POP('#qm', S(0, 4) + 0.2);
+  tl.fromTo('#qm', { rotation: -12 }, { rotation: 12, duration: 0.3, yoyo: true, repeat: 5, immediateRender: false }, S(0, 4) + 0.7);
+  tl.to('#qm', { rotation: 0, duration: 0.2 }, S(0, 4) + 2.5);
+  tl.fromTo('#bnA', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, W(0, 5, 'orchestration', 0));
+  OFF(['#bnA', '#qm'], S(0, 6) - 0.1, 0.3);
+  tl.to(['#bd1', '#bd2', '#bd3'], { opacity: 0.35, duration: 0.8 }, S(0, 6) + 0.2);
+  OFF(['#bd1', '#bd2', '#bd3'], E(0, 6) + 0.1, 0.4);
+
+  /* ── 1 Two receptionists ── */
+  POP('#rC', S(1, 1) + 0.3); POP('#rG', S(1, 1) + 0.6);
+  FLASH('#rCg', S(1, 2) + 0.2, 2); TAG('#lbC', W(1, 2, 'list of phrases', 0));
+  DRAW('cC', W(1, 3, 'sends them', 0)); DOORLIT('st', W(1, 3, 'one department', 0));
+  DIM('#dgst', S(1, 4) - 0.2); OFF('#cC', S(1, 4) - 0.2, 0.3);
+  FLASH('#rGg', S(1, 4) + 0.1, 2);
+  DOT('gS', W(1, 4, 'several departments', 0)); TAG('#bd1n', W(1, 4, 'several departments', 0.5)); DOORLIT('st', W(1, 4, 'several departments', 0.5));
+  DOT('gC', W(1, 4, 'one after another', 0)); TAG('#bd2n', W(1, 4, 'one after another', 0.5)); DOORLIT('cr', W(1, 4, 'one after another', 0.5));
+  TAG('#lbG', W(1, 4, 'one after another', 0.2));
+  PUL(['#lbC', '#lbG'], S(1, 5) + 0.2, 1.06);
+  OFF(['#gS', '#gC', '#bd1n', '#bd2n', '#lbC', '#lbG', '#dgst', '#dgcr'], S(2, 0) - 0.5, 0.4);
+
+  /* ── 2 Classic: trigger phrases ── */
+  tl.fromTo('#bnB', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(2, 0) + 0.1);
+  FLASH('#rCg', S(2, 0) + 1.2, 1); FLASH('#rGg', S(2, 0) + 2.0, 1);
+  OFF('#bnB', S(2, 1) - 0.2, 0.3);
+  tl.fromTo('#tcard', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power3.out' }, S(2, 1) + 0.2);
+  POPX('#ph1', W(2, 2, 'check my ticket', 0)); POPX('#ph2', W(2, 2, 'where is my case', 0)); OFF('#phs1', W(2, 2, 'check my ticket', 0), 0.2); OFF('#phs2', W(2, 2, 'where is my case', 0), 0.2);
+  OFF('#tcard', S(2, 3) - 0.3, 0.4); OFF(['#ph1', '#ph2', '#phs1', '#phs2'], S(2, 3) - 0.3, 0.4);
+  ON(['#bs1', '#bs2'], S(2, 3) + 0.1, 0.3);
+  tl.to('#bs1i', { width: 216, duration: 0.8 }, S(2, 3) + 0.3); tl.to('#bs2i', { width: 70, duration: 0.8 }, S(2, 3) + 0.3);
+  tl.set('#bs2i', { backgroundColor: '#8a93a6' }, 0);
+  TAG('#best', W(2, 3, 'so only one', 0)); DOORLIT('st', W(2, 3, 'so only one', 0), '#6be3a0');
+  tl.to('#wc1', { y: 330, rotation: 18, opacity: 0.8, duration: 0.8, ease: 'power2.in' }, W(2, 4, 'lost', -0.4));
+  tl.to('#wc1', { backgroundColor: '#eef1f7', borderColor: '#8a93a6', color: '#8a93a6', duration: 0.3 }, W(2, 4, 'lost', 0.2));
+  TAG('#lost', W(2, 4, 'lost', 0.3));
+  OFF(['#bs1', '#bs2', '#best', '#dgst', '#lost', '#wc1', '#wc2', '#emp', '#rC'], S(3, 0) - 0.5, 0.4);
+
+  /* ── 3 Generative: AI decides ── */
+  FLASH('#rGg', S(3, 0) + 0.1, 2);
+  DRAW('g3S', W(3, 0, 'topic', 0)); DRAW('g3C', W(3, 0, 'topic', 0.15)); DOORLIT('st', W(3, 0, 'topic', 0.3)); DOORLIT('cr', W(3, 0, 'topic', 0.3));
+  DRAW('g3T', W(3, 0, 'tool', 0)); TAG('#sgtl', W(3, 0, 'tool', 0)); DOORLIT('tl', W(3, 0, 'tool', 0.3));
+  DRAW('g3O', W(3, 0, 'other agent', 0)); TAG('#sgot', W(3, 0, 'other agent', 0)); DOORLIT('ot', W(3, 0, 'other agent', 0.3));
+  DRAW('g3K', W(3, 0, 'knowledge source', 0)); TAG('#sgkn', W(3, 0, 'knowledge source', 0)); DOORLIT('kn', W(3, 0, 'knowledge source', 0.3));
+  OFF(['#g3S', '#g3C', '#g3T', '#g3O', '#g3K', '#dgst', '#dgcr', '#dgtl', '#dgot', '#dgkn'], S(3, 1) - 0.2, 0.4);
+  POP('#nbot', S(3, 1) + 0.1);
+  tl.fromTo('#dfl', { opacity: 0, scale: 1.7, rotation: -8 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: 'back.out(2)' }, W(3, 1, 'by default', 0));
+  tl.fromTo('#pbox', { opacity: 0, x: 500 }, { opacity: 1, x: 0, duration: 1.2, ease: 'power2.out' }, S(3, 2) + 0.1);
+  TAG('#cfg', W(3, 2, 'configuration decides', 0));
+  FLASH('#rGg', S(3, 3) + 0.1, 2); PUL('#nbot', S(3, 3) + 0.3, 1.08);
+  OFF(['#dfl', '#nbot', '#pbox', '#cfg'], S(4, 0) - 0.6, 0.4);
+
+  /* ── 4 What changes in practice ── */
+  ON('#ovDim', S(4, 0) - 0.15, 0.3); ON('#board', S(4, 0) - 0.1, 0.4);
+  ON('#bhr', S(4, 1) - 0.3, 0.3);
+  ROWS.forEach((r, k) => ON('#br' + k, S(4, k + 1), 0.4));
+  OFF(['#board', '#ovDim'], S(5, 0) - 0.55, 0.4);
+
+  /* ── 5 EXAM A ── */
+  EXAMX('exA', 5, { pause: 7, reveal: 8, trap: 0, right: 1, q: S(5, 1) - 0.1, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 0.1 });
+  ON('#aC1', S(5, 8) + 1.9, 0.3); ON('#aL1', S(5, 8) + 2.1, 0.3); ON('#aX1', S(5, 8) + 2.5, 0.3);
+  ON('#aC2', W(5, 9, 'from a topic', -0.5), 0.3); ON('#aL2', W(5, 9, 'from a topic', -0.2), 0.3); ON('#aX2', W(5, 9, 'from a topic', 0.3), 0.3);
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 8) + 1.7); tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 10));
+  ON('#exA_p', S(5, 8) + 1.7, 0.4); ON('#aLb', S(5, 10) + 0.3, 0.4);
+
+  /* ── 6 Descriptions are in charge ── */
+  [['st', 'topic'], ['cr', 'topic'], ['tl', 'tool'], ['ot', 'agent'], ['kn', 'knowledge']].forEach(([k, w], n) => TAG('#pl' + k, W(6, 0, w, n === 1 ? 0.3 : 0)));
+  FLASH('#rGg', W(6, 0, 'description', 0), 2);
+  tl.to(['#plst', '#plcr', '#pltl', '#plot', '#plkn'], { borderColor: BLUE, duration: 0.3 }, W(6, 0, 'knowledge', 0.6));
+  TAG('#pName', W(6, 1, 'name', 0)); TAG('#pIO', W(6, 1, 'input', 0));
+  OFF(['#pName', '#pIO'], S(6, 2) - 0.3, 0.3);
+  ON('#ovDim', S(6, 2) - 0.25, 0.3); ON('#gdT', S(6, 2) - 0.1, 0.3); POPX('#gdS', S(6, 2) + 0.2);
+  POPX('#gd0', W(6, 2, 'one or two', 0)); POPX('#gd1', W(6, 2, 'active voice', 0)); POPX('#gd2', S(6, 3) + 0.2); POPX('#gd3', S(6, 4) + 0.2);
+  OFF(['#gd0', '#gd1', '#gd2', '#gd3', '#gdT', '#gdS', '#ovDim'], S(6, 5) - 0.4, 0.4);
+  tl.fromTo('#brd', { opacity: 1, strokeDasharray: '22 16', strokeDashoffset: 0, attr: { y2: 450 } }, { attr: { y2: 1130 }, duration: 0.9, ease: 'power2.out', immediateRender: false }, S(6, 5) + 0.1);
+  TAG('#lbBrd', S(6, 5) + 0.3);
+
+  /* ── 7 Twin descriptions ── */
+  OFF(['#brd', '#lbBrd'], S(7, 0) - 0.3, 0.3);
+  tl.to('#plst0', { opacity: 0, duration: 0.3 }, W(7, 0, 'goes wrong', 0)); tl.to('#plcr0', { opacity: 0, duration: 0.3 }, W(7, 0, 'goes wrong', 0));
+  tl.to('#plst1', { opacity: 1, duration: 0.3 }, W(7, 0, 'goes wrong', 0.2)); tl.to('#plcr1', { opacity: 1, duration: 0.3 }, W(7, 0, 'goes wrong', 0.2));
+  tl.to(['#plst', '#plcr'], { borderColor: RED, duration: 0.3 }, W(7, 0, 'goes wrong', 0.2));
+  POP('#coin', S(7, 1) + 0.3); tl.to('#coin', { rotationY: 1260, duration: 2.0, ease: 'power1.inOut' }, S(7, 1) + 0.6);
+  DOORLIT('st', S(7, 1) + 0.8); DIM('#dgst', S(7, 1) + 1.4); DOORLIT('cr', S(7, 1) + 1.5); DIM('#dgcr', S(7, 1) + 2.1); DOORLIT('st', S(7, 1) + 2.2);
+  TAG('#unp', W(7, 1, 'unpredictable', 0));
+  OFF(['#coin', '#unp', '#dgst', '#dgcr'], S(7, 2) - 0.1, 0.3);
+  tl.to(['#plst', '#plcr'], { borderColor: NAVY, duration: 0.3 }, S(7, 3) - 0.4);
+  OFF(['#plst', '#plcr', '#pltl', '#plot', '#plkn'], S(7, 3) - 0.5, 0.3);
+  ON('#ovDim', S(7, 3) - 0.25, 0.3);
+  POPX('#twL', S(7, 3) + 0.1); POPX('#twR', S(7, 4) + 0.1);
+  OFF(['#twL', '#twR'], S(7, 5) - 0.4, 0.4);
+  POPX('#twG', S(7, 5) + 0.2); POP('#rvw', S(7, 6) + 0.1);
+  OFF(['#twG', '#rvw', '#ovDim'], S(8, 0) - 0.6, 0.4);
+
+  /* ── 8 EXAM B ── */
+  EXAMX('exB', 8, { pause: 7, reveal: 8, trap: 1, right: 2, q: S(8, 1) - 0.1, opt: [S(8, 4), S(8, 5), S(8, 6)], end: S(9, 0) - 0.1 });
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(8, 8) + 1.7); tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(8, 9) + 0.5);
+  ON('#exB_p', S(8, 8) + 1.7, 0.4);
+  ON('#bR1', S(8, 9) + 0.6, 0.3); ON('#bR2', S(8, 9) + 1.6, 0.3); ON('#bLb', S(8, 9) + 2.6, 0.4);
+
+  /* ── 9 Nexo, generative ── */
+  WALK('#emp', S(9, 0) + 0.2, 2.2);
+  tl.set('#wc1', { y: 0, rotation: 0, backgroundColor: '#fff', borderColor: RED, color: RED }, S(9, 0));
+  FLASH('#rGg', S(9, 0) + 0.2, 1);
+  POP2('#wc1', W(9, 1, 'two intentions', 0)); POP2('#wc2', W(9, 1, 'two intentions', 0.3));
+  DRAW('nS', W(9, 2, 'Ticket status', 0)); DOORLIT('st', W(9, 2, 'Ticket status', 0.5), '#6be3a0');
+  TAG2('#c123', W(9, 2, 'case number', 0));
+  tl.to('#c123', { x: -640, y: -310, duration: 1.3, ease: 'power2.inOut' }, W(9, 2, 'case number', 0.9));
+  OFF('#c123', W(9, 2, 'case number', 2.2), 0.3);
+  OFF(['#nS', '#dgst'], S(9, 3) - 0.2, 0.3);
+  DRAW('nC', W(9, 3, 'Create ticket', 0)); DOORLIT('cr', W(9, 3, 'Create ticket', 0.5), '#6be3a0');
+  POP('#dev', W(9, 3, 'asks only', 0));
+  OFF(['#nC', '#dgcr', '#dev', '#wc1', '#wc2'], S(9, 4) - 0.2, 0.3);
+  POP('#rep', W(9, 4, 'single response', 0));
+  TAG2('#ovar', W(9, 5, 'output variable', 0));
+  tl.to('#ovar', { x: 1560, y: 270, duration: 1.4, ease: 'power2.inOut' }, W(9, 5, 'output variable', 0.8));
+  OFF('#ovar', W(9, 5, 'output variable', 2.1), 0.3);
+
+  /* ── 10 Turn it on, watch it work (UI) ── */
+  ON('#mk', S(9, 5) + 1.0, 0.01);
+  CAM(MX + 530, MY + 225, 2.4, E(9, 5) - 1.2, 2.2, 'power2.inOut');
+  OFF(['#emp', '#rep'], S(10, 0) + 0.5, 0.01);
+  UIIN('#uiO', S(10, 0) + 0.5);
+  ON('#cur', S(10, 1) - 0.4, 0.2);
+  CUR(PO.nv2[0], PO.nv2[1], S(10, 1) - 0.3, 0.7); CLICK(PO.nv2[0], PO.nv2[1], W(10, 1, 'Settings', 0)); NAV('#uiO', 2, W(10, 1, 'Settings', 0), 5); SW('#uiO_L0', '#uiO_L1', W(10, 1, 'Settings', 0.2));
+  CUR(PO.gen[0], PO.gen[1], W(10, 1, 'Settings', 0.9), 0.7); CLICK(PO.gen[0], PO.gen[1], W(10, 1, 'generative A I', 0.3)); SW('#uiO_L1', '#uiO_L2', W(10, 1, 'generative A I', 0.5));
+  CUR(PO.yes[0] - 20, PO.yes[1], W(10, 1, 'under orchestration', 0.4), 0.7); CLICK(PO.yes[0] - 20, PO.yes[1], W(10, 1, 'yes or no', 0));
+  tl.to('#uiO_yes .rd s', { scale: 1, duration: 0.25 }, W(10, 1, 'yes or no', 0.05)); tl.to('#uiO_no .rd s', { scale: 0, duration: 0.25 }, W(10, 1, 'yes or no', 0.05));
+  CUR(PO.nv1[0], PO.nv1[1], S(10, 2) - 0.1, 0.6); CLICK(PO.nv1[0], PO.nv1[1], S(10, 2) + 0.6); NAV('#uiO', 1, S(10, 2) + 0.6, 5); SW('#uiO_L2', '#uiO_L3', S(10, 2) + 0.8);
+  ON('#uiO_ds', S(10, 2) + 1.2, 0.3);
+  CUR(PO.tr[0], PO.tr[1], S(10, 2) + 1.4, 0.6);
+  OFF('#uiO_tr0', W(10, 2, 'agent chooses', -0.3), 0.25); ON('#uiO_tr1', W(10, 2, 'agent chooses', -0.2), 0.3);
+  CUR(PO.nv4[0], PO.nv4[1], S(10, 3) - 0.1, 0.6); CLICK(PO.nv4[0], PO.nv4[1], S(10, 3) + 0.5); NAV('#uiO', 4, S(10, 3) + 0.5, 5); SW('#uiO_L3', '#uiO_L4', S(10, 3) + 0.7);
+  POPX('#uiO_q', S(10, 3) + 1.2); ON('#uiO_mp', W(10, 3, 'activity map', 0), 0.3);
+  [0, 1, 2, 3].forEach((k) => tl.to('#uiO_n' + k, { borderColor: BLUE, color: BLUE, backgroundColor: '#e6ecfb', duration: 0.25 }, W(10, 3, 'activity map', 0.6) + k * 0.7));
+  OFF('#cur', S(10, 4) + 1.2, 0.2);
+  /* clean lobby while the camera is away */
+  OFF(['#dgst', '#dgcr', '#dgtl', '#dgkn', '#dgot'], S(10, 1), 0.01);
+  tl.set(['#emp', '#rep', '#wc1', '#wc2'], { opacity: 0 }, S(10, 1));
+
+  /* ── 11 The admin's switch ── */
+  UIOUT('#uiO', S(11, 0) - 0.7);
+  CAM(1371, 1390, 0.7, S(11, 0) - 0.55, 1.2);
+  OFF('#mk', S(11, 0) - 0.1, 0.4);
+  POP('#adm', S(11, 0) + 0.2); POP('#envp', W(11, 0, 'switch', 0));
+  [0, 1, 2].forEach((k) => { POP('#rb' + k, W(11, 1, 'agents in that', 0) + k * 0.25); TAG('#rc' + k, W(11, 1, 'classic mode', 0) + k * 0.25); });
+  [0, 1, 2].forEach((k) => POP('#ry' + k, W(11, 2, 'agent setting', 0) + k * 0.25));
+  PUL('#envp', W(11, 2, 'check the environment', 0), 1.05);
+  TAG('#ewin', S(11, 3) + 0.2);
+  OFF(['#adm', '#envp', '#rb0', '#rb1', '#rb2', '#ry0', '#ry1', '#ry2', '#rc0', '#rc1', '#rc2', '#ewin'], E(11, 3) + 0.2, 0.4);
+
+  /* ── 12 Three harnesses ── */
+  OFF(['#sgkn', '#sgot', '#rG'], S(12, 0) - 0.7, 0.3);
+  OFF(['#drkn', '#drot', '#desk1', '#desk2'], S(12, 0) - 0.1, 0.8);
+  CAM(2640, 1080, 0.8, S(12, 0) - 0.5, 1.4);
+  tl.to(['#bd1', '#bd2', '#bd3'], { opacity: 0.45, duration: 0.6 }, S(12, 0) - 0.3);
+  tl.fromTo('#bnC', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(12, 0) + 0.8);
+  OFF('#bnC', S(12, 1) - 0.2, 0.3);
+  tl.to('#bd1', { opacity: 1, duration: 0.4 }, S(12, 1) + 0.1); TAG('#sg1', S(12, 1) + 0.1);
+  TAG('#p1a', W(12, 1, 'topics', 0)); TAG('#p1b', W(12, 1, 'flows', 0));
+  tl.to('#bd2', { opacity: 1, duration: 0.4 }, S(12, 2) + 0.1); TAG('#sg2', S(12, 2) + 0.1);
+  TAG('#fm', W(12, 2, 'formerly', 0));
+  TAG('#p2a', W(12, 2, 'skills', 0)); TAG('#p2b', W(12, 2, 'memory', 0)); TAG('#p2c', W(12, 2, 'sandbox', 0)); TAG('#p2d', W(12, 2, 'Copilot Credits', 0));
+  TAG('#nogh', W(12, 3, 'not the GitHub', 0));
+  tl.to('#bd3', { opacity: 1, duration: 0.4 }, S(12, 4) + 0.1); TAG('#sg3', S(12, 4) + 0.1);
+
+  /* ── 13 No moving vans ── */
+  OFF(['#fm', '#nogh'], S(13, 0) - 0.3, 0.3);
+  ON('#vanR', S(13, 0) + 0.1, 0.01); ON('#barr', S(13, 0) + 0.1, 0.3);
+  tl.to('#vanR', { x: -430, duration: 1.8, ease: 'power1.inOut' }, S(13, 0) + 0.3);
+  tl.to('#vanR', { x: -405, duration: 0.12, yoyo: true, repeat: 5 }, S(13, 0) + 2.2);
+  POP('#barx', S(13, 0) + 2.1);
+  ON('#vanL', W(13, 1, 'standard harness', 0), 0.01);
+  tl.to('#vanL', { x: 270, duration: 1.8, ease: 'power1.inOut' }, W(13, 1, 'standard harness', 0.1));
+  tl.to('#vanL', { x: 245, duration: 0.12, yoyo: true, repeat: 5 }, W(13, 1, 'standard harness', 2.0));
+  OFF(['#vanR', '#vanL', '#barr', '#barx'], S(13, 2) - 0.3, 0.3);
+  POP('#sbot', S(13, 2) + 0.2); TAG('#okp', S(13, 2) + 0.6);
+  OFF(['#sbot', '#okp'], S(13, 3) - 0.3, 0.3);
+  POP('#crane', W(13, 3, 'rebuild', -0.5)); TAG('#rearch', W(13, 3, 'rebuild', 0));
+  OFF(['#crane', '#rearch'], S(13, 4) - 0.3, 0.3);
+  TAG('#prev', W(13, 4, 'production ready', 0));
+  OFF(['#prev', '#sg1', '#sg2', '#sg3', '#p1a', '#p1b', '#p2a', '#p2b', '#p2c', '#p2d', '#bd1', '#bd2', '#bd3'], S(14, 0) - 0.5, 0.4);
+
+  /* ── 14 EXAM C ── */
+  EXAMX('exC', 14, { pause: 7, reveal: 8, trap: 2, right: 0, q: S(14, 1) - 0.1, opt: [S(14, 4), S(14, 5), S(14, 6)], end: S(15, 0) - 0.1 });
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(14, 8) + 1.7); tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(14, 9) + 0.3);
+  ON('#exC_p', S(14, 8) + 1.7, 0.4);
+  ON('#cB', S(14, 8) + 1.9, 0.3); ON('#cX', S(14, 8) + 2.1, 0.3); ON('#cR', S(14, 9) + 0.2, 0.3);
+
+  /* ── 15 Four tabs (UI) ── */
+  CAMI(MX + 530, MY + 225, 2.4, S(15, 0) - 0.6); ON('#mk', S(15, 0) - 0.6, 0.01);
+  UIIN('#uiF', S(15, 0) + 0.3);
+  PUL('#fHc', W(15, 0, 'four tabs', 0), 1.04);
+  ['identity', 'knowledge', 'tools', 'skills', 'model', 'memory'].forEach((w, k) => POPX('#fb' + k, W(15, 1, w, 0)));
+  ON('#cur', S(15, 2) - 0.4, 0.2);
+  CUR(PF.n1[0], PF.n1[1], S(15, 2) - 0.3, 0.6); CLICK(PF.n1[0], PF.n1[1], S(15, 2) + 0.3); NAV('#uiF', 1, S(15, 2) + 0.3, 4); SW('#fL0', '#fL1', S(15, 2) + 0.5);
+  CUR(PF.n2[0], PF.n2[1], S(15, 3) - 0.1, 0.5); CLICK(PF.n2[0], PF.n2[1], S(15, 3) + 0.2); NAV('#uiF', 2, S(15, 3) + 0.2, 4); SW('#fL1', '#fL2', S(15, 3) + 0.4);
+  CUR(PF.n3[0], PF.n3[1], S(15, 4) - 0.1, 0.5); CLICK(PF.n3[0], PF.n3[1], S(15, 4) + 0.2); NAV('#uiF', 3, S(15, 4) + 0.2, 4); SW('#fL2', '#fL3', S(15, 4) + 0.4);
+  ['health', 'outcomes', 'reactions', 'sessions', 'credit usage'].forEach((w, k) => POPX('#fm' + k, W(15, 4, w, 0.3)));
+  OFF('#cur', S(15, 5) - 0.3, 0.2);
+  SW('#fL3', '#fL4', S(15, 5) + 0.1);
+  ['create', 'build', 'test', 'publish', 'monitor'].forEach((w, k) => POPX('#fs' + k, W(15, 5, w, 0)));
+  SW('#fL4', '#fL5', S(15, 6) + 0.1); NAV('#uiF', -1, S(15, 6) + 0.1, 4);
+  tl.fromTo('#fLk', { scale: 1 }, { scale: 1.03, duration: 0.25, yoyo: true, repeat: 3 }, S(15, 6) + 0.6);
+  ON('#fEn', W(15, 6, 'one enhanced', 0), 0.3);
+
+  /* ── 16 The steps (UI) ── */
+  OFF('#uiF', S(16, 0) - 0.6, 0.5);
+  UIIN('#uiS', S(16, 0) + 0.2);
+  tl.to('#uiS_sp1', { opacity: 1, duration: 0.2 }, S(16, 1) - 0.4);
+  ON('#cur', S(16, 1) - 0.4, 0.2);
+  const STEP = (k, t) => { tl.to('#uiS_sp' + (k - 1), { opacity: 0, duration: 0.15 }, t - 0.05); tl.to('#uiS_sp' + k, { opacity: 1, duration: 0.2 }, t); };
+  CUR(PS.nv2[0], PS.nv2[1], S(16, 1) - 0.3, 0.6); CLICK(PS.nv2[0], PS.nv2[1], W(16, 1, 'Settings', 0.5)); NAV('#uiS', 2, W(16, 1, 'Settings', 0.5), 5); SW('#uiS_L0', '#uiS_L1', W(16, 1, 'Settings', 0.7));
+  STEP(2, S(16, 2));
+  CUR(PS.gen[0], PS.gen[1], S(16, 2) + 0.1, 0.6); CLICK(PS.gen[0], PS.gen[1], W(16, 2, 'generative', 0.2)); SW('#uiS_L1', '#uiS_L2', W(16, 2, 'generative', 0.4));
+  CUR(PS.yes[0] - 20, PS.yes[1], W(16, 2, 'find orchestration', 0.2), 0.6); CLICK(PS.yes[0] - 20, PS.yes[1], W(16, 2, 'set to yes', 0.1));
+  tl.to('#uiS_yes .rd s', { scale: 1, duration: 0.25 }, W(16, 2, 'set to yes', 0.15)); tl.to('#uiS_no .rd s', { scale: 0, duration: 0.25 }, W(16, 2, 'set to yes', 0.15));
+  STEP(3, S(16, 3));
+  CUR(PS.nv1[0], PS.nv1[1], S(16, 3) - 0.1, 0.5); CLICK(PS.nv1[0], PS.nv1[1], S(16, 3) + 0.4); NAV('#uiS', 1, S(16, 3) + 0.4, 5); SW('#uiS_L2', '#uiS_L5', S(16, 3) + 0.6);
+  CUR(PS.trow[0], PS.trow[1], S(16, 3) + 0.9, 0.5); CLICK(PS.trow[0], PS.trow[1], W(16, 3, 'trigger', 0)); SW('#uiS_L5', '#uiS_L3', W(16, 3, 'trigger', 0.2));
+  ON('#uiS_ds', W(16, 3, 'trigger', 0.5), 0.3); OFF('#uiS_tr0', W(16, 3, 'trigger', 0.5), 0.2); ON('#uiS_tr1', W(16, 3, 'trigger', 0.6), 0.2);
+  STEP(4, S(16, 4));
+  CUR(PS.ds[0], PS.ds[1], S(16, 4) + 0.1, 0.5); CLICK(PS.ds[0], PS.ds[1], W(16, 4, 'one or two', -0.2));
+  tl.to('#uiS_ds', { borderColor: BLUE, duration: 0.2 }, W(16, 4, 'one or two', -0.2));
+  OFF('#uiS_dsA', W(16, 4, 'one or two', 0.1), 0.2); ON('#uiS_dsB', W(16, 4, 'one or two', 0.2), 0.3);
+  STEP(5, S(16, 5));
+  CUR(PS.nv3[0], PS.nv3[1], S(16, 5) - 0.1, 0.5); CLICK(PS.nv3[0], PS.nv3[1], S(16, 5) + 0.3); NAV('#uiS', 3, S(16, 5) + 0.3, 5); SW('#uiS_L3', '#uiS_L6', S(16, 5) + 0.5);
+  tl.to('#uiS_tn', { borderColor: BLUE, duration: 0.2 }, W(16, 5, 'name', 0)); tl.to('#uiS_td', { borderColor: BLUE, duration: 0.2 }, W(16, 5, 'description', 0.3));
+  CUR(PS.td[0], PS.td[1], W(16, 5, 'description', 0), 0.5);
+  STEP(6, S(16, 6));
+  CUR(PS.nv4[0], PS.nv4[1], S(16, 6) - 0.1, 0.5); CLICK(PS.nv4[0], PS.nv4[1], S(16, 6) + 0.3); NAV('#uiS', 4, S(16, 6) + 0.3, 5); SW('#uiS_L6', '#uiS_L4', S(16, 6) + 0.5);
+  POPX('#uiS_q', S(16, 6) + 0.9); ON('#uiS_mp', S(16, 6) + 1.2, 0.3);
+  [0, 1, 2, 3].forEach((k) => tl.to('#uiS_n' + k, { borderColor: BLUE, color: BLUE, backgroundColor: '#e6ecfb', duration: 0.25 }, S(16, 6) + 1.7 + k * 0.5));
+  OFF('#cur', E(16, 6) - 0.1, 0.2);
+
+  /* ── 17 Two wishes, one answer ── */
+  CAMI(1371, 1090, 0.7, S(17, 0) - 0.9);
+  tl.set(['#sgkn', '#sgot', '#rG'], { opacity: 1 }, S(17, 0) - 0.9);
+  UIOUT('#uiS', S(17, 0) - 0.6); OFF('#mk', S(17, 0) - 0.3, 0.4);
+  tl.set(['#wc1', '#wc2'], { y: 0, rotation: 0, backgroundColor: '#fff' }, S(17, 0) - 0.9);
+  tl.set('#wc1', { borderColor: RED, color: RED }, S(17, 0) - 0.9);
+  WALK('#emp', S(17, 0) + 0.3, 2.0);
+  tl.set('#rep', { opacity: 0 }, S(17, 0) - 0.9);
+  POP2('#wc1', W(17, 1, 'two wishes', 0)); POP2('#wc2', W(17, 1, 'two wishes', 0.3));
+  DOORLIT('st', W(17, 1, 'check the old case', 0), '#6be3a0'); DOORLIT('cr', W(17, 1, 'create the new ticket', 0), '#6be3a0');
+  OFF(['#wc1', '#wc2'], W(17, 1, 'answer once', -0.3), 0.3);
+  POP2('#rep', W(17, 1, 'answer once', 0));
+  OFF(['#rep', '#emp', '#dgst', '#dgcr'], S(17, 2) - 0.7, 0.4);
+  ON('#ovDim', S(17, 2) - 0.3, 0.3); ON('#rcT', S(17, 2) - 0.1, 0.3);
+  POPX('#rk0', W(17, 2, 'generative chooses', 0)); POPX('#rk1', W(17, 2, 'classic by', 0));
+  POPX('#rk2', S(17, 3) + 0.2); POPX('#rk3', S(17, 4) + 0.2); POPX('#rk4', S(17, 5) + 0.2);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

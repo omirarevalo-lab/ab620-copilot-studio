@@ -1,0 +1,144 @@
+{
+ "id": "L27",
+ "title": "MCP: tool servers",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 106.909,
+ "scenes": [
+  {
+   "title": "A universal plug",
+   "start": 0.8,
+   "end": 21.157,
+   "sentences": [
+    {
+     "text": "M C P, short for Model Context Protocol, is an open protocol that lets a server offer tools and resources to any compatible agent.",
+     "start": 0.8,
+     "end": 10.208
+    },
+    {
+     "text": "Think of it as a universal plug.",
+     "start": 10.488,
+     "end": 12.536
+    },
+    {
+     "text": "One server can be used from Copilot Studio and from other compatible clients, and the agent only reads which tools the server offers.",
+     "start": 12.816,
+     "end": 21.157
+    }
+   ]
+  },
+  {
+   "title": "Allowed transport",
+   "start": 22.057,
+   "end": 42.183,
+   "sentences": [
+    {
+     "text": "In Copilot Studio, the only transport allowed is Streamable H T T P.",
+     "start": 22.057,
+     "end": 26.729
+    },
+    {
+     "text": "The older S S E transport has not been supported since August twenty twenty-five, so a server that only offers S S E will not work.",
+     "start": 27.009,
+     "end": 35.969
+    },
+    {
+     "text": "Check this first, because it is a classic exam trap.",
+     "start": 36.249,
+     "end": 39.193
+    },
+    {
+     "text": "After that, there are two ways to connect a server.",
+     "start": 39.473,
+     "end": 42.183
+    }
+   ]
+  },
+  {
+   "title": "The wizard",
+   "start": 43.083,
+   "end": 62.912,
+   "sentences": [
+    {
+     "text": "The recommended way is the wizard.",
+     "start": 43.083,
+     "end": 45.024
+    },
+    {
+     "text": "Go to Tools, Add a tool, New tool, Model Context Protocol.",
+     "start": 45.304,
+     "end": 49.101
+    },
+    {
+     "text": "You type a name, a description, and the U R L of the server.",
+     "start": 49.381,
+     "end": 53.008
+    },
+    {
+     "text": "The orchestrator reads the description to decide when to call the server, so write it clearly.",
+     "start": 53.288,
+     "end": 58.365
+    },
+    {
+     "text": "Remember, M C P also needs generative orchestration turned on.",
+     "start": 58.645,
+     "end": 62.912
+    }
+   ]
+  },
+  {
+   "title": "Authentication",
+   "start": 63.812,
+   "end": 83.703,
+   "sentences": [
+    {
+     "text": "Authentication can be none, A P I key, or O Auth two point zero.",
+     "start": 63.812,
+     "end": 68.057
+    },
+    {
+     "text": "O Auth has three modes: Dynamic discovery, Dynamic, and Manual.",
+     "start": 68.337,
+     "end": 72.497
+    },
+    {
+     "text": "The other way to connect is a custom connector built from an Open A P I file, where the operation is marked with x M S agentic protocol.",
+     "start": 72.777,
+     "end": 81.908
+    },
+    {
+     "text": "Then you create the connection.",
+     "start": 82.188,
+     "end": 83.703
+    }
+   ]
+  },
+  {
+   "title": "Governance and the exam",
+   "start": 84.603,
+   "end": 105.709,
+   "sentences": [
+    {
+     "text": "After the connection, you choose Add to agent.",
+     "start": 84.603,
+     "end": 87.205
+    },
+    {
+     "text": "Because M C P uses Power Platform connectors, data policies, also called D L P, govern M C P servers too.",
+     "start": 87.485,
+     "end": 95.741
+    },
+    {
+     "text": "That is how a security team blocks servers that are not approved.",
+     "start": 96.021,
+     "end": 99.563
+    },
+    {
+     "text": "And remember, the tools are chosen by the orchestrator, so generative orchestration is required.",
+     "start": 99.843,
+     "end": 105.709
+    }
+   ]
+  }
+ ]
+}

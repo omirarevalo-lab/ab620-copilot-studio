@@ -1,0 +1,134 @@
+{
+ "id": "L32",
+ "title": "Fabric data agents",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 92.696,
+ "scenes": [
+  {
+   "title": "Ask your data",
+   "start": 0.8,
+   "end": 16.72,
+   "sentences": [
+    {
+     "text": "A Fabric data agent is like an analyst who turns your question into a query.",
+     "start": 0.8,
+     "end": 5.557
+    },
+    {
+     "text": "It only reads the data, never changes it, and uses your own permissions.",
+     "start": 5.837,
+     "end": 10.211
+    },
+    {
+     "text": "Imagine you ask a business question in plain language, and the agent takes care of querying the tables for you.",
+     "start": 10.491,
+     "end": 16.72
+    }
+   ]
+  },
+  {
+   "title": "Sources and queries",
+   "start": 17.62,
+   "end": 37.657,
+   "sentences": [
+    {
+     "text": "It can use up to five data sources, such as a warehouse, a lakehouse, Power B I semantic models, or K Q L databases.",
+     "start": 17.62,
+     "end": 25.94
+    },
+    {
+     "text": "It translates to S Q L, D A X, or K Q L, and always read-only.",
+     "start": 26.22,
+     "end": 30.999
+    },
+    {
+     "text": "Notice that every query is for reading, never for writing, and runs with the permissions of the person asking.",
+     "start": 31.279,
+     "end": 37.657
+    }
+   ]
+  },
+  {
+   "title": "Result limits",
+   "start": 38.557,
+   "end": 54.181,
+   "sentences": [
+    {
+     "text": "Answers are limited to twenty-five rows by twenty-five columns.",
+     "start": 38.557,
+     "end": 42.504
+    },
+    {
+     "text": "It works only in English, and you cannot change the language model.",
+     "start": 42.784,
+     "end": 46.453
+    },
+    {
+     "text": "If your question needs a huge table, remember this limit before you design the answer.",
+     "start": 46.733,
+     "end": 51.469
+    },
+    {
+     "text": "Think of short summaries, not endless lists.",
+     "start": 51.749,
+     "end": 54.181
+    }
+   ]
+  },
+  {
+   "title": "Requirements",
+   "start": 55.081,
+   "end": 71.857,
+   "sentences": [
+    {
+     "text": "It requires a paid Fabric capacity, F two or higher, or Power B I Premium with Fabric enabled.",
+     "start": 55.081,
+     "end": 61.503
+    },
+    {
+     "text": "The trial is not enough.",
+     "start": 61.783,
+     "end": 63.212
+    },
+    {
+     "text": "In Copilot Studio, you add it as an external agent, in preview.",
+     "start": 63.492,
+     "end": 67.631
+    },
+    {
+     "text": "Check this with your organization's administrator before you start testing.",
+     "start": 67.911,
+     "end": 71.857
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 72.757,
+   "end": 91.496,
+   "sentences": [
+    {
+     "text": "These limitations get asked.",
+     "start": 72.757,
+     "end": 74.379
+    },
+    {
+     "text": "It cannot be the target of a Redirect node, it cannot be referenced in the instructions, and it does not work if the main agent is deployed in Microsoft Copilot.",
+     "start": 74.659,
+     "end": 84.195
+    },
+    {
+     "text": "Also, Agent evaluation does not support it.",
+     "start": 84.475,
+     "end": 87.397
+    },
+    {
+     "text": "Memorize these three limitations for the exam; they are asked often.",
+     "start": 87.677,
+     "end": 91.496
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Three stops for NexoCore",
+    "caption": "NexoCore works in Dev and must reach Test, then Production, with the same checks every time. Today: Power Platform Pipelines.",
+    "say": "NexoCore works in Dev, and now it must reach Test and then Production. Valeria has been exporting and importing it by hand, and once she almost skipped Test. The service manager wants every release to pass the same checks, in the same order. Today you learn Power Platform Pipelines, the guided way to do A L M without writing your own scripts."
+  },
+  {
+    "title": "Stations in order",
+    "caption": "A pipeline automates the trip from Dev to Test to Production. It deploys managed solutions, and nobody can skip testing.",
+    "say": "Picture a plant nursery. Every tray moves from the seedling bench to the hardening greenhouse, and only then to the garden centre. A pipeline works the same way. It automates the trip of a solution from Dev to Test to Production. Pipelines deploy managed solutions. The same exported artifact goes through the stages in order, so nobody can skip testing. The host, where the pipelines live, stores the artifacts and backups."
+  },
+  {
+    "title": "Where you start",
+    "caption": "You see and run pipelines from an unmanaged solution in Dev. Not from the default solution, not from the targets.",
+    "say": "You see and run pipelines from an unmanaged solution in the development environment. Not from the default solution, and not from the target environments. At Contoso, Valeria opens her unmanaged NexoCore solution in Dev. She chooses Deploy, then picks the pipeline and the stage, for example Test. From there the deployment begins, and Test receives NexoCore as a managed solution."
+  },
+  {
+    "title": "Decide: where to start",
+    "caption": "Valeria is ready to send NexoCore to Test with the pipeline. Where should she start the deployment?",
+    "say": "Your turn. Valeria is ready to send NexoCore to Test with the pipeline. In Dev she sees the default solution and her own NexoCore, and Test holds an older managed copy. Where should she start the deployment? From the default solution in Dev? From an unmanaged solution in Dev? Or from the managed NexoCore copy in Test? Decide before I answer. From an unmanaged solution in Dev. Pipelines run from an unmanaged solution in the development environment. The default solution is the trap, because pipelines are not run from it."
+  },
+  {
+    "title": "What each environment must be",
+    "caption": "Host: a production environment, not necessarily managed. Developer environments: not managed. All the others: Managed Environments.",
+    "say": "Pipelines have environment requirements. The host must be a production environment, but it does not have to be managed. Developer environments do not need to be managed either. All the other environments in the pipeline must be Managed Environments. A Managed Environment adds extra Power Platform governance. At Contoso, the host is a production environment, Dev is a Developer environment, and Test and Production are Managed Environments."
+  },
+  {
+    "title": "One tray at a time",
+    "caption": "One solution per deployment. The default import type is Upgrade. No deploying across tenants: for that, use Azure DevOps or GitHub.",
+    "say": "Now the deployment rules. You deploy one solution at a time, never two in the same deployment. The default import type is Upgrade. And you cannot deploy across tenants. When Contoso tried to send NexoCore to another tenant, the deployment was rejected. For another tenant, Contoso uses Azure DevOps or GitHub instead."
+  },
+  {
+    "title": "Decide: the Test environment",
+    "caption": "The NexoCore pipeline has a production host, a Developer environment and a Test environment that is not managed. What is required?",
+    "say": "Your turn. Contoso builds the NexoCore pipeline with a production host, a Developer environment for Dev, and a Test environment. Test is not a Managed Environment yet. What does the pipeline require? Make Dev a Managed Environment? Make the host a Managed Environment? Or make Test a Managed Environment? Decide before I answer. Make Test a Managed Environment. Every environment in the pipeline other than the host and Developer environments must be managed. The host is the trap, because it must be production but does not have to be managed."
+  },
+  {
+    "title": "Values checked before the trip",
+    "caption": "Connections, connection references and environment variables are provided beforehand and validated before the deployment runs.",
+    "say": "Remember environment variables from the last lesson. In a pipeline, connections, connection references, and environment variables are provided beforehand. They are validated before the deployment runs. So when Valeria deploys NexoCore to Test, she provides the Test connections and the value for Api Base Url. If something is missing, she finds out before the deployment, not after. Then NexoCore arrives in Test as a managed solution."
+  },
+  {
+    "title": "Extending the pipeline",
+    "caption": "Pre-deployment step: OnPreDeploymentStarted. Delegated deployments: OnApprovalStarted, as a service principal. Status 20 completes or approves; 30 rejects.",
+    "say": "You can extend a pipeline in two ways. One, a pre-deployment step, with the trigger On Pre Deployment Started. Contoso's security team added a manual approval there. Two, delegated deployments, with the trigger On Approval Started, which run as a service principal. Status actions use two numbers. For a pre-deployment step, twenty completes and thirty rejects. For delegated deployments, twenty approves and thirty rejects."
+  },
+  {
+    "title": "Decide: stop the deployment",
+    "caption": "The security team finds a problem in its pre-deployment step and must stop this deployment. What status should it send back?",
+    "say": "Your turn. The security team reviews NexoCore in its pre-deployment step. They find a problem and must stop this deployment to Test. What should their approval send back? Respond with status thirty? Respond with status twenty? Or respond with status one hundred? Decide before I answer. Respond with status thirty. In a pre-deployment step, thirty rejects the deployment. Twenty is the trap, because twenty completes the step instead of stopping it."
+  },
+  {
+    "title": "The steps",
+    "caption": "Host, pipeline and stages, Managed Environments, unmanaged solution in Dev, Deploy, values validated, deploy. Optional: pre-deployment step.",
+    "say": "Here are the steps in order. Create or choose the pipelines host, a production environment. In the host, create the pipeline and its stages, for example Dev, Test, and Production. Check that the targets are Managed Environments, except Developer ones. In Dev, work from an unmanaged solution, not the default solution. Choose Deploy, then pick the pipeline and the stage. Provide connections, connection references, and environment variables, which are validated first. Deploy, and optionally add a pre-deployment step that responds with status twenty to complete."
+  },
+  {
+    "title": "Every tray through every station",
+    "caption": "Managed solutions, stage by stage. Production host, Managed targets. One solution, Upgrade, same tenant. 20 completes or approves, 30 rejects.",
+    "say": "Back at Contoso. NexoCore reaches Test as a managed solution, and the security team approves it. Remember for the exam. Pipelines deploy managed solutions from an unmanaged solution in Dev, stage by stage. The host is production and need not be managed, Developer environments need not be managed, and all the others must be Managed Environments. One solution at a time, Upgrade by default, no crossing tenants. Twenty completes or approves, thirty rejects. Next, Microsoft I Q."
+  }
+]

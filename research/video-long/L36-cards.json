@@ -1,0 +1,14 @@
+{
+  "1": ["First what, then how", [["Step 1", "Decide what to measure"], ["Step 2", "Choose the method (the rule)"], ["Results", "Score + pass mark, or Pass/Fail"]]],
+  "2": ["General quality", [["Graded by", "Language model, out of 100"], ["Looks at", "Relevance, groundedness, completeness, abstention"], ["Expected response", "Not needed · on by default"]]],
+  "3": ["Meaning or wording", [["Compare meaning", "Same intent · default pass score 50"], ["Text similarity", "Wording closeness · cosine 0–1"], ["Both", "Need an expected response"]]],
+  "4": ["Pass or Fail graders", [["Exact match", "Character by character · codes, numbers"], ["Keyword match", "Any or All of your keywords"]]],
+  "6": ["Tool use", [["Checks", "Expected tools or topics were used"], ["Result", "Pass or Fail, no score"]]],
+  "7": ["Content safety", [["Checks", "Hate, sexual, violence, self-harm"], ["Threshold", "0 strictest … 7 most permissive"], ["Rule", "One method per content type"]]],
+  "8": ["Custom", [["Instructions", "What the grader judges"], ["Labels", "2 or more, each Pass or Fail"], ["Example", "Compliant / Non-compliant"]]],
+  "9": ["Expected refusals", [["General quality", "May flag a correct refusal"], ["Use", "Custom"]]],
+  "11": ["Nothing to grade", [["Missing material", "Result = Invalid"], ["Single response only", "Compare meaning, Text similarity, Exact match, Tool use"], ["Both set types", "Keyword match, Custom"]]],
+  "12": ["Evaluate tab (Microsoft Copilot harness)", [["Only method", "General quality"], ["Result", "Pass or Fail per test case"], ["Other methods", "Standard harness only"]]],
+  "13": ["Runs can differ", [["Why", "Agent and grader are AI-based"], ["Do", "Run important scenarios more than once"]]],
+  "14": ["Evidence beyond a Pass", [["Knowledge / tools", "Preview activity trace (Knowledge, Tool nodes)"], ["Model used", "Conversation history"], ["Credits", "Monitor tab"]]]
+}

@@ -1,0 +1,326 @@
+{
+  "brand": "AB-400 · Module 6 · Lesson 1",
+  "style": "v2",
+  "scenes": [
+    {
+      "type": "flow",
+      "header": {
+        "title": "One click becomes a message"
+      },
+      "nodes": [
+        {
+          "icon": "person",
+          "title": "Maya saves",
+          "at": "Maya",
+          "sub": "A new account"
+        },
+        {
+          "icon": "apps",
+          "title": "Model-driven app",
+          "at": "1:does not",
+          "sub": "Does not write the row"
+        },
+        {
+          "icon": "send",
+          "title": "Create",
+          "at": "Create",
+          "accent": true,
+          "sub": "The message"
+        },
+        {
+          "icon": "database",
+          "title": "Dataverse",
+          "at": "pipeline",
+          "sub": "Runs the pipeline"
+        }
+      ],
+      "below": [
+        {
+          "text": "Checked · PreValidation",
+          "icon": "shield_checkmark",
+          "at": "checked"
+        },
+        {
+          "text": "Prepared · PreOperation",
+          "icon": "wrench",
+          "at": "prepared"
+        },
+        {
+          "text": "Cooked · the write",
+          "icon": "database",
+          "at": "cooked"
+        },
+        {
+          "text": "Plated · PostOperation",
+          "icon": "checkmark_circle",
+          "at": "plated"
+        }
+      ]
+    },
+    {
+      "type": "pipeline",
+      "header": {
+        "title": "Stage 10 · PreValidation"
+      },
+      "token": {
+        "text": "Create account",
+        "icon": "send"
+      },
+      "stages": [
+        {
+          "tag": "Stage 10",
+          "title": "PreValidation",
+          "desc": "Checks before anything is saved",
+          "icon": "shield_checkmark",
+          "at": "#0",
+          "accent": true,
+          "stop": true
+        },
+        {
+          "tag": "Stage 20",
+          "title": "PreOperation",
+          "desc": "Change the row",
+          "icon": "wrench",
+          "at": "#0",
+          "lag": 0.15
+        },
+        {
+          "tag": "Stage 30",
+          "title": "MainOperation",
+          "desc": "The write",
+          "icon": "database",
+          "at": "#0",
+          "lag": 0.3,
+          "tone": "muted"
+        },
+        {
+          "tag": "Stage 40",
+          "title": "PostOperation",
+          "desc": "After the write",
+          "icon": "checkmark_circle",
+          "at": "#0",
+          "lag": 0.45
+        }
+      ],
+      "bracket": {
+        "from": 1,
+        "to": 3,
+        "label": "Database transaction",
+        "at": "outside"
+      },
+      "note": {
+        "text": "Tax number empty → InvalidPluginExecutionException. Nothing was written: the cheapest place to cancel.",
+        "icon": "warning",
+        "at": "tax number"
+      }
+    },
+    {
+      "type": "code",
+      "header": {
+        "title": "Stage 20 · PreOperation"
+      },
+      "window": {
+        "title": "TidyAccountName.cs",
+        "at": "Next"
+      },
+      "lines": [
+        "// Create of account · PreOperation · sync",
+        "var target = (Entity)context",
+        "    .InputParameters[\"Target\"];",
+        "var name = target",
+        "    .GetAttributeValue<string>(\"name\");",
+        "target[\"name\"] = name?.Trim();",
+        "// No Update call: saved with the row"
+      ],
+      "marks": [
+        {
+          "line": 1,
+          "at": "transaction is open",
+          "note": "Transaction open",
+          "desc": "The row is not saved yet",
+          "icon": "lock_closed"
+        },
+        {
+          "line": 6,
+          "at": "tidies",
+          "note": "Change the Target",
+          "desc": "Before it is written",
+          "icon": "wrench"
+        },
+        {
+          "line": 7,
+          "at": "no extra",
+          "note": "No extra update",
+          "icon": "checkmark_circle"
+        },
+        {
+          "line": 1,
+          "at": "Avoid",
+          "note": "Do not cancel here",
+          "desc": "It rolls back the whole transaction",
+          "icon": "warning"
+        }
+      ]
+    },
+    {
+      "type": "split",
+      "left": {
+        "title": "Stage 30 · the write",
+        "sub": "Pre means before it. Post means after it."
+      },
+      "rows": [
+        {
+          "icon": "database",
+          "title": "Dataverse writes the row",
+          "desc": "Internal stage",
+          "at": "writes",
+          "hi": true
+        },
+        {
+          "icon": "code",
+          "title": "Custom API plug-ins",
+          "desc": "Run here, in the main operation",
+          "at": "custom"
+        },
+        {
+          "icon": "table",
+          "title": "Virtual table data providers",
+          "desc": "Run here too",
+          "at": "virtual"
+        }
+      ]
+    },
+    {
+      "type": "pipeline",
+      "header": {
+        "title": "Stage 40 · PostOperation"
+      },
+      "token": {
+        "text": "Create account",
+        "icon": "send"
+      },
+      "stages": [
+        {
+          "tag": "Stage 10",
+          "title": "PreValidation",
+          "desc": "Done",
+          "icon": "shield_checkmark",
+          "at": "#0",
+          "tone": "muted"
+        },
+        {
+          "tag": "Stage 20",
+          "title": "PreOperation",
+          "desc": "Done",
+          "icon": "wrench",
+          "at": "#0",
+          "lag": 0.15,
+          "tone": "muted"
+        },
+        {
+          "tag": "Stage 30",
+          "title": "MainOperation",
+          "desc": "Row written",
+          "icon": "database",
+          "at": "#0",
+          "lag": 0.3,
+          "tone": "muted"
+        },
+        {
+          "tag": "Stage 40",
+          "title": "PostOperation",
+          "desc": "Follow-up task for Maya",
+          "icon": "checkmark_circle",
+          "at": "#0",
+          "lag": 0.45,
+          "accent": true,
+          "stop": true,
+          "stopAt": "follow-up"
+        }
+      ],
+      "bracket": {
+        "from": 1,
+        "to": 3,
+        "label": "Still inside the transaction",
+        "at": "0:still inside"
+      },
+      "note": {
+        "text": "An error here rolls back everything: the new account disappears too.",
+        "icon": "warning",
+        "at": "rolls back"
+      }
+    },
+    {
+      "type": "flow",
+      "header": {
+        "title": "Asynchronous: Maya does not wait"
+      },
+      "nodes": [
+        {
+          "icon": "checkmark_circle",
+          "title": "Account saved",
+          "at": "asynchronous step",
+          "sub": "Transaction closed"
+        },
+        {
+          "icon": "timer",
+          "title": "Queue",
+          "at": "queue",
+          "sub": "Runs after the operation"
+        },
+        {
+          "icon": "cloud",
+          "title": "Outside the transaction",
+          "at": "outside",
+          "sub": "If it fails, the row stays"
+        },
+        {
+          "icon": "mail",
+          "title": "Welcome email",
+          "at": "welcome",
+          "accent": true,
+          "sub": "PostOperation only"
+        }
+      ]
+    },
+    {
+      "type": "trap",
+      "question": {
+        "text": "Contoso must stop an account from being saved when the tax number is empty, at the lowest cost. Where do you register the plug-in?",
+        "at": "start"
+      },
+      "options": [
+        {
+          "text": "PostOperation, asynchronous",
+          "at": "#0",
+          "lag": 0.6
+        },
+        {
+          "text": "PreOperation, synchronous",
+          "kind": "trap",
+          "at": "#0",
+          "lag": 0.8
+        },
+        {
+          "text": "PreValidation, synchronous",
+          "kind": "right",
+          "at": "#0",
+          "lag": 1
+        },
+        {
+          "text": "MainOperation, synchronous",
+          "at": "#0",
+          "lag": 1.2
+        }
+      ],
+      "reveal": {
+        "at": "#1",
+        "lag": 1.2
+      },
+      "why": {
+        "html": "Cancel in *PreValidation*: nothing was written, no rollback. Asynchronous steps exist only in *PostOperation*.",
+        "at": "#3"
+      }
+    }
+  ]
+}

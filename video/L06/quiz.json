@@ -1,0 +1,50 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 6,
+    "question": "Contoso wants the same topics and tool in its IT, HR and Sales agents, and their authors must not change them. What should the maker use?",
+    "options": [
+      "A component collection",
+      "Copy the topics by hand into each agent",
+      "Export the whole IT agent and import it three times"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 6,
+    "question": "The collection now includes connectors and environment variables and must move to production. What is recommended?",
+    "options": [
+      "Rebuild the components by hand in production",
+      "Export the collection directly",
+      "Add the collection to a solution, then export and import the solution"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 11,
+    "pauseSentence": 7,
+    "question": "Five steps must always run in the same order, with defined inputs and outputs, and the order must be enforced. What should the maker use?",
+    "options": [
+      "A single tool",
+      "A workflow",
+      "A skill, because it runs consistently"
+    ],
+    "right": 1,
+    "trap": 2
+  },
+  {
+    "scene": 14,
+    "pauseSentence": 7,
+    "question": "A refunds skill keeps activating for questions about shipping times. Its output for real refund requests is perfect. What should the maker refine?",
+    "options": [
+      "The name, so it sounds more specific",
+      "The instructions inside the skill",
+      "The description"
+    ],
+    "right": 2,
+    "trap": 1
+  }
+]

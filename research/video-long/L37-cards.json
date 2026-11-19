@@ -1,0 +1,12 @@
+{
+  "1": ["Read the graded exam", [["What result?", "Pass · Fail · Invalid · Error"], ["Why?", "Show activity map"], ["Did it improve?", "Compare with"]]],
+  "2": ["Four results", [["Pass / Fail", "The method graded the answer"], ["Invalid", "Missing expected response, keywords or tools"], ["Error", "Execution failure while evaluating"]]],
+  "4": ["Show activity map", [["Shows", "Sequence of decisions in one case"], ["Use it", "To learn why the agent did that"]]],
+  "5": ["Compare with", [["Compares", "Two runs of the same test set"], ["Arrows", "Failing → passing, or the other way"]]],
+  "6": ["Keeping results", [["In Copilot Studio", "89 days"], ["Longer", "Export to CSV"], ["CSV row", "Question, expected, method, score, response, result, analysis"]]],
+  "8": ["Evaluate tab (Microsoft Copilot harness)", [["Runs", "Each saved separately"], ["Rerun", "Recent results › Evaluate test set again"], ["Duration", "Whole run, not response time"]]],
+  "9": ["Why a case failed", [["Evaluation setup", "Evaluation author · check first"], ["Agent configuration", "Agent builder"], ["Platform limitation", "Platform team"]]],
+  "11": ["Symptom → fix", [["Low General quality", "Instructions"], ["Missing / wrong tool use", "Tool descriptions"], ["Incorrect information", "Knowledge sources"]]],
+  "12": ["Triage order", [["1", "Safety and compliance"], ["2", "Core business scenarios"], ["3", "Lowest-scoring evaluation"], ["4", "Recurring failures"]]],
+  "14": ["Credits", [["Evaluate / Preview", "Near-real-time estimate"], ["Monitor tab", "Final, accurate, within a few hours"]]]
+}

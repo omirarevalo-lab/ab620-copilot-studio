@@ -1,0 +1,87 @@
+[
+  {
+    "title": "Is Nexo working?",
+    "caption": "Contoso's manager asks: what do employees really ask Nexo, and is it working? Half the numbers are tests.",
+    "say": "Monday at Contoso. The manager asks the team a simple question about Nexo, the I T agent. What do employees really ask it, and is it working? The team opens the numbers and frowns. Half of the conversations are their own tests from last week. The other half nobody can explain. By the end of this class you will know the two tools that answer that question, and how to keep the tests out."
+  },
+  {
+    "title": "Black box and cockpit",
+    "caption": "Application Insights = the black box, you query it later. Monitor tab = the cockpit dashboard.",
+    "say": "Here is the picture to keep. An airplane has a black box. It records everything, and later an investigator queries it in detail. That is Application Insights, an Azure service. The airplane also has a cockpit dashboard, with the health of the flight at a glance. That is the Monitor tab of the Microsoft Copilot harness, formerly GitHub Copilot harness. One records for deep analysis, the other shows health now."
+  },
+  {
+    "title": "Plug in the black box",
+    "caption": "Settings › Advanced › Application Insights: paste the Connection string, turn on Enable logging.",
+    "say": "First the black box. In Azure, create an Application Insights resource and copy its Connection string. That string identifies your resource. Then, in Copilot Studio, open Nexo and go to Settings, then Advanced, then the Application Insights section. Paste the Connection string and turn on Enable logging. From now on, every conversation leaves a record in Azure. Nothing else in the agent changes."
+  },
+  {
+    "title": "Three extra switches",
+    "caption": "Log conversation details, Log sensitive Activity properties, Node execution events: only when you need them.",
+    "say": "Below Enable logging there are three more switches. Log conversation details adds the user, the name, and the message text. Log sensitive Activity properties adds sensitive details of each activity. Node execution events adds one event for every node that runs, so you can follow the path inside a topic. More detail means more personal data stored, so turn each one on only when you really need it."
+  },
+  {
+    "title": "customEvents and designMode",
+    "caption": "Events land in customEvents. designMode is True when the conversation happened in the test canvas.",
+    "say": "Where does the data land? In a table called customEvents. Each event carries a set of dimensions, and one of them matters a lot: designMode. It is True when the conversation happened in the test canvas, the chat you use while building. It is False for real users. This small label is the answer to the Monday mess. The tests are there, but they are marked."
+  },
+  {
+    "title": "Decide: only real employees",
+    "caption": "Nexo's numbers mix the makers' tests with real traffic. How do you see only real employees?",
+    "say": "Your turn. Nexo's numbers mix the team's tests with real employees. The manager wants only real traffic. What do you do? Delete the old events from the customEvents table? Filter designMode equal to False in the query? Or publish the agent again to reset the counters? Decide before I answer. Filter designMode equal to False. The tests stay recorded but drop out of the query. Deleting loses data, and publishing resets nothing."
+  },
+  {
+    "title": "Querying with K Q L",
+    "caption": "KQL: customEvents | where customDimensions['designMode'] == \"False\". Then group by message or topic.",
+    "say": "The language for those queries is K Q L, the query language of Azure. The idea is short. Start from customEvents, keep only the rows where designMode is False, and then group them, for example by the message text or by topic. Now Contoso sees what employees really ask Nexo, and which questions come back every day. That is the deep analysis the black box is for."
+  },
+  {
+    "title": "A ready dashboard",
+    "caption": "Workbooks › Copilot Studio Dashboard (preview). To share it, give the Reader role on the resource.",
+    "say": "You do not have to start from zero. Inside Application Insights, under Workbooks, there is a ready panel called Copilot Studio Dashboard, in preview. It already charts the main numbers of your agent. The manager wants to see it too. To share it, give the Reader role on the Application Insights resource. Reader lets people look at the data without changing anything."
+  },
+  {
+    "title": "Who can switch it off",
+    "caption": "Admin control = data policy blocking the Application Insights in Copilot Studio connector. Agent toggles are not.",
+    "say": "Now the security side. Contoso's security team wants to be sure no agent sends telemetry to Application Insights. Switching off the toggles inside one agent is not an admin control. Any maker could switch them on again. The admin control is a data policy that blocks the connector called Application Insights in Copilot Studio. There is also environment level telemetry, in preview, which uses traces and spans."
+  },
+  {
+    "title": "Decide: no telemetry anywhere",
+    "caption": "Security must guarantee that no agent in the environment sends telemetry. Which control?",
+    "say": "Your turn. The security team must guarantee that no agent in the environment can send telemetry to Application Insights, not today and not next month. What do they use? Block its connector in a data policy? Turn off Enable logging in every agent? Or remove the Reader role from every maker? Decide before I answer. Block the Application Insights in Copilot Studio connector in a data policy. Toggles can come back, and Reader is only for viewing."
+  },
+  {
+    "title": "The cockpit: Monitor tab",
+    "caption": "Microsoft Copilot harness: Monitor tab, date range, compare with previous period. Data can take up to an hour.",
+    "say": "Now the cockpit. On the Microsoft Copilot harness, open the agent and select Monitor. Set the date range. Each percentage compares with the previous period of the same length. If the agent was never published, the metrics are empty, because only real use counts. And be patient: after a session ends, its data can take up to an hour to appear."
+  },
+  {
+    "title": "The overview cards",
+    "caption": "Total sessions, total users, average duration, success rate, autonomous runs and their fail rate.",
+    "say": "The overview shows the health at a glance. Total sessions, total users, average duration, and success rate. A session is one conversation between a user and the agent. If the agent also works on its own, you see autonomous runs and their fail rate. For Contoso this answers the second half of the Monday question: is Nexo working? The success rate says it plainly."
+  },
+  {
+    "title": "Thumbs up, thumbs down",
+    "caption": "Reactions card counts thumbs up and down. It asks for feedback when User feedback (Settings › Safety & access) is off.",
+    "say": "The Reactions card counts thumbs up and thumbs down from users. One morning the card shows no numbers and asks you to turn on feedback. That means the User feedback setting is off. You find it in Settings, under Safety and access. Turn it on, and employees can react to every answer Nexo gives. Reactions are the cheapest signal you will ever get."
+  },
+  {
+    "title": "Sessions and transcripts",
+    "caption": "Sessions list: past 28 days only. Status, tools used, credits. Open a full transcript with tool calls.",
+    "say": "Below the cards is the Sessions list. It shows only the past twenty eight days. For each session you see the status, which is completed, failed, or in progress, the tools that were used, and the credits it cost. Open one and you get the full transcript, with every tool call and every use of knowledge. A failed session tells you exactly where Nexo got lost."
+  },
+  {
+    "title": "The billing number",
+    "caption": "Total estimated credits used = the number used for billing. Split by production, Preview, evaluations.",
+    "say": "One card matters to finance: Total estimated credits used. That is the number used for billing. It updates a few times a day, and you can split it by experience: production, Preview, and evaluations. So you see how much the building and testing cost, apart from real use. And the black box still works here: environment level telemetry in Application Insights works on both harnesses."
+  },
+  {
+    "title": "Decide: the billing figure",
+    "caption": "Finance wants the credits Contoso will be billed for this month. Where do you read them?",
+    "say": "Your turn. Finance wants the credits Contoso will be billed for this month on Nexo. Where do you get the figure? Add up the credits shown for each listed session? Query the credit events in Application Insights? Or read Total estimated credits used on Monitor? Decide before I answer. Total estimated credits used, on the Monitor tab. It is the billing source of truth. The sessions list is only a view of single sessions."
+  },
+  {
+    "title": "Monday, solved",
+    "caption": "Black box: connection string, customEvents, designMode False, data policy. Cockpit: Monitor, 28 days, credits.",
+    "say": "Back to Monday. Contoso filters designMode equal to False, and the tests disappear. The workbook shows what employees ask, and the Monitor tab shows Nexo is healthy. Remember for the exam. Connection string in Settings, Advanced. Data in customEvents. Block telemetry with a data policy on the connector. Monitor keeps twenty eight days of sessions, data can take an hour, and its credits are what you pay."
+  }
+]

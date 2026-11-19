@@ -1,0 +1,1937 @@
+{
+ "id": "L17",
+ "sha256": "d52cbb75dee8dc56de2b5f735ddfd5302f1ed58afe5662d5f3dc47731f9ba692",
+ "generated": "2026-11-11T03:25:03.874Z",
+ "cues": [
+  {
+   "label": "marta",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 4.55,
+   "wordT": 0.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "laptop will not turn on",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 4.55,
+   "wordT": 2.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "agent flow",
+   "scene": 1,
+   "sentStart": 8.91,
+   "sentEnd": 13.37,
+   "wordT": 9.23,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "a sequence of automatic steps",
+   "scene": 1,
+   "sentStart": 8.91,
+   "sentEnd": 13.37,
+   "wordT": 10.19,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "input ingredients",
+   "scene": 1,
+   "sentStart": 13.65,
+   "sentEnd": 17.23,
+   "wordT": 15.28,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "output dish",
+   "scene": 1,
+   "sentStart": 13.65,
+   "sentEnd": 17.23,
+   "wordT": 16.58,
+   "appears": 16.73,
+   "delta": 0.15,
+   "status": "ok"
+  },
+  {
+   "label": "start",
+   "scene": 1,
+   "sentStart": 17.52,
+   "sentEnd": 22.12,
+   "wordT": 19.95,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "start",
+   "scene": 2,
+   "sentStart": 23.02,
+   "sentEnd": 26.41,
+   "wordT": 23.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 2,
+   "sentStart": 23.02,
+   "sentEnd": 26.41,
+   "wordT": 24.15,
+   "appears": 23.97,
+   "delta": -0.18,
+   "status": "ok"
+  },
+  {
+   "label": "when an agent calls the flow",
+   "scene": 2,
+   "sentStart": 23.02,
+   "sentEnd": 26.41,
+   "wordT": 24.72,
+   "appears": 24.77,
+   "delta": 0.05,
+   "status": "ok"
+  },
+  {
+   "label": "the end",
+   "scene": 2,
+   "sentStart": 26.7,
+   "sentEnd": 29.66,
+   "wordT": 26.7,
+   "appears": 27.45,
+   "delta": 0.76,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 2,
+   "sentStart": 26.7,
+   "sentEnd": 29.66,
+   "wordT": 27.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 2,
+   "sentStart": 26.7,
+   "sentEnd": 29.66,
+   "wordT": 28.47,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 2,
+   "sentStart": 26.7,
+   "sentEnd": 29.66,
+   "wordT": 28.47,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the actions you want",
+   "scene": 2,
+   "sentStart": 29.94,
+   "sentEnd": 33.35,
+   "wordT": 30.73,
+   "appears": 30.87,
+   "delta": 0.15,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 2,
+   "sentStart": 29.94,
+   "sentEnd": 33.35,
+   "wordT": 30.99,
+   "appears": 30.23,
+   "delta": -0.75,
+   "status": "ok"
+  },
+  {
+   "label": "other scenarios",
+   "scene": 2,
+   "sentStart": 33.63,
+   "sentEnd": 37.88,
+   "wordT": 35.05,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "power apps",
+   "scene": 2,
+   "sentStart": 33.63,
+   "sentEnd": 37.88,
+   "wordT": 36.46,
+   "appears": 34.43,
+   "delta": -2.04,
+   "status": "ok"
+  },
+  {
+   "label": "schedules",
+   "scene": 2,
+   "sentStart": 33.63,
+   "sentEnd": 37.88,
+   "wordT": 37.52,
+   "appears": 34.43,
+   "delta": -3.1,
+   "status": "ok"
+  },
+  {
+   "label": "start",
+   "scene": 2,
+   "sentStart": 38.16,
+   "sentEnd": 42.06,
+   "wordT": 38.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "inputs",
+   "scene": 3,
+   "sentStart": 42.96,
+   "sentEnd": 44.05,
+   "wordT": 43.69,
+   "appears": 43.12,
+   "delta": -0.57,
+   "status": "ok"
+  },
+  {
+   "label": "inputs",
+   "scene": 3,
+   "sentStart": 44.33,
+   "sentEnd": 47.4,
+   "wordT": 44.33,
+   "appears": 43.12,
+   "delta": -1.21,
+   "status": "ok"
+  },
+  {
+   "label": "defined in the trigger",
+   "scene": 3,
+   "sentStart": 44.33,
+   "sentEnd": 47.4,
+   "wordT": 44.84,
+   "appears": 44.95,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 3,
+   "sentStart": 44.33,
+   "sentEnd": 47.4,
+   "wordT": 45.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "start",
+   "scene": 3,
+   "sentStart": 44.33,
+   "sentEnd": 47.4,
+   "wordT": 46.38,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "createticket",
+   "scene": 3,
+   "sentStart": 47.68,
+   "sentEnd": 51.09,
+   "wordT": 47.68,
+   "appears": 47.79,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "title",
+   "scene": 3,
+   "sentStart": 47.68,
+   "sentEnd": 51.09,
+   "wordT": 49.73,
+   "appears": 49.88,
+   "delta": 0.14,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 3,
+   "sentStart": 47.68,
+   "sentEnd": 51.09,
+   "wordT": 50.75,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "generative orchestration",
+   "scene": 3,
+   "sentStart": 51.38,
+   "sentEnd": 56.62,
+   "wordT": 51.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "inputs",
+   "scene": 3,
+   "sentStart": 51.38,
+   "sentEnd": 56.62,
+   "wordT": 54.44,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "from the conversation context",
+   "scene": 3,
+   "sentStart": 51.38,
+   "sentEnd": 56.62,
+   "wordT": 54.87,
+   "appears": 55.33,
+   "delta": 0.45,
+   "status": "ok"
+  },
+  {
+   "label": "marta",
+   "scene": 3,
+   "sentStart": 60.73,
+   "sentEnd": 67.19,
+   "wordT": 60.73,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "laptop will not turn on",
+   "scene": 3,
+   "sentStart": 60.73,
+   "sentEnd": 67.19,
+   "wordT": 61.65,
+   "appears": 55.17,
+   "delta": -6.48,
+   "status": "ok"
+  },
+  {
+   "label": "title",
+   "scene": 3,
+   "sentStart": 60.73,
+   "sentEnd": 67.19,
+   "wordT": 64.42,
+   "appears": 49.88,
+   "delta": -14.54,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 3,
+   "sentStart": 60.73,
+   "sentEnd": 67.19,
+   "wordT": 66.88,
+   "appears": 50.68,
+   "delta": -16.2,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 4,
+   "sentStart": 68.09,
+   "sentEnd": 70.97,
+   "wordT": 70.68,
+   "appears": 50.68,
+   "delta": -20,
+   "status": "ok"
+  },
+  {
+   "label": "all new tickets",
+   "scene": 4,
+   "sentStart": 71.25,
+   "sentEnd": 74.62,
+   "wordT": 72.6,
+   "appears": 72.68,
+   "delta": 0.09,
+   "status": "ok"
+  },
+  {
+   "label": "medium",
+   "scene": 4,
+   "sentStart": 71.25,
+   "sentEnd": 74.62,
+   "wordT": 74.28,
+   "appears": 72.12,
+   "delta": -2.16,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 4,
+   "sentStart": 74.9,
+   "sentEnd": 78.08,
+   "wordT": 75.96,
+   "appears": 75.83,
+   "delta": -0.13,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 4,
+   "sentStart": 74.9,
+   "sentEnd": 78.08,
+   "wordT": 77.37,
+   "appears": 50.68,
+   "delta": -26.69,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 4,
+   "sentStart": 78.36,
+   "sentEnd": 82.71,
+   "wordT": 78.72,
+   "appears": 75.83,
+   "delta": -2.89,
+   "status": "ok"
+  },
+  {
+   "label": "a fixed value",
+   "scene": 4,
+   "sentStart": 78.36,
+   "sentEnd": 82.71,
+   "wordT": 79.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the agent no longer asks",
+   "scene": 4,
+   "sentStart": 82.99,
+   "sentEnd": 86.34,
+   "wordT": 84.11,
+   "appears": 84.6,
+   "delta": 0.49,
+   "status": "ok"
+  },
+  {
+   "label": "title",
+   "scene": 4,
+   "sentStart": 86.62,
+   "sentEnd": 91.16,
+   "wordT": 88.02,
+   "appears": 49.88,
+   "delta": -38.14,
+   "status": "ok"
+  },
+  {
+   "label": "marta",
+   "scene": 4,
+   "sentStart": 86.62,
+   "sentEnd": 91.16,
+   "wordT": 88.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "urgency",
+   "scene": 4,
+   "sentStart": 86.62,
+   "sentEnd": 91.16,
+   "wordT": 89.77,
+   "appears": 50.68,
+   "delta": -39.09,
+   "status": "ok"
+  },
+  {
+   "label": "medium",
+   "scene": 4,
+   "sentStart": 86.62,
+   "sentEnd": 91.16,
+   "wordT": 90.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "start",
+   "scene": 5,
+   "sentStart": 93.22,
+   "sentEnd": 96.72,
+   "wordT": 95.67,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "medium",
+   "scene": 5,
+   "sentStart": 93.22,
+   "sentEnd": 96.72,
+   "wordT": 96.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "still asks",
+   "scene": 5,
+   "sentStart": 97,
+   "sentEnd": 100.6,
+   "wordT": 97.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "marta",
+   "scene": 5,
+   "sentStart": 97,
+   "sentEnd": 100.6,
+   "wordT": 98.44,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "urgency",
+   "scene": 5,
+   "sentStart": 97,
+   "sentEnd": 100.6,
+   "wordT": 99.52,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add a question node for urgency",
+   "scene": 5,
+   "sentStart": 102.46,
+   "sentEnd": 104.45,
+   "wordT": 102.46,
+   "appears": 102.48,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "a question node",
+   "scene": 5,
+   "sentStart": 102.46,
+   "sentEnd": 104.45,
+   "wordT": 102.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "urgency",
+   "scene": 5,
+   "sentStart": 102.46,
+   "sentEnd": 104.45,
+   "wordT": 104.12,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "set a custom value of medium",
+   "scene": 5,
+   "sentStart": 104.73,
+   "sentEnd": 106.45,
+   "wordT": 104.73,
+   "appears": 104.75,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 5,
+   "sentStart": 104.73,
+   "sentEnd": 106.45,
+   "wordT": 105.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "medium",
+   "scene": 5,
+   "sentStart": 104.73,
+   "sentEnd": 106.45,
+   "wordT": 106.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "remove urgency from the trigger",
+   "scene": 5,
+   "sentStart": 106.74,
+   "sentEnd": 108.66,
+   "wordT": 107.06,
+   "appears": 106.76,
+   "delta": -0.3,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 5,
+   "sentStart": 106.74,
+   "sentEnd": 108.66,
+   "wordT": 107.38,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 5,
+   "sentStart": 106.74,
+   "sentEnd": 108.66,
+   "wordT": 108.34,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "set a custom value of medium",
+   "scene": 5,
+   "sentStart": 114.25,
+   "sentEnd": 115.98,
+   "wordT": 114.25,
+   "appears": 104.75,
+   "delta": -9.5,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 5,
+   "sentStart": 114.25,
+   "sentEnd": 115.98,
+   "wordT": 114.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "medium",
+   "scene": 5,
+   "sentStart": 114.25,
+   "sentEnd": 115.98,
+   "wordT": 115.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "with a fixed custom value the agent no longer asks for that input",
+   "scene": 5,
+   "sentStart": 116.26,
+   "sentEnd": 120.33,
+   "wordT": 116.26,
+   "appears": 116.38,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "fixed custom value",
+   "scene": 5,
+   "sentStart": 116.26,
+   "sentEnd": 120.33,
+   "wordT": 116.89,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 5,
+   "sentStart": 116.26,
+   "sentEnd": 120.33,
+   "wordT": 117.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the agent no longer asks",
+   "scene": 5,
+   "sentStart": 116.26,
+   "sentEnd": 120.33,
+   "wordT": 117.83,
+   "appears": 116.38,
+   "delta": -1.44,
+   "status": "ok"
+  },
+  {
+   "label": "a question node would still ask marta",
+   "scene": 5,
+   "sentStart": 120.61,
+   "sentEnd": 125.56,
+   "wordT": 120.61,
+   "appears": 120.73,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "a question node",
+   "scene": 5,
+   "sentStart": 120.61,
+   "sentEnd": 125.56,
+   "wordT": 120.61,
+   "appears": 120.73,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "would still ask marta",
+   "scene": 5,
+   "sentStart": 120.61,
+   "sentEnd": 125.56,
+   "wordT": 121.54,
+   "appears": 120.73,
+   "delta": -0.81,
+   "status": "ok"
+  },
+  {
+   "label": "marta",
+   "scene": 5,
+   "sentStart": 120.61,
+   "sentEnd": 125.56,
+   "wordT": 122.47,
+   "appears": 120.8,
+   "delta": -1.67,
+   "status": "ok"
+  },
+  {
+   "label": "the other end",
+   "scene": 6,
+   "sentStart": 126.46,
+   "sentEnd": 127.57,
+   "wordT": 126.74,
+   "appears": 127.12,
+   "delta": 0.38,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 6,
+   "sentStart": 127.85,
+   "sentEnd": 130.65,
+   "wordT": 129.25,
+   "appears": 126.55,
+   "delta": -2.7,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 6,
+   "sentStart": 127.85,
+   "sentEnd": 130.65,
+   "wordT": 129.25,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "createticket",
+   "scene": 6,
+   "sentStart": 130.93,
+   "sentEnd": 134.15,
+   "wordT": 130.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "one output",
+   "scene": 6,
+   "sentStart": 130.93,
+   "sentEnd": 134.15,
+   "wordT": 131.73,
+   "appears": 132.39,
+   "delta": 0.66,
+   "status": "ok"
+  },
+  {
+   "label": "internal variables",
+   "scene": 6,
+   "sentStart": 134.43,
+   "sentEnd": 139.46,
+   "wordT": 136.63,
+   "appears": 134.82,
+   "delta": -1.81,
+   "status": "ok"
+  },
+  {
+   "label": "only the outputs you define",
+   "scene": 6,
+   "sentStart": 139.74,
+   "sentEnd": 143.31,
+   "wordT": 139.74,
+   "appears": 139.8,
+   "delta": 0.06,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 6,
+   "sentStart": 139.74,
+   "sentEnd": 143.31,
+   "wordT": 141.69,
+   "appears": 139.94,
+   "delta": -1.75,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 6,
+   "sentStart": 139.74,
+   "sentEnd": 143.31,
+   "wordT": 141.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "variables in the tool node",
+   "scene": 6,
+   "sentStart": 143.59,
+   "sentEnd": 149.81,
+   "wordT": 144.52,
+   "appears": 145.26,
+   "delta": 0.74,
+   "status": "ok"
+  },
+  {
+   "label": "tool node",
+   "scene": 6,
+   "sentStart": 143.59,
+   "sentEnd": 149.81,
+   "wordT": 145.46,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 6,
+   "sentStart": 143.59,
+   "sentEnd": 149.81,
+   "wordT": 146.7,
+   "appears": 145.26,
+   "delta": -1.44,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 6,
+   "sentStart": 143.59,
+   "sentEnd": 149.81,
+   "wordT": 147.64,
+   "appears": 146.55,
+   "delta": -1.08,
+   "status": "ok"
+  },
+  {
+   "label": "conditions",
+   "scene": 7,
+   "sentStart": 150.72,
+   "sentEnd": 153.83,
+   "wordT": 151.65,
+   "appears": 151.67,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "must be published",
+   "scene": 7,
+   "sentStart": 154.11,
+   "sentEnd": 155.75,
+   "wordT": 154.77,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "published",
+   "scene": 7,
+   "sentStart": 154.11,
+   "sentEnd": 155.75,
+   "wordT": 155.42,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 7,
+   "sentStart": 156.03,
+   "sentEnd": 158.38,
+   "wordT": 157.04,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "real time",
+   "scene": 7,
+   "sentStart": 156.03,
+   "sentEnd": 158.38,
+   "wordT": 157.71,
+   "appears": 157.8,
+   "delta": 0.09,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 7,
+   "sentStart": 158.66,
+   "sentEnd": 161.18,
+   "wordT": 159.29,
+   "appears": 158.73,
+   "delta": -0.55,
+   "status": "ok"
+  },
+  {
+   "label": "networking",
+   "scene": 7,
+   "sentStart": 161.46,
+   "sentEnd": 165.02,
+   "wordT": 162.88,
+   "appears": 162.25,
+   "delta": -0.63,
+   "status": "ok"
+  },
+  {
+   "label": "inside respond to the agent",
+   "scene": 7,
+   "sentStart": 161.46,
+   "sentEnd": 165.02,
+   "wordT": 163.24,
+   "appears": 162.01,
+   "delta": -1.23,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 7,
+   "sentStart": 161.46,
+   "sentEnd": 165.02,
+   "wordT": 163.59,
+   "appears": 150.5,
+   "delta": -13.09,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 7,
+   "sentStart": 161.46,
+   "sentEnd": 165.02,
+   "wordT": 163.59,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "action limit",
+   "scene": 7,
+   "sentStart": 165.3,
+   "sentEnd": 169.44,
+   "wordT": 167.53,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 7,
+   "sentStart": 165.3,
+   "sentEnd": 169.44,
+   "wordT": 167.53,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "callback",
+   "scene": 7,
+   "sentStart": 169.72,
+   "sentEnd": 176.35,
+   "wordT": 170.35,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 7,
+   "sentStart": 169.72,
+   "sentEnd": 176.35,
+   "wordT": 171.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response on",
+   "scene": 7,
+   "sentStart": 169.72,
+   "sentEnd": 176.35,
+   "wordT": 171.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "not the pattern for a tool",
+   "scene": 7,
+   "sentStart": 169.72,
+   "sentEnd": 176.35,
+   "wordT": 174.46,
+   "appears": 170.77,
+   "delta": -3.68,
+   "status": "ok"
+  },
+  {
+   "label": "variable",
+   "scene": 8,
+   "sentStart": 178.41,
+   "sentEnd": 182.2,
+   "wordT": 181.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "marta",
+   "scene": 8,
+   "sentStart": 182.49,
+   "sentEnd": 185.94,
+   "wordT": 185.63,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask nexo to read the flow variable",
+   "scene": 8,
+   "sentStart": 187.8,
+   "sentEnd": 189.91,
+   "wordT": 187.8,
+   "appears": 187.82,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "variable",
+   "scene": 8,
+   "sentStart": 187.8,
+   "sentEnd": 189.91,
+   "wordT": 189.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "copy the variable into the topic",
+   "scene": 8,
+   "sentStart": 190.19,
+   "sentEnd": 192.07,
+   "wordT": 190.19,
+   "appears": 190.22,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "variable",
+   "scene": 8,
+   "sentStart": 190.19,
+   "sentEnd": 192.07,
+   "wordT": 190.82,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 8,
+   "sentStart": 190.19,
+   "sentEnd": 192.07,
+   "wordT": 191.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add it to respond to the agent",
+   "scene": 8,
+   "sentStart": 192.35,
+   "sentEnd": 194.31,
+   "wordT": 192.6,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 8,
+   "sentStart": 192.35,
+   "sentEnd": 194.31,
+   "wordT": 193.33,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond",
+   "scene": 8,
+   "sentStart": 192.35,
+   "sentEnd": 194.31,
+   "wordT": 193.33,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add it to respond to the agent",
+   "scene": 8,
+   "sentStart": 199.91,
+   "sentEnd": 201.66,
+   "wordT": 199.91,
+   "appears": 192.38,
+   "delta": -7.54,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 8,
+   "sentStart": 199.91,
+   "sentEnd": 201.66,
+   "wordT": 200.66,
+   "appears": 202.06,
+   "delta": 1.4,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond",
+   "scene": 8,
+   "sentStart": 199.91,
+   "sentEnd": 201.66,
+   "wordT": 200.66,
+   "appears": 202.13,
+   "delta": 1.47,
+   "status": "otro momento"
+  },
+  {
+   "label": "internal variables",
+   "scene": 8,
+   "sentStart": 207,
+   "sentEnd": 211.9,
+   "wordT": 207,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "internal variables never arrive so nexo cannot read them",
+   "scene": 8,
+   "sentStart": 207,
+   "sentEnd": 211.9,
+   "wordT": 207,
+   "appears": 207.12,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "never arrive",
+   "scene": 8,
+   "sentStart": 207,
+   "sentEnd": 211.9,
+   "wordT": 207.7,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "cannot read them",
+   "scene": 8,
+   "sentStart": 207,
+   "sentEnd": 211.9,
+   "wordT": 209.1,
+   "appears": 207.12,
+   "delta": -1.98,
+   "status": "ok"
+  },
+  {
+   "label": "marta",
+   "scene": 9,
+   "sentStart": 215.07,
+   "sentEnd": 217.48,
+   "wordT": 215.07,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "laptop will not turn on",
+   "scene": 9,
+   "sentStart": 215.07,
+   "sentEnd": 217.48,
+   "wordT": 216.14,
+   "appears": 219.79,
+   "delta": 3.65,
+   "status": "otro momento"
+  },
+  {
+   "label": "createticket",
+   "scene": 9,
+   "sentStart": 217.76,
+   "sentEnd": 221.41,
+   "wordT": 218.49,
+   "appears": 213.09,
+   "delta": -5.4,
+   "status": "ok"
+  },
+  {
+   "label": "title",
+   "scene": 9,
+   "sentStart": 217.76,
+   "sentEnd": 221.41,
+   "wordT": 219.95,
+   "appears": 215.38,
+   "delta": -4.57,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 9,
+   "sentStart": 221.69,
+   "sentEnd": 225.93,
+   "wordT": 222.07,
+   "appears": 215.38,
+   "delta": -6.7,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 9,
+   "sentStart": 221.69,
+   "sentEnd": 225.93,
+   "wordT": 223.62,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "custom value medium",
+   "scene": 9,
+   "sentStart": 221.69,
+   "sentEnd": 225.93,
+   "wordT": 223.62,
+   "appears": 221.78,
+   "delta": -1.84,
+   "status": "ok"
+  },
+  {
+   "label": "medium",
+   "scene": 9,
+   "sentStart": 221.69,
+   "sentEnd": 225.93,
+   "wordT": 224.39,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "nobody asks",
+   "scene": 9,
+   "sentStart": 221.69,
+   "sentEnd": 225.93,
+   "wordT": 225.16,
+   "appears": 224.7,
+   "delta": -0.47,
+   "status": "ok"
+  },
+  {
+   "label": "the middle actions",
+   "scene": 9,
+   "sentStart": 226.21,
+   "sentEnd": 228.07,
+   "wordT": 226.21,
+   "appears": 226.37,
+   "delta": 0.15,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 9,
+   "sentStart": 226.21,
+   "sentEnd": 228.07,
+   "wordT": 226.83,
+   "appears": 30.23,
+   "delta": -196.6,
+   "status": "ok"
+  },
+  {
+   "label": "the end",
+   "scene": 9,
+   "sentStart": 228.35,
+   "sentEnd": 233.64,
+   "wordT": 228.64,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "end respond to the agent",
+   "scene": 9,
+   "sentStart": 228.35,
+   "sentEnd": 233.64,
+   "wordT": 228.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 9,
+   "sentStart": 228.35,
+   "sentEnd": 233.64,
+   "wordT": 229.23,
+   "appears": 228.57,
+   "delta": -0.66,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 9,
+   "sentStart": 228.35,
+   "sentEnd": 233.64,
+   "wordT": 229.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "marta",
+   "scene": 9,
+   "sentStart": 228.35,
+   "sentEnd": 233.64,
+   "wordT": 233.35,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "published",
+   "scene": 9,
+   "sentStart": 233.92,
+   "sentEnd": 236.12,
+   "wordT": 234.9,
+   "appears": 155.22,
+   "delta": -79.68,
+   "status": "ok"
+  },
+  {
+   "label": "published before it was added",
+   "scene": 9,
+   "sentStart": 233.92,
+   "sentEnd": 236.12,
+   "wordT": 234.9,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "create a new agent flow",
+   "scene": 10,
+   "sentStart": 239.47,
+   "sentEnd": 243.63,
+   "wordT": 239.47,
+   "appears": 239.66,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "new agent flow",
+   "scene": 10,
+   "sentStart": 239.47,
+   "sentEnd": 243.63,
+   "wordT": 240.17,
+   "appears": 238.28,
+   "delta": -1.89,
+   "status": "ok"
+  },
+  {
+   "label": "agent flow",
+   "scene": 10,
+   "sentStart": 239.47,
+   "sentEnd": 243.63,
+   "wordT": 240.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "designer",
+   "scene": 10,
+   "sentStart": 239.47,
+   "sentEnd": 243.63,
+   "wordT": 241.9,
+   "appears": 238.28,
+   "delta": -3.62,
+   "status": "ok"
+  },
+  {
+   "label": "natural language",
+   "scene": 10,
+   "sentStart": 239.47,
+   "sentEnd": 243.63,
+   "wordT": 242.94,
+   "appears": 238.28,
+   "delta": -4.66,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 10,
+   "sentStart": 243.91,
+   "sentEnd": 249.16,
+   "wordT": 244.79,
+   "appears": 23.97,
+   "delta": -220.81,
+   "status": "ok"
+  },
+  {
+   "label": "when an agent calls the flow",
+   "scene": 10,
+   "sentStart": 243.91,
+   "sentEnd": 249.16,
+   "wordT": 245.37,
+   "appears": 244.24,
+   "delta": -1.13,
+   "status": "ok"
+  },
+  {
+   "label": "inputs",
+   "scene": 10,
+   "sentStart": 243.91,
+   "sentEnd": 249.16,
+   "wordT": 247.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 10,
+   "sentStart": 243.91,
+   "sentEnd": 249.16,
+   "wordT": 248.29,
+   "appears": 245.79,
+   "delta": -2.5,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 10,
+   "sentStart": 243.91,
+   "sentEnd": 249.16,
+   "wordT": 248.87,
+   "appears": 246.09,
+   "delta": -2.77,
+   "status": "ok"
+  },
+  {
+   "label": "the middle actions",
+   "scene": 10,
+   "sentStart": 249.44,
+   "sentEnd": 251.42,
+   "wordT": 249.69,
+   "appears": 249.93,
+   "delta": 0.24,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 10,
+   "sentStart": 249.44,
+   "sentEnd": 251.42,
+   "wordT": 250.18,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the end",
+   "scene": 10,
+   "sentStart": 251.71,
+   "sentEnd": 256.12,
+   "wordT": 252,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 10,
+   "sentStart": 251.71,
+   "sentEnd": 256.12,
+   "wordT": 252.88,
+   "appears": 244.49,
+   "delta": -8.39,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 10,
+   "sentStart": 251.71,
+   "sentEnd": 256.12,
+   "wordT": 252.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 10,
+   "sentStart": 256.4,
+   "sentEnd": 258.49,
+   "wordT": 257.1,
+   "appears": 256.99,
+   "delta": -0.11,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response is off",
+   "scene": 10,
+   "sentStart": 256.4,
+   "sentEnd": 258.49,
+   "wordT": 257.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "publish",
+   "scene": 10,
+   "sentStart": 258.77,
+   "sentEnd": 262.23,
+   "wordT": 259.04,
+   "appears": 238.28,
+   "delta": -20.76,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 10,
+   "sentStart": 258.77,
+   "sentEnd": 262.23,
+   "wordT": 260.9,
+   "appears": 238.28,
+   "delta": -22.62,
+   "status": "ok"
+  },
+  {
+   "label": "add a tool",
+   "scene": 10,
+   "sentStart": 258.77,
+   "sentEnd": 262.23,
+   "wordT": 261.16,
+   "appears": 259.75,
+   "delta": -1.42,
+   "status": "ok"
+  },
+  {
+   "label": "trigger",
+   "scene": 11,
+   "sentStart": 264.28,
+   "sentEnd": 268.36,
+   "wordT": 266.32,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 11,
+   "sentStart": 264.28,
+   "sentEnd": 268.36,
+   "wordT": 267,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond",
+   "scene": 11,
+   "sentStart": 264.28,
+   "sentEnd": 268.36,
+   "wordT": 267,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 11,
+   "sentStart": 268.64,
+   "sentEnd": 272.67,
+   "wordT": 268.64,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response is off",
+   "scene": 11,
+   "sentStart": 268.64,
+   "sentEnd": 272.67,
+   "wordT": 268.64,
+   "appears": 268.83,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "publish",
+   "scene": 11,
+   "sentStart": 274.53,
+   "sentEnd": 276.24,
+   "wordT": 274.53,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "publish the flow then add it",
+   "scene": 11,
+   "sentStart": 274.53,
+   "sentEnd": 276.24,
+   "wordT": 274.53,
+   "appears": 274.55,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "turn on asynchronous response",
+   "scene": 11,
+   "sentStart": 276.52,
+   "sentEnd": 278.27,
+   "wordT": 276.52,
+   "appears": 276.54,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 11,
+   "sentStart": 276.52,
+   "sentEnd": 278.27,
+   "wordT": 277.39,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "set a custom value on each input",
+   "scene": 11,
+   "sentStart": 278.55,
+   "sentEnd": 280.57,
+   "wordT": 278.8,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "custom value",
+   "scene": 11,
+   "sentStart": 278.55,
+   "sentEnd": 280.57,
+   "wordT": 279.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "publish",
+   "scene": 11,
+   "sentStart": 286.17,
+   "sentEnd": 287.9,
+   "wordT": 286.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "publish the flow then add it",
+   "scene": 11,
+   "sentStart": 286.17,
+   "sentEnd": 287.9,
+   "wordT": 286.17,
+   "appears": 274.55,
+   "delta": -11.61,
+   "status": "ok"
+  },
+  {
+   "label": "a flow must be published before the agent can use it as a tool",
+   "scene": 11,
+   "sentStart": 288.18,
+   "sentEnd": 291.8,
+   "wordT": 288.18,
+   "appears": 288.3,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "must be published",
+   "scene": 11,
+   "sentStart": 288.18,
+   "sentEnd": 291.8,
+   "wordT": 288.69,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "published",
+   "scene": 11,
+   "sentStart": 288.18,
+   "sentEnd": 291.8,
+   "wordT": 289.21,
+   "appears": 288.37,
+   "delta": -0.85,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 11,
+   "sentStart": 292.08,
+   "sentEnd": 297.44,
+   "wordT": 292.08,
+   "appears": 292.27,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response on breaks the real time rule",
+   "scene": 11,
+   "sentStart": 292.08,
+   "sentEnd": 297.44,
+   "wordT": 292.08,
+   "appears": 292.2,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response on",
+   "scene": 11,
+   "sentStart": 292.08,
+   "sentEnd": 297.44,
+   "wordT": 292.08,
+   "appears": 292.2,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "breaks the real time rule",
+   "scene": 11,
+   "sentStart": 292.08,
+   "sentEnd": 297.44,
+   "wordT": 293.09,
+   "appears": 292.2,
+   "delta": -0.88,
+   "status": "ok"
+  },
+  {
+   "label": "real time",
+   "scene": 11,
+   "sentStart": 292.08,
+   "sentEnd": 297.44,
+   "wordT": 293.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "back at the rail yard",
+   "scene": 12,
+   "sentStart": 298.34,
+   "sentEnd": 302.58,
+   "wordT": 298.34,
+   "appears": 298.5,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "marta",
+   "scene": 12,
+   "sentStart": 298.34,
+   "sentEnd": 302.58,
+   "wordT": 299.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "remember",
+   "scene": 12,
+   "sentStart": 302.86,
+   "sentEnd": 303.95,
+   "wordT": 302.86,
+   "appears": 303.11,
+   "delta": 0.24,
+   "status": "ok"
+  },
+  {
+   "label": "when an agent calls the flow",
+   "scene": 12,
+   "sentStart": 304.23,
+   "sentEnd": 308.99,
+   "wordT": 305.35,
+   "appears": 304.43,
+   "delta": -0.92,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 12,
+   "sentStart": 304.23,
+   "sentEnd": 308.99,
+   "wordT": 307.87,
+   "appears": 304.43,
+   "delta": -3.44,
+   "status": "ok"
+  },
+  {
+   "label": "respond",
+   "scene": 12,
+   "sentStart": 304.23,
+   "sentEnd": 308.99,
+   "wordT": 307.87,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "inputs",
+   "scene": 12,
+   "sentStart": 309.27,
+   "sentEnd": 312.96,
+   "wordT": 309.27,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "trigger",
+   "scene": 12,
+   "sentStart": 309.27,
+   "sentEnd": 312.96,
+   "wordT": 310.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "custom value",
+   "scene": 12,
+   "sentStart": 309.27,
+   "sentEnd": 312.96,
+   "wordT": 311.42,
+   "appears": 309.47,
+   "delta": -1.95,
+   "status": "ok"
+  },
+  {
+   "label": "only explicit outputs reach the agent",
+   "scene": 12,
+   "sentStart": 313.24,
+   "sentEnd": 315.52,
+   "wordT": 313.24,
+   "appears": 313.44,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "must be published",
+   "scene": 12,
+   "sentStart": 315.8,
+   "sentEnd": 320.75,
+   "wordT": 316.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "published",
+   "scene": 12,
+   "sentStart": 315.8,
+   "sentEnd": 320.75,
+   "wordT": 316.86,
+   "appears": 316,
+   "delta": -0.86,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 12,
+   "sentStart": 315.8,
+   "sentEnd": 320.75,
+   "wordT": 317.57,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response off",
+   "scene": 12,
+   "sentStart": 315.8,
+   "sentEnd": 320.75,
+   "wordT": 317.57,
+   "appears": 316,
+   "delta": -1.57,
+   "status": "ok"
+  },
+  {
+   "label": "actions",
+   "scene": 12,
+   "sentStart": 321.03,
+   "sentEnd": 323.78,
+   "wordT": 321.49,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "actions connectors and express mode",
+   "scene": 12,
+   "sentStart": 321.03,
+   "sentEnd": 323.78,
+   "wordT": 321.49,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  }
+ ]
+}

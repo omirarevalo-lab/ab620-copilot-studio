@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L02 · Identity and authentication · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .bf { white-space: nowrap; position: absolute; left: 0; top: 0; width: 260px; height: 130px; box-sizing: border-box; border-radius: 22px; border: 5px solid #fff; display: flex; align-items: center; justify-content: center; gap: 10px; color: #fff; font-weight: 800; backface-visibility: hidden; box-shadow: 0 14px 34px rgba(16,24,40,.3); }
+  .nd { border: 3px solid var(--line2); border-radius: 18px; padding: 14px 24px; background: #fff; }
+  .nd small { display: block; font-size: 26px; font-weight: 700; color: var(--muted); }
+  .vx { background: #e6ecfb; color: #2f5bd3; border-radius: 10px; padding: 2px 12px; font-weight: 800; }
+  .vr { display: flex; align-items: center; justify-content: space-between; height: 84px; border-bottom: 2px solid var(--line); font-size: 32px; opacity: 0; }
+  .vr span { color: var(--muted); font-weight: 700; }
+  .rad { display: flex; align-items: center; gap: 22px; width: 1000px; height: 84px; box-sizing: border-box; padding: 0 28px; margin-bottom: 14px; border: 3px solid var(--line2); border-radius: 16px; font-size: 32px; font-weight: 700; background: #fff; }
+  .rad i { width: 38px; height: 38px; border-radius: 50%; border: 4px solid #8a93a6; box-sizing: border-box; position: relative; flex: 0 0 auto; }
+  .rad i b { position: absolute; left: 6px; top: 6px; width: 18px; height: 18px; border-radius: 50%; background: #2f5bd3; opacity: 0; }
+  .bar2 { height: 20px; border-radius: 10px; background: #e2e5eb; margin: 16px 0; width: 90%; }
+  .dr { position: absolute; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L02 · Identity and authentication. World 3840x2160:
+     Contoso building 80,300 (1700x1200) · doors A/B/C at x 180/740/1300, y 900 (380x580) · Teams room y 440-760
+     maker 1800,1000 · portal storefront 2780,800 · admin 3330,250 · annex (scene 12) on the floor 1000,1320 · free wall area 1850-2750 x 100-900 */
+  const PX = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 34) + 'px;');
+  const BLUE = '#2f5bd3', PUR = '#8a5cd6', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', NAVY = '#1f2a44', GREY = '#8a93a6';
+  const sc = (svg, k) => svg.replace(/width="([\d.]+)" height="([\d.]+)"/, (m, w, h) => `width="${w * k}" height="${h * k}"`);
+  const WALK = (sel, x0, y0, x1, y1, t, d, ease) => tl.fromTo(sel, { x: x0, y: y0 }, { x: x1, y: y1, duration: d, ease: ease || 'none', immediateRender: false }, t);
+  const SETP = (sel, x, y, t) => tl.set(sel, { x: x, y: y }, t);
+  const emp = (id, x, y, c, card, k, vis) => { k = k || 1; return `<div class="w ${vis ? "" : "wk"}" id="${id}" style="${at(x, y)};width:${90 * k}px;height:${200 * k}px;opacity:${vis ? 1 : 0}">${sc(person(c), k)}${card ? `<div class="w" style="left:${62 * k}px;top:${112 * k}px;width:${40 * k}px;height:${54 * k}px;border-radius:7px;background:${card};border:3px solid #fff;box-sizing:border-box"></div>` : ''}</div>`; };
+  const stranger = (id, k) => { k = k || 1; return `<div class="w wk" id="${id}" style="left:0;top:0;opacity:0"><svg width="${90 * k}" height="${200 * k}" viewBox="0 0 90 200"><circle cx="45" cy="34" r="28" fill="#c9ced8"/><text x="45" y="48" font-size="40" font-weight="800" fill="#5d6472" text-anchor="middle">?</text><path d="M8 196 Q8 76 45 70 Q82 76 82 196 Z" fill="#8a93a6"/></svg></div>`; };
+  const agentS = (id, x, y, k, extra, o) => `<div class="w" id="${id}_w" style="${at(x, y)};transform:scale(${k});transform-origin:0 0">${agent(id, 0, 0, o)}${extra || ''}</div>`;
+  const door = (id, x, col) => `<div class="w" id="${id}" style="left:${x}px;top:900px;width:380px;height:580px">
+    <svg class="w" style="left:0;top:0" width="380" height="580" viewBox="0 0 380 580"><rect width="380" height="580" rx="18" fill="${col}"/><rect x="18" y="18" width="344" height="562" fill="#27324f"/></svg>
+    <div class="w" id="${id}_l" style="left:18px;top:18px;width:344px;height:562px;transform-origin:0 50%"><svg width="344" height="562" viewBox="0 0 344 562"><rect width="344" height="562" fill="#d4e3f8"/><rect x="30" y="30" width="284" height="300" fill="#eaf2fd" stroke="${col}" stroke-width="6"/><rect width="344" height="562" fill="none" stroke="${col}" stroke-width="10"/><circle cx="300" cy="400" r="16" fill="${col}"/></svg></div>
+    <div class="w" id="${id}_f" style="left:0;top:0;width:380px;height:580px;border-radius:18px;background:${RED};opacity:0"></div></div>`;
+  const bez = (p, t) => { const u = 1 - t; return [u * u * u * p[0] + 3 * u * u * t * p[2] + 3 * u * t * t * p[4] + t * t * t * p[6], u * u * u * p[1] + 3 * u * u * t * p[3] + 3 * u * t * t * p[5] + t * t * t * p[7]]; };
+  const RIB = [1540, 1330, 1800, 800, 2600, 700, 3050, 1050];
+  const RIDE = (sel, t, dur) => { const n = 14; const p0 = bez(RIB, 0); tl.set(sel, { x: p0[0], y: p0[1] }, t); for (let k = 1; k <= n; k++) { const p = bez(RIB, k / n); tl.to(sel, { x: p[0], y: p[1], duration: dur / n, ease: 'none' }, t + (k - 1) * dur / n); } };
+  const pw = (id, x, y, text, cls, fs) => `<div class="w" id="${id}" style="left:0;top:0;opacity:0">${PX(id + '_p', x, y, text, cls, fs).replace('style="', 'style="opacity:1;')}</div>`;
+
+
+  /* ───────── building, doors ───────── */
+  ADD(`<svg class="w" style="left:80px;top:300px" width="1700" height="1200" viewBox="0 0 1700 1200">
+    <rect x="0" y="60" width="1700" height="1140" rx="30" fill="#dde5f4" stroke="#9fb0d6" stroke-width="8"/><rect x="0" y="0" width="1700" height="120" rx="26" fill="#1f2a44"/>
+    <text x="850" y="88" font-size="72" font-weight="800" fill="#fff" text-anchor="middle">Contoso</text>
+    <rect x="40" y="140" width="1620" height="320" rx="22" fill="#f4f7ff" stroke="#9fb0d6" stroke-width="6"/><rect x="40" y="440" width="1620" height="20" fill="#c9d8f7"/>
+    <rect x="400" y="200" width="260" height="56" rx="26" fill="#e1e8f7"/><rect x="400" y="280" width="190" height="56" rx="26" fill="#e1e8f7"/><rect x="1000" y="190" width="180" height="56" rx="26" fill="#e1e8f7"/></svg>`);
+  ADD(door('dA', 180, GREY) + door('dB', 740, BLUE) + door('dC', 1300, PUR));
+  /* ───────── cables / ribbon (behind everything) ───────── */
+  ADD(`<svg class="w" id="cabs" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+    ${cable('rib', 'M' + RIB[0] + ' ' + RIB[1] + ' C ' + RIB[2] + ' ' + RIB[3] + ', ' + RIB[4] + ' ' + RIB[5] + ', ' + RIB[6] + ' ' + RIB[7], PUR, 22)}
+    ${cable('wTe', 'M570 1640 C 570 1540, 930 1580, 930 1486', BLUE, 16)}${cable('wM3', 'M1070 1640 C 1070 1540, 930 1580, 930 1486', BLUE, 16)}
+    ${cable('wBad', 'M1070 1640 C 1070 1560, 1490 1580, 1490 1486', RED, 16, '24 14')}
+  </svg>`);
+  /* badge reader (door B) */
+  ADD(`<div class="w" id="rd" style="left:1140px;top:1050px;width:120px;height:200px;border-radius:22px;background:#1f2a44;border:5px solid #fff;box-sizing:border-box;box-shadow:var(--shadow);opacity:0">
+    <div class="w" style="left:20px;top:16px;width:70px;height:70px;border-radius:50%;background:#2f5bd3;color:#fff;display:flex;align-items:center;justify-content:center">${IC('shield_checkmark', 'width:44px;height:44px')}</div>
+    <div class="w" style="left:20px;top:100px;width:70px;height:12px;border-radius:6px;background:#3a4a78"></div><div class="w" id="rdLed" style="left:35px;top:132px;width:40px;height:40px;border-radius:50%;background:#8a93a6"></div></div>`);
+  ADD(`<div class="w" id="gr" style="left:1170px;top:910px;width:100px;height:100px;border-radius:50%;background:#fff;border:6px solid #2f5bd3;color:#2f5bd3;display:flex;align-items:center;justify-content:center;opacity:0">${IC('settings', 'width:64px;height:64px')}</div>`);
+  /* padlock + key ring (door C) */
+  ADD(`<svg class="w" id="pl" style="left:1405px;top:1060px;opacity:0" width="170" height="220" viewBox="0 0 170 220"><g id="pl_s"><path d="M40 100 V70 a45 45 0 0 1 90 0 V100" fill="none" stroke="#8a5cd6" stroke-width="20"/></g><rect x="10" y="95" width="150" height="120" rx="22" fill="#8a5cd6" stroke="#fff" stroke-width="6"/><circle cx="85" cy="150" r="14" fill="#fff"/><rect x="79" y="155" width="12" height="36" rx="5" fill="#fff"/></svg>
+    <div class="w" id="kr" style="left:1520px;top:1290px;width:300px;height:140px;opacity:0"><svg class="w" style="left:0;top:0" width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="45" r="34" fill="none" stroke="#8a93a6" stroke-width="10"/></svg>${IC('key', 'position:absolute;left:92px;top:8px;width:70px;height:70px;color:#d98a00')}<div style="position:absolute;left:6px;top:92px;background:#fff;border:4px solid #8a5cd6;border-radius:12px;padding:2px 16px;font-size:36px;font-weight:800;color:#8a5cd6;white-space:nowrap">OAuth 2</div></div>`);
+
+  /* ───────── Teams room: helpdesk agent with headset, employees ───────── */
+  const headset = `<svg class="w" style="left:0;top:0" width="360" height="500" viewBox="0 0 360 500"><path d="M62 200 Q62 62 180 62 Q298 62 298 200" fill="none" stroke="#1f2a44" stroke-width="12"/><rect x="42" y="170" width="32" height="76" rx="14" fill="#1f2a44"/><rect x="286" y="170" width="32" height="76" rx="14" fill="#1f2a44"/><path d="M300 240 Q300 300 230 304" fill="none" stroke="#1f2a44" stroke-width="9"/><circle cx="224" cy="304" r="14" fill="#1f2a44"/></svg>`;
+  ADD(chip('tmChip', 170, 462, 'chat', 'Teams', 'sm blue').replace('style="', 'style="width:300px;font-size:56px;'));
+  ADD(agentS('hd', 760, 477, 0.55, headset, { folder: '', lock: true }));
+  [[1250, '#8a5cd6'], [1370, '#1e7f4f'], [1490, '#7a4d00']].forEach(([x, c], k) => ADD(emp('rme' + k, x, 646, c, BLUE, 0.55, true)));
+  ADD(say('rmB', 1275, 560, 'Hello', 'blue') + say('rmR', 610, 395, 'Hi, Sam!', 'green'));
+  ADD(`<div class="w" id="siC" style="left:1500px;top:470px;width:200px;height:120px;border-radius:18px;background:#fff;border:5px solid #8a93a6;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;color:#5d6472;font-size:34px;font-weight:800;opacity:0">${IC('lock_closed', 'width:44px;height:44px')}Sign in<i id="siX" style="position:absolute;left:-14px;right:-14px;top:50px;height:12px;border-radius:6px;background:#c4392f;transform:rotate(-14deg);opacity:0"></i></div>`);
+  ADD(PX('pHd', 870, 785, 'IT support · employees', 'blue', 48));
+
+  /* ───────── customer portal ───────── */
+  ADD(`<svg class="w" style="left:2780px;top:800px" width="1000" height="700" viewBox="0 0 1000 700">
+    <rect x="0" y="0" width="1000" height="700" rx="30" fill="#fff" stroke="#8fa6dc" stroke-width="8"/><path d="M4 90 V34 a30 30 0 0 1 30 -30 H966 a30 30 0 0 1 30 30 V90 Z" fill="#1f2a44"/>
+    <circle cx="44" cy="46" r="9" fill="#ffffff55"/><circle cx="76" cy="46" r="9" fill="#ffffff55"/><circle cx="108" cy="46" r="9" fill="#ffffff55"/>
+    <text x="500" y="62" font-size="44" font-weight="800" fill="#fff" text-anchor="middle">Contoso portal</text>
+    ${[560, 700, 840].map((x) => `<rect x="${x}" y="140" width="120" height="120" rx="16" fill="#e6ecfb"/><rect x="${x}" y="276" width="120" height="16" rx="6" fill="#e2e5eb"/>`).join('')}</svg>`);
+  const parcel = `<svg class="w" style="left:250px;top:330px" width="110" height="110" viewBox="0 0 110 110"><rect x="5" y="15" width="100" height="85" rx="8" fill="#c58b4a" stroke="#8a5a1e" stroke-width="6"/><rect x="45" y="15" width="20" height="85" fill="#e8c48f"/></svg>`;
+  ADD(agentS('oa', 2950, 1020, 0.72, parcel, { folder: '', lock: true }));
+  ADD(PX('pOa', 3280, 620, 'Order tracking', 'blue', 80) + PX('pNoMs', 3280, 810, 'no Microsoft account', 'red', 62) + PX('noA2', 3200, 810, 'No authentication', 'red', 80) + PX('noA1', 870, 790, 'No authentication', 'red', 80));
+  ADD(say('greet', 3085, 900, 'Hi, Ana!', 'green'));
+
+  /* door labels */
+  ADD(PX('lA', 370, 775, 'No<br>authentication', 'navy', 40) + PX('lB', 930, 775, 'Authenticate<br>with Microsoft', 'blue', 40) + PX('lC', 1490, 775, 'Authenticate<br>manually', 'purple', 52));
+  ADD(PX('lockedP', 1490, 1010, 'locked out', 'amber', 48));
+
+  /* maker, admin */
+  ADD(maker('mk', 1800, 1000));
+  ADD(admin('adm', 3330, 250) + PX('nAdm', 3560, 90, 'Microsoft Entra<br>admin center', 'navy', 50));
+  gsap.set('#adm', { opacity: 0 });
+  ADD(`<div class="w" id="adp" style="left:2800px;top:130px;width:500px;height:640px;background:#fff;border:7px solid #1f2a44;border-radius:30px;box-shadow:var(--shadow);opacity:0">
+    <div style="position:absolute;left:28px;top:14px;font-size:44px;font-weight:800;color:#1f2a44">Agents</div>
+    <div id="adR0" style="position:absolute;left:24px;top:86px;width:440px;height:76px;box-sizing:border-box;display:flex;align-items:center;gap:14px;padding:0 18px;border-radius:16px;background:#e3f4ea;border:4px solid #1e7f4f;font-size:36px;font-weight:800;color:#14603b;opacity:0">${IC('bot', 'width:46px;height:46px')}IT support agent</div>
+    <div id="adR1" style="position:absolute;left:24px;top:172px;width:440px;height:76px;box-sizing:border-box;display:flex;align-items:center;gap:14px;padding:0 18px;border-radius:16px;background:#f3f5f9;border:4px solid #c9ced8;font-size:36px;font-weight:800;color:#5d6472;opacity:0">${IC('bot', 'width:46px;height:46px')}Order agent</div>
+    ${[['adT0', 'history', 'Audit logs', 270], ['adT1', 'arrow_sync', 'Life cycle', 364], ['adT2', 'shield_checkmark', 'Conditional Access', 458]].map(([i, ic, t, y]) => `<div id="${i}" style="position:absolute;left:24px;top:${y}px;width:450px;height:80px;box-sizing:border-box;display:flex;align-items:center;gap:12px;padding:0 14px;border-radius:16px;background:#fff;border:5px solid #8a93a6;font-size:36px;font-weight:800;color:#5d6472;opacity:0">${IC(ic, 'width:44px;height:44px')}${t}</div>`).join('')}
+    <div id="adCp" style="position:absolute;left:24px;top:556px;width:450px;height:60px;box-sizing:border-box;display:flex;align-items:center;justify-content:center;border-radius:999px;background:#fff3d6;border:4px solid #d98a00;font-size:34px;font-weight:800;color:#7a4d00;opacity:0">→ connector permissions</div></div>`);
+
+  /* customers, strangers, employee walkers */
+  const CUC = ['#8a5cd6', '#1e7f4f', '#7a4d00'];
+  CUC.forEach((c, k) => ADD(emp('cu' + k, 0, 0, c, PUR, 1)));
+  for (let k = 0; k < 8; k++) ADD(stranger('st' + k, 1));
+  ADD(stranger('stS', 1));
+  ADD(emp('e1', 0, 0, '#0f6f85', BLUE, 1));
+  gsap.set('.wk', { x: -700, y: 1400 });
+
+  /* scene 2: kiosk bot, folder, link */
+  ADD(`<div class="w" id="ks" style="left:270px;top:1250px;opacity:0">${miniBot(200)}</div>
+    <div class="w" id="rf" style="left:440px;top:1300px;width:96px;height:120px;border-radius:10px;background:#c4392f;border:4px solid #fff;box-sizing:border-box;opacity:0"></div>`);
+  ADD(PX('okP', 370, 1470, `${IC('checkmark_circle', 'width:50px;height:50px;vertical-align:-10px')} public, general questions`, 'green', 44) + PX('intP', 370, 1020, 'internal data', 'red', 48) + PX('clM', 880, 930, 'classic mistake', 'red', 54));
+  [0, 1, 2, 3].forEach((k) => ADD(`<div class="w" id="lk${k}" style="left:${k === 0 ? 800 : 800}px;top:1120px;width:130px;height:130px;border-radius:50%;background:#fff;border:7px solid ${AMB};color:${AMB};display:flex;align-items:center;justify-content:center;opacity:0">${IC('link', 'width:76px;height:76px')}</div>`));
+
+  /* scene 3/4: pills, tiles, scenario */
+  ADD(PX('autoP', 930, 1530, 'set up automatically', 'blue', 46) + PX('entraP', 930, 1530, 'Entra ID = who each person is', 'blue', 46));
+  ADD(chip('tTe', 360, 1640, 'chat', 'Teams', 'blue').replace('style="', 'style="width:420px;') + chip('tM3', 860, 1640, 'mail', 'Microsoft 365', 'blue').replace('style="', 'style="width:420px;'));
+  ADD(`<div class="lab" id="bnX" style="left:1440px;top:1370px;font-size:150px;color:#c4392f">✕</div>`);
+  ADD(`<div class="w" id="scn" style="left:1900px;top:200px;width:820px;height:640px;background:#fff;border:7px solid #1f2a44;border-radius:30px;box-shadow:var(--shadow);overflow:hidden;opacity:0">
+    <div style="position:absolute;left:0;right:0;top:0;height:84px;background:#1f2a44;color:#fff;font-size:44px;font-weight:800;padding:0 30px;display:flex;align-items:center;z-index:2">Exam scenario</div>
+    <div id="scIn" style="position:absolute;left:30px;right:30px;top:110px;font-size:42px;font-weight:700;line-height:1.3;color:#141821">
+      ${'<div class="bar2"></div>'.repeat(5)}<div>The IT support agent is for Contoso employees.</div>${'<div class="bar2"></div>'.repeat(5)}
+      <div>It will be published in <span style="position:relative;z-index:0"><i id="mkr" style="position:absolute;left:-8px;right:-8px;top:6px;bottom:0;background:#ffd166;z-index:-1;transform-origin:0 50%"></i>Teams</span>.</div>${'<div class="bar2"></div>'.repeat(4)}<div>Which option?</div>${'<div class="bar2"></div>'.repeat(3)}</div></div>`);
+
+  /* scene 6: identity provider, password */
+  ADD(`<div class="w" id="idp" style="left:2300px;top:1470px;width:400px;height:250px;border-radius:30px;background:#1f2a44;border:6px solid #fff;box-sizing:border-box;box-shadow:var(--shadow);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;font-size:44px;font-weight:800;opacity:0">${IC('organization', 'width:84px;height:84px')}Identity provider</div>`);
+  ADD(`<div class="w" id="pwd" style="left:2130px;top:1480px;width:150px;height:84px;border-radius:20px;background:#fff;border:5px solid #8a93a6;box-sizing:border-box;display:flex;align-items:center;justify-content:center;gap:8px;color:#5d6472;font-size:38px;font-weight:800;opacity:0">${IC('lock_closed', 'width:40px;height:40px')}••••</div>`);
+  ADD(PX('idpP', 1860, 980, 'generic<br>OAuth 2 provider', 'purple', 44) + PX('noPw', 2420, 1390, 'no password shared<br>with the agent', 'green', 46) + PX('noMs2', 2150, 1640, 'no Microsoft account', 'amber', 46));
+
+  /* scene 8: identity tag, order cards, tool + key, ? marks */
+  ADD(pw('idtg', 0, -80, 'Ana', 'purple', 54));
+  const oc = (id, x, ic, t, cls) => chip(id, x, 640, ic, t, cls).replace('style="', 'style="width:420px;height:110px;font-size:50px;');
+  ADD(oc('ordA', 2840, 'checkmark_circle', "Ana's order", 'green') + oc('ordB', 3300, 'dismiss_circle', "Ben's order", 'red'));
+  ADD(`<div class="w" id="tool" style="left:3460px;top:1150px;width:240px;height:110px;border-radius:26px;background:#1f2a44;border:5px solid #fff;box-sizing:border-box;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-size:44px;font-weight:800;opacity:0">${IC('toolbox', 'width:56px;height:56px')}Tool</div>
+    <div class="w" id="kyD" style="left:3200px;top:1180px;width:100px;height:100px;border-radius:50%;background:#fff;border:7px solid ${AMB};color:${AMB};display:flex;align-items:center;justify-content:center;opacity:0">${IC('key', 'width:60px;height:60px')}</div>`);
+  ADD(PX('permP', 3470, 1320, 'user\'s own<br>permissions', 'amber', 52) + PX('noId', 1460, 1130, 'no identity', 'red', 60));
+  ADD(`<div class="lab" id="q0" style="left:1400px;top:1250px;font-size:130px;color:#d98a00">?</div><div class="lab" id="q1" style="left:1550px;top:1250px;font-size:130px;color:#d98a00">?</div>`);
+
+  /* scene 10-11: timeline, robot, badge, environment */
+  ADD(`<div class="w" id="tlC" style="left:1880px;top:130px;width:880px;height:230px;background:#fff;border:7px solid #1f2a44;border-radius:30px;box-shadow:var(--shadow);opacity:0">
+    <div class="w" style="left:110px;top:100px;width:660px;height:12px;border-radius:6px;background:#c9ced8"></div>
+    <div class="w" id="tlN1" style="left:170px;top:72px;width:68px;height:68px;border-radius:50%;background:#1f2a44"></div>
+    <div class="w" id="tlN2" style="left:640px;top:72px;width:68px;height:68px;border-radius:50%;background:#fff;border:8px solid #8a93a6;box-sizing:border-box"></div>
+    <div class="w" id="tlL1" style="left:70px;top:150px;font-size:46px;font-weight:800;color:#1f2a44;white-space:nowrap">Create agent</div>
+    <div class="w" id="tlL2" style="left:600px;top:150px;font-size:46px;font-weight:800;color:#5d6472;white-space:nowrap">Publish</div>
+    <div class="w" id="tlB" style="left:164px;top:6px;width:80px;height:60px;border-radius:14px;background:#2f5bd3;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0">${IC('shield_checkmark', 'width:42px;height:42px')}</div></div>`);
+  ADD(agent('nb', 2000, 430, { folder: '' }));
+  gsap.set('#nb', { opacity: 0 });
+  ADD(`<div class="w" id="bdg" style="left:2050px;top:770px;width:260px;height:130px;perspective:900px;opacity:0"><div id="bdgI" class="w" style="left:0;top:0;width:260px;height:130px;transform-style:preserve-3d">
+    <div class="bf" style="background:#2f5bd3;font-size:42px">${IC('shield_checkmark', 'width:44px;height:44px')}Agent ID</div>
+    <div class="bf" style="background:#1f2a44;font-size:30px;line-height:1.15;text-align:center;transform:rotateY(180deg)">Service principal<br>subtype: Agent</div></div></div>`);
+  ADD(chip('btnCr', 2040, 990, 'bot', 'Create agent', 'blue').replace('style="', 'style="width:400px;height:100px;font-size:44px;'));
+  ADD(PX('atCr', 2180, 395, 'at creation', 'blue', 50) + PX('dayP', 2180, 395, 'day one', 'amber', 50) + PX('unch', 1490, 700, 'unchanged', 'green', 56));
+  ADD(`<div class="w" id="envC" style="left:2400px;top:470px;width:370px;height:270px;background:#fff;border:6px solid #8a93a6;border-radius:26px;box-shadow:var(--shadow);opacity:0">
+    <div style="position:absolute;left:22px;top:12px;font-size:36px;font-weight:800;color:#1f2a44">Environment</div>
+    <div style="position:absolute;left:22px;top:84px;width:110px;height:58px;border-radius:29px;background:#c9ced8"><div style="position:absolute;left:6px;top:6px;width:46px;height:46px;border-radius:50%;background:#fff"></div></div>
+    <div style="position:absolute;left:150px;top:80px;width:64px;height:64px;border-radius:50%;background:#c4392f;color:#fff;display:flex;align-items:center;justify-content:center">${IC('lock_closed', 'width:38px;height:38px')}</div>
+    <div style="position:absolute;left:22px;top:168px;font-size:36px;font-weight:800;color:#5d6472;white-space:nowrap">Turn off Agent ID</div></div>`);
+  ADD(`<div class="w" id="byo" style="left:1820px;top:560px;width:250px;height:100px;border-radius:20px;background:#f3f5f9;border:5px dashed #8a93a6;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;color:#5d6472;opacity:0">Your own ID</div>
+    <div class="lab" id="byoX" style="left:2130px;top:520px;font-size:150px;color:#c4392f">✕</div>`);
+
+  /* scene 12: annex on the floor */
+  ADD(`<div class="w" id="pnl" style="left:1000px;top:1320px;width:1800px;height:810px;background:#fff;border:8px solid #1f2a44;border-radius:40px;box-shadow:var(--shadow);opacity:0"><div class="w" style="left:996px;top:30px;width:6px;height:740px;background:#e2e5eb"></div></div>`);
+  ADD(PX('pAB', 1250, 1370, 'Agent Builder', 'navy', 50) + PX('pCS', 1700, 1370, 'Copilot Studio', 'blue', 50) + PX('pDir', 2230, 1370, 'Directory objects', 'navy', 50) + PX('pNoId', 1280, 1830, 'no Agent ID', 'red', 50));
+  ADD(`<div class="w" id="gb" style="left:1080px;top:1560px;opacity:0">${miniBot(200).replace(/#2f5bd3/g, '#8a93a6')}</div>
+    <div class="w" id="slot" style="left:1340px;top:1590px;width:120px;height:150px;border-radius:18px;border:6px dashed #8a93a6;box-sizing:border-box;opacity:0"></div><div class="lab" id="slotX" style="left:1340px;top:1580px;font-size:130px;color:#c4392f">✕</div>
+    <div class="w" id="bb" style="left:1560px;top:1560px;opacity:0">${miniBot(200)}</div>
+    <div class="w" id="bdgS" style="left:1810px;top:1590px;width:120px;height:150px;border-radius:18px;background:#2f5bd3;border:5px solid #fff;box-sizing:border-box;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0">${IC('shield_checkmark', 'width:70px;height:70px')}</div>`);
+  ADD(`<svg class="w" id="cab" style="left:2050px;top:1444px;opacity:0" width="360" height="420" viewBox="0 0 360 420"><rect x="0" y="0" width="360" height="420" rx="24" fill="#e6ecfb" stroke="#7ea1e6" stroke-width="8"/>${[0, 1, 2, 3].map((r) => [0, 1, 2].map((c) => `<rect x="${20 + c * 110}" y="${20 + r * 100}" width="100" height="80" rx="12" fill="#f4f7ff" stroke="#9fb0d6" stroke-width="4"/>`).join('')).join('')}</svg>`);
+  for (let k = 0; k < 12; k++) ADD(`<div class="w dr" id="dr${k}" style="left:${2050 + 22 + (k % 3) * 110}px;top:${1444 + 22 + Math.floor(k / 3) * 100}px;width:96px;height:76px;border-radius:12px;background:#2f5bd3;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0">${IC('shield_checkmark', 'width:46px;height:46px')}</div>`);
+  ADD(`<div class="w" id="mtr" style="left:2050px;top:1884px;width:720px;height:56px;border-radius:28px;background:#e2e5eb;overflow:hidden;opacity:0"><div id="mtrF" class="w" style="left:0;top:0;width:720px;height:56px;background:#f2a39c;transform-origin:0 50%"></div><div class="w" style="left:24px;top:6px;font-size:38px;font-weight:800;color:#1f2a44;white-space:nowrap">Directory quota</div></div>`);
+  ADD(chip('btnC2', 2440, 1500, 'bot', 'Create agent', 'blue').replace('style="', 'style="width:340px;height:100px;font-size:34px;padding:0 10px;gap:8px;'));
+  ADD(`<div class="w" id="errB" style="left:2050px;top:1962px;width:720px;height:100px;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 24px;border-radius:24px;background:#fde8e6;border:6px solid #c4392f;color:#c4392f;font-size:46px;font-weight:800;opacity:0">${IC('error_circle', 'width:56px;height:56px')}Agent cannot be created</div>`);
+
+  /* ───────── UI windows ───────── */
+  const nav3 = ['Topics', 'Variables', 'Settings'];
+  ADDU(uiWindow('uiW', { title: 'Greeting topic', nav: nav3, on: 0, body: `
+    <div class="lay" style="opacity:1"><div class="crumb">Topics › Greeting</div>
+      <div style="display:flex;gap:40px;margin-top:10px">
+        <div style="width:560px;position:relative">
+          <div class="nd"><small>Message</small><div style="font-size:34px;font-weight:700">Hi, <span class="vx">User.DisplayName</span>! <span class="btn" id="vpBtn" style="padding:2px 14px;margin-left:6px;font-size:30px">{x}</span></div></div>
+          <div class="nd" style="margin-top:22px"><small>Condition</small><div style="font-size:34px;font-weight:700"><span class="vx">User.IsLoggedIn</span> = true</div></div>
+          <div id="wBub" style="opacity:0;margin-top:30px;display:inline-block;background:var(--accent);color:#fff;border-radius:24px;padding:16px 32px;font-size:40px;font-weight:700">Hi, Ana!</div>
+          <div id="vpk" style="opacity:0;position:absolute;left:30px;top:120px;width:500px;background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(16,24,40,.28);padding:8px 0;z-index:5;font-size:32px;font-weight:700">${['User.Id', 'User.DisplayName', 'User.IsLoggedIn', 'User.AccessToken'].map((t, k) => `<div style="padding:12px 24px;${k === 1 ? 'background:#e6ecfb;color:#2f5bd3' : ''}">${t}</div>`).join('')}</div></div>
+        <div style="width:600px"><h3 style="margin-bottom:6px">Variables</h3>
+          <div class="vr" id="wr0"><b class="vx">User.Id</b><span>7f2c…</span></div><div class="vr" id="wr1"><b class="vx">User.DisplayName</b><span>Ana</span></div>
+          <div class="vr" id="wr2"><b class="vx">User.IsLoggedIn</b><span>true</span></div><div class="vr" id="wr3"><b class="vx">User.AccessToken</b><span>••••••</span></div>
+          <div id="wMan" style="opacity:0;margin-top:22px;display:inline-block;background:var(--amber-soft);border:3px solid var(--amber);color:#7a4d00;border-radius:999px;padding:8px 26px;font-size:32px;font-weight:800">manual authentication</div></div></div></div>` }));
+  const PW = { vp: PC('#vpBtn') };
+
+  ADDU(uiWindow('uiM', { title: 'Settings', nav: ['Overview', 'Topics', 'Settings'], on: 2, body: `
+    <div class="lay" style="opacity:1"><div class="crumb">Settings › Advanced › Metadata</div><h3>Metadata</h3>
+      <div class="fld" style="width:900px"><small>Microsoft Entra Agent ID</small><span id="mskId">••••••••-••••-••••-••••</span></div></div>` }));
+
+  const navT = ['Overview', 'Topics', 'Settings', 'Publish'];
+  ADDU(uiWindow('uiT', { title: 'Agent', nav: navT, on: 0, body: `
+    <div class="lay" id="tL0" style="opacity:1"><div class="crumb">Overview</div><h3>Contoso agent</h3></div>
+    <div class="lay" id="tL1"><div class="crumb">Settings</div><h3>Settings</h3>
+      <div style="font-size:28px;color:var(--muted);font-weight:700;margin:6px 0">Generative AI</div>
+      <div style="font-size:30px;font-weight:800;margin:20px 0 8px">Security</div>
+      <div class="row" id="tRowAuth" style="border:3px solid var(--line2);border-radius:14px;padding:16px 26px;width:900px"><b>Authentication</b><span class="btn">Open</span></div>
+      <div style="font-size:28px;color:var(--muted);font-weight:700;margin:20px 0 6px">Advanced</div></div>
+    <div class="lay" id="tL3"><div class="crumb">Settings › Security</div><h3>Authentication</h3>
+      <div class="rad" id="tR0"><i><b></b></i>No authentication</div><div class="rad" id="tR1"><i><b></b></i>Authenticate with Microsoft</div><div class="rad" id="tR2"><i><b id="tDot"></b></i>Authenticate manually</div>
+      <div id="tOa" style="opacity:0;margin-top:10px;width:1000px"><div class="fld" style="width:620px"><small>Service provider</small>Generic OAuth 2</div><div class="fld" style="width:620px;margin-top:12px;color:var(--muted)"><small>OAuth 2 details</small>…</div></div>
+      <span class="btn pri" id="tSave" style="position:absolute;right:20px;bottom:10px">Save</span></div>
+    <div class="lay" id="tL4"><div class="crumb">Publish</div><h3>Publish</h3><span class="btn pri" id="tPub">Publish</span>
+      <div id="tPubN" style="opacity:0;margin-top:34px;display:inline-block;background:var(--amber-soft);border:3px solid var(--amber);color:#7a4d00;border-radius:18px;padding:14px 28px;font-size:32px;font-weight:800">reaches the channels only after publish</div></div>
+    <div class="lay" id="tL5"><div class="crumb">Topics › Greeting</div><h3>Greeting</h3>
+      <div class="nd" style="width:600px"><small>Message</small><div style="font-size:34px;font-weight:700">Hi, <span class="vx">User.DisplayName</span>!</div></div>
+      <div id="tPk" style="opacity:0;margin-top:14px;width:500px;background:#fff;border-radius:16px;box-shadow:0 20px 50px rgba(16,24,40,.28);padding:8px 0;font-size:32px;font-weight:700">${['User.Id', 'User.DisplayName', 'User.IsLoggedIn', 'User.AccessToken'].map((t, k) => `<div style="padding:12px 24px;${k === 1 ? 'background:#e6ecfb;color:#2f5bd3' : ''}">${t}</div>`).join('')}</div></div>` }));
+  const PT = { nv1: PC('#uiT_nv1'), nv2: PC('#uiT_nv2'), nv3: PC('#uiT_nv3'), au: PC('#tRowAuth'), r0: PC('#tR0'), r1: PC('#tR1'), r2: PC('#tR2'), save: PC('#tSave'), pub: PC('#tPub') };
+
+  /* ───────── overlays ───────── */
+  const rc = (id, x, y, ic, t, c) => `<div class="rcard" id="${id}" style="left:${x}px;top:${y}px;width:860px;height:300px;border-color:${c};color:${c}">${IC(ic)}${t}</div>`;
+  ADDS(`<div id="endBg" style="position:absolute;inset:0;background:#eef1f7;opacity:0"></div>`);
+  ADDS(`<div class="ov kin title" id="ovTitle" style="background:#f4f6fa">Two agents at Contoso<small>Identity and authentication</small></div><div class="ov kin q" id="ovQ" style="top:40px"><span>Who is talking to your agent?</span></div>
+    ${rc('rcd0', 70, 230, 'chat', 'Teams → Microsoft', BLUE)}${rc('rcd1', 990, 230, 'person', 'No Microsoft account → manual', PUR)}${rc('rcd2', 70, 600, 'shield_checkmark', 'Agent ID at creation', GRN)}${rc('rcd3', 990, 600, 'lock_closed', 'Never open on internal data', RED)}`);
+
+  /* ───────── exam rooms ───────── */
+  const mdoor = (id, x, col) => `<svg class="w" id="${id}" style="left:${x}px;top:90px" width="120" height="190" viewBox="0 0 120 190"><rect width="120" height="190" rx="12" fill="${col}"/><rect x="12" y="12" width="96" height="178" fill="#27324f"/><rect id="${id}_l" x="12" y="12" width="96" height="178" fill="#d4e3f8"/></svg>`;
+  EXAMS(
+    mkExam('exA', { q: 'An IT support agent for Contoso employees will be published in Teams. Which authentication option?', opts: ["Authenticate with Microsoft","Authenticate manually with a generic OAuth 2 provider","No authentication, everyone in Teams is an employee"],
+      why: '<div id="exA_w1"><span class="g">Teams</span> only supports <span class="g">Authenticate with Microsoft</span></div><div id="exA_w2">Employees are signed in · <span class="g">no sign-in screen</span></div>',
+      proof: `<div class="rm" style="left:0;border-color:#3a4a78"><h4>Teams</h4><div class="w" style="left:50px;top:100px">${sc(person('#2f5bd3'), 0.8)}</div>
+          <div id="pfBub" style="position:absolute;left:150px;top:120px;background:#fff;color:#141821;font-size:38px;font-weight:700;border-radius:20px;padding:8px 22px;opacity:0">Hello</div>
+          <div id="pfSi" style="position:absolute;left:400px;top:100px;width:200px;height:120px;border-radius:18px;background:#2d3a5c;display:flex;align-items:center;justify-content:center;gap:8px;color:#cfd8ee;font-size:34px;font-weight:700;opacity:0">${IC('lock_closed', 'width:44px;height:44px')}Sign in<i id="pfSx" style="position:absolute;left:-14px;right:-14px;top:50px;height:12px;border-radius:6px;background:#ff8a80;transform:rotate(-14deg)"></i></div>
+          <div class="lb" id="pfNo" style="left:28px;top:240px;color:#6be3a0;font-size:40px;opacity:0">no sign-in screen</div></div>
+        <div class="rm" style="left:880px;border-color:#3a4a78"><h4>Authenticate with Microsoft</h4>
+          <div class="chip sm" id="pfTe" style="left:40px;top:120px;width:240px;opacity:0;border-color:#2f5bd3;color:#2f5bd3">${IC('chat')}Teams</div>
+          <div id="pfLn" style="position:absolute;left:290px;top:156px;width:0px;height:14px;border-radius:7px;background:#6be3a0"></div>${mdoor('pfDr', 560, '#2f5bd3')}
+          <div class="lb" style="left:28px;top:240px;font-size:38px;color:#ffd166">Teams → Microsoft door only</div></div>` }),
+    mkExam('exB', { q: "Customers sign in to the Contoso portal with the portal's own accounts and have no Microsoft account. Which option fits?", opts: ["No authentication, it is a public website","Authenticate with Microsoft, the simplest secure choice","Authenticate manually with a generic OAuth 2 provider"],
+      why: '<div id="exB_w1">No <span class="r">Microsoft account</span> → the Microsoft door stays shut</div><div id="exB_w2">Own accounts → <span class="g">Authenticate manually</span></div>',
+      proof: `<div class="rm" style="left:0;border-color:#3a4a78"><h4>Authenticate with Microsoft</h4><div id="pbC1" class="w" style="left:60px;top:100px">${sc(person('#8a5cd6'), 0.8)}</div>${mdoor('pbDr1', 560, '#2f5bd3')}
+          <div class="lab" id="pbX" style="left:400px;top:90px;font-size:130px;color:#ff8a80">✕</div><div class="lb" id="pbNo" style="left:28px;top:240px;font-size:40px;color:#ff8a80;opacity:0">no Microsoft badge</div></div>
+        <div class="rm" style="left:880px;border-color:#3a4a78"><h4>Authenticate manually</h4><div id="pbC2" class="w" style="left:60px;top:100px">${sc(person('#8a5cd6'), 0.8)}</div>${mdoor('pbDr2', 560, '#8a5cd6')}
+          <div id="pbOk" style="position:absolute;left:400px;top:110px;color:#6be3a0;opacity:0">${IC('checkmark_circle', 'width:100px;height:100px')}</div><div class="lb" id="pbYes" style="left:28px;top:240px;font-size:40px;color:#6be3a0;opacity:0">portal key card</div></div>` }),
+    mkExam('exC', { q: 'A maker says: "I will worry about the Agent ID later, it only appears when I publish." When does Copilot Studio really create the Microsoft Entra Agent ID?', opts: ["When the agent is published to its first channel","When the agent is created","After an admin enables it for the environment"],
+      why: '<div id="exC_w1">Badge issued at <span class="g">creation</span>, not at publish</div><div id="exC_w2">Automatic · <span class="g">no environment opt-out</span></div>',
+      proof: `<div class="rm" style="left:0;width:1680px;border-color:#3a4a78"><h4>Agent timeline</h4>
+          <div class="w" style="left:150px;top:150px;width:1380px;height:12px;border-radius:6px;background:#3a4a78"></div>
+          <div class="w" id="pcN1" style="left:290px;top:120px;width:72px;height:72px;border-radius:50%;background:#6be3a0"></div><div class="w" id="pcN2" style="left:1170px;top:120px;width:72px;height:72px;border-radius:50%;background:#1d2742;border:8px solid #8a93a6;box-sizing:border-box"></div>
+          <div class="chip sm" id="pcB" style="left:420px;top:62px;width:260px;opacity:0;border-color:#2f5bd3;color:#2f5bd3">${IC('shield_checkmark')}Agent ID</div>
+          <div class="lb" style="left:226px;top:210px;color:#fff;font-size:44px">Create</div><div class="lb" style="left:1130px;top:210px;color:#fff;font-size:44px">Publish</div>
+          <div class="lab" id="pcX" style="left:1260px;top:70px;font-size:90px;color:#ff8a80">✕</div></div>` })
+  );
+
+  /* ═════════════════ TIMELINE ═════════════════ */
+  gsap.set('#world', { x: 960 - 1920 * 0.5, y: 540 - 1080 * 0.5, scale: 0.5 });
+  gsap.set(['#gb', '#bb', '#ks', '#rf'], { opacity: 0 });
+  gsap.set('.cb', { transformOrigin: '50% 100%' });
+  gsap.set(['#pfBub', '#pfSi', '#pfTe', '#pbX', '#pcX'], { opacity: 0 });
+  gsap.set('#pfLn', { width: 0 }); gsap.set('#mkr', { scaleX: 0 }); gsap.set('#mtrF', { scaleX: 0 });
+  gsap.set('#idtg', { x: RIB[0], y: RIB[1] });
+
+  /* ── 0 Who is talking? ── */
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.2);
+  tl.fromTo('#vign', { opacity: 0 }, { opacity: 0.6, duration: 0.5 }, 0.2);
+  OFF('#ovTitle', S(0, 1) - 0.3, 0.5); OFF('#vign', S(0, 1) - 0.3, 0.5);
+  CAM(900, 640, 1.05, S(0, 1) - 0.4, 1.6);
+  TAG('#pHd', S(0, 1) + 0.2); ON('#tmChip', W(0, 1, 'Teams', -0.2), 0.3);
+  ['#rme0', '#rme1', '#rme2'].forEach((e, k) => tl.to(e, { y: -8, duration: 0.25, yoyo: true, repeat: 5, ease: 'sine.inOut' }, S(0, 1) + 0.3 + k * 0.2));
+  OFF('#pHd', S(0, 2) - 0.2, 0.3);
+  CAM(2850, 1100, 0.95, S(0, 2) - 0.4, 1.8);
+  TAG('#pOa', S(0, 2) + 0.2);
+  [0, 1, 2].forEach((k) => { const t0 = S(0, 2) + 0.1 + k * 0.5; ON('#cu' + k, t0, 0.2); WALK('#cu' + k, 3950 + k * 100, 1400, [3080, 3250, 3430][k], 1400, t0, 2.6, 'power1.out'); });
+  TAG('#pNoMs', W(0, 2, 'no Microsoft account', -0.2));
+  OFF('#pNoMs', S(0, 3) - 0.2, 0.3);
+  CAM(1900, 1000, 0.55, S(0, 3) - 0.5, 1.6);
+  tl.to('#mk_p', { y: 10, duration: 0.2, yoyo: true, repeat: 3 }, S(0, 3) + 0.2);
+  tl.to('#dA_l', { scaleX: 0.12, duration: 0.8, ease: 'power2.inOut' }, W(0, 3, 'leaves both', 0));
+  TAG('#noA1', W(0, 3, 'No authentication', -0.3)); TAG('#noA2', W(0, 3, 'No authentication', -0.1));
+  ['hd', 'oa'].forEach((a) => { OFF('#' + a + '_lc', W(0, 3, 'No authentication', 0), 0.3); ON('#' + a + '_lo', W(0, 3, 'No authentication', 0), 0.3); });
+  tl.fromTo('#ovQ', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, W(0, 4, 'who is talking', -0.3));
+  OFF(['#ovQ', '#noA1', '#noA2', '#pOa', '#cu0', '#cu1', '#cu2'], E(0, 5) + 0.2, 0.5);
+
+  /* ── 1 Three kinds of door ── */
+  tl.to('#hd_lc', { opacity: 1, duration: 0.3 }, S(1, 0)); tl.to('#oa_lc', { opacity: 1, duration: 0.3 }, S(1, 0));
+  tl.to('#hd_lo', { opacity: 0, duration: 0.3 }, S(1, 0)); tl.to('#oa_lo', { opacity: 0, duration: 0.3 }, S(1, 0));
+  CAM(930, 900, 0.9, S(1, 0) + 0.3, 1.6);
+  tl.to('#dA_l', { scaleX: 1, duration: 0.8, ease: 'power2.inOut' }, S(1, 1) + 0.3);
+  CAM(560, 1000, 1.15, S(1, 2) - 0.4, 1.2);
+  tl.to('#dA_l', { scaleX: 0.12, duration: 0.9, ease: 'power2.inOut' }, W(1, 2, 'open', -0.1));
+  TAG('#lA', W(1, 2, 'open', 0));
+  CAM(1000, 1050, 1.15, S(1, 3) - 0.4, 1.2);
+  POP('#rd', W(1, 3, 'badge reader', -0.1)); TAG('#lB', W(1, 3, 'badge reader', 0.1));
+  ON('#e1', S(1, 3) + 0.3, 0.2); WALK('#e1', 880, 1330, 1135, 1290, S(1, 3) + 0.3, 1.4, 'power1.out');
+  tl.to('#rdLed', { backgroundColor: '#2ecc71', duration: 0.15, yoyo: true, repeat: 2 }, S(1, 3) + 1.9);
+  CAM(1380, 1050, 1.15, S(1, 4) - 0.4, 1.2);
+  POP('#pl', W(1, 4, 'own lock', -0.3)); tl.fromTo('#pl_s', { y: -16 }, { y: 0, duration: 0.15, ease: 'power2.in' }, W(1, 4, 'own lock', 0.5));
+  POP('#kr', W(1, 4, 'keys', -0.2)); TAG('#lC', W(1, 4, 'own lock', 0.2));
+  CAM(930, 1000, 0.9, S(1, 5) - 0.2, 1.2);
+  ON('#stS', S(1, 5) + 0.2, 0.2); WALK('#stS', 640, 1400, 330, 1400, S(1, 5) + 0.2, 1.6, 'power1.out');
+  tl.to('#stS', { opacity: 0, scale: 0.7, duration: 0.3 }, S(1, 5) + 1.8);
+  tl.to('#dA_f', { opacity: 0.55, duration: 0.2, yoyo: true, repeat: 3 }, S(1, 5) + 1.7);
+  WALK('#e1', 1135, 1290, 1385, 1395, W(1, 5, 'locks your', -0.4), 1.0, 'power1.out');
+  tl.to('#e1', { x: 1290, duration: 0.5, ease: 'back.out(3)' }, W(1, 5, 'locks your', 0.7));
+  TAG('#lockedP', W(1, 5, 'locks your', 0.5));
+  [['#lA', 0], ['#lB', 1], ['#lC', 2]].forEach(([l, k]) => tl.to(l, { scale: 1.15, duration: 0.25, yoyo: true, repeat: 1 }, S(1, 6) + 0.2 + k * 0.9));
+
+  /* ── 2 Open door ── */
+  OFF(['#lA', '#lB', '#lC', '#lockedP', '#e1'], S(2, 0) - 0.3, 0.3);
+  CAM(740, 1180, 1.3, S(2, 0) - 0.3, 1.4);
+  for (let k = 0; k < 5; k++) { const t0 = S(2, 0) + 0.3 + k * 1.0; ON('#st' + k, t0, 0.2); WALK('#st' + k, 1250 - k * 30, 1420, 330, 1400, t0, 2.2, 'none'); tl.to('#st' + k, { opacity: 0, scale: 0.7, duration: 0.3 }, t0 + 2.0); }
+  ON('#ks', S(2, 2) - 0.1, 0.4); TAG('#okP', W(2, 2, 'public', 0));
+  OFF('#okP', S(2, 3) - 0.2, 0.3);
+  ON('#rf', W(2, 3, 'internal data', 0), 0.3); TAG('#intP', W(2, 3, 'internal data', 0.1)); TAG('#clM', W(2, 3, 'classic mistake', 0));
+  POP('#lk0', W(2, 4, 'link', 0));
+  [1, 2, 3].forEach((k) => { const t0 = W(2, 4, 'link', 0.7) + (k - 1) * 0.2; ON('#lk' + k, t0, 0.2); tl.to('#lk' + k, { x: 150 + k * 90, y: 210, duration: 0.8, ease: 'power2.inOut' }, t0); });
+  [5, 6, 7].forEach((s, j) => { const t0 = W(2, 4, 'strangers', 0.3) + j * 0.6; ON('#st' + s, t0, 0.2); WALK('#st' + s, 1050 + j * 60, 1410, 330, 1400, t0, 1.9, 'none'); tl.to('#st' + s, { opacity: 0, scale: 0.7, duration: 0.3 }, t0 + 1.7); });
+  tl.fromTo('#ks', { y: 0 }, { y: -14, duration: 0.2, yoyo: true, repeat: 5 }, W(2, 4, 'strangers', 0.8));
+
+  /* ── 3 The badge ── */
+  OFF(['#lk0', '#lk1', '#lk2', '#lk3', '#clM', '#intP', '#rf', '#ks'], S(3, 0) - 0.4, 0.4);
+  CAM(960, 1180, 1.3, S(3, 0) - 0.3, 1.4);
+  TAG('#lB', S(3, 0) + 0.3);
+  ON('#gr', S(3, 1) - 0.1, 0.3);
+  tl.to('#gr', { rotation: 540, duration: 3.2, ease: 'power1.inOut' }, S(3, 1));
+  tl.fromTo('#rd', { scale: 1 }, { scale: 1.12, duration: 0.25, yoyo: true, repeat: 3 }, S(3, 1) + 0.4);
+  TAG('#autoP', W(3, 1, 'automatically', 0)); tl.to('#rdLed', { backgroundColor: '#2ecc71', duration: 0.2 }, W(3, 1, 'automatically', 0.3));
+  OFF(['#autoP', '#gr'], S(3, 2) - 0.1, 0.3);
+  TAG('#entraP', S(3, 2) + 0.2); tl.fromTo('#rd', { scale: 1 }, { scale: 1.12, duration: 0.25, yoyo: true, repeat: 3 }, W(3, 2, 'badge reader', 0));
+  OFF('#entraP', S(3, 3) - 0.4, 0.3);
+  CAM(1250, 620, 1.5, S(3, 3) - 0.4, 1.4);
+  POP('#rmB', S(3, 3) + 0.4);
+  tl.fromTo('#siC', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(3, 3, 'never even see', 0));
+  tl.fromTo('#siX', { opacity: 0 }, { opacity: 1, duration: 0.25 }, W(3, 3, 'sign-in screen', 0.2)); OFF('#siC', W(3, 3, 'sign-in screen', 1.2), 0.4);
+  POP('#rmR', S(3, 4) + 0.3);
+
+  /* ── 4 The channel rule ── */
+  OFF(['#rmB', '#rmR', '#siC', '#lB'], S(4, 0) - 0.4, 0.3);
+  CAM(930, 1500, 1.0, S(4, 0) - 0.3, 1.4);
+  POPX('#tTe', W(4, 1, 'Teams channel', 0)); POPX('#tM3', W(4, 1, 'three six five', 0));
+  ON('#wTe', W(4, 1, 'only support', 0), 0.1); ON('#wM3', W(4, 1, 'only support', 0.2), 0.1);
+  tl.fromTo('#wTe', { strokeDasharray: 800, strokeDashoffset: 800 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.out', immediateRender: false }, W(4, 1, 'only support', 0));
+  tl.fromTo('#wM3', { strokeDasharray: 800, strokeDashoffset: 800 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.out', immediateRender: false }, W(4, 1, 'only support', 0.2));
+  ON('#wBad', S(4, 2) + 0.2, 0.1);
+  tl.fromTo('#wBad', { strokeDasharray: 900, strokeDashoffset: 900 }, { strokeDashoffset: 380, duration: 0.8, ease: 'power2.out', immediateRender: false }, S(4, 2) + 0.2);
+  POP('#bnX', S(4, 2) + 1.0);
+  tl.to('#tM3', { x: 14, duration: 0.07, yoyo: true, repeat: 7 }, S(4, 2) + 1.0);
+  tl.to('#wBad', { strokeDashoffset: 900, duration: 0.5, ease: 'power2.in' }, S(4, 2) + 1.9); OFF(['#bnX', '#wBad'], S(4, 2) + 2.1, 0.3);
+  OFF(['#tTe', '#tM3', '#wTe', '#wM3'], S(4, 3) - 0.3, 0.3);
+  CAM(2300, 520, 1.1, S(4, 3) - 0.4, 1.5);
+  ON('#scn', S(4, 3), 0.4);
+  tl.to('#scIn', { y: -340, duration: 4.6, ease: 'power1.inOut' }, S(4, 3) + 0.6);
+  tl.fromTo('#mkr', { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: 'power2.out' }, S(4, 4) + 1.0);
+  OFF('#scn', E(4, 4) - 0.1, 0.4);
+
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.3, 0.5);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.1);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    ON(X + '_ring', Pz, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 1.0, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.6, ease: 'power2.inOut' }, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+  /* ── 5 EXAM A ── */
+  EXAMX('exA', 5, { pause: 6, reveal: 7, trap: 1, right: 0, q: S(5, 1) - 0.1, opt: [S(5, 3), S(5, 4), S(5, 5)], end: S(6, 0) - 0.1 });
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 7) + 1.7);
+  tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 8));
+  ON('#exA_p', S(5, 8) + 0.1, 0.4);
+  ON('#pfSi', S(5, 8) + 0.2, 0.3); POP('#pfBub', S(5, 8) + 0.5); tl.fromTo('#pfSx', { opacity: 0 }, { opacity: 1, duration: 0.2 }, W(5, 8, 'without ever seeing', 0)); ON('#pfNo', W(5, 8, 'without ever seeing', 0.4), 0.4);
+  ON('#pfTe', W(5, 8, 'Teams only', 0), 0.3); tl.to('#pfLn', { width: 250, duration: 0.7, ease: 'power2.out' }, W(5, 8, 'supports that', 0.1));
+  CAM(2100, 1250, 0.8, S(6, 0) - 0.5, 0.01);
+
+  /* ── 6 Your own lock ── */
+  TAG('#lC', S(6, 0) + 0.3);
+  [0, 1, 2].forEach((k) => { const t0 = W(6, 1, 'do not have a Microsoft account', -1.0) + k * 0.5; ON('#cu' + k, t0, 0.2); WALK('#cu' + k, 2900 + k * 150, 1400, [2120, 2030, 2250][k], 1400, t0, 2.4, 'power1.out'); });
+  TAG('#noMs2', W(6, 1, 'do not have a Microsoft account', 0.1));
+  OFF('#noMs2', S(6, 2) - 0.1, 0.3);
+  CAM(1950, 1250, 1.0, S(6, 2) - 0.3, 1.2);
+  tl.fromTo('#pl', { opacity: 0, y: -200 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, W(6, 2, 'generic OAuth', -0.8));
+  POP('#kr', W(6, 2, 'generic OAuth', 0.6)); TAG('#idpP', W(6, 2, 'generic OAuth', -0.2));
+  POP('#idp', W(6, 2, 'identity provider', -0.2));
+  OFF('#idpP', S(6, 3) - 0.1, 0.3);
+  tl.to('#cu0', { x: 2160, duration: 0.8, ease: 'power1.inOut' }, S(6, 3) + 0.2);
+  POP('#pwd', W(6, 3, 'without sharing', -0.5)); TAG('#noPw', W(6, 3, 'without sharing', 0.2));
+  tl.to('#idp', { scale: 1.06, duration: 0.2, yoyo: true, repeat: 3 }, S(6, 3) + 1.2);
+  OFF(['#noPw', '#pwd', '#idp'], S(6, 4) - 0.2, 0.3);
+  CAM(1700, 1250, 1.15, S(6, 4) - 0.3, 1.2);
+  tl.to('#dC_l', { scaleX: 0.12, duration: 0.9, ease: 'power2.inOut' }, W(6, 4, 'own keys', -0.8));
+  WALK('#cu0', 2160, 1400, 1450, 1400, W(6, 4, 'own keys', -0.9), 1.8, 'power1.inOut');
+  tl.to('#cu0', { opacity: 0, scale: 0.8, duration: 0.3 }, W(6, 4, 'own keys', 0.9));
+  tl.fromTo('#kr', { y: 0 }, { y: -10, duration: 0.15, yoyo: true, repeat: 5 }, W(6, 4, 'own keys', 0));
+
+  /* ── 7 The user variables (UI) ── */
+  OFF(['#cu1', '#cu2', '#lC'], S(7, 0) - 0.5, 0.3);
+  tl.to('#dC_l', { scaleX: 1, duration: 0.6 }, S(7, 0) - 0.4);
+  CAM(2330, 1225, 2.4, S(7, 0) - 0.3, 1.2, 'power2.in');
+  UIIN('#uiW', S(7, 0) + 0.4);
+  POPX('#wr0', S(7, 1)); POPX('#wr1', S(7, 2)); POPX('#wBub', W(7, 2, 'greet', -0.3));
+  POPX('#wr2', S(7, 3)); POPX('#wr3', S(7, 4)); POPX('#wMan', W(7, 4, 'manual authentication', 0));
+  ON('#cur', S(7, 5) - 0.4, 0.2); CUR(PW.vp[0], PW.vp[1], S(7, 5) - 0.3, 0.8); CLICK(PW.vp[0], PW.vp[1], S(7, 5) + 0.7);
+  ON('#vpk', S(7, 5) + 0.8, 0.3);
+
+  /* ── 8 Identity travels ── */
+  UIOUT('#uiW', S(8, 0) - 0.6); OFF('#cur', S(8, 0) - 0.7, 0.2); OFF('#kr', S(8, 0) - 0.5, 0.3);
+  CAM(2300, 950, 0.64, S(8, 0) - 0.4, 1.4);
+  SETP('#cu0', 1380, 1400, S(8, 0) - 0.3); SETP('#cu1', 1530, 1400, S(8, 0) - 0.3); tl.set(['#cu0', '#cu1'], { opacity: 1, scale: 1 }, S(8, 0) - 0.3);
+  tl.fromTo('#rib', { opacity: 1, strokeDasharray: 3000, strokeDashoffset: 3000 }, { strokeDashoffset: 0, duration: 2.0, ease: 'power2.inOut', immediateRender: false }, S(8, 1) + 0.2);
+  tl.to('#idtg', { opacity: 1, duration: 0.2 }, S(8, 1) + 0.2); RIDE('#idtg', S(8, 1) + 0.2, 2.2);
+  POPX('#ordA', W(8, 2, 'right customer', 0)); POPX('#ordB', W(8, 2, 'somebody else', 0));
+  tl.fromTo('#ordB', { borderStyle: 'solid' }, { borderStyle: 'dashed', duration: 0.1 }, W(8, 2, 'somebody else', 0.3));
+  OFF(['#ordA', '#ordB'], S(8, 3) - 0.1, 0.3);
+  POP('#tool', W(8, 3, 'call tools', -0.2)); ON('#kyD', W(8, 3, 'call tools', 0.4), 0.2);
+  tl.to('#kyD', { x: 140, y: 0, duration: 0.9, ease: 'power2.inOut' }, W(8, 3, 'call tools', 0.5));
+  TAG('#permP', W(8, 3, 'own permissions', -0.2));
+  OFF(['#permP', '#tool', '#kyD', '#idtg'], S(8, 4) - 0.1, 0.3);
+  tl.to('#rib', { opacity: 0.25, duration: 0.4 }, S(8, 4));
+  tl.to('#cu0 path, #cu1 path', { fill: '#8a93a6', duration: 0.5 }, S(8, 4) + 0.3);
+  POP('#q0', S(8, 4) + 0.6); POP('#q1', S(8, 4) + 1.0); TAG('#noId', S(8, 4) + 1.4);
+  OFF(['#q0', '#q1', '#noId', '#cu0', '#cu1', '#rib'], E(8, 4) + 0.5, 0.4);
+
+  /* ── 9 EXAM B ── */
+  EXAMX('exB', 9, { pause: 7, reveal: 8, trap: 1, right: 2, q: S(9, 1) - 0.1, opt: [S(9, 4), S(9, 5), S(9, 6)], end: S(10, 0) - 0.1 });
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(9, 8) + 1.7);
+  tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(9, 9) + 0.2);
+  ON('#exB_p', S(9, 8) + 1.7, 0.4);
+  tl.to('#pbC1', { x: 250, duration: 0.8, ease: 'power1.in' }, S(9, 9)); tl.to('#pbC1', { x: 180, duration: 0.4, ease: 'back.out(3)' }, S(9, 9) + 0.8);
+  POP('#pbX', S(9, 9) + 0.8); ON('#pbNo', S(9, 9) + 1.0, 0.3);
+  tl.to('#pbC2', { x: 400, duration: 1.2, ease: 'power1.inOut' }, S(9, 9) + 0.3); tl.to('#pbC2', { opacity: 0, duration: 0.3 }, S(9, 9) + 1.5);
+  tl.to('#pbDr2_l', { opacity: 0.1, duration: 0.5 }, S(9, 9) + 0.3);
+  ON('#pbOk', S(9, 9) + 1.6, 0.3); ON('#pbYes', S(9, 9) + 1.7, 0.3);
+
+  /* ── 10 Entra Agent ID ── */
+  CAM(2330, 700, 0.9, S(10, 0) - 0.5, 0.01);
+  ON('#btnCr', S(10, 0) + 1.0, 0.4);
+  tl.to('#mk_p', { y: 8, duration: 0.2, yoyo: true, repeat: 3 }, S(10, 1));
+  tl.to('#btnCr', { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, W(10, 1, 'create an agent', 0.2));
+  tl.fromTo('#nb', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)', immediateRender: false }, W(10, 1, 'create an agent', 0.4));
+  tl.fromTo('#bdg', { opacity: 0, y: -160 }, { opacity: 1, y: 0, duration: 0.55, ease: 'bounce.out', immediateRender: false }, W(10, 1, 'create an agent', 0.45));
+  TAG('#atCr', W(10, 1, 'automatically', 0.2));
+  OFF('#atCr', S(10, 2) - 0.1, 0.3);
+  ON('#tlC', S(10, 2), 0.4); POP('#tlB', W(10, 2, 'created', 0.3));
+  tl.fromTo('#tlN1', { scale: 1 }, { scale: 1.25, duration: 0.25, yoyo: true, repeat: 3 }, W(10, 2, 'created', 0.3));
+  tl.to('#tlN2', { borderColor: '#d98a00', duration: 0.3 }, W(10, 2, 'publish it', 0)); tl.fromTo('#tlN2', { scale: 1 }, { scale: 1.25, duration: 0.25, yoyo: true, repeat: 3 }, W(10, 2, 'publish it', 0));
+  ON('#envC', S(10, 3) + 0.1, 0.4);
+  tl.fromTo('#envC', { x: 0 }, { x: 10, duration: 0.07, yoyo: true, repeat: 5 }, W(10, 3, 'turn this off', 0.4));
+  ON('#byo', W(10, 3, 'bring your own', -0.3), 0.3);
+  tl.to('#byo', { x: 150, y: 190, duration: 0.7, ease: 'power2.in' }, W(10, 3, 'bring your own', -0.2));
+  POP('#byoX', W(10, 3, 'bring your own', 0.5));
+  tl.to('#byo', { x: 40, y: 100, duration: 0.5, ease: 'back.out(3)' }, W(10, 3, 'bring your own', 0.5));
+  OFF(['#byo', '#byoX', '#envC', '#tlC'], S(10, 4) - 0.1, 0.3);
+  TAG('#dayP', W(10, 4, 'day one', -0.2)); tl.fromTo('#bdg', { scale: 1 }, { scale: 1.15, duration: 0.25, yoyo: true, repeat: 3 }, W(10, 4, 'day one', 0));
+
+  /* ── 11 What the Agent ID changes ── */
+  OFF(['#dayP', '#btnCr'], S(11, 0) - 0.2, 0.3);
+  CAM(2230, 790, 1.3, S(11, 0) - 0.3, 1.2);
+  tl.to('#bdg', { scale: 1.35, duration: 0.5 }, S(11, 0) + 0.3);
+  tl.to('#bdgI', { rotationY: 180, duration: 0.8, ease: 'power2.inOut' }, W(11, 0, 'subtype', -0.5));
+  CAM(1700, 1150, 1.0, S(11, 1) - 0.3, 1.2); ON('#kr', S(11, 1), 0.3);
+  OFF(['#nb', '#bdg'], S(11, 1) - 0.2, 0.3);
+  TAG('#unch', S(11, 1) + 0.4); tl.fromTo('#pl', { scale: 1 }, { scale: 1.15, duration: 0.25, yoyo: true, repeat: 3 }, S(11, 1) + 0.5);
+  tl.set('#cu0', { opacity: 1, scale: 1, x: 1800, y: 1400 }, S(11, 1) + 0.3); WALK('#cu0', 1800, 1400, 1450, 1400, S(11, 1) + 0.4, 1.8, 'power1.inOut'); tl.to('#cu0', { opacity: 0, duration: 0.3 }, S(11, 1) + 2.1);
+  OFF('#unch', S(11, 2) - 0.2, 0.3);
+  CAM(3050, 470, 1.3, S(11, 2) - 0.3, 1.5);
+  POP('#adm', S(11, 2) + 0.3); TAG('#nAdm', S(11, 2) + 0.6);
+  ON('#adp', W(11, 3, 'see the agent', -0.8), 0.4); POPX('#adR0', W(11, 3, 'see the agent', 0)); POPX('#adR1', W(11, 3, 'see the agent', 0.3));
+  POPX('#adT0', W(11, 3, 'audit logs', 0)); POPX('#adT1', W(11, 3, 'life cycle', 0)); POPX('#adCp', W(11, 3, 'connector permissions', 0)); POPX('#adT2', W(11, 3, 'conditional access', 0));
+  [['#adT0', 'audit logs'], ['#adT1', 'life cycle'], ['#adT2', 'conditional access']].forEach(([t, w]) => tl.to(t, { borderColor: '#2f5bd3', color: '#2f5bd3', duration: 0.25 }, W(11, 3, w, 0.2)));
+  CAM(2330, 1225, 2.4, S(11, 4) - 1.0, 1.0, 'power2.in');
+  UIIN('#uiM', S(11, 4) - 0.1);
+  tl.fromTo('#mskId', { opacity: 0.2 }, { opacity: 1, duration: 0.4 }, S(11, 4) + 0.6);
+
+  /* ── 12 Two limits ── */
+  UIOUT('#uiM', S(12, 0) - 0.6);
+  OFF(['#adp', '#adm', '#nAdm', '#kr'], S(12, 0) - 0.6, 0.4);
+  CAM(1900, 1620, 1.0, S(12, 0) - 0.3, 1.4);
+  ON('#pnl', S(12, 0), 0.4);
+  TAG('#pAB', S(12, 1) - 0.4); ON('#gb', S(12, 1) - 0.4, 0.3); ON('#slot', W(12, 1, 'app registration', 0), 0.3); POP('#slotX', W(12, 1, 'app registration', 0.4)); TAG('#pNoId', W(12, 1, 'app registration', 0.6));
+  TAG('#pCS', W(12, 2, 'Copilot Studio', -0.2)); ON('#bb', W(12, 2, 'Copilot Studio', -0.2), 0.3); POP('#bdgS', W(12, 2, 'Copilot Studio', 0.5));
+  ON('#cab', S(12, 3), 0.4); TAG('#pDir', S(12, 3) + 0.1);
+  for (let k = 0; k < 12; k++) POP('#dr' + k, W(12, 3, 'directory object', -0.3) + k * 0.2);
+  ON('#mtr', S(12, 4) - 0.1, 0.3);
+  tl.to('#mtrF', { scaleX: 1, duration: 1.8, ease: 'power1.inOut' }, S(12, 4));
+  ON('#btnC2', W(12, 4, 'new agent', -0.3), 0.3); tl.to('#btnC2', { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1 }, W(12, 4, 'new agent', 0.3));
+  POPX('#errB', W(12, 4, 'cannot be created', -0.2));
+  [['#errB', 0], ['#mtr', 0.5]].forEach(([e, d]) => tl.fromTo(e, { scale: 1 }, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 3 }, W(12, 5, 'quota', -0.8) + d));
+
+  /* ── 13 EXAM C ── */
+  EXAMX('exC', 13, { pause: 6, reveal: 7, trap: 0, right: 1, q: S(13, 2) - 0.1, opt: [S(13, 3), S(13, 4), S(13, 5)], end: S(14, 0) - 0.1 });
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(13, 7) + 1.7);
+  tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(13, 8));
+  ON('#exC_p', S(13, 7) + 1.7, 0.4);
+  ON('#pcB', S(13, 8) - 0.2, 0.3); tl.fromTo('#pcN1', { scale: 1 }, { scale: 1.25, duration: 0.25, yoyo: true, repeat: 3 }, S(13, 8) - 0.2);
+  POP('#pcX', W(13, 8, 'automatic', 0.3));
+  OFF(['#pnl', '#cab', '#mtr', '#errB', '#btnC2', '#pAB', '#pCS', '#pDir', '#pNoId', '#gb', '#bb', '#slot', '#slotX', '#bdgS', '.dr'], S(14, 0) - 0.5, 0.01);
+  CAM(2330, 1225, 2.4, S(14, 0) - 0.5, 0.01);
+
+  /* ── 14 Where you set it up (UI) ── */
+  UIIN('#uiT', S(14, 0) + 0.3);
+  ON('#cur', S(14, 1) - 0.3, 0.2);
+  CUR(PT.nv2[0], PT.nv2[1], S(14, 1) - 0.2, 0.6); CLICK(PT.nv2[0], PT.nv2[1], W(14, 1, 'Settings', 0)); NAV('#uiT', 2, W(14, 1, 'Settings', 0), 4);
+  SWAP('#tL0', '#tL1', W(14, 1, 'Settings', 0.1));
+  CUR(PT.au[0], PT.au[1], S(14, 2) + 0.1, 0.6); CLICK(PT.au[0], PT.au[1], W(14, 2, 'Authentication', 0));
+  SWAP('#tL1', '#tL3', W(14, 2, 'Authentication', 0.3));
+  CUR(PT.r0[0], PT.r0[1], W(14, 3, 'No authentication', 0), 0.5); CUR(PT.r1[0], PT.r1[1], W(14, 3, 'Authenticate with Microsoft', 0), 0.5); CUR(PT.r2[0], PT.r2[1], W(14, 3, 'Authenticate manually', 0), 0.5);
+  [['#tR0', 'No authentication'], ['#tR1', 'Authenticate with Microsoft'], ['#tR2', 'Authenticate manually']].forEach(([r, w]) => { tl.to(r, { borderColor: '#2f5bd3', duration: 0.2 }, W(14, 3, w, 0)); tl.to(r, { borderColor: '#c9ced8', duration: 0.2 }, W(14, 3, w, 1.0)); });
+  CLICK(PT.r2[0], PT.r2[1], S(14, 4) + 0.2); tl.to('#tDot', { opacity: 1, duration: 0.2 }, S(14, 4) + 0.2); tl.to('#tR2', { borderColor: '#2f5bd3', duration: 0.2 }, S(14, 4) + 0.2);
+  ON('#tOa', W(14, 4, 'OAuth two', 0), 0.3);
+  CUR(PT.save[0], PT.save[1], S(14, 5) - 0.1, 0.6); CLICK(PT.save[0], PT.save[1], S(14, 5) + 0.6);
+  CUR(PT.nv3[0], PT.nv3[1], S(14, 6) - 0.1, 0.5); CLICK(PT.nv3[0], PT.nv3[1], W(14, 6, 'publish the agent', 0)); NAV('#uiT', 3, W(14, 6, 'publish the agent', 0), 4);
+  SWAP('#tL3', '#tL4', W(14, 6, 'publish the agent', 0.2));
+  CUR(PT.pub[0], PT.pub[1], W(14, 6, 'publish the agent', 0.6), 0.5); CLICK(PT.pub[0], PT.pub[1], W(14, 6, 'publish the agent', 1.3));
+  POPX('#tPubN', W(14, 6, 'only reaches', 0));
+  CUR(PT.nv1[0], PT.nv1[1], S(14, 7) - 0.1, 0.5); CLICK(PT.nv1[0], PT.nv1[1], S(14, 7) + 0.4); NAV('#uiT', 1, S(14, 7) + 0.4, 4);
+  SWAP('#tL4', '#tL5', S(14, 7) + 0.5); ON('#tPk', S(14, 7) + 1.4, 0.3);
+  OFF('#cur', E(14, 7) - 0.2, 0.2);
+
+  /* ── 15 Two doors, chosen ── */
+  UIOUT('#uiT', S(15, 0) - 0.6);
+  OFF(['#nb', '#tlC', '#bdg'], S(15, 0) - 0.7, 0.01);
+  CAM(1920, 1080, 0.5, S(15, 0) - 0.1, 1.6);
+  tl.to(['#dB_l', '#dC_l'], { scaleX: 0.12, duration: 0.8 }, S(15, 0) + 0.8);
+  CAM(1000, 760, 1.1, S(15, 1) - 0.4, 1.4);
+  TAG('#lB', S(15, 1) + 0.2);
+  POP('#rmB', S(15, 1) + 1.2); tl.fromTo('#siC', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(15, 1, 'nobody sees', -0.6));
+  tl.fromTo('#siX', { opacity: 0 }, { opacity: 1, duration: 0.25 }, W(15, 1, 'nobody sees', 0.4)); OFF('#siC', W(15, 1, 'nobody sees', 1.4), 0.4);
+  POP('#rmR', S(15, 1) + 3.4);
+  OFF(['#lB', '#rmB', '#rmR', '#siC'], S(15, 2) - 0.2, 0.3);
+  CAM(2500, 1150, 0.72, S(15, 2) - 0.4, 1.5);
+  TAG('#lC', S(15, 2) + 0.2);
+  tl.set('#cu0', { opacity: 1, scale: 1 }, S(15, 2)); tl.set('#cu0 path', { fill: '#8a5cd6' }, S(15, 2));
+  WALK('#cu0', 1750, 1400, 1450, 1400, S(15, 2) + 0.3, 1.4, 'power1.out');
+  tl.to('#rib', { opacity: 1, duration: 0.3 }, S(15, 2) + 1.4); tl.fromTo('#rib', { strokeDashoffset: 3000 }, { strokeDashoffset: 0, duration: 1.4, ease: 'power2.inOut', immediateRender: false }, S(15, 2) + 1.4);
+  POP('#greet', W(15, 2, 'greets', 0.3));
+  OFF(['#lC', '#greet', '#rib', '#cu0'], S(15, 3) - 0.1, 0.4);
+  CAM(1920, 1080, 0.5, S(15, 3) - 0.2, 1.4);
+  ON('#endBg', E(15, 2) - 0.1, 0.4);
+  POPX('#rcd0', S(15, 3) + 0.6); POPX('#rcd1', W(15, 3, 'no Microsoft account means', -0.3)); POPX('#rcd2', W(15, 3, 'Agent I D comes', -0.3)); POPX('#rcd3', W(15, 3, 'never guards', -0.5));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

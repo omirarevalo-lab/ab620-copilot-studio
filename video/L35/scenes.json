@@ -1,0 +1,31 @@
+{"brand": "AB-620 · Module 7 · Lesson 1", "scenes": [
+ {"type": "split", "left": {"kicker": "Test sets", "title": "Your agent's exam", "sub": "Check improvements with data, not intuition."},
+  "rows": [
+   {"icon": "clipboard_task_list_ltr", "title": "A list of questions", "desc": "To measure your agent", "at": "list of questions", "hi": true},
+   {"icon": "chat", "title": "Single response or several turns", "at": "single response", "hi": true},
+   {"icon": "data_bar_vertical", "title": "Improvements with data", "at": "with data", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Import cases", "title": "A CSV or TXT file", "pill": {"text": "Exact match later? Include expected responses", "at": "Exact match"}},
+  "window": {"title": "Evaluation · Import test set", "heading": "Columns and limits", "rail": ["apps", "bot", "clipboard_task_list_ltr", "gauge", "settings"],
+   "cards": [
+    {"icon": "question_circle", "title": "Question", "at": "Question and", "hi": true},
+    {"icon": "checkmark_circle", "title": "Expected response", "desc": "Optional when you import", "at": "Expected response", "hi": true},
+    {"icon": "number_symbol", "title": "Up to 100 questions", "at": "one hundred", "hi": true},
+    {"icon": "text_t", "title": "1,000 characters per question", "at": "one thousand", "hi": true}]}},
+ {"type": "terms", "header": {"kicker": "Generate cases", "title": "Three ways to fill it"}, "cols": 3,
+  "items": [
+   {"icon": "sparkle", "term": "Quick question set", "def": "10 questions from the agent description", "at": "Quick question"},
+   {"icon": "book_open", "term": "From knowledge", "def": "Files up to 5 MB", "at": "From knowledge"},
+   {"icon": "data_bar_vertical", "term": "Real topics from Monitor", "def": "Preview", "at": "Monitor"}]},
+ {"type": "compare", "header": {"kicker": "Agent requirements", "title": "Which agents can be evaluated"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Supported", "tone": "good", "at": "only supports",
+    "items": [{"text": "No authentication", "at": "No authentication"}, {"text": "Authenticate with Microsoft", "at": "Authenticate with Microsoft"}]},
+   {"icon": "dismiss_circle", "title": "Not supported", "tone": "bad", "at": "does not support", "items": [{"text": "Fabric data agents", "at": "Fabric"}]}],
+  "verdict": {"icon": "person", "text": "Needs authentication? Choose a test user profile", "at": "test user profile"}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "An easy mistake"},
+  "cols": [
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "exam trap",
+    "items": [{"text": "Import without expected responses", "at": "without expected"}, {"text": "Then use Exact match", "at": "then using"}]},
+   {"icon": "warning", "title": "Result", "sub": "Compare meaning · Text similarity · Exact match", "at": "Compare meaning",
+    "items": [{"text": "An Invalid case", "at": "Invalid case"}]}]}
+]}

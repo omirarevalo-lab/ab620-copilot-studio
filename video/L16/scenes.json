@@ -1,0 +1,49 @@
+{"brand": "AB-620 · Module 2 · Lesson 9", "scenes": [
+ {"type": "compare", "header": {"kicker": "Agent flows", "title": "Two ways to use a flow"},
+  "cols": [
+   {"icon": "bot", "title": "The whole agent", "sub": "Agent-level tool", "at": "whole agent",
+    "items": [{"text": "Uses it when it sees fit", "at": "sees fit"}]},
+   {"icon": "branch_fork", "title": "Inside a topic", "sub": "At an exact point", "accent": true, "at": "exact point",
+    "items": [{"text": "Always in the same place", "at": "always goes"}]}]},
+ {"type": "flow", "header": {"kicker": "A flow inside a topic", "title": "Runs exactly where you place it"},
+  "nodes": [
+   {"icon": "branch_fork", "title": "Only that topic", "at": "only to that topic"},
+   {"icon": "flow", "title": "Action node", "sub": "Exact point on the canvas", "accent": true, "at": "exactly at the point"},
+   {"icon": "chat", "title": "Exact moment", "sub": "In the conversation", "at": "exact moment"}]},
+ {"type": "path", "header": {"kicker": "How to add it", "title": "Add node › Add a tool › the flow"},
+  "crumbs": [
+   {"icon": "branch_fork", "text": "Topic", "at": "Open the topic"},
+   {"icon": "cursor_click", "text": "Add node", "at": "Add node"},
+   {"icon": "toolbox", "text": "Add a tool", "at": "Add a tool"},
+   {"icon": "flow", "text": "The flow", "accent": true, "at": "select the flow"}],
+  "cards": [
+   {"icon": "braces", "title": "Inputs ← topic variables", "at": "map the inputs", "hi": true},
+   {"icon": "chat", "title": "Outputs → a message", "at": "outputs", "hi": true},
+   {"icon": "checkmark_circle", "title": "Published, with the trigger and the response to the agent", "at": "must be published", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "A flow as an agent tool", "title": "From the Tools page"},
+  "nodes": [
+   {"icon": "toolbox", "title": "Tools page", "at": "Tools page"},
+   {"icon": "bot", "title": "Agent-level tool", "at": "agent-level"},
+   {"icon": "sparkle", "title": "The orchestrator picks it", "sub": "No topic needed", "accent": true, "at": "orchestrator can pick"}],
+  "below": [
+   {"icon": "people_team", "text": "When several topics need it", "at": "several topics", "solid": true},
+   {"icon": "flag", "text": "Use it with care", "at": "#3"}]},
+ {"type": "compare", "header": {"kicker": "Controlling the selection", "title": "Which setting stops automatic use?"},
+  "cols": [
+   {"icon": "settings", "title": "Allow agent to decide dynamically: off", "tone": "good", "at": "turn off Allow",
+    "items": [{"text": "Used only when a topic calls it", "at": "calls it explicitly"}]},
+   {"icon": "question_circle", "title": "Ask the end user before running", "tone": "bad", "at": "Ask the end user",
+    "items": [{"text": "Does not help here", "at": "does not help"}, {"text": "It only asks for confirmation", "at": "only asks"}]}]},
+ {"type": "flow", "header": {"kicker": "Contoso", "title": "CreateTicket inside Report problem"},
+  "nodes": [
+   {"icon": "flow", "title": "CreateTicket", "at": "CreateTicket"},
+   {"icon": "branch_fork", "title": "Report problem", "sub": "The topic", "at": "Report problem"},
+   {"icon": "form", "title": "Title and urgency", "sub": "Collected first", "at": "title and the urgency"},
+   {"icon": "ticket_diagonal", "title": "Ticket number", "sub": "Returned", "accent": true, "at": "ticket number"}],
+  "below": [{"text": "Tickets outside that moment", "at": "outside that moment", "strike": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Only at an exact point"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Add the flow to the topic", "at": "add it to the topic"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "\"Ask before running blocks automatic selection\"", "at": "blocks automatic"}]}],
+  "verdict": {"icon": "question_circle", "text": "It only asks for confirmation", "at": "only asks"}}
+]}

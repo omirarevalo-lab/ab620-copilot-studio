@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L07 · Internal and external audiences · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { left: 100px; top: 130px; width: 1720px; height: 820px; }
+  #stage .uw .bar { font-size: 34px; }
+  #stage .uw .nav div { font-size: 38px; padding: 18px 34px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage .uw .main { padding: 0; overflow: hidden; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  #exams .exam .xl { top: 120px; }
+  #exams .exam .xq { top: 168px; font-size: 38px; padding: 16px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 34px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1250px; top: 384px; width: 550px; font-size: 38px; }
+  #exams .exam .xp { left: 120px; top: 696px; height: 264px; }
+  #exams .exam .xp .rm { height: 264px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L07 · Internal and external audiences. "The Contoso building: staff door, public desk, back room" in the 3840x2160 world (annexes to the right).
+     Floor y 1500, feet y 1640. Left to right: clipboard 400-1000 · staff door 1060-1480 · reader 1510-1600 · Marta 1640-1940 · glass door 1960-2110 · counter 2150-2910 (Nexo svg 2340-2780)
+     · visitor spot K 3030-3330 · kiosk 3340-3740 (screen y 1000-1380) · page code panel 3700-4320 · back room 3300-4000 (y 190-690, hidden until scene 7) · "Module 2" door 4560-4960 (hidden) · Valeria's lab 5300-6500 (hidden group).
+     Cameras: W wide (2000,1100,.52) · STF staff (1150,1150,.92) · PUB desk (2750,1190,.85) · K1 kiosk (3997,1150,.9) · K4 key flight (4800,1150,.62) · LB lab (5900,1200,.95) · M2 back room (4300,880,.7) · R10 recap (2570,880,.6).
+     World text sizes: >= 62 in wide shots (.52), >= 46 at .7-.85, >= 38 at .9+. All screen overlays (chips/pills/tags) are 42 px. */
+  const PUR = '#8a5cd6', PURs = '#efe7fb', AMB = '#d98a00', AMBs = '#fff3d6', TEAL = '#0f7b8a', TEALs = '#dff1f3', GOLD = '#b8860b', GOLDs = '#f6e7b0';
+  const BLUE = '#2f5bd3', BLUEs = '#e6ecfb', NAVY = '#1f2a44', GRN = '#1e7f4f', GRNs = '#e3f4ea', RED = '#c4392f', REDs = '#fde8e6', DIMC = '#5b6578', DIMB = '#e7eaf1', GREY = '#aab3c8', CORAL = '#e07a5f';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const DI = (st, html) => `<div class="w lint-ignore" style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const T = (x, y, fs, col, t, id, ex) => `<div class="px"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const camAt = (c, t) => CAM(c[0], c[1], c[2], t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SWX = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, t + 0.27); };
+  const SWV = (a, b, t) => { OFF(a, t, 0.2); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, t + 0.22); };
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const PULSEX = (sel, t, s) => tl.to(sel, { scale: s || 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.inOut' }, t);
+  const CHIP = (sel, a, b) => { FADEIN(sel, a, 0.4); OFF(sel, b, 0.25); };
+  const bob = (sel, t0, t1, a, p) => tl.to(sel, { y: -(a || 10), duration: p || 0.3, yoyo: true, repeat: Math.max(1, Math.floor((t1 - t0) / (p || 0.3)) - 1), ease: 'sine.inOut' }, t0);
+  const LIT = (sel, props, t, d) => tl.to(sel, Object.assign({ duration: d || 0.5 }, props), t);
+
+  const X_W = [2070, 960, 0.5], X_STF = [1100, 1150, 0.92], X_PUB = [2800, 1100, 0.8], X_K1 = [3800, 1250, 1.1], X_K4 = [4700, 1150, 0.62], X_LB = [5900, 1200, 0.95], X_M2 = [4130, 812, 0.7], X_R10 = [2525, 880, 0.55];
+
+  /* ═════════ BACKGROUND (decor is lint-ignored) ═════════ */
+  ADD(DI('left:3840px;top:0;width:3000px;height:1500px;background:#eef1f7') + DI('left:3840px;top:1500px;width:3000px;height:700px;background:#e3e7ef') + DI('left:3840px;top:1494px;width:3000px;height:6px;background:#d3d9e4'));
+  ADD(Array.from({ length: 15 }, (_, i) => DI(`left:${100 + i * 450}px;top:210px;width:360px;height:390px;box-sizing:border-box;border:10px solid #c9d3e6;border-radius:18px;background:linear-gradient(#dcebfa,#f4f8fd)`,
+    DI('left:165px;top:0;width:10px;height:370px;background:#c9d3e6') + DI('left:0;top:175px;width:340px;height:10px;background:#c9d3e6'))).join('') +
+    DI('left:0;top:0;width:6800px;height:96px;background:#dfe5f0') + DI('left:0;top:96px;width:6800px;height:10px;background:#c9d1e0') +
+    Array.from({ length: 7 }, (_, k) => DI(`left:0;top:${1560 + k * 90}px;width:6800px;height:6px;background:#d3d9e4`)).join('') +
+    Array.from({ length: 16 }, (_, k) => DI(`left:${150 + k * 400}px;top:1500px;width:6px;height:700px;background:#dde2ec`)).join('') +
+    Array.from({ length: 34 }, (_, k) => Array.from({ length: 4 }, (_, r) => (k + r) % 2 ? '' : DI(`left:${k * 200}px;top:${1520 + r * 160}px;width:200px;height:160px;background:#dde2ec`)).join('')).join('') +
+    DI('left:0;top:640px;width:6800px;height:870px;background:#e6ebf5') + DI('left:0;top:636px;width:6800px;height:10px;background:#cfd7e6') + Array.from({ length: 30 }, (_, k) => DI(`left:${k * 250}px;top:646px;width:6px;height:854px;background:#dbe2ef`)).join('') + DI('left:0;top:1488px;width:6800px;height:14px;background:#b9c3d8'));
+
+  /* ═════════ CHARACTERS (Valeria purple top · Marta coral · visitor teal-grey with phone) ═════════ */
+  const HUM = (id, x, y, coat, hair, o) => { o = o || {}; const w = 300, mk = o.show ? D : H;
+    return mk(id, `left:${x}px;top:${y}px;width:${w}px;height:${w * 2}px;z-index:6`, D(id + 'B', `left:0;top:0;width:${w}px;height:${w * 2}px`,
+      `<svg width="${w}" height="${w * 2}" viewBox="0 0 220 440">${o.pack ? '<rect x="26" y="120" width="70" height="140" rx="26" fill="#8a5a3b"/><rect x="34" y="132" width="54" height="40" rx="12" fill="#a8704b"/>' : ''}
+      <rect x="84" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="118" y="296" width="30" height="134" rx="12" fill="#2d3a5c"/><rect x="76" y="424" width="44" height="16" rx="8" fill="#141821"/><rect x="114" y="424" width="44" height="16" rx="8" fill="#141821"/>
+      <path d="M72 140 Q72 112 112 112 Q152 112 152 140 L158 308 L66 308 Z" fill="${coat}"/><path d="M148 150 L190 226" stroke="${coat}" stroke-width="26" stroke-linecap="round"/><circle cx="192" cy="230" r="14" fill="#f2c9a6"/>
+      ${o.phone ? '<rect x="178" y="206" width="26" height="46" rx="6" fill="#141821"/><rect x="182" y="212" width="18" height="30" rx="3" fill="#8fd3de"/>' : ''}
+      <circle cx="112" cy="72" r="42" fill="#f2c9a6"/><path d="M66 72 Q66 26 114 26 Q158 28 158 72 Q150 48 112 46 Q84 46 66 72Z" fill="${hair}"/><path d="M66 70 Q60 110 76 130 Q70 96 78 70Z" fill="${hair}"/>
+      <circle cx="130" cy="78" r="5" fill="#141821"/><circle cx="104" cy="78" r="5" fill="#141821"/><path d="M110 98 Q118 104 126 98" stroke="#141821" stroke-width="4" fill="none" stroke-linecap="round"/></svg>`) +
+      (o.card ? D('', 'left:176px;top:230px;width:150px;height:80px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:16px;background:#fff;color:#2f5bd3;font-size:44px;font-weight:800;line-height:70px;text-align:center', 'link') : '') +
+      (o.pocket ? H(id + 'pk', 'left:140px;top:340px;width:100px;height:80px;box-sizing:border-box;border:7px dashed #c4392f;border-radius:18px') : '')); };
+  const NEXO = (id, x, y, w) => agent(id, x, y, { folder: '' }).replace('width="360" height="500"', `width="${w}" height="${Math.round(w * 500 / 360)}"`);
+  const LOCK = (open, col, s) => `<svg width="${s}" height="${s}" viewBox="0 0 100 100"><rect x="18" y="46" width="64" height="46" rx="10" fill="${col}"/><path d="${open ? 'M32 46 V30 a18 18 0 0 1 34 -8' : 'M32 46 V30 a18 18 0 0 1 36 0 V46'}" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round"/></svg>`;
+  const ITEM = (id, x, y, w, h, icon, col, bg, t1, t2, fs, ex) => H(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;border:6px solid ${col};border-radius:24px;background:${bg};color:${col};display:flex;align-items:center;gap:14px;padding:0 20px;font-weight:800;box-shadow:0 10px 30px rgba(16,24,40,.18);z-index:8;${ex || ''}`,
+    IC(icon, `width:${Math.round(h * 0.52)}px;height:${Math.round(h * 0.52)}px;flex:0 0 auto`) + `<div style="line-height:1.1;white-space:nowrap"><div style="font-size:${fs}px">${t1}</div>${t2 ? `<div style="font-size:${Math.round(fs * 0.86)}px">${t2}</div>` : ''}</div>`);
+  const BANNER = (id, x, y, w, h, col, fs, html) => H(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;border:8px solid ${col};border-radius:22px;background:#fff;color:${col};font-size:${fs}px;font-weight:800;line-height:1.1;display:flex;align-items:center;justify-content:center;text-align:center;box-shadow:0 14px 40px rgba(16,24,40,.18);z-index:4`, html);
+
+  /* ═════════ STAFF SIDE ═════════ */
+  ADD(D('cb', 'left:400px;top:900px;width:600px;height:450px;box-sizing:border-box;border:8px solid #aab3c8;border-radius:24px;background:#f3f5f9;box-shadow:0 14px 40px rgba(16,24,40,.15)',
+    D('', 'left:220px;top:-28px;width:160px;height:54px;border-radius:14px;background:#8a93a6') + T(34, 26, 72, DIMC, 'Share', 'cbH') +
+    ['Sales team', 'HR team'].map((r, i) => D('cbR' + i, `left:26px;top:${130 + i * 140}px;width:540px;height:110px;box-sizing:border-box;border:5px solid #c9ced8;border-radius:22px;background:${DIMB}`,
+      T(22, 16, 72, DIMC, r, 'cbT' + i) + D('ck' + i, 'left:418px;top:22px;width:58px;height:58px;border-radius:50%;background:#c9ced8;color:#fff;font-size:42px;font-weight:800;text-align:center;line-height:56px', '✓'))).join('') +
+    H('cbM', 'left:502px;top:150px;width:58px;height:58px;border-radius:50%;background:#e07a5f;color:#fff;font-size:40px;font-weight:800;text-align:center;line-height:56px;z-index:3', 'M')));
+  /* door frame with a lit office behind the leaf */
+  ADD(D('stF', 'left:1060px;top:940px;width:420px;height:560px;box-sizing:border-box;border:14px solid #aab3c8;border-radius:22px 22px 0 0;background:#fbf3e0;overflow:hidden',
+    H('stI', 'left:0;top:0;width:392px;height:546px', D('', 'left:30px;top:380px;width:340px;height:24px;border-radius:6px;background:#8a6a45') + D('', 'left:50px;top:404px;width:14px;height:140px;background:#8a6a45') + D('', 'left:336px;top:404px;width:14px;height:140px;background:#8a6a45') +
+      D('', 'left:190px;top:236px;width:164px;height:120px;box-sizing:border-box;border:8px solid #1f2a44;border-radius:12px;background:#fff') + D('', 'left:176px;top:354px;width:192px;height:14px;border-radius:6px;background:#8a93a6') + D('lapN', 'left:224px;top:250px;width:60px;height:66px', miniBot(60)) +
+      D('', 'left:20px;top:250px;width:20px;height:170px;border-radius:8px;background:#8a93a6') +
+      D('maSeat', 'left:40px;top:100px;width:170px;height:300px', D('', 'left:30px;top:0;width:84px;height:84px;border-radius:50%;background:#f2c9a6') + D('', 'left:20px;top:80px;width:108px;height:210px;border-radius:44px 44px 12px 12px;background:#e07a5f') + D('', 'left:96px;top:130px;width:80px;height:26px;border-radius:13px;background:#e07a5f;transform:rotate(14deg)'))) +
+    D('stL', 'left:0;top:0;width:392px;height:546px;background:#b8c0d2;transform-origin:0 50%;z-index:2', D('', 'left:130px;top:70px;width:130px;height:130px;border-radius:14px;background:#f3f5f9') + D('', 'left:322px;top:290px;width:26px;height:26px;border-radius:50%;background:#1f2a44'))));
+  ADD(D('rdr', 'left:1510px;top:1130px;width:90px;height:200px;border-radius:18px;background:#1f2a44;box-shadow:0 10px 24px rgba(16,24,40,.2)', D('rdrL', 'left:20px;top:26px;width:50px;height:50px;border-radius:50%;background:#8f9cc0') + D('', 'left:20px;top:110px;width:50px;height:60px;border-radius:10px;background:#2d3a5c')));
+  ADD(BANNER('sgStaff', 1050, 830, 440, 100, PUR, 72, 'Staff door') + BANNER('bnAuth', 1010, 690, 520, 136, PUR, 46, 'Authenticate with<br>Microsoft') +
+    [['tT1', 690, 'Teams'], ['tT2', 910, 'Microsoft 365']].map((r) => H(r[0], `left:1540px;top:${r[1]}px;width:420px;height:200px;box-sizing:border-box;border:8px solid ${PUR};border-radius:24px;background:#fff;z-index:4;box-shadow:0 14px 40px rgba(16,24,40,.18)`,
+      T(26, 18, 52, PUR, r[2]) + D('', `left:20px;top:112px;width:376px;height:64px;box-sizing:border-box;border-radius:32px;background:${PURs};border:4px solid ${PUR};display:flex;align-items:center;gap:10px;padding-left:16px;color:${PUR};font-size:40px;font-weight:800;white-space:nowrap`, LOCK(false, PUR, 44) + 'only this option'))).join(''));
+
+  /* ═════════ PUBLIC LOBBY ═════════ */
+  ADD(D('gd', 'left:1940px;top:1000px;width:150px;height:500px;box-sizing:border-box;border:10px solid #8f9cc0;border-radius:16px 16px 0 0;background:#bcd4ee;overflow:hidden',
+    D('gdL', 'left:0;top:0;width:130px;height:480px;background:#dfeaf8;transform-origin:0 50%', D('', 'left:96px;top:230px;width:14px;height:70px;border-radius:7px;background:#8f9cc0') + D('', 'left:20px;top:30px;width:90px;height:420px;border-radius:10px;background:#f3f8fe'))));
+  ADD(NEXO('nx', 2440, 800, 560));
+  ADD(D('cnt', 'left:2170px;top:1330px;width:740px;height:170px;box-sizing:border-box;border:8px solid #aab3c8;border-radius:20px 20px 0 0;background:#e7eaf1;z-index:3') + D('cntT', 'left:2150px;top:1310px;width:780px;height:34px;border-radius:12px;background:#aab3c8;z-index:3'));
+  ADD(BANNER('sgPub', 2420, 696, 600, 100, AMB, 72, 'Public desk') + BANNER('sgNoA', 2395, 805, 650, 90, AMB, 56, 'No authentication') +
+    H('sgCare', 'left:2050px;top:805px;width:320px;height:90px;box-sizing:border-box;border:8px solid #d98a00;border-radius:22px;background:#fff3d6;color:#d98a00;font-size:50px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;z-index:4', IC('warning', 'width:50px;height:50px') + 'with care'));
+  ADD(H('drw', 'left:2300px;top:1360px;width:560px;height:120px;box-sizing:border-box;border:6px solid #8f9cc0;border-radius:18px;background:#e7eaf1;z-index:4;display:flex;align-items:center;gap:18px;padding-left:24px;color:#5b6578;font-size:54px;font-weight:800;white-space:nowrap', LOCK(false, '#5b6578', 70).replace('V30 a18 18 0 0 1 34 -8', 'V30 a18 18 0 0 1 36 0 V46') + 'internal data') +
+    H('lf', 'left:2200px;top:1140px;width:230px;height:166px;box-sizing:border-box;border:6px solid #1e7f4f;border-radius:16px;background:#fff;z-index:4;color:#141821;font-size:46px;font-weight:800;line-height:1.1;padding:14px 16px',
+      'Returns<br>policy' + D('', 'left:150px;top:92px;width:56px;height:56px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:40px;text-align:center;line-height:54px', '✓')));
+
+  /* ═════════ WEBSITE KIOSK, PAGE CODE, TOKEN TRAY ═════════ */
+  ADD(H('pcode', 'left:3770px;top:1020px;width:620px;height:420px;box-sizing:border-box;border-radius:24px;background:#1f2a44;border:6px solid #8f9cc0;z-index:2',
+    T(30, 10, 60, '#c9d3ea', 'page code') + T(30, 84, 60, '#8f9cc0', '&lt;script&gt;') +
+    D('l2a', 'left:0;top:0;width:600px;height:450px', T(30, 172, 60, '#fff', 'key =') + ITEM('kInP', 200, 164, 340, 92, 'key', GOLD, GOLDs, 'Secret', '', 56).replace('opacity:0', 'opacity:1') +
+      H('kGone', 'left:200px;top:164px;width:340px;height:92px;box-sizing:border-box;border:6px dashed #ff8a80;border-radius:24px', IC('dismiss_circle', 'position:absolute;left:30px;top:16px;width:52px;height:52px;color:#ff8a80') + D('', 'left:36px;top:40px;width:260px;height:8px;background:#ff8a80;transform:rotate(-8deg)'))) +
+    H('l2b', 'left:0;top:0;width:600px;height:450px', T(30, 172, 60, '#fff', 'token =') + ITEM('tkInP', 290, 164, 300, 92, 'ticket_diagonal', BLUE, BLUEs, 'Token', '', 54).replace('opacity:0', 'opacity:1')) +
+    T(30, 258, 60, '#fff', 'chat.start()') + T(30, 326, 60, '#8f9cc0', '&lt;/script&gt;')));
+  ADD(D('kioS', 'left:3490px;top:1370px;width:100px;height:130px;background:#aab3c8') + D('kioF', 'left:3400px;top:1488px;width:280px;height:16px;border-radius:8px;background:#8f9cc0') +
+    D('kio', 'left:3340px;top:1000px;width:400px;height:380px;box-sizing:border-box;border:12px solid #aab3c8;border-radius:30px;background:#fff;z-index:3;overflow:hidden',
+      D('kioH', 'left:0;top:0;width:376px;height:170px;background:#aab3c8', T(0, 12, 72, '#fff', 'Contoso<br>website', '', 'width:376px;text-align:center;line-height:1.02')) +
+      D('', 'left:30px;top:196px;width:316px;height:26px;border-radius:13px;background:#e1e5ee') + D('kLoad', 'left:30px;top:196px;width:0;height:26px;border-radius:13px;background:#0f7b8a') + D('', 'left:30px;top:238px;width:250px;height:26px;border-radius:13px;background:#e1e5ee') +
+      H('kioBtn', 'left:50px;top:274px;width:276px;height:70px;box-sizing:border-box;border:5px solid #0f7b8a;border-radius:20px;background:#dff1f3;color:#0f7b8a;font-size:40px;font-weight:800;text-align:center;line-height:60px', 'View source')));
+  ADD(H('kioLock', 'left:3590px;top:1230px;width:130px;height:130px;box-sizing:border-box;border-radius:50%;background:#fff;border:8px solid #0f7b8a;z-index:5;display:flex;align-items:center;justify-content:center', LOCK(false, TEAL, 76)));
+  ADD('<div class="sb blue" id="vsayB" style="left:3190px;top:975px;font-size:46px">Returns?</div><div class="sb blue" id="nxBub" style="left:1800px;top:930px;font-size:50px">Hi Marta!</div>');
+  ADD(H('mag', 'left:3770px;top:1030px;width:220px;height:220px;z-index:9', `<svg width="220" height="220" viewBox="0 0 220 220"><circle cx="90" cy="90" r="76" fill="rgba(255,255,255,.12)" stroke="#141821" stroke-width="10"/><path d="M146 146 L206 206" stroke="#141821" stroke-width="22" stroke-linecap="round"/></svg>`));
+
+  /* ═════════ SCENE 5 STACK next to the kiosk ═════════ */
+  ADD(H('tDemo', 'left:3780px;top:1000px;width:760px;height:120px;box-sizing:border-box;border:7px solid #d98a00;border-radius:24px;background:#fff;z-index:2;display:flex;align-items:center;gap:20px;padding-left:24px;color:#141821;font-size:52px;font-weight:800', D('pl0', 'position:relative;width:70px;height:70px;flex:0 0 auto', D('pl0o', 'left:0;top:0', LOCK(true, AMB, 70)) + D('pl0c', 'left:0;top:0;opacity:0', LOCK(false, TEAL, 70))) + 'Demo website') +
+    H('tCust', 'left:3780px;top:1140px;width:760px;height:120px;box-sizing:border-box;border:7px solid #d98a00;border-radius:24px;background:#fff;z-index:2;display:flex;align-items:center;gap:20px;padding-left:24px;color:#141821;font-size:52px;font-weight:800', D('pl1', 'position:relative;width:70px;height:70px;flex:0 0 auto', D('pl1o', 'left:0;top:0', LOCK(true, AMB, 70)) + D('pl1c', 'left:0;top:0;opacity:0', LOCK(false, TEAL, 70))) + 'Custom website') +
+    H('slKey', 'left:3780px;top:1000px;width:760px;height:120px;box-sizing:border-box;border:7px solid #b8860b;border-radius:24px;background:#f6e7b0;z-index:2;display:flex;align-items:center;gap:20px;padding-left:24px;color:#b8860b;font-size:52px;font-weight:800', IC('key', 'width:70px;height:70px') + 'Secret') +
+    H('slTok', 'left:3780px;top:1140px;width:760px;height:120px;box-sizing:border-box;border:7px solid #2f5bd3;border-radius:24px;background:#e6ecfb;z-index:2;display:flex;align-items:center;gap:20px;padding-left:24px;color:#2f5bd3;font-size:50px;font-weight:800;white-space:nowrap', IC('ticket_diagonal', 'width:70px;height:70px') + 'Token <span style="font-size:42px">(from the secret)</span>') +
+    H('swRow', 'left:3780px;top:1290px;width:760px;height:130px;box-sizing:border-box;border:7px solid #c9ced8;border-radius:24px;background:#fff;z-index:2;color:#141821;font-size:48px;font-weight:800;padding:0 26px;display:flex;align-items:center;justify-content:space-between', 'Require secured access' +
+      D('swT', 'position:relative;width:120px;height:62px;border-radius:31px;background:#c9ced8;flex:0 0 auto', D('swK', 'left:6px;top:6px;width:50px;height:50px;border-radius:50%;background:#fff'))));
+
+  /* ═════════ BACK ROOM (scene 7), TICKET, KEY ═════════ */
+  ADD(H('room', 'left:3300px;top:190px;width:700px;height:500px;box-sizing:border-box;border-radius:26px;background:#1f2a44;border:8px solid #2d3a5c;z-index:1',
+    T(30, 18, 62, '#fff', 'Contoso server') + D('', 'left:30px;top:100px;width:380px;height:340px;box-sizing:border-box;border:8px solid #8f9cc0;border-radius:22px;background:#2d3a5c', D('', 'left:24px;top:30px;width:332px;height:130px;border-radius:14px;background:#141b2d') + D('', 'left:150px;top:200px;width:80px;height:80px;box-sizing:border-box;border:8px solid #8f9cc0;border-radius:50%')) +
+    D('', 'left:440px;top:120px;width:230px;height:300px;box-sizing:border-box;border:8px solid #8f9cc0;border-radius:22px;background:#2d3a5c', IC('ticket_diagonal', 'position:absolute;left:55px;top:50px;width:110px;height:110px;color:#c9d3ea') + D('', 'left:45px;top:248px;width:124px;height:14px;border-radius:7px;background:#141b2d'))));
+  ADD(H('racks', 'left:0;top:0;width:1px;height:1px', D('', 'left:4000px;top:190px;width:960px;height:500px;box-sizing:border-box;border-radius:0 26px 26px 0;background:#1f2a44;border:8px solid #2d3a5c;border-left:0') + [0, 1, 2, 3, 4, 5].map((k) => D('', `left:${4060 + k * 150}px;top:260px;width:120px;height:380px;box-sizing:border-box;border:6px solid #8f9cc0;border-radius:14px;background:#2d3a5c`, [0, 1, 2, 3, 4].map((r) => D('', `left:18px;top:${24 + r * 66}px;width:72px;height:14px;border-radius:7px;background:${r % 2 ? '#6be3a0' : '#8f9cc0'}`)).join(''))).join('')));
+  ADD(ITEM('kSafe', 3376, 350, 340, 100, 'key', GOLD, GOLDs, 'Secret', '', 62) + ITEM('kFly', 3050, 350, 340, 100, 'key', GOLD, GOLDs, 'Secret', '', 62) +
+    ITEM('kDrag', 5700, 1215, 310, 100, 'key', GOLD, GOLDs, 'Secret', '', 58) + ITEM('kCopy', 3960, 1186, 310, 100, 'key', GOLD, GOLDs, 'Secret', '', 58, 'border-color:#c4392f') +
+    H('tk', 'left:3190px;top:740px;width:700px;height:170px;box-sizing:border-box;border:6px solid #2f5bd3;border-radius:24px;background:#e6ecfb;z-index:8;display:flex;align-items:center;gap:16px;padding:0 20px;color:#2f5bd3;font-weight:800;box-shadow:0 10px 30px rgba(16,24,40,.18)',
+      IC('ticket_diagonal', 'width:84px;height:84px;flex:0 0 auto') + '<div style="line-height:1.1;white-space:nowrap"><div style="font-size:66px">Token</div><div style="font-size:62px">1 conversation</div></div>' +
+      `<svg id="tkT" width="76" height="76" viewBox="0 0 76 76" style="margin-left:auto;flex:0 0 auto"><circle cx="38" cy="38" r="30" fill="none" stroke="#c9d3ea" stroke-width="9"/><circle id="tkA" cx="38" cy="38" r="30" fill="none" stroke="#2f5bd3" stroke-width="9" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="0" transform="rotate(-90 38 38)"/></svg>`));
+  ADD(D('rail', 'left:3560px;top:826px;width:300px;height:0;border-top:8px dashed #2f5bd3;opacity:0'));
+  /* module 2 door (hidden until the last scene) */
+  ADD(H('m2', 'left:0;top:0;width:1px;height:1px', D('', 'left:4560px;top:960px;width:400px;height:540px;box-sizing:border-box;border:14px solid #1f2a44;border-radius:22px 22px 0 0;background:#2d3a5c', D('', 'left:120px;top:60px;width:130px;height:130px;border-radius:14px;background:#8f9cc0') + D('', 'left:310px;top:270px;width:26px;height:26px;border-radius:50%;background:#c9d3ea')) +
+    BANNER('m2s', 4540, 770, 560, 150, NAVY, 52, 'Module 2<br>Variables and scope').replace('opacity:0', 'opacity:1')));
+
+  /* ═════════ VALERIA'S LAB (hidden group, annex at x 5300) ═════════ */
+  ADD(H('labG', 'left:0;top:0;width:1px;height:1px',
+    D('', 'left:5640px;top:1330px;width:560px;height:34px;border-radius:12px;background:#8a6a45') + D('', 'left:5680px;top:1364px;width:18px;height:136px;background:#8a6a45') + D('', 'left:6140px;top:1364px;width:18px;height:136px;background:#8a6a45') +
+    D('lapS', 'left:5750px;top:1150px;width:300px;height:180px;box-sizing:border-box;border:10px solid #1f2a44;border-radius:16px;background:#fff', D('lapB', 'left:20px;top:14px;width:70px;height:78px', miniBot(70)) + [0, 1, 2].map((i) => D('ln' + i, `left:110px;top:${20 + i * 36}px;width:${150 - i * 20}px;height:16px;border-radius:8px;background:#c9d8f7`)).join('')) +
+    D('', 'left:5720px;top:1320px;width:360px;height:14px;border-radius:6px;background:#8a93a6') +
+    HUM('val', 5300, 1040, '#8a5cd6', '#2a1f2d', { pack: 1, show: 1 }) + NEXO('nxL', 5000, 1120, 280)));
+  ADD(HUM('ma', 1640, 1040, CORAL, '#3b2a20') + HUM('vis', 3030, 1040, '#5f8a8f', '#7a5a3a', { phone: 1, pocket: 1 }) +
+    HUM('vA', 1960, 1040, '#6a7fb5', '#2a1f2d', { card: 1 }) + HUM('vB', 1960, 1055, '#b0734a', '#9a7b4f', { card: 1 }) + HUM('vC', 1960, 1070, '#7d8c5a', '#1f1f1f', { card: 1 }));
+
+  /* ═════════ SCREEN LAYER (chips, pills, tags: opaque, >= 42 px, in reserved slots) ═════════ */
+  const CH = (id, pos, text, col, icon, fs) => { const st = pos === 'r' ? 'right:120px;top:128px' : pos === 'l' ? 'left:120px;top:128px' : pos === 'bl' ? 'left:120px;top:872px' : 'left:0;top:872px;width:1920px;text-align:center';
+    const inner = `<span style="display:inline-flex;align-items:center;gap:14px;background:#fff;border:6px solid ${col};border-radius:26px;padding:10px 28px;color:${col};font-size:${fs || 42}px;font-weight:800;line-height:1.15;white-space:nowrap;box-shadow:0 10px 30px rgba(16,24,40,.12)">${icon ? IC(icon, `width:${(fs || 42) + 8}px;height:${(fs || 42) + 8}px;flex:0 0 auto`) : ''}${text}</span>`;
+    return `<div class="ov" id="${id}" style="${st}">${inner}</div>`; };
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    ${CH('pMod', 'l', 'Module 1', NAVY, '', 42)}${CH('pAud', 'l', 'Internal and external audiences', NAVY, '', 42)}
+    ${CH('cIntra', 'r', 'Intranet · employees', PUR)}${CH('cPubW', 'r', 'Public website · customers', TEAL)}${CH('cConn', 'r', 'connect the website', NAVY)}${CH('cCopied', 'r', 'copied', RED, 'copy')}
+    <div class="ov" id="kT0" style="left:0;top:128px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:14px 44px;border-radius:34px;box-shadow:0 20px 60px rgba(16,24,40,.22);font-size:100px;font-weight:800;color:${NAVY};letter-spacing:-2px;white-space:nowrap">Internal and external audiences</span></div>
+    ${CH('cOff', 'r', 'the Contoso office', NAVY)}${CH('cBadge', 'r', 'asks for a badge', PUR, 'person')}${CH('cOpen', 'r', 'open to everyone', AMB, 'people_team')}${CH('tSame', 'b', 'same building, two doors', NAVY, '', 42)}${CH('cYour', 'r', 'your agent', BLUE, 'bot')}
+    <div class="ov" id="bwho" style="left:0;top:128px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;border:6px solid ${NAVY};border-radius:26px;padding:12px 40px;color:${NAVY};font-size:50px;font-weight:800;box-shadow:0 14px 40px rgba(16,24,40,.2);white-space:nowrap">Who uses it → how you protect it</span></div>
+    ${CH('cBadgeEq', 'bl', '= the badge', PUR)}${CH('cSign', 'bl', 'always signs in', PUR, 'checkmark_circle')}${CH('cShare', 'bl', 'Share: who in the organization can chat', PUR)}${CH('cTeams', 'bl', 'Teams + Microsoft 365: only this option', PUR, 'lock_closed')}
+    ${CH('cDesk', 'r', '= the open desk', AMB)}${CH('cLink', 'r', 'anyone with the link · nobody signs in', AMB)}${CH('cNoInt', 'r', 'only without internal data', AMB, 'shield_checkmark')}
+    ${CH('cDef', 'r', 'by default: anyone with the agent ID', AMB)}${CH('cClient', 'r', 'the client must authenticate', TEAL)}${CH('pCare', 'l', 'Careful', RED, 'alert', 42)}${CH('cProt', 'r', 'protects the web channel, not each customer', TEAL)}${CH('cClock', 'r', 'up to two hours to apply', NAVY, 'timer')}
+    ${CH('pMist', 'l', "Valeria's mistake", RED, '', 42)}${CH('cRead', 'r', 'browser code: anyone can read it', RED, 'eye')}${CH('cNever', 'r', 'never in the browser', GRN, 'checkmark_circle')}${CH('cSafe', 'r', 'the safe in the back room', NAVY, 'lock_closed')}${CH('cExp', 'r', 'expires if not refreshed', BLUE, 'timer')}${CH('tPage', 'r', 'the page only gets the token', GRN, 'checkmark_circle')}
+    ${CH('cOnly', 'r', 'only on your server', NAVY, 'server')}
+    ${CH('pBack', 'l', 'Back at Contoso', NAVY, '', 42)}${CH('tNext', 'b', 'next: variables and scope', BLUE, 'arrow_up_right', 38)}
+    <div class="ov" id="brd" style="left:120px;top:128px;width:1120px;height:290px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:26px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.22)">
+      <div style="position:absolute;left:30px;top:10px;font-size:46px;font-weight:800;color:${NAVY}">Remember</div>
+      ${[['Employees: Authenticate with Microsoft + Share', PUR], ['Public: No authentication, no internal data', AMB], ['Own site: Require secured access + server token', TEAL]].map((r, k) => `<div id="rb${k}" style="position:absolute;left:30px;top:${70 + k * 66}px;height:60px;opacity:.45;font-size:37px;font-weight:800;color:#141821;white-space:nowrap;line-height:60px"><i style="display:inline-block;width:24px;height:24px;border-radius:50%;background:${r[1]};margin-right:16px"></i>${r[0]}</div>`).join('')}
+      <div id="stamp" style="position:absolute;right:560px;top:316px;opacity:0;border:6px solid ${GRN};border-radius:20px;color:${GRN};font-size:42px;font-weight:800;padding:4px 22px;transform:rotate(-4deg)">Module 1 ✓</div></div></div>`);
+
+  /* ═════════ UI WINDOW (scene 9) ═════════ */
+  const V = (id, html) => D(id, 'left:0;top:0;width:1420px;height:742px;background:#fff;opacity:0', html);
+  const BTN = (id, x, y, w, t) => D(id, `left:${x}px;top:${y}px;width:${w}px;height:64px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:14px;background:#f3f5f9;color:#141821;font-size:36px;font-weight:800;text-align:center;line-height:54px`, t);
+  ADDU(uiWindow('sw', { title: 'Copilot Studio · Nexo', nav: ['Overview', 'Knowledge', 'Tools', 'Settings', 'Security'], on: 0, body:
+    V('v0', T(40, 28, 52, NAVY, 'Overview') + D('', 'left:40px;top:120px;width:560px;height:580px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:22px', D('', 'left:190px;top:60px;width:180px;height:196px', miniBot(180)) + T(0, 300, 56, NAVY, 'Nexo', '', 'width:554px;text-align:center') + T(0, 390, 42, '#5d6472', 'Contoso agent', '', 'width:554px;text-align:center')) +
+      D('', 'left:640px;top:120px;width:740px;height:580px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:22px', T(30, 28, 46, NAVY, 'Instructions') + ['Help Contoso staff', 'Answer customer questions', 'Be brief and clear'].map((s, k) => T(30, 130 + k * 130, 42, '#141821', s)).join(''))) +
+    V('v1', T(40, 28, 52, NAVY, 'Settings') + ['General', 'Generative AI', 'Security'].map((r, k) => D('st' + k, `left:40px;top:${130 + k * 180}px;width:1100px;height:140px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:18px;background:#fff;font-size:48px;font-weight:700;color:#141821;line-height:134px;padding-left:34px`, r))) +
+    V('v2', T(40, 28, 52, NAVY, 'Security') + [['sc0', 'Authentication', 'person', 130], ['sc1', 'Web channel security', 'globe', 310], ['sc2', 'Data policy', 'shield_checkmark', 490]].map((r) => D(r[0], `left:40px;top:${r[3]}px;width:1100px;height:140px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:18px;background:#fff;font-size:48px;font-weight:700;color:#141821;display:flex;align-items:center;gap:22px;padding-left:30px`, IC(r[2], 'width:56px;height:56px;color:#2f5bd3') + r[1]))) +
+    D('v3', 'left:0;top:0;width:1420px;height:742px;background:#fff;opacity:0', T(40, 22, 52, NAVY, 'Web channel security') +
+      D('f1', 'left:40px;top:100px;width:780px;height:112px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:16px;background:#fff;padding:0 28px;display:flex;align-items:center;justify-content:space-between;font-size:44px;font-weight:700;color:#141821', 'Require secured access' + D('tg', 'position:relative;width:110px;height:58px;border-radius:29px;background:#c9ced8;flex:0 0 auto', D('tgk', 'left:6px;top:6px;width:46px;height:46px;border-radius:50%;background:#fff'))) +
+      ['Secret 1', 'Secret 2'].map((r, k) => H('sec' + k, `left:40px;top:${250 + k * 150}px;width:780px;height:120px;box-sizing:border-box;border:3px solid #c9ced8;border-radius:16px;background:#fff;padding:0 28px;display:flex;align-items:center;justify-content:space-between;font-size:44px;font-weight:700;color:#141821`, r + '<span style="letter-spacing:4px">••••••</span>' + BTN('cp' + k, 0, 0, 150, 'Copy').replace('class="w"', 'class="w" ').replace('left:0px;top:0px;', 'position:relative;'))).join('') +
+      H('noteS', 'left:40px;top:560px;width:780px;height:90px;box-sizing:border-box;border:4px solid #1f2a44;border-radius:16px;background:#eef1f7;padding:0 24px;display:flex;align-items:center;gap:16px;font-size:40px;font-weight:800;color:#1f2a44', IC('server', 'width:48px;height:48px') + 'keep both on your server') +
+      D('srv', 'left:880px;top:40px;width:500px;height:270px;box-sizing:border-box;border:5px solid #1f2a44;border-radius:22px;background:#1f2a44;color:#fff', T(26, 14, 44, '#fff', 'Contoso server') + D('srvI', 'left:195px;top:100px;width:110px;height:110px', IC('server', 'width:110px;height:110px;color:#8f9cc0')) +
+        H('srvC', 'left:26px;top:84px;width:448px;height:164px;box-sizing:border-box;border:4px solid #8f9cc0;border-radius:16px;background:#2d3a5c;font-size:42px;font-weight:800;line-height:1.2;padding:18px 22px;color:#fff', 'secret →<br><span style="color:#ffd166">request token</span>')) +
+      D('pgb', 'left:880px;top:340px;width:500px;height:380px;box-sizing:border-box;border:5px solid #c9ced8;border-radius:22px;background:#fff', T(26, 12, 44, NAVY, 'Web page') + D('pgI', 'left:395px;top:8px;width:70px;height:70px', IC('globe', 'width:64px;height:64px;color:#8f9cc0')) +
+        H('tokOnly', 'left:26px;top:74px;width:300px;height:64px;box-sizing:border-box;border:4px solid #1e7f4f;border-radius:18px;background:#e3f4ea;color:#1e7f4f;font-size:40px;font-weight:800;text-align:center;line-height:54px', 'token only') +
+        H('chU', 'left:140px;top:156px;width:330px;height:70px;box-sizing:border-box;border-radius:20px;background:#e6ecfb;color:#141821;font-size:38px;font-weight:700;padding:10px 18px', 'Returns policy?') +
+        H('chA', 'left:26px;top:244px;width:448px;height:112px;box-sizing:border-box;border:4px solid #1e7f4f;border-radius:20px;background:#e3f4ea;color:#141821;font-size:40px;font-weight:800;display:flex;align-items:center;gap:12px;padding:0 18px', IC('checkmark_circle', 'width:48px;height:48px;color:#1e7f4f;flex:0 0 auto') + '30 days to return')) +
+      ITEM('uKey', 760, 250, 240, 84, 'key', GOLD, GOLDs, 'Secret', '', 42) + ITEM('uTok', 1140, 250, 240, 84, 'ticket_diagonal', BLUE, BLUEs, 'Token', '', 42)) }));
+  const pcOff = (sel, dx, dy) => { const p = PC(sel); return [p[0] + dx, p[1] + dy]; };
+  const P_SET = pcOff('#sw_nv3', 70, 0), P_SEC = pcOff('#sw_nv4', 70, 0), P_WEB = pcOff('#sc1', 200, 0), P_TOG = pcOff('#tg', 0, 0), P_CP = pcOff('#cp0', 0, 0);
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (id, x, w, col, h4, inner) => `<div class="rm" id="${id}" style="left:${x}px;width:${w}px;border-color:${col};opacity:0"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const XCH = (id, x, y, w, col, t, ex) => bx(id, `left:${x}px;top:${y}px;width:${w}px;height:62px;box-sizing:border-box;border:5px solid ${col};border-radius:20px;color:${col};font-size:38px;font-weight:800;text-align:center;line-height:52px;white-space:nowrap;${ex || ''}`, t);
+  const XT = (st, t, col) => bx('', st + `;font-size:38px;font-weight:800;color:${col || '#c9d3ea'};white-space:nowrap`, t);
+  const XBOX = (id, x, y, w, h, bg, col, inner, ex) => bx(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;border:5px solid ${col};border-radius:18px;background:${bg};${ex || ''}`, inner);
+  const PG = '#6be3a0', PY = '#ffd166', PR = '#ff8a80';
+  EXAMS(
+    mkExam('exA', { q: 'Nexo now answers questions about salaries and leave. Compliance says only members of the HR security group may chat, controlled with the Share option. Which setting makes this possible?',
+      opts: ['Authenticate with Microsoft and Share', 'No authentication with a private link', 'Require secured access with one secret'],
+      why: '<div id="exA_w1">Users <span class="g">always sign in</span>, and <span class="g">Share</span> decides <span class="g">who in the organization</span> can chat.</div><div id="exA_w2">A <span class="r">private link</span> protects <span class="r">nothing</span>.</div>',
+      proof: rmX('pA_L', 0, 826, PG, 'Authenticate with Microsoft',
+          XBOX('', 28, 72, 140, 162, PURs, PUR, IC('person', 'position:absolute;left:34px;top:10px;width:64px;height:64px;color:#8a5cd6') + XT('left:0;top:90px;width:130px;text-align:center', 'badge', PUR), '') +
+          XBOX('pA_sh', 188, 72, 320, 162, '#2d3a5c', '#8f9cc0', XT('left:20px;top:8px', 'Share') + bx('', 'left:20px;top:64px;width:270px;height:80px;box-sizing:border-box;border:5px solid #6be3a0;border-radius:18px;background:#e3f4ea;color:#1e7f4f;font-size:40px;font-weight:800;line-height:70px;padding-left:18px', 'HR team ✓')) +
+          XCH('pA_bn', 524, 84, 280, PR, 'Sales badge', 'opacity:0') + XT('left:524px;top:162px;width:280px;text-align:center', 'bounced', PR).replace('class="w"', 'class="w" id="pA_bt"').replace('style="', 'style="opacity:0;')) +
+        rmX('pA_R', 854, 826, PY, 'Private link',
+          XBOX('', 28, 72, 190, 100, AMBs, AMB, XT('left:0;top:26px;width:180px;text-align:center', 'desk', AMB)) +
+          [250, 390, 530].map((x, i) => IC('person', `position:absolute;left:${x}px;top:${68 + (i % 2) * 6}px;width:112px;height:112px;color:${['#6a7fb5', '#b0734a', '#7d8c5a'][i]}`)).join('') +
+          bx('pA_card', 'left:660px;top:88px;width:130px;height:74px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:14px;background:#fff;color:#2f5bd3;font-size:40px;font-weight:800;text-align:center;line-height:64px', 'link') +
+          XCH('pA_chip', 28, 184, 470, AMB, 'anyone with the link', 'opacity:0')) }),
+    mkExam('exB', { q: 'Contoso turns on Require secured access for its public website. Marketing worries that every customer must now create an account. What is true?',
+      opts: ['Every customer must sign in with Microsoft', 'It only applies to users outside the network', 'The page client needs a secret or a token'],
+      why: '<div id="exB_w1"><span class="g">Require secured access</span> protects the <span class="g">web channel</span>.</div><div id="exB_w2">Customers still chat <span class="g">without signing in</span>.</div>',
+      proof: rmX('pB_L', 0, 826, PG, 'The page client',
+          XBOX('', 28, 72, 190, 162, TEALs, TEAL, bx('', 'left:50px;top:10px', LOCK(true, TEAL, 84)) + XT('left:0;top:98px;width:180px;text-align:center', 'kiosk', TEAL)) +
+          bx('pB_tk', 'left:262px;top:84px;width:250px;height:80px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:20px;background:#e6ecfb;color:#2f5bd3;font-size:44px;font-weight:800;display:flex;align-items:center;gap:10px;padding-left:16px', IC('ticket_diagonal', 'width:48px;height:48px') + 'Token') +
+          XT('left:534px;top:92px;font-size:60px', '→', PG) + XCH('pB_ok', 262, 176, 400, PG, 'lock opens ✓', 'opacity:0') ) +
+        rmX('pB_R', 854, 826, PY, 'The customer',
+          IC('person', 'position:absolute;left:28px;top:76px;width:124px;height:124px;color:#5f8a8f') + bx('', 'left:170px;top:84px;width:350px;height:76px;box-sizing:border-box;border-radius:20px;background:#e6ecfb;color:#fff;border:4px solid #2f5bd3', XT('left:20px;top:10px', 'Returns policy?', BLUE)) +
+          XCH('pB_c1', 170, 176, 240, PG, 'no sign-in', 'opacity:0') + XCH('pB_c2', 424, 176, 370, PG, 'no account form', 'opacity:0')) }),
+    mkExam('exC', { q: "The secret sits in the website's JavaScript, and any visitor can copy it. Valeria must fix this and keep the agent protected. What should she do?",
+      opts: ['Move the secret into an HTML comment', 'Turn off Require secured access entirely', 'Have the server send the page a token'],
+      why: '<div id="exC_w1">The <span class="g">secret</span> stays <span class="g">on the server</span>.</div><div id="exC_w2">An <span class="r">HTML comment</span> is <span class="r">still readable</span>, and turning security <span class="r">off</span> opens the channel.</div>',
+      proof: rmX('pC_L', 0, 826, PG, 'Server sends a token',
+          XBOX('', 28, 72, 190, 162, '#2d3a5c', '#8f9cc0', IC('key', 'position:absolute;left:55px;top:10px;width:80px;height:80px;color:#ffd166') + XT('left:0;top:98px;width:180px;text-align:center', 'server', '#c9d3ea')) +
+          bx('pC_tk', 'left:246px;top:98px;width:250px;height:80px;box-sizing:border-box;border:5px solid #2f5bd3;border-radius:20px;background:#e6ecfb;color:#2f5bd3;font-size:44px;font-weight:800;display:flex;align-items:center;gap:10px;padding-left:16px', IC('ticket_diagonal', 'width:48px;height:48px') + 'Token') +
+          XT('left:508px;top:96px;font-size:60px', '→', PG) + XBOX('', 580, 72, 220, 162, TEALs, TEAL, bx('', 'left:60px;top:10px', LOCK(true, TEAL, 84)) + XT('left:0;top:98px;width:210px;text-align:center', 'page', TEAL))) +
+        rmX('pC_R', 854, 826, PY, 'HTML comment',
+          XBOX('', 28, 72, 770, 100, '#2d3a5c', '#8f9cc0', XT('left:22px;top:24px', '&lt;!-- secret --&gt;', '#fff') + bx('', 'left:420px;top:4px;width:330px;height:84px;box-sizing:border-box;border:5px solid #b8860b;border-radius:20px;background:#f6e7b0;color:#b8860b;font-size:44px;font-weight:800;display:flex;align-items:center;gap:10px;padding-left:16px', IC('key', 'width:48px;height:48px') + 'Secret')) +
+          XCH('pC_chip', 28, 184, 360, PR, 'still readable', 'opacity:0') + IC('eye', 'position:absolute;left:410px;top:180px;width:64px;height:64px;color:#ff8a80')) }));
+  const XB = [372, 560, 748];
+  ['exA', 'exB', 'exC'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1400, height: 172, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: [378, 478, 578][k], width: 1100, height: 92, fontSize: 36, duration: 1.3, ease: 'sine.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal) - 0.1, C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.5, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0, y: 20 }, { opacity: 0.6, y: 0, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.4 }, t - 0.5));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.35 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.2, 0.6);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.35 }, R);
+    ON(Gg + ' .ok', R + 0.2, 0.6);
+    tl.to(O, { opacity: 0.5, duration: 0.6 }, R);
+    XCOMP(id, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.65, 0.3); OFF('#cur', S(i, 0) - 0.65, 0.2); };
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.6, 0.3); ON('#scr', S(i, 0) - 0.6, 0.3); };
+  const WHY = (id, i, R) => { tl.fromTo(`#${id}_w1`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, Math.max(S(i, 9) + 0.1, R + 2.6)); tl.fromTo(`#${id}_w2`, { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10) + 0.1); };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - X_W[0] * X_W[2], y: 540 - X_W[1] * X_W[2], scale: X_W[2] });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 }); gsap.set('#exA_ring,#exB_ring,#exC_ring', { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set('#maB', { scaleX: -1 }); gsap.set('#ma', { x: 90, opacity: 1 });
+  gsap.set('#cbM', { opacity: 0 });
+  gsap.set('#vsayB', { opacity: 0 });
+  gsap.set('#v0', { opacity: 1 });
+  gsap.set(['#vA', '#vB', '#vC'], { opacity: 0 });
+  const TOT = B.duration + 2.5;
+  /* idle motion */
+  bob('#nx', 0.3, TOT, 8, 0.7);
+
+  /* ═════════ 0 · One agent, two doors ═════════ */
+  gsap.set('#pMod', { opacity: 1 }); OFF('#pMod', S(0, 5) + 0.3, 0.25);
+  FADEIN('#cIntra', S(0, 1) + 0.1, 0.4); OFF('#cIntra', S(0, 2) - 0.1, 0.25);
+  LIT('#stF', { borderColor: PUR }, S(0, 1) + 0.1); LIT('#stL', { backgroundColor: PUR }, S(0, 1) + 0.1); LIT('#rdrL', { backgroundColor: '#c9b6f2' }, S(0, 1) + 0.3);
+  FADEIN('#cPubW', S(0, 2) + 0.1, 0.4); OFF('#cPubW', S(0, 3) - 0.15, 0.25);
+  LIT('#kio', { borderColor: TEAL }, S(0, 2) + 0.1); LIT('#kioH', { backgroundColor: TEAL }, S(0, 2) + 0.1);
+  /* s3: cut to Valeria's lab */
+  tl.set('#labG', { opacity: 1 }, S(0, 3) - 0.1); camAt(X_LB, S(0, 3) - 0.08);
+  FADEIN('#cConn', S(0, 3) + 0.15, 0.4); OFF('#cConn', S(0, 4) - 0.1, 0.25);
+  bob('#valB', S(0, 3), S(0, 5), 8, 0.22); bob('#lapB', S(0, 3), S(0, 5), 6, 0.2);
+  [0, 1, 2].forEach((i) => tl.fromTo('#ln' + i, { scaleX: 0.2, transformOrigin: '0 50%' }, { scaleX: 1, duration: 0.6, repeat: 3, yoyo: true, ease: 'none' }, S(0, 3) + i * 0.12));
+  /* s4: panel slides out, the key is dragged in */
+  CAM(X_K4[0], X_K4[1], X_K4[2], S(0, 4) - 0.1, 1.2, 'power2.inOut');
+  tl.fromTo('#pcode', { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, S(0, 4) + 0.1);
+  tl.set('#kInP', { opacity: 0 }, 0);
+  tl.set('#kDrag', { opacity: 1 }, S(0, 4) + 0.8);
+  tl.to('#kDrag', { x: 3960 - 5700, y: 1186 - 1215, duration: 1.3, ease: 'power2.inOut' }, S(0, 4) + 0.9);
+  tl.set('#kDrag', { opacity: 0 }, S(0, 4) + 2.2); tl.set('#kInP', { opacity: 1 }, S(0, 4) + 2.2);
+  tl.set('#labG', { opacity: 0 }, S(0, 4) + 2.3);
+  /* s5: the visitor copies it */
+  CAM(X_K1[0], X_K1[1], X_K1[2], S(0, 5) - 0.2, 1.3, 'power2.inOut');
+  tl.fromTo('#vis', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.6, immediateRender: false }, S(0, 5) - 0.1);
+  bob('#visB', S(0, 5), S(0, 6) + 4, 6, 0.8);
+  ON('#kioBtn', S(0, 5) + 0.5, 0.3); PULSEX('#kioBtn', S(0, 5) + 1.0, 1.1);
+  tl.set('#kCopy', { opacity: 1 }, S(0, 5) + 1.3);
+  tl.to('#kCopy', { y: 880 - 1186, duration: 0.35, ease: 'power2.out' }, S(0, 5) + 1.4);
+  tl.to('#kCopy', { x: 3280 - 3960, duration: 0.5, ease: 'none' }, S(0, 5) + 1.75);
+  tl.to('#kCopy', { x: 3080 - 3960, y: 1355 - 1186, duration: 0.45, ease: 'power2.in' }, S(0, 5) + 2.25);
+  tl.to('#kCopy', { opacity: 0, duration: 0.2 }, S(0, 5) + 2.75); ON('#vispk', S(0, 5) + 2.75, 0.2);
+  FADEIN('#cCopied', S(0, 5) + 2.6, 0.4); OFF('#cCopied', S(0, 6) - 0.1, 0.25);
+  /* s6: title */
+  tl.fromTo('#kT0', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, S(0, 6) + 0.1); OFF('#kT0', E(0, 6) + 0.1, 0.25);
+  OFF(['#vispk'], E(0, 6) + 0.1, 0.25);
+  tl.to('#pcode', { opacity: 0, x: -120, duration: 0.45, ease: 'power2.in' }, E(0, 6) + 0.3);
+
+  /* ═════════ 1 · The staff door and the public desk ═════════ */
+  CAM(X_W[0], X_W[1], X_W[2], S(1, 0) - 0.3, 1.7, 'power2.inOut');
+  FADEIN('#pAud', E(0, 6) + 0.4, 0.4); OFF('#pAud', S(1, 3), 0.25);
+  tl.set('#kioBtn', { opacity: 0 }, E(0, 6) + 0.6);
+  tl.to('#vis', { x: 1990 - 3030, duration: S(1, 2) + 1.4 - (S(1, 0) + 0.2), ease: 'none' }, S(1, 0) + 0.2);
+  bob('#visB', S(1, 0) + 4, S(1, 2) + 1.4, 8, 0.3);
+  CHIP('#cOff', S(1, 0) + 0.4, S(1, 1) - 0.1);
+  POPX('#sgStaff', W(1, 1, 'staff door', -0.2));
+  tl.to('#ma', { x: 0, duration: 1.0, ease: 'power1.inOut' }, S(1, 1) + 0.3); bob('#maB', S(1, 1) + 0.3, S(1, 1) + 1.3, 10, 0.25);
+  tl.to('#ma', { x: -30, duration: 0.15, yoyo: true, repeat: 1 }, S(1, 1) + 1.6); LIT('#rdrL', { backgroundColor: '#1e7f4f' }, S(1, 1) + 1.7, 0.2);
+  CHIP('#cBadge', S(1, 1) + 1.9, S(1, 2) - 0.1);
+  POPX('#sgPub', W(1, 2, 'public desk', -0.2));
+  LIT('#cnt', { borderColor: AMB, backgroundColor: AMBs }, S(1, 2) + 0.1); LIT('#cntT', { backgroundColor: AMB }, S(1, 2) + 0.1);
+  tl.to('#nx', { rotation: 5, transformOrigin: '50% 100%', duration: 0.25, yoyo: true, repeat: 5 }, S(1, 2) + 1.6);
+  CHIP('#cOpen', S(1, 2) + 1.7, S(1, 3) - 0.1);
+  tl.to(['#stF', '#cnt'], { boxShadow: '0 0 0 14px rgba(138,92,214,0.0)', duration: 0.01 }, S(1, 3));
+  tl.to('#stF', { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, transformOrigin: '50% 100%' }, S(1, 3) + 0.1); tl.to('#cnt', { scale: 1.03, duration: 0.3, yoyo: true, repeat: 3, transformOrigin: '50% 100%' }, S(1, 3) + 0.1);
+  CHIP('#tSame', S(1, 3) + 0.2, S(1, 4) - 0.1);
+  tl.to('#nx', { x: -200, scale: 1.1, transformOrigin: '50% 100%', duration: 1.0, ease: 'power2.inOut' }, S(1, 4) + 0.05);
+  CHIP('#cYour', S(1, 4) + 0.2, S(1, 5) - 0.1);
+  tl.fromTo('#bwho', { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.55, ease: 'bounce.out', immediateRender: false }, S(1, 5) + 0.05); OFF('#bwho', E(1, 5) - 0.1, 0.25);
+  tl.to('#nx', { x: 0, scale: 1, duration: 0.8, ease: 'power2.inOut' }, E(1, 5) - 0.8);
+  tl.to('#vis', { x: 0, duration: 3.2, ease: 'none' }, S(1, 4) + 1.0); bob('#visB', S(1, 4) + 1.0, S(1, 4) + 4.2, 8, 0.3); // the visitor walks on to the website kiosk
+
+  /* ═════════ 2 · Employees: Authenticate with Microsoft ═════════ */
+  camAt(X_STF, S(2, 0) - 0.5);
+  POPX('#bnAuth', S(2, 0) + 0.6);
+  PULSEX('#rdr', S(2, 1) + 0.1, 1.12); LIT('#rdrL', { backgroundColor: '#c9b6f2' }, S(2, 1) + 0.1, 0.2); CHIP('#cBadgeEq', S(2, 1) + 0.3, S(2, 2) - 0.1);
+  tl.to('#ma', { x: -30, duration: 0.15, yoyo: true, repeat: 1 }, S(2, 2) + 0.3); LIT('#rdrL', { backgroundColor: '#1e7f4f' }, S(2, 2) + 0.5, 0.2);
+  CHIP('#cSign', S(2, 2) + 0.4, S(2, 3) - 0.1);
+  LIT('#cb', { borderColor: PUR, backgroundColor: PURs }, S(2, 3) + 0.05); LIT('#cbH', { color: PUR }, S(2, 3) + 0.05);
+  [0, 1].forEach((i) => { const t = S(2, 3) + 0.5 + i * 0.7; LIT('#cbR' + i, { borderColor: PUR, backgroundColor: '#fff' }, t, 0.3); LIT('#cbT' + i, { color: '#141821' }, t, 0.3); LIT('#ck' + i, { backgroundColor: GRN }, t + 0.1, 0.3); PULSEX('#ck' + i, t + 0.1, 1.2); });
+  CHIP('#cShare', S(2, 3) + 0.4, S(2, 4) - 0.1);
+  /* s4: Marta ticks on Sales, the door opens, she sits, Nexo answers */
+  POPX('#cbM', S(2, 4) + 0.1); LIT('#cbR0', { borderColor: GRN, backgroundColor: GRNs }, S(2, 4) + 0.3, 0.3);
+  tl.set('#stI', { opacity: 1 }, S(2, 4) + 0.55);
+  tl.to('#stL', { scaleX: 0.12, duration: 0.7, ease: 'power2.inOut' }, S(2, 4) + 0.6);
+  tl.set('#maSeat', { opacity: 0 }, 0);
+  tl.to('#ma', { x: 1190 - 1640, duration: 1.4, ease: 'power1.inOut' }, S(2, 4) + 1.0); bob('#maB', S(2, 4) + 1.0, S(2, 4) + 2.4, 10, 0.25);
+  OFF('#ma', S(2, 4) + 2.4, 0.25); tl.fromTo('#maSeat', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(2, 4) + 2.7);
+  tl.fromTo('#nxBub', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.8)', immediateRender: false }, S(2, 4) + 3.0); OFF('#nxBub', S(2, 5) - 0.15, 0.25);
+  /* s5: channel tiles */
+  POPX('#tT1', S(2, 5) + 0.3); POPX('#tT2', S(2, 5) + 0.8);
+  CHIP('#cTeams', S(2, 5) + 0.9, E(2, 5) + 0.2);
+  OFF(['#tT1', '#tT2'], E(2, 5) + 0.15, 0.3);
+
+  /* ═════════ 3 · Anonymous public: No authentication ═════════ */
+  camAt(X_PUB, S(3, 0) - 0.5);
+  POPX('#sgNoA', S(3, 0) + 0.7);
+  CHIP('#cDesk', S(3, 1) + 0.2, S(3, 2) - 0.1); tl.to('#gdL', { scaleX: 0.15, duration: 0.7, ease: 'power2.inOut' }, S(3, 1) + 0.3);
+  [['#vA', 50, 0], ['#vB', 250, 0.45], ['#vC', 450, 0.9]].forEach((v) => { tl.set(v[0], { x: 0 }, 0); tl.set(v[0], { opacity: 1 }, S(3, 2) + v[2]); tl.to(v[0], { x: v[1], duration: 1.1, ease: 'power1.out' }, S(3, 2) + v[2]); bob(v[0] + 'B', S(3, 2) + v[2], S(3, 2) + v[2] + 1.1, 8, 0.25); });
+  CHIP('#cLink', S(3, 2) + 1.6, S(3, 3) - 0.1);
+  POPX('#sgCare', S(3, 3) + 0.1);
+  [['#vA', 50, 0], ['#vB', 250, 0.3], ['#vC', 450, 0.6]].forEach((v) => { const t0 = S(3, 3) + 0.1 + v[2] * 0.5; tl.to(v[0], { x: 0, duration: 0.9, ease: 'power1.in' }, t0); OFF(v[0], t0 + 0.9, 0.2); bob(v[0] + 'B', t0, t0 + 0.9, 8, 0.25); });
+  POPX('#lf', S(3, 4) + 0.5); POPX('#drw', W(3, 4, 'internal data', -0.3));
+  CHIP('#cNoInt', S(3, 4) + 0.5, E(3, 4) + 0.1);
+
+  /* ═════════ 4 · EXAM: only the HR team ═════════ */
+  toExam(4);
+  tl.set(['#sgCare', '#lf', '#drw', '#bnAuth', '#tT1', '#tT2', '#sgPub', '#sgNoA'], { opacity: 0 }, S(4, 0) - 0.4);
+  EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.85 });
+  { const R = S(4, 8);
+    WHY('exA', 4, R);
+    ON('#exA_p', R + 2.6, 0.4); ON('#pA_L', R + 2.6, 0.4); ON('#pA_R', R + 2.6, 0.4);
+    ON('#pA_bn', S(4, 9) + 0.2, 0.3); ON('#pA_bt', S(4, 9) + 0.3, 0.3);
+    tl.fromTo('#pA_card', { x: 0 }, { x: -430, duration: 2.0, ease: 'none' }, S(4, 10) - 0.5); ON('#pA_chip', S(4, 10) + 0.1, 0.3); }
+
+  /* ═════════ 5 · Own website: Require secured access ═════════ */
+  camAt(X_K1, S(4, 0) - 0.62); fromExam(5);
+  tl.set(['#sgCare', '#lf', '#drw'], { opacity: 0 }, S(4, 0) - 0.7);
+  LIT('#kio', { borderColor: TEAL }, S(5, 0) + 0.1, 0.3); PULSEX('#kio', S(5, 0) + 0.3, 1.03);
+  FADEIN('#cDef', S(5, 1) + 0.6, 0.4); OFF('#cDef', S(5, 2) - 0.1, 0.25);
+  POPX('#tDemo', S(5, 0) + 0.4); POPX('#tCust', S(5, 0) + 0.9);
+  /* s2: the switch flips On */
+  POPX('#swRow', S(5, 2) + 0.15);
+  tl.to('#swT', { backgroundColor: TEAL, duration: 0.3 }, S(5, 2) + 1.2); tl.to('#swK', { x: 58, duration: 0.3 }, S(5, 2) + 1.2);
+  tl.fromTo('#kioLock', { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(2)', immediateRender: false }, S(5, 2) + 1.5);
+  LIT('#tDemo', { borderColor: TEAL }, S(5, 2) + 1.7, 0.3); LIT('#tCust', { borderColor: TEAL }, S(5, 2) + 1.7, 0.3);
+  [0, 1].forEach((k) => { tl.to('#pl' + k + 'o', { opacity: 0, duration: 0.2 }, S(5, 2) + 1.7); tl.fromTo('#pl' + k + 'c', { opacity: 0 }, { opacity: 1, duration: 0.25, immediateRender: false }, S(5, 2) + 1.95); });
+  /* s3: two accepted items, each in its own slot */
+  SWX('#tDemo', '#slKey', S(5, 3) + 0.2); SWX('#tCust', '#slTok', S(5, 3) + 0.9);
+  FADEIN('#cClient', S(5, 3) + 0.5, 0.4); OFF('#cClient', S(5, 4) - 0.1, 0.25);
+  /* s4-s6 */
+  CHIP('#pCare', S(5, 4) + 0.05, E(5, 6) - 0.1);
+  tl.to('#kio', { boxShadow: '0 0 0 18px rgba(15,123,138,0.35)', duration: 0.4, yoyo: true, repeat: 3 }, S(5, 5) + 0.1);
+  tl.fromTo('#vsayB', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.8)', immediateRender: false }, S(5, 5) + 0.45); OFF('#vsayB', S(5, 6) - 0.1, 0.25);
+  CHIP('#cProt', S(5, 5) + 0.2, S(5, 6) - 0.15);
+  CHIP('#cClock', S(5, 6) + 0.1, E(5, 6) + 0.3);
+  bob('#visB', S(5, 0), S(6, 0), 6, 0.8);
+
+  /* ═════════ 6 · EXAM: will customers sign in? ═════════ */
+  toExam(6);
+  tl.set(['#slKey', '#slTok', '#swRow', '#kioLock'], { opacity: 0 }, S(6, 0) - 0.4);
+  tl.set('#pcode', { opacity: 1, x: 0 }, S(6, 0) - 0.4); tl.set('#kInP', { opacity: 1 }, S(6, 0) - 0.4);
+  EXAMX('exB', 6, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(6, 4), S(6, 5), S(6, 6)], end: S(7, 0) - 0.85 });
+  { const R = S(6, 8);
+    WHY('exB', 6, R);
+    ON('#exB_p', R + 2.6, 0.4); ON('#pB_L', R + 2.6, 0.4); ON('#pB_R', R + 2.6, 0.4);
+    ON('#pB_ok', S(6, 9) + 0.2, 0.3); ON('#pB_c1', S(6, 10) + 0.1, 0.3); ON('#pB_c2', S(6, 10) + 0.8, 0.3); }
+
+  /* ═════════ 7 · The secret never goes to the browser ═════════ */
+  camAt(X_K1, S(6, 0) - 0.62); fromExam(7);
+  CHIP('#pMist', S(7, 0) + 0.05, S(7, 2) + 0.2);
+  tl.fromTo('#mag', { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(7, 1) + 0.1);
+  tl.to('#mag', { x: 300, y: -70, duration: 0.7, ease: 'power1.inOut' }, S(7, 1) + 0.3); tl.to('#mag', { x: 560, y: 60, duration: 0.7, ease: 'power1.inOut' }, S(7, 1) + 1.0); tl.to('#mag', { x: 570, y: 130, duration: 0.7, ease: 'power1.inOut' }, S(7, 1) + 1.7);
+  OFF('#mag', S(7, 2) - 0.1, 0.25);
+  CHIP('#cRead', S(7, 1) + 0.3, S(7, 2) - 0.1);
+  OFF('#kInP', S(7, 2) + 0.15, 0.25); tl.fromTo('#kGone', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(7, 2) + 0.45);
+  CHIP('#cNever', S(7, 2) + 0.6, S(7, 3) + 0.2);
+  tl.to('#vis', { x: -330, duration: 1.3, ease: 'power1.in' }, S(7, 2) + 1.2); bob('#visB', S(7, 2) + 1.2, S(7, 2) + 2.5, 8, 0.25); OFF('#vis', S(7, 2) + 2.5, 0.2);
+  /* s3: camera rises to the server room */
+  CAM(X_M2[0], X_M2[1], X_M2[2], S(7, 3) - 0.1, 1.8, 'power2.inOut'); OFF('#nx', S(7, 3) - 0.1, 0.3);
+  ON('#room', S(7, 3) + 0.8, 0.5); ON('#racks', S(7, 3) + 0.8, 0.5); CHIP('#cSafe', S(7, 3) + 1.4, S(7, 4) - 0.1);
+  tl.set('#kFly', { opacity: 1 }, S(7, 3) + 1.9); tl.to('#kFly', { x: 3376 - 3050, y: 0, duration: 1.0, ease: 'power2.inOut' }, S(7, 3) + 2.0);
+  tl.set('#kFly', { opacity: 0 }, S(7, 3) + 3.0); tl.set('#kSafe', { opacity: 1 }, S(7, 3) + 3.0);
+  /* s4: the page opens, the server prints a ticket that travels down the rail */
+  tl.to('#kLoad', { width: 316, duration: 1.4, ease: 'none' }, S(7, 4) + 0.2);
+  PULSEX('#kSafe', S(7, 4) + 0.5, 1.12);
+  ON('#rail', S(7, 4) + 1.4, 0.3);
+  tl.set('#tk', { opacity: 1, x: 308, y: -190, scale: 0.3 }, S(7, 4) + 1.7);
+  tl.to('#tk', { y: 0, scale: 1, duration: 0.9, ease: 'power2.out' }, S(7, 4) + 1.7);
+  tl.to('#tk', { x: 0, duration: 0.9, ease: 'power2.inOut' }, S(7, 4) + 2.6);
+  /* s5: one conversation, timer */
+  tl.fromTo('#tkA', { strokeDashoffset: 0 }, { strokeDashoffset: 188.5, duration: 3.6, ease: 'none' }, S(7, 5) + 0.3);
+  CHIP('#cExp', S(7, 5) + 0.6, S(7, 6) - 0.1);
+  /* s6: only the token reaches the page (sequential swap) */
+  tl.to('#tk', { x: 666, y: 411, scale: 0.45, duration: 0.5, ease: 'power2.in' }, S(7, 6) + 0.05); OFF('#rail', S(7, 6) + 0.05, 0.25);
+  tl.set('#tk', { opacity: 0 }, S(7, 6) + 0.55); tl.set('#l2a', { opacity: 0 }, S(7, 6) + 0.55); tl.set('#l2b', { opacity: 1 }, S(7, 6) + 0.55);
+  FADEIN('#tPage', S(7, 6) + 0.5, 0.4);
+
+  /* ═════════ 8 · EXAM: the secret in the page ═════════ */
+  toExam(8);
+  EXAMX('exC', 8, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(8, 4), S(8, 5), S(8, 6)], end: S(9, 0) - 0.85 });
+  { const R = S(8, 8);
+    WHY('exC', 8, R);
+    ON('#exC_p', R + 2.6, 0.4); ON('#pC_L', R + 2.6, 0.4); ON('#pC_R', R + 2.6, 0.4);
+    tl.fromTo('#pC_tk', { x: -40 }, { x: 0, duration: 0.8, ease: 'power2.out' }, S(8, 9) + 0.2);
+    ON('#pC_chip', S(8, 10) + 0.2, 0.3); }
+
+  /* ═════════ 9 · Secure the web channel in the studio ═════════ */
+  tl.set(['#room', '#racks', '#kSafe', '#tPage', '#m2', '#pcode'], { opacity: 0 }, S(9, 0) - 0.7);
+  camAt([5900, 1230, 1.4], S(9, 0) - 0.7); tl.set('#labG', { opacity: 1 }, S(9, 0) - 0.7);
+  fromExam(9);
+  CAM(5900, 1230, 2.2, S(9, 0) - 0.5, 0.5, 'power2.inOut');
+  ON('#uiBack', S(9, 0) - 0.65, 0.15); UIIN2('#sw', S(9, 0) - 0.3);
+  ON('#cur', S(9, 1) + 0.0, 0.2);
+  CUR(P_SET[0], P_SET[1], S(9, 1) + 0.1, 0.9); CLICK(P_SET[0], P_SET[1], W(9, 1, 'settings', 0.1)); NAV('#sw', 3, W(9, 1, 'settings', 0.1), 5); SWV('#v0', '#v1', W(9, 1, 'settings', 0.2));
+  CUR(P_SEC[0], P_SEC[1], W(9, 1, 'settings', 0.6), 0.9); CLICK(P_SEC[0], P_SEC[1], W(9, 1, 'then security', 0.5)); NAV('#sw', 4, W(9, 1, 'then security', 0.5), 5); SWV('#v1', '#v2', W(9, 1, 'then security', 0.6));
+  CUR(P_WEB[0], P_WEB[1], S(9, 2) + 0.05, 0.8); CLICK(P_WEB[0], P_WEB[1], S(9, 2) + 0.95); PULSEX('#sc1', S(9, 2) + 1.0, 1.03); SWV('#v2', '#v3', S(9, 2) + 1.1);
+  CUR(P_TOG[0], P_TOG[1], S(9, 2) + 1.5, 0.7); CLICK(P_TOG[0], P_TOG[1], W(9, 2, 'turn on', 0.9));
+  tl.to('#tg', { backgroundColor: TEAL, duration: 0.3 }, W(9, 2, 'turn on', 0.9)); tl.to('#tgk', { x: 52, duration: 0.3 }, W(9, 2, 'turn on', 0.9));
+  [0, 1].forEach((k) => POPX('#sec' + k, S(9, 3) + 0.2 + k * 0.4));
+  ON('#noteS', S(9, 3) + 1.4, 0.3);
+  CUR(P_CP[0], P_CP[1], S(9, 3) + 1.4, 0.8); CLICK(P_CP[0], P_CP[1], S(9, 3) + 2.4);
+  tl.set('#uKey', { opacity: 1, x: 0, y: 0 }, S(9, 3) + 2.5); tl.to('#uKey', { x: 255, y: -117, duration: 0.9, ease: 'power2.inOut' }, S(9, 3) + 2.5); OFF('#uKey', S(9, 3) + 3.5, 0.25);
+  CHIP('#cOnly', S(9, 3) + 2.6, S(9, 4) - 0.1);
+  SWX('#srvI', '#srvC', S(9, 4) + 0.3);
+  tl.set('#uTok', { opacity: 1, x: 0, y: 0 }, S(9, 5) + 0.2); tl.to('#uTok', { x: 0, y: 190, duration: 0.8, ease: 'power2.inOut' }, S(9, 5) + 0.2); OFF('#uTok', S(9, 5) + 1.1, 0.25);
+  ON('#tokOnly', S(9, 5) + 1.2, 0.3); PULSEX('#tokOnly', S(9, 5) + 1.3, 1.1);
+  tl.to('#pgI', { opacity: 0, duration: 0.2 }, S(9, 5) + 1.0);
+  ON('#chU', S(9, 6) + 0.2, 0.3); ON('#chA', S(9, 6) + 1.0, 0.3);
+  OFF('#cur', S(10, 0) - 1.3, 0.2);
+  UIOUT2('#sw', S(10, 0) - 1.35);
+
+  /* ═════════ 10 · Two doors, one agent ═════════ */
+  camAt(X_R10, S(10, 0) - 0.95);
+  tl.set('#labG', { opacity: 0 }, S(10, 0) - 0.9); tl.set('#cb', { opacity: 0 }, S(10, 0) - 0.95); tl.set('#nx', { opacity: 1 }, S(10, 0) - 0.95); tl.set('#vsayB', { fontSize: 72, left: 3150, top: 915 }, S(10, 0) - 0.95);
+    tl.set('#maSeat', { opacity: 0 }, S(10, 0) - 0.95);
+  tl.set(['#stL'], { scaleX: 1 }, S(10, 0) - 0.95); tl.set('#stI', { opacity: 0 }, S(10, 0) - 0.95);
+  /* recap state: Marta at the badge reader, visitor at the kiosk, key safe in the room */
+  tl.set(['#room', '#kSafe'], { opacity: 1 }, S(10, 0) - 0.95); tl.set('#tk', { opacity: 1, x: 0, y: 0, scale: 1 }, S(10, 0) - 0.95); tl.set('#ma', { opacity: 1, x: 0 }, S(10, 0) - 0.95); tl.set('#vis', { opacity: 1, x: 0 }, S(10, 0) - 0.95);
+  FADEIN('#pBack', S(10, 0) + 0.2, 0.4); OFF('#pBack', S(10, 2) - 0.1, 0.25);
+  tl.to('#ma', { x: -30, duration: 0.15, yoyo: true, repeat: 1 }, S(10, 1) + 0.3); LIT('#rdrL', { backgroundColor: '#1e7f4f' }, S(10, 1) + 0.5, 0.2);
+  tl.set('#kioBtn', { opacity: 0 }, 0);
+  tl.to('#kLoad', { width: 316, duration: 0.5 }, S(10, 1) + 0.4);
+  tl.set('#stI', { opacity: 1 }, S(10, 1) + 0.9); tl.to('#stL', { scaleX: 0.12, duration: 0.6, ease: 'power2.inOut' }, S(10, 1) + 0.95);
+  tl.to('#ma', { x: 1190 - 1640, duration: 1.2, ease: 'power1.inOut' }, S(10, 1) + 1.5); OFF('#ma', S(10, 1) + 2.7, 0.25); tl.fromTo('#maSeat', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, S(10, 1) + 2.95);
+  tl.fromTo('#vsayB', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.8)', immediateRender: false }, S(10, 1) + 0.6);
+  PULSEX('#tk', S(10, 1) + 1.0, 1.06); LIT('#kSafe', { borderColor: GRN }, S(10, 1) + 1.6, 0.4);
+  tl.fromTo('#brd', { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.4)', immediateRender: false }, S(10, 2) + 0.1);
+  [0, 1, 2].forEach((k) => tl.to('#rb' + k, { opacity: 1, duration: 0.3 }, S(10, 3 + k) + 0.15));
+  tl.fromTo('#stamp', { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)', immediateRender: false }, S(10, 6) + 0.2);
+  OFF('#brd', S(10, 7) - 0.45, 0.25);
+  /* s7: the camera slides toward the next door */
+  ON('#m2', S(10, 7) + 1.7, 0.4);
+  OFF(['#sgStaff', '#room', '#kSafe', '#tk', '#vsayB', '#vis', '#kio', '#kioS', '#kioF', '#kioLock', '#racks', '#pcode', '#cnt', '#cntT'], S(10, 7) - 0.15, 0.3);
+  CAM(4850, 1150, 0.85, S(10, 7) - 0.1, 2.2, 'power2.inOut');
+  CAM(4900, 1150, 0.85, S(10, 7) + 2.2, TOT - (S(10, 7) + 2.2), 'none');
+  tl.to('#nx', { x: 1500, duration: 2.2, ease: 'power2.inOut' }, S(10, 7) + 0.3);
+  tl.to('#m2s', { scale: 1.04, duration: 0.5, yoyo: true, repeat: 5, ease: 'sine.inOut' }, S(10, 7) + 2.3);
+  CHIP('#tNext', S(10, 7) + 0.5, TOT - 0.1);
+  bob('#visB', S(10, 3), S(10, 7), 6, 0.8);
+  tl.to('#tkA', { strokeDashoffset: 120, duration: 6 }, S(10, 1));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

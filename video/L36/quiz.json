@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 6,
+    "question": "Contoso wants to be sure Nexo returns the order code with every character in the right place. Which method should they add?",
+    "options": [
+      "Compare meaning with its default pass score of fifty",
+      "Exact match with the code as expected response",
+      "General quality, which is turned on by default"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "Nexo must refuse every question about salaries, and it does. General quality keeps marking those refusals as needing improvement. What should Contoso do?",
+    "options": [
+      "Set the Content safety threshold to zero",
+      "Add Keyword match with the All option",
+      "Create a Custom method with two labels"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 15,
+    "pauseSentence": 7,
+    "question": "On the Microsoft Copilot harness, Nexo passes General quality. The manager wants proof the Create Ticket tool ran. Where do you look?",
+    "options": [
+      "The Tool node in the Preview activity trace",
+      "A Tool use method added to the Evaluate tab",
+      "A second evaluation run that also shows Pass"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

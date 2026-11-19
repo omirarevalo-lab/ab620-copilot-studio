@@ -1,0 +1,35 @@
+{"brand": "AB-620 · Module 6 · Lesson 2", "scenes": [
+ {"type": "flow", "header": {"kicker": "Application Insights", "title": "The agent's black box"},
+  "nodes": [
+   {"icon": "bot", "title": "Agent", "sub": "Records what it does", "at": "records"},
+   {"icon": "link", "title": "Connection string", "sub": "Connect it first", "accent": true, "at": "connection string"},
+   {"icon": "code", "title": "KQL", "sub": "Query it later", "at": "language called"}]},
+ {"type": "path", "header": {"kicker": "How to turn it on", "title": "Settings › Advanced"},
+  "crumbs": [
+   {"icon": "settings", "text": "Agent settings", "at": "agent settings"},
+   {"icon": "wrench", "text": "Advanced", "at": "Advanced"},
+   {"icon": "link", "text": "Connection string", "accent": true, "at": "Connection string"}],
+  "cards": [
+   {"icon": "checkbox_checked", "title": "Enable logging", "at": "Enable logging", "hi": true},
+   {"icon": "chat", "title": "Conversation details", "desc": "Optional", "at": "conversation details", "hi": true},
+   {"icon": "lock_closed", "title": "Sensitive properties", "desc": "Optional", "at": "sensitive properties", "hi": true},
+   {"icon": "branch_fork", "title": "Node execution events", "desc": "Optional", "at": "node execution", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "The data and designMode", "title": "Keep tests out of your numbers"},
+  "nodes": [
+   {"icon": "table", "title": "customEvents", "sub": "Where the data arrives", "at": "customEvents"},
+   {"icon": "beaker", "title": "designMode = True", "sub": "Test canvas", "at": "is True"},
+   {"icon": "filter", "title": "designMode = False", "sub": "Only real traffic", "accent": true, "at": "equal to False"}]},
+ {"type": "split", "left": {"kicker": "Dashboard and permissions", "title": "Copilot Studio Dashboard", "sub": "A workbook, in preview."},
+  "window": {"title": "Application Insights · Workbooks", "heading": "Copilot Studio Dashboard", "rail": ["apps", "data_bar_vertical", "table", "people_team", "settings"],
+   "cards": [
+    {"icon": "key", "title": "Reader role on the resource", "desc": "Needed to share it", "at": "Reader role", "hi": true},
+    {"icon": "data_bar_vertical", "title": "A ready-made panel", "desc": "No need to start from zero", "at": "ready-made", "hi": true},
+    {"icon": "people_team", "title": "Share it by giving that role", "at": "Share it with", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "Admin control", "title": "Prevent agent telemetry"},
+  "cols": [
+   {"icon": "shield_checkmark", "title": "Admin control", "sub": "A data policy", "tone": "good", "at": "To prevent",
+    "items": [{"text": "Block the Application Insights in Copilot Studio connector", "at": "blocks"}]},
+   {"icon": "flag", "title": "Not an admin control", "tone": "bad", "at": "Turning off",
+    "items": [{"text": "Toggles inside one agent", "at": "toggles"}]}],
+  "verdict": {"icon": "flag", "text": "A typical exam question", "at": "typical exam"}}
+]}

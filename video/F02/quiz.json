@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "An employee asks Nexo for the current status of their ticket. That status lives in the help desk system and changes all day. Which piece do they add?",
+    "options": [
+      "Knowledge, with the help desk guides",
+      "A topic, with fixed ticket questions",
+      "A tool that queries the help desk"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 6,
+    "question": "For every serious incident, IT always needs the same data, asked in the same order: the affected system, then the urgency. How should Nexo collect it?",
+    "options": [
+      "A topic with fixed questions in order",
+      "An instruction that asks for both details",
+      "A knowledge file listing the questions"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 6,
+    "question": "Nexo has a ticket tool, but it rarely chooses it, even though the instructions talk about tickets. What should the maker improve?",
+    "options": [
+      "Stricter rules in the instructions",
+      "A clear description of the tool",
+      "More ticket guides as knowledge"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

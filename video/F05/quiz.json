@@ -1,0 +1,26 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Contoso's HR team builds an agent with the Copilot Studio plan for Teams, included in Microsoft 365. The agent needs a premium connector for the payroll system. What happens?",
+    "options": [
+      "They need a plan with premium connectors",
+      "It works, as all connectors are included",
+      "It works once an admin data policy allows it"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "IT purchase approvals live in an internal system. It has its own API and an OpenAPI description, but no ready connector. How does Nexo get a tool for it?",
+    "options": [
+      "Use computer use to click through its screens",
+      "Build a custom connector from its OpenAPI",
+      "Add the system's website as a knowledge source"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

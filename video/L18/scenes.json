@@ -1,0 +1,43 @@
+{"brand": "AB-620 · Module 3 · Lesson 2", "scenes": [
+ {"type": "split", "left": {"kicker": "Actions", "title": "Cooking with actions", "sub": "Know the groups, find things fast."},
+  "rows": [
+   {"icon": "flow", "title": "The steps of a flow", "desc": "Ingredients and tools of a kitchen", "at": "steps of a flow", "hi": true},
+   {"icon": "apps", "title": "Grouped by type", "at": "grouped by type", "hi": true},
+   {"icon": "plug_connected", "title": "From connectors", "desc": "To other systems", "at": "from connectors", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "The catalog", "title": "Four families of actions"}, "cols": 2,
+  "items": [
+   {"icon": "sparkle", "term": "AI capabilities", "def": "Generate text · process documents · Run a prompt · call an agent · respond to the agent", "at": "AI capabilities"},
+   {"icon": "people_team", "term": "Human in the loop", "def": "Approvals", "at": "Human in the loop"},
+   {"icon": "wrench", "term": "Built-in tools", "def": "Loops and conditions", "at": "Built-in tools"},
+   {"icon": "plug_connected", "term": "Connectors", "def": "Actions in other systems", "at": "the connectors"}]},
+ {"type": "compare", "header": {"kicker": "Two common actions", "title": "Connector and prompt"},
+  "cols": [
+   {"icon": "plug_connected", "title": "Connector", "sub": "e.g. Dataverse", "at": "A connector",
+    "items": [{"text": "Works with another system: add a row", "at": "adding a row"}]},
+   {"icon": "sparkle", "title": "Run a prompt", "sub": "In AI capabilities", "accent": true, "at": "Run a prompt",
+    "items": [{"text": "At the point of the flow you choose", "at": "point of the flow"}, {"text": "An existing prompt or a new one", "at": "existing prompt"}]}]},
+ {"type": "flow", "header": {"kicker": "Express mode · preview", "title": "Finish inside two minutes"},
+  "nodes": [
+   {"icon": "timer", "title": "Over 2 minutes", "sub": "The agent gets a failure", "at": "two minutes"},
+   {"icon": "rocket", "title": "Express mode", "sub": "Speeds the flow up", "accent": true, "at": "Express mode"},
+   {"icon": "checkmark_circle", "title": "Inside the window", "at": "finish inside"}],
+  "below": [{"icon": "gauge", "text": "Heavy processing · low data volume", "at": "1:heavy processing", "solid": true}]},
+ {"type": "split", "left": {"kicker": "Requirements", "title": "What express mode needs", "pill": {"text": "No extra cost", "at": "1:extra cost"}},
+  "rows": [
+   {"icon": "flag", "title": "When an agent calls a flow trigger", "at": "When an agent", "hi": true},
+   {"icon": "arrow_reply", "title": "Respond to the agent action", "at": "Respond to the agent", "hi": true},
+   {"icon": "key", "title": "A Copilot Studio plan", "at": "Copilot Studio plan", "hi": true},
+   {"icon": "dismiss_circle", "title": "No wait actions or webhooks", "desc": "Not for moving lots of information", "at": "wait actions", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Contoso", "title": "Express or asynchronous?"},
+  "cols": [
+   {"icon": "rocket", "title": "CreateTicket", "sub": "Express mode on", "accent": true, "tone": "good", "at": "CreateTicket",
+    "items": [{"text": "Dataverse connector inserts the row", "at": "Dataverse"}, {"text": "Run a prompt summarizes the text", "at": "summarize"}, {"text": "Processes a lot, moves little", "at": "processes a lot"}]},
+   {"icon": "timer", "title": "Long reconciliation", "sub": "Stays asynchronous", "at": "long reconciliation",
+    "items": [{"text": "No express mode", "at": "without express"}]}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "When to use express mode"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0",
+    "items": [{"text": "Fast flows", "at": "fast flows"}, {"text": "Agent trigger + response to the agent", "at": "agent trigger"}, {"text": "A Copilot Studio plan", "at": "Copilot Studio plan"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Express mode for long processes", "at": "long processes"}]}],
+  "verdict": {"icon": "timer", "text": "Long = asynchronous, beyond two minutes", "at": "two-minute"}}
+]}

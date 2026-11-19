@@ -1,0 +1,57 @@
+[
+ {
+  "title": "Asked twice",
+  "caption": "Marta types her employee number in the vacation topic. In the payroll topic, Nexo asks for the same number again.",
+  "say": "Marta opens Nexo to ask about her vacation. Nexo asks for her employee number, and she types it. Then she asks about her payslip. Nexo asks for the same number again. Marta sighs. Today you learn where an agent keeps data, and who can use it."
+ },
+ {
+  "title": "A named box and who can open it",
+  "caption": "A variable is a named box that keeps data for later. The scope says who can open it: one topic or the whole agent.",
+  "say": "Think of a variable as a small box with a name on it. Inside, the agent keeps one piece of data to use later, like a name or a ticket number. The scope says who can open the box. Only one topic, or the whole agent. Contoso's problem is simple: the box was locked inside one topic."
+ },
+ {
+  "title": "Topic and Global",
+  "caption": "A new variable is a topic variable by default and lives only in its topic. A Global. variable works in all topics.",
+  "say": "When you create a variable, it is a topic variable by default. It lives only in the topic where you created it. The payroll topic cannot see it, so it asks again. A global variable carries the prefix Global dot, and it works in all topics. So Global dot EmployeeId is filled once, and every topic reuses it."
+ },
+ {
+  "title": "Decide: one number, many topics",
+  "caption": "The vacation topic saves the employee number in a topic variable. Payroll and benefits need it without asking again. What should you do?",
+  "say": "Your turn. Contoso's vacation topic saves the employee number in a topic variable. The payroll and benefits topics need the same number without asking again. What should you do? Copy the question into every topic? Change the variable scope to global? Or make it a new system variable instead? Decide before I answer. Change the variable scope to global. You do it in the variable's properties panel. Copying the question only asks the user again, and you cannot create system variables."
+ },
+ {
+  "title": "System variables",
+  "caption": "Copilot Studio creates system variables: System.Activity.Text holds the user's last message, System.User.DisplayName the user's name.",
+  "say": "Some boxes come already filled. Copilot Studio creates system variables for you. System dot Activity dot Text holds the last thing the user typed. System dot User dot DisplayName holds the user's name. You read them, but you do not create them."
+ },
+ {
+  "title": "The type is set once",
+  "caption": "A variable takes its type from its first assignment. Start with a number and it stays a Number: text later causes an error.",
+  "say": "Each box also has a shape, called its type. A variable takes its type from its first assignment. If it starts with a number, it stays a Number. Later, if you try to put text in it, you get an error. The types include String, Boolean, Number, Table, Record, DateTime, Choice and Blank."
+ },
+ {
+  "title": "Decide: text in a number box",
+  "caption": "Valeria first sets Global.EmployeeId to the number 4215. Later a node saves the text E4215 in it. What happens?",
+  "say": "Your turn. Valeria first sets Global dot EmployeeId to the number four two one five. Later, a node saves the text E four two one five in the same variable. What happens? An error: the type is already Number? It quietly converts itself to a String? Or the text is stored as the number zero? Decide before I answer. An error: the type is already Number. The type comes from the first assignment, and it does not change. If an ID can have letters, start it as text."
+ },
+ {
+  "title": "Environment variables",
+  "caption": "Env.ApiBaseUrl holds a test address in development and the real one in production. Read-only in Copilot Studio, edited in Power Apps.",
+  "say": "Now the inventory interface. In development it must call a test server, and in production the real one. Contoso keeps that address in an environment variable, Env dot ApiBaseUrl. Environment variables are created in Power Platform, and they are read-only in Copilot Studio. The administrator changes their values in Power Apps, not in the topic. So the same agent moves between environments without touching a single node. If a value changes, you republish the agent, except for secret-type ones, which are read at runtime."
+ },
+ {
+  "title": "Decide: test server, real server",
+  "caption": "Nexo's inventory address differs in development and production. Contoso wants to move the agent without editing nodes. What should you use?",
+  "say": "Your turn. Nexo calls an inventory address that is different in development and in production. Contoso wants to move the agent without editing any node. What should you use? A global variable set in every topic? A system variable that holds the address? Or an environment variable for the address? Decide before I answer. An environment variable for the address. It separates the parameter from the logic, and the administrator sets each value in Power Apps. A global variable still means editing the agent, and you cannot create system variables."
+ },
+ {
+  "title": "Make it global in the studio",
+  "caption": "Question node › Save user response as › new variable › Variable properties › scope global › insert it in another topic › test.",
+  "say": "Here is how it looks in the studio. Open the vacation topic and add a Question node that asks for the employee number. Under Save user response as, create a variable called EmployeeId. Select it, open Variable properties, and change its scope to global. In the payroll topic, add a Message and insert Global dot EmployeeId. Test in the test chat and watch the variables panel."
+ },
+ {
+  "title": "One box for the whole agent",
+  "caption": "Topic is the default, Global. works in all topics, System. comes from Copilot Studio, Env. is read-only. The first value fixes the type.",
+  "say": "Back to Marta. She types her number once, and the payroll topic greets her with it. Remember four boxes. Topic is the default, and Global dot works in all topics. System variables come from Copilot Studio. Env dot comes from Power Platform and is read-only here. And the first value fixes the type. Next, formatted responses."
+ }
+]

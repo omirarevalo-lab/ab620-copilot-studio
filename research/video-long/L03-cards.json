@@ -1,0 +1,9 @@
+{
+  "1": ["The manual", [["Draft", "Your edits, on your desk"], ["Publish", "Prints and hands out the new edition"], ["Old edition", "Still read until users pick up the new one"], ["Channels", "Teams, a website, a mobile app"]]],
+  "2": ["Saving is not publishing", [["Save", "Updates your draft (test pane only)"], ["Publish", "Updates every connected channel at once"], ["Per channel", "Never republish one by one"]]],
+  "4": ["Sessions", [["New content", "Only in a new session"], ["Most channels", "New session after 30 min of inactivity"], ["Teams", "Type start over to force it"], ["Otherwise", "Up to an hour"]]],
+  "6": ["Channels", [["Teams and Microsoft 365", "Where people already work"], ["Demo website", "Quick page to try the agent"], ["Others", "WhatsApp, Facebook…"], ["Direct Line channels", "Demo website, custom websites, mobile apps"], ["Watch out", "Some channels require authentication"]]],
+  "7": ["Channel governance", [["Who decides", "The administrator"], ["How", "One connector per channel in data policies"], ["Block WhatsApp + Facebook", "Makers can't use those channels"], ["Teams, website", "Keep working"]]],
+  "9": ["In the studio", [["1", "Check changes are saved"], ["2", "Publish › confirm"], ["3", "Channels › pick Teams or Demo website"], ["4", "Follow its connection steps, check authentication"], ["5", "Open a new conversation to see the change"]]],
+  "10": ["Remember", [["Publish", "Once updates every channel"], ["Session", "Only a new one sees the change"], ["Data policies", "Each channel has its own connector"]]]
+}

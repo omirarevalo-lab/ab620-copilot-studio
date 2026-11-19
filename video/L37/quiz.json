@@ -1,0 +1,50 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Contoso raises the Compare meaning pass score to 95. Cases that have an expected response now score below that bar. What result do those cases get?",
+    "options": [
+      "Invalid, because the bar is too demanding",
+      "Error, because the method could not decide",
+      "Fail, because they scored below the bar"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 6,
+    "question": "Contoso's auditors want this quarter's evaluation results available for a full year. What should the maker do?",
+    "options": [
+      "Export the results to CSV after each run",
+      "Ask an admin to extend the result retention",
+      "Use Compare with to merge the older runs"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 8,
+    "question": "Twelve cases fail overnight. All of them call the Create Ticket tool, and the user profile's connection expired yesterday. What should the maker do first?",
+    "options": [
+      "Rewrite the instructions and run the set again",
+      "Restore the connection and rerun the same set",
+      "Improve the Create Ticket tool description"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 13,
+    "pauseSentence": 7,
+    "question": "After a run, Nexo has three failures: a vague answer about the cafeteria menu, a wrong order status, and an answer that shares an employee's home address. Which one do you triage first?",
+    "options": [
+      "The wrong order status in a core scenario",
+      "The vague menu answer with the lowest score",
+      "The answer sharing an employee's address"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

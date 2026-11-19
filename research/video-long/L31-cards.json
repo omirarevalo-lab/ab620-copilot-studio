@@ -1,0 +1,9 @@
+{
+"1": ["A2A · Agent to Agent", [["What", "A standard for agents from different frameworks"], ["Like", "Two languages, one common protocol"], ["Supports", "Multi-turn conversations and rich metadata"], ["Copilot Studio", "Can connect to an external A2A agent"]]],
+"2": ["How to connect", [["Path", "Agents · Add agent · A2A agent"], ["Paste", "The endpoint URL"], ["Not", "The agent card URL"], ["Agent card", "/.well-known/agent.json"], ["Valid card", "Name and description fill in"], ["No card", "Write a good description"]]],
+"3": ["Authentication", [["None", "No authentication"], ["API key", "In the header or the query"], ["OAuth 2.0", "Client ID, secret"], ["OAuth 2.0 URLs", "Authorization, token, refresh"], ["Contoso", "API key in the header"]]],
+"5": ["What travels", [["contextId", "Keeps the context between agents"], ["Message identifiers", "One per message"], ["Language", "In the metadata"], ["History", "The full conversation history"]]],
+"6": ["Development and reach", [["Local agent", "Expose it with Dev Tunnels"], ["Port", "Make it public"], ["Dev Tunnels", "A public URL for development"], ["Infrastructure", "Custom connectors"], ["Reaches", "On-premises and virtual network agents"]]],
+"8": ["What to use when", [["Flows between agents", "A2A"], ["Simple APIs", "Connector or HTTP"], ["Tools and resources", "MCP"], ["Microsoft 365 Agents SDK agents", "Activity Protocol"]]],
+"9": ["The steps", [["1", "Find the endpoint URL, not the agent card's"], ["2", "Copilot Studio: open the agent · Agents"], ["3", "Add agent · A2A agent"], ["4", "Paste the endpoint URL"], ["5", "Check name and description, or write one"], ["6", "Authentication: None, API key or OAuth 2.0"], ["7", "Local agent: Dev Tunnels, public port · connect"]]]
+}

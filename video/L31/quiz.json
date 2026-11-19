@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "The logistics team sends Valeria two addresses: the endpoint and the agent card. Which one does she paste in the A2A agent form?",
+    "options": [
+      "The agent card U R L",
+      "The endpoint U R L",
+      "the team's web page"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "While she is still building, Valeria runs a test copy of the logistics agent on her own laptop. Copilot Studio must reach that local agent. What should she do?",
+    "options": [
+      "Paste its local address",
+      "Set authentication to None",
+      "expose it via Dev Tunnels"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "Marta also wants prices. Contoso has a simple pricing API. What should Valeria use to call it?",
+    "options": [
+      "An H T T P connector",
+      "A second A two A agent",
+      "a new M C P server"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

@@ -1,0 +1,47 @@
+[
+ {
+  "title": "Changes on the live agent",
+  "caption": "A maker edits the live Nexo and employees get half-finished questions. A colleague can't even find Nexo. Nobody planned where it lives.",
+  "say": "Week five at Contoso. A maker tries a new incident topic directly on the live Nexo. For an hour, employees get half finished questions. Then a colleague opens Copilot Studio to help, and Nexo is not even in their list of agents. Two problems, one cause: nobody planned where Nexo lives, or how changes travel to the people who use it. Today we fix that with three ideas: environments, Dataverse, and solutions."
+ },
+ {
+  "title": "Separate office buildings",
+  "caption": "An environment is a separate office: Dev, Test, Prod. Each belongs to one tenant and region. Agents use connections and data from their own environment.",
+  "say": "An environment is a space where your apps, agents and flows live. Picture separate office buildings: one for development, one for testing, one for production. What you build in one building does not appear in another until you move it. That is why the colleague could not see Nexo. Each environment belongs to one Entra tenant and one region. And an agent only uses connections and data from its own environment."
+ },
+ {
+  "title": "Types of environment",
+  "caption": "Default: shared, for experiments. Production: real work. Sandbox: dev and test, copy and reset. Developer: personal. Trial: expires in thirty days.",
+  "say": "Environments come in types. Default: one per tenant, shared by everyone, for experiments, not for production. Production: permanent, for real work. Sandbox: for development and testing, with options to copy and reset it. Developer: a personal one, with the Developer Plan. Trial: for trying things out, and it expires after thirty days. Two built in roles matter: Environment Admin manages everything, and Environment Maker creates resources."
+ },
+ {
+  "title": "Dataverse: the database",
+  "caption": "Dataverse is the environment's database: zero or one per environment, tables with rows and columns. Admin role does not grant data access.",
+  "say": "Inside each building there can be one database: Dataverse. Each environment has zero or one. It stores information in tables, with rows and columns. It matters to Copilot Studio for three reasons. Its tables can be a knowledge source. It stores the files you upload as knowledge. And solutions depend on it. One trap: being Environment Admin does not give you access to the data. That access is granted separately."
+ },
+ {
+  "title": "Decide: a place to build",
+  "caption": "A team needs a place to develop and test a new agent, with copy and reset, before real use. Which environment type?",
+  "say": "Your turn. A team wants a place to develop and test a new agent before real employees use it. They also want to copy it and reset it when tests go wrong. Which environment type fits? The default environment? A production environment? Or a sandbox environment? Decide before I answer. A sandbox. It is made for development and testing, with copy and reset. The default one is shared by everyone, and production is for real work."
+ },
+ {
+  "title": "Solutions: the moving box",
+  "caption": "A solution groups agents, flows, variables and connections to move them. Unmanaged to edit in Dev; managed to deploy. Pipelines automate it.",
+  "say": "To move work between buildings, you use a moving box: a solution. It groups components, like agents, flows, environment variables and connections, so they travel together. Agents are always created inside a solution: the default one, unless you set a preferred solution. In development the box is unmanaged, so you can edit it. For test and production you export it managed, a sealed package. Power Platform Pipelines can automate the trip."
+ },
+ {
+  "title": "Decide: the trip to production",
+  "caption": "Nexo works in Nexo Dev. The team must take it to Nexo Prod for real employees. How do they move it?",
+  "say": "Your turn. Nexo works well in the Nexo Dev environment. Now the team must take it to Nexo Prod, where real employees will use it. How do they move it? Package it in a managed solution? Rebuild the agent by hand in Prod? Or share the Dev agent with everyone? Decide before I answer. A managed solution. You export it from Dev and import it into Prod. Rebuilding by hand invites mistakes, and Dev is for building, not for real users."
+ },
+ {
+  "title": "Find it in the portals",
+  "caption": "Environment picker in the top bar; admin center lists environments; Power Apps Solutions: new solution, Add existing agent, export unmanaged or managed.",
+  "say": "Let's look at it on screen. In Copilot Studio, find the environment picker in the top bar. Switch environments, and the list of agents changes. If you have permission, the Power Platform admin center shows every environment and its type, under Manage, Environments. Then, in the Power Apps portal, open Solutions and create a solution called Nexo, with its publisher. Use Add existing to add the agent, and export it as unmanaged or managed."
+ },
+ {
+  "title": "Three buildings for Nexo",
+  "caption": "Nexo Dev, Test and Prod: built unmanaged in Dev, moved as a managed solution, each with its own Dataverse, connections and data policies.",
+  "say": "Back to week five. Contoso now has three environments: Nexo Dev, Nexo Test and Nexo Prod. Makers build Nexo in Dev, inside a solution called Nexo. When it is ready, they export it as managed, import it into Test, and then into Prod. Each building has its own Dataverse and its own connections, so real data stays in production. An admin sets different data policies for each one. Next: how to test and publish Nexo."
+ }
+]

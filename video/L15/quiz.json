@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Valeria turns generative orchestration off, and the Check inventory tool must still run. In classic orchestration, how is a tool called?",
+    "options": [
+      "By the orchestrator, by description",
+      "Explicitly, from inside a topic",
+      "By the user, from the chat window"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Before a sensitive tool runs, the agent must get the user's okay. Which setting should Valeria turn on?",
+    "options": [
+      "Ask the end user before running",
+      "A trigger phrase that asks first",
+      "Authentication with maker credentials"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 11,
+    "pauseSentence": 7,
+    "question": "Valeria wants the raw search results in a variable, so the topic can filter them with business rules. Which tool should she add inside the topic?",
+    "options": [
+      "Create search query",
+      "Generative answers node",
+      "Perform custom search"
+    ],
+    "right": 2,
+    "trap": 1
+  }
+]

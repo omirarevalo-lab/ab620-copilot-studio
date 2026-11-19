@@ -1,0 +1,10 @@
+{
+"1": ["Bring your own model", [["BYOM", "A model you deployed in Microsoft Foundry"], ["Used in", "A Copilot Studio prompt"], ["Like", "Bringing your own tool to the workshop"], ["Rules", "Which model and which endpoint"], ["Endpoint", "The web address where requests to the model are sent"]]],
+"2": ["How to connect it", [["In the Prompt", "Model drop-down"], ["Then", "+ · Connect a model from Azure AI Foundry"], ["Deployment name", "The name you gave the model when you deployed it"], ["Base model name", "Exactly as in Foundry"], ["Tip", "Copy the names, do not type them from memory"]]],
+"3": ["Which models work", [["Supported", "Chat completion models only"], ["Chat completion", "The type of chat model this feature supports"], ["GPT-5 family and later", "Not supported"]]],
+"5": ["The endpoint rule", [["Must end in", "/chat/completions"], ["Responses endpoint", "/openai/v1/responses"], ["Error", "Resource not found"], ["If it fails", "Check the model type and the endpoint"]]],
+"6": ["Valeria's first try", [["Connect", "Model · + · exact names from Foundry"], ["First endpoint", "Responses"], ["Result", "Resource not found"], ["Fix", "Endpoint ending in /chat/completions"], ["Now", "Tickets sorted by urgency"]]],
+"8": ["Governance and billing", [["Governed by", "Azure AI Foundry connector"], ["Where", "Data policies · Power Platform admin center"], ["At Contoso", "The security team"], ["Billing", "Separately, in Azure"], ["Not", "Copilot Studio rates"]]],
+"10": ["The steps", [["1", "Foundry: deploy a chat completion model · note both names"], ["2", "Copilot Studio: open or create a Prompt"], ["3", "Open the Model drop-down"], ["4", "+ · Connect a model from Azure AI Foundry"], ["5", "Deployment name and base model name, exactly as in Foundry"], ["6", "Endpoint ends in /chat/completions"], ["7", "Test · if it fails, check model type and endpoint"]]],
+"11": ["Remember", [["Model", "Chat completion only · not GPT-5 or later"], ["Endpoint", "/chat/completions · else Resource not found"], ["Governance", "Azure AI Foundry connector in data policies"], ["Billing", "Separately, in Azure"]]]
+}

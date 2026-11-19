@@ -1,0 +1,8 @@
+{
+  "1": ["The tray", [["Your source", "Not a file, not a website"], ["You calculate it", "With a flow or a query"], ["The node", "Answers only from the tray"]]],
+  "2": ["Custom data", [["Where", "Generative answers node · Classic data"], ["You pass", "A Table variable"], ["Use it for", "A private API or a flow result"]]],
+  "3": ["The shape of the table", [["Content", "Required · the text"], ["ContentLocation", "Optional · citation URL"], ["Title", "Optional · the title"]]],
+  "4": ["Only three records", [["Records used", "Only the first three"], ["Before you pass it", "Filter and sort"], ["Most relevant", "On top"]]],
+  "6": ["Only your data", [["Search only selected sources", "On · no sources"], ["Custom data", "Your variable"], ["Web search and general knowledge", "Off"]]],
+  "8": ["In the studio", [["Open", "Node · Properties"], ["Classic data", "Custom data · your variable"], ["Test", "Citation uses ContentLocation"]]]
+}

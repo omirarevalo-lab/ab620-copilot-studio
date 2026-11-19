@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L13 · Custom prompts · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  .bl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 950px; white-space: nowrap; font-size: 42px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; }
+  .bl.red { border-color: #c4392f; color: #c4392f; } .bl.green { border-color: #1e7f4f; color: #1e7f4f; } .bl.vi { border-color: #7b5cd6; color: #7b5cd6; } .bl.go { border-color: #b8860b; color: #8a6508; } .bl.tl { border-color: #0f7b8a; color: #0f7b8a; } .bl.nv { border-color: #1f2a44; color: #1f2a44; } .bl.gr { border-color: #6b7280; color: #5b6578; }
+  .pl { position: absolute; left: 120px; top: 60px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .nl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 940px; font-size: 40px; font-weight: 800; padding: 10px 30px; border-radius: 999px; background: #fff; border: 4px solid #1f2a44; color: #1f2a44; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 36px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 32px; border-radius: 16px; padding: 2px 16px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  #stage #uiS { top: 80px; height: 820px; } #stage #uiS .nav div { font-size: 34px; } #stage #uiS .bar { font-size: 32px; } #stage #uiS .btn { font-size: 34px; } #stage #uiS .crumb { font-size: 32px; } #stage #uiS .fld { font-size: 34px; } #stage #uiS .fld small { font-size: 32px; } #exams .exam .xo em.trap { font-size: 32px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 10px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 32px; font-weight: 700; color: var(--muted); margin-bottom: 2px; }
+  .uw .mn { position: absolute; background: #fff; border: 3px solid var(--line2); border-radius: 16px; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; font-size: 34px; font-weight: 700; }
+  .uw .mn div { padding: 10px 24px; }
+  .uw .vc { display: inline-block; font-size: 32px; font-weight: 800; padding: 2px 16px; border-radius: 999px; background: #0f7b8a; color: #fff; }
+  .uw .ab { position: absolute; box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L13 · Custom prompts. The Contoso recipe studio, world 3840x2160.
+     recipe wall x380-1500 y270-600 · inbox counter x380-960 y1290 · Marta x470 · laptop x700 y1180 · bench x1000-2200 top y1330 · card x1020-1460 y1060-1330
+     · Nexo x1500 y870 · arch x1900-2200 y800-1330 · tasting counter x2290-2960 y1330 · manager x2690 · plates y1240 · dial panel x3050-3750 y300-920
+     · agent-settings panel x3830-4250 · Valeria x880 y980 · Valeria's desk x100-620 y1640 (UI scene) · scene 2 lanes y1540-1790 · scene 3 doors y440-1040
+     · scene 5 editor x1000-2400 y400-1300 · scene 8 answer rows x2230-2900 y560-780 · scene 11 Tools screen x520-1000 y650-880, people on the floor y1260-1640 · side door x-240 y760. */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#e0a21e', VIO = '#7b5cd6', TLC = '#0f7b8a', CRM = '#f4ead2', TRY = '#cadca8', CORAL = '#e07a5f', INK = '#141821', GRY = '#6b7280';
+  const hmn = (id, x, y, top, hair, extra) => `<svg class="w ${extra || ''}" id="${id}" style="left:${x}px;top:${y}px" width="200" height="380" viewBox="0 0 200 380"><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></svg>`;
+  const PILL = (id, x, y, t, col, bg, st, vis) => `<div class="w ${vis ? '' : 'h'}" id="${id}" style="left:${x}px;top:${y}px;height:64px;padding:0 24px;box-sizing:border-box;display:flex;align-items:center;gap:10px;border-radius:999px;background:${bg || '#fff'};border:4px solid ${col};color:${col};font-size:44px;font-weight:800;white-space:nowrap;box-shadow:var(--shadow);${st || ''}">${t}</div>`;
+  const DISH = (w) => `<svg width="${w}" height="${Math.round(w * 0.78)}" viewBox="0 0 64 50" style="display:block"><path d="M6 42 H58" stroke="#8a6a3a" stroke-width="5" stroke-linecap="round"/><path d="M12 40 Q12 16 32 16 Q52 16 52 40 Z" fill="#fff" stroke="#8a6a3a" stroke-width="4"/><circle cx="32" cy="11" r="4" fill="#8a6a3a"/></svg>`;
+  const BARS = (n) => [330, 270, 300].slice(0, n).map((w) => `<div style="height:18px;width:${w}px;background:#d9c9a3;border-radius:9px;margin-bottom:14px"></div>`).join('');
+  /* cream recipe card 440x270: dish icon, name tag, instruction area */
+  const CARD = (id, x, y, o) => {
+    o = o || {};
+    return `<div class="w ${o.h ? 'h' : ''}" id="${id}" style="left:${x}px;top:${y}px;width:480px;height:270px;box-sizing:border-box;background:${CRM};border:6px solid #b0926a;border-radius:24px;box-shadow:var(--shadow)">
+      <div style="position:absolute;left:20px;top:12px">${DISH(66)}</div>
+      <div class="h" id="${id}_n1" style="position:absolute;left:100px;top:14px;height:56px;line-height:56px;font-size:44px;font-weight:800;color:${INK};white-space:nowrap">Custom prompt</div>
+      <div class="h" id="${id}_n2" style="position:absolute;left:100px;top:14px;height:56px;line-height:56px;font-size:44px;font-weight:800;color:${INK};white-space:nowrap">Classify ticket</div>
+      <div id="${id}_ins" style="position:absolute;left:20px;top:86px;width:428px;height:150px;box-sizing:border-box;border-radius:14px;background:#fffaf0;border:4px solid #d9c9a3;padding:20px">${BARS(3)}</div>
+      <div class="h" id="${id}_gl" style="position:absolute;left:12px;top:78px;width:444px;height:166px;box-sizing:border-box;border:8px solid #ffd166;border-radius:20px;box-shadow:0 0 40px 10px rgba(255,209,102,.6)"></div></div>`;
+  };
+  const MC = (id, x, y) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:190px;height:125px;box-sizing:border-box;background:${CRM};border:5px solid #b0926a;border-radius:18px;box-shadow:var(--shadow)"><div style="position:absolute;left:12px;top:8px">${DISH(44)}</div><div style="position:absolute;left:14px;top:62px;width:150px;height:42px;border-radius:10px;background:#fffaf0;border:3px solid #d9c9a3;padding:7px 10px;box-sizing:border-box"><div style="height:9px;width:110px;background:#d9c9a3;border-radius:5px;margin-bottom:7px"></div><div style="height:9px;width:80px;background:#d9c9a3;border-radius:5px"></div></div></div>`;
+  const SLIP = (id, x, y, t, w, vis) => `<div class="w ${vis ? '' : 'h'}" id="${id}" style="left:${x}px;top:${y}px;width:${w || 230}px;height:100px;box-sizing:border-box;background:#fff;border:4px solid #c9ced8;border-left:16px solid ${CORAL};border-radius:12px;box-shadow:var(--shadow);padding:6px 14px">${t ? `<div style="font-size:40px;font-weight:800;color:${INK};white-space:nowrap;line-height:50px">${t}</div><div style="margin-top:6px;height:14px;width:70%;background:#dfe3ec;border-radius:7px"></div>` : `<div style="margin-top:12px;height:14px;width:75%;background:#dfe3ec;border-radius:7px"></div><div style="margin-top:12px;height:14px;width:50%;background:#dfe3ec;border-radius:7px"></div>`}</div>`;
+  const PLATE = (id, x, y, t, o) => { o = o || {}; const g = o.grey; return `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:${o.w || 250}px;height:90px;box-sizing:border-box;background:${g ? '#c9ced8' : TLC};border:6px solid ${g ? '#9aa5b6' : '#0b5f6b'};border-radius:999px;color:${g ? '#5b6578' : '#fff'};font-size:${o.fs || 48}px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;box-shadow:var(--shadow)">${o.icon ? IC(o.icon, 'width:52px;height:52px') : ''}${t || ''}</div>`; };
+  const TRAY = (id, x, y, slipId, slipTxt) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:560px;height:110px;box-sizing:border-box;background:${TRY};border:6px solid #9fb87a;border-radius:20px;box-shadow:var(--shadow);display:flex;align-items:center;padding-left:24px;font-size:44px;font-weight:800;color:#4a5e2c">input</div>`;
+  const ICB = (id, x, y, n, col, bg, sz, st) => `<div class="w h" id="${id}" style="left:${x}px;top:${y}px;width:${sz}px;height:${sz}px;box-sizing:border-box;border-radius:50%;background:${bg};border:6px solid ${col};display:flex;align-items:center;justify-content:center;color:${col};box-shadow:var(--shadow);${st || ''}">${IC(n, 'width:' + Math.round(sz * 0.55) + 'px;height:' + Math.round(sz * 0.55) + 'px')}</div>`;
+  const GRP = (id, fn) => { const wd = document.getElementById('world'), n0 = wd.children.length; fn(); const g = document.createElement('div'); g.id = id; g.style.cssText = 'position:absolute;left:0;top:0;width:0;height:0'; const kids = Array.from(wd.children).slice(n0); wd.insertBefore(g, kids[0]); kids.forEach((k) => g.appendChild(k)); };
+
+  /* backdrop patches so close-up framings never reveal a world edge */
+  ADD(`<div class="w" style="left:-1300px;top:-420px;width:6400px;height:1920px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="left:-1300px;top:1500px;width:6400px;height:1100px;background:#e3e7ef"></div><div class="w" style="left:-1300px;top:1500px;width:6400px;height:6px;background:#d3d9e4"></div>`);
+  /* recipe card wall (back wall, left) */
+  GRP('gWall', () => {
+    let h = '';
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 8; c++) h += `<div class="w" style="left:${400 + c * 138}px;top:${270 + r * 110}px;width:112px;height:72px;box-sizing:border-box;background:#f6efdc;border:3px solid #d9c9a3;border-radius:8px;padding:12px 14px"><div style="height:8px;width:70px;background:#e2d6b5;border-radius:4px;margin-bottom:8px"></div><div style="height:8px;width:48px;background:#e2d6b5;border-radius:4px"></div></div>`;
+      h += `<div class="w" style="left:380px;top:${270 + r * 110 + 82}px;width:1130px;height:10px;background:#c9b896;border-radius:5px"></div>`;
+    }
+    ADD(h);
+  });
+  /* inbox: Marta's window, counter and laptop */
+  GRP('gIn', () => {
+    ADD(`<div class="w" id="ictr" style="left:380px;top:1290px;width:580px;height:210px"><div style="position:absolute;left:0;top:0;width:580px;height:26px;background:#cfd6e2;border-radius:12px 12px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:26px;width:580px;height:184px;background:#9aa5b6"></div></div>`);
+    ADD(hmn('mar', 470, 910, CORAL, '#3a2a22'));
+    ADD(`<div class="w" id="lapM" style="left:700px;top:1180px;width:240px;height:110px;box-sizing:border-box;background:${NAVY};border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#5d6472">${IC('ticket_diagonal', 'width:64px;height:64px')}</div></div>`);
+  });
+  /* prep bench */
+  ADD(`<div class="w" id="bench" style="left:1000px;top:1330px;width:1200px;height:170px"><div style="position:absolute;left:0;top:0;width:1200px;height:30px;background:#c9a96e;border-radius:12px 12px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:30px;width:1200px;height:140px;background:#9a7d57"></div></div>`);
+  /* glowing "model" arch */
+  ADD(`<div class="w" id="arch" style="left:1900px;top:800px;width:300px;height:530px"><div id="arch_gl" style="position:absolute;left:30px;top:80px;width:240px;height:450px;background:radial-gradient(ellipse at center,rgba(255,209,102,.55),rgba(255,209,102,.12));box-shadow:0 0 70px 14px rgba(255,209,102,.45)"></div><div style="position:absolute;left:0;top:80px;width:36px;height:450px;background:${NAVY};border-radius:10px 0 0 0"></div><div style="position:absolute;right:0;top:80px;width:36px;height:450px;background:${NAVY};border-radius:0 10px 0 0"></div><div style="position:absolute;left:0;top:0;width:300px;height:92px;box-sizing:border-box;background:${NAVY};border-radius:46px 46px 10px 10px;color:#fff;font-size:50px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:12px">${IC('sparkle', 'width:48px;height:48px;color:#ffd166')}model</div></div>`);
+  /* Nexo (blue robot) with chest badge */
+  ADD(agent('nx', 1500, 870, { folder: '' }).replace('width="360" height="500"', 'width="330" height="458"'));
+  ADD(`<div class="w h" id="nxBd" style="left:1594px;top:1144px;width:74px;height:74px;box-sizing:border-box;border-radius:50%;background:${CRM};border:6px solid #b0926a;display:flex;align-items:center;justify-content:center">${DISH(38)}</div>`);
+  ADD(`<div class="w h" id="nxBg" style="left:1578px;top:1128px;width:106px;height:106px;box-sizing:border-box;border-radius:50%;border:8px solid #ffd166;box-shadow:0 0 40px 12px rgba(255,209,102,.6)"></div>`);
+  /* tasting counter + manager (grey vest, frowning) + two result plates */
+  ADD(`<div class="w" id="tctr" style="left:2290px;top:1330px;width:670px;height:170px"><div style="position:absolute;left:0;top:0;width:670px;height:28px;background:#cfd6e2;border-radius:12px 12px 0 0;box-shadow:var(--shadow)"></div><div style="position:absolute;left:0;top:28px;width:670px;height:142px;background:#9aa5b6"></div></div>`);
+  ADD(hmn('mgr', 2690, 950, '#8a93a6', '#d9dde6').replace('M84 122 Q100 134 116 122', 'M84 134 Q100 112 116 134'));
+  ADD(PLATE('pl0', 2320, 1240, 'hardware'));
+  ADD(PLATE('pl1', 2610, 1240, 'software'));
+  /* Valeria + her cream card (scene 0) */
+  ADD(hmn('val', 880, 980, VIO, '#30242c', 'h'));
+  ADD(CARD('cd', 1020, 1060, { h: true }));
+  ADD(SLIP('sA', 700, 1010, 'Ticket 1', 230, true));
+  ADD(SLIP('sB', 700, 1120, 'Ticket 2', 230, true));
+
+  /* ── scene 1: input slip, result plate, saved tick ── */
+  GRP('g1', () => {
+    ADD(SLIP('sl3', 1085, 1150, 'ticket text', 310));
+    ADD(PLATE('res', 2320, 1240, '', { icon: 'clipboard_task_list_ltr' }));
+    ADD(ICB('sv', 1480, 1010, 'checkmark_circle', TLC, '#fff', 84));
+  });
+
+  /* ── scene 2: lanes (prompt / conversation), book, child agent crate ── */
+  GRP('g2', () => {
+    const LANE = (id, x, tag) => `<div class="w h" id="${id}" style="left:${x}px;top:1540px;width:660px;height:250px;box-sizing:border-box;background:#fff;border:6px solid #c9ced8;border-radius:26px;box-shadow:var(--shadow)"></div>${PILL(id + 't', x + 24, 1556, tag, NAVY)}`;
+    ADD(LANE('ln1', 960, 'prompt'));
+    ADD(LANE('ln2', 1700, 'conversation'));
+    ADD(PILL('stp', 1320, 1556, 'one turn', NAVY, '#eef1f7', 'transform:rotate(-4deg)'));
+    ADD(SLIP('s2s', 990, 1660, '', 200, true).replace('class="w "', 'class="w h"'));
+    ADD(PLATE('s2p', 1380, 1672, '', { w: 190, icon: 'checkmark_circle' }));
+    ADD(`<svg class="w h" id="s2a" style="left:1215px;top:1675px" width="120" height="60" viewBox="0 0 120 60"><path d="M6 30 H90 M70 10 L100 30 L70 50" fill="none" stroke="#5b6578" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+    for (let k = 0; k < 4; k++) {
+      ADD(`<div class="w h" id="bb${k}" style="left:${1730 + k * 150}px;top:1670px;width:120px;height:90px;box-sizing:border-box;border-radius:28px;background:${k % 2 ? CORAL : BLUE};display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:var(--shadow)">${IC('chat', 'width:54px;height:54px')}</div>`);
+      if (k) ADD(`<div class="w h" id="bk${k}" style="left:${1730 + k * 150 - 30}px;top:1706px;width:30px;height:12px;background:#9aa5b6;border-radius:6px"></div>`);
+    }
+    ADD(`<div class="w h" id="bk" style="left:1130px;top:930px;width:110px;height:110px;box-sizing:border-box;border-radius:50%;background:#fff;border:6px solid ${BLUE};display:flex;align-items:center;justify-content:center;color:${BLUE};box-shadow:var(--shadow)">${IC('book_open', 'width:64px;height:64px')}</div>`);
+    ADD(`<div class="w h" id="crt" style="left:1520px;top:1030px;width:380px;height:300px;box-sizing:border-box;background:#8a6a3a;border:8px solid #5f4725;border-radius:14px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#fff;white-space:nowrap"><div style="position:absolute;left:0;right:0;top:92px;height:16px;background:#5f4725"></div><div style="position:absolute;left:0;right:0;bottom:92px;height:16px;background:#5f4725"></div><span style="position:relative;background:#f4ead2;color:#141821;border-radius:12px;padding:2px 16px">child agent</span></div>`);
+  });
+
+  /* ── scene 3: three doors ── */
+  GRP('g3', () => {
+    const DOOR = (k, x, name, sub, inner) => `<div class="w h" id="dr${k}" style="left:${x}px;top:440px;width:600px;height:600px"><div style="position:absolute;left:0;top:0;width:600px;height:140px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:${NAVY};font-weight:800;white-space:nowrap"><div style="font-size:52px;line-height:58px">${name}</div><div style="font-size:46px;line-height:52px;color:#5b6578">${sub}</div></div><div style="position:absolute;left:0;top:160px;width:600px;height:440px;box-sizing:border-box;background:#f8f9fb;border:14px solid ${NAVY};border-bottom:none;border-radius:34px 34px 0 0">${inner}</div><div class="h" id="dg${k}" style="position:absolute;left:-14px;top:146px;width:628px;height:468px;box-sizing:border-box;border:10px solid #ffd166;border-radius:44px 44px 0 0;box-shadow:0 0 40px 12px rgba(255,209,102,.6)"></div></div>`;
+    ADD(DOOR(1, 880, 'Agent tool', 'Tools', `<div style="position:absolute;left:0;right:0;top:70px;text-align:center;color:${NAVY}">${IC('toolbox', 'width:120px;height:120px')}</div>`));
+    ADD(DOOR(2, 1540, 'Topic node', 'Add a tool, New prompt', `<div style="position:absolute;left:130px;top:30px;width:300px;height:66px;box-sizing:border-box;border-radius:999px;background:#eef1f7;border:4px solid #5b6578;color:#5b6578;font-size:46px;font-weight:800;display:flex;align-items:center;justify-content:center">Trigger</div><div style="position:absolute;left:276px;top:96px;width:8px;height:40px;background:#c9ced8"></div><div style="position:absolute;left:96px;top:136px;width:368px;height:200px;box-sizing:border-box;border:6px dashed ${TLC};border-radius:22px;display:flex;align-items:flex-start;justify-content:center;padding-top:8px;color:${TLC};font-size:46px;font-weight:800">New prompt</div>`));
+    ADD(DOOR(3, 2200, 'Agent flow', 'Run a prompt', `<div style="position:absolute;left:50px;right:50px;top:180px;height:10px;background:#c9ced8;border-radius:5px"></div>${[0, 1, 2, 3].map((q) => `<div style="position:absolute;left:${34 + q * 142}px;top:152px;width:66px;height:66px;box-sizing:border-box;border-radius:50%;background:#fff;border:8px solid ${q === 2 ? TLC : '#9aa5b6'}"></div>`).join('')}<div style="position:absolute;left:0;right:0;top:268px;text-align:center;color:${NAVY}">${IC('flow', 'width:84px;height:84px')}</div>`));
+    ADD(MC('mc1', 1145, 1133)); ADD(MC('mc2', 1145, 1133)); ADD(MC('mc3', 1145, 1133));
+    ADD(PILL('d1t', 1094, 815, 'Tools', TLC));
+  });
+
+  /* ── scene 5: prompt editor panel over the bench ── */
+  GRP('g5', () => {
+    ADD(`<div class="w h" id="ed" style="left:1000px;top:400px;width:1400px;height:790px;box-sizing:border-box;background:#dbe3f0;border:8px solid ${NAVY};border-radius:30px;box-shadow:var(--shadow);overflow:hidden">
+      <div style="height:86px;background:${NAVY};color:#fff;font-size:48px;font-weight:800;display:flex;align-items:center;padding-left:34px;gap:16px">${IC('sparkle', 'width:50px;height:50px;color:#ffd166')}Custom prompt</div>
+      <div style="position:absolute;left:36px;top:110px;font-size:46px;font-weight:800;color:${NAVY}">instructions</div>
+      <div id="edIns" style="position:absolute;left:36px;top:178px;width:820px;height:330px;box-sizing:border-box;background:${CRM};border:6px solid #b0926a;border-radius:24px;padding:24px 30px">
+        <div style="position:absolute;right:30px;top:20px">${DISH(80)}</div>
+        <div style="height:22px;width:560px;background:#d9c9a3;border-radius:11px;margin-bottom:22px"></div><div style="height:22px;width:470px;background:#d9c9a3;border-radius:11px;margin-bottom:22px"></div>
+        <div style="display:flex;align-items:center;gap:18px;margin-top:56px"><div style="height:22px;width:300px;background:#d9c9a3;border-radius:11px"></div><div class="h" id="edNf" style="height:64px;padding:0 24px;display:flex;align-items:center;border-radius:999px;background:#c9ced8;color:#5b6578;border:4px solid #9aa5b6;font-size:44px;font-weight:800;white-space:nowrap">not found</div></div></div>
+      <div id="edCo" class="h" style="position:absolute;left:920px;top:190px;height:84px;padding:0 26px;display:flex;align-items:center;gap:14px;box-sizing:border-box;border-radius:999px;background:#fff;border:5px solid ${VIO};color:${VIO};font-size:44px;font-weight:800">${IC('sparkle', 'width:48px;height:48px')}Copilot</div>
+      <div id="edTe" class="h" style="position:absolute;left:920px;top:310px;height:84px;padding:0 26px;display:flex;align-items:center;gap:14px;box-sizing:border-box;border-radius:999px;background:#fff;border:5px solid ${NAVY};color:${NAVY};font-size:44px;font-weight:800">${IC('document_text', 'width:48px;height:48px')}template</div>
+      <div id="edTr" style="position:absolute;left:36px;top:570px;width:820px;height:140px;box-sizing:border-box;background:${TRY};border:6px solid #9fb87a;border-radius:22px;display:flex;align-items:center;padding-left:30px;font-size:46px;font-weight:800;color:#4a5e2c">input</div>
+      <div id="edOut" style="position:absolute;left:920px;top:590px;width:420px;height:100px;box-sizing:border-box;border:5px dashed #9aa5b6;border-radius:50px;display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:800;color:#6b7280">${IC('document_text', 'width:48px;height:48px;margin-right:12px')}output</div>
+    </div>`);
+    ADD(SLIP('edSl', 1214, 998, 'ticket text', 330));
+    ADD(SLIP('edSh', 1230, 998, '', 200));
+    ADD(PLATE('edPl', 1950, 1003, 'not found', { grey: true, w: 330 }));
+  });
+
+  /* ── scene 6: temperature dial on the wall ── */
+  GRP('g6', () => {
+    ADD(`<div class="w h" id="dlP" style="left:2650px;top:300px;width:700px;height:620px;box-sizing:border-box;background:${NAVY};border-radius:30px;box-shadow:var(--shadow)">
+      <div style="position:absolute;left:0;right:0;top:20px;text-align:center;font-size:56px;font-weight:800;color:#fff">Temperature</div>
+      <svg style="position:absolute;left:70px;top:110px" width="560" height="420" viewBox="0 0 560 420">
+        <path d="M53.5 260.1 A230 230 0 0 1 506.5 260.1" fill="none" stroke="#3a4a78" stroke-width="30" stroke-linecap="round"/>
+        <path d="M53.5 260.1 L53.5 305 M506.5 260.1 L506.5 305" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+        <g id="ptr"><line x1="280" y1="300" x2="280" y2="100" stroke="#ffd166" stroke-width="16" stroke-linecap="round"/><circle cx="280" cy="300" r="28" fill="#fff"/></g>
+        <text x="53" y="360" text-anchor="middle" font-size="50" font-weight="800" fill="#fff" font-family="inherit">Zero</text><text x="507" y="360" text-anchor="middle" font-size="50" font-weight="800" fill="#fff" font-family="inherit">One</text>
+      </svg>
+      <div class="h" id="dfl" style="position:absolute;left:23px;top:524px;height:64px;padding:0 24px;display:flex;align-items:center;border-radius:999px;background:#ffd166;color:#3b2a00;font-size:44px;font-weight:800">default</div>
+      <div class="h" id="dlk" style="position:absolute;left:40px;top:100px;width:620px;height:320px;border-radius:30px;background:rgba(20,27,45,.55);display:flex;align-items:center;justify-content:center"><div style="width:150px;height:150px;border-radius:50%;background:#fff;border:8px solid ${NAVY};display:flex;align-items:center;justify-content:center;color:${NAVY}">${IC('lock_closed', 'width:84px;height:84px')}</div></div>
+    </div>`);
+    ADD(PILL('gptT', 2690, 950, 'GPT-5 reasoning', NAVY, null, 'height:76px;font-size:48px'));
+    ADD(PILL('psT', 2770, 210, 'prompt settings', TLC, null, 'height:76px;font-size:48px'));
+    ADD(`<div class="w h" id="agP" style="left:3430px;top:390px;width:420px;height:380px;box-sizing:border-box;background:#dfe4ef;border:6px solid #c9ced8;border-radius:26px"><div style="position:absolute;left:0;right:0;top:18px;text-align:center;font-size:44px;font-weight:800;color:#5b6578;white-space:nowrap">agent settings</div><svg style="position:absolute;left:110px;top:120px" width="200" height="200" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="#9aa5b6"/><circle cx="100" cy="100" r="56" fill="#c9ced8"/><path d="M100 100 L100 52" stroke="#5b6578" stroke-width="12" stroke-linecap="round"/></svg></div>`);
+    ADD(`<svg class="w h" id="swl" style="left:2330px;top:1040px;overflow:visible" width="520" height="190" viewBox="0 0 520 190"><path d="M20 150 C50 30 180 20 170 100 C165 150 90 140 100 100 C108 70 150 78 138 104" fill="none" stroke="${VIO}" stroke-width="12" stroke-linecap="round"/><path d="M300 150 C330 30 460 20 450 100 C445 150 370 140 380 100 C388 70 430 78 418 104" fill="none" stroke="${VIO}" stroke-width="12" stroke-linecap="round"/></svg>`);
+    ADD(hmn('val6', 1990, 1040, VIO, '#30242c', 'h'));
+    { let wl6 = ''; for (let r = 0; r < 3; r++) { for (let c = 8; c < 15; c++) wl6 += `<div class="w" style="left:${400 + c * 138}px;top:${270 + r * 110}px;width:112px;height:72px;box-sizing:border-box;background:#f6efdc;border:3px solid #d9c9a3;border-radius:8px;padding:12px 14px"><div style="height:8px;width:72px;background:#e2d6b5;border-radius:4px;margin-bottom:8px"></div><div style="height:8px;width:50px;background:#e2d6b5;border-radius:4px"></div></div>`; wl6 += `<div class="w" style="left:1510px;top:${270 + r * 110 + 82}px;width:1010px;height:10px;background:#c9b896;border-radius:5px"></div>`; } ADD(wl6); }
+  });
+
+  /* ── scene 8: the Contoso case on the bench ── */
+  GRP('g8', () => {
+    let wl = '';
+    for (let r = 0; r < 3; r++) {
+      for (let c = 0; c < 10; c++) wl += `<div class="w" style="left:${1560 + c * 138}px;top:${430 + r * 110}px;width:112px;height:72px;box-sizing:border-box;background:#f6efdc;border:3px solid #d9c9a3;border-radius:8px;padding:12px 14px"><div style="height:8px;width:70px;background:#e2d6b5;border-radius:4px;margin-bottom:8px"></div><div style="height:8px;width:48px;background:#e2d6b5;border-radius:4px"></div></div>`;
+      wl += `<div class="w" style="left:1540px;top:${430 + r * 110 + 82}px;width:1400px;height:10px;background:#c9b896;border-radius:5px"></div>`;
+    }
+    ADD(wl);
+    ADD(TRAY('tr8', 1480, 1210));
+    ADD(SLIP('s8a', 1640, 1215, 'ticket text', 310));
+    ADD(SLIP('s8b', 1660, 1215, '', 150));
+    [['hardware', 0], ['software', 1], ['access', 2]].forEach(([t, k]) => ADD(PLATE('ap' + k, 2270 + k * 215, 1240, t, { w: 205, fs: 40 })));
+    ADD(`<div class="w h" id="aur" style="left:2260px;top:1120px;width:650px;height:84px;box-sizing:border-box;border-radius:999px;background:#fff;border:5px solid ${NAVY};color:${NAVY};font-size:40px;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap;box-shadow:var(--shadow)">urgency: high · medium · low</div>`);
+    ADD(PLATE('nf8', 2320, 1240, 'not found', { grey: true, w: 300 }));
+    for (let k = 0; k < 5; k++) {
+      ADD(`<div class="w h" id="fs${k}" style="left:2020px;top:1235px;width:100px;height:60px;box-sizing:border-box;background:#fff;border:3px solid #c9ced8;border-left:10px solid ${CORAL};border-radius:8px;padding:10px 10px"><div style="height:9px;width:50px;background:#dfe3ec;border-radius:5px"></div></div>`);
+      ADD(PLATE('fp' + k, 2330 + k * 108, 1245, '', { w: 100, icon: 'checkmark_circle' }).replace('width:52px;height:52px', 'width:36px;height:36px'));
+    }
+  });
+
+  /* Valeria's lab desk (UI scene) */
+  GRP('deskG', () => {
+    ADD(`<div class="w" id="vdesk" style="left:100px;top:1640px;width:520px;height:160px"><div style="height:26px;background:#aeb6c6;border-radius:10px 10px 0 0"></div><div style="height:134px;background:#c9ced8"></div></div>`);
+    ADD(hmn('val9', 420, 1260, VIO, '#30242c'));
+    ADD(`<div class="w" id="vlap" style="left:150px;top:1520px;width:300px;height:116px;box-sizing:border-box;background:${NAVY};border-radius:12px;box-shadow:var(--shadow)"><div style="position:absolute;left:10px;top:10px;right:10px;bottom:14px;background:#f3f5f9;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:800;color:#5d6472">Copilot Studio</div></div>`);
+  });
+
+  /* ── scene 11: close ── */
+  GRP('g11', () => {
+    ADD(`<div class="w h" id="tls" style="left:520px;top:690px;width:480px;height:230px;box-sizing:border-box;background:#fff;border:6px solid ${NAVY};border-radius:22px;box-shadow:var(--shadow);overflow:hidden"><div style="height:74px;background:${NAVY};color:#fff;font-size:44px;font-weight:800;display:flex;align-items:center;padding-left:26px;gap:14px">${IC('toolbox', 'width:46px;height:46px')}Tools</div><div id="tlsR" style="margin:24px 22px 0;height:80px;box-sizing:border-box;border:4px solid #b0926a;background:${CRM};border-radius:16px;display:flex;align-items:center;gap:14px;padding:0 20px;font-size:42px;font-weight:800;color:${INK};white-space:nowrap">${DISH(46)}Classify ticket</div></div>`);
+    ADD(SLIP('s11', 720, 1130, 'request', 270));
+    ADD(PLATE('pl11', 740, 960, 'software'));
+    ADD(hmn('val11', 1450, 1260, VIO, '#30242c', 'h'));
+    ADD(hmn('mgr11', 1720, 1260, '#8a93a6', '#d9dde6', 'h'));
+    ADD(`<div class="w h" id="corr" style="left:-240px;top:760px;width:340px;height:740px;box-sizing:border-box;background:linear-gradient(90deg,#3a4a78,#1f2a44);border:14px solid ${NAVY};border-bottom:none;border-radius:26px 26px 0 0"><div style="position:absolute;right:30px;top:340px;width:34px;height:34px;border-radius:50%;background:#ffd166"></div><div style="position:absolute;left:40px;top:40px;right:40px;height:300px;box-sizing:border-box;border:6px solid #4a5a8a;border-radius:16px"></div></div>`);
+    ADD(`<div class="w h" id="signN" style="left:-410px;top:560px;width:680px;height:150px;box-sizing:border-box;background:${NAVY};border-radius:24px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:20px;color:#fff;font-size:54px;font-weight:800;white-space:nowrap">${IC('send', 'width:60px;height:60px;color:#ffd166')}Send HTTP request</div>`);
+  });
+
+  /* ── overlays (screen space) ── */
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plD">Back in the recipe studio</div>
+    ${[['c0a', 'not happy', 'red'], ['c0b', 'a saved instruction', 'go'], ['c0c', "Nexo's new badge", 'tl'],
+      ['c1a', 'a recipe', 'tl'], ['c1b', 'the recipe, always the same', 'go'], ['c1c', 'the input changes', 'nv'], ['c1d', 'one task, one result', 'tl'], ['c1e', 'saved and reusable', 'tl'],
+      ['c2a', 'single-turn tool', 'tl', 140], ['c2b', 'optional knowledge', 'go', 140], ['c2c', 'one task, one result', 'tl', 140], ['c2d', 'no dialogue', 'gr', 140], ['c2e', 'heavier', 'nv', 140], ['c2f', 'for one small task', 'tl', 140],
+      ['c3a', 'as an agent tool', 'nv', 130], ['c3b', 'as a topic node', 'nv', 130], ['c3c', 'Run a prompt action', 'nv', 130], ['c3d', 'the same prompt in three places', 'tl', 130],
+      ['c5a', 'clear and short', 'tl'], ['c5b', 'no guessing', 'gr'],
+      ['c6a', 'at zero, more predictable', 'nv'], ['c6b', 'slider disabled', 'gr'], ['c6c', 'set it in the prompt settings', 'tl'], ['c6d', 'consistent results', 'nv'],
+      ['c8a', 'the Contoso case', 'tl'], ['c8b', 'instruction asks for both', 'go'], ['c8c', 'the fallback output', 'gr'], ['c8d', 'temperature zero, same classification', 'nv'],
+      ['c9a', 'new tool, then Prompt', 'tl', 962], ['c9b', 'test with sample data', 'go', 962], ['c9c', 'kept as a tool', 'tl', 962],
+      ['c11a', 'saved as a tool', 'tl']].map(([id, t, c, tp]) => `<div class="bl ${c}" id="${id}"${tp ? ` style="top:${tp}px"` : ''}>${t}</div>`).join('')}
+    <div class="nl" id="nlNext">next lesson</div>
+    <div class="h" id="rec" style="position:absolute;left:auto;right:120px;top:150px;width:980px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:26px;box-shadow:var(--shadow);padding:22px 26px;display:flex;flex-direction:column;gap:14px"><div id="recH" style="font-size:46px;font-weight:800;color:${NAVY};white-space:nowrap">Remember: three rules</div>
+    ${[['A recipe: same instructions, new input', TLC, DISH(48)], ['Single-turn, lighter than a child agent', BLUE, IC('chat', 'width:48px;height:48px;color:' + BLUE)], ['Clear instructions, temperature zero', NAVY, IC('temperature', 'width:48px;height:48px;color:' + NAVY)]].map(([tx, c, ic], k) => `<div id="rl${k}" style="box-sizing:border-box;padding:8px 18px;background:#f3f5f9;border-left:12px solid ${c};border-radius:14px;font-size:36px;font-weight:800;color:${INK};line-height:1.2;opacity:.3;display:flex;align-items:center;gap:14px;white-space:nowrap">${ic}${tx}</div>`).join('')}</div>`);
+
+  /* ── exam rooms ── */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const aw = (x, y) => `<svg style="position:absolute;left:${x}px;top:${y}px" width="70" height="50" viewBox="0 0 70 50"><path d="M4 25 H54 M40 8 L58 25 L40 42" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const mcd = (x, y) => `<div style="position:absolute;left:${x}px;top:${y}px;width:170px;height:112px;box-sizing:border-box;background:${CRM};border:5px solid #b0926a;border-radius:16px"><div style="position:absolute;left:10px;top:6px">${DISH(40)}</div><div style="position:absolute;left:12px;top:56px;width:138px;height:38px;border-radius:9px;background:#fffaf0;padding:7px 10px;box-sizing:border-box"><div style="height:8px;width:100px;background:#d9c9a3;border-radius:4px;margin-bottom:6px"></div><div style="height:8px;width:70px;background:#d9c9a3;border-radius:4px"></div></div></div>`;
+  const msl = (x, y, w, h) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w || 130}px;height:${h || 64}px;box-sizing:border-box;background:#fff;border-left:12px solid ${CORAL};border-radius:10px;padding:12px 12px"><div style="height:10px;width:60%;background:#dfe3ec;border-radius:5px;margin-bottom:8px"></div><div style="height:10px;width:40%;background:#dfe3ec;border-radius:5px"></div></div>`;
+  const mpl = (x, y, t, w) => `<div style="position:absolute;left:${x}px;top:${y}px;width:${w || 150}px;height:66px;box-sizing:border-box;background:${TLC};border:4px solid #0b5f6b;border-radius:33px;color:#fff;font-size:32px;font-weight:800;display:flex;align-items:center;justify-content:center;white-space:nowrap">${t || IC('clipboard_task_list_ltr', 'width:38px;height:38px')}</div>`;
+  const mdial = (x, y, rot) => `<svg style="position:absolute;left:${x}px;top:${y}px" width="240" height="150" viewBox="0 0 240 150"><path d="M31.4 84.4 A90 90 0 0 1 208.6 84.4" fill="none" stroke="#3a4a78" stroke-width="16" stroke-linecap="round"/><line x1="120" y1="100" x2="120" y2="30" stroke="#ffd166" stroke-width="9" stroke-linecap="round" transform="rotate(${rot} 120 100)"/><circle cx="120" cy="100" r="13" fill="#fff"/><text x="34" y="140" text-anchor="middle" font-size="32" font-weight="800" fill="#fff" font-family="inherit">Zero</text><text x="206" y="140" text-anchor="middle" font-size="32" font-weight="800" fill="#fff" font-family="inherit">One</text></svg>`;
+  const ico = (n, x, y, col) => IC(n, `position:absolute;left:${x}px;top:${y}px;width:60px;height:60px;color:${col}`);
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>Only one, then it returns</h4>
+      ${msl(30, 112, 150, 72)}${aw(196, 122)}${mcd(270, 98)}${aw(452, 122)}${mpl(534, 118)}${ico('checkmark_circle', 716, 96, '#6be3a0')}
+      ${pz(270, 226, 'one turn')}${pz(462, 226, 'single-turn tool', 'background:#0b5560;border-color:' + TLC)}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4 style="font-size:40px">As many turns as the user needs</h4>
+      ${[0, 1, 2, 3, 4].map((k) => `<div style="position:absolute;left:${24 + k * 128}px;top:102px;width:100px;height:70px;box-sizing:border-box;border-radius:22px;background:${k % 2 ? CORAL : BLUE};opacity:${[1, 1, 0.85, 0.55, 0.3][k]};display:flex;align-items:center;justify-content:center;color:#fff">${IC('chat', 'width:42px;height:42px')}</div>${k ? `<div style="position:absolute;left:${24 + k * 128 - 28}px;top:132px;width:28px;height:10px;background:#8a93a6"></div>` : ''}`).join('')}
+      ${aw(662, 112)}${ico('dismiss_circle', 726, 176, '#ff8a80')}${pz(28, 226, 'that is a conversation', 'background:#8a2b23;border-color:#c4392f')}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4>Temperature zero</h4>
+      ${mdial(14, 70, -80)}${msl(268, 86, 130, 60)}${msl(268, 150, 130, 60)}${aw(404, 112)}${mpl(484, 112, 'software', 196)}${ico('checkmark_circle', 710, 100, '#6be3a0')}${pz(268, 226, 'consistent', 'background:#1e5f3b;border-color:' + GRN)}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4>Temperature near one</h4>
+      ${mdial(14, 70, 62)}${msl(268, 86, 130, 60)}${msl(268, 150, 130, 60)}${aw(404, 112)}${mpl(484, 82, 'hardware', 196)}${mpl(484, 152, 'software', 196)}${ico('dismiss_circle', 710, 100, '#ff8a80')}${pz(268, 226, 'creative, not consistent', 'background:#8a2b23;border-color:#c4392f')}</div>`;
+  const door3 = (x, n) => `<div style="position:absolute;left:${x}px;top:84px;width:230px;height:130px;box-sizing:border-box;border:8px solid #3a4a78;border-bottom:none;border-radius:34px 34px 0 0;background:#273253">${IC(n, 'position:absolute;left:14px;top:14px;width:48px;height:48px;color:#ffd166')}<div style="position:absolute;left:68px;top:26px;width:140px;height:92px;border-radius:14px;background:${CRM};border:4px solid #b0926a;display:flex;align-items:center;justify-content:center">${DISH(52)}</div></div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${RED};opacity:0"><h4>As a publishing channel</h4>
+      <div style="position:absolute;left:24px;top:84px;transform:scale(.6);transform-origin:left top">${person(CORAL)}</div>${IC('phone', 'position:absolute;left:90px;top:96px;width:48px;height:48px;color:#fff')}
+      <div style="position:absolute;left:150px;top:192px;width:340px;height:26px;background:#77808f;border-radius:10px"></div>${aw(330, 136)}
+      <div style="position:absolute;left:520px;top:100px">${miniBot(90)}</div>
+      <div style="position:absolute;left:236px;top:108px;width:120px;height:76px;box-sizing:border-box;transform:rotate(-14deg);background:${CRM};border:4px solid #b0926a;border-radius:14px;display:flex;align-items:center;justify-content:center">${DISH(44)}</div>
+      ${ico('dismiss_circle', 726, 100, '#ff8a80')}${pz(28, 226, 'channels reach the agent', 'background:#8a2b23;border-color:#c4392f')}</div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${GRN};opacity:0"><h4>Where a prompt lives</h4>
+      ${door3(24, 'toolbox')}${door3(279, 'branch_fork')}${door3(534, 'flow')}${ico('checkmark_circle', 726, 214, '#6be3a0')}${pz(28, 226, 'tool · node · flow action', 'background:#1e5f3b;border-color:' + GRN)}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'How many turns does a prompt have?', opts: ['As many turns as the user needs', 'Two, it asks for missing input', 'Only one, then it returns'],
+      why: `<div id="exA_w1">A prompt does one task and <span class="g">returns the result</span>, and that is its whole run</div><div id="exA_w2">A conversation <span class="y">keeps a dialogue going</span>, a child agent is <span class="r">heavier</span></div>`, proof: proofA }),
+    mkExam('exB', { q: "Contoso's new prompt classifies tickets, but two nearly identical tickets got different categories. The service manager wants the same ticket to always get the same classification. What should Valeria change?", opts: ['Lower the temperature to zero', 'Raise the temperature near one', 'Move the slider into agent settings'],
+      why: `<div id="exB_w1">Zero is <span class="g">more predictable</span>: similar tickets, same classification</div><div id="exB_w2">High is for <span class="y">creative</span> results, and it is set in <span class="r">prompt settings</span></div>`, proof: proofB }),
+    mkExam('exC', { q: 'The service manager asks where a prompt can be attached. Which place does not take a prompt?', opts: ['As a tool of your agent', 'As a publishing channel', 'As a node inside a topic'],
+      why: `<div id="exC_w1">A prompt lives <span class="g">as a tool, a topic node or a flow action</span></div><div id="exC_w2">Channels are how users <span class="r">reach the agent</span>, not where prompts go</div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ── UI window (scene 9): Copilot Studio · Service desk agent ── */
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Service desk agent', nav: ['Overview', 'Tools', 'Knowledge', 'Settings'], on: 1, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div id="uPg"><div class="crumb">Service desk agent › Tools</div><h3>Tools</h3>
+      <span class="btn pri" id="uAdd" style="position:absolute;left:0;top:120px">Add a tool</span>
+      <div class="nc" id="uNone" style="left:0;top:280px;width:760px"><small>Tools</small><div style="font-size:36px;font-weight:800">No tools yet</div></div></div>
+      <div class="nc" id="uRow" style="left:0;top:280px;width:760px;opacity:0;border-color:#b0926a;background:${CRM}"><small>Tools</small><div style="font-size:38px;font-weight:800;display:flex;align-items:center;gap:14px">${DISH(46)}Classify ticket</div></div>
+      <div class="mn" id="uMenu" style="left:0;top:190px;width:340px"><div id="uMi">New tool</div></div>
+      <div id="uPick" style="position:absolute;left:380px;top:20px;width:800px;box-sizing:border-box;background:#f7f9fd;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);padding:20px 28px;opacity:0">
+        <div style="font-size:44px;font-weight:800">New tool</div>
+        <div id="uPr" style="margin-top:20px;height:130px;box-sizing:border-box;border:4px solid var(--line2);background:#fff;border-radius:18px;display:flex;align-items:center;gap:20px;padding:0 28px;font-size:44px;font-weight:800">${IC('sparkle', 'width:60px;height:60px;color:#2f5bd3')}Prompt</div></div>
+      <div id="uEd" style="position:absolute;left:0;top:0;width:1228px;height:672px;box-sizing:border-box;background:#f7f9fd;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);opacity:0">
+        <div style="position:absolute;left:28px;top:14px;font-size:44px;font-weight:800">Prompt</div>
+        <div class="fld ab" id="uF0" style="left:28px;top:80px;width:700px;height:166px;opacity:0"><small>instructions</small><div style="font-size:34px;font-weight:700;line-height:1.3;white-space:normal">Classify the ticket: category and urgency, or not found.</div></div>
+        <div class="fld ab" id="uF1" style="left:760px;top:80px;width:440px;height:166px;opacity:0"><small>input</small><span class="vc" style="margin-top:14px">ticket text</span></div>
+        <div class="fld ab" id="uF2" style="left:28px;top:262px;width:420px;height:116px;opacity:0"><small>model</small><div style="display:flex;align-items:center;justify-content:space-between"><div style="height:14px;width:200px;background:#dfe3ec;border-radius:7px"></div><svg width="36" height="24" viewBox="0 0 44 30"><path d="M4 6 L22 24 L40 6" fill="none" stroke="#5b6578" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+        <div class="ab" id="uF3" style="left:480px;top:262px;width:720px;height:150px;opacity:0"><div style="font-size:36px;font-weight:800">Temperature</div>
+          <div class="ab" style="left:16px;top:70px;width:680px;height:14px;background:#c9ced8;border-radius:7px"></div><div class="ab" style="left:16px;top:55px;width:44px;height:44px;border-radius:50%;background:${NAVY};border:5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);margin-left:-6px"></div>
+          <div class="ab" style="left:0;top:94px;font-size:32px;font-weight:700;color:var(--muted)">Zero</div><div class="ab" style="right:0;top:94px;font-size:32px;font-weight:700;color:var(--muted)">One</div></div>
+        <div class="fld ab" id="uF4" style="left:28px;top:416px;width:700px;height:126px;opacity:0"><small>sample data</small><div style="overflow:hidden;white-space:nowrap;width:0" id="uTyp">Printer is broken</div></div>
+        <span class="btn ab" id="uTest" style="left:760px;top:424px;opacity:0">Test</span>
+        <div class="ab" id="uRes" style="left:760px;top:504px;height:64px;padding:0 26px;display:flex;align-items:center;border-radius:999px;background:${TLC};color:#fff;font-size:36px;font-weight:800;opacity:0">hardware · high</div>
+        <span class="btn ab" id="uSave" style="left:28px;top:584px;opacity:0">Save</span>
+        <span class="btn pri ab" id="uAddc" style="left:190px;top:584px;opacity:0">Add and configure</span></div>
+    </div>` }));
+  const PE = (sel, dx, dy) => { const r = document.querySelector(sel).getBoundingClientRect(); return [r.right - dx, r.bottom - dy]; };
+  const PU = { nav: PE('#uiS_nv1', 70, 14), add: PE('#uAdd', 14, 12), mi: PE('#uMi', 40, 12), pr: PE('#uPr', 70, 24), test: PE('#uTest', 14, 12), save: PE('#uSave', 14, 12), addc: PE('#uAddc', 14, 12) };
+
+  window.__timelines = window.__timelines || {}; window.__timelines['main'] = tl;
+  /* ═══════ TIMELINE ═══════ */
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const LB = (id, a, b) => { tl.fromTo('#' + id, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.22, ease: 'power2.out' }, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const PULSE = (sel, t, s) => tl.to(sel, { scale: s || 1.06, duration: 0.2, yoyo: true, repeat: 1, ease: 'sine.inOut' }, t);
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.35 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', R + 1.95, 0.15);
+    ON('#' + o.pf + '_L', R + 2.0, 0.25); ON('#' + o.pf + '_R', R + 2.35, 0.25);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  /* the exam covers the world: hide it, jump the camera to the next framing, bring it back as the exam fades */
+  const EXWORLD = (i, cam, back) => { tl.set('#world', { opacity: 0 }, S(i, 1)); CAM(cam[0], cam[1], cam[2], S(i, 1), 0.01); tl.set('#world', { opacity: 1 }, back); };
+  gsap.set('#world', { x: 960 - 1650 * 0.72, y: 540 - 1000 * 0.72, scale: 0.72 });
+  gsap.set(['#g1', '#g2', '#g3', '#g5', '#g6', '#g8', '#g11', '#deskG'], { opacity: 0 });
+  gsap.set('#ptr', { rotation: -80, svgOrigin: '280 300' });
+  const BASEH = ['#mar', '#lapM', '#ictr'];
+
+  /* ── 0 Two tickets, two different answers ── */
+  TAG('#plA', 0.3);
+  BOB('#mar', S(0, 1) + 0.3, S(0, 3) + 1.0, 14);
+  tl.to('#sA', { x: 1300, y: -180, scale: 0.5, opacity: 0, duration: 1.2, ease: 'power2.in' }, W(0, 1, 'sends', 0.0));
+  tl.to('#sB', { x: 1300, y: -250, scale: 0.5, opacity: 0, duration: 1.2, ease: 'power2.in' }, W(0, 1, 'sends', 0.4));
+  POP('#pl0', W(0, 1, 'puts', 0.0)); POP('#pl1', W(0, 1, 'different', 0.0));
+  BOB('#mgr', S(0, 2) + 0.2, S(0, 3), 18);
+  LB('c0a', S(0, 2) + 0.3, S(0, 3) - 0.1);
+  ON('#val', S(0, 3) - 0.1, 0.1); ON('#cd', S(0, 3) - 0.1, 0.1);
+  tl.fromTo('#val,#cd', { x: -1250 }, { x: 0, duration: 1.9, ease: 'power1.out' }, S(0, 3) - 0.1);
+  LB('c0b', W(0, 3, 'saved', 0.0), W(0, 3, 'custom prompt', 0.0) + 0.6);
+  tl.to('#cd', { x: 140, y: -240, scale: 1.35, duration: 0.8, ease: 'power2.inOut' }, W(0, 3, 'custom prompt', -0.4));
+  ON('#cd_n1', W(0, 3, 'custom prompt', 0.2), 0.3);
+  OFF('#plA', S(0, 4) - 0.05, 0.25);
+  tl.fromTo('#nx,#nxBd', { x: 1500 }, { x: 0, duration: 1.5, ease: 'power2.out' }, S(0, 4) - 0.05);
+  tl.set('#nxBd', { opacity: 0 }, 0);
+  tl.to('#cd', { x: 371, y: -14, scale: 0.18, opacity: 0, duration: 0.8, ease: 'power2.inOut' }, S(0, 4) + 0.55);
+  POP('#nxBd', S(0, 4) + 1.2);
+  ON('#nxBg', S(0, 4) + 1.2, 0.2); OFF('#nxBg', S(0, 4) + 1.9, 0.3);
+  LB('c0c', S(0, 4) + 0.35, S(1, 0) - 0.35);
+
+  /* ── 1 A recipe with variable ingredients ── */
+  CAM(1500, 1100, 0.8, S(1, 0) - 0.3, 1.5);
+  OFF(['#val', '#nx', '#nxBd', '#mgr', '#pl0', '#pl1'], S(1, 0) - 0.3, 0.3);
+  tl.set('#cd', { x: 0, y: 0, scale: 1, opacity: 0 }, S(1, 0) - 0.35);
+  tl.set('#cd_n1', { opacity: 1 }, S(1, 0) - 0.35);
+  ON('#g1', S(1, 0) - 0.3, 0.1);
+  POP('#cd', W(1, 0, 'recipe', -0.4));
+  LB('c1a', W(1, 0, 'recipe', 0.0), S(1, 1) - 0.1);
+  ON('#cd_gl', W(1, 1, 'instructions', -0.1), 0.3); OFF('#cd_gl', S(1, 2) - 0.1, 0.3);
+  LB('c1b', W(1, 1, 'instructions', 0.0), S(1, 2) - 0.1);
+  OFF('#plA', S(1, 0) + 1.0, 0.25);
+  tl.fromTo('#sl3', { opacity: 0, y: -420 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, W(1, 2, 'input', -0.1));
+  LB('c1c', W(1, 2, 'input', 0.0), S(1, 3) - 0.1);
+  ON('#arch_gl', S(1, 3), 0.01);
+  tl.to('#arch_gl', { opacity: 0.6, duration: 0.3, yoyo: true, repeat: 3 }, W(1, 3, 'reads', 0.0));
+  tl.to('#cd,#sl3', { x: 820, duration: 1.3, ease: 'power2.inOut' }, W(1, 3, 'reads', 0.0));
+  tl.to('#sl3', { opacity: 0, duration: 0.2 }, W(1, 3, 'does the task', 0.0));
+  tl.fromTo('#res', { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.6, ease: 'back.out(1.4)' }, W(1, 3, 'one result', -0.3));
+  LB('c1d', W(1, 3, 'one result', -0.2), S(1, 4) - 0.1);
+  tl.to('#cd', { x: 0, duration: 1.0, ease: 'power2.inOut' }, S(1, 4) + 0.1);
+  OFF('#res', S(1, 4) + 0.3, 0.3);
+  LB('c1e', W(1, 4, 'saved', 0.0), S(2, 0) - 0.4);
+  POP('#sv', W(1, 4, 'reuse', -0.3));
+
+  /* ── 2 One turn, one result ── */
+  CAM(1550, 1230, 0.8, S(2, 0) - 0.3, 1.5);
+  OFF(['#sv', '#sl3'], S(2, 0) - 0.3, 0.2);
+  ON('#g2', S(2, 0) - 0.3, 0.1);
+  POP('#ln1', W(2, 0, 'prompt', -0.1)); POP('#ln1t', W(2, 0, 'prompt', 0.0)); POP('#ln2', W(2, 0, 'prompt', 0.1)); POP('#ln2t', W(2, 0, 'prompt', 0.2)); POP('#bb0', W(2, 0, 'prompt', 0.3));
+  ON('#s2s', W(2, 0, 'prompt', 0.2), 0.3);
+  POP('#stp', W(2, 0, 'single-turn', 0.0));
+  LB('c2a', W(2, 0, 'single-turn', 0.0), S(2, 1) - 0.1);
+  tl.fromTo('#bk', { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(2, 1, 'knowledge', -0.5));
+  LB('c2b', W(2, 1, 'knowledge', -0.2), S(2, 2) - 0.1);
+  ON('#s2a', W(2, 2, 'one task', -0.1), 0.2);
+  tl.to('#s2s', { x: 320, opacity: 0, duration: 0.9, ease: 'power2.inOut' }, W(2, 2, 'one task', 0.0));
+  POP('#s2p', W(2, 2, 'returns', -0.2));
+  LB('c2c', W(2, 2, 'one task', 0.0), S(2, 3) - 0.1);
+  [1, 2, 3].forEach((k) => { POP('#bb' + k, W(2, 3, 'dialogue', -0.6) + (k - 1) * 0.5); ON('#bk' + k, W(2, 3, 'dialogue', -0.6) + (k - 1) * 0.5, 0.2); });
+  LB('c2d', W(2, 3, 'not keep', 0.0), S(2, 4) - 0.1);
+  tl.set('#crt', { opacity: 1 }, S(2, 4));
+  tl.fromTo('#crt', { x: 1500 }, { x: 0, duration: 1.4, ease: 'power2.out' }, S(2, 4));
+  LB('c2e', W(2, 4, 'heavier', -0.3), S(2, 5) - 0.1);
+  tl.to('#ln1', { borderColor: GRN, backgroundColor: '#e3f4ea', duration: 0.4 }, W(2, 5, 'lighter', -0.6));
+  tl.to(['#ln2', '#ln2t', '#bb0', '#bb1', '#bb2', '#bb3', '#bk1', '#bk2', '#bk3'], { opacity: 0.35, duration: 0.5 }, W(2, 5, 'lighter', -0.6));
+  tl.to('#crt', { opacity: 0.7, duration: 0.5 }, W(2, 5, 'lighter', -0.6));
+  LB('c2f', W(2, 5, 'small task', -0.5), S(3, 0) - 0.1);
+
+  /* ── 3 EXAM-free: three doors ── */
+  CAM(1840, 800, 0.8, S(3, 0) - 0.3, 1.5);
+  OFF(['#g2', '#arch', '#gIn'], S(3, 0) - 0.3, 0.3);
+  ON('#g3', S(3, 0) - 0.3, 0.1);
+  ['#dr1', '#dr2', '#dr3'].forEach((d, k) => POP(d, W(3, 0, 'three places', -0.4) + k * 0.15));
+  const HOP = (m, dx, dy, t) => { tl.set(m, { opacity: 1 }, t); tl.fromTo(m, { x: 0, y: 0, scale: 1 }, { x: dx, y: dy, scale: 1, duration: 0.9, ease: 'power2.inOut' }, t); tl.to(m, { y: dy + 20, duration: 0.15, yoyo: true, repeat: 1 }, t + 0.9); };
+  HOP('#mc1', -60, -235, W(3, 1, 'agent tool', -0.2)); POP('#d1t', W(3, 1, 'Tools', 0.3));
+  LB('c3a', W(3, 1, 'agent tool', 0.0), S(3, 2) - 0.1);
+  HOP('#mc2', 600, -315, W(3, 2, 'node', -0.3));
+  LB('c3b', W(3, 2, 'node', 0.0), S(3, 3) - 0.1);
+  HOP('#mc3', 1260, -395, W(3, 3, 'Run a prompt', -0.4));
+  LB('c3c', W(3, 3, 'Run a prompt', 0.0), S(3, 4) - 0.1);
+  ['#dg1', '#dg2', '#dg3'].forEach((d) => { ON(d, W(3, 4, 'three doors', -0.8), 0.3); OFF(d, E(3, 4) - 0.2, 0.3); });
+  LB('c3d', W(3, 4, 'same instructions', 0.0), E(3, 4) + 0.3);
+
+  /* ── 4 EXAM A: how many turns ── */
+  EXWORLD(4, [1700, 840, 0.9], S(5, 0) - 0.12);
+  EXAMX('exA', 4, { pf: 'pa', pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.1 });
+
+  /* ── 5 Inside the prompt editor ── */
+  OFF(['#g3', '#cd'], S(4, 1), 0.01);
+  ON('#g5', S(5, 0) - 0.12, 0.01);
+  tl.fromTo('#ed', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.4)' }, S(5, 0) + 0.05);
+  POP('#edCo', W(5, 0, 'Copilot', -0.4)); POP('#edTe', W(5, 0, 'template', -0.4));
+  tl.to('#edIns', { boxShadow: '0 0 0 10px #ffd166', duration: 0.3, yoyo: true, repeat: 1 }, W(5, 0, 'by hand', -0.3));
+  tl.to('#edTr', { boxShadow: '0 0 0 10px #ffd166', duration: 0.3, yoyo: true, repeat: 1 }, W(5, 1, 'inputs', -0.2));
+  tl.fromTo('#edSl', { opacity: 0, y: -300 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(5, 1, 'ticket text', -0.6));
+  LB('c5a', W(5, 2, 'clear', -0.2), S(5, 3) - 0.1);
+  POP('#edNf', W(5, 2, 'fallback', -0.2));
+  OFF('#edSl', W(5, 3, 'too little', -0.4), 0.25);
+  tl.fromTo('#edSh', { opacity: 0, y: -300 }, { opacity: 1, y: 0, duration: 0.5, ease: 'bounce.out' }, W(5, 3, 'too little', -0.1));
+  OFF('#edOut', W(5, 3, 'not found', -0.9), 0.2);
+  tl.fromTo('#edPl', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(5, 3, 'not found', -0.6));
+  LB('c5b', W(5, 3, 'instead of guessing', -0.3), S(6, 0) - 0.4);
+
+  /* ── 6 The temperature dial ── */
+  CAM(2900, 800, 0.75, S(6, 0) - 0.5, 1.6);
+  OFF(['#g5'], S(6, 0) - 0.5, 0.3);
+  ON('#g6', S(6, 0) - 0.5, 0.1); ON('#dlP', S(6, 0) + 0.3, 0.3);
+  tl.set('#bench', { opacity: 1 }, 0);
+  ON(['#pl0', '#pl1'], S(6, 0) + 1.15, 0.3);
+  POP('#dfl', W(6, 0, 'default', -0.2));
+  tl.to('#ptr', { rotation: 80, svgOrigin: '280 300', duration: 0.9, ease: 'power2.inOut' }, W(6, 0, 'to one', -0.2));
+  ON('#swl', W(6, 0, 'to one', 0.5), 0.3);
+  tl.to('#ptr', { rotation: -80, svgOrigin: '280 300', duration: 0.9, ease: 'power2.inOut' }, S(6, 1) + 0.05);
+  OFF('#swl', S(6, 1) + 0.15, 0.3);
+  LB('c6a', S(6, 1) + 0.9, S(6, 2) - 0.1);
+  ON('#dlk', W(6, 2, 'slider', -0.3), 0.3); POP('#gptT', W(6, 2, 'slider', -0.3));
+  LB('c6b', W(6, 2, 'disabled', -0.2), S(6, 3) - 0.1);
+  OFF(['#dlk', '#gptT'], S(6, 3) - 0.05, 0.3);
+  POP('#psT', W(6, 3, 'prompt settings', -0.3));
+  ON('#agP', W(6, 3, 'agent settings', -0.6), 0.3); tl.to('#agP', { opacity: 0.6, duration: 0.3 }, W(6, 3, 'agent settings', -0.2));
+  LB('c6c', W(6, 3, 'prompt settings', 0.0), S(6, 4) - 0.1);
+  ON('#val6', S(6, 0) + 0.4, 0.4);
+  BOB('#val6', S(6, 4) + 0.5, E(6, 4), 12);
+  LB('c6d', W(6, 4, 'consistent', -0.2), E(6, 4) + 0.5);
+
+  /* ── 7 EXAM B: the same classification every time ── */
+  EXWORLD(7, [1880, 1000, 0.8], S(8, 0) - 0.12);
+  EXAMX('exB', 7, { pf: 'pb', pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.1 });
+
+  /* ── 8 The Contoso case ── */
+  OFF(['#g6', '#pl0', '#pl1', '#gIn'], S(7, 1), 0.01);
+  tl.set('#cd', { x: 0, y: 0, scale: 1, opacity: 0 }, S(7, 1));
+  ON('#g8', S(8, 0) - 0.12, 0.01);
+  ON(['#val', '#nx', '#nxBd'], S(8, 0) - 0.12, 0.2);
+  tl.set('#cd_n1', { opacity: 0 }, S(7, 1));
+  ON('#cd', S(8, 0) - 0.05, 0.3);
+  tl.fromTo('#cd_n2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, W(8, 0, 'Classify ticket', -0.3));
+  PULSE('#cd', W(8, 0, 'Classify ticket', -0.2), 1.05);
+  LB('c8a', S(8, 0) + 0.2, S(8, 1) - 0.1);
+  POP('#tr8', W(8, 1, 'input', -0.2));
+  tl.fromTo('#s8a', { opacity: 0, y: -300 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(8, 1, 'ticket text', -0.5));
+  ON('#cd_gl', W(8, 2, 'one category', -0.4), 0.3); OFF('#cd_gl', S(8, 3) - 0.1, 0.3);
+  ['ap0', 'ap1', 'ap2'].forEach((p, k) => tl.fromTo('#' + p, { opacity: 0, x: -(1000 + k * 225), y: -150, scale: 0.3 }, { opacity: 1, x: 0, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.3)' }, W(8, 2, 'hardware', 0.0) + k * 0.35));
+  POP('#aur', W(8, 2, 'urgency', 0.0));
+  LB('c8b', W(8, 2, 'one category', 0.0), S(8, 3) - 0.1);
+  tl.to(['#ap0', '#ap1', '#ap2', '#aur'], { opacity: 0, duration: 0.3 }, S(8, 3) - 0.05);
+  OFF('#s8a', W(8, 3, 'too little', -0.3), 0.2);
+  tl.fromTo('#s8b', { opacity: 0, y: -300 }, { opacity: 1, y: 0, duration: 0.5, ease: 'bounce.out' }, W(8, 3, 'too little', -0.1));
+  ON('#cd_gl', W(8, 3, 'answers', -0.3), 0.3); OFF('#cd_gl', S(8, 4) - 0.1, 0.3);
+  tl.fromTo('#nf8', { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(8, 3, 'not found', -0.4));
+  LB('c8c', W(8, 3, 'answers', -0.3), S(8, 4) - 0.1);
+  OFF(['#nf8', '#s8b', '#ap0', '#ap1', '#ap2', '#aur'], S(8, 4) - 0.05, 0.25);
+  for (let k = 0; k < 5; k++) {
+    const t0 = W(8, 4, 'five similar', -0.2) + k * 0.3;
+    tl.set('#fs' + k, { opacity: 1, x: 0, y: 0 }, t0);
+    tl.to('#fs' + k, { x: 270 + k * 108, y: -50, opacity: 0, duration: 0.5, ease: 'power1.in' }, t0);
+    POP('#fp' + k, t0 + 0.4);
+  }
+  LB('c8d', W(8, 4, 'temperature zero', -0.2), E(8, 4) + 0.3);
+
+  /* ── 9 Add it as a tool (UI) ── */
+  CAM(350, 1560, 1.15, E(8, 4) - 0.2, 1.2);
+  ON('#deskG', E(8, 4) - 0.2, 0.4);
+  OFF('#g8', E(8, 4) - 0.2, 0.4); OFF('#cd', E(8, 4) - 0.2, 0.3); OFF(['#val', '#nx', '#nxBd'], E(8, 4) - 0.2, 0.3);
+  UIIN('#uiS', S(9, 0) + 0.4);
+  ON('#cur', S(9, 0) + 1.3, 0.2);
+  CUR(PU.nav[0], PU.nav[1], S(9, 1) - 0.2, 0.7); CLICK(PU.nav[0], PU.nav[1], W(9, 1, 'Tools tab', 0.0));
+  CUR(PU.add[0], PU.add[1], S(9, 2) - 0.1, 0.6); CLICK(PU.add[0], PU.add[1], W(9, 2, 'Add a tool', 0.25));
+  ON('#uMenu', W(9, 2, 'Add a tool', 0.4), 0.15);
+  CUR(PU.mi[0], PU.mi[1], W(9, 2, 'then', 0.0), 0.4); CLICK(PU.mi[0], PU.mi[1], W(9, 2, 'New tool', 0.1));
+  OFF('#uMenu', W(9, 2, 'New tool', 0.25), 0.15); OFF('#uPg', W(9, 2, 'New tool', 0.25), 0.15); ON('#uPick', W(9, 2, 'New tool', 0.4), 0.2);
+  CUR(PU.pr[0], PU.pr[1], W(9, 2, 'choose', 0.0), 0.4); CLICK(PU.pr[0], PU.pr[1], W(9, 2, 'Prompt', 0.0));
+  tl.to('#uPr', { borderColor: '#2f5bd3', backgroundColor: '#e6ecfb', duration: 0.2 }, W(9, 2, 'Prompt', 0.0));
+  LB('c9a', W(9, 2, 'New tool', 0.2), S(9, 3) - 0.1);
+  CUR(1500, 760, S(9, 3) - 0.15, 0.5); OFF('#uPick', S(9, 3) - 0.05, 0.2); OFF('#uPg', S(9, 3) - 0.05, 0.2); ON('#uEd', S(9, 3) - 0.05, 0.25); ON('#uF0', S(9, 3) - 0.05, 0.25);
+  ON('#uF1', W(9, 3, 'input', -0.3), 0.3); ON('#uF2', W(9, 3, 'model', -0.3), 0.3); ON('#uF3', W(9, 3, 'temperature', -0.3), 0.3);
+  ON('#uF4', S(9, 4) - 0.05, 0.25); ON('#uTest', S(9, 4) - 0.05, 0.25);
+  tl.to('#uTyp', { width: 420, duration: 0.9, ease: 'steps(17)' }, W(9, 4, 'sample data', 0.0));
+  CUR(PU.test[0], PU.test[1], W(9, 4, 'select', -0.3), 0.5); CLICK(PU.test[0], PU.test[1], W(9, 4, 'Test', 0.1));
+  ON('#uRes', W(9, 4, 'Test', 0.3), 0.3);
+  LB('c9b', W(9, 4, 'sample data', 0.0), S(9, 5) - 0.1);
+  ON('#uSave', S(9, 5) - 0.1, 0.2);
+  CUR(PU.save[0], PU.save[1], S(9, 5) - 0.3, 0.5); CLICK(PU.save[0], PU.save[1], W(9, 5, 'Save', 0.0));
+  ON('#uAddc', W(9, 5, 'Save', 0.3), 0.2);
+  CUR(PU.addc[0], PU.addc[1], W(9, 5, 'Save', 0.35), 0.45); CLICK(PU.addc[0], PU.addc[1], W(9, 5, 'Add and configure', 0.0));
+  OFF('#uEd', W(9, 5, 'Add and configure', 0.3), 0.2); tl.set('#uNone', { opacity: 0 }, S(9, 3)); ON('#uPg', W(9, 5, 'Add and configure', 0.3), 0.2); ON('#uRow', W(9, 5, 'Add and configure', 0.35), 0.25);
+  LB('c9c', W(9, 5, 'Add and configure', 0.3), E(9, 5) - 0.1);
+  OFF('#cur', E(9, 5) - 0.4, 0.15);
+  tl.to('#uiS', { opacity: 0, scale: 0.28, duration: 0.7, ease: 'power3.in' }, E(9, 5) - 0.3);
+  OFF('#uiBack', E(9, 5) + 0.3, 0.4);
+
+  /* ── 10 EXAM C: where a prompt cannot go ── */
+  EXWORLD(10, [1300, 1150, 0.8], S(11, 0) - 0.12);
+  OFF('#deskG', S(10, 1), 0.01);
+  EXAMX('exC', 10, { pf: 'pc', pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(10, 4), S(10, 5), S(10, 6)], end: S(11, 0) - 0.1 });
+
+  /* ── 11 Three rules to remember ── */
+  tl.set(['#g11', '#gIn'], { opacity: 1 }, S(10, 1));
+  tl.set('#cd', { opacity: 0 }, S(10, 1));
+  tl.set('#nx', { opacity: 1, x: 450, y: 310 }, S(10, 1)); tl.set('#nxBd', { opacity: 1, x: 450, y: 310 }, S(10, 1));
+  tl.set('#tls', { opacity: 0 }, 0);
+  TAG('#plD', S(11, 0) + 0.2);
+  ON(['#val11', '#mgr11'], S(11, 0) - 0.05, 0.3);
+  BOB('#val11', S(11, 0) + 0.3, S(11, 6), 14); BOB('#mgr11', S(11, 0) + 0.6, S(11, 6), 10);
+  tl.to('#nx,#nxBd', { x: 520, duration: 2.0, yoyo: true, repeat: Math.ceil((B.duration + 2.6 - S(11, 0)) / 2.0), ease: 'sine.inOut' }, S(11, 0) + 0.1);
+  POP('#tls', W(11, 1, 'saved', -0.4));
+  tl.fromTo('#s11', { opacity: 0, y: 0 }, { opacity: 1, y: -355, duration: 0.7, ease: 'power2.out' }, W(11, 1, 'now similar', -0.2));
+  tl.to('#s11', { y: -365, scale: 0.5, opacity: 0, duration: 0.5 }, W(11, 1, 'now similar', 0.6));
+  tl.fromTo('#pl11', { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(11, 1, 'same category', -0.8));
+  LB('c11a', W(11, 1, 'saved', -0.2), S(11, 2) - 0.1);
+  ON('#rec', S(11, 2) + 0.15, 0.35);
+  tl.to('#rl0', { opacity: 1, duration: 0.35 }, S(11, 3) + 0.15);
+  tl.to('#rl1', { opacity: 1, duration: 0.35 }, S(11, 4) + 0.15);
+  tl.to('#rl2', { opacity: 1, duration: 0.35 }, S(11, 5) + 0.15);
+  OFF('#rec', S(11, 6) - 0.3, 0.25); OFF(['#pl11', '#tls', '#s11', '#val11', '#mgr11', '#nx', '#nxBd'], S(11, 6) - 0.3, 0.3);
+  OFF('#plD', S(11, 6) - 0.3, 0.25);
+  CAM(-70, 960, 0.9, S(11, 6) - 0.2, 1.5);
+  ON(['#corr', '#signN'], S(11, 6) - 0.6, 0.3);
+  TAG('#nlNext', S(11, 6) + 0.4);
+  BOB('#signN', S(11, 6) + 1.0, B.duration + 2.6, 14);
+  tl.to('#world', { scale: 0.86, duration: Math.max(1, B.duration + 2.6 - (S(11, 6) + 1.7)), ease: 'none' }, S(11, 6) + 1.7);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

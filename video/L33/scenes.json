@@ -1,0 +1,35 @@
+{"brand": "AB-620 · Module 6 · Lesson 1", "scenes": [
+ {"type": "flow", "header": {"kicker": "Foundry models in prompts", "title": "Bring your own model"},
+  "nodes": [
+   {"icon": "sparkle", "title": "Prompt", "at": "inside a prompt"},
+   {"icon": "cloud", "title": "Your Foundry model", "sub": "Deployed by you", "accent": true, "at": "deployed in Foundry"},
+   {"icon": "flag", "title": "Precise rules", "at": "precise rules"}],
+  "below": [{"icon": "ticket_diagonal", "text": "e.g. classify support tickets", "at": "classify", "solid": true}]},
+ {"type": "path", "header": {"kicker": "How to connect it", "title": "Model drop-down › + › Foundry"},
+  "crumbs": [
+   {"icon": "brain_circuit", "text": "Model drop-down", "at": "Model drop-down"},
+   {"icon": "cursor_click", "text": "+", "at": "plus sign"},
+   {"icon": "cloud", "text": "Connect a Foundry model", "accent": true, "at": "connect a model"}],
+  "cards": [
+   {"icon": "tag", "title": "Deployment name", "desc": "Exactly as in Foundry", "at": "deployment name", "hi": true},
+   {"icon": "tag", "title": "Base model name", "at": "base model", "hi": true},
+   {"icon": "copy", "title": "Copy and paste the names", "desc": "Not from memory", "at": "Copy and paste", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Model and endpoint rules", "title": "Very specific rules"},
+  "rows": [
+   {"icon": "checkmark_circle", "title": "Chat completion models only", "at": "chat completion models", "hi": true},
+   {"icon": "link", "title": "Endpoint ends in /chat/completions", "at": "slash chat", "hi": true},
+   {"icon": "error_circle", "title": "Responses endpoint → Resource not found", "at": "Resource not found", "hi": true},
+   {"icon": "dismiss_circle", "title": "GPT-5 family and later: not supported", "at": "G P T five", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Governance and billing", "title": "Who controls it, who charges it"},
+  "cols": [
+   {"icon": "shield_checkmark", "title": "Governance", "sub": "Power Platform data policies", "at": "admin governs",
+    "items": [{"text": "Azure AI Foundry connector", "at": "Foundry connector"}]},
+   {"icon": "money", "title": "Billing", "sub": "Separately, in Azure", "accent": true, "at": "billed separately",
+    "items": [{"text": "Not Copilot Studio credits", "at": "not charged"}]}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Why does the model fail?"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0",
+    "items": [{"text": "It is in the GPT-5 family", "at": "G P T five"}, {"text": "Endpoint is not /chat/completions", "at": "not slash"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "the trap", "items": [{"text": "\"It is billed in Copilot Studio\"", "at": "billed in Copilot"}]}],
+  "verdict": {"icon": "money", "text": "Billed separately in Azure", "at": "separately in Azure"}}
+]}

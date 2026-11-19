@@ -1,0 +1,611 @@
+{
+ "id": "L35",
+ "title": "Create a test set",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 417.941,
+ "scenes": [
+  {
+   "title": "Better or worse?",
+   "start": 0.8,
+   "end": 23.472,
+   "sentences": [
+    {
+     "text": "Monday at Contoso.",
+     "start": 0.8,
+     "end": 2.208
+    },
+    {
+     "text": "On Friday the team gave Nexo, the I T agent, new instructions.",
+     "start": 2.488,
+     "end": 6.733
+    },
+    {
+     "text": "This morning someone says the answers got worse.",
+     "start": 7.013,
+     "end": 9.595
+    },
+    {
+     "text": "Someone else says they got better.",
+     "start": 9.875,
+     "end": 11.581
+    },
+    {
+     "text": "Nobody can prove anything, because nobody measured before the change.",
+     "start": 11.861,
+     "end": 15.765
+    },
+    {
+     "text": "Everyone is guessing.",
+     "start": 16.045,
+     "end": 17.24
+    },
+    {
+     "text": "By the end of this class you will know how to build a test set, so the next change is measured instead of guessed.",
+     "start": 17.52,
+     "end": 23.472
+    }
+   ]
+  },
+  {
+   "title": "The same exam, every time",
+   "start": 24.372,
+   "end": 45.377,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 24.372,
+     "end": 25.844
+    },
+    {
+     "text": "A test set is a student's exam.",
+     "start": 26.124,
+     "end": 28.001
+    },
+    {
+     "text": "Each case is a question, and sometimes it also carries the expected answer, like the answer key.",
+     "start": 28.281,
+     "end": 34.105
+    },
+    {
+     "text": "The trick is to give the same exam again after every change.",
+     "start": 34.385,
+     "end": 37.884
+    },
+    {
+     "text": "If the student scores better on the same exam, the student improved.",
+     "start": 38.164,
+     "end": 41.983
+    },
+    {
+     "text": "If you change the exam each time, the scores say nothing.",
+     "start": 42.263,
+     "end": 45.377
+    }
+   ]
+  },
+  {
+   "title": "Two kinds of case",
+   "start": 46.277,
+   "end": 68.963,
+   "sentences": [
+    {
+     "text": "A case comes in two kinds.",
+     "start": 46.277,
+     "end": 47.835
+    },
+    {
+     "text": "A single response case is one question and one answer, like where do I reset my password.",
+     "start": 48.115,
+     "end": 53.768
+    },
+    {
+     "text": "A conversation case has several turns, like a user who asks for a laptop, then answers a question about the model, then asks for delivery.",
+     "start": 54.048,
+     "end": 62.752
+    },
+    {
+     "text": "Use single responses for facts, and conversations when the agent must keep context across turns.",
+     "start": 63.032,
+     "end": 68.963
+    }
+   ]
+  },
+  {
+   "title": "Import from a file",
+   "start": 69.863,
+   "end": 93.191,
+   "sentences": [
+    {
+     "text": "The fastest way to fill a test set is a file.",
+     "start": 69.863,
+     "end": 72.38
+    },
+    {
+     "text": "You import a CSV or a TXT file with two headers: Question and Expected response.",
+     "start": 72.66,
+     "end": 78.804
+    },
+    {
+     "text": "There are limits to remember.",
+     "start": 79.084,
+     "end": 80.556
+    },
+    {
+     "text": "Up to one hundred questions per file, and up to one thousand characters per question.",
+     "start": 80.836,
+     "end": 85.529
+    },
+    {
+     "text": "Contoso exports forty real support questions, writes the expected answer next to each, and imports them in one go.",
+     "start": 85.809,
+     "end": 93.191
+    }
+   ]
+  },
+  {
+   "title": "When the answer key matters",
+   "start": 94.091,
+   "end": 116.973,
+   "sentences": [
+    {
+     "text": "Here is the detail the exam loves.",
+     "start": 94.091,
+     "end": 96.032
+    },
+    {
+     "text": "Expected responses are optional when you import.",
+     "start": 96.312,
+     "end": 99.213
+    },
+    {
+     "text": "The file is accepted without them.",
+     "start": 99.493,
+     "end": 101.456
+    },
+    {
+     "text": "But some test methods compare the agent's answer with the expected one: Compare meaning, Text similarity, and Exact match.",
+     "start": 101.736,
+     "end": 108.989
+    },
+    {
+     "text": "Without an answer key, those methods have nothing to compare with.",
+     "start": 109.269,
+     "end": 112.725
+    },
+    {
+     "text": "General quality is different, it grades the answer without needing one.",
+     "start": 113.005,
+     "end": 116.973
+    }
+   ]
+  },
+  {
+   "title": "Decide: the missing column",
+   "start": 117.873,
+   "end": 148.707,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 117.873,
+     "end": 118.748
+    },
+    {
+     "text": "Contoso imported a CSV with only the Question column.",
+     "start": 119.028,
+     "end": 122.761
+    },
+    {
+     "text": "Now they want to use Exact match.",
+     "start": 123.041,
+     "end": 124.94
+    },
+    {
+     "text": "What must they fix first?",
+     "start": 125.22,
+     "end": 126.692
+    },
+    {
+     "text": "Split the file into two smaller TXT files?",
+     "start": 126.972,
+     "end": 129.767
+    },
+    {
+     "text": "Change each case into a conversation case?",
+     "start": 130.047,
+     "end": 132.521
+    },
+    {
+     "text": "Or fill an Expected response for each row?",
+     "start": 132.801,
+     "end": 135.276
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 135.556,
+     "end": 137.092
+    },
+    {
+     "text": "Fill an Expected response for each row.",
+     "start": 140.872,
+     "end": 143.176
+    },
+    {
+     "text": "Exact match compares with the answer key.",
+     "start": 143.456,
+     "end": 145.632
+    },
+    {
+     "text": "File size and case type are not the problem.",
+     "start": 145.912,
+     "end": 148.707
+    }
+   ]
+  },
+  {
+   "title": "Let the tool write questions",
+   "start": 149.607,
+   "end": 172.847,
+   "sentences": [
+    {
+     "text": "You can also generate cases.",
+     "start": 149.607,
+     "end": 151.484
+    },
+    {
+     "text": "Quick question set writes ten questions from the agent description, a good first draft in seconds.",
+     "start": 151.764,
+     "end": 157.609
+    },
+    {
+     "text": "Or generate from knowledge: text, Word, Excel, P D F, or SharePoint files, up to five megabytes each, and no folders.",
+     "start": 157.889,
+     "end": 166.273
+    },
+    {
+     "text": "The questions then come from the content Nexo really knows, so you test its sources and not only its wording.",
+     "start": 166.553,
+     "end": 172.847
+    }
+   ]
+  },
+  {
+   "title": "From real traffic",
+   "start": 173.747,
+   "end": 193.595,
+   "sentences": [
+    {
+     "text": "The best questions come from real users.",
+     "start": 173.747,
+     "end": 176.157
+    },
+    {
+     "text": "On the Monitor page, in preview, you can take the real topics people talk about and use the Evaluate action to turn them into cases.",
+     "start": 176.437,
+     "end": 184.224
+    },
+    {
+     "text": "Now the exam looks like Monday morning, not like the makers' imagination.",
+     "start": 184.504,
+     "end": 188.856
+    },
+    {
+     "text": "A good test set starts from real traffic, and prefers coverage over polish.",
+     "start": 189.136,
+     "end": 193.595
+    }
+   ]
+  },
+  {
+   "title": "Who can be evaluated",
+   "start": 194.495,
+   "end": 216.5,
+   "sentences": [
+    {
+     "text": "Not every agent can take the exam.",
+     "start": 194.495,
+     "end": 196.607
+    },
+    {
+     "text": "Only agents with No authentication or Authenticate with Microsoft are evaluated.",
+     "start": 196.887,
+     "end": 202.412
+    },
+    {
+     "text": "If the agent needs a signed in user, you choose a test user profile, and the run uses that identity.",
+     "start": 202.692,
+     "end": 208.708
+    },
+    {
+     "text": "And one kind of agent is out completely: Fabric data agents cannot be evaluated.",
+     "start": 208.988,
+     "end": 214.087
+    },
+    {
+     "text": "Check this before you build a single case.",
+     "start": 214.367,
+     "end": 216.5
+    }
+   ]
+  },
+  {
+   "title": "Decide: which one can take the exam",
+   "start": 217.4,
+   "end": 248.569,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 217.4,
+     "end": 218.275
+    },
+    {
+     "text": "Contoso has three agents and wants to evaluate one of them today.",
+     "start": 218.555,
+     "end": 222.48
+    },
+    {
+     "text": "Which one can take the exam?",
+     "start": 222.76,
+     "end": 224.317
+    },
+    {
+     "text": "The one using Authenticate with Microsoft?",
+     "start": 224.597,
+     "end": 227.157
+    },
+    {
+     "text": "The one where makers Authenticate manually?",
+     "start": 227.437,
+     "end": 229.955
+    },
+    {
+     "text": "Or the Fabric data agent of the finance team?",
+     "start": 230.235,
+     "end": 233.051
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 233.331,
+     "end": 234.867
+    },
+    {
+     "text": "The one using Authenticate with Microsoft, with a test user profile.",
+     "start": 238.647,
+     "end": 242.871
+    },
+    {
+     "text": "Manual authentication is not supported, and Fabric data agents cannot be evaluated.",
+     "start": 243.151,
+     "end": 248.569
+    }
+   ]
+  },
+  {
+   "title": "The Evaluate tab",
+   "start": 249.469,
+   "end": 273.419,
+   "sentences": [
+    {
+     "text": "So far this is the standard harness.",
+     "start": 249.469,
+     "end": 251.645
+    },
+    {
+     "text": "On the Microsoft Copilot harness, formerly GitHub Copilot harness, evaluation lives in the Evaluate tab, in preview.",
+     "start": 251.925,
+     "end": 260.053
+    },
+    {
+     "text": "The cycle is a loop.",
+     "start": 260.333,
+     "end": 261.571
+    },
+    {
+     "text": "Create a test set, configure and run it, review the results, change the agent, and run the same set again.",
+     "start": 261.851,
+     "end": 267.888
+    },
+    {
+     "text": "Reusing the same set is what makes two runs comparable.",
+     "start": 268.168,
+     "end": 271.453
+    },
+    {
+     "text": "Same exam, every time.",
+     "start": 271.733,
+     "end": 273.419
+    }
+   ]
+  },
+  {
+   "title": "The words on that tab",
+   "start": 274.319,
+   "end": 295.556,
+   "sentences": [
+    {
+     "text": "That tab uses its own words.",
+     "start": 274.319,
+     "end": 276.025
+    },
+    {
+     "text": "A test set is a collection of conversations, also called test cases.",
+     "start": 276.305,
+     "end": 280.423
+    },
+    {
+     "text": "A conversation has user messages and, optionally, an expected agent response.",
+     "start": 280.703,
+     "end": 285.887
+    },
+    {
+     "text": "And an evaluation is a named test set plus a test method.",
+     "start": 286.167,
+     "end": 289.9
+    },
+    {
+     "text": "So when a question says evaluation, think of the pair: which exam, and how it is graded.",
+     "start": 290.18,
+     "end": 295.556
+    }
+   ]
+  },
+  {
+   "title": "Three ways to add conversations",
+   "start": 296.456,
+   "end": 321.853,
+   "sentences": [
+    {
+     "text": "There are three ways to add conversations.",
+     "start": 296.456,
+     "end": 298.696
+    },
+    {
+     "text": "Upload a CSV, up to five megabytes, and a template is available.",
+     "start": 298.976,
+     "end": 303.2
+    },
+    {
+     "text": "Generate with A I: Quick conversation set creates ten conversations from the agent's description, instructions, and topics.",
+     "start": 303.48,
+     "end": 311.416
+    },
+    {
+     "text": "After a first run, the menu also offers Generate twenty five and Generate fifty.",
+     "start": 311.696,
+     "end": 316.965
+    },
+    {
+     "text": "Or write the questions yourself, which is still the best way to cover edge cases.",
+     "start": 317.245,
+     "end": 321.853
+    }
+   ]
+  },
+  {
+   "title": "Credits and identity",
+   "start": 322.753,
+   "end": 349.796,
+   "sentences": [
+    {
+     "text": "Two practical details.",
+     "start": 322.753,
+     "end": 324.161
+    },
+    {
+     "text": "Actions that cost money show a badge that says Uses Copilot Credits.",
+     "start": 324.441,
+     "end": 328.687
+    },
+    {
+     "text": "And identity: the agent must use No authentication or Authenticate with Microsoft, and Authenticate manually is not supported here either.",
+     "start": 328.967,
+     "end": 338.012
+    },
+    {
+     "text": "The User profile setting decides who runs the evaluation and invokes the agent's tools.",
+     "start": 338.292,
+     "end": 344.031
+    },
+    {
+     "text": "By default it is the signed in user.",
+     "start": 344.311,
+     "end": 346.444
+    },
+    {
+     "text": "Do not mix these limits with the standard harness numbers.",
+     "start": 346.724,
+     "end": 349.796
+    }
+   ]
+  },
+  {
+   "title": "Decide: which limit applies",
+   "start": 350.696,
+   "end": 385.129,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 350.696,
+     "end": 351.571
+    },
+    {
+     "text": "Nexo now runs on the Microsoft Copilot harness, and Contoso wants to upload a file of real questions to the Evaluate tab.",
+     "start": 351.851,
+     "end": 360.448
+    },
+    {
+     "text": "Which limit applies?",
+     "start": 360.728,
+     "end": 361.923
+    },
+    {
+     "text": "One hundred questions of one thousand characters?",
+     "start": 362.203,
+     "end": 365.083
+    },
+    {
+     "text": "A single CSV file up to five megabytes in size?",
+     "start": 365.363,
+     "end": 368.84
+    },
+    {
+     "text": "Or twenty five conversations until the first run?",
+     "start": 369.12,
+     "end": 372.149
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 372.429,
+     "end": 373.965
+    },
+    {
+     "text": "A CSV up to five megabytes.",
+     "start": 377.745,
+     "end": 379.815
+    },
+    {
+     "text": "One hundred questions is the standard harness, and twenty five is a generate option.",
+     "start": 380.095,
+     "end": 385.129
+    }
+   ]
+  },
+  {
+   "title": "Monday, measured",
+   "start": 386.029,
+   "end": 416.741,
+   "sentences": [
+    {
+     "text": "Back to Monday.",
+     "start": 386.029,
+     "end": 387.075
+    },
+    {
+     "text": "This time Contoso ran the same test set before and after the new instructions, and the scores settle the argument in a minute.",
+     "start": 387.355,
+     "end": 394.608
+    },
+    {
+     "text": "Remember for the exam.",
+     "start": 394.888,
+     "end": 396.147
+    },
+    {
+     "text": "Standard harness: CSV or TXT, one hundred questions, one thousand characters each, and expected responses for Exact match.",
+     "start": 396.427,
+     "end": 405.557
+    },
+    {
+     "text": "Only No authentication or Authenticate with Microsoft, no Fabric data agents.",
+     "start": 405.837,
+     "end": 411.427
+    },
+    {
+     "text": "Evaluate tab: five megabytes, ten conversations, then twenty five or fifty.",
+     "start": 411.707,
+     "end": 416.741
+    }
+   ]
+  }
+ ]
+}

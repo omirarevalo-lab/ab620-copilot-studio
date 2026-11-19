@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Marta spots a wrong sales figure in the lakehouse. She asks the data agent to correct it. What does the data agent do?",
+    "options": [
+      "It updates the lakehouse table",
+      "It asks for admin rights first",
+      "it only reads, never changes"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Valeria wants to try the data agent in her own test workspace. That workspace only has a Fabric trial. What does the data agent need?",
+    "options": [
+      "The Fabric trial capacity",
+      "A paid F two or higher",
+      "any free Power B I license"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Valeria builds a topic for sales questions. She wants that topic to send every question to the data agent. Which of these can she not do?",
+    "options": [
+      "Redirect to it from a topic",
+      "Connect it as an external agent",
+      "ask it questions in English"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

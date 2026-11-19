@@ -1,0 +1,725 @@
+{
+ "id": "F03",
+ "title": "Generative orchestration vs classic topics",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 488.227,
+ "scenes": [
+  {
+   "title": "One message, two wishes",
+   "start": 0.8,
+   "end": 27.739,
+   "sentences": [
+    {
+     "text": "Monday at Contoso.",
+     "start": 0.8,
+     "end": 2.208
+    },
+    {
+     "text": "An employee writes to Nexo, the I T agent: my laptop will not turn on, and I want to know how my other case is going.",
+     "start": 2.488,
+     "end": 10.189
+    },
+    {
+     "text": "One message, two wishes.",
+     "start": 10.469,
+     "end": 12.069
+    },
+    {
+     "text": "Nexo has a topic that creates tickets, and another that checks ticket status.",
+     "start": 12.349,
+     "end": 16.872
+    },
+    {
+     "text": "Something has to decide what to do with this message.",
+     "start": 17.152,
+     "end": 19.84
+    },
+    {
+     "text": "That decision is called orchestration.",
+     "start": 20.12,
+     "end": 22.339
+    },
+    {
+     "text": "By the end of this class you will know the two ways to make it, and the three harnesses behind them.",
+     "start": 22.619,
+     "end": 27.739
+    }
+   ]
+  },
+  {
+   "title": "Two receptionists",
+   "start": 28.639,
+   "end": 51.649,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 28.639,
+     "end": 30.111
+    },
+    {
+     "text": "Orchestration is a receptionist.",
+     "start": 30.391,
+     "end": 32.396
+    },
+    {
+     "text": "The classic receptionist has a list of phrases.",
+     "start": 32.676,
+     "end": 35.321
+    },
+    {
+     "text": "A visitor says something, and the receptionist sends them to the one department whose phrases match best.",
+     "start": 35.601,
+     "end": 41.404
+    },
+    {
+     "text": "The generative receptionist understands what the person wants, and can send them to several departments, one after another.",
+     "start": 41.684,
+     "end": 49.193
+    },
+    {
+     "text": "Same building, very different service.",
+     "start": 49.473,
+     "end": 51.649
+    }
+   ]
+  },
+  {
+   "title": "Classic: trigger phrases",
+   "start": 52.549,
+   "end": 76.325,
+   "sentences": [
+    {
+     "text": "In standard harness agents there are two modes.",
+     "start": 52.549,
+     "end": 55.173
+    },
+    {
+     "text": "With classic orchestration, the agent triggers the topic whose trigger phrases are most similar to what the user typed.",
+     "start": 55.453,
+     "end": 62.28
+    },
+    {
+     "text": "A trigger phrase is an example sentence you write on the topic, like check my ticket or where is my case.",
+     "start": 62.56,
+     "end": 69.067
+    },
+    {
+     "text": "Nexo's message matches one topic better than the other, so only one topic runs.",
+     "start": 69.347,
+     "end": 74.296
+    },
+    {
+     "text": "The second wish is simply lost.",
+     "start": 74.576,
+     "end": 76.325
+    }
+   ]
+  },
+  {
+   "title": "Generative: AI decides",
+   "start": 77.225,
+   "end": 99.463,
+   "sentences": [
+    {
+     "text": "With generative orchestration, the agent uses A I to decide which topic, tool, other agent or knowledge source to use.",
+     "start": 77.225,
+     "end": 85.161
+    },
+    {
+     "text": "New agents use generative orchestration by default.",
+     "start": 85.441,
+     "end": 88.705
+    },
+    {
+     "text": "If you create the agent from a prebuilt one, its configuration decides which mode is used.",
+     "start": 88.985,
+     "end": 94.297
+    },
+    {
+     "text": "So unless something says otherwise, your new agent starts with the generative receptionist.",
+     "start": 94.577,
+     "end": 99.463
+    }
+   ]
+  },
+  {
+   "title": "What changes in practice",
+   "start": 100.363,
+   "end": 129.776,
+   "sentences": [
+    {
+     "text": "What changes in practice?",
+     "start": 100.363,
+     "end": 101.813
+    },
+    {
+     "text": "Topics: generative picks them by description, classic by trigger phrases.",
+     "start": 102.093,
+     "end": 106.595
+    },
+    {
+     "text": "Tools: generative calls them by name and description, classic only calls them explicitly from a topic.",
+     "start": 106.875,
+     "end": 113.253
+    },
+    {
+     "text": "Knowledge: generative can search it proactively, classic uses it as a fallback when no topic matches.",
+     "start": 113.533,
+     "end": 119.933
+    },
+    {
+     "text": "Several items: generative combines them in one answer.",
+     "start": 120.213,
+     "end": 123.776
+    },
+    {
+     "text": "Missing data: generative asks for it on its own.",
+     "start": 124.056,
+     "end": 127.0
+    },
+    {
+     "text": "And generative writes the response itself.",
+     "start": 127.28,
+     "end": 129.776
+    }
+   ]
+  },
+  {
+   "title": "Decide: the lonely tool",
+   "start": 130.676,
+   "end": 163.472,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 130.676,
+     "end": 131.551
+    },
+    {
+     "text": "An agent uses classic orchestration.",
+     "start": 131.831,
+     "end": 134.22
+    },
+    {
+     "text": "A maker adds a tool with a perfect name and description, and expects the agent to choose it on its own when users ask.",
+     "start": 134.5,
+     "end": 141.519
+    },
+    {
+     "text": "Will it work?",
+     "start": 141.799,
+     "end": 142.673
+    },
+    {
+     "text": "Yes, because the description is very clear?",
+     "start": 142.953,
+     "end": 145.257
+    },
+    {
+     "text": "No, classic only calls tools from a topic?",
+     "start": 145.537,
+     "end": 148.119
+    },
+    {
+     "text": "Or yes, but only as a fallback choice here?",
+     "start": 148.399,
+     "end": 150.98
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 151.26,
+     "end": 152.796
+    },
+    {
+     "text": "No.",
+     "start": 156.576,
+     "end": 157.237
+    },
+    {
+     "text": "In classic orchestration tools are only called from a topic.",
+     "start": 157.517,
+     "end": 161.059
+    },
+    {
+     "text": "Choosing them is a generative skill.",
+     "start": 161.339,
+     "end": 163.472
+    }
+   ]
+  },
+  {
+   "title": "Descriptions are in charge",
+   "start": 164.372,
+   "end": 187.447,
+   "sentences": [
+    {
+     "text": "In generative mode, the most important factor for choosing is the description of each topic, tool, agent or knowledge source.",
+     "start": 164.372,
+     "end": 172.009
+    },
+    {
+     "text": "The name and the input and output parameters also matter.",
+     "start": 172.289,
+     "end": 175.66
+    },
+    {
+     "text": "A good description is short, one or two sentences, in active voice.",
+     "start": 175.94,
+     "end": 179.951
+    },
+    {
+     "text": "It includes keywords the user would say.",
+     "start": 180.231,
+     "end": 182.279
+    },
+    {
+     "text": "And it also says what it does not do.",
+     "start": 182.559,
+     "end": 184.564
+    },
+    {
+     "text": "That last part draws the border between neighbours.",
+     "start": 184.844,
+     "end": 187.447
+    }
+   ]
+  },
+  {
+   "title": "Twin descriptions",
+   "start": 188.347,
+   "end": 215.648,
+   "sentences": [
+    {
+     "text": "Here is what goes wrong.",
+     "start": 188.347,
+     "end": 189.691
+    },
+    {
+     "text": "If two descriptions are similar, the agent picks only one, and the result is unpredictable.",
+     "start": 189.971,
+     "end": 195.368
+    },
+    {
+     "text": "So Contoso writes clearly different ones.",
+     "start": 195.648,
+     "end": 197.888
+    },
+    {
+     "text": "Ticket status: checks the status of an existing ticket, does not create tickets.",
+     "start": 198.168,
+     "end": 202.861
+    },
+    {
+     "text": "Create ticket: creates a new ticket, does not check existing ones.",
+     "start": 203.141,
+     "end": 207.088
+    },
+    {
+     "text": "And when you turn on generative mode in an older agent, Copilot Studio generates descriptions from the trigger phrases.",
+     "start": 207.368,
+     "end": 214.515
+    },
+    {
+     "text": "Review them.",
+     "start": 214.795,
+     "end": 215.648
+    }
+   ]
+  },
+  {
+   "title": "Decide: the unpredictable agent",
+   "start": 216.548,
+   "end": 247.72,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 216.548,
+     "end": 217.423
+    },
+    {
+     "text": "A generative agent has two topics, reset password and unlock account.",
+     "start": 217.703,
+     "end": 222.119
+    },
+    {
+     "text": "Sometimes one runs, sometimes the other, for the same request.",
+     "start": 222.399,
+     "end": 225.727
+    },
+    {
+     "text": "What should the maker fix?",
+     "start": 226.007,
+     "end": 227.351
+    },
+    {
+     "text": "Switch the agent to classic orchestration instead?",
+     "start": 227.631,
+     "end": 230.575
+    },
+    {
+     "text": "Add many more trigger phrases to both topics?",
+     "start": 230.855,
+     "end": 233.287
+    },
+    {
+     "text": "Or rewrite both descriptions so they differ?",
+     "start": 233.567,
+     "end": 235.956
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 236.236,
+     "end": 237.772
+    },
+    {
+     "text": "Rewrite the descriptions.",
+     "start": 241.552,
+     "end": 242.917
+    },
+    {
+     "text": "In generative mode, overlapping descriptions make selection unpredictable.",
+     "start": 243.197,
+     "end": 247.72
+    }
+   ]
+  },
+  {
+   "title": "Nexo, generative",
+   "start": 248.62,
+   "end": 273.316,
+   "sentences": [
+    {
+     "text": "Now watch Nexo in generative mode.",
+     "start": 248.62,
+     "end": 250.924
+    },
+    {
+     "text": "It detects two intentions.",
+     "start": 251.204,
+     "end": 252.74
+    },
+    {
+     "text": "It calls Ticket status with the case number it took from the conversation.",
+     "start": 253.02,
+     "end": 257.116
+    },
+    {
+     "text": "Then it calls Create ticket, and asks only for the data that is still missing.",
+     "start": 257.396,
+     "end": 261.535
+    },
+    {
+     "text": "Finally it writes a single response that covers both wishes.",
+     "start": 261.815,
+     "end": 265.463
+    },
+    {
+     "text": "A topic can even return its result as an output variable instead of a message, so the agent combines it with everything else.",
+     "start": 265.743,
+     "end": 273.316
+    }
+   ]
+  },
+  {
+   "title": "Turn it on, watch it work",
+   "start": 274.216,
+   "end": 300.019,
+   "sentences": [
+    {
+     "text": "Where is the switch?",
+     "start": 274.216,
+     "end": 275.347
+    },
+    {
+     "text": "In Settings, in the generative A I section, under orchestration, an option asks whether to use generative orchestration for the agent's responses: yes or no.",
+     "start": 275.627,
+     "end": 286.251
+    },
+    {
+     "text": "In a topic's trigger, generative mode shows the agent chooses, with its description, instead of user says a phrase.",
+     "start": 286.531,
+     "end": 293.315
+    },
+    {
+     "text": "To see what the agent decided, open the test pane and the activity map.",
+     "start": 293.595,
+     "end": 297.925
+    },
+    {
+     "text": "It shows the plan in real time.",
+     "start": 298.205,
+     "end": 300.019
+    }
+   ]
+  },
+  {
+   "title": "The admin's switch",
+   "start": 300.919,
+   "end": 321.449,
+   "sentences": [
+    {
+     "text": "One more switch, and it is not yours.",
+     "start": 300.919,
+     "end": 303.052
+    },
+    {
+     "text": "If an administrator turns off generative orchestration in an environment, agents in that environment can only use classic mode.",
+     "start": 303.332,
+     "end": 311.097
+    },
+    {
+     "text": "So if a maker cannot find generative behavior anywhere, even with the agent setting on yes, check the environment.",
+     "start": 311.377,
+     "end": 318.289
+    },
+    {
+     "text": "The environment rule wins over the agent's wish.",
+     "start": 318.569,
+     "end": 321.449
+    }
+   ]
+  },
+  {
+   "title": "Three harnesses",
+   "start": 322.349,
+   "end": 352.547,
+   "sentences": [
+    {
+     "text": "Copilot Studio builds agents on more than one harness, the runtime under the agent.",
+     "start": 322.349,
+     "end": 327.299
+    },
+    {
+     "text": "The standard harness uses rule based topics and flows.",
+     "start": 327.579,
+     "end": 330.907
+    },
+    {
+     "text": "The Microsoft Copilot harness, formerly called the GitHub Copilot harness, is built for reasoning heavy, multistep work, with skills, memory, a secure sandbox, and usage based billing in Copilot Credits.",
+     "start": 331.187,
+     "end": 344.669
+    },
+    {
+     "text": "Despite the old name, it is not the GitHub Copilot service.",
+     "start": 344.949,
+     "end": 348.469
+    },
+    {
+     "text": "The Copilot chat harness extends Microsoft Copilot Chat.",
+     "start": 348.749,
+     "end": 352.547
+    }
+   ]
+  },
+  {
+   "title": "No moving vans",
+   "start": 353.447,
+   "end": 377.351,
+   "sentences": [
+    {
+     "text": "An agent cannot move between harnesses.",
+     "start": 353.447,
+     "end": 355.815
+    },
+    {
+     "text": "A Microsoft Copilot harness agent cannot be transferred to the standard harness, and the other way round.",
+     "start": 356.095,
+     "end": 362.26
+    },
+    {
+     "text": "A working standard agent does not need to move just because a new harness exists.",
+     "start": 362.54,
+     "end": 367.276
+    },
+    {
+     "text": "Treat a move as re architecture, a rebuild, and do it only for a clear benefit.",
+     "start": 367.556,
+     "end": 372.377
+    },
+    {
+     "text": "Learn describes the Microsoft Copilot harness as a production ready preview.",
+     "start": 372.657,
+     "end": 377.351
+    }
+   ]
+  },
+  {
+   "title": "Decide: the move",
+   "start": 378.251,
+   "end": 406.841,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 378.251,
+     "end": 379.125
+    },
+    {
+     "text": "Contoso's standard harness agent works well.",
+     "start": 379.405,
+     "end": 381.965
+    },
+    {
+     "text": "A team member wants to switch it to the Microsoft Copilot harness.",
+     "start": 382.245,
+     "end": 386.085
+    },
+    {
+     "text": "What is true?",
+     "start": 386.365,
+     "end": 387.304
+    },
+    {
+     "text": "It cannot be transferred, a move means rebuilding?",
+     "start": 387.584,
+     "end": 390.272
+    },
+    {
+     "text": "It moves by itself when the harness leaves preview?",
+     "start": 390.552,
+     "end": 393.261
+    },
+    {
+     "text": "Or there is a Settings button that converts it?",
+     "start": 393.541,
+     "end": 395.803
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 396.083,
+     "end": 397.619
+    },
+    {
+     "text": "It cannot be transferred.",
+     "start": 401.399,
+     "end": 402.785
+    },
+    {
+     "text": "A move is re architecture, so only do it for a clear benefit.",
+     "start": 403.065,
+     "end": 406.841
+    }
+   ]
+  },
+  {
+   "title": "Four tabs",
+   "start": 407.741,
+   "end": 437.709,
+   "sentences": [
+    {
+     "text": "On the Microsoft Copilot harness the agent has four tabs.",
+     "start": 407.741,
+     "end": 411.411
+    },
+    {
+     "text": "Build holds identity, knowledge, tools, skills, model and memory.",
+     "start": 411.691,
+     "end": 415.744
+    },
+    {
+     "text": "Preview is for testing.",
+     "start": 416.024,
+     "end": 417.432
+    },
+    {
+     "text": "Evaluate runs test sets that measure quality.",
+     "start": 417.712,
+     "end": 420.251
+    },
+    {
+     "text": "Monitor shows production health, outcomes, reactions, sessions and credit usage.",
+     "start": 420.531,
+     "end": 425.352
+    },
+    {
+     "text": "The life cycle is create, build, test, publish, monitor.",
+     "start": 425.632,
+     "end": 428.939
+    },
+    {
+     "text": "And this harness uses one enhanced orchestration model for all agents, so you cannot configure orchestration like on the standard harness.",
+     "start": 429.219,
+     "end": 437.709
+    }
+   ]
+  },
+  {
+   "title": "The steps",
+   "start": 438.609,
+   "end": 462.839,
+   "sentences": [
+    {
+     "text": "Here are the steps.",
+     "start": 438.609,
+     "end": 439.719
+    },
+    {
+     "text": "Open your agent and go to Settings.",
+     "start": 439.999,
+     "end": 442.153
+    },
+    {
+     "text": "In the generative A I section, find orchestration and check that it is set to yes.",
+     "start": 442.433,
+     "end": 447.319
+    },
+    {
+     "text": "Open a custom topic and look at its trigger.",
+     "start": 447.599,
+     "end": 450.201
+    },
+    {
+     "text": "Edit the description: one or two sentences that say what it does and what it does not do.",
+     "start": 450.481,
+     "end": 455.623
+    },
+    {
+     "text": "Check a tool's name and description.",
+     "start": 455.903,
+     "end": 457.737
+    },
+    {
+     "text": "Then type a request with two intentions in the test pane, and open the activity map.",
+     "start": 458.017,
+     "end": 462.839
+    }
+   ]
+  },
+  {
+   "title": "Two wishes, one answer",
+   "start": 463.739,
+   "end": 487.027,
+   "sentences": [
+    {
+     "text": "Back to Nexo.",
+     "start": 463.739,
+     "end": 464.827
+    },
+    {
+     "text": "In generative mode, the employee's two wishes became one plan: check the old case, create the new ticket, and answer once.",
+     "start": 465.107,
+     "end": 472.467
+    },
+    {
+     "text": "Remember for the exam: generative chooses by description and name, classic by trigger phrases.",
+     "start": 472.747,
+     "end": 478.656
+    },
+    {
+     "text": "In classic, tools run only from topics.",
+     "start": 478.936,
+     "end": 481.56
+    },
+    {
+     "text": "Overlapping descriptions are unpredictable.",
+     "start": 481.84,
+     "end": 484.229
+    },
+    {
+     "text": "And agents never move between harnesses.",
+     "start": 484.509,
+     "end": 487.027
+    }
+   ]
+  }
+ ]
+}

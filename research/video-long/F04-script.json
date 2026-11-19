@@ -1,0 +1,47 @@
+[
+ {
+  "title": "A confident wrong answer",
+  "caption": "Nexo invents password steps because it has no source. The fix is knowledge: answers that come from Contoso's own documents.",
+  "say": "Week three at Contoso. An employee asks Nexo how to reset their password. Nexo answers at once, sounding sure: open the Contoso portal, choose Security, press Reset. There is no such portal. The steps were invented. Nobody gave Nexo the real password guide, so the model filled the gap with a guess. The I T team does not want a smarter guess. They want answers that come from Contoso's own documents. That is what knowledge is for."
+ },
+ {
+  "title": "The librarian",
+  "caption": "Knowledge is the set of sources the agent looks up. Answers from them are grounded: fewer made-up facts, plus citations.",
+  "say": "Picture a librarian. A good librarian does not remember every book. They know which shelf to check, they read the page, and they show you the book. Knowledge works the same way. It is the set of sources the agent looks up before it answers. When an answer comes from your sources, we call it grounded. Grounded answers make fewer things up, and the agent can cite where each piece of data came from."
+ },
+ {
+  "title": "The shelves",
+  "caption": "Sources: public websites (Bing, your URLs only), uploaded files (stored in Dataverse), SharePoint, Dataverse tables, Copilot connectors.",
+  "say": "Which shelves can you add? Public websites, searched with Bing, but only inside the addresses you give. Files you upload, which are stored in Dataverse. SharePoint sites and libraries. Dataverse tables in your environment. And enterprise data through Copilot connectors, indexed by Microsoft Search. You add knowledge when you create the agent, later on the Knowledge page, or inside a topic with a generative answers node."
+ },
+ {
+  "title": "Who can see what",
+  "caption": "SharePoint, Dataverse and connectors use the user's sign-in: each person sees only what they can open. Custom responses need citations added by you.",
+  "say": "Now a detail the exam loves. SharePoint, Dataverse and enterprise connectors use the user's own sign in. When someone asks a question, Nexo only shows content that person can already open. So an intern and a manager can ask the same thing and get different answers. For this to work, you configure user authentication. Answers also carry citations to their sources. But if you customize the response, for example in an Adaptive Card, you must add the citations yourself."
+ },
+ {
+  "title": "Decide: the H R policies",
+  "caption": "HR policies live in SharePoint with permissions per department. Each employee must only see what they can open. How do they add them?",
+  "say": "Your turn. Contoso keeps its H R policies in a SharePoint site, with permissions for each department. Every employee must only get answers from documents they can already open. How do they add them? Upload copies of the documents as files? Add the SharePoint site as knowledge? Or paste the policies into the instructions? Decide before I answer. Add the SharePoint site. SharePoint uses the user's sign in, so each person only sees what they can open. Uploaded copies lose those permissions."
+ },
+ {
+  "title": "The ungrounded switch",
+  "caption": "Settings, Generative AI: Allow ungrounded responses (off blocks turns with no source or tool; Fallback runs), web search, content moderation (default High).",
+  "say": "Next, the settings. Open Settings, then Generative A I. Allow ungrounded responses is the key switch. Turn it off, and in any turn where the agent used no source and no tool, the generated answer is blocked and the Fallback topic runs instead. Use information from the web lets the agent search the whole public web with Bing. Content moderation goes from Lowest to Highest, and the default is High."
+ },
+ {
+  "title": "Decide: no source, no answer",
+  "caption": "Nexo sometimes answers from general knowledge with no source. IT wants those answers blocked so Fallback runs. What do they change?",
+  "say": "Your turn. Sometimes Nexo still answers with no source at all, straight from the model's general knowledge. I T wants those answers blocked, so the Fallback topic runs instead. What do they change? Raise content moderation up to Highest? Turn on Use information from the web? Or switch off Allow ungrounded responses? Decide before I answer. Switch off Allow ungrounded responses. Moderation filters harmful content, and the web only adds sources. It is not a full guarantee, so the instructions also say: always cite the source."
+ },
+ {
+  "title": "Add knowledge in the studio",
+  "caption": "Knowledge page, Add knowledge, Public website: URL, name, clear description. Wait for Ready, check Generative AI settings, test for a citation.",
+  "say": "Let's do it in the studio. Open Nexo and go to the Knowledge page. Select Add knowledge and choose Public website. Type the address, a name, and a clear description, so the agent can pick the right source. Wait until the source shows Ready. Then open Settings, Generative A I, and check the two switches. Finally, in the test pane, ask something that only your source knows, and look for the citation under the answer."
+ },
+ {
+  "title": "Back to the password question",
+  "caption": "With SharePoint and the VPN vendor's site as knowledge, ungrounded answers off and citations requested, Nexo answers with the real steps and a source.",
+  "say": "Back to week three. The I T team added two sources: the I T SharePoint site and the V P N vendor's public support site. They turned off Allow ungrounded responses and told Nexo to always cite the source document. The same employee asks how to reset their password. Nexo answers with the real steps and a citation to the exact SharePoint article. Remember: knowledge is looked up, SharePoint respects permissions, and no source means no generated answer. Next, the tools Nexo can run."
+ }
+]

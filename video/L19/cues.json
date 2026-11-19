@@ -1,0 +1,2377 @@
+{
+ "id": "L19",
+ "sha256": "97afd17221bd75087989445fc9e57f67f5afc77d5f04693ca23dcbd1d56a3f63",
+ "generated": "2026-11-11T07:33:07.301Z",
+ "cues": [
+  {
+   "label": "createticket",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.54,
+   "wordT": 4.03,
+   "appears": 0,
+   "delta": -4.03,
+   "status": "ok"
+  },
+  {
+   "label": "fails",
+   "scene": 1,
+   "sentStart": 6.82,
+   "sentEnd": 9.8,
+   "wordT": 7.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the flow stays silent",
+   "scene": 1,
+   "sentStart": 6.82,
+   "sentEnd": 9.8,
+   "wordT": 8.48,
+   "appears": 8.59,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "not an if",
+   "scene": 1,
+   "sentStart": 10.09,
+   "sentEnd": 13.69,
+   "wordT": 12.01,
+   "appears": 12.2,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "a when",
+   "scene": 1,
+   "sentStart": 10.09,
+   "sentEnd": 13.69,
+   "wordT": 13.21,
+   "appears": 13.37,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "plan b",
+   "scene": 1,
+   "sentStart": 13.97,
+   "sentEnd": 16.21,
+   "wordT": 15.65,
+   "appears": 15.76,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "main path",
+   "scene": 1,
+   "sentStart": 16.49,
+   "sentEnd": 20.69,
+   "wordT": 17.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "fails",
+   "scene": 1,
+   "sentStart": 16.49,
+   "sentEnd": 20.69,
+   "wordT": 17.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "knows what to do",
+   "scene": 1,
+   "sentStart": 16.49,
+   "sentEnd": 20.69,
+   "wordT": 18.45,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "try catch",
+   "scene": 1,
+   "sentStart": 20.97,
+   "sentEnd": 23.04,
+   "wordT": 22.45,
+   "appears": 22.48,
+   "delta": 0.03,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 1,
+   "sentStart": 20.97,
+   "sentEnd": 23.04,
+   "wordT": 22.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "scope",
+   "scene": 2,
+   "sentStart": 23.94,
+   "sentEnd": 28.02,
+   "wordT": 24.23,
+   "appears": 24.3,
+   "delta": 0.07,
+   "status": "ok"
+  },
+  {
+   "label": "groups actions",
+   "scene": 2,
+   "sentStart": 23.94,
+   "sentEnd": 28.02,
+   "wordT": 25.69,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 2,
+   "sentStart": 28.3,
+   "sentEnd": 34.78,
+   "wordT": 29.32,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "main actions",
+   "scene": 2,
+   "sentStart": 28.3,
+   "sentEnd": 34.78,
+   "wordT": 31.71,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 2,
+   "sentStart": 35.06,
+   "sentEnd": 38.48,
+   "wordT": 36.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 2,
+   "sentStart": 35.06,
+   "sentEnd": 38.48,
+   "wordT": 36.92,
+   "appears": 37.05,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "right after the try",
+   "scene": 2,
+   "sentStart": 35.06,
+   "sentEnd": 38.48,
+   "wordT": 37.23,
+   "appears": 37.43,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "main path",
+   "scene": 2,
+   "sentStart": 38.76,
+   "sentEnd": 40.33,
+   "wordT": 39.81,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 2,
+   "sentStart": 40.62,
+   "sentEnd": 43.79,
+   "wordT": 40.88,
+   "appears": 37.05,
+   "delta": -3.83,
+   "status": "ok"
+  },
+  {
+   "label": "plan b",
+   "scene": 2,
+   "sentStart": 40.62,
+   "sentEnd": 43.79,
+   "wordT": 41.67,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "when does the catch run",
+   "scene": 3,
+   "sentStart": 44.69,
+   "sentEnd": 46.14,
+   "wordT": 44.93,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 3,
+   "sentStart": 44.69,
+   "sentEnd": 46.14,
+   "wordT": 45.66,
+   "appears": 37.05,
+   "delta": -8.61,
+   "status": "ok"
+  },
+  {
+   "label": "run after",
+   "scene": 3,
+   "sentStart": 46.42,
+   "sentEnd": 53.42,
+   "wordT": 47.7,
+   "appears": 46.55,
+   "delta": -1.14,
+   "status": "ok"
+  },
+  {
+   "label": "result",
+   "scene": 3,
+   "sentStart": 46.42,
+   "sentEnd": 53.42,
+   "wordT": 51.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run after",
+   "scene": 3,
+   "sentStart": 53.7,
+   "sentEnd": 58.67,
+   "wordT": 53.7,
+   "appears": 46.55,
+   "delta": -7.15,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 3,
+   "sentStart": 53.7,
+   "sentEnd": 58.67,
+   "wordT": 56.19,
+   "appears": 55.91,
+   "delta": -0.28,
+   "status": "ok"
+  },
+  {
+   "label": "timed out",
+   "scene": 3,
+   "sentStart": 53.7,
+   "sentEnd": 58.67,
+   "wordT": 56.54,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "skipped",
+   "scene": 3,
+   "sentStart": 53.7,
+   "sentEnd": 58.67,
+   "wordT": 57.61,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "succeeded",
+   "scene": 3,
+   "sentStart": 53.7,
+   "sentEnd": 58.67,
+   "wordT": 58.32,
+   "appears": 58,
+   "delta": -0.32,
+   "status": "ok"
+  },
+  {
+   "label": "on the catch relative to the try",
+   "scene": 3,
+   "sentStart": 58.95,
+   "sentEnd": 62.02,
+   "wordT": 59.87,
+   "appears": 60.45,
+   "delta": 0.58,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 3,
+   "sentStart": 58.95,
+   "sentEnd": 62.02,
+   "wordT": 60.49,
+   "appears": 37.05,
+   "delta": -23.44,
+   "status": "ok"
+  },
+  {
+   "label": "has failed",
+   "scene": 3,
+   "sentStart": 62.3,
+   "sentEnd": 64.63,
+   "wordT": 62.89,
+   "appears": 46.55,
+   "delta": -16.33,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 3,
+   "sentStart": 62.3,
+   "sentEnd": 64.63,
+   "wordT": 63.18,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 3,
+   "sentStart": 62.3,
+   "sentEnd": 64.63,
+   "wordT": 63.76,
+   "appears": 46.55,
+   "delta": -17.2,
+   "status": "ok"
+  },
+  {
+   "label": "timed out",
+   "scene": 3,
+   "sentStart": 62.3,
+   "sentEnd": 64.63,
+   "wordT": 64.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the catch runs only when the try fails",
+   "scene": 3,
+   "sentStart": 64.91,
+   "sentEnd": 67.3,
+   "wordT": 65.17,
+   "appears": 65.31,
+   "delta": 0.14,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 3,
+   "sentStart": 64.91,
+   "sentEnd": 67.3,
+   "wordT": 65.44,
+   "appears": 37.05,
+   "delta": -28.39,
+   "status": "ok"
+  },
+  {
+   "label": "fails",
+   "scene": 3,
+   "sentStart": 64.91,
+   "sentEnd": 67.3,
+   "wordT": 67.03,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "scope",
+   "scene": 4,
+   "sentStart": 69.35,
+   "sentEnd": 72.94,
+   "wordT": 72.58,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "settings",
+   "scene": 4,
+   "sentStart": 73.22,
+   "sentEnd": 75.44,
+   "wordT": 74.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 4,
+   "sentStart": 73.22,
+   "sentEnd": 75.44,
+   "wordT": 74.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "scope",
+   "scene": 4,
+   "sentStart": 73.22,
+   "sentEnd": 75.44,
+   "wordT": 75.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run after",
+   "scene": 4,
+   "sentStart": 75.72,
+   "sentEnd": 77.83,
+   "wordT": 76.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is successful",
+   "scene": 4,
+   "sentStart": 78.11,
+   "sentEnd": 79.69,
+   "wordT": 78.11,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is successful and is skipped",
+   "scene": 4,
+   "sentStart": 78.11,
+   "sentEnd": 79.69,
+   "wordT": 78.11,
+   "appears": 78.13,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "is skipped",
+   "scene": 4,
+   "sentStart": 78.11,
+   "sentEnd": 79.69,
+   "wordT": 79.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "skipped",
+   "scene": 4,
+   "sentStart": 78.11,
+   "sentEnd": 79.69,
+   "wordT": 79.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is skipped",
+   "scene": 4,
+   "sentStart": 79.97,
+   "sentEnd": 81.54,
+   "wordT": 79.97,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is skipped and has timed out",
+   "scene": 4,
+   "sentStart": 79.97,
+   "sentEnd": 81.54,
+   "wordT": 79.97,
+   "appears": 79.99,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "skipped",
+   "scene": 4,
+   "sentStart": 79.97,
+   "sentEnd": 81.54,
+   "wordT": 80.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 4,
+   "sentStart": 79.97,
+   "sentEnd": 81.54,
+   "wordT": 80.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "timed out",
+   "scene": 4,
+   "sentStart": 79.97,
+   "sentEnd": 81.54,
+   "wordT": 81.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has failed",
+   "scene": 4,
+   "sentStart": 81.83,
+   "sentEnd": 83.7,
+   "wordT": 82.09,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has failed or has timed out",
+   "scene": 4,
+   "sentStart": 81.83,
+   "sentEnd": 83.7,
+   "wordT": 82.09,
+   "appears": 81.84,
+   "delta": -0.25,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 4,
+   "sentStart": 81.83,
+   "sentEnd": 83.7,
+   "wordT": 82.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 4,
+   "sentStart": 81.83,
+   "sentEnd": 83.7,
+   "wordT": 82.9,
+   "appears": 90.18,
+   "delta": 7.28,
+   "status": "otro momento"
+  },
+  {
+   "label": "timed out",
+   "scene": 4,
+   "sentStart": 81.83,
+   "sentEnd": 83.7,
+   "wordT": 83.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has failed",
+   "scene": 4,
+   "sentStart": 89.3,
+   "sentEnd": 91.03,
+   "wordT": 89.3,
+   "appears": 90.18,
+   "delta": 0.88,
+   "status": "ok"
+  },
+  {
+   "label": "has failed or has timed out",
+   "scene": 4,
+   "sentStart": 89.3,
+   "sentEnd": 91.03,
+   "wordT": 89.3,
+   "appears": 81.84,
+   "delta": -7.46,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 4,
+   "sentStart": 89.3,
+   "sentEnd": 91.03,
+   "wordT": 89.59,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 4,
+   "sentStart": 89.3,
+   "sentEnd": 91.03,
+   "wordT": 90.16,
+   "appears": 90.18,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "timed out",
+   "scene": 4,
+   "sentStart": 89.3,
+   "sentEnd": 91.03,
+   "wordT": 90.45,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the catch must run when the try fails or runs out of time",
+   "scene": 4,
+   "sentStart": 91.31,
+   "sentEnd": 94.53,
+   "wordT": 91.31,
+   "appears": 91.43,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 4,
+   "sentStart": 91.31,
+   "sentEnd": 94.53,
+   "wordT": 91.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "fails",
+   "scene": 4,
+   "sentStart": 91.31,
+   "sentEnd": 94.53,
+   "wordT": 93.04,
+   "appears": 91.43,
+   "delta": -1.61,
+   "status": "ok"
+  },
+  {
+   "label": "runs out of time",
+   "scene": 4,
+   "sentStart": 91.31,
+   "sentEnd": 94.53,
+   "wordT": 93.54,
+   "appears": 91.43,
+   "delta": -2.11,
+   "status": "ok"
+  },
+  {
+   "label": "is successful",
+   "scene": 4,
+   "sentStart": 94.81,
+   "sentEnd": 99.67,
+   "wordT": 94.81,
+   "appears": 94.93,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 4,
+   "sentStart": 94.81,
+   "sentEnd": 99.67,
+   "wordT": 96.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 5,
+   "sentStart": 100.57,
+   "sentEnd": 103.73,
+   "wordT": 101.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "what went wrong",
+   "scene": 5,
+   "sentStart": 100.57,
+   "sentEnd": 103.73,
+   "wordT": 102.78,
+   "appears": 100.73,
+   "delta": -2.05,
+   "status": "ok"
+  },
+  {
+   "label": "result",
+   "scene": 5,
+   "sentStart": 104.01,
+   "sentEnd": 108.57,
+   "wordT": 104.36,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 5,
+   "sentStart": 104.01,
+   "sentEnd": 108.57,
+   "wordT": 108.22,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "succeeded",
+   "scene": 5,
+   "sentStart": 108.86,
+   "sentEnd": 110.67,
+   "wordT": 109.22,
+   "appears": 58,
+   "delta": -51.22,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 5,
+   "sentStart": 108.86,
+   "sentEnd": 110.67,
+   "wordT": 110.3,
+   "appears": 55.91,
+   "delta": -54.4,
+   "status": "ok"
+  },
+  {
+   "label": "filter array",
+   "scene": 5,
+   "sentStart": 110.95,
+   "sentEnd": 116.07,
+   "wordT": 111.59,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 5,
+   "sentStart": 110.95,
+   "sentEnd": 116.07,
+   "wordT": 114.47,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "with its exact message",
+   "scene": 5,
+   "sentStart": 110.95,
+   "sentEnd": 116.07,
+   "wordT": 114.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exact",
+   "scene": 5,
+   "sentStart": 110.95,
+   "sentEnd": 116.07,
+   "wordT": 115.43,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "exact message",
+   "scene": 5,
+   "sentStart": 110.95,
+   "sentEnd": 116.07,
+   "wordT": 115.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "message",
+   "scene": 5,
+   "sentStart": 110.95,
+   "sentEnd": 116.07,
+   "wordT": 115.75,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "log the error",
+   "scene": 5,
+   "sentStart": 116.35,
+   "sentEnd": 121.3,
+   "wordT": 117.8,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the network fails for a moment",
+   "scene": 6,
+   "sentStart": 124.08,
+   "sentEnd": 127,
+   "wordT": 124.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "fails",
+   "scene": 6,
+   "sentStart": 124.08,
+   "sentEnd": 127,
+   "wordT": 124.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a later try works",
+   "scene": 6,
+   "sentStart": 124.08,
+   "sentEnd": 127,
+   "wordT": 125.94,
+   "appears": 125.99,
+   "delta": 0.06,
+   "status": "ok"
+  },
+  {
+   "label": "retry",
+   "scene": 6,
+   "sentStart": 127.28,
+   "sentEnd": 130.22,
+   "wordT": 127.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry policy",
+   "scene": 6,
+   "sentStart": 127.28,
+   "sentEnd": 130.22,
+   "wordT": 127.61,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "recover",
+   "scene": 6,
+   "sentStart": 127.28,
+   "sentEnd": 130.22,
+   "wordT": 129.24,
+   "appears": 128.98,
+   "delta": -0.26,
+   "status": "ok"
+  },
+  {
+   "label": "action settings",
+   "scene": 6,
+   "sentStart": 130.5,
+   "sentEnd": 135.94,
+   "wordT": 132.1,
+   "appears": 130.7,
+   "delta": -1.41,
+   "status": "ok"
+  },
+  {
+   "label": "settings",
+   "scene": 6,
+   "sentStart": 130.5,
+   "sentEnd": 135.94,
+   "wordT": 132.42,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "initial interval",
+   "scene": 6,
+   "sentStart": 130.5,
+   "sentEnd": 135.94,
+   "wordT": 133.38,
+   "appears": 130.7,
+   "delta": -2.69,
+   "status": "ok"
+  },
+  {
+   "label": "maximum number of retries",
+   "scene": 6,
+   "sentStart": 130.5,
+   "sentEnd": 135.94,
+   "wordT": 134.66,
+   "appears": 130.7,
+   "delta": -3.97,
+   "status": "ok"
+  },
+  {
+   "label": "exponential",
+   "scene": 6,
+   "sentStart": 136.22,
+   "sentEnd": 141.02,
+   "wordT": 136.22,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "more time to clear",
+   "scene": 6,
+   "sentStart": 141.3,
+   "sentEnd": 145.38,
+   "wordT": 144.29,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 7,
+   "sentStart": 147.43,
+   "sentEnd": 150.29,
+   "wordT": 147.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "external service",
+   "scene": 7,
+   "sentStart": 147.43,
+   "sentEnd": 150.29,
+   "wordT": 149.34,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the network fails for a moment",
+   "scene": 7,
+   "sentStart": 150.57,
+   "sentEnd": 154.13,
+   "wordT": 150.87,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "fails",
+   "scene": 7,
+   "sentStart": 150.57,
+   "sentEnd": 154.13,
+   "wordT": 151.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a later try works",
+   "scene": 7,
+   "sentStart": 150.57,
+   "sentEnd": 154.13,
+   "wordT": 152.95,
+   "appears": 153.13,
+   "delta": 0.18,
+   "status": "ok"
+  },
+  {
+   "label": "an exponential retry policy",
+   "scene": 7,
+   "sentStart": 156.57,
+   "sentEnd": 158.53,
+   "wordT": 156.57,
+   "appears": 156.59,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "exponential",
+   "scene": 7,
+   "sentStart": 156.57,
+   "sentEnd": 158.53,
+   "wordT": 157.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential retry policy",
+   "scene": 7,
+   "sentStart": 156.57,
+   "sentEnd": 158.53,
+   "wordT": 157.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry",
+   "scene": 7,
+   "sentStart": 156.57,
+   "sentEnd": 158.53,
+   "wordT": 157.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry policy",
+   "scene": 7,
+   "sentStart": 156.57,
+   "sentEnd": 158.53,
+   "wordT": 157.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a terminate with status failed",
+   "scene": 7,
+   "sentStart": 158.81,
+   "sentEnd": 160.5,
+   "wordT": 158.81,
+   "appears": 158.84,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "terminate",
+   "scene": 7,
+   "sentStart": 158.81,
+   "sentEnd": 160.5,
+   "wordT": 159.15,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "status failed",
+   "scene": 7,
+   "sentStart": 158.81,
+   "sentEnd": 160.5,
+   "wordT": 159.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "failed",
+   "scene": 7,
+   "sentStart": 158.81,
+   "sentEnd": 160.5,
+   "wordT": 160.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a catch with is successful",
+   "scene": 7,
+   "sentStart": 160.78,
+   "sentEnd": 162.4,
+   "wordT": 161.05,
+   "appears": 160.8,
+   "delta": -0.25,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 7,
+   "sentStart": 160.78,
+   "sentEnd": 162.4,
+   "wordT": 161.32,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is successful",
+   "scene": 7,
+   "sentStart": 160.78,
+   "sentEnd": 162.4,
+   "wordT": 161.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "an exponential retry policy",
+   "scene": 7,
+   "sentStart": 168,
+   "sentEnd": 169.96,
+   "wordT": 168,
+   "appears": 156.59,
+   "delta": -11.4,
+   "status": "ok"
+  },
+  {
+   "label": "exponential",
+   "scene": 7,
+   "sentStart": 168,
+   "sentEnd": 169.96,
+   "wordT": 168.49,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential retry policy",
+   "scene": 7,
+   "sentStart": 168,
+   "sentEnd": 169.96,
+   "wordT": 168.49,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry",
+   "scene": 7,
+   "sentStart": 168,
+   "sentEnd": 169.96,
+   "wordT": 168.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry policy",
+   "scene": 7,
+   "sentStart": 168,
+   "sentEnd": 169.96,
+   "wordT": 168.98,
+   "appears": 127.36,
+   "delta": -41.62,
+   "status": "ok"
+  },
+  {
+   "label": "retry",
+   "scene": 7,
+   "sentStart": 170.24,
+   "sentEnd": 177.36,
+   "wordT": 170.71,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry policy",
+   "scene": 7,
+   "sentStart": 170.24,
+   "sentEnd": 177.36,
+   "wordT": 170.71,
+   "appears": 168.88,
+   "delta": -1.83,
+   "status": "ok"
+  },
+  {
+   "label": "recovers from transient failures",
+   "scene": 7,
+   "sentStart": 170.24,
+   "sentEnd": 177.36,
+   "wordT": 171.66,
+   "appears": 170.36,
+   "delta": -1.31,
+   "status": "ok"
+  },
+  {
+   "label": "transient failures",
+   "scene": 7,
+   "sentStart": 170.24,
+   "sentEnd": 177.36,
+   "wordT": 172.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential",
+   "scene": 7,
+   "sentStart": 170.24,
+   "sentEnd": 177.36,
+   "wordT": 174.04,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "terminate",
+   "scene": 7,
+   "sentStart": 177.65,
+   "sentEnd": 181.76,
+   "wordT": 177.65,
+   "appears": 177.84,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "instead of trying again",
+   "scene": 7,
+   "sentStart": 177.65,
+   "sentEnd": 181.76,
+   "wordT": 180.59,
+   "appears": 177.77,
+   "delta": -2.82,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 8,
+   "sentStart": 182.66,
+   "sentEnd": 184.2,
+   "wordT": 182.92,
+   "appears": 182.68,
+   "delta": -0.24,
+   "status": "ok"
+  },
+  {
+   "label": "one more job",
+   "scene": 8,
+   "sentStart": 182.66,
+   "sentEnd": 184.2,
+   "wordT": 183.43,
+   "appears": 182.82,
+   "delta": -0.61,
+   "status": "ok"
+  },
+  {
+   "label": "all went well",
+   "scene": 8,
+   "sentStart": 184.48,
+   "sentEnd": 189.6,
+   "wordT": 188.74,
+   "appears": 184.7,
+   "delta": -4.04,
+   "status": "ok"
+  },
+  {
+   "label": "terminate",
+   "scene": 8,
+   "sentStart": 189.88,
+   "sentEnd": 193.89,
+   "wordT": 189.88,
+   "appears": 177.84,
+   "delta": -12.04,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 8,
+   "sentStart": 189.88,
+   "sentEnd": 193.89,
+   "wordT": 193.6,
+   "appears": 115.13,
+   "delta": -78.48,
+   "status": "ok"
+  },
+  {
+   "label": "terminate",
+   "scene": 8,
+   "sentStart": 194.17,
+   "sentEnd": 199.07,
+   "wordT": 194.78,
+   "appears": 189.72,
+   "delta": -5.06,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 8,
+   "sentStart": 194.17,
+   "sentEnd": 199.07,
+   "wordT": 196.62,
+   "appears": 182.68,
+   "delta": -13.94,
+   "status": "ok"
+  },
+  {
+   "label": "status failed",
+   "scene": 8,
+   "sentStart": 194.17,
+   "sentEnd": 199.07,
+   "wordT": 197.24,
+   "appears": 195.16,
+   "delta": -2.08,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 8,
+   "sentStart": 194.17,
+   "sentEnd": 199.07,
+   "wordT": 197.54,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "message",
+   "scene": 8,
+   "sentStart": 194.17,
+   "sentEnd": 199.07,
+   "wordT": 198.77,
+   "appears": 193.1,
+   "delta": -5.67,
+   "status": "ok"
+  },
+  {
+   "label": "diagnosis",
+   "scene": 8,
+   "sentStart": 199.36,
+   "sentEnd": 203.3,
+   "wordT": 201.66,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 9,
+   "sentStart": 206.47,
+   "sentEnd": 210.39,
+   "wordT": 206.86,
+   "appears": 182.68,
+   "delta": -24.18,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 9,
+   "sentStart": 206.47,
+   "sentEnd": 210.39,
+   "wordT": 210,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "fails",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 211.22,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 211.77,
+   "appears": 182.68,
+   "delta": -29.09,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 212.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run after",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 212.87,
+   "appears": 182.68,
+   "delta": -30.19,
+   "status": "ok"
+  },
+  {
+   "label": "has failed",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 213.69,
+   "appears": 182.68,
+   "delta": -31.01,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 213.97,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 214.52,
+   "appears": 182.68,
+   "delta": -31.84,
+   "status": "ok"
+  },
+  {
+   "label": "timed out",
+   "scene": 9,
+   "sentStart": 210.67,
+   "sentEnd": 215.34,
+   "wordT": 214.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "result",
+   "scene": 9,
+   "sentStart": 215.62,
+   "sentEnd": 220.02,
+   "wordT": 216.64,
+   "appears": 215.55,
+   "delta": -1.08,
+   "status": "ok"
+  },
+  {
+   "label": "filter array",
+   "scene": 9,
+   "sentStart": 215.62,
+   "sentEnd": 220.02,
+   "wordT": 217.65,
+   "appears": 111.33,
+   "delta": -106.33,
+   "status": "ok"
+  },
+  {
+   "label": "exact",
+   "scene": 9,
+   "sentStart": 215.62,
+   "sentEnd": 220.02,
+   "wordT": 219.34,
+   "appears": 115.13,
+   "delta": -104.22,
+   "status": "ok"
+  },
+  {
+   "label": "exact message",
+   "scene": 9,
+   "sentStart": 215.62,
+   "sentEnd": 220.02,
+   "wordT": 219.34,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "message",
+   "scene": 9,
+   "sentStart": 215.62,
+   "sentEnd": 220.02,
+   "wordT": 219.68,
+   "appears": 193.1,
+   "delta": -26.58,
+   "status": "ok"
+  },
+  {
+   "label": "terminate",
+   "scene": 9,
+   "sentStart": 220.3,
+   "sentEnd": 225.42,
+   "wordT": 224.05,
+   "appears": 223.66,
+   "delta": -0.4,
+   "status": "ok"
+  },
+  {
+   "label": "status failed",
+   "scene": 9,
+   "sentStart": 220.3,
+   "sentEnd": 225.42,
+   "wordT": 224.74,
+   "appears": 195.16,
+   "delta": -29.58,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 9,
+   "sentStart": 220.3,
+   "sentEnd": 225.42,
+   "wordT": 225.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "external service",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 227.09,
+   "appears": 225.66,
+   "delta": -1.43,
+   "status": "ok"
+  },
+  {
+   "label": "an exponential retry policy",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 228.14,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 228.49,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential retry policy",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 228.49,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "retry",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 228.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry policy",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 228.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the network fails for a moment",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 230.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "fails",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 230.92,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a later retry works",
+   "scene": 9,
+   "sentStart": 225.7,
+   "sentEnd": 234.06,
+   "wordT": 232.67,
+   "appears": 232.84,
+   "delta": 0.18,
+   "status": "ok"
+  },
+  {
+   "label": "open your agent flow",
+   "scene": 10,
+   "sentStart": 236.35,
+   "sentEnd": 238.46,
+   "wordT": 236.35,
+   "appears": 236.61,
+   "delta": 0.26,
+   "status": "ok"
+  },
+  {
+   "label": "designer",
+   "scene": 10,
+   "sentStart": 236.35,
+   "sentEnd": 238.46,
+   "wordT": 238.16,
+   "appears": 236.18,
+   "delta": -1.98,
+   "status": "ok"
+  },
+  {
+   "label": "add a scope",
+   "scene": 10,
+   "sentStart": 238.74,
+   "sentEnd": 242.43,
+   "wordT": 238.74,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 10,
+   "sentStart": 238.74,
+   "sentEnd": 242.43,
+   "wordT": 239.31,
+   "appears": 24.3,
+   "delta": -215.01,
+   "status": "ok"
+  },
+  {
+   "label": "main actions",
+   "scene": 10,
+   "sentStart": 238.74,
+   "sentEnd": 242.43,
+   "wordT": 241.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "scope",
+   "scene": 10,
+   "sentStart": 242.71,
+   "sentEnd": 245.61,
+   "wordT": 243.36,
+   "appears": 239.28,
+   "delta": -4.07,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 10,
+   "sentStart": 242.71,
+   "sentEnd": 245.61,
+   "wordT": 244,
+   "appears": 244.27,
+   "delta": 0.27,
+   "status": "ok"
+  },
+  {
+   "label": "right after the try",
+   "scene": 10,
+   "sentStart": 242.71,
+   "sentEnd": 245.61,
+   "wordT": 244.32,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 246.5,
+   "appears": 244.27,
+   "delta": -2.22,
+   "status": "ok"
+  },
+  {
+   "label": "catch settings",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 246.5,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "settings",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 246.8,
+   "appears": 236.18,
+   "delta": -10.62,
+   "status": "ok"
+  },
+  {
+   "label": "run after",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 247.4,
+   "appears": 246.24,
+   "delta": -1.17,
+   "status": "ok"
+  },
+  {
+   "label": "has failed",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 248.31,
+   "appears": 246.24,
+   "delta": -2.07,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 248.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 249.21,
+   "appears": 246.24,
+   "delta": -2.98,
+   "status": "ok"
+  },
+  {
+   "label": "timed out",
+   "scene": 10,
+   "sentStart": 245.9,
+   "sentEnd": 250.12,
+   "wordT": 249.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 10,
+   "sentStart": 250.4,
+   "sentEnd": 253.98,
+   "wordT": 251,
+   "appears": 244.27,
+   "delta": -6.72,
+   "status": "ok"
+  },
+  {
+   "label": "filter array",
+   "scene": 10,
+   "sentStart": 250.4,
+   "sentEnd": 253.98,
+   "wordT": 251.59,
+   "appears": 217.42,
+   "delta": -34.17,
+   "status": "ok"
+  },
+  {
+   "label": "result",
+   "scene": 10,
+   "sentStart": 250.4,
+   "sentEnd": 253.98,
+   "wordT": 252.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "log the error",
+   "scene": 10,
+   "sentStart": 254.26,
+   "sentEnd": 259.42,
+   "wordT": 254.26,
+   "appears": 254.51,
+   "delta": 0.24,
+   "status": "ok"
+  },
+  {
+   "label": "terminate",
+   "scene": 10,
+   "sentStart": 254.26,
+   "sentEnd": 259.42,
+   "wordT": 257.17,
+   "appears": 256.79,
+   "delta": -0.38,
+   "status": "ok"
+  },
+  {
+   "label": "status failed",
+   "scene": 10,
+   "sentStart": 254.26,
+   "sentEnd": 259.42,
+   "wordT": 257.81,
+   "appears": 256.79,
+   "delta": -1.02,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 10,
+   "sentStart": 254.26,
+   "sentEnd": 259.42,
+   "wordT": 258.13,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "message",
+   "scene": 10,
+   "sentStart": 254.26,
+   "sentEnd": 259.42,
+   "wordT": 259.1,
+   "appears": 256.79,
+   "delta": -2.31,
+   "status": "ok"
+  },
+  {
+   "label": "an exponential retry policy",
+   "scene": 10,
+   "sentStart": 259.7,
+   "sentEnd": 263.74,
+   "wordT": 260.6,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential",
+   "scene": 10,
+   "sentStart": 259.7,
+   "sentEnd": 263.74,
+   "wordT": 261.05,
+   "appears": 260.03,
+   "delta": -1.02,
+   "status": "ok"
+  },
+  {
+   "label": "exponential retry policy",
+   "scene": 10,
+   "sentStart": 259.7,
+   "sentEnd": 263.74,
+   "wordT": 261.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry",
+   "scene": 10,
+   "sentStart": 259.7,
+   "sentEnd": 263.74,
+   "wordT": 261.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry policy",
+   "scene": 10,
+   "sentStart": 259.7,
+   "sentEnd": 263.74,
+   "wordT": 261.5,
+   "appears": 260.03,
+   "delta": -1.46,
+   "status": "ok"
+  },
+  {
+   "label": "sensitive actions",
+   "scene": 10,
+   "sentStart": 259.7,
+   "sentEnd": 263.74,
+   "wordT": 262.84,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "with its exact message",
+   "scene": 11,
+   "sentStart": 265.79,
+   "sentEnd": 270.08,
+   "wordT": 268.65,
+   "appears": 268.68,
+   "delta": 0.03,
+   "status": "ok"
+  },
+  {
+   "label": "exact",
+   "scene": 11,
+   "sentStart": 265.79,
+   "sentEnd": 270.08,
+   "wordT": 269.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exact message",
+   "scene": 11,
+   "sentStart": 265.79,
+   "sentEnd": 270.08,
+   "wordT": 269.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "message",
+   "scene": 11,
+   "sentStart": 265.79,
+   "sentEnd": 270.08,
+   "wordT": 269.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "an exponential retry on every action",
+   "scene": 11,
+   "sentStart": 274.23,
+   "sentEnd": 276.53,
+   "wordT": 274.23,
+   "appears": 274.25,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "exponential",
+   "scene": 11,
+   "sentStart": 274.23,
+   "sentEnd": 276.53,
+   "wordT": 274.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry",
+   "scene": 11,
+   "sentStart": 274.23,
+   "sentEnd": 276.53,
+   "wordT": 274.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "filter array",
+   "scene": 11,
+   "sentStart": 276.81,
+   "sentEnd": 278.92,
+   "wordT": 276.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "filter array on the result function",
+   "scene": 11,
+   "sentStart": 276.81,
+   "sentEnd": 278.92,
+   "wordT": 276.81,
+   "appears": 276.84,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "result",
+   "scene": 11,
+   "sentStart": 276.81,
+   "sentEnd": 278.92,
+   "wordT": 278.22,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a catch that runs after is successful",
+   "scene": 11,
+   "sentStart": 279.2,
+   "sentEnd": 281.42,
+   "wordT": 279.48,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 11,
+   "sentStart": 279.2,
+   "sentEnd": 281.42,
+   "wordT": 279.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is successful",
+   "scene": 11,
+   "sentStart": 279.2,
+   "sentEnd": 281.42,
+   "wordT": 280.87,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "filter array",
+   "scene": 11,
+   "sentStart": 287.02,
+   "sentEnd": 289.11,
+   "wordT": 287.02,
+   "appears": 287.9,
+   "delta": 0.88,
+   "status": "ok"
+  },
+  {
+   "label": "filter array on the result function",
+   "scene": 11,
+   "sentStart": 287.02,
+   "sentEnd": 289.11,
+   "wordT": 287.02,
+   "appears": 276.84,
+   "delta": -10.18,
+   "status": "ok"
+  },
+  {
+   "label": "result",
+   "scene": 11,
+   "sentStart": 287.02,
+   "sentEnd": 289.11,
+   "wordT": 288.41,
+   "appears": 287.9,
+   "delta": -0.51,
+   "status": "ok"
+  },
+  {
+   "label": "result",
+   "scene": 11,
+   "sentStart": 289.39,
+   "sentEnd": 294.21,
+   "wordT": 289.73,
+   "appears": 287.9,
+   "delta": -1.83,
+   "status": "ok"
+  },
+  {
+   "label": "returns the try results",
+   "scene": 11,
+   "sentStart": 289.39,
+   "sentEnd": 294.21,
+   "wordT": 290.42,
+   "appears": 289.51,
+   "delta": -0.91,
+   "status": "ok"
+  },
+  {
+   "label": "filter array",
+   "scene": 11,
+   "sentStart": 289.39,
+   "sentEnd": 294.21,
+   "wordT": 292.14,
+   "appears": 287.9,
+   "delta": -4.24,
+   "status": "ok"
+  },
+  {
+   "label": "keeps the failed one",
+   "scene": 11,
+   "sentStart": 289.39,
+   "sentEnd": 294.21,
+   "wordT": 292.83,
+   "appears": 289.51,
+   "delta": -3.32,
+   "status": "ok"
+  },
+  {
+   "label": "failed",
+   "scene": 11,
+   "sentStart": 289.39,
+   "sentEnd": 294.21,
+   "wordT": 293.52,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch",
+   "scene": 11,
+   "sentStart": 294.49,
+   "sentEnd": 299.27,
+   "wordT": 294.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "catch on is successful",
+   "scene": 11,
+   "sentStart": 294.49,
+   "sentEnd": 299.27,
+   "wordT": 294.79,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "is successful",
+   "scene": 11,
+   "sentStart": 294.49,
+   "sentEnd": 299.27,
+   "wordT": 295.38,
+   "appears": 294.61,
+   "delta": -0.78,
+   "status": "ok"
+  },
+  {
+   "label": "back at contoso",
+   "scene": 12,
+   "sentStart": 300.17,
+   "sentEnd": 305.69,
+   "wordT": 300.17,
+   "appears": 300.32,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "fails",
+   "scene": 12,
+   "sentStart": 300.17,
+   "sentEnd": 305.69,
+   "wordT": 303.42,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "remember",
+   "scene": 12,
+   "sentStart": 305.97,
+   "sentEnd": 307.12,
+   "wordT": 305.97,
+   "appears": 306.17,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 12,
+   "sentStart": 307.4,
+   "sentEnd": 309.47,
+   "wordT": 308,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "main actions",
+   "scene": 12,
+   "sentStart": 307.4,
+   "sentEnd": 309.47,
+   "wordT": 308.88,
+   "appears": 306.24,
+   "delta": -2.64,
+   "status": "ok"
+  },
+  {
+   "label": "catch",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 310.06,
+   "appears": 306.24,
+   "delta": -3.82,
+   "status": "ok"
+  },
+  {
+   "label": "scope",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 310.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has failed",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 311.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "failed",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 311.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "has timed out",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 312.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "timed out",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 312.54,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "is successful",
+   "scene": 12,
+   "sentStart": 309.75,
+   "sentEnd": 314.08,
+   "wordT": 313.47,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "result",
+   "scene": 12,
+   "sentStart": 314.37,
+   "sentEnd": 317.22,
+   "wordT": 314.65,
+   "appears": 306.24,
+   "delta": -8.41,
+   "status": "ok"
+  },
+  {
+   "label": "filter array",
+   "scene": 12,
+   "sentStart": 314.37,
+   "sentEnd": 317.22,
+   "wordT": 315.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "exponential",
+   "scene": 12,
+   "sentStart": 317.5,
+   "sentEnd": 320.47,
+   "wordT": 317.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "retry",
+   "scene": 12,
+   "sentStart": 317.5,
+   "sentEnd": 320.47,
+   "wordT": 318.1,
+   "appears": 306.24,
+   "delta": -11.85,
+   "status": "ok"
+  },
+  {
+   "label": "transient failures",
+   "scene": 12,
+   "sentStart": 317.5,
+   "sentEnd": 320.47,
+   "wordT": 319.28,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "terminate",
+   "scene": 12,
+   "sentStart": 320.75,
+   "sentEnd": 324.08,
+   "wordT": 320.75,
+   "appears": 306.24,
+   "delta": -14.51,
+   "status": "ok"
+  },
+  {
+   "label": "status failed",
+   "scene": 12,
+   "sentStart": 320.75,
+   "sentEnd": 324.08,
+   "wordT": 321.41,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "failed",
+   "scene": 12,
+   "sentStart": 320.75,
+   "sentEnd": 324.08,
+   "wordT": 321.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "message",
+   "scene": 12,
+   "sentStart": 320.75,
+   "sentEnd": 324.08,
+   "wordT": 323.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "human in the loop",
+   "scene": 12,
+   "sentStart": 324.36,
+   "sentEnd": 325.83,
+   "wordT": 324.65,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  }
+ ]
+}

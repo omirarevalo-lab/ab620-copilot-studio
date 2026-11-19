@@ -1,0 +1,32 @@
+{"brand": "AB-620 · Module 4 · Lesson 2", "scenes": [
+ {"type": "split", "left": {"kicker": "Azure AI Search", "title": "Your index, your agent", "sub": "A tidy filing cabinet instead of guessing."},
+  "chain": [
+   {"icon": "document_text", "title": "Your documents", "at": "your documents"},
+   {"icon": "search", "title": "Index", "accent": true, "at": "in an index"},
+   {"icon": "bot", "title": "Agent", "at": "to your agent"}],
+  "rows": [{"icon": "checkmark_circle", "title": "Answers with your own documents", "at": "own documents", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Vectors and semantic ranker", "title": "The search understands meaning"},
+  "rows": [
+   {"icon": "cube_tree", "title": "Vectorized indexes", "desc": "With integrated vectorization", "at": "vectorized indexes", "hi": true},
+   {"icon": "brain_circuit", "title": "Same embeddings model", "desc": "Vectorizes the data and the question", "at": "embeddings model", "hi": true},
+   {"icon": "cloud", "title": "Semantic ranker", "desc": "Configured in Azure, not in Copilot Studio", "at": "semantic ranker", "hi": true}]},
+ {"type": "split", "left": {"kicker": "How to connect it", "title": "Add knowledge › Featured", "sub": "Or from a Generative answers node.", "pill": {"text": "One vector index per connection", "at": "One vector index"}},
+  "window": {"title": "Azure AI Search · connection", "heading": "Authentication type", "rail": ["apps", "bot", "book_open", "key", "settings"],
+   "cards": [
+    {"icon": "key", "title": "Access Key", "at": "Access Key", "hi": true},
+    {"icon": "document_text", "title": "Client certificate", "at": "client certificate", "hi": true},
+    {"icon": "apps", "title": "Service principal", "at": "Service principal", "hi": true},
+    {"icon": "shield_checkmark", "title": "Integrated Entra ID", "at": "integrated Entra", "hi": true}]}},
+ {"type": "flow", "header": {"kicker": "Citations with a URL", "title": "A field with the real address"},
+  "nodes": [
+   {"icon": "link", "title": "Address field", "sub": "In the index", "at": "real address"},
+   {"icon": "tag", "title": "Storage path", "sub": "metadata_storage_path → citation", "accent": true, "at": "metadata storage path"},
+   {"icon": "person", "title": "User access", "sub": "To the cited documents", "at": "need access"}],
+  "below": [{"icon": "warning", "text": "Without it: no link to the document", "at": "Without that field"}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Two traps"},
+  "cols": [
+   {"icon": "flag", "title": "Azure OpenAI on your data", "sub": "Not a knowledge source", "tone": "bad", "at": "Azure OpenAI",
+    "items": [{"text": "Use Classic data in the node", "at": "Classic data"}]},
+   {"icon": "flag", "title": "Semantic ranker from Copilot Studio", "sub": "Wrong", "tone": "bad", "at": "semantic ranker",
+    "items": [{"text": "It is configured in Azure", "at": "configured in Azure"}]}]}
+]}

@@ -1,0 +1,45 @@
+{"brand": "AB-620 · Module 2 · Lesson 4", "scenes": [
+ {"type": "flow", "header": {"kicker": "Custom data", "title": "A tray with your data"},
+  "nodes": [
+   {"icon": "document_text", "title": "Not a file or a site", "at": "not in a file"},
+   {"icon": "flow", "title": "You calculate it", "sub": "With a flow or a query", "at": "calculate it yourself"},
+   {"icon": "table", "title": "Custom data", "sub": "The tray for the node", "accent": true, "at": "Custom data"}],
+  "below": [{"icon": "checkmark_circle", "text": "It answers using only that", "at": "only that", "solid": true}]},
+ {"type": "path", "header": {"kicker": "Where the option is", "title": "Generative answers › Classic data"},
+  "crumbs": [
+   {"icon": "settings", "text": "Properties", "at": "properties"},
+   {"icon": "sparkle", "text": "Generative answers node", "at": "Generative answers"},
+   {"icon": "database", "text": "Classic data", "accent": true, "at": "Classic data"}],
+  "cards": [
+   {"icon": "table", "title": "Pass it a table variable", "at": "table variable", "hi": true},
+   {"icon": "dismiss_circle", "title": "Not in the regular knowledge sources", "desc": "That is why you use Classic data", "at": "regular knowledge", "hi": true}]},
+ {"type": "split", "left": {"kicker": "The shape of the table", "title": "One row per article", "sub": "So the agent can answer and cite its source."},
+  "window": {"title": "Table variable · one row", "heading": "Columns", "rail": ["apps", "bot", "table", "database", "settings"],
+   "cards": [
+    {"icon": "text_t", "title": "Content", "desc": "Required · holds the text", "at": "Content", "hi": true},
+    {"icon": "link", "title": "ContentLocation", "desc": "Optional · address for the citation", "at": "ContentLocation", "hi": true},
+    {"icon": "tag", "title": "Title", "desc": "Optional", "at": "Title", "hi": true}]}},
+ {"type": "stats", "header": {"kicker": "Watch this limit", "title": "Only three records count"},
+  "items": [
+   {"icon": "table", "value": "3", "label": "First records used for the answer", "at": "first three", "accent": true},
+   {"icon": "dismiss_circle", "value": "100s", "label": "Of rows: no point sending them", "at": "hundreds"},
+   {"icon": "filter", "value": "Top", "label": "Filter and sort: most relevant first", "at": "Filter and sort"}]},
+ {"type": "split", "left": {"kicker": "Only with your data", "title": "Four settings"},
+  "rows": [
+   {"icon": "checkbox_checked", "title": "Search only selected sources: on", "at": "turn on Search", "hi": true},
+   {"icon": "dismiss_circle", "title": "Select no sources", "at": "select no sources", "hi": true},
+   {"icon": "table", "title": "Your variable in Custom data", "at": "your variable", "hi": true},
+   {"icon": "globe", "title": "Web search and general knowledge: off", "at": "web search", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Contoso", "title": "Answers from the incident base"},
+  "nodes": [
+   {"icon": "database", "title": "Incident database", "at": "incident database"},
+   {"icon": "flow", "title": "Flow", "sub": "Returns filtered articles", "at": "A flow returns"},
+   {"icon": "table", "title": "Custom data", "sub": "The table", "at": "passed to Custom"},
+   {"icon": "sparkle", "title": "Answer", "sub": "Cites each link", "accent": true, "at": "cites the link"}],
+  "below": [{"text": "The agent's other knowledge", "at": "other knowledge", "strike": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Only data you calculate"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "A table in Custom data", "at": "a table in Custom"}, {"text": "Search only selected sources, with no sources", "at": "with no sources"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Send hundreds of rows", "at": "hundreds of rows"}]}],
+  "verdict": {"icon": "table", "text": "Only the first three records count", "at": "first three"}}
+]}

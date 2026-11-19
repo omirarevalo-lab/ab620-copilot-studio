@@ -1,0 +1,48 @@
+{"brand": "AB-620 · Module 2 · Lesson 2", "scenes": [
+ {"type": "split", "left": {"kicker": "Formatted responses", "title": "The right shape", "sub": "A handwritten note, or a form with boxes to check."},
+  "rows": [
+   {"icon": "text_t", "title": "Exact text", "desc": "Word for word", "at": "exact text", "hi": true},
+   {"icon": "list", "title": "A list of buttons", "desc": "Options to tap", "at": "list of buttons", "hi": true},
+   {"icon": "card_ui", "title": "A card", "desc": "Text, fields and actions", "at": "a card", "hi": true}]},
+ {"type": "split", "left": {"kicker": "The Message node", "title": "One node, many shapes", "pill": {"text": "Question node = the same + waits for an answer", "at": "Question node"}},
+  "grid": [
+   {"icon": "text_t", "title": "Basic formatting", "at": "basic formatting"},
+   {"icon": "braces", "title": "Variables", "at": "variables,"},
+   {"icon": "arrow_sync", "title": "Message variations", "at": "message variations"},
+   {"icon": "image", "title": "Images and videos", "at": "images"},
+   {"icon": "card_ui", "title": "Cards", "at": "cards,"},
+   {"icon": "arrow_reply", "title": "Quick replies", "at": "quick replies"}]},
+ {"type": "compare", "header": {"kicker": "Suggest or require", "title": "Quick replies vs. multiple choice"},
+  "cols": [
+   {"icon": "arrow_reply", "title": "Quick replies", "sub": "They only suggest", "at": "Quick replies",
+    "items": [{"text": "The user can ignore them and type freely", "at": "ignore them"}]},
+   {"icon": "checkbox_checked", "title": "Must pick from a list", "sub": "Question node", "accent": true, "at": "pick an option",
+    "items": [{"text": "Use multiple choice", "at": "multiple choice"}]}],
+  "verdict": {"icon": "arrow_sync", "text": "Variations only pick a wording at random", "at": "at random"}},
+ {"type": "compare", "header": {"kicker": "After a tool runs", "title": "The After running option"},
+  "cols": [
+   {"icon": "sparkle", "title": "Don't respond", "sub": "The agent writes the answer", "at": "Don't respond",
+    "items": [{"text": "Folds the output into its own answer", "at": "own answer"}]},
+   {"icon": "document_text", "title": "Send specific response", "sub": "A template with variables", "accent": true, "at": "Send specific",
+    "items": [{"text": "You control the text", "at": "control the text"}]}]},
+ {"type": "split", "left": {"kicker": "Send specific response", "title": "Your template, word for word", "sub": "The model does not rewrite it."},
+  "window": {"title": "Tool · After running", "heading": "Send specific response", "rail": ["apps", "bot", "branch_fork", "toolbox", "settings"],
+   "cards": [
+    {"icon": "document_text", "title": "Template", "desc": "Written by you", "at": "write a template", "hi": true},
+    {"icon": "braces", "title": "Tool output variables", "at": "output variables", "hi": true},
+    {"icon": "code", "title": "Power Fx formulas", "at": "Power F X", "hi": true},
+    {"icon": "card_ui", "title": "Or: Send an adaptive card", "desc": "Buttons and actions", "at": "adaptive card", "hi": true}]}},
+ {"type": "chat", "window": {"title": "IT helpdesk · Contoso", "at": "start"},
+  "messages": [
+   {"from": "a", "text": "Ticket 4821 · status: In progress", "at": "Ticket four"},
+   {"from": "a", "text": "Which type of request is it?", "list": ["Hardware", "Software", "Access"], "at": "request type"}],
+  "side": {"heading": "How it is built",
+   "cards": [
+    {"icon": "document_text", "title": "Own template", "desc": "Exact text, as the team wrote it", "at": "1:exactly as", "hi": true},
+    {"icon": "checkbox_checked", "title": "Multiple choice", "desc": "The user must pick one", "at": "multiple choice", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Exact, controlled response"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Send specific response", "at": "the answer is"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Quick replies to restrict options", "at": "quick replies"}, {"text": "They only suggest", "at": "only suggest"}]}],
+  "verdict": {"icon": "checkbox_checked", "text": "To force a choice: multiple choice", "at": "force a choice"}}
+]}

@@ -1,0 +1,553 @@
+{
+ "id": "L20",
+ "title": "Human-in-the-loop",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 345.302,
+ "scenes": [
+  {
+   "title": "A person in the flow",
+   "start": 0.8,
+   "end": 25.688,
+   "sentences": [
+    {
+     "text": "Marta asks Nexo for a new laptop, and Contoso handles laptop purchases with an agent flow.",
+     "start": 0.8,
+     "end": 6.943
+    },
+    {
+     "text": "But someone must say yes before the purchase goes ahead.",
+     "start": 7.224,
+     "end": 10.295
+    },
+    {
+     "text": "Valeria knows the answer is human in the loop.",
+     "start": 10.576,
+     "end": 13.22
+    },
+    {
+     "text": "It means a person takes part in the automatic process, like a boss who signs before something is sent.",
+     "start": 13.501,
+     "end": 19.516
+    },
+    {
+     "text": "The flow can ask someone for an approval or a piece of data.",
+     "start": 19.797,
+     "end": 23.06
+    },
+    {
+     "text": "Then it waits for the answer before moving on.",
+     "start": 23.341,
+     "end": 25.687
+    }
+   ]
+  },
+  {
+   "title": "Multistage approval",
+   "start": 26.588,
+   "end": 50.535,
+   "sentences": [
+    {
+     "text": "For an approval in several steps, Valeria uses the Run a multistage approval action.",
+     "start": 26.588,
+     "end": 32.198
+    },
+    {
+     "text": "It comes from the Human review connector, and it is in preview.",
+     "start": 32.479,
+     "end": 35.891
+    },
+    {
+     "text": "It combines manual stages, A I stages, and conditions between the stages.",
+     "start": 36.172,
+     "end": 41.035
+    },
+    {
+     "text": "Multistage approvals exist only in agent flows.",
+     "start": 41.316,
+     "end": 44.622
+    },
+    {
+     "text": "People respond through the Approvals app in Teams, in Outlook, or in the Power Automate portal.",
+     "start": 44.903,
+     "end": 50.534
+    }
+   ]
+  },
+  {
+   "title": "Manual stages",
+   "start": 51.435,
+   "end": 73.315,
+   "sentences": [
+    {
+     "text": "A manual stage is a step where a person decides.",
+     "start": 51.435,
+     "end": 54.42
+    },
+    {
+     "text": "Valeria picks the approval type.",
+     "start": 54.701,
+     "end": 56.556
+    },
+    {
+     "text": "First to respond ends with the first response received.",
+     "start": 56.837,
+     "end": 60.186
+    },
+    {
+     "text": "Everyone must approve needs every approver to say yes.",
+     "start": 60.467,
+     "end": 63.73
+    },
+    {
+     "text": "She also sets the title, who the stage is assigned to, and the details.",
+     "start": 64.011,
+     "end": 68.148
+    },
+    {
+     "text": "One rule matters: you cannot assign the same approver to several manual stages.",
+     "start": 68.429,
+     "end": 73.314
+    }
+   ]
+  },
+  {
+   "title": "AI stages",
+   "start": 74.215,
+   "end": 94.3,
+   "sentences": [
+    {
+     "text": "An A I stage is a step where a model decides.",
+     "start": 74.215,
+     "end": 76.838
+    },
+    {
+     "text": "Valeria writes its instructions and gives it inputs, such as documents, images, text, or knowledge.",
+     "start": 77.119,
+     "end": 83.112
+    },
+    {
+     "text": "She chooses the model and selects Test.",
+     "start": 83.393,
+     "end": 85.568
+    },
+    {
+     "text": "The stage returns Approve or Reject, together with a rationale.",
+     "start": 85.849,
+     "end": 89.646
+    },
+    {
+     "text": "So anyone can read why the stage decided, and not only what it decided.",
+     "start": 89.927,
+     "end": 94.299
+    }
+   ]
+  },
+  {
+   "title": "Decide: the second manual stage",
+   "start": 95.2,
+   "end": 132.625,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 95.2,
+     "end": 96.074
+    },
+    {
+     "text": "Valeria builds the laptop approval with two manual stages.",
+     "start": 96.355,
+     "end": 100.108
+    },
+    {
+     "text": "The service manager approves the first one, and Valeria wants the same manager on the second one too.",
+     "start": 100.389,
+     "end": 106.255
+    },
+    {
+     "text": "What should she do?",
+     "start": 106.536,
+     "end": 107.58
+    },
+    {
+     "text": "Assign the manager to both stages?",
+     "start": 107.861,
+     "end": 109.887
+    },
+    {
+     "text": "Use a second approver instead?",
+     "start": 110.168,
+     "end": 111.938
+    },
+    {
+     "text": "Or turn both stages into conditions?",
+     "start": 112.219,
+     "end": 114.394
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 114.675,
+     "end": 116.21
+    },
+    {
+     "text": "Use a second approver instead.",
+     "start": 119.991,
+     "end": 121.76
+    },
+    {
+     "text": "You cannot assign the same approver to several manual stages, so the second stage needs someone else.",
+     "start": 122.041,
+     "end": 127.8
+    },
+    {
+     "text": "Assigning the manager to both stages is the trap, because the rule forbids it.",
+     "start": 128.081,
+     "end": 132.624
+    }
+   ]
+  },
+  {
+   "title": "Conditions",
+   "start": 133.525,
+   "end": 154.403,
+   "sentences": [
+    {
+     "text": "Between the stages, Valeria can add conditions.",
+     "start": 133.525,
+     "end": 136.426
+    },
+    {
+     "text": "A condition lets her route, approve, reject, or skip stages based on criteria.",
+     "start": 136.707,
+     "end": 141.847
+    },
+    {
+     "text": "Without conditions, the path is simple.",
+     "start": 142.128,
+     "end": 144.282
+    },
+    {
+     "text": "If a stage is approved, it moves to the next one.",
+     "start": 144.563,
+     "end": 147.442
+    },
+    {
+     "text": "If it is rejected, the process ends.",
+     "start": 147.723,
+     "end": 149.94
+    },
+    {
+     "text": "One detail: on the left side of a condition, you can only use an input.",
+     "start": 150.221,
+     "end": 154.402
+    }
+   ]
+  },
+  {
+   "title": "Request for information",
+   "start": 155.303,
+   "end": 177.481,
+   "sentences": [
+    {
+     "text": "Sometimes the flow does not need a yes or a no, only a piece of data.",
+     "start": 155.303,
+     "end": 159.398
+    },
+    {
+     "text": "For that, Valeria uses Request for information.",
+     "start": 159.679,
+     "end": 162.558
+    },
+    {
+     "text": "It pauses the flow and asks one or more people through Outlook, inside the same tenant.",
+     "start": 162.839,
+     "end": 167.851
+    },
+    {
+     "text": "The first response wins.",
+     "start": 168.132,
+     "end": 169.603
+    },
+    {
+     "text": "Input types include text, yes or no, email, number, and date.",
+     "start": 169.884,
+     "end": 173.808
+    },
+    {
+     "text": "The answers come back as dynamic content for the next steps.",
+     "start": 174.089,
+     "end": 177.48
+    }
+   ]
+  },
+  {
+   "title": "Decide: the missing cost center",
+   "start": 178.381,
+   "end": 212.692,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 178.381,
+     "end": 179.255
+    },
+    {
+     "text": "Marta's laptop request arrives without a cost center.",
+     "start": 179.536,
+     "end": 182.692
+    },
+    {
+     "text": "The flow cannot continue until someone types it in.",
+     "start": 182.973,
+     "end": 185.938
+    },
+    {
+     "text": "What should Valeria add?",
+     "start": 186.219,
+     "end": 187.519
+    },
+    {
+     "text": "A new manual approval stage?",
+     "start": 187.8,
+     "end": 189.548
+    },
+    {
+     "text": "A condition on the cost center?",
+     "start": 189.829,
+     "end": 191.45
+    },
+    {
+     "text": "Or a Request for information?",
+     "start": 191.731,
+     "end": 193.436
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 193.717,
+     "end": 195.252
+    },
+    {
+     "text": "A Request for information.",
+     "start": 199.033,
+     "end": 200.547
+    },
+    {
+     "text": "It pauses the flow, asks for the data through Outlook, and returns it as dynamic content.",
+     "start": 200.828,
+     "end": 206.288
+    },
+    {
+     "text": "A manual approval stage is the trap, because it returns Approve or Reject, not the missing data.",
+     "start": 206.569,
+     "end": 212.691
+    }
+   ]
+  },
+  {
+   "title": "The Contoso case",
+   "start": 213.592,
+   "end": 244.608,
+   "sentences": [
+    {
+     "text": "Here is the whole Contoso case.",
+     "start": 213.592,
+     "end": 215.575
+    },
+    {
+     "text": "Marta's laptop request first goes through an A I stage that checks the amount is within budget.",
+     "start": 215.856,
+     "end": 221.508
+    },
+    {
+     "text": "It returns Approve or Reject with its rationale.",
+     "start": 221.789,
+     "end": 224.626
+    },
+    {
+     "text": "Then a condition decides.",
+     "start": 224.907,
+     "end": 226.463
+    },
+    {
+     "text": "Above a certain threshold, the request goes to a manual management stage with First to respond.",
+     "start": 226.744,
+     "end": 232.354
+    },
+    {
+     "text": "If not, it ends approved.",
+     "start": 232.635,
+     "end": 234.255
+    },
+    {
+     "text": "A missing cost center is asked with Request for information.",
+     "start": 234.536,
+     "end": 237.948
+    },
+    {
+     "text": "One more fact: advanced approvals have no A L M support, so you must recreate them after importing.",
+     "start": 238.229,
+     "end": 244.607
+    }
+   ]
+  },
+  {
+   "title": "Build it in the designer",
+   "start": 245.508,
+   "end": 273.111,
+   "sentences": [
+    {
+     "text": "Here are the steps.",
+     "start": 245.508,
+     "end": 246.616
+    },
+    {
+     "text": "Open the designer of an agent flow.",
+     "start": 246.897,
+     "end": 248.944
+    },
+    {
+     "text": "Select the plus sign where you want the approval, and search for Run a multistage approval.",
+     "start": 249.225,
+     "end": 254.323
+    },
+    {
+     "text": "Select Set up the approval to open the stage editor.",
+     "start": 254.604,
+     "end": 257.59
+    },
+    {
+     "text": "Create a manual stage with a title, Assigned to, and Details.",
+     "start": 257.871,
+     "end": 261.582
+    },
+    {
+     "text": "Add an A I stage with instructions, choose the model, and select Test.",
+     "start": 261.863,
+     "end": 266.022
+    },
+    {
+     "text": "Add a condition between the stages.",
+     "start": 266.303,
+     "end": 268.243
+    },
+    {
+     "text": "To collect a piece of data, also try Request for information with a text field.",
+     "start": 268.524,
+     "end": 273.11
+    }
+   ]
+  },
+  {
+   "title": "Decide: moving to production",
+   "start": 274.011,
+   "end": 309.132,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 274.011,
+     "end": 274.884
+    },
+    {
+     "text": "The laptop approval works in development.",
+     "start": 275.165,
+     "end": 277.468
+    },
+    {
+     "text": "Valeria exports the solution and imports it into production.",
+     "start": 277.749,
+     "end": 281.311
+    },
+    {
+     "text": "What must she do with the multistage approval?",
+     "start": 281.592,
+     "end": 284.044
+    },
+    {
+     "text": "Recreate the approval after import?",
+     "start": 284.325,
+     "end": 286.415
+    },
+    {
+     "text": "Nothing, it travels with the solution?",
+     "start": 286.696,
+     "end": 288.764
+    },
+    {
+     "text": "Or export it again as unmanaged first?",
+     "start": 289.045,
+     "end": 291.54
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 291.821,
+     "end": 293.356
+    },
+    {
+     "text": "Recreate the approval after import.",
+     "start": 297.137,
+     "end": 299.312
+    },
+    {
+     "text": "Advanced approvals have no A L M support, so you must recreate them after importing.",
+     "start": 299.593,
+     "end": 304.542
+    },
+    {
+     "text": "Doing nothing is the trap, because the approval does not travel with the solution.",
+     "start": 304.823,
+     "end": 309.131
+    }
+   ]
+  },
+  {
+   "title": "Rules to remember",
+   "start": 310.032,
+   "end": 344.101,
+   "sentences": [
+    {
+     "text": "Back at Contoso, Marta's laptop is approved, and the service manager signed in one stage.",
+     "start": 310.032,
+     "end": 315.727
+    },
+    {
+     "text": "Remember the rules.",
+     "start": 316.008,
+     "end": 317.095
+    },
+    {
+     "text": "Stages with A I and humans mean a multistage approval, only in agent flows.",
+     "start": 317.376,
+     "end": 322.346
+    },
+    {
+     "text": "Manual stages use First to respond or Everyone must approve, never the same approver twice.",
+     "start": 322.627,
+     "end": 328.727
+    },
+    {
+     "text": "A I stages return Approve or Reject with a rationale.",
+     "start": 329.008,
+     "end": 332.484
+    },
+    {
+     "text": "Conditions route, approve, reject, or skip.",
+     "start": 332.765,
+     "end": 335.346
+    },
+    {
+     "text": "A piece of data means Request for information.",
+     "start": 335.627,
+     "end": 338.442
+    },
+    {
+     "text": "Recreate advanced approvals after import.",
+     "start": 338.723,
+     "end": 341.324
+    },
+    {
+     "text": "Next, monitor agent flows and their cost.",
+     "start": 341.605,
+     "end": 344.1
+    }
+   ]
+  }
+ ]
+}

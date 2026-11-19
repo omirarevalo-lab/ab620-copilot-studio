@@ -1,0 +1,600 @@
+{
+ "id": "L15",
+ "title": "Tools inside a topic",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 365.016,
+ "scenes": [
+  {
+   "title": "Who calls the tool",
+   "start": 0.8,
+   "end": 23.277,
+   "sentences": [
+    {
+     "text": "Marta asks the Contoso agent about the stock of a product.",
+     "start": 0.8,
+     "end": 4.554
+    },
+    {
+     "text": "Nexo needs a tool for that, the Check inventory tool.",
+     "start": 4.835,
+     "end": 8.034
+    },
+    {
+     "text": "A tool can be called in two ways.",
+     "start": 8.315,
+     "end": 10.106
+    },
+    {
+     "text": "You can call it explicitly from a topic, or the agent can call it by itself when it decides it needs it.",
+     "start": 10.387,
+     "end": 16.423
+    },
+    {
+     "text": "The difference is who is in control.",
+     "start": 16.704,
+     "end": 18.623
+    },
+    {
+     "text": "It is like a driver who follows a fixed route, versus one who chooses the way.",
+     "start": 18.904,
+     "end": 23.276
+    }
+   ]
+  },
+  {
+   "title": "Classic orchestration",
+   "start": 24.177,
+   "end": 45.271,
+   "sentences": [
+    {
+     "text": "First, the fixed route.",
+     "start": 24.177,
+     "end": 25.542
+    },
+    {
+     "text": "In classic orchestration, generative orchestration is turned off.",
+     "start": 25.823,
+     "end": 29.64
+    },
+    {
+     "text": "The agent answers only with topics.",
+     "start": 29.921,
+     "end": 32.096
+    },
+    {
+     "text": "Tools are called only explicitly, from inside a topic, at the step where you placed them.",
+     "start": 32.377,
+     "end": 37.496
+    },
+    {
+     "text": "Nobody else picks them.",
+     "start": 37.777,
+     "end": 39.206
+    },
+    {
+     "text": "Valeria draws the route, and Nexo follows it, stop by stop.",
+     "start": 39.487,
+     "end": 43.24
+    },
+    {
+     "text": "You keep full control of the flow.",
+     "start": 43.521,
+     "end": 45.27
+    }
+   ]
+  },
+  {
+   "title": "Generative orchestration",
+   "start": 46.171,
+   "end": 69.011,
+   "sentences": [
+    {
+     "text": "Now the driver who chooses the way.",
+     "start": 46.171,
+     "end": 48.111
+    },
+    {
+     "text": "With generative orchestration, the orchestrator picks the most suitable tool or topic by itself.",
+     "start": 48.392,
+     "end": 54.3
+    },
+    {
+     "text": "The orchestrator is the part that decides which topic, tool, or knowledge to use to respond.",
+     "start": 54.581,
+     "end": 60.255
+    },
+    {
+     "text": "To choose a tool, it reads the tool's name and description.",
+     "start": 60.536,
+     "end": 63.799
+    },
+    {
+     "text": "So the description must say clearly what the tool does.",
+     "start": 64.08,
+     "end": 66.767
+    },
+    {
+     "text": "A vague one leaves Nexo guessing.",
+     "start": 67.048,
+     "end": 69.01
+    }
+   ]
+  },
+  {
+   "title": "Decide: the fixed route",
+   "start": 69.911,
+   "end": 107.741,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 69.911,
+     "end": 70.784
+    },
+    {
+     "text": "Valeria turns generative orchestration off for a test agent.",
+     "start": 71.065,
+     "end": 74.712
+    },
+    {
+     "text": "The Check inventory tool must still run.",
+     "start": 74.993,
+     "end": 77.104
+    },
+    {
+     "text": "In classic orchestration, how is a tool called?",
+     "start": 77.385,
+     "end": 80.222
+    },
+    {
+     "text": "By the orchestrator, by description?",
+     "start": 80.503,
+     "end": 82.486
+    },
+    {
+     "text": "Explicitly, from inside a topic?",
+     "start": 82.767,
+     "end": 84.835
+    },
+    {
+     "text": "Or by the user, from the chat window?",
+     "start": 85.116,
+     "end": 87.12
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 87.401,
+     "end": 88.936
+    },
+    {
+     "text": "Explicitly, from inside a topic.",
+     "start": 92.717,
+     "end": 94.807
+    },
+    {
+     "text": "In classic orchestration the agent answers only with topics, so tools run only where a topic calls them.",
+     "start": 95.088,
+     "end": 101.786
+    },
+    {
+     "text": "Picking a tool by name and description is generative orchestration, and that is turned off here.",
+     "start": 102.067,
+     "end": 107.74
+    }
+   ]
+  },
+  {
+   "title": "Inside a topic",
+   "start": 108.641,
+   "end": 131.572,
+   "sentences": [
+    {
+     "text": "Back on the fixed route.",
+     "start": 108.641,
+     "end": 109.899
+    },
+    {
+     "text": "To call a tool from a topic, Valeria selects Add node, then Add a tool, and picks the tool.",
+     "start": 110.18,
+     "end": 115.64
+    },
+    {
+     "text": "An Action node appears in the topic.",
+     "start": 115.921,
+     "end": 118.054
+    },
+    {
+     "text": "That node is the explicit call.",
+     "start": 118.335,
+     "end": 120.083
+    },
+    {
+     "text": "One more rule, and the exam loves it.",
+     "start": 120.364,
+     "end": 122.56
+    },
+    {
+     "text": "Trigger phrases start topics.",
+     "start": 122.841,
+     "end": 124.59
+    },
+    {
+     "text": "They only select topics, never tools.",
+     "start": 124.871,
+     "end": 127.067
+    },
+    {
+     "text": "You can use tools inside topics, but a trigger phrase never picks a tool.",
+     "start": 127.348,
+     "end": 131.571
+    }
+   ]
+  },
+  {
+   "title": "Tool settings",
+   "start": 132.472,
+   "end": 157.829,
+   "sentences": [
+    {
+     "text": "Each tool has its details.",
+     "start": 132.472,
+     "end": 134.05
+    },
+    {
+     "text": "Allow agent to decide dynamically lets the agent pick the tool by itself.",
+     "start": 134.331,
+     "end": 139.002
+    },
+    {
+     "text": "Ask the end user before running asks for confirmation first, and it is No by default.",
+     "start": 139.283,
+     "end": 144.38
+    },
+    {
+     "text": "Authentication sets whether the tool runs with end user or maker credentials.",
+     "start": 144.661,
+     "end": 149.268
+    },
+    {
+     "text": "And Fill using sets how the inputs are filled.",
+     "start": 149.549,
+     "end": 151.895
+    },
+    {
+     "text": "Check inventory can show stock data, so Contoso turns on Ask the end user before running.",
+     "start": 152.176,
+     "end": 157.828
+    }
+   ]
+  },
+  {
+   "title": "Decide: ask first",
+   "start": 158.729,
+   "end": 193.232,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 158.729,
+     "end": 159.603
+    },
+    {
+     "text": "The service manager is worried about a sensitive tool.",
+     "start": 159.884,
+     "end": 163.04
+    },
+    {
+     "text": "Before it runs, the agent must get the user's okay.",
+     "start": 163.321,
+     "end": 166.307
+    },
+    {
+     "text": "Which setting should Valeria turn on?",
+     "start": 166.588,
+     "end": 168.464
+    },
+    {
+     "text": "Ask the end user before running?",
+     "start": 168.745,
+     "end": 170.494
+    },
+    {
+     "text": "A trigger phrase that asks first?",
+     "start": 170.775,
+     "end": 172.587
+    },
+    {
+     "text": "Or Authentication with maker credentials?",
+     "start": 172.868,
+     "end": 175.427
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 175.708,
+     "end": 177.243
+    },
+    {
+     "text": "Ask the end user before running.",
+     "start": 181.024,
+     "end": 182.794
+    },
+    {
+     "text": "That setting asks the user for confirmation before the tool runs, and it is No by default.",
+     "start": 183.075,
+     "end": 188.215
+    },
+    {
+     "text": "A trigger phrase only selects topics, never tools, so it cannot guard a tool.",
+     "start": 188.496,
+     "end": 193.231
+    }
+   ]
+  },
+  {
+   "title": "When the tool finishes",
+   "start": 194.132,
+   "end": 219.58,
+   "sentences": [
+    {
+     "text": "When the tool finishes, After running sets how the agent responds.",
+     "start": 194.132,
+     "end": 197.8
+    },
+    {
+     "text": "There are four choices.",
+     "start": 198.081,
+     "end": 199.403
+    },
+    {
+     "text": "Don't respond, which is the default.",
+     "start": 199.684,
+     "end": 201.71
+    },
+    {
+     "text": "Write the response with generative A I.",
+     "start": 201.991,
+     "end": 204.102
+    },
+    {
+     "text": "Send specific response.",
+     "start": 204.383,
+     "end": 205.896
+    },
+    {
+     "text": "Or Send an adaptive card.",
+     "start": 206.177,
+     "end": 207.776
+    },
+    {
+     "text": "Tools run in the user's context, so authentication must be enabled.",
+     "start": 208.057,
+     "end": 212.238
+    },
+    {
+     "text": "At Contoso, Check inventory uses end user credentials, so each employee sees only what their account allows.",
+     "start": 212.519,
+     "end": 219.579
+    }
+   ]
+  },
+  {
+   "title": "Two tools only for topics",
+   "start": 220.48,
+   "end": 246.413,
+   "sentences": [
+    {
+     "text": "Inside one aisle, Valeria opens a small booth with two special tools.",
+     "start": 220.48,
+     "end": 224.703
+    },
+    {
+     "text": "They exist only inside topics, and you add them with Add a tool in a topic.",
+     "start": 224.984,
+     "end": 229.527
+    },
+    {
+     "text": "They do not appear on the agent's Tools page, and the orchestrator cannot call them.",
+     "start": 229.808,
+     "end": 234.223
+    },
+    {
+     "text": "The first is Create search query.",
+     "start": 234.504,
+     "end": 236.316
+    },
+    {
+     "text": "It rewrites the user's latest message, plus the conversation context, into a clear query string.",
+     "start": 236.597,
+     "end": 242.634
+    },
+    {
+     "text": "A follow up like, what about sick leave, becomes a full question.",
+     "start": 242.915,
+     "end": 246.412
+    }
+   ]
+  },
+  {
+   "title": "Raw results, two steps",
+   "start": 247.313,
+   "end": 270.708,
+   "sentences": [
+    {
+     "text": "The second is Perform custom search.",
+     "start": 247.313,
+     "end": 249.403
+    },
+    {
+     "text": "It searches the knowledge sources you set on the node, and returns the raw results, not summarized, in a variable.",
+     "start": 249.684,
+     "end": 256.446
+    },
+    {
+     "text": "Then you can filter them, apply business rules, or feed a prompt.",
+     "start": 256.727,
+     "end": 260.267
+    },
+    {
+     "text": "The two tools are often used in sequence.",
+     "start": 260.548,
+     "end": 263.022
+    },
+    {
+     "text": "Compare the Generative answers node, which finds and writes the answer in one step.",
+     "start": 263.303,
+     "end": 268.144
+    },
+    {
+     "text": "Here, retrieval and response are separate.",
+     "start": 268.425,
+     "end": 270.707
+    }
+   ]
+  },
+  {
+   "title": "Add it in Copilot Studio",
+   "start": 271.608,
+   "end": 300.235,
+   "sentences": [
+    {
+     "text": "Here are the steps in Copilot Studio.",
+     "start": 271.608,
+     "end": 273.783
+    },
+    {
+     "text": "Open your agent and go to the Tools page.",
+     "start": 274.064,
+     "end": 276.602
+    },
+    {
+     "text": "Select Add a tool, choose a tool, then Add and configure.",
+     "start": 276.883,
+     "end": 280.167
+    },
+    {
+     "text": "In its settings, review the Name and Description, written so the orchestrator can understand them.",
+     "start": 280.448,
+     "end": 285.695
+    },
+    {
+     "text": "Turn on Ask the end user before running if the action is sensitive.",
+     "start": 285.976,
+     "end": 290.028
+    },
+    {
+     "text": "Now open a topic, select Add node, and choose Add a tool.",
+     "start": 290.309,
+     "end": 293.914
+    },
+    {
+     "text": "Select the tool, and an Action node appears.",
+     "start": 294.195,
+     "end": 296.711
+    },
+    {
+     "text": "Test in the chat, and check whether it asks for confirmation.",
+     "start": 296.992,
+     "end": 300.234
+    }
+   ]
+  },
+  {
+   "title": "Decide: the raw results",
+   "start": 301.135,
+   "end": 336.256,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 301.135,
+     "end": 302.008
+    },
+    {
+     "text": "Valeria wants the raw search results in a variable.",
+     "start": 302.289,
+     "end": 305.318
+    },
+    {
+     "text": "Then the topic will filter them with business rules.",
+     "start": 305.599,
+     "end": 308.179
+    },
+    {
+     "text": "Which tool should she add inside the topic?",
+     "start": 308.46,
+     "end": 310.656
+    },
+    {
+     "text": "Create search query?",
+     "start": 310.937,
+     "end": 312.216
+    },
+    {
+     "text": "Generative answers node?",
+     "start": 312.497,
+     "end": 313.947
+    },
+    {
+     "text": "Or Perform custom search?",
+     "start": 314.228,
+     "end": 315.72
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 316.001,
+     "end": 317.536
+    },
+    {
+     "text": "Perform custom search.",
+     "start": 321.317,
+     "end": 322.682
+    },
+    {
+     "text": "It searches the knowledge sources set on the node and returns raw, unsummarized results in a variable.",
+     "start": 322.963,
+     "end": 329.17
+    },
+    {
+     "text": "Generative answers finds and writes the answer in one step, and Create search query only rewrites the question.",
+     "start": 329.451,
+     "end": 336.255
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 337.156,
+   "end": 363.815,
+   "sentences": [
+    {
+     "text": "Back on the warehouse floor, Marta confirms, and Nexo brings her stock answer.",
+     "start": 337.156,
+     "end": 341.784
+    },
+    {
+     "text": "Remember three things.",
+     "start": 342.065,
+     "end": 343.302
+    },
+    {
+     "text": "Classic means an explicit call from a topic, and generative means the orchestrator picks by name and description.",
+     "start": 343.583,
+     "end": 350.088
+    },
+    {
+     "text": "Trigger phrases select only topics, and Ask the end user before running asks for confirmation.",
+     "start": 350.369,
+     "end": 356.235
+    },
+    {
+     "text": "Create search query and Perform custom search work only inside topics.",
+     "start": 356.516,
+     "end": 361.187
+    },
+    {
+     "text": "Next, agent flows inside a topic.",
+     "start": 361.468,
+     "end": 363.814
+    }
+   ]
+  }
+ ]
+}

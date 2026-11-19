@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 6,
+    "question": "The team wants to see each failed run of Create ticket, open its details, and send the failed runs again after the fix. Which tab do they open?",
+    "options": [
+      "Activity, because it keeps all run details",
+      "Overview, because it lists the latest runs",
+      "Analytics, because it charts the error rate"
+    ],
+    "right": 0,
+    "trap": 2
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 6,
+    "question": "In the middle of the day, Contoso's prepaid capacity runs out. What happens?",
+    "options": [
+      "The agent stops answering until capacity is added",
+      "All runs in progress are cancelled right away",
+      "New flow runs are blocked, the agent talks on"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 12,
+    "pauseSentence": 7,
+    "question": "Contoso's makers spent a week authoring and previewing a new agent. Nothing was published yet, but Copilot Credits were consumed. Which harness is the agent on?",
+    "options": [
+      "The standard harness for agents",
+      "The Microsoft Copilot harness",
+      "The Copilot chat harness"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

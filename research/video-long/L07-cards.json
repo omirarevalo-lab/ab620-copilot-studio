@@ -1,0 +1,9 @@
+{
+  "1": ["Two doors", [["Staff door", "Asks for a badge (employees)"], ["Public desk", "Open to everyone (customers)"], ["Rule", "Who uses the agent decides how you protect it"]]],
+  "2": ["Employees", [["Setting", "Authenticate with Microsoft"], ["Sign-in", "The user always signs in"], ["Share", "Controls who in the organization can chat"], ["Teams + Microsoft 365", "Support only this option"]]],
+  "3": ["Anonymous public", [["Setting", "No authentication"], ["Who", "Anyone with the link"], ["Only if", "The agent does not touch internal data"]]],
+  "5": ["Own website", [["By default", "Anyone with the agent ID can use Demo and Custom website"], ["Require secured access", "Client needs a secret or a token"], ["Protects", "The web channel, not each end user"], ["Takes effect", "Up to two hours"]]],
+  "7": ["The secret", [["Browser code", "Anyone can read it"], ["Secret", "Only on your own server"], ["Token", "Made from the secret, one conversation"], ["Page", "Receives only the token"]]],
+  "9": ["In the studio", [["1", "Settings › Security › Web channel security"], ["2", "Turn on Require secured access"], ["3", "Store the secrets only on your server"], ["4", "Server service requests a token"], ["5", "Page gets only the token › test"]]],
+  "10": ["Remember", [["Employees", "Authenticate with Microsoft + Share"], ["Anonymous public", "No authentication, no internal data"], ["Own website", "Require secured access, token from the server"]]]
+}

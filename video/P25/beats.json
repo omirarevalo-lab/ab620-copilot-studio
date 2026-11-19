@@ -1,0 +1,248 @@
+{
+ "id": "P25",
+ "title": "The event pipeline: stages and execution context",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 167.269,
+ "scenes": [
+  {
+   "title": "One click, one message",
+   "start": 0.8,
+   "end": 23.637,
+   "sentences": [
+    {
+     "text": "Maya, a sales rep at Contoso, saves a new account in her model-driven app.",
+     "start": 0.8,
+     "end": 5.536
+    },
+    {
+     "text": "The app does not write to the database by itself.",
+     "start": 5.816,
+     "end": 8.397
+    },
+    {
+     "text": "It sends a message called Create to Dataverse.",
+     "start": 8.677,
+     "end": 11.344
+    },
+    {
+     "text": "Dataverse then runs that message through a pipeline of four stages, and your plug-ins join the stages around the save.",
+     "start": 11.624,
+     "end": 18.792
+    },
+    {
+     "text": "Think of a restaurant: the order is checked, prepared, cooked, and finally plated.",
+     "start": 19.072,
+     "end": 23.637
+    }
+   ]
+  },
+  {
+   "title": "Stage ten: PreValidation",
+   "start": 24.537,
+   "end": 48.316,
+   "sentences": [
+    {
+     "text": "The first stop is PreValidation, stage ten.",
+     "start": 24.537,
+     "end": 27.375
+    },
+    {
+     "text": "It usually runs outside the database transaction, and before the security checks.",
+     "start": 27.655,
+     "end": 32.327
+    },
+    {
+     "text": "Contoso registers a synchronous plug-in here.",
+     "start": 32.607,
+     "end": 35.252
+    },
+    {
+     "text": "It sees that the tax number is empty, and throws an Invalid Plugin Execution Exception with a clear message.",
+     "start": 35.532,
+     "end": 42.188
+    },
+    {
+     "text": "Maya reads the message, and nothing was written.",
+     "start": 42.468,
+     "end": 45.071
+    },
+    {
+     "text": "This is the cheapest place to cancel an operation.",
+     "start": 45.351,
+     "end": 48.316
+    }
+   ]
+  },
+  {
+   "title": "Stage twenty: PreOperation",
+   "start": 49.216,
+   "end": 72.205,
+   "sentences": [
+    {
+     "text": "Next comes PreOperation, stage twenty.",
+     "start": 49.216,
+     "end": 51.776
+    },
+    {
+     "text": "Now the database transaction is open, but the row is not saved yet.",
+     "start": 52.056,
+     "end": 56.408
+    },
+    {
+     "text": "Contoso's second plug-in tidies the account name before it is written.",
+     "start": 56.688,
+     "end": 60.848
+    },
+    {
+     "text": "Because the plug-in changes the values first, there is no extra update.",
+     "start": 61.128,
+     "end": 65.245
+    },
+    {
+     "text": "Avoid cancelling here.",
+     "start": 65.525,
+     "end": 66.891
+    },
+    {
+     "text": "A cancel triggers a rollback of the whole transaction, and that costs a lot of performance.",
+     "start": 67.171,
+     "end": 72.205
+    }
+   ]
+  },
+  {
+   "title": "Stage thirty: the main operation",
+   "start": 73.105,
+   "end": 95.58,
+   "sentences": [
+    {
+     "text": "Stage thirty is the main operation.",
+     "start": 73.105,
+     "end": 75.388
+    },
+    {
+     "text": "This is where Dataverse itself writes the new account row.",
+     "start": 75.668,
+     "end": 78.932
+    },
+    {
+     "text": "The stage is for internal use, with one exception: the plug-ins of custom A P Is, and custom virtual table data providers, run here.",
+     "start": 79.212,
+     "end": 88.108
+    },
+    {
+     "text": "Everything before it is called Pre, and everything after it is called Post.",
+     "start": 88.388,
+     "end": 92.74
+    },
+    {
+     "text": "The words simply mean before or after this write.",
+     "start": 93.02,
+     "end": 95.58
+    }
+   ]
+  },
+  {
+   "title": "Stage forty: PostOperation",
+   "start": 96.48,
+   "end": 117.779,
+   "sentences": [
+    {
+     "text": "PostOperation, stage forty, runs after the write and still inside the transaction.",
+     "start": 96.48,
+     "end": 101.749
+    },
+    {
+     "text": "Contoso creates a follow-up task for Maya here, with a synchronous plug-in.",
+     "start": 102.029,
+     "end": 106.36
+    },
+    {
+     "text": "If that plug-in throws an error, the whole transaction rolls back, and the new account disappears too.",
+     "start": 106.64,
+     "end": 112.357
+    },
+    {
+     "text": "Also avoid changing the same account here, because that triggers a brand new Update event.",
+     "start": 112.637,
+     "end": 117.779
+    }
+   ]
+  },
+  {
+   "title": "Asynchronous: after the transaction",
+   "start": 118.679,
+   "end": 141.732,
+   "sentences": [
+    {
+     "text": "Not every job must make Maya wait.",
+     "start": 118.679,
+     "end": 120.791
+    },
+    {
+     "text": "In PostOperation you can register an asynchronous step.",
+     "start": 121.071,
+     "end": 124.505
+    },
+    {
+     "text": "It goes into a queue and runs after the operation completes, outside the database transaction.",
+     "start": 124.785,
+     "end": 130.545
+    },
+    {
+     "text": "It never joins that transaction, so if it fails, the account stays saved.",
+     "start": 130.825,
+     "end": 135.177
+    },
+    {
+     "text": "Only PostOperation allows asynchronous steps.",
+     "start": 135.457,
+     "end": 138.38
+    },
+    {
+     "text": "Contoso uses one to send the welcome email.",
+     "start": 138.66,
+     "end": 141.732
+    }
+   ]
+  },
+  {
+   "title": "What the exam asks",
+   "start": 142.632,
+   "end": 166.069,
+   "sentences": [
+    {
+     "text": "On the exam, remember four rules.",
+     "start": 142.632,
+     "end": 144.659
+    },
+    {
+     "text": "To cancel an operation, use a synchronous PreValidation step and throw an Invalid Plugin Execution Exception.",
+     "start": 144.939,
+     "end": 151.872
+    },
+    {
+     "text": "To change values before they are saved, use PreOperation.",
+     "start": 152.152,
+     "end": 155.757
+    },
+    {
+     "text": "Asynchronous steps exist only in PostOperation.",
+     "start": 156.037,
+     "end": 159.045
+    },
+    {
+     "text": "And an exception in any synchronous stage rolls back the whole transaction.",
+     "start": 159.325,
+     "end": 163.507
+    },
+    {
+     "text": "Never build logic on the Depth property.",
+     "start": 163.787,
+     "end": 166.069
+    }
+   ]
+  }
+ ]
+}

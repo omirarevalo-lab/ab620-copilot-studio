@@ -1,0 +1,144 @@
+{
+ "id": "L26",
+ "title": "Computer use",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 91.037,
+ "scenes": [
+  {
+   "title": "An assistant at the screen",
+   "start": 0.8,
+   "end": 17.237,
+   "sentences": [
+    {
+     "text": "Computer use is like hiring an assistant who works at the computer.",
+     "start": 0.8,
+     "end": 4.811
+    },
+    {
+     "text": "The agent looks at the screen and acts using vision and reasoning.",
+     "start": 5.091,
+     "end": 8.611
+    },
+    {
+     "text": "It is useful when a system has no A P I, only a screen.",
+     "start": 8.891,
+     "end": 12.219
+    },
+    {
+     "text": "It requires generative orchestration.",
+     "start": 12.499,
+     "end": 14.867
+    },
+    {
+     "text": "Think of it as a digital employee.",
+     "start": 15.147,
+     "end": 17.237
+    }
+   ]
+  },
+  {
+   "title": "Setting it up",
+   "start": 18.137,
+   "end": 35.295,
+   "sentences": [
+    {
+     "text": "When you set it up, you enter a name, a description, a model, instructions, and the machine.",
+     "start": 18.137,
+     "end": 23.065
+    },
+    {
+     "text": "The instructions must include full addresses and explicit steps, as if you were explaining the job to someone who has never done it.",
+     "start": 23.345,
+     "end": 30.961
+    },
+    {
+     "text": "The clearer the steps, the better the agent works and the fewer mistakes it makes.",
+     "start": 31.241,
+     "end": 35.295
+    }
+   ]
+  },
+  {
+   "title": "Where it runs",
+   "start": 36.195,
+   "end": 52.973,
+   "sentences": [
+    {
+     "text": "There are three places where it can run.",
+     "start": 36.195,
+     "end": 38.072
+    },
+    {
+     "text": "Hosted browser, in preview, is for experimenting.",
+     "start": 38.352,
+     "end": 41.275
+    },
+    {
+     "text": "Cloud PC pool, also in preview, uses machines joined to Entra and Intune.",
+     "start": 41.555,
+     "end": 46.803
+    },
+    {
+     "text": "And you can use your own machine with Power Automate for desktop.",
+     "start": 47.083,
+     "end": 50.496
+    },
+    {
+     "text": "Soon you will see which one fits production.",
+     "start": 50.776,
+     "end": 52.973
+    }
+   ]
+  },
+  {
+   "title": "Credentials and supervision",
+   "start": 53.873,
+   "end": 70.668,
+   "sentences": [
+    {
+     "text": "The maker's credentials are risky if the agent is shared.",
+     "start": 53.873,
+     "end": 57.116
+    },
+    {
+     "text": "It is better to use stored credentials, in internal storage or Azure Key Vault, or the end user's credentials.",
+     "start": 57.396,
+     "end": 64.052
+    },
+    {
+     "text": "Human supervision sends an Outlook email to a reviewer when it detects potentially harmful instructions.",
+     "start": 64.332,
+     "end": 70.668
+    }
+   ]
+  },
+  {
+   "title": "Cost and the exam",
+   "start": 71.568,
+   "end": 89.837,
+   "sentences": [
+    {
+     "text": "The cost is five Copilot Credits per step with standard models and fifteen with premium models.",
+     "start": 71.568,
+     "end": 77.371
+    },
+    {
+     "text": "It is not included in the Microsoft three six five Copilot license.",
+     "start": 77.651,
+     "end": 81.853
+    },
+    {
+     "text": "And here is the trap: choosing Hosted browser for production, when it is only for experimenting.",
+     "start": 82.133,
+     "end": 87.851
+    },
+    {
+     "text": "Keep that in mind when you answer.",
+     "start": 88.131,
+     "end": 89.837
+    }
+   ]
+  }
+ ]
+}

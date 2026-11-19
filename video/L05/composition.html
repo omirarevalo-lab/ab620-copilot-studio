@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L05 · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.6 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  :root { --amber: #d98a00; --amber-soft: #fff3d6; --red: #c4392f; --red-soft: #fde8e6; --green: #1e7f4f; --green-soft: #e3f4ea; --wall: #eef1f7; --floor: #e3e7ef; }
+  #stage { position: absolute; inset: 0; overflow: hidden; background: var(--wall); }
+  #world { position: absolute; left: 0; top: 0; width: 3840px; height: 2160px; transform-origin: 0 0; }
+  .wall { position: absolute; left: 0; top: 0; width: 3840px; height: 1500px; background: linear-gradient(#f4f6fa, var(--wall)); }
+  .floor { position: absolute; left: 0; top: 1500px; width: 3840px; height: 660px; background: var(--floor); }
+  .floor:before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: #d3d9e4; }
+  .w { position: absolute; }
+  .tag { position: absolute; transform: translateX(-50%); white-space: nowrap; font-size: 34px; font-weight: 700; padding: 10px 26px; border-radius: 999px; background: #fff; box-shadow: var(--shadow); opacity: 0; }
+  .tag.amber { color: var(--amber); border: 3px solid var(--amber); }
+  .tag.red { color: var(--red); border: 3px solid var(--red); }
+  .tag.blue { color: var(--accent); border: 3px solid var(--accent); }
+  /* overlays */
+  .ov { position: absolute; opacity: 0; }
+  .kin { left: 0; right: 0; text-align: center; font-weight: 800; letter-spacing: -2px; color: var(--ink); }
+  #ovTitle { top: 0; bottom: 0; padding-top: 400px; font-size: 120px; background: rgba(244,246,250,.94); }
+  #ovTitle small { display: block; font-size: 44px; font-weight: 600; letter-spacing: 0; color: var(--muted); margin-top: 18px; }
+  #ovQ { top: 380px; font-size: 104px; }
+  #ovQ span { display: inline-block; background: #fff; padding: 22px 56px; border-radius: 36px; box-shadow: 0 30px 80px rgba(16,24,40,.18); }
+  #vign { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(20,24,33,0) 40%, rgba(20,24,33,.45) 100%); opacity: 0; }
+  #ovSplit { inset: 0; display: flex; }
+  #ovSplit > div { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; font-size: 120px; font-weight: 800; letter-spacing: -2px; }
+  #ovSplit .l { background: var(--amber-soft); color: var(--amber); }
+  #ovSplit .r { background: var(--red-soft); color: var(--red); }
+  #ovSplit small { font-size: 46px; font-weight: 600; letter-spacing: 0; color: var(--ink); }
+  #ovSplit .ic { width: 150px; height: 150px; }
+  #stamp { left: 50%; top: 820px; transform: translateX(-50%); font-size: 40px; font-weight: 700; background: var(--ink); color: #fff; padding: 18px 40px; border-radius: 18px; white-space: nowrap; }
+  #stamp b { color: #ffd166; }
+  #blocked { left: 50%; top: 50%; font-size: 200px; font-weight: 900; color: var(--red); border: 16px solid var(--red); border-radius: 30px; padding: 10px 60px; letter-spacing: 6px; transform: translate(-50%, -50%) rotate(-8deg); background: rgba(255,255,255,.85); }
+  /* product UI mock (generic, no product logos) */
+  #uiBack { position: absolute; inset: 0; background: rgba(238,241,247,.94); opacity: 0; }
+  #ui { position: absolute; left: 140px; top: 90px; width: 1640px; height: 900px; background: #fff; border-radius: 28px; box-shadow: 0 40px 120px rgba(16,24,40,.25); overflow: hidden; opacity: 0; transform-origin: 50% 50%; }
+  #ui .bar { height: 78px; background: #1f2a44; display: flex; align-items: center; padding: 0 34px; gap: 14px; color: #fff; font-size: 28px; font-weight: 600; }
+  #ui .bar i.dot { width: 16px; height: 16px; border-radius: 50%; background: #ffffff40; display: inline-block; }
+  #ui .bar .t { margin-left: 18px; }
+  #ui .bar .pub { margin-left: auto; background: var(--accent); padding: 12px 30px; border-radius: 12px; font-size: 26px; }
+  #ui .nav { position: absolute; left: 0; top: 78px; bottom: 0; width: 300px; background: #f3f5f9; padding: 30px 0; }
+  #ui .nav div { padding: 16px 38px; font-size: 27px; color: var(--muted); }
+  #ui .nav div.on { background: #fff; color: var(--accent); font-weight: 700; border-left: 6px solid var(--accent); }
+  #ui .main { position: absolute; left: 300px; top: 78px; right: 0; bottom: 0; padding: 40px 56px; }
+  #ui h3 { margin: 0 0 30px; font-size: 44px; }
+  #ui .crumb { font-size: 24px; color: var(--muted); margin-bottom: 8px; }
+  #ui .row { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; border-bottom: 2px solid var(--line); width: 680px; }
+  #ui .row b { font-size: 31px; }
+  #ui .dd { position: relative; width: 380px; padding: 16px 22px; border: 2px solid var(--line2); border-radius: 12px; font-size: 26px; background: #fff; }
+  #ui .dd:after { content: "▾"; position: absolute; right: 18px; color: var(--muted); }
+  #ui .dd .v2 { position: absolute; left: 22px; top: 16px; opacity: 0; color: var(--amber); font-weight: 700; }
+  #ui .btn { padding: 14px 34px; border-radius: 12px; border: 2px solid var(--line2); font-size: 26px; font-weight: 600; }
+  #ddList { position: absolute; left: 0; top: 64px; width: 410px; background: #fff; border-radius: 12px; box-shadow: 0 20px 50px rgba(16,24,40,.2); opacity: 0; z-index: 5; }
+  #ddList div { padding: 16px 22px; font-size: 26px; }
+  #ddList div.sel { background: var(--amber-soft); color: var(--amber); font-weight: 700; }
+  #warns { position: absolute; right: 50px; top: 150px; width: 520px; display: flex; flex-direction: column; gap: 20px; }
+  .warn { background: var(--amber-soft); border: 3px solid var(--amber); border-radius: 18px; padding: 20px 24px; display: flex; gap: 18px; align-items: flex-start; opacity: 0; }
+  .warn .ic { width: 44px; height: 44px; color: var(--amber); flex: 0 0 auto; }
+  .warn b { display: block; font-size: 27px; color: #7a4d00; }
+  .warn span { font-size: 25px; color: #6b5a3a; }
+  #shareDlg { position: absolute; left: 520px; top: 430px; width: 560px; background: #fff; border-radius: 20px; box-shadow: 0 30px 80px rgba(16,24,40,.25); padding: 30px 34px; opacity: 0; z-index: 6; }
+  #shareDlg b { font-size: 30px; }
+  #shareDlg .tg { margin-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 27px; }
+  .sw { width: 86px; height: 46px; border-radius: 23px; background: var(--line2); position: relative; }
+  .sw i { position: absolute; left: 5px; top: 5px; width: 36px; height: 36px; border-radius: 50%; background: #fff; }
+  #toast { position: absolute; right: 40px; top: 96px; background: var(--green); color: #fff; font-size: 27px; font-weight: 700; padding: 16px 30px; border-radius: 14px; opacity: 0; }
+  #brace { position: absolute; right: 590px; top: 150px; width: 26px; height: 0; border: 5px solid var(--amber); border-left: 0; border-radius: 0 20px 20px 0; opacity: 0; }
+  #braceTxt { position: absolute; right: 50px; top: 560px; width: 520px; text-align: center; font-size: 30px; font-weight: 800; color: #fff; background: var(--amber); border-radius: 999px; padding: 14px 0; opacity: 0; }
+  #cur { position: absolute; left: 0; top: 0; width: 46px; height: 60px; opacity: 0; z-index: 20; }
+  #clickRing { position: absolute; width: 60px; height: 60px; margin: -30px 0 0 -30px; border-radius: 50%; border: 5px solid var(--accent); opacity: 0; z-index: 19; }
+  .capi { position: absolute; width: 200px; text-align: center; transform: translate(-50%, -50%); opacity: 0; }
+  .capi .disc { width: 150px; height: 150px; margin: 0 auto 14px; border-radius: 40px; background: #fff; border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; color: var(--accent); box-shadow: var(--shadow); }
+  .capi .disc .ic { width: 80px; height: 80px; }
+  .capi b { font-size: 36px; }
+  /* ═══ L05 full: extended world, bins, chips, windows, exam room ═══ */
+  .wall { width: 8000px; } .floor { width: 8000px; height: 3400px; }
+  .bg { position: absolute; border-radius: 70px; background: #fbfcfe; border: 8px solid #d3d9e4; box-sizing: border-box; }
+  .lab { position: absolute; font-weight: 800; white-space: nowrap; opacity: 0; }
+  .chip { position: absolute; width: 520px; height: 120px; display: flex; align-items: center; gap: 16px; padding: 0 26px; box-sizing: border-box; border-radius: 28px; background: #fff; border: 7px solid #8a93a6; color: #5d6472; font-size: 44px; font-weight: 800; white-space: nowrap; box-shadow: 0 10px 30px rgba(16,24,40,.12); opacity: 0; }
+  .chip .ic { width: 62px; height: 62px; flex: 0 0 auto; }
+  .chip.sm { width: 290px; height: 84px; font-size: 38px; padding: 0 20px; border-width: 5px; }
+  .chip.sm .ic { width: 46px; height: 46px; }
+  .bin { position: absolute; width: 600px; height: 420px; box-sizing: border-box; border-radius: 34px; border: 8px solid; opacity: 0; }
+  .bin .hd { position: absolute; left: 0; right: 0; top: 0; height: 100px; border-radius: 24px 24px 0 0; color: #fff; font-size: 56px; font-weight: 800; text-align: center; line-height: 100px; }
+  .spk { position: absolute; left: -35px; top: -5px; width: 70px; height: 10px; border-radius: 5px; background: var(--red); opacity: 0; }
+  .zl { position: absolute; background: #fff; border-radius: 30px; padding: 14px 40px 18px; border-left: 20px solid; box-shadow: var(--shadow); opacity: 0; white-space: nowrap; }
+  .zl div { font-size: 84px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+  .zl small { display: block; font-size: 64px; font-weight: 600; color: var(--muted); }
+  .zs { position: absolute; width: 1100px; height: 100px; box-sizing: border-box; display: flex; align-items: center; gap: 22px; padding: 0 28px; background: #fff; border-radius: 24px; border-left: 16px solid; font-size: 46px; font-weight: 700; color: #141821; box-shadow: var(--shadow); opacity: 0; }
+  .zs .ic { width: 62px; height: 62px; flex: 0 0 auto; }
+  .zs .strike { position: absolute; left: 24px; right: 24px; top: 48px; height: 8px; background: var(--red); border-radius: 4px; opacity: 0; }
+  .zs .stp { margin-left: auto; width: 62px; height: 62px; color: var(--green); opacity: 0; }
+  .bdg { position: absolute; width: 760px; height: 96px; box-sizing: border-box; display: flex; align-items: center; gap: 18px; padding: 0 26px; background: #e6ecfb; border: 6px solid var(--accent); border-radius: 22px; font-size: 54px; font-weight: 700; color: var(--accent); white-space: nowrap; opacity: 0; }
+  .bdg .ic { width: 58px; height: 58px; }
+  .bdg .lk { margin-left: auto; color: #5d6472; opacity: 0; }
+  /* UI windows (generic product screens) */
+  .uw { position: absolute; left: 140px; top: 90px; width: 1640px; height: 900px; background: #fff; border-radius: 28px; box-shadow: 0 40px 120px rgba(16,24,40,.25); overflow: hidden; opacity: 0; }
+  .uw .bar { height: 78px; background: #1f2a44; display: flex; align-items: center; padding: 0 34px; gap: 14px; color: #fff; font-size: 30px; font-weight: 600; }
+  .uw .bar i.dot { width: 16px; height: 16px; border-radius: 50%; background: #ffffff40; display: inline-block; }
+  .uw .bar .t { margin-left: 18px; }
+  .uw .nav { position: absolute; left: 0; top: 78px; bottom: 0; width: 300px; background: #f3f5f9; padding: 30px 0; }
+  .uw .nav div { padding: 16px 38px; font-size: 28px; color: var(--muted); }
+  .uw .nav div.on { background: #fff; color: var(--accent); font-weight: 700; border-left: 6px solid var(--accent); }
+  .uw .main { position: absolute; left: 300px; top: 78px; right: 0; bottom: 0; padding: 40px 56px; }
+  .uw h3 { margin: 0 0 30px; font-size: 44px; }
+  .uw .crumb { font-size: 30px; color: var(--muted); margin-bottom: 8px; }
+  .uw .row { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; border-bottom: 2px solid var(--line); width: 1100px; }
+  .uw .row b { font-size: 33px; }
+  .uw .dd { position: relative; width: 470px; padding: 16px 22px; border: 2px solid var(--line2); border-radius: 12px; font-size: 30px; background: #fff; display: flex; align-items: center; gap: 12px; }
+  .uw .dd .ic { width: 34px; height: 34px; color: var(--muted); }
+  .uw .note { margin-top: 30px; display: flex; align-items: center; gap: 14px; font-size: 32px; font-weight: 700; color: var(--green); opacity: 0; }
+  .uw .note .ic { width: 40px; height: 40px; }
+  .uw .tgl { width: 110px; height: 58px; border-radius: 29px; background: var(--line2); position: relative; }
+  .uw .tgl i { position: absolute; left: 6px; top: 6px; width: 46px; height: 46px; border-radius: 50%; background: #fff; }
+  .cm { display: flex; align-items: center; gap: 18px; width: 800px; box-sizing: border-box; background: #f3f5f9; border-radius: 26px; padding: 20px 28px; font-size: 34px; font-weight: 600; margin-bottom: 26px; opacity: 0; }
+  .cm .ic { width: 46px; height: 46px; color: var(--accent); }
+  .cm .btn { margin-left: auto; background: var(--accent); color: #fff; border-radius: 12px; padding: 10px 26px; font-size: 30px; font-weight: 700; }
+  .tr { position: absolute; left: 340px; width: 1230px; height: 76px; display: flex; align-items: center; border-bottom: 2px solid var(--line); font-size: 32px; opacity: 0; }
+  .tr.th { color: var(--muted); font-size: 29px; font-weight: 700; opacity: 1; }
+  .tr .c1 { width: 380px; font-weight: 700; } .tr .c2 { width: 260px; font-weight: 700; } .tr .c3 { width: 300px; display: flex; gap: 14px; color: var(--accent); }
+  .tr .c3 .ic { width: 38px; height: 38px; } .tr .c4 { margin-left: auto; padding: 8px 28px; border: 2px solid var(--line2); border-radius: 12px; font-size: 29px; font-weight: 600; }
+  .pubd { color: var(--green); } .drft { color: var(--amber); }
+  .pnl { position: absolute; background: #f3f5f9; border-radius: 18px; padding: 18px 26px; font-size: 30px; }
+  .pnl div { padding: 4px 0; opacity: 0; }
+  /* screen overlays */
+  .cap { position: absolute; left: 50%; transform: translateX(-50%); bottom: 22px; font-size: 36px; font-weight: 800; color: #fff; background: var(--accent); padding: 12px 34px; border-radius: 999px; white-space: nowrap; opacity: 0; }
+  #errToast { position: absolute; left: 50%; top: 70px; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; background: var(--red); color: #fff; font-size: 34px; font-weight: 700; padding: 18px 36px; border-radius: 18px; white-space: nowrap; opacity: 0; box-shadow: 0 20px 60px rgba(196,57,47,.4); }
+  #errToast .ic { width: 46px; height: 46px; }
+  #chipScrim { position: absolute; inset: 0; background: rgba(238,241,247,.7); opacity: 0; }
+  .qc { position: absolute; width: 780px; height: 150px; box-sizing: border-box; display: flex; align-items: center; gap: 24px; padding: 0 36px; background: #fff; border: 6px solid var(--accent); border-radius: 34px; font-size: 62px; font-weight: 800; color: #141821; box-shadow: 0 30px 80px rgba(16,24,40,.2); opacity: 0; white-space: nowrap; }
+  .qc .ic { width: 80px; height: 80px; color: var(--accent); }
+  .sg { position: absolute; transform: translate(-50%, -50%); background: #fff; border-radius: 22px; padding: 12px 26px; border: 5px solid; font-size: 36px; font-weight: 800; line-height: 1.2; text-align: center; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; white-space: nowrap; }
+  .sg small { display: block; font-size: 34px; font-weight: 600; color: #141821; }
+  .pl { position: absolute; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 50%; border: 8px solid; opacity: 0; }
+  /* exam room */
+  #exams { position: absolute; inset: 0; }
+  .exam { position: absolute; inset: 0; background: #141b2d; opacity: 0; }
+  .exam .xl { position: absolute; left: 120px; top: 62px; font-size: 34px; font-weight: 800; letter-spacing: 6px; color: #ffd166; }
+  .exam .xq { position: absolute; left: 120px; top: 130px; width: 1680px; box-sizing: border-box; padding: 28px 44px; background: #fff; border-radius: 28px; font-size: 40px; font-weight: 700; line-height: 1.3; color: #141821; opacity: 0; }
+  .exam .xg { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; }
+  .exam .xo { position: absolute; left: 120px; width: 1240px; height: 118px; box-sizing: border-box; display: flex; align-items: center; gap: 24px; padding: 0 30px; background: #fff; border-radius: 22px; border: 6px solid #fff; font-size: 36px; font-weight: 600; line-height: 1.2; color: #141821; opacity: 0; }
+  .exam .xo b.k { flex: 0 0 64px; height: 64px; border-radius: 50%; background: #e6ecfb; color: var(--accent); font-size: 36px; display: flex; align-items: center; justify-content: center; }
+  .exam .xo .tx { flex: 1; }
+  .exam .xo em.trap { font-style: normal; font-size: 28px; font-weight: 800; color: #fff; background: var(--red); padding: 6px 20px; border-radius: 999px; opacity: 0; }
+  .exam .xo .ic.ok { width: 50px; height: 50px; color: var(--green); opacity: 0; }
+  .exam .xring { position: absolute; left: 1480px; top: 470px; opacity: 0; }
+  .exam .xwhy { position: absolute; left: 120px; top: 530px; width: 1680px; font-size: 40px; font-weight: 700; color: #fff; line-height: 1.35; }
+  .exam .xwhy div { opacity: 0; }
+  .exam .xp { position: absolute; left: 120px; top: 650px; width: 1680px; height: 400px; opacity: 0; }
+  .y { color: #ffd166; } .g { color: #6be3a0; } .r { color: #ff8a80; }
+  .xp .rm { position: absolute; top: 0; width: 800px; height: 300px; box-sizing: border-box; border: 6px solid; border-radius: 28px; background: #1d2742; color: #fff; }
+  .xp .rm h4 { position: absolute; left: 28px; top: 14px; margin: 0; font-size: 44px; font-weight: 800; }
+  .xp .lb { position: absolute; font-size: 44px; font-weight: 800; color: #ffd166; white-space: nowrap; }
+  .xp .tile { position: absolute; top: 0; width: 520px; height: 250px; box-sizing: border-box; border: 6px solid #3a4a78; border-radius: 28px; background: #1d2742; color: #fff; }
+  .xp .tile h4 { position: absolute; left: 28px; top: 14px; margin: 0; font-size: 44px; font-weight: 800; }
+  .xp .xc { position: absolute; display: flex; align-items: center; gap: 16px; padding: 0 26px; height: 84px; box-sizing: border-box; background: #fff; color: #141821; border: 5px solid var(--green); border-radius: 22px; font-size: 38px; font-weight: 700; opacity: 0; white-space: nowrap; }
+  .xp .xc .ic { width: 48px; height: 48px; color: var(--green); }
+  .rc { position: absolute; width: 560px; height: 400px; box-sizing: border-box; background: #fff; border: 8px solid; border-radius: 36px; padding: 34px 36px; font-size: 52px; font-weight: 800; line-height: 1.15; box-shadow: 0 30px 80px rgba(16,24,40,.25); opacity: 0; }
+  .rc .ic { width: 100px; height: 100px; display: block; margin-bottom: 20px; }
+  .rc small { display: block; margin-top: 14px; font-size: 38px; font-weight: 600; color: #141821; line-height: 1.25; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage">
+ <div id="world">
+  <div class="wall"></div><div class="floor"></div>
+  <!-- L05: room backdrops + districts (under everything) -->
+  <div class="bg" id="bgB" style="left:3900px;top:1800px;width:3600px;height:1240px"></div>
+  <div class="bg" id="bgD" style="left:3900px;top:3200px;width:3600px;height:1320px"></div>
+  <div class="bg" id="bgE" style="left:80px;top:3200px;width:3700px;height:1320px"></div>
+  <svg class="w" id="zones" style="left:0;top:1500px" width="3840" height="1700" viewBox="0 1500 3840 1700"></svg>
+  <div class="zl" id="zl1" style="left:160px;top:1605px;border-color:#7ea1e6"><div>Zone 1 · Citizen</div><small>private, read-only</small></div>
+  <div class="zl" id="zl2" style="left:1370px;top:1605px;border-color:#2f5bd3"><div>Zone 2 · Partnered</div><small>IT-approved makers</small></div>
+  <div class="zl" id="zl3" style="left:2580px;top:1605px;border-color:#1f2a44"><div>Zone 3 · Professional</div><small>ALM, SLAs</small></div>
+
+  <!-- many agents (filled by script) -->
+  <div id="fleet" class="w" style="left:0;top:0"></div>
+
+  <!-- maker desk -->
+  <svg class="w" style="left:420px;top:1040px" width="900" height="520" viewBox="0 0 900 520">
+   <rect x="230" y="340" width="600" height="26" rx="8" fill="#c9ced8"/><rect x="270" y="366" width="18" height="120" fill="#c9ced8"/><rect x="770" y="366" width="18" height="120" fill="#c9ced8"/>
+   <g id="maker"><circle cx="140" cy="200" r="46" fill="#f2c9a6"/><path d="M86 470 Q86 270 140 262 Q194 270 194 470 Z" fill="#2f5bd3"/><path d="M178 320 L300 330" stroke="#2f5bd3" stroke-width="26" stroke-linecap="round"/></g>
+   <rect x="370" y="110" width="320" height="230" rx="16" fill="#1f2a44"/><rect x="386" y="126" width="288" height="198" rx="8" fill="#fff"/>
+   <rect x="340" y="336" width="380" height="14" rx="6" fill="#8a93a6"/>
+   <text class="ptxt" x="404" y="170" font-size="22" font-weight="700" fill="#141821">Authentication</text>
+   <rect x="404" y="188" width="252" height="48" rx="8" fill="#fff" stroke="#c9ced8" stroke-width="2"/>
+   <text id="lapA" x="418" y="220" font-size="19" fill="#141821">Authenticate with Microsoft</text>
+   <text id="lapB" x="418" y="220" font-size="20" font-weight="700" fill="#d98a00" opacity="0">No authentication</text>
+   <rect id="lapHi" x="404" y="188" width="252" height="48" rx="8" fill="none" stroke="#d98a00" stroke-width="4" opacity="0"/>
+  </svg>
+
+  <!-- wall alarm (security scan) -->
+  <div class="w" id="alarm" style="left:860px;top:640px;width:200px;height:200px">
+   <svg width="200" height="200" viewBox="0 0 200 200" style="position:absolute;left:0;top:0;overflow:visible">
+    <circle class="ring" cx="100" cy="100" r="90" fill="none" stroke="#d98a00" stroke-width="8" opacity="0"/>
+    <circle class="ring" cx="100" cy="100" r="90" fill="none" stroke="#d98a00" stroke-width="8" opacity="0"/>
+    <circle class="ring" cx="100" cy="100" r="90" fill="none" stroke="#d98a00" stroke-width="8" opacity="0"/>
+    <circle id="alarmOut" cx="100" cy="100" r="78" fill="none" stroke="#c9ced8" stroke-width="6" stroke-dasharray="14 12" opacity="0"/>
+    <g id="alarmBody" opacity="0"><circle cx="100" cy="100" r="78" fill="#d98a00"/><circle id="alarmGlow" cx="100" cy="100" r="50" fill="#ffd166"/><path d="M100 64 L100 108" stroke="#7a4d00" stroke-width="12" stroke-linecap="round"/><circle cx="100" cy="132" r="8" fill="#7a4d00"/></g>
+   </svg>
+  </div>
+  <div class="tag amber" id="tagScan" style="left:960px;top:880px">Security scan · warns</div>
+
+  <!-- the agent -->
+  <svg class="w" id="bot" style="left:1720px;top:1010px" width="360" height="500" viewBox="0 0 360 500">
+   <line x1="180" y1="40" x2="180" y2="90" stroke="#2f5bd3" stroke-width="10"/><circle cx="180" cy="34" r="16" fill="#2f5bd3"/>
+   <rect x="60" y="90" width="240" height="190" rx="54" fill="#2f5bd3"/><rect x="92" y="130" width="176" height="104" rx="40" fill="#e6ecfb"/>
+   <circle class="eye" cx="145" cy="182" r="16" fill="#141821"/><circle class="eye" cx="215" cy="182" r="16" fill="#141821"/>
+   <rect x="96" y="300" width="168" height="170" rx="40" fill="#2f5bd3"/>
+   <rect x="250" y="330" width="96" height="120" rx="10" fill="#ffd166"/><text class="ptxt" x="298" y="400" font-size="34" font-weight="800" fill="#7a4d00" text-anchor="middle">HR</text>
+   <g id="lockC"><rect x="20" y="210" width="56" height="46" rx="10" fill="#1e7f4f"/><path d="M32 210 v-14 a16 16 0 0 1 32 0 v14" fill="none" stroke="#1e7f4f" stroke-width="9"/></g>
+   <g id="lockO" opacity="0"><rect x="20" y="210" width="56" height="46" rx="10" fill="#d98a00"/><path d="M32 210 v-14 a16 16 0 0 1 32 0 v-6" fill="none" stroke="#d98a00" stroke-width="9" transform="rotate(-25 32 210)"/></g>
+  </svg>
+  <div class="tag blue" id="tagBot" style="left:1900px;top:1540px">HR agent</div>
+
+  <!-- door + gate (data policy) -->
+  <svg class="w" style="left:2700px;top:960px" width="420" height="560" viewBox="0 0 420 560">
+   <rect x="120" y="20" width="200" height="520" rx="10" fill="#d3d9e4"/><rect x="140" y="40" width="160" height="500" fill="#f8f9fb"/>
+   <g id="gate" style="transform-origin: 40px 330px" opacity="0"><rect x="30" y="320" width="20" height="200" rx="6" fill="#141821"/><g id="gateBar"><rect x="40" y="310" width="360" height="36" rx="18" fill="#c4392f"/><rect x="100" y="310" width="40" height="36" fill="#fff"/><rect x="200" y="310" width="40" height="36" fill="#fff"/><rect x="300" y="310" width="40" height="36" fill="#fff"/></g></g>
+   <rect id="gateOut" x="40" y="310" width="360" height="36" rx="18" fill="none" stroke="#c9ced8" stroke-width="6" stroke-dasharray="14 12" opacity="0"/>
+  </svg>
+  <div class="tag red" id="tagGate" style="left:2920px;top:1540px">Data policy · blocks</div>
+
+  <!-- admin tower -->
+  <svg class="w" id="tower" style="left:3160px;top:300px" width="460" height="560" viewBox="0 0 460 560" opacity="0">
+   <rect x="40" y="300" width="380" height="240" rx="24" fill="#1f2a44"/><rect x="70" y="330" width="320" height="180" rx="14" fill="#2d3a5c"/>
+   <circle cx="230" cy="160" r="54" fill="#f2c9a6"/><path d="M160 300 Q160 222 230 214 Q300 222 300 300 Z" fill="#1e7f4f"/>
+   <path d="M196 380 l34 -26 l34 26 v40 q0 30 -34 46 q-34 -16 -34 -46 Z" fill="#c4392f"/>
+  </svg>
+  <div class="tag red" id="tagAdmin" style="left:3390px;top:880px">Administrator</div>
+  <svg class="w" style="left:2780px;top:860px" width="700" height="460" viewBox="0 0 700 460"><path id="adminLine" d="M600 20 C 560 200, 200 120, 60 440" fill="none" stroke="#c4392f" stroke-width="6" stroke-dasharray="16 14" opacity="0"/></svg>
+
+  <!-- link + people (filled by script) -->
+  <div class="w" id="linkChip" style="left:0;top:0;opacity:0"><span class="pill solid lg"><i class="ic" data-i="link"></i>Agent link</span></div>
+  <div id="crowd" class="w" style="left:0;top:0"></div>
+  <div id="bubbles" class="w" style="left:0;top:0"></div>
+  <div class="w" id="walker" style="left:3260px;top:1180px;opacity:0"></div>
+  <div class="w" id="xMark" style="left:2600px;top:1060px;font-size:200px;font-weight:900;color:#c4392f;opacity:0">✕</div>
+
+  <!-- capabilities around the agent (scene 4) -->
+  <svg class="w" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">
+   <path class="cable" id="cb0" d="M1820 1150 C 1700 1000, 1500 900, 1380 800" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <path class="cable" id="cb1" d="M1980 1150 C 2100 1000, 2300 900, 2420 800" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <path class="cable" id="cb2" d="M1800 1420 C 1650 1550, 1500 1650, 1380 1760" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <path class="cable" id="cb3" d="M2000 1420 C 2150 1550, 2300 1650, 2420 1760" fill="none" stroke="#2f5bd3" stroke-width="12" stroke-linecap="round" opacity="0"/>
+   <g id="cut" opacity="0"><rect x="2150" y="905" width="40" height="150" rx="10" fill="#c4392f" transform="rotate(35 2170 980)"/></g>
+  </svg>
+  <div class="capi" id="cap0" style="left:1300px;top:720px"><div class="disc"><i class="ic" data-i="chat"></i></div><b>Channels</b></div>
+  <div class="capi" id="cap1" style="left:2500px;top:720px"><div class="disc"><i class="ic" data-i="book_open"></i></div><b>Knowledge</b></div>
+  <div class="capi" id="cap2" style="left:1300px;top:1840px"><div class="disc"><i class="ic" data-i="toolbox"></i></div><b>Tools</b></div>
+  <div class="capi" id="cap3" style="left:2500px;top:1840px"><div class="disc"><i class="ic" data-i="server"></i></div><b>MCP servers</b></div>
+  <div id="envs" class="w" style="left:2950px;top:960px;opacity:0;display:flex;gap:24px"></div>
+
+  <!-- ═══ scene 4: three groups (annex A, right of the admin tower) ═══ -->
+  <div class="w" id="deskA" style="left:3780px;top:1530px;width:2040px;height:40px;border-radius:12px;background:#1f2a44;opacity:0"></div>
+  <div class="bin" id="binB" style="left:3820px;top:1110px;border-color:#2f5bd3;background:#e6ecfb"><div class="hd" style="background:#2f5bd3">Business</div></div>
+  <div class="bin" id="binN" style="left:4500px;top:1110px;border-color:#7b4fc9;background:#efe8fa"><div class="hd" style="background:#7b4fc9">Non-business</div></div>
+  <div class="bin" id="binX" style="left:5180px;top:1110px;border-color:#c4392f;background:#fde8e6"><div class="hd" style="background:#c4392f">Blocked</div></div>
+  <div class="chip" id="cSP" style="left:3860px;top:1230px"><i class="ic" data-i="building"></i>SharePoint</div>
+  <div class="chip" id="cSoc" style="left:4540px;top:1230px"><i class="ic" data-i="people_team"></i>Social network</div>
+  <div class="chip" id="cGen" style="left:5220px;top:1230px"><i class="ic" data-i="plug_connected"></i>Connector</div>
+  <svg class="w" id="lockX" style="left:5640px;top:1050px;opacity:0" width="130" height="150" viewBox="0 0 130 150"><rect x="10" y="60" width="110" height="84" rx="14" fill="#c4392f"/><path d="M30 60 v-22 a35 35 0 0 1 70 0 v22" fill="none" stroke="#c4392f" stroke-width="16"/><circle cx="65" cy="100" r="12" fill="#fff"/></svg>
+  <div class="chip" id="t1" style="left:3860px;top:1230px;border-color:#2f5bd3;color:#2f5bd3"><i class="ic" data-i="building"></i>SharePoint</div>
+  <div class="chip" id="t2" style="left:4540px;top:1230px;border-color:#7b4fc9;color:#7b4fc9"><i class="ic" data-i="people_team"></i>Social network</div>
+  <div class="lab" id="nt" style="left:4700px;top:520px;font-size:96px;color:#c4392f">never together</div>
+  <svg class="w" id="bot4" style="left:6420px;top:1010px" width="360" height="500" viewBox="0 0 360 500">
+   <line x1="180" y1="40" x2="180" y2="90" stroke="#2f5bd3" stroke-width="10"/><circle cx="180" cy="34" r="16" fill="#2f5bd3"/>
+   <rect x="60" y="90" width="240" height="190" rx="54" fill="#2f5bd3"/><rect x="92" y="130" width="176" height="104" rx="40" fill="#e6ecfb"/>
+   <circle cx="145" cy="182" r="16" fill="#141821"/><circle cx="215" cy="182" r="16" fill="#141821"/>
+   <rect x="96" y="300" width="168" height="170" rx="40" fill="#2f5bd3"/>
+  </svg>
+  <div class="tag blue" id="tagBot4" style="left:6600px;top:1540px;font-size:44px">Agent</div>
+  <div class="w" id="stub" style="left:6420px;top:1385px;width:100px;height:14px;background:#2f5bd3;border-radius:7px;opacity:0"></div>
+  <div class="w" id="sparks" style="left:6160px;top:1330px"></div>
+  <div class="w" id="mk4" style="left:6000px;top:1470px;opacity:0">
+   <svg width="90" height="200" viewBox="0 0 90 200"><circle cx="45" cy="34" r="28" fill="#f2c9a6"/><path d="M8 196 Q8 76 45 70 Q82 76 82 196 Z" fill="#0f6f85"/></svg>
+   <div class="chip sm" id="rq" style="left:-100px;top:-110px;opacity:1"><i class="ic" data-i="ticket_diagonal"></i>Move it</div>
+  </div>
+  <svg class="w" id="wcur" style="left:0;top:0;opacity:0;z-index:5" width="80" height="104" viewBox="0 0 46 60"><path d="M4 4 L4 48 L16 37 L25 56 L33 52 L24 34 L40 34 Z" fill="#141821" stroke="#fff" stroke-width="3"/></svg>
+
+  <!-- ═══ scene 7: knowledge pipes (annex B, built by script) ═══ -->
+  <div id="annexB" class="w" style="left:0;top:0"></div>
+  <!-- ═══ scene 8: laptop dropdown + big plug at the tower ═══ -->
+  <svg class="w" id="lapList" style="left:420px;top:1040px;opacity:0" width="900" height="520" viewBox="0 0 900 520">
+   <rect x="386" y="126" width="288" height="198" rx="8" fill="#fff"/>
+   <text x="404" y="156" font-size="20" font-weight="700" fill="#141821">Authentication</text>
+   <g id="lapR0"><rect x="396" y="170" width="268" height="44" rx="8" fill="#e6ecfb"/><text x="408" y="199" font-size="17" font-weight="700" fill="#2f5bd3">Authenticate with Microsoft</text></g>
+   <g id="lapR1"><rect x="396" y="218" width="268" height="44" rx="8" fill="#f3f5f9"/><text x="408" y="247" font-size="17" font-weight="700" fill="#141821">Authenticate manually</text></g>
+   <g id="lapR2"><rect x="396" y="266" width="268" height="44" rx="8" fill="#f3f5f9"/><text x="408" y="295" font-size="17" fill="#a3abb9">No authentication</text><rect id="lapStrike" x="406" y="286" width="164" height="4" rx="2" fill="#c4392f" opacity="0"/></g>
+  </svg>
+  <div class="chip" id="bigPlug" style="left:3040px;top:150px;width:760px;height:170px;font-size:48px;white-space:normal;line-height:1.1;border-color:#2f5bd3;color:#2f5bd3"><i class="ic" data-i="plug_connected" style="width:84px;height:84px"></i><span>Chat without Microsoft Entra ID authentication</span></div>
+  <div class="w" id="bigX" style="left:3700px;top:100px;width:130px;height:130px;border-radius:50%;background:#c4392f;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0"><i class="ic" data-i="dismiss_circle" style="width:100px;height:100px"></i></div>
+  <div class="w" id="gateGlow" style="left:2720px;top:1235px;width:400px;height:130px;border-radius:65px;background:rgba(196,57,47,.35);opacity:0"></div>
+  <div class="tag red" id="tagGuard" style="left:2920px;top:1625px;font-size:52px">The guard closes the door</div>
+
+  <!-- ═══ scene 13: environment groups (annex D) ═══ -->
+  <div class="w" id="tAdm" style="left:5500px;top:3250px;opacity:0"><svg width="220" height="260" viewBox="0 0 220 260"><circle cx="110" cy="62" r="50" fill="#f2c9a6"/><path d="M30 256 Q30 130 110 118 Q190 130 190 256 Z" fill="#1e7f4f"/><path d="M80 180 l30 -24 l30 24 v36 q0 26 -30 40 q-30 -14 -30 -40 Z" fill="#c4392f"/></svg></div>
+  <div class="lab" id="tAdmL" style="left:5740px;top:3330px;font-size:64px;color:#1e7f4f">Tenant admin</div>
+  <div class="w" id="grp" style="left:4050px;top:3640px;width:3300px;height:770px;box-sizing:border-box;border:10px solid var(--accent);border-radius:50px;background:#eef3ff;opacity:0"></div>
+  <div class="lab" id="grpL" style="left:4100px;top:3660px;font-size:64px;color:var(--accent)">Environment group</div>
+  <div class="lab" id="grpN" style="left:6000px;top:3660px;font-size:56px;color:#5d6472">one group only · no nesting</div>
+  <div id="rooms" class="w" style="left:0;top:0"></div>
+  <div class="w" id="envAdm" style="left:4910px;top:4060px;opacity:0"><svg width="90" height="200" viewBox="0 0 90 200"><circle cx="45" cy="34" r="28" fill="#f2c9a6"/><path d="M8 196 Q8 76 45 70 Q82 76 82 196 Z" fill="#0f6f85"/></svg></div>
+  <div class="lab" id="envAdmL" style="left:4660px;top:4425px;font-size:52px;color:#0f6f85">Environment admin</div>
+  <svg class="w" id="grpArrow" style="left:5600px;top:3480px" width="100" height="180" viewBox="0 0 100 180"><path id="gaP" d="M50 170 L50 24" stroke="#2f5bd3" stroke-width="16" stroke-linecap="round" fill="none" opacity="0"/><path id="gaH" d="M18 54 L50 14 L82 54" stroke="#2f5bd3" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0"/></svg>
+  <div class="lab" id="grpUp" style="left:5720px;top:3535px;font-size:60px;color:var(--accent)">Change it at the group level</div>
+
+  <!-- ═══ scene 14: control room (annex E) ═══ -->
+  <svg class="w" id="ctrl" style="left:80px;top:3200px" width="3700" height="1320" viewBox="0 0 3700 1320">
+   <rect x="100" y="1180" width="3500" height="40" rx="14" fill="#c9ced8"/>
+   <rect x="200" y="320" width="640" height="440" rx="24" fill="#1f2a44"/><rect x="226" y="346" width="588" height="388" rx="10" fill="#e6ecfb"/>
+   <rect x="270" y="620" width="70" height="80" fill="#2f5bd3"/><rect x="380" y="540" width="70" height="160" fill="#2f5bd3"/><rect x="490" y="470" width="70" height="230" fill="#2f5bd3"/><rect x="600" y="580" width="70" height="120" fill="#2f5bd3"/><rect x="710" y="500" width="70" height="200" fill="#2f5bd3"/>
+   <rect x="2860" y="320" width="640" height="440" rx="24" fill="#1f2a44"/><rect x="2886" y="346" width="588" height="388" rx="10" fill="#e6ecfb"/>
+   <rect x="2930" y="420" width="500" height="30" rx="8" fill="#2f5bd3"/><rect x="2930" y="490" width="400" height="30" rx="8" fill="#9db6e8"/><rect x="2930" y="560" width="450" height="30" rx="8" fill="#9db6e8"/><rect x="2930" y="630" width="300" height="30" rx="8" fill="#9db6e8"/>
+   <rect x="1000" y="130" width="1700" height="800" rx="30" fill="#1f2a44"/><rect x="1030" y="160" width="1640" height="740" rx="14" fill="#f3f5f9"/>
+   <rect x="1030" y="160" width="1640" height="70" fill="#e2e5eb"/><rect x="1080" y="300" width="1100" height="40" rx="10" fill="#d3d9e4"/><rect x="1080" y="400" width="1000" height="40" rx="10" fill="#d3d9e4"/><rect x="1080" y="500" width="1100" height="40" rx="10" fill="#d3d9e4"/><rect x="1080" y="600" width="900" height="40" rx="10" fill="#d3d9e4"/>
+   <rect x="1780" y="930" width="140" height="140" fill="#8a93a6"/><rect x="1500" y="1060" width="700" height="40" rx="20" fill="#8a93a6"/>
+  </svg>
+  <div class="lab" id="a365" style="left:1560px;top:3225px;font-size:80px;color:var(--accent)">Agent 365</div>
+
+ </div>
+
+ <!-- product UI (scene 3) -->
+ <div id="uiBack"></div>
+ <div id="ui">
+  <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="t">HR agent · Settings</span><span class="pub" id="btnPub">Publish</span></div>
+  <div class="nav"><div>Overview</div><div>Knowledge</div><div>Tools</div><div>Topics</div><div class="on">Settings</div></div>
+  <div class="main">
+   <div class="crumb">Settings › Security</div><h3>Security</h3>
+   <div class="row"><b>Authentication</b><div class="dd" id="ddAuth"><span id="authA">Authenticate with Microsoft</span><span class="v2" id="authB">No authentication</span>
+     <div id="ddList"><div>Authenticate with Microsoft</div><div>Authenticate manually</div><div class="sel">No authentication</div></div></div></div>
+   <div class="row"><b>Tool credentials</b><div class="dd" id="ddCred"><span id="credA">End user credentials</span><span class="v2" id="credB">Maker's credentials</span></div></div>
+   <div class="row"><b>Sharing</b><span class="btn" id="btnShare">Share</span></div>
+  </div>
+  <div id="warns">
+   <div class="warn" id="w1"><i class="ic" data-i="warning"></i><div><b>No authentication</b><span>Anyone with the link can chat</span></div></div>
+   <div class="warn" id="w2"><i class="ic" data-i="warning"></i><div><b>Maker's credentials</b><span>Tools run as you, not the user</span></div></div>
+   <div class="warn" id="w3"><i class="ic" data-i="warning"></i><div><b>Shared with everyone</b><span>Default is shared with nobody</span></div></div>
+  </div>
+  <div id="brace"></div><div id="braceTxt">A default was weakened</div>
+  <div id="shareDlg"><b>Share HR agent</b><div class="tg"><span>Whole organization</span><div class="sw" id="sw"><i id="swK"></i></div></div></div>
+  <div id="toast">✓ Published</div>
+ </div>
+ <!-- L05: generic product screens (scene 6 and scene 14) -->
+ <div class="uw" id="uaA">
+  <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="t">Power Platform admin center</span></div>
+  <div class="nav"><div>Environments</div><div>Data policies</div><div class="on">Settings</div></div>
+  <div class="main">
+   <div class="crumb">Settings</div><h3>Settings</h3>
+   <div class="row"><b>Control maker-provided credentials</b><div class="tgl" id="tgl"><i id="tglK"></i></div></div>
+   <div class="note" id="tglNote"><i class="ic" data-i="lock_closed"></i>Makers can no longer use their own credentials</div>
+  </div>
+ </div>
+ <div class="uw" id="uaB">
+  <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="t">HR agent · Settings</span></div>
+  <div class="nav"><div>Overview</div><div>Knowledge</div><div>Tools</div><div>Topics</div><div class="on">Settings</div></div>
+  <div class="main">
+   <div class="crumb">Settings › Security</div><h3>Security</h3>
+   <div class="row"><b>Tool credentials</b><div class="dd" id="ddLock"><i class="ic" data-i="lock_closed"></i><span>End user credentials</span></div></div>
+  </div>
+  <div id="usr" style="position:absolute;left:1180px;top:430px;width:380px;text-align:center;opacity:0">
+   <svg width="150" height="230" viewBox="0 0 90 140"><circle cx="45" cy="26" r="20" fill="#f2c9a6"/><path d="M8 136 Q8 56 45 50 Q82 56 82 136 Z" fill="#0f6f85"/></svg>
+   <div style="position:absolute;left:210px;top:60px;width:96px;height:96px;border-radius:50%;background:#ffd166;color:#7a4d00;display:flex;align-items:center;justify-content:center"><i class="ic" data-i="key" style="width:60px;height:60px"></i></div>
+   <div style="font-size:34px;font-weight:800;margin-top:6px;color:#141821">End user signs in</div>
+  </div>
+ </div>
+ <div class="uw" id="uaC">
+  <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="t">Teams · HR agent</span></div>
+  <div class="nav"><div class="on">Chat</div><div>Teams</div><div>Calendar</div></div>
+  <div class="main">
+   <div class="cm" id="cm1"><i class="ic" data-i="bot"></i>Sign in to SharePoint<span class="btn">Sign in</span></div>
+   <div class="cm" id="cm2"><i class="ic" data-i="bot"></i>Sign in to Outlook<span class="btn">Sign in</span></div>
+  </div>
+  <div style="position:absolute;left:1180px;top:200px;width:420px;text-align:center">
+   <div id="ssoP" style="display:inline-block;position:relative;font-size:80px;font-weight:800;color:#8a93a6;border:6px solid #c9ced8;border-radius:999px;padding:6px 50px;opacity:0">SSO<i id="ssoX" style="position:absolute;left:-10px;right:-10px;top:50%;height:10px;margin-top:-5px;background:#c4392f;border-radius:5px"></i></div>
+   <div id="adTxt" style="margin-top:34px;font-size:36px;font-weight:800;color:#141821;line-height:1.3;opacity:0">Custom AD auth<br>→ sign in to each connector</div>
+  </div>
+ </div>
+ <div class="uw" id="uaD">
+  <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="t">Admin center</span></div>
+  <div class="nav"><div>Home</div><div class="on">Manage</div><div>Settings</div></div>
+  <div class="crumb" id="crumbD" style="position:absolute;left:340px;top:112px;font-size:32px;color:#5d6472;font-weight:600">Manage › Inventory</div>
+  <div class="tr th" style="top:170px"><span class="c1">Agent</span><span class="c2">Status</span><span class="c3" style="color:var(--muted)">Channels</span></div>
+  <div class="tr" id="rw0" style="top:246px"><span class="c1">HR agent</span><span class="c2 pubd" id="st0">Published</span><span class="c3" id="ch0"><i class="ic" data-i="chat"></i><i class="ic" data-i="mail"></i><i class="ic" data-i="phone"></i></span><span class="c4" id="blk0">Block</span></div>
+  <div class="tr" id="rw1" style="top:322px"><span class="c1">Finance agent</span><span class="c2 drft">Draft</span><span class="c3"><i class="ic" data-i="chat"></i></span><span class="c4">Block</span></div>
+  <div class="tr" id="rw2" style="top:398px"><span class="c1">Travel agent</span><span class="c2 pubd">Published</span><span class="c3"><i class="ic" data-i="chat"></i><i class="ic" data-i="mail"></i></span><span class="c4">Block</span></div>
+  <div class="tr" id="rw3" style="top:474px"><span class="c1">Sales agent</span><span class="c2 drft">Draft</span><span class="c3"><i class="ic" data-i="phone"></i></span><span class="c4">Block</span></div>
+  <div class="pnl" id="logP" style="left:340px;top:640px;width:760px;height:210px;opacity:0"><div id="lg0">Purview: agent blocked · HR agent</div><div id="lg1">Purview: governance action logged</div></div>
+  <div class="pnl" id="testW" style="left:1130px;top:640px;width:440px;height:210px;background:#e3f4ea;opacity:0"><div style="opacity:1;font-size:34px;font-weight:800;color:#141821">Test</div><div style="opacity:1;margin-top:8px;font-size:31px;color:#141821"><i class="ic" data-i="chat" style="width:36px;height:36px;vertical-align:-7px;color:var(--accent)"></i> Hello, HR agent</div><div style="opacity:1;margin-top:10px;font-size:32px;font-weight:800;color:var(--green)"><i class="ic" data-i="checkmark_circle" style="width:38px;height:38px;vertical-align:-8px"></i> Maker can still test</div></div>
+ </div>
+ <div class="cap" id="lblAuto">Automatic · no maker setup</div>
+ <div class="cap" id="lblReg">Registry: Microsoft 365 admin center</div>
+ <div id="icLib" style="display:none"><span data-n="document_text"><i class="ic" data-i="document_text"></i></span><span data-n="building"><i class="ic" data-i="building"></i></span><span data-n="globe"><i class="ic" data-i="globe"></i></span><span data-n="cloud"><i class="ic" data-i="cloud"></i></span><span data-n="person"><i class="ic" data-i="person"></i></span><span data-n="arrow_up_right"><i class="ic" data-i="arrow_up_right"></i></span><span data-n="filter"><i class="ic" data-i="filter"></i></span><span data-n="database"><i class="ic" data-i="database"></i></span><span data-n="arrow_routing"><i class="ic" data-i="arrow_routing"></i></span><span data-n="gavel"><i class="ic" data-i="gavel"></i></span><span data-n="eye"><i class="ic" data-i="eye"></i></span><span data-n="apps"><i class="ic" data-i="apps"></i></span><span data-n="send"><i class="ic" data-i="send"></i></span><span data-n="sparkle"><i class="ic" data-i="sparkle"></i></span></div>
+ <div id="exams"></div>
+ <div id="clickRing"></div>
+ <svg id="cur" viewBox="0 0 46 60"><path d="M4 4 L4 48 L16 37 L25 56 L33 52 L24 34 L40 34 Z" fill="#141821" stroke="#fff" stroke-width="3"/></svg>
+
+ <div id="vign"></div>
+ <div class="ov kin" id="ovTitle">Monday morning at Contoso<small>Security and governance</small></div>
+ <div class="ov kin" id="ovQ"><span>Who should have stopped this?</span></div>
+ <div class="ov" id="ovSplit"><div class="l"><i class="ic" data-i="alert"></i>WARNS<small>Security scan</small></div><div class="r"><i class="ic" data-i="shield_checkmark"></i>PREVENTS<small>Data policy</small></div></div>
+ <div class="ov" id="stamp">Exam rule: <b>scan warns</b> · <b>policy blocks</b></div>
+ <div class="ov" id="blocked">BLOCKED</div>
+ <div id="errToast"><i class="ic" data-i="error_circle"></i>Data policy: can't combine Business and Non-business</div>
+ <div id="chipScrim"></div>
+ <div class="qc" id="qc0" style="left:150px;top:300px"><i class="ic" data-i="person"></i>Who builds it?</div>
+ <div class="qc" id="qc1" style="left:990px;top:300px"><i class="ic" data-i="people_team"></i>Who will use it?</div>
+ <div class="qc" id="qc2" style="left:150px;top:510px"><i class="ic" data-i="database"></i>What data?</div>
+ <div class="qc" id="qc3" style="left:990px;top:510px"><i class="ic" data-i="gauge"></i>How critical?</div>
+ <div class="rc" id="rc0" style="left:80px;top:130px;border-color:#d98a00;color:#d98a00"><i class="ic" data-i="alert"></i><div>Scan warns</div></div>
+ <div class="rc" id="rc1" style="left:680px;top:130px;border-color:#c4392f;color:#c4392f"><i class="ic" data-i="shield_checkmark"></i><div>Policy blocks</div><small>per environment, by connector, 3 groups</small></div>
+ <div class="rc" id="rc2" style="left:1280px;top:130px;border-color:#2f5bd3;color:#2f5bd3"><i class="ic" data-i="book_open"></i><div>One connector per source</div></div>
+ <div class="rc" id="rc3" style="left:80px;top:570px;border-color:#c4392f;color:#c4392f"><i class="ic" data-i="plug_connected"></i><div>Block one connector</div><small>→ no agent without sign-in</small></div>
+ <div class="rc" id="rc4" style="left:680px;top:570px;border-color:#1f2a44;color:#1f2a44"><i class="ic" data-i="organization"></i><div>Zones</div><small>builder, users, data, criticality</small></div>
+ <div class="rc" id="rc5" style="left:1280px;top:570px;border-color:#2f5bd3;color:#2f5bd3"><i class="ic" data-i="bot"></i><div>Agent 365 sees all</div><small>if users sign in</small></div>
+
+</div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<script>
+  const B = {{BEATS}};
+  const tl = gsap.timeline({ paused: true });
+  const S = (i, j) => B.scenes[i].sentences[j || 0].start;
+  const E = (i, j) => B.scenes[i].sentences[j || 0].end;
+  const W = (i, j, word, lag) => { const s = B.scenes[i].sentences[j], k = s.text.toLowerCase().indexOf(word.toLowerCase()); return (k < 0 ? s.start : s.start + (s.end - s.start) * k / s.text.length) + (lag || 0); };
+  const ON = (sel, t, d) => tl.to(sel, { opacity: 1, duration: d || 0.4 }, t);
+  const OFF = (sel, t, d) => tl.to(sel, { opacity: 0, duration: d || 0.4 }, t);
+  const POP = (sel, t) => tl.fromTo(sel, { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)' }, t);
+  const TAG = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(2)' }, t);
+  // camera: centre world point (x, y) at scale s
+  const CAM = (x, y, s, t, d, ease) => tl.to('#world', { x: 960 - x * s, y: 540 - y * s, scale: s, duration: d == null ? 1.6 : d, ease: ease || 'power3.inOut' }, t);
+  // cursor in the UI layer (screen px)
+  const CUR = (x, y, t, d) => tl.to('#cur', { x: x, y: y, duration: d || 0.9, ease: 'power2.inOut' }, t);
+  const CLICK = (x, y, t) => { tl.fromTo('#clickRing', { left: x, top: y, opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.4, duration: 0.5, ease: 'power2.out' }, t); tl.to('#cur', { scale: 0.85, duration: 0.08, yoyo: true, repeat: 1 }, t); };
+  const person = (c) => `<svg width="90" height="200" viewBox="0 0 90 200"><circle cx="45" cy="34" r="28" fill="#f2c9a6"/><path d="M8 196 Q8 76 45 70 Q82 76 82 196 Z" fill="${c}"/></svg>`;
+  const bubble = () => `<svg width="110" height="84" viewBox="0 0 110 84"><path d="M10 6 h90 a8 8 0 0 1 8 8 v40 a8 8 0 0 1 -8 8 h-60 l-22 18 v-18 h-8 a8 8 0 0 1 -8 -8 v-40 a8 8 0 0 1 8 -8z" fill="#fff" stroke="#d98a00" stroke-width="4"/><circle cx="34" cy="34" r="6" fill="#d98a00"/><circle cx="55" cy="34" r="6" fill="#d98a00"/><circle cx="76" cy="34" r="6" fill="#d98a00"/></svg>`;
+  const miniBot = `<svg width="64" height="70" viewBox="0 0 64 70"><rect x="6" y="8" width="52" height="40" rx="14" fill="#2f5bd3"/><circle cx="24" cy="28" r="5" fill="#fff"/><circle cx="40" cy="28" r="5" fill="#fff"/><rect x="16" y="50" width="32" height="18" rx="8" fill="#2f5bd3"/></svg>`;
+
+  // build repeated elements (deterministic)
+  const crowd = document.getElementById('crowd'), cols = ['#8a5cd6', '#1e7f4f', '#c4392f', '#0f6f85', '#7a4d00'];
+  for (let k = 0; k < 5; k++) { const d = document.createElement('div'); d.className = 'w cp'; d.id = 'p' + k; d.style.cssText = `left:${3250 + k * 120}px;top:${1300 + (k % 2) * 20}px;opacity:0`; d.innerHTML = person(cols[k]); crowd.appendChild(d); }
+  const bub = document.getElementById('bubbles');
+  for (let k = 0; k < 4; k++) { const d = document.createElement('div'); d.className = 'w bb'; d.style.cssText = `left:${1680 + k * 150}px;top:${880 - (k % 2) * 60}px;opacity:0`; d.innerHTML = bubble(); bub.appendChild(d); }
+  const fleet = document.getElementById('fleet');
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 26; c++) { const d = document.createElement('div'); d.className = 'w fl'; d.style.cssText = `left:${210 + c * 132 + (r % 2) * 66}px;top:${1700 + r * 120}px;opacity:0`; d.innerHTML = miniBot; fleet.appendChild(d); }
+  document.getElementById('walker').innerHTML = person('#0f6f85');
+  const envs = document.getElementById('envs');
+  ['Dev', 'Test', 'Prod'].forEach((n) => { const d = document.createElement('div'); d.className = 'env'; d.style.cssText = 'background:#fff;border:4px solid #c4392f;border-radius:22px;padding:18px 26px;font-size:34px;font-weight:800;color:#c4392f;box-shadow:var(--shadow)'; d.textContent = '🛡 ' + n; envs.appendChild(d); });
+
+  gsap.set('#world', { x: 960 - 900 * 1.5, y: 540 - 1230 * 1.5, scale: 1.5 });
+  gsap.set('#cur', { x: 960, y: 900 });
+
+  /* ═══ L05 full: builders (deterministic DOM) ═══ */
+  const P = (sel) => { const r = document.querySelector(sel).getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+  const POS = { tgl: P('#tgl'), blk0: P('#blk0') };
+  const IC = (n, extra) => document.querySelector(`#icLib [data-n="${n}"]`).innerHTML.replace('<i class="ic"', '<i class="ic"' + (extra ? ' ' + extra : ''));
+  const wadd = (id, html) => document.getElementById(id).insertAdjacentHTML('beforeend', html);
+  const ZC = ['#7ea1e6', '#2f5bd3', '#1f2a44'];
+
+  // districts (scene 10-11)
+  (function () {
+    let z = '<g id="zg1" opacity="0"><rect x="120" y="1560" width="1180" height="1540" rx="50" fill="#e1ecfd"/>';
+    [190, 450, 710, 970].forEach((x) => { z += `<rect x="${x}" y="2060" width="200" height="140" fill="#fff" stroke="#8fb0ec" stroke-width="6"/><polygon points="${x - 20},2060 ${x + 100},1950 ${x + 220},2060" fill="#7ea1e6"/><rect x="${x + 78}" y="2120" width="44" height="80" fill="#8fb0ec"/>`; });
+    z += '</g><g id="zg2" opacity="0"><rect x="1330" y="1560" width="1180" height="1540" rx="50" fill="#bfd2f6"/>';
+    [[1400, 300], [1750, 380], [2100, 280]].forEach(([x, h]) => { z += `<rect x="${x}" y="${2200 - h}" width="280" height="${h}" rx="10" fill="#fff" stroke="#5d7fd9" stroke-width="6"/>`; for (let r = 0; r < Math.floor((h - 40) / 70); r++) for (let c = 0; c < 4; c++) z += `<rect x="${x + 28 + c * 62}" y="${2200 - h + 28 + r * 66}" width="36" height="36" rx="4" fill="#c9d8f7"/>`; });
+    z += '</g><g id="zg3" opacity="0"><rect x="2540" y="1560" width="1180" height="1540" rx="50" fill="#3a4a78"/>';
+    z += '<rect x="2700" y="1860" width="860" height="340" fill="#141b2d"/><rect x="2640" y="1790" width="100" height="410" fill="#141b2d"/><rect x="3520" y="1790" width="100" height="410" fill="#141b2d"/>';
+    for (let m = 0; m < 7; m++) z += `<rect x="${2720 + m * 120}" y="1820" width="70" height="40" fill="#141b2d"/>`;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 8; c++) z += `<rect x="${2760 + c * 95}" y="${1900 + r * 64}" width="60" height="30" rx="4" fill="#3a4a78"/><circle cx="${2820 + c * 95 - 12}" cy="${1915 + r * 64}" r="5" fill="#6be3a0"/>`;
+    z += '<path d="M3060 2200 v-70 a70 70 0 0 1 140 0 v70 Z" fill="#3a4a78"/></g>';
+    document.getElementById('zones').innerHTML = z;
+    const sg = (zi, k, icon, txt) => `<div class="zs zsg${zi}" id="zs${zi}_${k}" style="left:${[160, 1370, 2580][zi - 1]}px;top:${2255 + k * 112}px;border-color:${ZC[zi - 1]}">${IC(icon, `style="color:${ZC[zi - 1]}"`)}<span>${txt}</span><i class="strike"></i></div>`;
+    wadd('annexB', ''); // (kept for order)
+    const zh = [[1, 0, 'cloud', 'M365 + Power Platform connectors only'], [1, 1, 'person', "User's own context"], [1, 2, 'arrow_up_right', 'Sharing off'],
+      [2, 0, 'filter', 'Advanced connector policies'], [2, 1, 'database', 'Approved data sources'], [2, 2, 'arrow_routing', 'Pipelines'], [2, 3, 'gavel', 'IT approval to publish'],
+      [3, 0, 'filter', 'Advanced connector policies'], [3, 1, 'eye', 'Microsoft Purview'], [3, 2, 'apps', 'Integrated apps']];
+    document.getElementById('annexB').insertAdjacentHTML('beforeend', zh.map(([zi, k, ic, t]) => sg(zi, k, ic, t)).join(''));
+    document.getElementById('zs2_3').insertAdjacentHTML('beforeend', '<i class="ic stp" data-i="checkmark_circle"></i>');
+  })();
+
+  // sparks (scene 4)
+  for (let k = 0; k < 10; k++) { wadd('sparks', `<div class="spk" id="sp${k}"></div>`); gsap.set('#sp' + k, { rotation: k * 36 }); }
+  gsap.set('#wcur', { x: 5400, y: 1290 });
+
+  // knowledge pipes (scene 7)
+  (function () {
+    const ys = [2200, 2460, 2720], ic = ['document_text', 'building', 'globe'], nm = ['Uploaded documents', 'SharePoint and OneDrive', 'Public websites'];
+    let h = '<div class="w" id="shelf" style="left:6450px;top:1980px;width:900px;height:940px;border-radius:44px;background:#1f2a44;opacity:0"></div><div class="lab" id="shelfT" style="left:6450px;top:2005px;width:900px;text-align:center;font-size:72px;color:#fff">Knowledge</div>';
+    ys.forEach((y, k) => {
+      h += `<div class="w" id="src${k}" style="left:4060px;top:${y - 110}px;width:220px;height:220px;box-sizing:border-box;border-radius:50%;background:#fff;border:8px solid #2f5bd3;color:#2f5bd3;display:flex;align-items:center;justify-content:center;opacity:0">${IC(ic[k], 'style="width:110px;height:110px"')}</div>
+      <div class="w" id="pipe${k}" style="left:4280px;top:${y - 35}px;width:2170px;height:70px;border-radius:35px;background:#c9d4ec;opacity:0"></div>
+      <div class="w" id="dry${k}" style="left:5420px;top:${y - 35}px;width:1030px;height:70px;border-radius:0 35px 35px 0;background:#e3e7ef;opacity:0"></div>
+      <div class="lab" id="pl${k}" style="left:4330px;top:${y - 130}px;font-size:64px;color:#141821">${nm[k]}</div>
+      <svg class="w" id="valve${k}" style="left:5325px;top:${y - 75}px;opacity:0" width="150" height="150" viewBox="0 0 150 150"><circle class="vc" cx="75" cy="75" r="58" fill="#fff" stroke="#2f5bd3" stroke-width="14"/><g class="vh"><rect x="30" y="68" width="90" height="14" rx="7" fill="#2f5bd3"/></g></svg>
+      <div class="w" id="bk${k}" style="left:6560px;top:${y - 45}px;color:#fff;opacity:0"><i class="ic" data-i="book_open" style="width:90px;height:90px"></i></div>`;
+      for (let d = 0; d < 3; d++) h += `<div class="w dot dot${k}" style="left:4300px;top:${y - 14}px;width:28px;height:28px;border-radius:50%;background:#2f5bd3;opacity:0"></div>`;
+    });
+    h += '<svg class="w" id="sieve" style="left:5880px;top:2530px;opacity:0" width="90" height="220" viewBox="0 0 90 220"><rect x="10" y="0" width="70" height="220" rx="14" fill="#8a93a6"/>' + [20, 56, 92, 128, 164].map((y) => `<rect x="24" y="${y}" width="42" height="22" rx="6" fill="#fbfcfe"/>`).join('') + '</svg>';
+    h += '<div class="lab" id="eFil" style="left:4310px;top:2535px;font-size:56px;color:#141821">Endpoint filtering</div>';
+    h += '<div class="lab" id="oneNever" style="left:4300px;top:1850px;font-size:72px;color:#c4392f">Blocking one never touches the others</div>';
+    [['u0', 'docs.contoso.com', 1], ['u1', 'ads.example.net', 0], ['u2', 'hr.contoso.com', 1], ['u3', 'social.example', 0]].forEach(([id, t]) => { h += `<div class="chip sm" id="${id}" style="left:4700px;top:2545px;width:490px;font-size:48px;border-color:#8a93a6"><span>${t}</span></div>`; });
+    document.getElementById('annexB').insertAdjacentHTML('beforeend', h);
+  })();
+
+  // environment rooms + badges (scene 13)
+  (function () {
+    const rx = [4110, 5190, 6270], rn = ['Dev', 'Test', 'Prod'], bn = [['Agent sharing', 'send'], ['Generative AI', 'sparkle'], ['Transcript access', 'document_text']];
+    let h = '';
+    rx.forEach((x, r) => {
+      h += `<div class="w room" id="room${r}" style="left:${x}px;top:3760px;width:1020px;height:550px;box-sizing:border-box;border:8px solid #8a93a6;border-radius:36px;background:#fff;opacity:0"></div><div class="lab room${r}t" id="roomT${r}" style="left:${x + 30}px;top:3775px;font-size:64px;color:#141821">${rn[r]}</div>`;
+      bn.forEach(([t, i], k) => { h += `<div class="bdg" id="bd${r}_${k}" style="left:${x + 20}px;top:${3870 + k * 140}px">${IC(i)}${t}<i class="ic lk" data-i="lock_closed"></i></div>`; });
+    });
+    document.getElementById('rooms').insertAdjacentHTML('beforeend', h);
+  })();
+
+  // exam rooms (scenes 5, 9, 12, 15)
+  const mkExam = (id, c) => {
+    const opts = c.opts.map((o, k) => `<div class="xo" id="${id}_o${k}" style="top:${410 + k * 138}px"><b class="k">${'ABC'[k]}</b><span class="tx">${o}</span><em class="trap">Trap</em><i class="ic ok" data-i="checkmark_circle"></i></div>`).join('');
+    return `<div class="exam" id="${id}"><div class="xl">EXAM QUESTION</div><div class="xq" id="${id}_q">${c.q}</div><div class="xg" id="${id}_g">${opts}</div>
+     <svg class="xring" id="${id}_ring" width="260" height="260" viewBox="0 0 260 260"><circle cx="130" cy="130" r="110" fill="none" stroke="#2d3a5c" stroke-width="18"/><circle id="${id}_arc" cx="130" cy="130" r="110" fill="none" stroke="#ffd166" stroke-width="18" stroke-linecap="round" stroke-dasharray="691.2" stroke-dashoffset="0" transform="rotate(-90 130 130)"/>
+     <text id="${id}_n3" x="130" y="162" text-anchor="middle" font-size="96" font-weight="800" fill="#fff">3</text><text id="${id}_n2" x="130" y="162" text-anchor="middle" font-size="96" font-weight="800" fill="#fff" opacity="0">2</text><text id="${id}_n1" x="130" y="162" text-anchor="middle" font-size="96" font-weight="800" fill="#fff" opacity="0">1</text></svg>
+     <div class="xwhy" id="${id}_why">${c.why || ''}</div><div class="xp" id="${id}_p">${c.proof || ''}</div></div>`;
+  };
+  const gateSvg = (cls, col) => `<svg class="${cls}" width="60" height="200" viewBox="0 0 60 200"><rect x="0" y="0" width="60" height="200" rx="10" fill="${col}"/><rect x="0" y="40" width="60" height="26" fill="#fff"/><rect x="0" y="110" width="60" height="26" fill="#fff"/></svg>`;
+  document.getElementById('exams').innerHTML =
+    mkExam('examA', { q: 'An agent works in development. In production, adding the same tool fails at once with an error. What stopped it?', opts: ['The security scan', 'The development data policy', 'The production data policy'],
+      proof: `<div class="rm" id="rmDev" style="left:0;border-color:#1e7f4f"><h4>DEV</h4>
+        <div style="position:absolute;left:30px;top:100px">${miniBot.replace('width="64" height="70"', 'width="110" height="120"')}</div>
+        <div style="position:absolute;left:520px;top:50px;width:60px;height:200px;border:6px dashed #6be3a0;border-radius:10px;box-sizing:border-box"></div>
+        <div class="chip sm" id="dChip" style="left:600px;top:105px;width:170px;height:72px;font-size:34px;opacity:1;border-color:#2f5bd3;color:#2f5bd3"><i class="ic" data-i="plug_connected"></i>Tool</div>
+        <div id="dOk" style="position:absolute;left:170px;top:30px;opacity:0;color:#6be3a0"><i class="ic" data-i="checkmark_circle" style="width:80px;height:80px"></i></div></div>
+        <div class="rm" id="rmProd" style="left:880px;border-color:#c4392f"><h4>PROD</h4>
+        <div style="position:absolute;left:30px;top:100px">${miniBot.replace('width="64" height="70"', 'width="110" height="120"')}</div>
+        <div style="position:absolute;left:520px;top:50px">${gateSvg('', '#c4392f')}</div>
+        <div class="chip sm" id="pChip" style="left:600px;top:105px;width:170px;height:72px;font-size:34px;opacity:1;border-color:#2f5bd3;color:#2f5bd3"><i class="ic" data-i="plug_connected"></i>Tool</div>
+        <div id="pNo" style="position:absolute;left:170px;top:30px;opacity:0;color:#ff8a80"><i class="ic" data-i="dismiss_circle" style="width:80px;height:80px"></i></div></div>
+        <div class="lb" id="lbEnv" style="left:0;width:1680px;text-align:center;top:330px;opacity:0">Policies are per environment</div>` }) +
+    mkExam('examB', { q: 'An admin must prevent any agent from being published without authentication. What do you do?', opts: ['Rely on the security scan', 'Block the Chat without Microsoft Entra ID authentication connector', 'Enforce Control maker-provided credentials'],
+      why: '<div id="whyB1"><span class="y">Scan</span> only warns · <span class="y">that setting</span> controls credentials, not sign-in</div><div id="whyB2">Prevent → <span class="g">data policy</span></div>',
+      proof: `<div class="rm" id="rmScan" style="left:0;top:60px;height:250px;border-color:#d98a00"><h4 style="color:#ffd166">Security scan · warns</h4>
+        <div style="position:absolute;left:40px;top:100px;color:#ffd166"><i class="ic" data-i="alert" style="width:110px;height:110px"></i></div>
+        <div id="wkr1" style="position:absolute;left:260px;top:70px">${person('#8a5cd6').replace('width="90" height="200"', 'width="70" height="160"')}</div></div>
+        <div class="rm" id="rmPol" style="left:880px;top:60px;height:250px;border-color:#c4392f"><h4 style="color:#ff8a80">Data policy · blocks</h4>
+        <div style="position:absolute;left:560px;top:50px">${gateSvg('', '#c4392f')}</div>
+        <div id="wkr2" style="position:absolute;left:260px;top:70px">${person('#8a5cd6').replace('width="90" height="200"', 'width="70" height="160"')}</div></div>` }) +
+    mkExam('examC', { q: 'HR benefits agent: IT-approved maker, used by other departments, shared HR data, no SLA. Which zone?', opts: ['Zone 1 · Citizen', 'Zone 2 · Partnered', 'Zone 3 · Professional'],
+      why: '<div id="whyC1"><span class="y">Others use it</span> → not Zone 1</div><div id="whyC2"><span class="y">No SLA</span> → not Zone 3</div>',
+      proof: [1, 2, 3].map((z, k) => `<div class="tile" id="tile${z}" style="left:${k * 580}px;top:60px;border-color:${['#7ea1e6', '#2f5bd3', '#8a93a6'][k]}"><h4>Zone ${z}</h4></div>`).join('') + `<div class="w" id="hrBot" style="position:absolute;left:-100px;top:100px;opacity:0">${miniBot.replace('width="64" height="70"', 'width="110" height="120"')}</div><div class="lb" id="hrLb" style="left:640px;top:240px;opacity:0;font-size:40px;color:#fff">HR agent</div>` }) +
+    mkExam('examD', { q: 'An agent set to No authentication is used all week. What do admins see for those chats?', opts: ['Full conversation telemetry', 'Aggregated counts only', 'Nothing for unauthenticated sessions'],
+      proof: `<div class="rm" style="left:0;top:20px;width:820px;height:340px;border-color:#8a93a6"><h4>Activity</h4>
+        <svg style="position:absolute;left:40px;top:80px" width="740" height="230" viewBox="0 0 740 230"><path d="M10 10 V210 H730" stroke="#8a93a6" stroke-width="6" fill="none"/><path d="M10 110 H730" stroke="#3a4a78" stroke-width="4" stroke-dasharray="14 12"/></svg>
+        <div id="noData" style="position:absolute;left:0;right:0;top:140px;text-align:center;font-size:64px;font-weight:800;color:#ff8a80;opacity:0">No data</div></div>
+        <div class="xc" id="xc0" style="left:900px;top:20px"><i class="ic" data-i="person"></i>Signed-in session</div>
+        <div class="xc" id="xc1" style="left:900px;top:130px"><i class="ic" data-i="ticket_diagonal"></i>Qualifying license</div>
+        <div class="xc" id="xc2" style="left:900px;top:240px"><i class="ic" data-i="cloud"></i>Not multitenant</div>` });
+  gsap.set('[id$="_n2"],[id$="_n1"]', { opacity: 0 });
+
+
+  /* ── scene 0: Monday morning ───────────────────────────── */
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.3);
+  tl.fromTo('#vign', { opacity: 0 }, { opacity: 0.6, duration: 0.5 }, 0.3);
+  OFF('#ovTitle', S(0, 1) - 0.3, 0.5); OFF('#vign', S(0, 1) - 0.3, 0.5);
+  tl.to('#maker path:last-child', { rotation: -6, transformOrigin: '178px 320px', duration: 0.18, yoyo: true, repeat: 9 }, S(0, 1) + 0.4);
+  tl.to('#lapA', { opacity: 0, duration: 0.25 }, W(0, 1, 'switches', 0.6));
+  tl.to('#lapB', { opacity: 1, duration: 0.25 }, W(0, 1, 'switches', 0.7));
+  tl.fromTo('#lapHi', { opacity: 0 }, { opacity: 1, duration: 0.2, yoyo: true, repeat: 3 }, W(0, 1, 'switches', 0.7));
+  CAM(1500, 1240, 1.0, W(0, 1, 'No authentication', 0.2), 1.6);
+  tl.to('#lockC', { opacity: 0, duration: 0.3 }, W(0, 1, 'No authentication', 1.0)); tl.to('#lockO', { opacity: 1, duration: 0.3 }, W(0, 1, 'No authentication', 1.0));
+  tl.fromTo('#lockO', { scale: 1 }, { scale: 1.25, transformOrigin: '48px 230px', duration: 0.2, yoyo: true, repeat: 3 }, W(0, 1, 'No authentication', 1.2));
+  // the link leaves through the door
+  CAM(2300, 1240, 0.75, S(0, 2) - 0.2, 1.4);
+  tl.set('#linkChip', { x: 1040, y: 1150, opacity: 0 }, S(0, 2));
+  tl.to('#linkChip', { opacity: 1, duration: 0.3 }, S(0, 2));
+  tl.to('#linkChip', { x: 3300, y: 1150, duration: 1.6, ease: 'power1.inOut' }, S(0, 2) + 0.2);
+  // people come in
+  for (let k = 0; k < 5; k++) { tl.to('#p' + k, { opacity: 1, duration: 0.3 }, S(0, 3) + k * 0.15); tl.to('#p' + k, { x: -(1150 - k * 60), duration: 2.4, ease: 'power1.inOut' }, S(0, 3) + 0.3 + k * 0.15); tl.to('#p' + k, { y: -10, duration: 0.2, yoyo: true, repeat: 11, ease: 'sine.inOut' }, S(0, 3) + 0.3 + k * 0.15); }
+  OFF('#linkChip', S(0, 3) + 0.4);
+  gsap.utils.toArray('.bb').forEach((b, k) => POP(b, W(0, 3, 'chat', 0.6 + k * 0.3)));
+  // the question
+  tl.to('#vign', { opacity: 1, duration: 0.5 }, S(0, 4) - 0.2);
+  tl.fromTo('#ovQ', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, S(0, 4) - 0.1);
+  OFF('#ovQ', S(0, 5) - 0.1); OFF('#vign', S(0, 5) - 0.1);
+  // two safety nets (outlines) + the whole fleet
+  CAM(1920, 1150, 0.5, S(0, 5) - 0.2, 1.8);
+  ON('#alarmOut', W(0, 5, 'two safety', 0.2)); ON('#gateOut', W(0, 5, 'two safety', 0.5));
+  tl.fromTo(['#alarmOut', '#gateOut'], { scale: 0.9, transformOrigin: '50% 50%' }, { scale: 1.1, duration: 0.4, yoyo: true, repeat: 3 }, W(0, 5, 'two safety', 0.5));
+  tl.to('.fl', { opacity: 1, duration: 0.25, stagger: { each: 0.035, from: 'center' } }, W(0, 5, 'hundreds', -0.3));
+  tl.to(['.cp', '.bb'], { opacity: 0.25, duration: 0.6 }, W(0, 5, 'hundreds', -0.3));
+  ON('#tower', W(0, 5, 'admins', 0)); TAG('#tagAdmin', W(0, 5, 'admins', 0.2));
+
+  /* ── scene 1: the alarm and the guard ──────────────────── */
+  tl.to(['.cp', '.bb', '.fl'], { opacity: 0, duration: 0.5 }, S(1, 0) - 0.4);
+  CAM(980, 1010, 0.95, S(1, 0) - 0.2, 1.6);
+  OFF('#alarmOut', S(1, 1)); tl.fromTo('#alarmBody', { opacity: 0, scale: 0.4, transformOrigin: '100px 100px' }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(2)' }, S(1, 1));
+  TAG('#tagScan', W(1, 1, 'alarm', 0));
+  // it rings
+  const rings = (t, n) => { for (let r = 0; r < n; r++) tl.fromTo('#alarm .ring', { opacity: 0.8, scale: 0.9, transformOrigin: '100px 100px' }, { opacity: 0, scale: 1.9, duration: 0.9, stagger: 0.25, ease: 'power1.out' }, t + r * 0.8); tl.fromTo('#alarmGlow', { opacity: 1 }, { opacity: 0.2, duration: 0.2, yoyo: true, repeat: n * 4 - 1 }, t); };
+  rings(W(1, 2, 'rings', 0), 3);
+  // ... but you can still walk through
+  CAM(2700, 1200, 0.9, W(1, 2, 'still walk', -0.6), 1.2);
+  tl.set('#walker', { x: 0, opacity: 1 }, W(1, 2, 'still walk', -0.4));
+  tl.to('#walker', { x: -900, duration: 2.2, ease: 'none' }, W(1, 2, 'still walk', -0.3));
+  tl.to('#walker', { y: -10, duration: 0.2, yoyo: true, repeat: 11 }, W(1, 2, 'still walk', -0.3));
+  rings(W(1, 2, 'still walk', -0.2), 2);
+  // the guard
+  tl.set('#walker', { x: 0, opacity: 0 }, S(1, 3) - 0.1);
+  OFF('#gateOut', S(1, 3)); tl.fromTo('#gate', { opacity: 0, rotation: -90 }, { opacity: 1, rotation: 0, duration: 0.7, ease: 'bounce.out' }, S(1, 3) + 0.2);
+  TAG('#tagGate', W(1, 3, 'guard', 0));
+  CAM(3050, 1000, 0.75, S(1, 4) - 0.2, 1.2);
+  tl.fromTo('#adminLine', { opacity: 0 }, { opacity: 1, duration: 0.4 }, W(1, 4, 'posts', 0));
+  tl.set('#walker', { opacity: 1 }, W(1, 4, 'does not', -0.9));
+  tl.to('#walker', { x: -460, duration: 0.9, ease: 'power1.in' }, W(1, 4, 'does not', -0.8));
+  tl.to('#walker', { x: -300, duration: 0.5, ease: 'power2.out' }, W(1, 4, 'does not', 0.1));
+  tl.fromTo('#xMark', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, W(1, 4, 'pass', -0.1));
+  // one warns, the other prevents
+  tl.fromTo('#ovSplit .l', { opacity: 0, x: -200 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }, W(1, 5, 'warns', -0.2));
+  tl.fromTo('#ovSplit .r', { opacity: 0, x: 200 }, { opacity: 1, x: 0, duration: 0.5, ease: 'power3.out' }, W(1, 5, 'warns', -0.2)); tl.fromTo('#ovSplit .r > *', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.08 }, W(1, 5, 'prevents', -0.2)); tl.set('#ovSplit .r > *', { opacity: 0 }, 0);
+  tl.set('#ovSplit', { opacity: 1 }, W(1, 5, 'warns', -0.2));
+  tl.fromTo('#stamp', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(2)' }, S(1, 6) + 0.3);
+  OFF(['#ovSplit', '#stamp'], E(1, 6) + 0.3, 0.4); OFF(['#walker', '#xMark'], E(1, 6));
+
+  /* ── scene 2: the alarm in action (product UI) ─────────── */
+  CAM(1020, 1250, 2.4, S(2, 0) - 0.3, 1.2, 'power2.in');
+  ON('#uiBack', S(2, 0) + 0.5, 0.5); tl.fromTo('#ui', { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' }, S(2, 0) + 0.6);
+  ON('#cur', S(2, 1) - 0.4, 0.2);
+  CUR(1190, 330, S(2, 1) - 0.3, 0.9); CLICK(1190, 340, W(2, 1, 'switches', 0));
+  ON('#ddList', W(2, 1, 'switches', 0.1), 0.2);
+  CUR(1170, 470, W(2, 1, 'No authentication', -0.7), 0.6); CLICK(1170, 480, W(2, 1, 'No authentication', 0));
+  OFF('#ddList', W(2, 1, 'No authentication', 0.2), 0.15); OFF('#authA', W(2, 1, 'No authentication', 0.2), 0.15); ON('#authB', W(2, 1, 'No authentication', 0.25), 0.2);
+  tl.fromTo('#w1', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, S(2, 2));
+  CUR(1190, 430, S(2, 3), 0.8); CLICK(1190, 440, W(2, 3, "maker's", -0.2));
+  OFF('#credA', W(2, 3, "maker's", 0), 0.15); ON('#credB', W(2, 3, "maker's", 0.05), 0.2);
+  tl.fromTo('#w2', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(2, 3, 'warns again', -0.1));
+  CUR(1110, 520, S(2, 4) - 0.2, 0.8); CLICK(1110, 530, S(2, 4) + 0.6);
+  tl.fromTo('#shareDlg', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(2, 4) + 0.7);
+  CUR(1240, 620, S(2, 4) + 1.0, 0.6); CLICK(1240, 630, W(2, 4, 'whole organization', 0));
+  tl.to('#sw', { backgroundColor: '#d98a00', duration: 0.2 }, W(2, 4, 'whole organization', 0.05)); tl.to('#swK', { x: 40, duration: 0.2 }, W(2, 4, 'whole organization', 0.05));
+  tl.fromTo('#w3', { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.6)' }, W(2, 4, 'warns too', 0));
+  OFF('#shareDlg', W(2, 4, 'nobody', 0.2), 0.3);
+  // the pattern
+  
+  tl.fromTo('#braceTxt', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(2)' }, S(2, 6));
+  ['#w1', '#w2', '#w3'].forEach((w, k) => tl.fromTo(w, { scale: 1 }, { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1 }, S(2, 5) + 0.3 + k * 0.4));
+  // the limit: can still publish
+  CUR(1640, 128, S(2, 7) - 0.2, 0.8); CLICK(1640, 138, W(2, 7, 'publish', -0.1));
+  tl.fromTo('#toast', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(2)' }, W(2, 7, 'publish', 0.1));
+
+  /* ── scene 3: the guard (data policies) ───────────────── */
+  OFF('#cur', S(3, 0) - 0.6, 0.2);
+  tl.to('#ui', { opacity: 0, scale: 0.28, duration: 0.7, ease: 'power3.in' }, S(3, 0) - 0.6); OFF('#uiBack', S(3, 0) - 0.3, 0.5);
+  CAM(3150, 900, 0.9, S(3, 0) - 0.1, 1.4);
+  tl.fromTo('#envs', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5 }, W(3, 1, 'each environment', -0.2));
+  tl.set('#envs', { left: 2900, top: 640 }, 0); OFF('#envs', S(3, 2) - 0.2);
+  CAM(2150, 1290, 0.6, S(3, 2) - 0.2, 1.6);
+  tl.to('#tagBot', { opacity: 1, duration: 0.3 }, S(3, 2));
+  ['#cb0', '#cb1', '#cb2', '#cb3'].forEach((c, k) => { tl.set(c, { opacity: 1 }, S(3, 3) + 0.4); tl.fromTo(c, { strokeDasharray: 900, strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, S(3, 3) + 0.4 + k * 0.15); });
+  [['#cap0', 'Channels'], ['#cap1', 'knowledge'], ['#cap2', 'tools'], ['#cap3', 'M C P']].forEach(([c, w]) => POP(c, W(3, 4, w, -0.1)));
+  // the admin blocks one connector
+  tl.fromTo('#cut', { opacity: 0, scale: 2, transformOrigin: '2170px 980px' }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power3.in' }, W(3, 5, 'blocks', 0));
+  tl.to('#cb1', { stroke: '#c4392f', strokeDasharray: '18 18', duration: 0.3 }, W(3, 5, 'blocks', 0.3));
+  tl.to('#cap1 .disc', { borderColor: '#c9ced8', color: '#c9ced8', duration: 0.4 }, W(3, 5, 'disappears', -0.2));
+  tl.to('#cap1', { opacity: 0.35, duration: 0.6 }, W(3, 5, 'disappears', 0));
+  tl.fromTo('#cap1', { x: 0 }, { x: 14, duration: 0.06, yoyo: true, repeat: 7 }, W(3, 5, 'disappears', 0));
+  tl.fromTo('#blocked', { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.35, ease: 'power4.in' }, S(3, 7) - 0.2);
+  tl.fromTo('#stage', { x: 0 }, { x: 10, duration: 0.05, yoyo: true, repeat: 5 }, S(3, 7) + 0.15);
+
+
+  /* ═══ L05 scenes 4-16 ═══ */
+  const POPX = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, t);
+  const SLIDE = (sel, t) => tl.fromTo(sel, { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.45, ease: 'back.out(1.6)' }, t);
+  const SWAP = (from, to, t) => { OFF(from, t, 0.25); tl.fromTo(to, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }, t + 0.1); };
+  // exam room: options visible before the pause sentence, ring runs 3 s from the pause sentence, reveal at the answer sentence
+  const EXAM = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause);
+    ON(X, o.start == null ? S(i, 0) - 0.3 : o.start, 0.5);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, o.q);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    ON(X + '_ring', Pz, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: 3, ease: 'none' }, Pz);
+    tl.set(X + '_n3', { opacity: 0 }, Pz + 1); tl.set(X + '_n2', { opacity: 1 }, Pz + 1);
+    tl.set(X + '_n2', { opacity: 0 }, Pz + 2); tl.set(X + '_n1', { opacity: 1 }, Pz + 2);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 1.0, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.6, ease: 'power2.inOut' }, R + 1.0);
+    OFF(X, o.end, 0.4);
+  };
+
+  /* ── scene 4: three groups ─────────────────────────────── */
+  OFF(['.capi', '.cable', '#cut', '#tagBot'], S(4, 0) - 0.5, 0.4); OFF('#blocked', S(4, 0) - 0.3, 0.3);
+  CAM(3600, 820, 1.15, S(4, 0) - 0.3, 1.4);
+  ON('#deskA', S(4, 0) + 0.6);
+  ['#binB', '#binN', '#binX'].forEach((b, k) => POP(b, S(4, 0) + 1.0 + k * 0.3));
+  CAM(4800, 1000, 0.6, S(4, 0) + 1.0, 1.5);
+  CAM(5150, 1000, 0.6, S(4, 3) - 0.3, 1.0);
+  [['#binB', 'Business'], ['#binN', 'Non-business'], ['#binX', 'Blocked']].forEach(([b, w]) => tl.fromTo(b + ' .hd', { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 1 }, W(4, 1, w, 0)));
+  tl.fromTo('#cSP', { opacity: 0, y: -500 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(4, 1, 'Business', 0.1));
+  tl.to('#cSP', { borderColor: '#2f5bd3', color: '#2f5bd3', duration: 0.3 }, W(4, 1, 'Business', 0.7));
+  tl.fromTo('#cSoc', { opacity: 0, y: -500 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(4, 1, 'Non-business', 0.1));
+  tl.to('#cSoc', { borderColor: '#7b4fc9', color: '#7b4fc9', duration: 0.3 }, W(4, 1, 'Non-business', 0.7));
+  tl.fromTo('#cGen', { opacity: 0, y: -500 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(4, 1, 'Blocked', 0.1));
+  tl.to('#cGen', { borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, W(4, 1, 'Blocked', 0.7));
+  POP('#lockX', S(4, 2) + 0.2);
+  // s3: a Business plug and a Non-business plug slide together toward the agent and bounce apart
+  ON('#bot4', S(4, 3) - 0.3, 0.4);
+  ON(['#t1', '#t2'], S(4, 3), 0.25);
+  tl.to('#t1', { x: 2040, y: -430, duration: 1.5, ease: 'power2.inOut' }, S(4, 3) + 0.3);
+  tl.to('#t2', { x: 1360, y: -290, duration: 1.5, ease: 'power2.inOut' }, S(4, 3) + 0.3);
+  tl.to('#t1', { x: 1700, y: -640, rotation: -12, borderColor: '#c4392f', duration: 0.5, ease: 'back.out(2)' }, S(4, 3) + 2.0);
+  tl.to('#t2', { x: 1020, y: -250, rotation: 10, borderColor: '#c4392f', duration: 0.5, ease: 'back.out(2)' }, S(4, 3) + 2.0);
+  POP('#nt', W(4, 3, 'never together', 0));
+  OFF('#nt', S(4, 4) - 0.1, 0.3);
+  // s4-5: the agent
+  CAM(6250, 1100, 0.9, S(4, 4) - 0.2, 1.4);
+  TAG('#tagBot4', S(4, 4) + 0.4);
+  tl.to('#t1', { x: 2040, y: 100, rotation: 0, borderColor: '#2f5bd3', duration: 0.9, ease: 'power2.inOut' }, W(4, 4, 'reads SharePoint', -0.3));
+  ON('#stub', W(4, 4, 'which the admin', 0), 0.3);
+  tl.to('#t2', { x: 1420, y: -430, rotation: 0, borderColor: '#7b4fc9', duration: 0.9, ease: 'power2.inOut' }, W(4, 4, 'social network', -0.6));
+  const tc = W(4, 5, 'second', 0.2);
+  tl.to('#t2', { x: 1360, y: -20, duration: 0.5, ease: 'power2.in' }, tc - 0.5);
+  for (let k = 0; k < 10; k++) { const a = k * Math.PI / 5; tl.fromTo('#sp' + k, { x: 0, y: 0, opacity: 1, scale: 0.5 }, { x: Math.cos(a) * 230, y: Math.sin(a) * 230, opacity: 0, scale: 1.2, duration: 0.6, ease: 'power2.out', immediateRender: false }, tc); }
+  tl.to('#t2', { borderColor: '#c4392f', color: '#c4392f', duration: 0.1 }, tc);
+  tl.to('#t2', { x: 1378, duration: 0.05, yoyo: true, repeat: 5 }, tc + 0.1);
+  tl.fromTo('#errToast', { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.4, ease: 'back.out(2)' }, W(4, 5, 'an error', -0.1));
+  // s6: the maker asks, the admin moves the Blocked card
+  OFF('#errToast', S(4, 6) - 0.3); OFF(['#t1', '#t2', '#stub', '#tagBot4'], S(4, 6) - 0.2, 0.4);
+  CAM(4800, 1200, 0.7, S(4, 6) - 0.2, 1.4);
+  tl.set('#mk4', { x: 0 }, S(4, 6) - 0.3);
+  ON('#mk4', S(4, 6) + 0.1, 0.3);
+  tl.to('#mk4', { x: -2100, duration: 2.3, ease: 'none' }, S(4, 6) + 0.1);
+  tl.to('#mk4 svg', { y: -10, duration: 0.2, yoyo: true, repeat: 11 }, S(4, 6) + 0.1);
+  const d0 = S(4, 6) + 2.6;
+  OFF('#rq', d0 - 0.2, 0.3);
+  ON('#wcur', d0 - 0.3, 0.2);
+  tl.to('#wcur', { scale: 0.85, duration: 0.1, yoyo: true, repeat: 1, transformOrigin: '0 0' }, d0);
+  OFF('#lockX', d0 + 0.1, 0.3);
+  tl.to('#cGen', { x: -300, y: -250, duration: 0.45, ease: 'power2.out' }, d0 + 0.1);
+  tl.to('#wcur', { x: 5100, y: 1040, duration: 0.45, ease: 'power2.out' }, d0 + 0.1);
+  tl.to('#cGen', { x: -1360, y: 140, duration: 0.8, ease: 'power2.inOut' }, d0 + 0.6);
+  tl.to('#wcur', { x: 4040, y: 1430, duration: 0.8, ease: 'power2.inOut' }, d0 + 0.6);
+  tl.to('#cGen', { borderColor: '#2f5bd3', color: '#2f5bd3', duration: 0.3 }, d0 + 1.4);
+  OFF('#wcur', d0 + 1.6, 0.3);
+
+  /* ── scene 5: EXAM it worked yesterday ─────────────────── */
+  OFF('#mk4', S(5, 0) - 0.2, 0.3);
+  EXAM('examA', 5, { pause: 4, reveal: 5, trap: 0, right: 2, q: S(5, 0) + 0.4, opt: [S(5, 3), S(5, 3) + 0.25, S(5, 3) + 0.5], end: S(6, 0) - 0.1 });
+  ON('#examA_p', S(5, 5) + 1.6, 0.4);
+  tl.to('#dChip', { x: -430, duration: 1.0, ease: 'power2.inOut' }, W(5, 6, 'allowed in', -0.3));
+  ON('#dOk', W(5, 6, 'allowed in', 0.7), 0.3);
+  tl.to('#pChip', { x: -25, duration: 0.6, ease: 'power2.in' }, W(5, 6, 'blocked in', -0.5));
+  tl.to('#pChip', { x: 20, duration: 0.4, ease: 'back.out(3)' }, W(5, 6, 'blocked in', 0.1));
+  ON('#pNo', W(5, 6, 'blocked in', 0.2), 0.3);
+  ON('#lbEnv', S(5, 6) + 0.2, 0.4);
+
+  /* ── scene 6: credentials and Teams (UI) ───────────────── */
+  ON('#uiBack', S(6, 0) - 0.4, 0.5);
+  tl.fromTo('#uaA', { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out' }, S(6, 0) + 0.1);
+  ON('#cur', S(6, 1) - 0.4, 0.2);
+  CUR(POS.tgl[0] - 10, POS.tgl[1] - 6, W(6, 1, 'credentials', -1.6), 1.0);
+  CLICK(POS.tgl[0], POS.tgl[1], W(6, 1, 'credentials', 0));
+  tl.to('#tgl', { backgroundColor: '#1e7f4f', duration: 0.2 }, W(6, 1, 'credentials', 0.05)); tl.to('#tglK', { x: 52, duration: 0.2 }, W(6, 1, 'credentials', 0.05));
+  ON('#tglNote', S(6, 2), 0.4);
+  OFF('#cur', S(6, 3) - 0.3, 0.2);
+  SWAP('#uaA', '#uaB', S(6, 3) - 0.1);
+  tl.fromTo('#ddLock', { scale: 1 }, { scale: 1.06, duration: 0.2, yoyo: true, repeat: 3 }, S(6, 3) + 0.3);
+  POPX('#usr', S(6, 3) + 0.6);
+  SWAP('#uaB', '#uaC', S(6, 4) - 0.1);
+  POPX('#cm1', S(6, 4) + 0.4);
+  POPX('#cm2', S(6, 5) + 0.2);
+  tl.fromTo('#ssoP', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: 'back.out(2)' }, W(6, 5, 'single sign', 0));
+  tl.fromTo('#ssoX', { scaleX: 0 }, { scaleX: 1, duration: 0.3 }, W(6, 5, 'does not', 0));
+  POPX('#adTxt', W(6, 5, 'so users', 0));
+
+  /* ── scene 7: one connector per source ─────────────────── */
+  OFF('#uaC', S(7, 0) - 0.5, 0.4); OFF('#uiBack', S(7, 0) - 0.4, 0.5);
+  CAM(5700, 2520, 0.56, S(7, 0) - 0.7, 0);
+  ON(['#shelf', '#shelfT'], S(7, 0) + 0.3, 0.5);
+  const flow = (k, t0, t1) => gsap.utils.toArray('.dot' + k).forEach((el, d) => {
+    const st = t0 + d * 0.9, per = 2.7, rep = Math.max(0, Math.floor((t1 - st) / per) - 1);
+    tl.set(el, { opacity: 1, x: 0 }, st);
+    tl.fromTo(el, { x: 0 }, { x: 2120, duration: per, ease: 'none', repeat: rep }, st);
+    tl.set(el, { opacity: 0 }, st + (rep + 1) * per);
+  });
+  const kp = (k, t) => ON(['#src' + k, '#pl' + k, '#valve' + k, '#bk' + k], t, 0.5);
+  [0, 1, 2].forEach((k) => ON('#pipe' + k, S(7, 1) + 0.15 + k * 0.3, 0.5));
+  const tcl = W(7, 5, 'block public', 1.0), tEnd7 = S(8, 0) - 0.6;
+  kp(0, S(7, 2)); flow(0, S(7, 2) + 0.4, tEnd7);
+  kp(1, S(7, 3)); flow(1, S(7, 3) + 0.4, tEnd7);
+  kp(2, S(7, 4)); flow(2, S(7, 4) + 0.4, tcl);
+  CAM(5400, 2650, 0.85, S(7, 5) - 0.1, 1.2);
+  ON('#wcur', tcl - 1.2, 0.2);
+  tl.set('#wcur', { x: 5650, y: 2900 }, tcl - 1.3);
+  tl.to('#wcur', { x: 5400, y: 2725, duration: 0.8, ease: 'power2.inOut' }, tcl - 1.1);
+  tl.to('#wcur', { scale: 0.85, duration: 0.1, yoyo: true, repeat: 1 }, tcl - 0.25);
+  tl.to('#valve2 .vh', { rotation: 90, svgOrigin: '75 75', duration: 0.4 }, tcl - 0.2);
+  tl.to('#valve2 .vc', { stroke: '#c4392f', duration: 0.3 }, tcl);
+  ON('#dry2', tcl, 0.4);
+  OFF('#wcur', tcl + 0.7, 0.3);
+  CAM(5700, 2520, 0.56, S(7, 6) - 0.2, 1.2);
+  ON('#oneNever', S(7, 6), 0.4);
+  OFF('#oneNever', S(7, 7) - 0.1, 0.3);
+  OFF(['#pl0', '#pl1', '#pl2'], S(7, 7) - 0.1, 0.3);
+  CAM(5705, 2600, 0.56, S(7, 7) - 0.1, 1.2);
+  tl.to('#valve2 .vh', { rotation: 0, duration: 0.3 }, S(7, 7)); tl.to('#valve2 .vc', { stroke: '#2f5bd3', duration: 0.3 }, S(7, 7)); OFF('#dry2', S(7, 7), 0.3);
+  ON('#sieve', S(7, 7) + 0.2, 0.4); ON('#eFil', W(7, 7, 'endpoint', 0), 0.4);
+  const tu = S(7, 7) + 1.0;
+  [['#u0', 1], ['#u1', 0], ['#u2', 1], ['#u3', 0]].forEach(([u, pass], k) => {
+    const t = tu + k * 1.1;
+    tl.set(u, { x: 120 }, t - 0.05); ON(u, t, 0.2);
+    if (pass) { tl.to(u, { x: 1500, duration: 1.6, ease: 'none' }, t); tl.to(u, { borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.2 }, t + 0.8); OFF(u, t + 1.5, 0.3); }
+    else { tl.to(u, { x: 600, duration: 0.8, ease: 'none' }, t); tl.to(u, { borderColor: '#c4392f', color: '#c4392f', duration: 0.15 }, t + 0.8); tl.to(u, { x: 260, duration: 0.6, ease: 'back.out(2)' }, t + 0.8); OFF(u, t + 1.6, 0.3); }
+  });
+
+  /* ── scene 8: closing the Monday door ──────────────────── */
+  tl.set(['#binB', '#binN', '#binX', '#deskA', '#cSP', '#cSoc', '#cGen', '#lockX', '#bot4', '#mk4'], { opacity: 0 }, S(8, 0) - 1.4);
+  tl.set(['#tagScan', '#tagGate', '#tagAdmin', '.ptxt', '#lapA', '#lapB', '#lapHi'], { opacity: 0 }, S(8, 0) - 1.4);
+  tl.set('.cp', { x: 0 }, S(8, 0) - 1.3); tl.set('#gate', { rotation: -90 }, S(8, 0) - 1.3);
+  CAM(2200, 1180, 0.6, S(8, 0) - 1.2, 2.2);
+  tl.to('.cp', { opacity: 1, duration: 0.4 }, S(8, 0) + 0.3);
+  CAM(3300, 700, 0.85, S(8, 1) - 0.1, 1.4);
+  ON('#tagAdmin', S(8, 1) + 1.0, 0.4);
+  tl.fromTo('#bigPlug', { opacity: 0, y: -40 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.8)' }, W(8, 2, 'Chat without', 0));
+  tl.to('#bigPlug', { borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, S(8, 3) + 0.3);
+  tl.fromTo('#bigPlug', { x: 0 }, { x: 12, duration: 0.05, yoyo: true, repeat: 5 }, S(8, 3) + 0.3);
+  POP('#bigX', S(8, 3) + 0.5);
+  CAM(950, 1265, 2.3, S(8, 4) - 0.2, 1.2);
+  ON('.ptxt', S(8, 4) - 0.3, 0.2);
+    ON('#lapList', S(8, 4) + 0.1, 0.25);
+  tl.to('#lapStrike', { opacity: 1, duration: 0.2 }, W(8, 4, 'gone', 0));
+  tl.to('#lapR0 rect', { fill: '#cfdcf8', duration: 0.2 }, W(8, 5, 'Authenticate with', 0.2));
+  tl.to('#lapR1 rect', { fill: '#cfdcf8', duration: 0.2 }, W(8, 5, 'manually', -0.3));
+  const tg = W(8, 5, 'manually', 0.5);
+  CAM(2650, 1250, 0.78, tg - 0.6, 1.2);
+  OFF(['#lapList', '.ptxt'], tg - 0.5, 0.3);
+  ON('#tagGate', tg + 0.6, 0.4);
+  tl.to('#lockO', { opacity: 0, duration: 0.2 }, tg + 0.5); tl.to('#lockC', { opacity: 1, duration: 0.2 }, tg + 0.5);
+  tl.fromTo('#lockC', { scale: 1 }, { scale: 1.3, svgOrigin: '48 233', duration: 0.2, yoyo: true, repeat: 3 }, tg + 0.6);
+  tl.to('#gate', { rotation: 0, duration: 0.7, ease: 'bounce.out' }, tg + 0.4);
+  for (let k = 0; k < 5; k++) { tl.to('#p' + k, { x: -170, duration: 1.0, ease: 'power1.in' }, tg - 0.4); tl.to('#p' + k, { x: -120, duration: 0.4, ease: 'power2.out' }, tg + 0.7); }
+  tl.set('#xMark', { x: 300 }, tg + 0.5);
+  tl.fromTo('#xMark', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(2)' }, tg + 0.6);
+  CAM(2000, 1150, 0.76, S(8, 6) - 0.2, 1.2);
+  ON('#tagScan', S(8, 6) - 0.1, 0.4);
+  rings(S(8, 6) + 0.2, 1);
+  tl.to('#alarmBody', { opacity: 0.3, duration: 0.6 }, S(8, 6) + 1.1);
+  CAM(2800, 1300, 0.8, S(8, 7) - 0.2, 1.0);
+  TAG('#tagGuard', S(8, 7));
+  ON('#gateGlow', S(8, 7), 0.3);
+  tl.fromTo('#gateGlow', { scale: 1 }, { scale: 1.12, duration: 0.4, yoyo: true, repeat: 3 }, S(8, 7) + 0.1);
+
+  /* ── scene 9: EXAM the exam version ────────────────────── */
+  EXAM('examB', 9, { pause: 5, reveal: 6, trap: 0, right: 1, q: S(9, 0) + 0.5, opt: [S(9, 2), S(9, 3), S(9, 4)], end: S(10, 0) - 0.1 });
+  ON('#whyB1', S(9, 7), 0.4); ON('#whyB2', S(9, 8), 0.4);
+  ON('#examB_p', S(9, 7) + 0.1, 0.4);
+  tl.to('#wkr1', { x: 420, duration: 1.8, ease: 'none' }, S(9, 7) + 0.4);
+  tl.to('#wkr2', { x: 190, duration: 1.2, ease: 'power1.in' }, S(9, 7) + 0.4);
+  tl.to('#wkr2', { x: 90, duration: 0.4, ease: 'back.out(3)' }, S(9, 7) + 1.6);
+
+  /* ── scene 10: three zones ─────────────────────────────── */
+  tl.set('.tag', { opacity: 0 }, S(10, 0) - 0.6);
+  tl.set(['.ptxt', '#lapList'], { opacity: 0 }, S(10, 0) - 0.6);
+  tl.set(['.cp', '#xMark', '#gateGlow'], { opacity: 0 }, S(10, 0) - 0.6);
+  CAM(1920, 2000, 0.5, S(10, 0) - 0.6, 0);
+  tl.to('.fl', { opacity: 1, duration: 0.25, stagger: { each: 0.03, from: 'center' } }, S(10, 0) + 0.3);
+  const tz = W(10, 2, 'three zones', 0);
+  tl.fromTo('#zg1', { opacity: 0 }, { opacity: 1, duration: 0.6 }, tz);
+  tl.fromTo('#zg2', { opacity: 0 }, { opacity: 1, duration: 0.6 }, tz + 0.4);
+  tl.fromTo('#zg3', { opacity: 0 }, { opacity: 1, duration: 0.6 }, tz + 0.8);
+  tl.to('.fl', { y: 1060, duration: 1.8, ease: 'power2.inOut', stagger: { each: 0.008, from: 'center' } }, tz + 1.3);
+  [1, 2, 3].forEach((z) => tl.fromTo('#zl' + z, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)' }, S(10, z + 2)));
+
+  /* ── scene 11: what each zone allows ───────────────────── */
+  OFF(['#zl2', '#zl3'], S(11, 0) - 0.3, 0.3);
+  CAM(710, 2160, 0.96, S(11, 0) - 0.2, 1.8);
+  SLIDE('#zs1_0', W(11, 1, 'Microsoft three', -0.2));
+  SLIDE('#zs1_1', W(11, 1, 'own context', -0.3));
+  SLIDE('#zs1_2', W(11, 1, 'sharing turned', -0.2)); ON('#zs1_2 .strike', W(11, 1, 'sharing turned', 0.5), 0.2);
+  OFF(['#zl1', '.zsg1'], S(11, 2) - 0.5, 0.3); ON('#zl2', S(11, 2) - 0.1, 0.4);
+  CAM(1920, 2160, 0.96, S(11, 2) - 0.3, 1.4);
+  SLIDE('#zs2_0', W(11, 2, 'advanced connector', 0));
+  SLIDE('#zs2_1', W(11, 2, 'approved data', 0));
+  SLIDE('#zs2_2', W(11, 2, 'deployment pipelines', 0));
+  SLIDE('#zs2_3', W(11, 2, 'approval before', -0.2));
+  tl.fromTo('#zs2_3 .stp', { opacity: 0, scale: 2.2, rotation: -25 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: 'power3.in' }, W(11, 2, 'approval before', 0.5));
+  OFF(['#zl2', '.zsg2'], S(11, 3) - 0.5, 0.3); ON('#zl3', S(11, 3) - 0.1, 0.4);
+  CAM(3130, 2160, 0.96, S(11, 3) - 0.3, 1.4);
+  SLIDE('#zs3_0', W(11, 3, 'advanced connector', 0));
+  SLIDE('#zs3_1', W(11, 3, 'Purview', -0.2));
+  SLIDE('#zs3_2', W(11, 3, 'Integrated apps', -0.2));
+
+  /* ── scene 12: EXAM which zone? ────────────────────────── */
+  CAM(1920, 2300, 0.5, S(12, 0) - 0.3, 1.6);
+  OFF('.zs', S(12, 0) - 0.2, 0.3); ON(['#zl1', '#zl2'], S(12, 0) - 0.2, 0.3);
+  ON('#chipScrim', S(12, 0), 0.5);
+  [1, 2, 3, 4].forEach((s, k) => POP('#qc' + k, S(12, s)));
+  OFF(['.qc', '#chipScrim'], S(12, 6) - 0.2, 0.4);
+  EXAM('examC', 12, { pause: 8, reveal: 9, trap: 0, right: 1, q: S(12, 6), opt: [S(12, 7), S(12, 7) + 0.2, S(12, 7) + 0.4], start: S(12, 6) - 0.3, end: S(13, 0) - 0.1 });
+  ON('#examC_p', S(12, 9) + 1.2, 0.4);
+  tl.set('#hrBot', { x: 0, y: 0 }, S(12, 9) + 1.1);
+  ON('#hrBot', S(12, 9) + 1.3, 0.3);
+  tl.to('#hrBot', { x: 880, duration: 1.2, ease: 'power2.inOut' }, S(12, 9) + 1.6);
+  tl.to('#hrBot', { y: -40, duration: 0.6, ease: 'power1.out', yoyo: true, repeat: 1 }, S(12, 9) + 1.6);
+  tl.to('#tile2', { borderColor: '#1e7f4f', duration: 0.3 }, S(12, 9) + 2.7);
+  tl.to(['#tile1', '#tile3'], { opacity: 0.5, duration: 0.4 }, S(12, 9) + 2.7);
+  ON('#hrLb', S(12, 9) + 2.8, 0.3);
+  ON('#whyC1', S(12, 10), 0.4); ON('#whyC2', S(12, 11), 0.4);
+
+  /* ── scene 13: environment groups ──────────────────────── */
+  CAM(5700, 3880, 0.55, S(13, 0) - 0.7, 0);
+  ON(['#tAdm', '#tAdmL'], S(13, 0) + 0.1, 0.5);
+  ON('#grp', W(13, 0, 'apply rules', 0), 0.5); ON('#grpL', W(13, 0, 'apply rules', 0.2), 0.5);
+  [0, 1, 2].forEach((r) => { tl.fromTo(['#room' + r, '.room' + r + 't'], { opacity: 0, y: -300 }, { opacity: 1, y: 0, duration: 0.7, ease: 'bounce.out' }, S(13, 1) + 0.1 + r * 0.25); });
+  ON('#grpN', W(13, 1, 'one group only', 0), 0.4);
+  [['agent sharing', 0], ['generative', 1], ['transcript', 2]].forEach(([w, k]) => [0, 1, 2].forEach((r) => tl.fromTo(`#bd${r}_${k}`, { opacity: 0, y: -420 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, W(13, 2, w, -0.2) + r * 0.08)));
+  tl.fromTo('.lk', { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(3)', stagger: 0.04 }, W(13, 2, 'read only', -0.6));
+  CAM(4620, 4050, 0.95, S(13, 3) - 0.1, 1.2);
+  ON(['#envAdm', '#envAdmL'], S(13, 4), 0.4);
+  tl.set('#wcur', { x: 4940, y: 4040 }, S(13, 4) - 0.1);
+  ON('#wcur', S(13, 4) + 0.5, 0.2);
+  tl.to('#wcur', { x: 4700, y: 3990, duration: 0.5, ease: 'power2.inOut' }, S(13, 4) + 0.6);
+  tl.to('#wcur', { scale: 0.85, duration: 0.1, yoyo: true, repeat: 1 }, S(13, 4) + 1.2);
+  tl.fromTo('#bd0_1', { x: 0 }, { x: 14, duration: 0.06, yoyo: true, repeat: 7 }, S(13, 4) + 1.3);
+  tl.to('#bd0_1', { borderColor: '#c4392f', duration: 0.15, yoyo: true, repeat: 3 }, S(13, 4) + 1.3);
+  OFF('#wcur', S(13, 4) + 2.2, 0.3);
+  CAM(5700, 3900, 0.58, S(13, 5) - 0.2, 1.4);
+  OFF('#envAdmL', S(13, 5) - 0.1, 0.3);
+  tl.fromTo('#gaP', { opacity: 1, strokeDasharray: 160, strokeDashoffset: 160 }, { strokeDashoffset: 0, duration: 0.6, ease: 'power2.out', immediateRender: false }, S(13, 5) + 0.1);
+  ON('#gaH', S(13, 5) + 0.6, 0.2); ON('#grpUp', S(13, 5) + 0.3, 0.4);
+
+  /* ── scene 14: Agent 365 ───────────────────────────────── */
+  tl.set('#ctrl', { opacity: 0 }, 0);   // control room stays hidden until the camera arrives
+  OFF(['#grp', '#grpL', '#grpN', '#grpUp', '#grpArrow', '#rooms', '#wcur'], S(14, 0) - 0.5, 0.4);
+  CAM(1930, 3950, 0.6, S(14, 0) - 0.5, 2.2);
+  ON('#ctrl', S(14, 0) + 1.0, 0.5);
+  ON('#a365', W(14, 1, 'Agent three', 0), 0.4);
+  CAM(1930, 3730, 1.0, S(14, 1) + 0.2, 1.4);
+  OFF('#a365', S(14, 1) + 0.9, 0.3);
+  ON('#uiBack', S(14, 1) + 1.2, 0.5);
+  tl.fromTo('#uaD', { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power3.out' }, S(14, 1) + 1.3);
+  POPX('#rw0', S(14, 1) + 2.4);
+  POPX('#rw1', S(14, 2) + 0.2); POPX('#rw2', S(14, 2) + 1.4); POPX('#rw3', S(14, 2) + 2.6);
+  ON('#lblAuto', S(14, 2) + 0.3, 0.4); OFF('#lblAuto', S(14, 3) - 0.1, 0.3);
+  tl.fromTo('#crumbD', { scale: 1, transformOrigin: '0 50%' }, { scale: 1.15, color: '#2f5bd3', duration: 0.3, yoyo: true, repeat: 1 }, W(14, 3, 'Manage', 0));
+  ON('#lblReg', S(14, 4), 0.4); OFF('#lblReg', S(14, 5) - 0.1, 0.3);
+  ON('#cur', S(14, 5) - 0.6, 0.2);
+  tl.set('#cur', { x: 1500, y: 900 }, S(14, 5) - 0.65);
+  CUR(POS.blk0[0] - 10, POS.blk0[1] - 6, S(14, 5) - 0.5, 0.9);
+  const tb = W(14, 5, 'block an agent', 0.3);
+  CLICK(POS.blk0[0], POS.blk0[1], tb);
+  tl.to('#st0', { color: '#c4392f', duration: 0.2 }, tb + 0.05);
+  tl.set('#st0', { innerHTML: 'Blocked' }, tb + 0.05);
+  tl.to('#ch0 .ic', { color: '#c9ced8', duration: 0.3 }, tb + 0.1);
+  tl.fromTo('#testW', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, W(14, 5, 'makers can', 0));
+  OFF('#cur', tb + 1.0, 0.2);
+  ON('#logP', S(14, 6) - 0.1, 0.3); ON('#lg0', S(14, 6), 0.3); ON('#lg1', S(14, 6) + 0.8, 0.3);
+
+  /* ── scene 15: EXAM the silent agent ───────────────────── */
+  OFF(['#uaD', '#uiBack', '#cur'], S(15, 0) - 0.6, 0.4);
+  EXAM('examD', 15, { pause: 4, reveal: 5, trap: 0, right: 2, q: S(15, 0) + 0.4, opt: [S(15, 3), S(15, 3) + 0.25, S(15, 3) + 0.5], end: S(16, 0) - 0.1 });
+  ON('#examD_p', S(15, 5) + 1.6, 0.4);
+  ON('#noData', S(15, 5) + 2.0, 0.4);
+  tl.fromTo('#xc0', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.4 }, W(15, 6, 'authenticated session', 0));
+  tl.fromTo('#xc1', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.4 }, W(15, 6, 'qualifying license', 0));
+  tl.fromTo('#xc2', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.4 }, W(15, 6, 'not multitenant', 0));
+
+  /* ── scene 16: what to remember ────────────────────────── */
+  tl.to(['.cp', '.bb', '#xMark', '#gateGlow', '.zl', '.zs'], { opacity: 0, duration: 0.4 }, S(16, 0) - 0.5);
+  CAM(2100, 1180, 0.6, S(16, 0) - 0.4, 1.4);
+  tl.to('#world', { opacity: 0.25, duration: 0.6 }, S(16, 0) - 0.3);
+  const tMon = 492.0;   // Monday callback: cards leave, the world returns (silent tail gives it >= 5 s)
+  [1, 2, 3, 4, 5, 6].forEach((sn, n) => POPX('#rc' + n, S(16, sn)));
+  OFF('.rc', tMon, 0.8);
+  tl.to('#world', { opacity: 1, duration: 1.2 }, tMon);
+  ON(['#tagScan', '#tagGate'], tMon + 1.4, 0.5);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

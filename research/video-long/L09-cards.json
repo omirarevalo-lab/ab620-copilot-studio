@@ -1,0 +1,9 @@
+{
+  "1": ["Two shapes", [["Handwritten note", "Any words"], ["Form with checkboxes", "Only the boxes you print"], ["Rule", "Choose the shape on purpose"]]],
+  "2": ["The Message node", [["Text", "Basic formatting + variables"], ["Media", "Images, videos, cards"], ["Options", "Quick replies, message variations"], ["Question node", "Can do all of this too"]]],
+  "4": ["Suggest vs force", [["Quick replies", "Only suggest · user can type anything"], ["Question, multiple choice", "User must pick one option"], ["Message variations", "Random wording, same meaning"]]],
+  "6": ["After running", [["Don't respond", "Default · output folded into the agent's answer"], ["Write the response with generative AI", "The AI writes the reply"], ["Send specific response", "Your template + variables"], ["Send an adaptive card", "Interactive card"]]],
+  "7": ["Exact text", [["Template", "Ticket {number}, status {status}"], ["Extras", "Output variables, Power Fx"], ["Model", "Does not rewrite it"], ["User sees", "Ticket 4821, status In progress"]]],
+  "9": ["In the studio", [["1", "Add node › Message node"], ["2", "Variable icon › insert a value"], ["3", "Toolbar › Add › Quick reply"], ["4", "Force a choice: Question node, multiple choice"], ["5", "Tool › After running › Send specific response"], ["6", "Template + output variables › test chat"]]],
+  "10": ["Remember", [["Wording varies", "Message variations"], ["Suggest", "Quick replies"], ["Force a choice", "Question, multiple choice"], ["Exact text after a tool", "Send specific response"]]]
+}

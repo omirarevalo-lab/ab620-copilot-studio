@@ -1,0 +1,538 @@
+{
+ "id": "L17",
+ "title": "Create an agent flow and its parameters",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 324.985,
+ "scenes": [
+  {
+   "title": "A recipe for the agent",
+   "start": 0.8,
+   "end": 22.123,
+   "sentences": [
+    {
+     "text": "Marta tells the Contoso agent that her laptop will not turn on.",
+     "start": 0.8,
+     "end": 4.554
+    },
+    {
+     "text": "Nexo needs to open a ticket, and Valeria builds the tool for it.",
+     "start": 4.835,
+     "end": 8.631
+    },
+    {
+     "text": "An agent flow is a sequence of automatic steps that the agent can run.",
+     "start": 8.912,
+     "end": 13.37
+    },
+    {
+     "text": "Think of a recipe, with input ingredients and an output dish.",
+     "start": 13.651,
+     "end": 17.234
+    },
+    {
+     "text": "For the agent to use it, the recipe must start and end in a very specific way.",
+     "start": 17.515,
+     "end": 22.122
+    }
+   ]
+  },
+  {
+   "title": "It starts and ends in a special way",
+   "start": 23.023,
+   "end": 42.063,
+   "sentences": [
+    {
+     "text": "The start is the trigger called When an agent calls the flow.",
+     "start": 23.023,
+     "end": 26.414
+    },
+    {
+     "text": "The end is the action called Respond to the agent.",
+     "start": 26.695,
+     "end": 29.659
+    },
+    {
+     "text": "In between go the actions you want, the steps that do the work.",
+     "start": 29.94,
+     "end": 33.352
+    },
+    {
+     "text": "Other triggers belong to other scenarios, such as Power Apps or schedules.",
+     "start": 33.633,
+     "end": 37.878
+    },
+    {
+     "text": "Without this start and this end, Nexo cannot use the flow as a tool.",
+     "start": 38.159,
+     "end": 42.062
+    }
+   ]
+  },
+  {
+   "title": "The inputs",
+   "start": 42.963,
+   "end": 67.189,
+   "sentences": [
+    {
+     "text": "Now the inputs.",
+     "start": 42.963,
+     "end": 44.05
+    },
+    {
+     "text": "Inputs are defined in the trigger, at the start of the flow.",
+     "start": 44.331,
+     "end": 47.402
+    },
+    {
+     "text": "CreateTicket needs two of them, a title and an urgency.",
+     "start": 47.683,
+     "end": 51.095
+    },
+    {
+     "text": "With generative orchestration, the agent fills the inputs from the conversation context.",
+     "start": 51.376,
+     "end": 56.623
+    },
+    {
+     "text": "When something is missing, it generates questions to ask for it.",
+     "start": 56.904,
+     "end": 60.444
+    },
+    {
+     "text": "Marta said her laptop will not turn on, so Nexo takes the title from her message and asks for the urgency.",
+     "start": 60.725,
+     "end": 67.188
+    }
+   ]
+  },
+  {
+   "title": "A Custom value",
+   "start": 68.089,
+   "end": 91.164,
+   "sentences": [
+    {
+     "text": "But what if every ticket starts with the same urgency?",
+     "start": 68.089,
+     "end": 70.968
+    },
+    {
+     "text": "The service manager says all new tickets begin as Medium.",
+     "start": 71.249,
+     "end": 74.619
+    },
+    {
+     "text": "Valeria sets a Custom value on the urgency input.",
+     "start": 74.9,
+     "end": 78.078
+    },
+    {
+     "text": "A Custom value is a fixed value that replaces the automatic filling.",
+     "start": 78.359,
+     "end": 82.71
+    },
+    {
+     "text": "Once it is set, the agent no longer asks for that input.",
+     "start": 82.991,
+     "end": 86.339
+    },
+    {
+     "text": "Nexo only takes the title from Marta, and the urgency is always Medium.",
+     "start": 86.62,
+     "end": 91.163
+    }
+   ]
+  },
+  {
+   "title": "Decide: always Medium",
+   "start": 92.064,
+   "end": 125.564,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 92.064,
+     "end": 92.938
+    },
+    {
+     "text": "The service manager wants every ticket to start as Medium.",
+     "start": 93.219,
+     "end": 96.716
+    },
+    {
+     "text": "Today, Nexo still asks Marta for the urgency each time.",
+     "start": 96.997,
+     "end": 100.602
+    },
+    {
+     "text": "What should Valeria do?",
+     "start": 100.883,
+     "end": 102.183
+    },
+    {
+     "text": "Add a Question node for urgency?",
+     "start": 102.464,
+     "end": 104.447
+    },
+    {
+     "text": "Set a Custom value of Medium?",
+     "start": 104.728,
+     "end": 106.455
+    },
+    {
+     "text": "Or remove urgency from the trigger?",
+     "start": 106.736,
+     "end": 108.655
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 108.936,
+     "end": 110.471
+    },
+    {
+     "text": "Set a Custom value of Medium.",
+     "start": 114.252,
+     "end": 115.979
+    },
+    {
+     "text": "With a fixed Custom value, the agent no longer asks for that input.",
+     "start": 116.26,
+     "end": 120.334
+    },
+    {
+     "text": "A Question node would still ask Marta, which is exactly what the manager wants to stop.",
+     "start": 120.615,
+     "end": 125.563
+    }
+   ]
+  },
+  {
+   "title": "Only the outputs arrive",
+   "start": 126.464,
+   "end": 149.816,
+   "sentences": [
+    {
+     "text": "Now the other end.",
+     "start": 126.464,
+     "end": 127.572
+    },
+    {
+     "text": "Outputs are defined in Respond to the agent.",
+     "start": 127.853,
+     "end": 130.647
+    },
+    {
+     "text": "CreateTicket returns one output, the ticket I D.",
+     "start": 130.928,
+     "end": 134.148
+    },
+    {
+     "text": "Inside the flow there can be many internal variables, but they do not reach the agent.",
+     "start": 134.429,
+     "end": 139.463
+    },
+    {
+     "text": "Only the outputs you define in Respond to the agent arrive.",
+     "start": 139.744,
+     "end": 143.306
+    },
+    {
+     "text": "They appear as variables in the tool node of a topic, or the orchestrator uses them to write the response.",
+     "start": 143.587,
+     "end": 149.815
+    }
+   ]
+  },
+  {
+   "title": "Conditions to use it",
+   "start": 150.716,
+   "end": 176.353,
+   "sentences": [
+    {
+     "text": "A few more conditions before Nexo can use the flow.",
+     "start": 150.716,
+     "end": 153.83
+    },
+    {
+     "text": "First, it must be published.",
+     "start": 154.111,
+     "end": 155.752
+    },
+    {
+     "text": "Second, it must respond in real time.",
+     "start": 156.033,
+     "end": 158.379
+    },
+    {
+     "text": "So the Asynchronous response option must be Off.",
+     "start": 158.66,
+     "end": 161.176
+    },
+    {
+     "text": "You find it under Networking, inside Respond to the agent.",
+     "start": 161.457,
+     "end": 165.019
+    },
+    {
+     "text": "The flow must also answer within the action limit of one hundred seconds.",
+     "start": 165.3,
+     "end": 169.438
+    },
+    {
+     "text": "A separate callback feature with Asynchronous response On exists for long flows, but it is not the pattern for a tool.",
+     "start": 169.719,
+     "end": 176.352
+    }
+   ]
+  },
+  {
+   "title": "Decide: the missing number",
+   "start": 177.253,
+   "end": 211.905,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 177.253,
+     "end": 178.127
+    },
+    {
+     "text": "Valeria's flow keeps the ticket I D in an internal variable.",
+     "start": 178.408,
+     "end": 182.204
+    },
+    {
+     "text": "Nexo runs the flow, but never shares the number with Marta.",
+     "start": 182.485,
+     "end": 185.94
+    },
+    {
+     "text": "What should Valeria do?",
+     "start": 186.221,
+     "end": 187.522
+    },
+    {
+     "text": "Ask Nexo to read the flow variable?",
+     "start": 187.803,
+     "end": 189.914
+    },
+    {
+     "text": "Copy the variable into the topic?",
+     "start": 190.195,
+     "end": 192.071
+    },
+    {
+     "text": "Or add it to Respond to the agent?",
+     "start": 192.352,
+     "end": 194.314
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 194.595,
+     "end": 196.13
+    },
+    {
+     "text": "Add it to Respond to the agent.",
+     "start": 199.911,
+     "end": 201.659
+    },
+    {
+     "text": "Only the outputs defined there reach the agent, as variables or for the response.",
+     "start": 201.94,
+     "end": 206.718
+    },
+    {
+     "text": "Internal variables never arrive, so Nexo cannot read them, no matter how you ask.",
+     "start": 206.999,
+     "end": 211.904
+    }
+   ]
+  },
+  {
+   "title": "The Contoso case",
+   "start": 212.805,
+   "end": 236.117,
+   "sentences": [
+    {
+     "text": "Here is the whole Contoso case.",
+     "start": 212.805,
+     "end": 214.788
+    },
+    {
+     "text": "Marta writes that her laptop will not turn on.",
+     "start": 215.069,
+     "end": 217.479
+    },
+    {
+     "text": "Nexo calls CreateTicket and fills the title from her message.",
+     "start": 217.76,
+     "end": 221.407
+    },
+    {
+     "text": "The urgency comes from the Custom value, Medium, so nobody asks.",
+     "start": 221.688,
+     "end": 225.932
+    },
+    {
+     "text": "The middle actions create the ticket.",
+     "start": 226.213,
+     "end": 228.068
+    },
+    {
+     "text": "At the end, Respond to the agent returns the ticket I D, and Nexo shares it with Marta.",
+     "start": 228.349,
+     "end": 233.639
+    },
+    {
+     "text": "And the flow was published before it was added.",
+     "start": 233.92,
+     "end": 236.116
+    }
+   ]
+  },
+  {
+   "title": "Build it in Copilot Studio",
+   "start": 237.017,
+   "end": 262.228,
+   "sentences": [
+    {
+     "text": "Here are the steps in Copilot Studio.",
+     "start": 237.017,
+     "end": 239.192
+    },
+    {
+     "text": "Create a new agent flow, with the designer or with natural language.",
+     "start": 239.473,
+     "end": 243.632
+    },
+    {
+     "text": "Check that the trigger is When an agent calls the flow, and add the inputs title and urgency.",
+     "start": 243.913,
+     "end": 249.16
+    },
+    {
+     "text": "Add the middle actions that do the work.",
+     "start": 249.441,
+     "end": 251.424
+    },
+    {
+     "text": "At the end, add Respond to the agent and define the output ticket I D.",
+     "start": 251.705,
+     "end": 256.12
+    },
+    {
+     "text": "Check that Asynchronous response is Off.",
+     "start": 256.401,
+     "end": 258.491
+    },
+    {
+     "text": "Then publish the flow, and add it from Tools, Add a tool, Flow.",
+     "start": 258.772,
+     "end": 262.227
+    }
+   ]
+  },
+  {
+   "title": "Decide: not a tool yet",
+   "start": 263.128,
+   "end": 297.439,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 263.128,
+     "end": 264.002
+    },
+    {
+     "text": "Valeria's new flow has the right trigger and Respond to the agent.",
+     "start": 264.283,
+     "end": 268.356
+    },
+    {
+     "text": "Asynchronous response is Off, but the flow does not show up as a tool.",
+     "start": 268.637,
+     "end": 272.668
+    },
+    {
+     "text": "What should Valeria do?",
+     "start": 272.949,
+     "end": 274.25
+    },
+    {
+     "text": "Publish the flow, then add it?",
+     "start": 274.531,
+     "end": 276.236
+    },
+    {
+     "text": "Turn on Asynchronous response?",
+     "start": 276.517,
+     "end": 278.266
+    },
+    {
+     "text": "Or set a Custom value on each input?",
+     "start": 278.547,
+     "end": 280.572
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 280.853,
+     "end": 282.388
+    },
+    {
+     "text": "Publish the flow, then add it.",
+     "start": 286.169,
+     "end": 287.896
+    },
+    {
+     "text": "A flow must be published before the agent can use it as a tool.",
+     "start": 288.177,
+     "end": 291.803
+    },
+    {
+     "text": "Asynchronous response on breaks the real time rule, and Custom values do not make it appear.",
+     "start": 292.084,
+     "end": 297.438
+    }
+   ]
+  },
+  {
+   "title": "Rules to remember",
+   "start": 298.339,
+   "end": 323.784,
+   "sentences": [
+    {
+     "text": "Back at the rail yard, Marta reads her ticket I D, and Nexo moves on.",
+     "start": 298.339,
+     "end": 302.583
+    },
+    {
+     "text": "Remember the rules.",
+     "start": 302.864,
+     "end": 303.951
+    },
+    {
+     "text": "The flow starts with When an agent calls the flow and ends with Respond to the agent.",
+     "start": 304.232,
+     "end": 308.988
+    },
+    {
+     "text": "Inputs live in the trigger, and a Custom value stops the questions.",
+     "start": 309.269,
+     "end": 312.959
+    },
+    {
+     "text": "Only explicit outputs reach the agent.",
+     "start": 313.24,
+     "end": 315.522
+    },
+    {
+     "text": "It must be published, with Asynchronous response Off, and answer within one hundred seconds.",
+     "start": 315.803,
+     "end": 320.751
+    },
+    {
+     "text": "Next, actions, connectors, and express mode.",
+     "start": 321.032,
+     "end": 323.783
+    }
+   ]
+  }
+ ]
+}

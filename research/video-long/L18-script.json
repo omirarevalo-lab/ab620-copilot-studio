@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Steps from the shelves",
+    "caption": "Actions are the steps a flow performs. Some come grouped by type, others come from connectors to other systems.",
+    "say": "Marta writes to Nexo that her laptop will not turn on, and CreateTicket must open a ticket fast. Valeria opens the flow to add more steps. Actions are the steps a flow performs, like the ingredients and tools of a kitchen. Some come grouped by type, and others come from connectors to other systems. Knowing the groups helps you find what you need quickly."
+  },
+  {
+    "title": "The action catalog",
+    "caption": "Four action groups: AI capabilities, Human in the loop, Built-in tools, and Connectors.",
+    "say": "The actions of an agent flow come in four groups. AI capabilities holds generate text, process documents, Run a prompt, call an agent, and respond to the agent. Human in the loop is for approvals or for asking for information. Built-in tools holds loops, conditions, data operations, dates, and child flows. The fourth group is Connectors."
+  },
+  {
+    "title": "Connectors and Run a prompt",
+    "caption": "Connectors bring actions from other systems, such as Dataverse. Run a prompt, in AI capabilities, runs a prompt at one point.",
+    "say": "Connectors bring actions from other systems, such as Dataverse. CreateTicket uses the Dataverse connector to add the ticket row. Run a prompt lives inside AI capabilities, and it runs a prompt at one point in the flow. Valeria selects Insert new action where she wants the step. Then she chooses an existing prompt or a new one. Here, the prompt summarizes Marta's text."
+  },
+  {
+    "title": "Decide: where is Run a prompt",
+    "caption": "Valeria wants a step that summarizes Marta's text with a prompt. Where should she look for Run a prompt?",
+    "say": "Your turn. Valeria wants a step that summarizes Marta's text with a prompt. She selects Insert new action in CreateTicket. Where should she look for Run a prompt? Look under the Connectors group? Look under AI capabilities? Or look under Built-in tools? Decide before I answer. Look under AI capabilities. Run a prompt is one of the AI capabilities, next to generate text and process documents. Connectors bring actions from other systems, such as Dataverse, not prompts."
+  },
+  {
+    "title": "The two-minute window",
+    "caption": "By default, a flow that takes more than two minutes to respond to the agent fails. Express mode (preview) helps it finish in time.",
+    "say": "Now speed. By default, a flow that takes more than two minutes to respond to the agent fails. Marta would be left waiting, and Nexo would get an error. Express mode helps here. It speeds up flows with heavy processing and low data volume, so they finish inside that two-minute window. Express mode is in preview."
+  },
+  {
+    "title": "Two figures, kept apart",
+    "caption": "100 seconds is the action limit for a flow used as a tool. Two minutes is the default window for an agent flow.",
+    "say": "Two figures appear in Microsoft's pages, so keep them apart. One hundred seconds is the action limit for a flow used as a tool. Two minutes is the default window for an agent flow to respond to the agent, and that is the window express mode helps with. When your flow is a tool, plan for one hundred seconds."
+  },
+  {
+    "title": "Requirements and limits",
+    "caption": "Express mode needs the agent trigger, Respond to the agent, and a Copilot Studio plan. No Delay, no webhooks, little data.",
+    "say": "Express mode has requirements. The flow needs the When an agent calls a flow trigger, a Respond to the agent action, and a Copilot Studio plan. It has no extra cost. It also has limits. It does not support Delay or webhooks. It works poorly with lots of data, so keep each run under about one hundred actions and avoid very large connector responses. Long processes are not for express mode; they work asynchronously."
+  },
+  {
+    "title": "Decide: the long reconciliation",
+    "caption": "A long reconciliation process moves a lot of data. Should express mode handle it?",
+    "say": "Your turn. Contoso also has a long reconciliation process that moves a lot of data. The service manager asks Valeria whether express mode should handle it. What should Valeria do? Turn on express mode for it? Add a Delay action to it? Or let it run asynchronously? Decide before I answer. Let it run asynchronously. Long processes with lots of data are asynchronous, and express mode is for heavy processing with little data. Express mode for it is the trap, because it would not fit the two-minute window."
+  },
+  {
+    "title": "The Contoso case",
+    "caption": "CreateTicket: Dataverse inserts the row, Run a prompt summarizes, Respond to the agent answers. Express mode on; reconciliation stays asynchronous.",
+    "say": "Here is the whole Contoso case. CreateTicket starts with When an agent calls a flow. A Dataverse connector inserts the ticket row, and a Run a prompt summarizes Marta's text. The flow ends with Respond to the agent. It does quite a lot of processing but moves little data, so Contoso turns on express mode, in preview, and it answers within the two-minute window. The long reconciliation process does not use it."
+  },
+  {
+    "title": "Build it in Copilot Studio",
+    "caption": "Insert new action, add a connector action and a Run a prompt, then Overview, Edit under Details, Express mode on, and test.",
+    "say": "Here are the steps in Copilot Studio. Open the agent flow. Select Insert new action at the point where you want a step, and review the groups AI capabilities, Human in the loop, Built-in tools, and Connectors. Add an action from a connector, such as Dataverse, then add a Run a prompt from AI capabilities. Open Overview, select Edit under Details, and turn on Express mode, if your environment offers it. Test that the flow responds in under two minutes."
+  },
+  {
+    "title": "Decide: nothing comes back",
+    "caption": "Valeria's flow does heavy processing on little data, but it never sends an answer back. What must the flow have?",
+    "say": "Your turn. Valeria's new flow does heavy processing on little data. But it never sends an answer back, and express mode cannot help it. What must the flow have? A Respond to the agent action? A Delay action before the end? Or a webhook that calls the agent? Decide before I answer. A Respond to the agent action. Express mode requires the agent trigger, a Respond to the agent action, and a Copilot Studio plan. Delay and webhooks are not supported in express mode at all."
+  },
+  {
+    "title": "Rules to remember",
+    "caption": "Four groups; Run a prompt is in AI capabilities. Express mode: heavy processing, little data, two minutes. Long processes stay asynchronous.",
+    "say": "Back at the market, Marta reads her ticket I D, and Nexo moves on. Remember the four groups: AI capabilities, Human in the loop, Built-in tools, and Connectors. Run a prompt is in AI capabilities. Express mode, in preview, is for heavy processing with little data, inside the two-minute window. It needs the agent trigger, Respond to the agent, and a Copilot Studio plan. Long processes stay asynchronous. Next, error handling in flows."
+  }
+]

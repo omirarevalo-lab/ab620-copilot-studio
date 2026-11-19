@@ -1,0 +1,52 @@
+[
+ {
+  "title": "The fix nobody sees",
+  "caption": "The team fixed Nexo's answer on Friday, but Teams still shows the old one. And a maker wants to share Nexo with everyone, untested.",
+  "say": "Week six at Contoso. On Friday, the team fixed Nexo's answer about locked accounts. On Monday, employees in Teams still get the old answer. Meanwhile, an eager maker wants to share Nexo with the whole company, without ever trying it in Teams. Two mistakes from the same gap: not knowing the difference between testing and publishing. Today we rehearse on an empty stage, and then we open the doors."
+ },
+ {
+  "title": "Rehearsal on an empty stage",
+  "caption": "The test pane chats with the draft, unpublished. Select a reply to jump to its node. Track between topics follows along. Reset clears the chat.",
+  "say": "Testing is the rehearsal. The Test your agent pane lets you chat with the version you are editing, without publishing it. Select one of the agent's replies, and you jump to the topic and the node that produced it. The nodes that ran get a checkmark. Turn on Track between topics, and the canvas follows the conversation. And use Reset to start clean, because saving a topic does not clear the test chat."
+ },
+ {
+  "title": "The activity map",
+  "caption": "With generative orchestration, the activity map shows the plan live: which topics, tools or knowledge, in what order. Variables shows values.",
+  "say": "With generative orchestration, open the activity map. It shows the agent's plan in real time: which topics, tools or knowledge it chose, and in what order. The team types: I can't get into my email. The map shows Knowledge first, then the tickets tool. Exactly the plan they wanted. Next to it, the Variables panel, on its Test tab, shows each variable's value while you chat. When something looks wrong, these two tell you why."
+ },
+ {
+  "title": "Publish: opening the doors",
+  "caption": "Publish sends the current version to every channel. Until then, users see the old one. Live chats continue; new sessions get the update.",
+  "say": "Publishing opens the doors. Publish applies your current version to every connected channel. If you change something and do not publish, users keep the previous version. It can take a few minutes. Conversations in progress are not cut off. The new content arrives when a new session starts, and most channels end a session after thirty minutes without activity. In Teams, a user can type start over. One more limit: a trial account can test, but cannot publish."
+ },
+ {
+  "title": "Decide: the old answer",
+  "caption": "The team fixed a topic and saved it. Employees in Teams still get the old answer, even in new chats. What is missing?",
+  "say": "Your turn. The team fixed a wrong answer in a topic and saved it. A day later, employees in Teams still get the old answer, even in brand new chats. What is missing? Reset the conversation in the test pane? Publish the agent so channels update? Or wait for the old sessions to expire? Decide before I answer. Publish the agent. Saving only changes the draft. Channels see a change after you publish, and waiting changes nothing."
+ },
+ {
+  "title": "Channels: where users already chat",
+  "caption": "Channels: Teams and Microsoft Copilot, SharePoint, WhatsApp, websites, mobile apps, Facebook, Azure Bot Service channels. Demo website: stakeholders only.",
+  "say": "A channel is where people talk to the agent. Teams and Microsoft Copilot. SharePoint. WhatsApp. A website, either the demo site or your own. A mobile app, Facebook, and the Azure Bot Service channels, like Slack, Telegram, Twilio or email. Pick the places where your users already chat. Administrators can block channels with policies. And remember: the demo website is only for showing stakeholders, never for real customers."
+ },
+ {
+  "title": "Who is at the door",
+  "caption": "Authenticate with Microsoft: default, no setup in Teams, SharePoint, Power Apps, Copilot. Manual: other channels. None: anyone with the link, no user credentials.",
+  "say": "Every channel needs to know who is at the door. The default is Authenticate with Microsoft. Teams, SharePoint, Power Apps and Microsoft Copilot work with no extra setup. Authenticate manually is for other channels that need a sign in. No authentication lets anyone with the link chat. It also means tools cannot run with each user's own credentials. So for an internal I T helper like Nexo, the default is usually right."
+ },
+ {
+  "title": "Decide: who signs in",
+  "caption": "Nexo must identify each employee in Teams and run tools with their own credentials, with no extra setup. Which authentication?",
+  "say": "Your turn. In Teams, Nexo must identify each employee and run tools with that person's own credentials. The team wants no extra setup. Which authentication do they choose? Authenticate manually in each channel? No authentication, open to the link? Or authenticate with Microsoft in Teams? Decide before I answer. Authenticate with Microsoft. It works in Teams with no extra setup. Manual is for other channels, and no authentication blocks user credentials."
+ },
+ {
+  "title": "Test, publish, share",
+  "caption": "Test pane, select a reply, activity map, Variables. Publish, confirm. Channels, Teams and Microsoft Copilot. Open in Teams first, then make it available.",
+  "say": "Here is the full routine in the studio. Open the Test pane and ask a question. Select the reply to jump to its node. Check the activity map and the Variables tab. Then select Publish, confirm, and wait until it finishes. Open Channels and choose Teams and Microsoft Copilot. First, select Open the agent in Teams and try it yourself. Only then select Make the agent available to others."
+ },
+ {
+  "title": "Opening night",
+  "caption": "Fix tested, published, tried in Teams, then shared with IT and later everyone. The test pane never replaces a real channel test.",
+  "say": "Back to week six. The team tests the locked account fix in the test pane, and the activity map looks right. They publish, open Nexo in Teams just for themselves, and try again. Green light. They share it with the I T department, and weeks later with the whole company. Remember: the test pane tests the draft and never replaces a real channel. Every change needs a new publish. Next, the exam map."
+ }
+]

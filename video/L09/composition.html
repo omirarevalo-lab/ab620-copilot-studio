@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L09 · Formatted responses · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  .bl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 860px; white-space: nowrap; font-size: 42px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; }
+  .bl.red { border-color: #c4392f; color: #c4392f; } .bl.green { border-color: #1e7f4f; color: #1e7f4f; } .bl.vi { border-color: #7b5cd6; color: #7b5cd6; } .bl.go { border-color: #b8860b; color: #8a6508; } .bl.tl { border-color: #0f7b8a; color: #0f7b8a; } .bl.nv { border-color: #1f2a44; color: #1f2a44; }
+  .pl { position: absolute; left: 120px; top: 120px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .dt { position: absolute; right: 120px; top: 150px; font-size: 40px; font-weight: 800; padding: 8px 28px; border-radius: 999px; background: #fff; border: 4px solid #1f2a44; color: #1f2a44; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; }
+  .bub { position: absolute; box-sizing: border-box; padding: 8px 22px; border-radius: 24px; font-size: 32px; font-weight: 700; white-space: nowrap; background: #fff; border: 4px solid #2f5bd3; color: #141821; opacity: 0; }
+  .bub.me { background: #e07a5f; border-color: #e07a5f; color: #fff; }
+  .cdw { position: absolute; box-sizing: border-box; padding: 8px 14px; background: #fff; border: 5px solid #8a93a6; border-radius: 20px; font-weight: 800; color: #141821; box-shadow: var(--shadow); white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 12px; opacity: 0; }
+  .tg { position: absolute; box-sizing: border-box; white-space: nowrap; font-size: 32px; font-weight: 800; padding: 3px 16px; border-radius: 999px; opacity: 0; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 38px; }
+  .exam .xp { top: 670px; height: 290px; }
+  .xp .rm { height: 290px; width: 820px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 34px; border-radius: 16px; padding: 6px 18px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  .xp .dl { position: absolute; font-size: 34px; font-weight: 800; color: #ffd166; line-height: 61px; }
+  .xp .bx { display: inline-block; width: 30px; height: 30px; box-sizing: border-box; border: 4px solid #fff; border-radius: 7px; vertical-align: -5px; margin-right: 12px; }
+  .uw .nav div { font-size: 32px; } .uw .bar { font-size: 32px; } .uw .bar .hc { font-size: 32px; } .uw .row b { font-size: 36px; } .uw .btn { font-size: 32px; } .uw .crumb { font-size: 32px; } .uw .fld { font-size: 34px; } .uw .fld small { font-size: 32px; } .uw .dd { font-size: 34px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 12px 24px; background: #fff; }
+  .uw .nc small { display: block; font-size: 32px; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .uw .mn { position: absolute; background: #fff; border: 3px solid var(--line2); border-radius: 16px; box-shadow: 0 16px 40px rgba(16,24,40,.25); opacity: 0; font-size: 34px; font-weight: 700; }
+  .uw .mn div { padding: 12px 24px; }
+  .uw .pp { position: absolute; font-size: 32px; font-weight: 800; padding: 6px 22px; border-radius: 999px; background: #cfe0ff; color: #1f3a8a; border: 3px solid #2f5bd3; white-space: nowrap; opacity: 0; }
+  .uw .vc { display: inline-block; font-size: 32px; font-weight: 800; padding: 2px 16px; border-radius: 12px; background: #b8860b; color: #fff; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L09 · Formatted responses. World 3840x2160, camera scale 1 except scene 2 (1.7 on the reply wall).
+     Two sets side by side, designed in SCREEN coordinates (1920x1080) and placed with A(x,y) / Bq(x,y): world y = y + 700, B adds x + 1920.
+     Set A "help desk counter": ticket board x120-540 · Marta/manager slot x540-740 · reply wall x760-1480 y150-600 · Nexo x1510-1798 · counter y740+.
+     Set B (reused by scene): desk with two sheets (1) · tool room (6) · Valeria's desk for the UI (9) · "Generative answers" sign (10). Floor line at screen y 800. */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', VIO = '#7b5cd6', GO = '#b8860b', GOD = '#7f5c06', TLC = '#0f7b8a', CRM = '#f4ead2', CORAL = '#e07a5f', PILL = '#cfe0ff', INK = '#141821';
+  const YO = 700;
+  const A = (x, y) => `left:${x}px;top:${y + YO}px`, Bq = (x, y) => `left:${x + 1920}px;top:${y + YO}px`;
+  const human = (id, x, y, top, hair, extra) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px" width="200" height="380" viewBox="0 0 200 380"><g><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></g>${extra || ''}</svg>`;
+  const PEN = (st) => `<svg class="w" id="pn7" style="${st}" width="90" height="90" viewBox="0 0 70 70"><path d="M10 60 L14 44 L44 14 a6 6 0 0 1 8 0 l4 4 a6 6 0 0 1 0 8 L26 56 Z" fill="currentColor"/></svg>`;
+  const bub = (id, x, y, w, t, cls, st) => `<div class="bub h ${cls || ''}" id="${id}" style="${A(x, y)};width:${w}px;${st || ''}">${t}</div>`;
+  const tgp = (id, x, y, w, t, bg, col, bd) => `<div class="tg" id="${id}" style="${A(x, y)};width:${w}px;background:${bg};color:${col};border:3px solid ${bd || bg};text-align:center">${t}</div>`;
+  const LBH = (id, t, c) => `<div class="bl ${c || ''}" id="${id}">${t}</div>`;
+
+  /* ═══════ SET A ═══════ */
+  ADD(`<div class="w" id="tb" style="${A(120, 200)};width:420px;height:600px;box-sizing:border-box;background:#e1c59a;border:10px solid #8d6230;border-radius:20px"><div style="position:absolute;left:0;right:0;top:6px;text-align:center;font-size:38px;font-weight:800;color:#5b3d17">Tickets</div></div>`);
+  [['4821', 262], ['4822', 386], ['4823', 510], ['4824', 634]].forEach(([n, y], i) => {
+    ADD(`<div class="w" id="tk${i}" style="${A(140, y)};width:380px;height:112px;box-sizing:border-box;background:#fff;border-radius:14px;padding:6px 18px;box-shadow:var(--shadow);font-size:38px;font-weight:800;color:${INK}">${n}</div>`);
+  });
+  ADD(`<div class="tg" id="sl3" style="${A(160, 634 + 58)};width:340px;border:3px dashed #8a93a6;color:#5d6472;background:#f3f5f9;text-align:center">Request type</div>`);
+  ADD(tgp('tt3a', 160, 634 + 58, 340, 'printer is weird??', '#fff3d6', AMB, AMB));
+  ADD(tgp('tt3b', 160, 634 + 58, 340, 'hardware', '#e3f4ea', GRN, GRN));
+  [['tt0', 262, 'hardware'], ['tt1', 386, 'software'], ['tt2', 510, 'access']].forEach(([id, y, t]) => ADD(tgp(id, 160, y + 58, 340, t, '#e3f4ea', GRN, GRN)));
+  ADD(`<div class="w" id="wall" style="${A(760, 150)};width:720px;height:450px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:28px;overflow:hidden"><div style="height:56px;background:${NAVY};color:#fff;font-size:32px;font-weight:700;padding:0 22px;display:flex;align-items:center;gap:12px">${IC('chat', 'width:36px;height:36px')}Help desk chat</div></div>`);
+  ADD(agent('nex', 1510, 400 + YO, { folder: '' }).replace('width="360" height="500"', 'width="288" height="400"'));
+  ADD(`<div class="w" id="ctr" style="${A(740, 740)};width:1060px;height:340px"><div style="height:26px;background:#aeb6c6;border-radius:10px 10px 0 0"></div><div style="height:314px;background:#c9ced8"></div></div>`);
+  const tbxSvg = (id, x, y, w, h, label) => `<svg class="w" id="${id}" style="${x};${y}" width="${w}" height="${h}" viewBox="0 0 240 150"><rect x="10" y="44" width="220" height="96" rx="10" fill="${NAVY}"/><rect x="10" y="44" width="220" height="14" fill="#2d3a5c"/>${label ? `<text x="120" y="104" font-size="21" font-weight="800" fill="#fff" text-anchor="middle">Ticket lookup</text>` : '<rect x="96" y="76" width="48" height="36" rx="8" fill="#ffd166"/>'}<g id="${id}_lid"><rect x="4" y="14" width="232" height="36" rx="8" fill="#2d3a5c"/><rect x="90" y="2" width="60" height="16" rx="8" fill="none" stroke="#2d3a5c" stroke-width="8"/></g></svg>`;
+  ADD(tbxSvg('tbx', `left:780px`, `top:${606 + YO}px`, 240, 140, false));
+  ADD(`<div class="w" id="tbxp" style="${A(1050, 650)};padding:6px 24px;background:#fff;border:4px solid ${NAVY};border-radius:14px;font-size:34px;font-weight:800;color:${NAVY};white-space:nowrap">Ticket lookup</div>`);
+  ADD(human('mar', 540, 420 + YO, CORAL, '#3a2a22'));
+  ADD(human('mgr', 540, 420 + YO, NAVY, '#2b2b2b', '<rect x="118" y="230" width="46" height="34" rx="6" fill="#fff"/><rect x="124" y="238" width="34" height="8" fill="#ffd166"/>').replace('<svg class="w"', '<svg class="w h"'));
+  /* scene 0 + 4 + 7 + 10 wall items */
+  ADD(bub('uB1', 1010, 240, 440, 'Status of ticket 4821?', 'me'));
+  ADD(bub('rp1', 790, 330, 600, 'Ticket 4821 is in progress.'));
+  ADD(bub('rp2', 790, 330, 660, 'Someone is probably working on it.', '', `border-color:${AMB}`));
+  ADD(bub('u0', 1010, 240, 440, 'printer is weird??', 'me'));
+  ADD(bub('q4', 790, 240, 440, 'What type of request?'));
+  [['qp0', 790, 190, 'hardware'], ['qp1', 1000, 190, 'software'], ['qp2', 1210, 150, 'access']].forEach(([id, x, w, t]) => ADD(`<div class="bub h" id="${id}" style="${A(x, 340)};width:${w}px;text-align:center;background:${PILL};border-color:${BLUE};color:#1f3a8a;border-radius:999px">${t}</div>`));
+  ADD(bub('u4', 1060, 450, 380, 'printer is weird??', 'me'));
+  ADD(tgp('f4tag', 790, 228, 590, 'Question node · multiple choice', NAVY, '#fff'));
+  ADD(`<div class="w h" id="f4card" style="${A(780, 292)};width:680px;height:280px;box-sizing:border-box;background:#fff;border:5px solid ${NAVY};border-radius:20px">${['hardware', 'software', 'access'].map((t, k) => `<div class="w" style="left:24px;top:${14 + k * 62}px;height:56px;display:flex;align-items:center;gap:16px;font-size:36px;font-weight:800;color:${INK}"><span style="width:40px;height:40px;box-sizing:border-box;border:5px solid ${NAVY};border-radius:8px;display:inline-block"></span>${t}</div>`).join('')}
+    <div class="w" style="left:24px;top:204px;width:628px;height:60px;box-sizing:border-box;border:3px dashed #c9ced8;border-radius:14px;background:#eceff5;color:#9aa3b5;font-size:32px;font-weight:700;display:flex;align-items:center;padding-left:20px">Type your own answer</div></div>`);
+  ADD(`<svg class="w h" id="f4tick" style="left:807px;top:${1019}px" width="44" height="44" viewBox="0 0 44 44"><path d="M7 23 L18 34 L38 8" stroke="${GRN}" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+  /* scene 2 items (wall close-up) */
+  ADD(tgp('n2a', 780, 230, 270, 'Message node', NAVY, '#fff'));
+  ADD(tgp('n2b', 1070, 230, 280, 'Question node', NAVY, '#fff'));
+  ADD(`<div class="bub h" id="v2b" style="${A(822, 306)};width:360px;border-color:${VIO};background:#efe9ff;z-index:1"><span style="visibility:hidden">Hi</span></div><div class="bub h" id="v2a" style="${A(806, 318)};width:360px;border-color:${VIO};background:#efe9ff;z-index:1"><span style="visibility:hidden">Hi</span></div>`);
+  ADD(`<div class="bub h" id="m2" style="${A(790, 330)};width:420px;z-index:2"><span id="m2a">Hi Marta!</span></div>`);
+  ADD(`<div class="bub h" id="m2b" style="${A(790, 330)};width:560px;z-index:2">Hi <span style="background:${GO};color:#fff;border-radius:10px;padding:0 10px">User name</span>, <b style="color:${BLUE}">your ticket</b></div>`);
+  [['t2a', 790, 'image', 'Image'], ['t2b', 1010, 'video', 'Video'], ['t2c', 1230, 'card_ui', 'Card']].forEach(([id, x, ic, t]) => ADD(`<div class="w h" id="${id}" style="${A(x, 430)};width:200px;height:140px;box-sizing:border-box;border:5px solid ${id === 't2c' ? TLC : '#8a93a6'};border-radius:20px;background:${id === 't2c' ? '#e0f3f5' : '#f3f5f9'};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font-size:32px;font-weight:800;color:${id === 't2c' ? TLC : '#5d6472'}">${IC(ic, 'width:56px;height:56px')}${t}</div>`));
+  [['r2a', 790, 440, 'Check a ticket', 270], ['r2b', 1085, 440, 'New ticket', 210], ['r2c', 790, 512, 'Talk to a person', 300]].forEach(([id, x, y, t, w]) => ADD(`<div class="bub h" id="${id}" style="${A(x, y)};width:${w}px;text-align:center;background:${PILL};border-color:${BLUE};color:#1f3a8a;border-radius:999px">${t}</div>`));
+  [['d2a', 790, 'text_t'], ['d2b', 910, 'braces'], ['d2c', 1030, 'image'], ['d2d', 1150, 'cursor_click'], ['d2e', 1270, 'copy']].forEach(([id, x, ic]) => ADD(`<div class="w h" id="${id}" style="${A(x, 455)};width:100px;height:100px;box-sizing:border-box;border:5px solid ${GRN};border-radius:50%;background:#e3f4ea;display:flex;align-items:center;justify-content:center;color:${GRN}">${IC(ic, 'width:56px;height:56px')}<span style="position:absolute;right:-12px;bottom:-10px">${IC('checkmark_circle', 'width:40px;height:40px;color:' + GRN + ';background:#fff;border-radius:50%')}</span></div>`));
+  /* scene 7 */
+  ADD(`<div class="w h" id="gc" style="${A(560, 236)};width:940px;height:320px;box-sizing:border-box;background:#fff6dc;border:10px solid ${GO};border-radius:36px;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px"><div style="font-size:36px;font-weight:800;color:${GOD}">Send specific response</div><div style="font-size:48px;font-weight:800;color:${INK};white-space:nowrap">Ticket <span class="sl7" style="background:#ffe08a;border:3px dashed ${GO};border-radius:12px;padding:0 8px">{number}</span>, status <span class="sl7" style="background:#ffe08a;border:3px dashed ${GO};border-radius:12px;padding:0 8px">{status}</span></div></div>`);
+  ADD(`<div class="tg" id="fx7" style="${A(1290, 258)};width:190px;background:${NAVY};color:#fff;text-align:center;z-index:5">Power Fx</div>`);
+  ADD(PEN(`${A(420, 600)};color:#6b4f2a;opacity:0`));
+  ADD(bub('wb7', 790, 330, 600, 'Ticket 4821, status In progress', '', `border-color:${GRN}`));
+  [0, 1, 2].forEach((k) => ADD(`<div class="w h" id="ck7${k}" style="${A(790 + k * 64, 424)};width:56px;height:56px">${IC('checkmark_circle', 'width:56px;height:56px;color:' + GRN)}</div>`));
+  /* scene 10 recap board */
+  const rrow = (id, y, h, inner) => `<div class="w" id="${id}" style="left:24px;top:${y}px;width:660px;height:${h}px;opacity:.32;font-size:34px;font-weight:800;color:${INK}">${inner}</div>`;
+  const rc = (t, bg) => `<span style="display:inline-block;background:${bg};color:#fff;border-radius:14px;padding:2px 16px;margin-right:10px;white-space:nowrap">${t}</span>`;
+  ADD(`<div class="w h" id="rb" style="${A(760, 150)};width:720px;height:450px;box-sizing:border-box;background:#fff;border:10px solid ${NAVY};border-radius:28px;overflow:hidden;z-index:6"><div style="position:absolute;left:24px;top:12px;font-size:44px;font-weight:800;color:${NAVY};white-space:nowrap">Remember: three shapes</div>
+    ${rrow('rl0', 84, 100, rc('Message variations', VIO) + '<div style="margin-top:6px">wording at random</div>')}
+    ${rrow('rl1', 196, 110, rc('Quick replies', BLUE) + 'suggest<div style="margin-top:6px">' + rc('multiple choice', NAVY) + 'forces</div>')}
+    ${rrow('rl2', 318, 110, 'After a tool:<div style="margin-top:6px">' + rc('Send specific response', GO) + '</div>')}</div>`);
+
+  /* ═══════ SET B ═══════ */
+  ADD(`<div class="w" id="desk" style="${Bq(120, 740)};width:1680px;height:60px;background:#c9ced8;border-radius:10px"></div><div class="w" style="${Bq(120, 800)};width:1680px;height:330px;background:#c9ced8"></div>`);
+  ADD(`<div class="w" id="sL" style="${Bq(120, 200)};width:780px;height:520px;box-sizing:border-box;background:${CRM};border:6px solid #d9c9a6;border-radius:12px;box-shadow:var(--shadow)"><div style="padding:18px 32px;font-size:44px;font-weight:800;color:#5b4a2a;font-family:'Segoe Script','Bradley Hand',cursive">Handwritten note</div></div>`);
+  ADD(`<svg class="w" id="sLp" style="${Bq(150, 290)};overflow:visible" width="720" height="420" viewBox="0 0 720 420" fill="none" stroke="#3a3a5a" stroke-width="6" stroke-linecap="round">${[0, 1, 2, 3, 4].map((k) => `<path pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" class="pen" d="M10 ${50 + k * 80} q22 -34 44 0 t44 0 t44 0 t44 0 t44 0 t44 0 t44 0 ${k % 2 ? '' : 't44 0 t44 0'}"/>`).join('')}</svg>`);
+  ADD(`<div class="w" id="sR" style="${Bq(1020, 200)};width:780px;height:520px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:20px;box-shadow:var(--shadow)"><div style="padding:16px 32px;font-size:44px;font-weight:800;color:${NAVY}">Form with checkboxes</div>${['hardware', 'software', 'access'].map((t, k) => `<div class="w" style="left:40px;top:${130 + k * 110}px;height:70px;display:flex;align-items:center;gap:24px;font-size:46px;font-weight:700;color:${INK}"><span style="width:60px;height:60px;box-sizing:border-box;border:6px solid ${NAVY};border-radius:12px;display:inline-block"></span>${t}</div>`).join('')}</div>`);
+  [0, 1, 2].forEach((k) => ADD(`<svg class="w h" id="tkc${k}" style="${Bq(1020 + 8 + 40 + 2, 200 + 8 + 130 + k * 110 + 5)}" width="56" height="56" viewBox="0 0 56 56"><path d="M10 30 L23 43 L47 12" stroke="${GRN}" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>`));
+  ADD(`<div class="w h" id="hd" style="${Bq(905, 600)};width:110px;height:110px;border-radius:50%;background:${BLUE};display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:var(--shadow)">${IC('cursor_click', 'width:64px;height:64px')}</div>`);
+  [['sc0', 445, 'text_t', 'exact text', GO], ['sc1', 815, 'cursor_click', 'buttons', BLUE], ['sc2', 1185, 'card_ui', 'a card', TLC]].forEach(([id, x, ic, t, c]) => ADD(`<div class="chip sm h" id="${id}" style="${Bq(x, 834)};border-color:${c};color:${c}">${IC(ic)}<span>${t}</span></div>`));
+  /* tool room (6) */
+  ADD(tbxSvg('tb6', 'left:2095px', `top:${490 + YO}px`, 400, 250, true).replace('<svg class="w"', '<svg class="w h"'));
+  ADD(agent('nx6', 1920 + 580, 330 + YO, { folder: '' }).replace('width="360" height="500"', 'width="288" height="400"').replace('<svg class="w"', '<svg class="w h"'));
+  ADD(`<div class="w h" id="rc6" style="${Bq(150, 350)};width:380px;height:90px;box-sizing:border-box;background:#fff;border:5px solid ${GRN};border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;white-space:nowrap">4821 · In progress</div>`);
+  ADD(`<div class="w h" id="nb6" style="${Bq(600, 150)};width:340px;height:118px;box-sizing:border-box;background:#fff;border:4px solid ${BLUE};border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:34px;font-weight:700;line-height:1.2">Your ticket is<br>in progress.</div>`);
+  ADD(`<div class="w h" id="cn6" style="${Bq(600, 150)};width:340px;height:170px;box-sizing:border-box;background:${CRM};border:4px solid #d9c9a6;border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:34px;font-weight:800;line-height:1.25;color:#3a3a5a;font-family:'Segoe Script','Bradley Hand',cursive">In progress,<br>we are on it.</div>`);
+  ADD(`<div class="w h" id="gc6" style="${Bq(600, 150)};width:340px;height:150px;box-sizing:border-box;background:#fff6dc;border:7px solid ${GO};border-radius:20px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:34px;font-weight:800;line-height:1.25;color:${INK}">Ticket {number},<br>status {status}</div>`);
+  ADD(`<div class="w h" id="tc6" style="${Bq(600, 150)};width:340px;height:170px;box-sizing:border-box;background:#e0f3f5;border:7px solid ${TLC};border-radius:20px;padding:14px 18px;font-size:34px;font-weight:800;color:${TLC};line-height:1.2">Rate this answer<div style="margin-top:12px;height:56px;box-sizing:border-box;background:#fff;border:3px solid ${TLC};border-radius:12px;font-size:32px;font-weight:700;color:#5d6472;padding:4px 14px">Your rating</div></div>`);
+  ADD(`<div class="w h" id="dl6" style="${Bq(960, 140)};width:840px;height:560px;box-sizing:border-box;background:#fff;border:6px solid #c9ced8;border-radius:28px"><div style="position:absolute;left:30px;top:16px;font-size:46px;font-weight:800;color:${NAVY}">After running</div>${["Don't respond", 'Write the response with generative AI', 'Send specific response', 'Send an adaptive card'].map((t, k) => `<div class="w" id="dr${k}" style="left:24px;top:${100 + k * 110}px;width:780px;height:96px;box-sizing:border-box;background:#e7eaf1;border:4px solid #e7eaf1;border-radius:20px;color:#5b6578;font-size:36px;font-weight:800;display:flex;align-items:center;padding-left:28px;white-space:nowrap">${t}</div>`).join('')}<div class="tg" id="df6" style="left:600px;top:${100 + 24}px;width:160px;background:${NAVY};color:#fff;text-align:center;font-size:32px">default</div></div>`);
+  ADD(`<svg class="w h" id="ptr6" style="${Bq(922, 140 + 100 + 24)}" width="34" height="48" viewBox="0 0 34 48"><path d="M2 4 L30 24 L2 44 Z" fill="${BLUE}"/></svg>`);
+  /* Valeria's desk (9) + sign (10) */
+  ADD(maker('mk', 1920 + 510, 300 + YO).replace('<svg class="w"', '<svg class="w h"'));
+  ADD(`<div class="w h" id="sg10" style="${Bq(430, 150)};width:1060px;height:190px;box-sizing:border-box;background:${NAVY};border-radius:30px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:28px;color:#fff;font-size:84px;font-weight:800">${IC('sparkle', 'width:90px;height:90px;color:#ffd166')}Generative answers</div>`);
+
+  /* ═══════ overlays ═══════ */
+  ADDS(`<div class="pl" id="plA">Module 2</div><div class="pl" id="plB">Formatted responses</div><div class="pl" id="plD">Back at the help desk</div><div class="pl" id="plE">the ticket</div>
+    <div class="dt" id="dtM">Monday</div><div class="dt" id="dtT">Tuesday</div><div class="dt" id="d7M">Monday</div><div class="dt" id="d7T">Tuesday</div><div class="dt" id="d7W">Wednesday</div>
+    <div class="ov kin q" id="ovT"><span>Formatted responses</span></div>
+    ${[['c0a', 'same ticket, other words', 'red'], ['c0b', 'exact status, every time', 'green'], ['c0c', 'any type typed', 'red'], ['c1a', 'any words', 'go'], ['c1b', 'only the boxes you print', 'nv'], ['c1c', 'choose the shape on purpose', ''],
+      ['c2a', 'sends a message', ''], ['c2b', 'basic formatting', ''], ['c2c', 'variables', 'go'], ['c2d', 'images', ''], ['c2e', 'videos', ''], ['c2f', 'cards', 'tl'], ['c2g', 'quick replies', ''], ['c2h', 'message variations', 'vi'], ['c2i', 'can do all of this too', 'green'],
+      ['c4a', 'request type', ''], ['c4b', 'only suggest', ''], ['c4c', 'user can type anything', 'red'], ['c4e', 'always one of your options', 'green'],
+      ['c6a', "folded into the agent's answer", ''], ['c6b', 'the AI writes the reply', ''], ['c6c', 'your template + variables', 'go'], ['c6d', 'interactive card', 'tl'],
+      ['c7b', 'Send specific response', 'go'], ['c7c', 'even Power Fx', 'nv'], ['c7d', 'the model does not rewrite it', 'red'], ['c7e', 'word for word', 'green'], ['c7f', 'every single time', 'green'],
+      ['c10', 'next: the generative answers node', '']].map(([id, t, c]) => LBH(id, t, c)).join('')}`);
+
+  /* ═══════ exam rooms ═══════ */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const bxo = (on) => on ? `<span class="bx" style="border-color:#6be3a0;position:relative">${IC('checkmark_circle', 'position:absolute;left:-6px;top:-6px;width:30px;height:30px;color:#6be3a0')}</span>` : '<span class="bx"></span>';
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${VIO};opacity:0"><h4>Message variations</h4>
+      ${pz(28, 70, 'Hi Marta!', `background:${VIO};border-color:${VIO}`)}${pz(28, 136, 'Hello, Marta.', 'opacity:.5')}${pz(28, 202, 'Good to see you, Marta.', 'opacity:.5')}
+      ${pz(300, 70, IC('arrow_sync', 'width:34px;height:34px;vertical-align:-6px;margin-right:8px') + 'random wording', `background:#1d2742;border-color:${VIO};color:#cdbcff`)}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${BLUE};opacity:0"><h4>Quick replies</h4>
+      ${pz(28, 70, 'Hi Marta!', `background:#fff;color:${INK};border-color:${BLUE}`)}
+      ${pz(28, 144, 'Status', `background:${PILL};color:#1f3a8a;border-color:${BLUE};border-radius:999px`)}${pz(215, 144, 'New', `background:${PILL};color:#1f3a8a;border-color:${BLUE};border-radius:999px`)}${pz(350, 144, 'Help', `background:${PILL};color:#1f3a8a;border-color:${BLUE};border-radius:999px`)}
+      ${pz(28, 212, 'same words, new buttons', `background:#1d2742;border-color:${BLUE};color:#9fb8ff`)}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4>Question · multiple choice</h4>
+      ${pz(28, 66, bxo(true) + 'hardware', `border-color:${GRN}`)}${pz(28, 128, bxo(false) + 'software')}${pz(28, 190, bxo(false) + 'access')}
+      ${pz(400, 128, 'Type anything', 'background:#2a3350;border-style:dashed;color:#6b7694;opacity:.7')}${pz(400, 190, 'valid type', `background:${GRN};border-color:${GRN}`)}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4>Quick replies</h4>
+      ${pz(28, 70, 'hardware', `background:${PILL};color:#1f3a8a;border-color:${BLUE};border-radius:999px`)}${pz(236, 70, 'software', `background:${PILL};color:#1f3a8a;border-color:${BLUE};border-radius:999px`)}${pz(444, 70, 'access', `background:${PILL};color:#1f3a8a;border-color:${BLUE};border-radius:999px`)}
+      ${pz(28, 140, 'printer is weird??', `background:#fff3d6;color:#7a4d00;border-color:${AMB}`)}${pz(28, 212, 'typed past the buttons', `background:${RED};border-color:${RED}`)}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${GRN};opacity:0"><h4>Send specific response</h4>
+      ${pz(28, 76, 'Ticket {number}, status {status}', `background:${GO};border-color:${GO}`)}
+      <div class="dl" style="left:28px;top:142px">Mon</div>${pz(120, 142, 'Ticket 4821, status In progress', `border-color:${GRN}`)}<div class="w" style="left:745px;top:150px">${IC('checkmark_circle', 'width:46px;height:46px;color:#6be3a0')}</div>
+      <div class="dl" style="left:28px;top:206px">Tue</div>${pz(120, 206, 'Ticket 4821, status In progress', `border-color:${GRN}`)}<div class="w" style="left:745px;top:214px">${IC('checkmark_circle', 'width:46px;height:46px;color:#6be3a0')}</div></div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4>Generative AI</h4>
+      ${pz(28, 70, 'in progress', `background:${CRM};color:${INK};border-color:#d9c9a6`)}${pz(28, 138, 'someone is probably on it', `background:${CRM};color:${INK};border-color:${RED}`)}${pz(28, 208, 'reworded', `background:${RED};border-color:${RED}`)}</div>`;
+  EXAMS(
+    mkExam('exA', { q: "Contoso's greeting uses exactly the same words every single time. Users say the agent sounds robotic, and the meaning must stay the same. What should you add?", opts: ['Quick replies under the greeting', 'Message variations on the node', 'An adaptive card with the greeting'],
+      why: `<div id="exA_w1">The agent picks <span class="y">one of several wordings</span> <span class="g">at random</span> each time</div><div id="exA_w2">Quick replies and cards change the <span class="r">shape</span>, not the <span class="r">wording</span></div>`, proof: proofA }),
+    mkExam('exB', { q: 'A ticket must be labelled hardware, software or access, and nothing else. Users must not be able to type a different type. What should Contoso use?', opts: ['A multiple choice Question node', 'Quick replies on a Message node', 'Message variations for each type'],
+      why: `<div id="exB_w1">The user <span class="g">must pick</span> one of your options</div><div id="exB_w2">Quick replies <span class="r">only suggest</span>: the user can still <span class="r">type freely</span></div>`, proof: proofB }),
+    mkExam('exC', { q: 'After the ticket lookup tool runs, the service manager wants the same exact sentence with the number and the status. No rewording by the model. Which After running option fits?', opts: ['Write the response with generative AI', "Don't respond, the default setting", 'Send specific response, a template'],
+      why: `<div id="exC_w1">The model <span class="g">does not rewrite</span> it: the text is <span class="y">exactly what you defined</span></div><div id="exC_w2">Generative AI <span class="r">rewords</span> the reply · Don't respond <span class="r">folds it into</span> the answer</div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ═══════ UI window (scene 9) ═══════ */
+  const navS = ['Topics', 'Tools', 'Knowledge', 'Settings'];
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Help desk', nav: navS, on: 0, bar: `<span class="hc">${IC('chat')}Test</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Topics › Greeting</div><h3>Greeting</h3>
+      <span class="btn pri" id="uAdd" style="position:absolute;right:0;top:6px">Add node</span>
+      <div class="mn" id="uMenu" style="right:0;top:70px;width:360px"><div id="uMi0">Send a message</div><div id="uMi1">Ask a question</div></div>
+      <div style="position:absolute;left:40px;top:200px;width:6px;height:520px;background:#c9ced8"></div><div class="nc" id="uEnd" style="left:0;top:704px;width:500px;padding:10px 24px;font-size:34px;font-weight:800">End of topic</div>
+      <div class="nc" id="uTrig" style="left:0;top:110px;width:760px"><small>Trigger</small><div style="font-size:34px;font-weight:800">Greeting</div></div>
+      <div class="nc" id="uMsg" style="left:0;top:250px;width:900px;opacity:0"><small>Message node</small><div style="font-size:34px;font-weight:800;height:46px;position:relative"><span id="uT0" style="position:absolute;left:0;top:0;color:var(--muted);font-weight:700">Enter a message</span><span id="uT1" style="position:absolute;left:0;top:0;opacity:0">Hi </span><span id="uChipU" class="vc" style="position:absolute;left:64px;top:0;opacity:0">User name</span></div>
+        <span class="btn" id="uTbAdd" style="position:absolute;right:16px;top:12px">Add</span><span class="btn" id="uIns" style="position:absolute;right:150px;top:12px">{x} Variable</span></div>
+      <div class="mn" id="uMenu2" style="left:600px;top:372px;width:300px"><div id="uMq0">Quick reply</div><div>Image</div></div>
+      <span class="pp" id="uPl0" style="left:0;top:398px">Check a ticket</span><span class="pp" id="uPl1" style="left:290px;top:398px">New ticket</span><span class="pp" id="uPl2" style="left:520px;top:398px">Talk to a person</span>
+      <div class="nc" id="uQ" style="left:0;top:484px;width:900px;height:200px;opacity:0"><small>Question node</small><div style="font-size:34px;font-weight:800">Identify: <span class="vc" style="background:${NAVY}">multiple choice</span></div>
+        <div id="uQo" style="margin-top:14px;display:flex;gap:16px;opacity:0">${['hardware', 'software', 'access'].map((t) => `<span style="border:3px solid ${NAVY};border-radius:12px;padding:4px 18px;font-size:34px;font-weight:800">${t}</span>`).join('')}</div></div></div>
+    <div class="lay" id="uL1"><div class="crumb">Tools</div><h3>Tools</h3>
+      <div class="row" id="uTool" style="width:600px"><b>Ticket lookup</b><span style="font-size:36px;color:var(--muted)">›</span></div>
+      <div class="row" style="width:600px"><b>Order status</b><span style="font-size:36px;color:var(--muted)">›</span></div><div class="row" style="width:600px"><b>Calendar</b><span style="font-size:36px;color:var(--muted)">›</span></div><div class="row" style="width:600px"><b>Send email</b><span style="font-size:36px;color:var(--muted)">›</span></div><div class="row" style="width:600px"><b>Knowledge search</b><span style="font-size:36px;color:var(--muted)">›</span></div>
+      <div id="uAR" style="position:absolute;right:0;top:150px;width:560px;height:340px;box-sizing:border-box;background:#fff;border:3px solid var(--line2);border-radius:20px;box-shadow:0 20px 60px rgba(16,24,40,.25);padding:20px 28px;opacity:0">
+        <div style="font-size:40px;font-weight:800;margin-bottom:22px">After running</div>
+        <div class="dd" id="uDD" style="width:500px;height:70px;box-sizing:border-box;position:relative"><span id="uDD1" style="position:absolute;left:22px;top:12px;white-space:nowrap">Don't respond</span><span id="uDD2" style="position:absolute;left:22px;top:12px;white-space:nowrap;font-weight:800;color:${GOD};opacity:0">Send specific response</span></div>
+        <div style="margin-top:24px;font-size:32px;font-weight:700;color:var(--muted)">Output variables: number, status</div></div></div>
+    <div class="lay" id="uL2"><div class="crumb">Ticket lookup › After running</div><h3>Send specific response</h3>
+      <div class="fld" style="width:1100px;height:120px;position:relative"><small>Template</small><span style="position:absolute;left:22px;top:54px;font-size:38px;font-weight:800;white-space:nowrap">Ticket <span class="vc">number</span>, status <span class="vc">status</span></span></div>
+      <div id="uChat" style="position:absolute;left:0;top:270px;width:1228px;height:440px;box-sizing:border-box;border:3px solid var(--line2);border-radius:20px;background:#f7f9fd;opacity:0">
+        <div class="w" id="ch1" style="right:24px;top:22px;box-sizing:border-box;padding:8px 22px;border-radius:20px;background:${BLUE};color:#fff;font-size:34px;font-weight:700;white-space:nowrap;opacity:0">Status of ticket 4821?</div>
+        <div class="w" id="ch2" style="left:24px;top:116px;box-sizing:border-box;padding:8px 22px;border-radius:20px;background:#fff;border:3px solid ${GRN};font-size:34px;font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:12px;opacity:0">Ticket 4821, status In progress${IC('checkmark_circle', 'width:44px;height:44px;color:' + GRN)}</div>
+        <div class="w" id="ch3" style="left:24px;top:236px;display:flex;align-items:center;gap:20px;opacity:0"><div class="tgl"><i></i></div><span style="font-size:34px;font-weight:800;color:var(--muted)">Don't respond</span></div>
+        <div class="w" id="ch4" style="left:24px;top:330px;box-sizing:border-box;padding:8px 22px;border-radius:20px;background:#eceff5;color:#8a93a6;font-size:34px;font-weight:700;white-space:nowrap;opacity:0">Someone is probably working on it.</div></div></div>` }));
+  const PU = { add: PC('#uAdd'), mi0: PC('#uMi0'), mi1: PC('#uMi1'), ins: PC('#uIns'), tba: PC('#uTbAdd'), mq: PC('#uMq0'), nav1: PC('#uiS_nv1'), tool: PC('#uTool'), dd: PC('#uDD') };
+
+  /* ═══════ TIMELINE ═══════ */
+  const CAMX = (x, y, s, t) => tl.set('#world', { x: 960 - x * s, y: 540 - y * s, scale: s }, t);
+  const LB = (id, a, b) => { TAG('#' + id, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const LID = (id, t, open) => tl.to(`#${id}_lid`, { rotation: open ? -52 : 0, svgOrigin: '10 44', duration: open ? 0.6 : 0.4, ease: open ? 'elastic.out(1,0.6)' : 'power2.inOut' }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    [0, 1, 2].forEach((k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 0.42, y: 0, duration: 0.35 }, S(i, 0) + 0.05));
+    o.opt.forEach((t, k) => tl.to(`${X}_o${k}`, { opacity: 1, duration: 0.25 }, t));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, R);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tr + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, R + 1.0);
+    ON(X + '_p', S(i, 9), 0.2);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  const FILL = (id, i, chips) => { document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:830px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`); [S(i, 1) + 0.4, S(i, 2) + 0.1, S(i, 3) + 0.1].forEach((t, k) => ON(`#${id}_sc .fc:nth-child(${k + 1})`, t, 0.3)); OFF(`#${id}_sc`, S(i, 8) - 0.05, 0.25); };
+  FILL('exA', 3, ['Same words every time', 'Users: robotic', 'Meaning must stay']);
+  FILL('exB', 5, ['Hardware, software or access', 'Nothing else', 'No free typing']);
+  FILL('exC', 8, ['Tool ran: ticket found', 'Same exact sentence', 'No rewording']);
+
+  gsap.set('#world', { x: 960 - 960 * 1.08, y: 540 - 1230 * 1.08, scale: 1.08 });
+  gsap.set(['.pen'], { strokeDashoffset: 1 });
+  const CASTA = ['#tb', '#tk0', '#tk1', '#tk2', '#tk3', '#mar', '#nex', '#ctr', '#tbx', '#tbxp'];
+  const G6 = ['#tb6', '#nx6', '#dl6', '#rc6', '#nb6', '#cn6', '#gc6', '#tc6', '#ptr6'];
+
+  /* ── 0 The same ticket, two answers ── */
+  TAG('#plA', 0.3);
+  ON('#uB1', S(0, 0) + 0.3, 0.3);
+  BOB('#nex', S(0, 0) + 0.3, S(0, 0) + 2.2, 24);
+  LID('tbx', S(0, 0) + 0.9, true); LID('tbx', S(0, 0) + 2.4, false);
+  TAG('#dtM', S(0, 1) + 0.05); ON('#rp1', S(0, 1) + 0.25, 0.3);
+  OFF(['#dtM', '#rp1'], S(0, 2) - 0.02, 0.25); TAG('#dtT', S(0, 2) + 0.27); ON('#rp2', S(0, 2) + 0.3, 0.3);
+  LB('c0a', W(0, 2, 'same ticket', 0.3), S(0, 3) - 0.2);
+  OFF('#mar', S(0, 3) - 0.02, 0.22); tl.fromTo('#mgr', { opacity: 0, x: -70 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.5)' }, S(0, 3) + 0.25);
+  LB('c0b', S(0, 3) + 0.5, S(0, 4) - 0.3);
+  OFF(['#mgr', '#dtT', '#rp2', '#uB1'], S(0, 4) - 0.02, 0.25); ON('#mar', S(0, 4) + 0.28, 0.3);
+  ON('#u0', S(0, 4) + 0.5, 0.3); ON('#sl3', S(0, 4) + 0.6, 0.3);
+  tl.to('#sl3', { borderColor: RED, color: RED, duration: 0.2 }, W(0, 4, 'whatever', -0.5));
+  OFF('#sl3', W(0, 4, 'whatever', -0.15), 0.2); POP('#tt3a', W(0, 4, 'whatever', 0.1));
+  LB('c0c', W(0, 4, 'whatever', 0.2), S(0, 5) - 0.25);
+  OFF('#plA', S(0, 5), 0.25); OFF(['#u0', '#tt3a'], S(1, 0) - 0.25, 0.2);
+  ON('#ovT', S(0, 5) + 0.1, 0.3); OFF('#ovT', E(0, 5) - 0.75, 0.3); TAG('#plB', E(0, 5) - 0.45);
+
+  /* ── 1 A note or a form (set B) ── */
+  CAM(2880, 1230, 1.08, S(1, 0) - 0.25, 1.3);
+  OFF('#plB', S(1, 3) + 0.3, 0.3);
+  ON('#sL', S(1, 0), 0.01);
+  [0, 1, 2, 3, 4].forEach((k) => tl.to(`.pen:nth-child(${k + 1})`, { strokeDashoffset: 0, duration: 0.6, ease: 'none' }, S(1, 1) + 0.15 + k * 0.45));
+  LB('c1a', S(1, 1) + 0.2, S(1, 2) - 0.05);
+  [0, 1, 2].forEach((k) => POP('#tkc' + k, S(1, 2) + 0.5 + k * 0.7));
+  LB('c1b', S(1, 2) + 0.3, S(1, 3) - 0.05);
+  ON('#hd', S(1, 3), 0.25);
+  tl.to('#hd', { x: -395, duration: 0.7, ease: 'power2.inOut' }, S(1, 3) + 0.3); tl.to('#hd', { x: 435, duration: 0.9, ease: 'power2.inOut' }, S(1, 3) + 1.1);
+  tl.to('#sR', { boxShadow: '0 0 0 14px rgba(31,42,68,.35)', duration: 0.4, yoyo: true, repeat: 3 }, S(1, 3) + 2.0);
+  LB('c1c', S(1, 3) + 0.5, S(1, 4) - 0.05);
+  OFF('#hd', S(1, 3) + 2.9, 0.25);
+  ON('#sc0', S(1, 4) + 0.05, 0.3); ON('#sc1', S(1, 4) + 0.05, 0.3); ON('#sc2', S(1, 4) + 0.05, 0.3);
+  ['sc0', 'sc1', 'sc2'].forEach((id) => tl.set('#' + id, { opacity: 0.35 }, S(1, 4) + 0.4));
+  [['sc0', 'exact text'], ['sc1', 'buttons'], ['sc2', 'a card']].forEach(([id, w]) => tl.to('#' + id, { opacity: 1, duration: 0.25 }, W(1, 4, w, 0)));
+
+  /* ── 2 The Message node (reply wall close-up) ── */
+  SET(['#tb', '#tk0', '#tk1', '#tk2', '#tk3', '#mar', '#tt3a'], S(1, 4) + 0.2, 0);
+  tl.set(['#uB1', '#plB'], { opacity: 0 }, S(1, 4) + 0.2);
+  CAM(1250, 1180, 1.3, S(2, 0) - 0.3, 1.4);
+  OFF(['#sL', '#sLp', '#sR', '#tkc0', '#tkc1', '#tkc2', '#sc0', '#sc1', '#sc2'], S(2, 0) - 0.3, 0.25);
+  TAG('#n2a', S(2, 0) + 0.2); POP('#m2', S(2, 0) + 0.7); LB('c2a', S(2, 0) + 0.8, S(2, 1) - 0.1);
+  OFF('#m2', S(2, 1) + 0.02, 0.2); ON('#m2b', S(2, 1) + 0.27, 0.25);
+  LB('c2b', W(2, 1, 'basic', 0), W(2, 1, 'variables', -0.15)); LB('c2c', W(2, 1, 'variables', 0.1), S(2, 2) - 0.05);
+  tl.to('#t2a', { opacity: 1, scale: 1.06, duration: 0.3, yoyo: true, repeat: 1 }, W(2, 2, 'images', 0)); tl.to('#t2a', { opacity: 1, duration: 0.01 }, W(2, 2, 'images', 0.6)); LB('c2d', W(2, 2, 'images', 0.1), W(2, 2, 'videos', -0.1));
+  tl.to('#t2b', { opacity: 1, scale: 1.06, duration: 0.3, yoyo: true, repeat: 1 }, W(2, 2, 'videos', 0)); tl.to('#t2b', { opacity: 1, duration: 0.01 }, W(2, 2, 'videos', 0.6)); LB('c2e', W(2, 2, 'videos', 0.15), W(2, 2, 'cards', -0.1));
+  tl.to('#t2c', { opacity: 1, scale: 1.06, duration: 0.3, yoyo: true, repeat: 1 }, W(2, 2, 'cards', 0)); tl.to('#t2c', { opacity: 1, duration: 0.01 }, W(2, 2, 'cards', 0.6)); LB('c2f', W(2, 2, 'cards', 0.15), S(2, 3) - 0.05);
+  OFF(['#t2a', '#t2b', '#t2c'], S(2, 3) + 0.02, 0.22);
+  tl.to(['#t2a', '#t2b', '#t2c'], { opacity: 0.35, duration: 0.3 }, S(2, 0) + 0.9);
+  SLIDE('#r2a', W(2, 3, 'quick replies', 0.1)); SLIDE('#r2b', W(2, 3, 'quick replies', 0.4)); SLIDE('#r2c', W(2, 3, 'quick replies', 0.7));
+  LB('c2g', W(2, 3, 'quick replies', 0.2), W(2, 3, 'message variations', -0.1));
+  tl.fromTo('#v2a', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, W(2, 3, 'message variations', 0)); tl.fromTo('#v2b', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4 }, W(2, 3, 'message variations', 0.25));
+  LB('c2h', W(2, 3, 'message variations', 0.2), S(2, 4) - 0.1);
+  OFF(['#r2a', '#r2b', '#r2c', '#v2a', '#v2b'], S(2, 4) + 0.02, 0.25);
+  SLIDE('#n2b', S(2, 4) + 0.3);
+  ['d2a', 'd2b', 'd2c', 'd2d', 'd2e'].forEach((id, k) => POP('#' + id, S(2, 4) + 0.7 + k * 0.3));
+  LB('c2i', S(2, 4) + 0.5);
+
+  /* ── 3 EXAM A ── */
+  CAMX(960, 1230, 1.08, S(3, 0) + 0.6);
+  SET(CASTA, S(3, 0) + 0.6, 1);
+  SET(['#n2a', '#n2b', '#m2', '#m2b', '#d2a', '#d2b', '#d2c', '#d2d', '#d2e', '#c2i'], S(3, 0) + 0.6, 0);
+  tl.set('#tbx_lid', { rotation: 0, svgOrigin: '10 44' }, S(3, 0) + 0.6);
+  EXAMX('exA', 3, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 0.1 });
+  ON('#pa_L', S(3, 9) + 0.1, 0.3); ON('#pa_R', S(3, 10) + 0.1, 0.3);
+
+  /* ── 4 Suggesting is not forcing ── */
+  ON('#q4', S(4, 0) + 0.1, 0.3); LB('c4a', S(4, 0) + 0.3, S(4, 1) - 0.1);
+  SLIDE('#qp0', W(4, 1, 'hardware', -0.1)); SLIDE('#qp1', W(4, 1, 'software', -0.1)); SLIDE('#qp2', W(4, 1, 'access', -0.1));
+  LB('c4b', S(4, 2) + 0.25, S(4, 3) - 0.05);
+  ON('#u4', S(4, 3) + 0.3, 0.3); POP('#tt3a', S(4, 3) + 1.3);
+  LB('c4c', S(4, 3) + 1.4, S(4, 4) - 0.1);
+  OFF(['#q4', '#qp0', '#qp1', '#qp2', '#u4'], S(4, 4) + 0.02, 0.25);
+  TAG('#f4tag', S(4, 4) + 0.3); ON('#f4card', S(4, 4) + 0.3, 0.3);
+  POP('#f4tick', S(4, 5) + 0.4);
+  OFF('#tt3a', S(4, 5) + 0.75, 0.2); POP('#tt3b', S(4, 5) + 1.0);
+  LB('c4e', S(4, 5) + 0.9);
+
+  /* ── 5 EXAM B ── */
+  SET(['#f4tag', '#f4card', '#f4tick', '#tt3b', '#tt3a', '#c4e'], S(5, 0) + 0.6, 0);
+  CAMX(2880, 1230, 1.08, S(5, 0) + 0.6);
+  SET(G6, S(5, 0) + 0.6, 1); SET(['#rc6', '#nb6', '#cn6', '#gc6', '#tc6', '#ptr6'], S(5, 0) + 0.6, 0);
+  tl.set('#tb6_lid', { rotation: 0, svgOrigin: '10 44' }, S(5, 0) + 0.6);
+  EXAMX('exB', 5, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(5, 4), S(5, 5), S(5, 6)], end: S(6, 0) - 0.1 });
+  ON('#pb_L', S(5, 9) + 0.1, 0.3); ON('#pb_R', S(5, 10) + 0.1, 0.3);
+
+  /* ── 6 After running ── */
+  LID('tb6', S(6, 0) + 0.4, true);
+  BOB('#nx6', S(6, 0) + 0.3, S(6, 0) + 1.8, 20);
+  POP('#rc6', S(6, 1) + 0.2);
+  tl.to('#dl6', { borderColor: BLUE, duration: 0.3 }, S(6, 1) + 0.5);
+  const DR = (k, t) => { [0, 1, 2, 3].forEach((j) => tl.to('#dr' + j, j === k ? { backgroundColor: '#fff', borderColor: BLUE, color: INK, duration: 0.25 } : { backgroundColor: '#e7eaf1', borderColor: '#e7eaf1', color: '#5b6578', duration: 0.25 }, t)); if (k === 0) tl.fromTo('#ptr6', { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.3 }, t); else tl.to('#ptr6', { y: k * 110, duration: 0.4 }, t); };
+  DR(0, S(6, 2) + 0.05); POP('#df6', S(6, 2) + 0.3);
+  tl.to('#rc6', { x: 440, y: -175, scale: 0.85, duration: 0.7, ease: 'power2.inOut' }, S(6, 2) + 0.6); OFF('#rc6', S(6, 2) + 1.35, 0.2); ON('#nb6', S(6, 2) + 1.6, 0.3);
+  LB('c6a', S(6, 2) + 1.0, S(6, 3) - 0.05);
+  OFF('#nb6', S(6, 3) + 0.02, 0.22); DR(1, S(6, 3) + 0.05); ON('#cn6', S(6, 3) + 0.3, 0.3); LB('c6b', S(6, 3) + 0.6, S(6, 4) - 0.05);
+  OFF('#cn6', S(6, 4) + 0.02, 0.22); DR(2, S(6, 4) + 0.05); tl.fromTo('#gc6', { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.5, ease: 'bounce.out' }, S(6, 4) + 0.3); LB('c6c', S(6, 4) + 0.6, S(6, 5) - 0.05);
+  OFF('#gc6', S(6, 5) + 0.02, 0.22); DR(3, S(6, 5) + 0.05); POP('#tc6', S(6, 5) + 0.3); LB('c6d', S(6, 5) + 0.6);
+
+  /* ── 7 Exact text with a template ── */
+  CAM(960, 1230, 1.08, S(7, 0) - 0.3, 1.3);
+  OFF(G6.concat(['#nx6']), S(7, 0) - 0.35, 0.25);
+  SET(['#c6d', '#tc6'], S(7, 0), 0);
+  SET(CASTA, S(7, 0) - 0.3, 1); tl.set('#mar', { opacity: 0 }, S(7, 0) - 0.3);
+  TAG('#plE', S(7, 0) + 0.2); OFF('#plE', S(7, 2) - 0.1, 0.25);
+  tl.set('#gc', { opacity: 1 }, S(7, 1) + 0.1); tl.fromTo('#gc', { scale: 0.85 }, { scale: 1, duration: 0.45, ease: 'back.out(1.6)', immediateRender: false }, S(7, 1) + 0.1);
+  tl.to('.sl7', { backgroundColor: '#ffd166', duration: 0.4, yoyo: true, repeat: 3 }, S(7, 1) + 0.9);
+  LB('c7b', S(7, 1) + 0.5, S(7, 2) - 0.05);
+  TAG('#fx7', S(7, 2) + 0.2); LB('c7c', S(7, 2) + 0.4, S(7, 3) - 0.05);
+  ON('#pn7', S(7, 3) + 0.05, 0.2);
+  tl.to('#pn7', { x: 105, y: -150, duration: 0.5, ease: 'power2.in' }, S(7, 3) + 0.3); tl.to('#pn7', { x: -40, y: -90, rotation: -20, duration: 0.5, ease: 'back.out(3)' }, S(7, 3) + 0.8);
+  LB('c7d', S(7, 3) + 0.5, S(7, 4) - 0.05);
+  OFF(['#pn7', '#fx7'], S(7, 3) + 1.6, 0.2);
+  OFF('#gc', S(7, 4) - 0.02, 0.25); ON('#mar', S(7, 4) + 0.1, 0.3); ON('#wb7', S(7, 4) + 0.35, 0.3);
+  TAG('#d7M', S(7, 4) + 0.5); POP('#ck70', S(7, 4) + 0.9);
+  LB('c7e', W(7, 4, 'word for word', 0), S(7, 5) - 0.05);
+  OFF('#d7M', S(7, 4) + 2.3, 0.2); TAG('#d7T', S(7, 4) + 2.6); POP('#ck71', S(7, 4) + 3.0);
+  OFF('#d7T', S(7, 5) - 0.0, 0.2); TAG('#d7W', S(7, 5) + 0.25); POP('#ck72', S(7, 5) + 0.6);
+  LB('c7f', S(7, 5) + 0.3);
+
+  /* ── 8 EXAM C ── */
+  SET(['#wb7', '#ck70', '#ck71', '#ck72', '#d7W', '#c7f', '#c7e'], S(8, 0) + 0.6, 0);
+  CAMX(2880, 1230, 1.08, S(8, 0) + 0.6);
+  SET(G6, S(8, 0) + 0.6, 0); SET('#mk', S(8, 0) + 0.6, 1);
+  EXAMX('exC', 8, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(8, 4), S(8, 5), S(8, 6)], end: S(9, 0) - 0.1 });
+  ON('#pc_L', S(8, 9) + 0.1, 0.3); ON('#pc_R', S(8, 10) + 0.1, 0.3);
+
+  /* ── 9 Studio (UI) ── */
+  gsap.set('#uiS', { opacity: 0 });
+  UIIN('#uiS', S(9, 0) + 0.5);
+  ON('#cur', S(9, 0) + 1.6, 0.2);
+  CUR(PU.add[0], PU.add[1], S(9, 1) + 0.05, 0.7); CLICK(PU.add[0], PU.add[1], W(9, 1, 'add node', 0.2));
+  ON('#uMenu', W(9, 1, 'add node', 0.35), 0.2);
+  CUR(PU.mi0[0], PU.mi0[1], W(9, 1, 'add a message', -0.4), 0.5); CLICK(PU.mi0[0], PU.mi0[1], W(9, 1, 'add a message', 0.1));
+  OFF('#uMenu', W(9, 1, 'add a message', 0.25), 0.15); ON('#uMsg', W(9, 1, 'add a message', 0.4), 0.3);
+  OFF('#uT0', S(9, 2) + 0.2, 0.15); ON('#uT1', S(9, 2) + 0.4, 0.2);
+  CUR(PU.ins[0], PU.ins[1], W(9, 2, 'variable', -0.5), 0.6); CLICK(PU.ins[0], PU.ins[1], W(9, 2, 'variable', 0.2));
+  ON('#uChipU', W(9, 2, 'insert', 0.1), 0.25);
+  CUR(PU.tba[0], PU.tba[1], S(9, 3) + 0.05, 0.6); CLICK(PU.tba[0], PU.tba[1], S(9, 3) + 0.75);
+  ON('#uMenu2', S(9, 3) + 0.9, 0.2);
+  CUR(PU.mq[0], PU.mq[1], W(9, 3, 'then quick', -0.2), 0.5); CLICK(PU.mq[0], PU.mq[1], W(9, 3, 'quick reply', 0.1));
+  OFF('#uMenu2', W(9, 3, 'quick reply', 0.25), 0.15);
+  ['uPl0', 'uPl1', 'uPl2'].forEach((id, k) => ON('#' + id, W(9, 3, 'quick reply', 0.4 + k * 0.25), 0.25));
+  CUR(PU.add[0], PU.add[1], S(9, 4) + 0.05, 0.6); CLICK(PU.add[0], PU.add[1], S(9, 4) + 0.75);
+  ON('#uMenu', S(9, 4) + 0.9, 0.2);
+  CUR(PU.mi1[0], PU.mi1[1], S(9, 4) + 1.0, 0.45); CLICK(PU.mi1[0], PU.mi1[1], W(9, 4, 'question node', 0.1));
+  OFF('#uMenu', W(9, 4, 'question node', 0.25), 0.15); ON('#uQ', W(9, 4, 'question node', 0.4), 0.3); ON('#uQo', W(9, 4, 'multiple choice', 0.5), 0.3);
+  CUR(PU.nav1[0], PU.nav1[1], S(9, 5) + 0.05, 0.6); CLICK(PU.nav1[0], PU.nav1[1], S(9, 5) + 0.7);
+  NAV('#uiS', 1, S(9, 5) + 0.7, 4);
+  tl.to('#uL0', { opacity: 0, duration: 0.2 }, S(9, 5) + 0.75); ON('#uL1', S(9, 5) + 0.95, 0.25);
+  CUR(PU.tool[0] - 200, PU.tool[1], S(9, 5) + 1.1, 0.5); CLICK(PU.tool[0] - 200, PU.tool[1], S(9, 5) + 1.7);
+  ON('#uAR', W(9, 5, 'after running', 0), 0.3);
+  CUR(PU.dd[0], PU.dd[1], W(9, 5, 'find', 0.0), 0.5); CLICK(PU.dd[0], PU.dd[1], W(9, 5, 'choose', 0.1));
+  OFF('#uDD1', W(9, 5, 'send specific', -0.1), 0.15); ON('#uDD2', W(9, 5, 'send specific', 0.1), 0.25);
+  tl.to('#uL1', { opacity: 0, duration: 0.2 }, S(9, 6) + 0.05); ON('#uL2', S(9, 6) + 0.25, 0.25);
+  ON('#uChat', W(9, 6, 'test chat', -0.6), 0.25); ON('#ch1', W(9, 6, 'test chat', -0.3), 0.2); ON('#ch2', W(9, 6, 'test chat', 0), 0.2);
+  ON('#ch3', W(9, 6, "don't respond", -0.2), 0.25); ON('#ch4', W(9, 6, "don't respond", 0.15), 0.25);
+  OFF('#cur', E(9, 6) - 0.45, 0.15);
+  UIOUT('#uiS', E(9, 6) - 0.4);
+
+  /* ── 10 The right shape for each answer ── */
+  CAMX(960, 1230, 1.08, S(10, 0) - 0.02);
+  SET('#mk', S(10, 0) - 0.02, 0);
+  SET(CASTA, S(10, 0) - 0.02, 1);
+  TAG('#plD', S(10, 0) + 0.1);
+  BOB('#nex', S(10, 0) + 0.2, S(10, 6), 22);
+  ON('#wb7', S(10, 1) + 0.1, 0.3);
+  ['tt0', 'tt1', 'tt2'].forEach((id, k) => POP('#' + id, S(10, 1) + 1.2 + k * 0.7)); POP('#tt3b', S(10, 1) + 3.3);
+  OFF('#plD', S(10, 2) - 0.1, 0.25); OFF('#wb7', S(10, 2) + 0.02, 0.22); ON('#rb', S(10, 2) + 0.3, 0.3); SET('#wall', S(10, 2) + 0.6, 0);
+  [0, 1, 2].forEach((k) => tl.to('#rl' + k, { opacity: 1, duration: 0.3 }, S(10, 3 + k) + 0.15));
+  tl.to('#tk3', { y: -10, duration: 0.7, yoyo: true, repeat: 20, ease: 'sine.inOut' }, S(10, 2));
+  SET('#c10', 0, 0);
+  OFF(['#nex', '#tb', '#tk0', '#tk1', '#tk2', '#tk3', '#tt0', '#tt1', '#tt2', '#tt3b', '#mar', '#rb', '#ctr', '#tbx', '#tbxp', '#wall'], S(10, 6) - 0.15, 0.25);
+  CAM(2880, 1230, 1.08, S(10, 6) - 0.1, 1.6);
+  SET(['#sg10', '#nx6'], S(10, 6) - 0.4, 1);
+  tl.fromTo('#sg10', { y: 0 }, { y: -14, duration: 0.7, yoyo: true, repeat: Math.ceil((B.duration + 2.5 - S(10, 6)) / 0.7), ease: 'sine.inOut' }, S(10, 6) + 1.6);
+  tl.fromTo('#nx6', { y: 0 }, { y: -22, duration: 0.6, yoyo: true, repeat: Math.ceil((B.duration + 2.5 - S(10, 6)) / 0.6), ease: 'sine.inOut' }, S(10, 6) + 1.2);
+  LB('c10', S(10, 6) + 0.5);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+[
+ {
+  "scene": 5,
+  "pauseSentence": 4,
+  "question": "An agent works in development. In production, adding the same tool fails at once with an error. What stopped it?",
+  "options": [
+   "The security scan",
+   "The development data policy",
+   "The production data policy"
+  ],
+  "right": 2,
+  "trap": 0
+ },
+ {
+  "scene": 9,
+  "pauseSentence": 5,
+  "question": "An admin must prevent any agent from being published without authentication. What do you do?",
+  "options": [
+   "Rely on the security scan",
+   "Block the Chat without Microsoft Entra ID authentication connector",
+   "Enforce Control maker-provided credentials"
+  ],
+  "right": 1,
+  "trap": 0
+ },
+ {
+  "scene": 12,
+  "pauseSentence": 8,
+  "question": "HR benefits agent: IT-approved maker, used by other departments, shared HR data, no SLA. Which zone?",
+  "options": [
+   "Zone 1 · Citizen",
+   "Zone 2 · Partnered",
+   "Zone 3 · Professional"
+  ],
+  "right": 1,
+  "trap": 0
+ },
+ {
+  "scene": 15,
+  "pauseSentence": 4,
+  "question": "An agent set to No authentication is used all week. What do admins see for those chats?",
+  "options": [
+   "Full conversation telemetry",
+   "Aggregated counts only",
+   "Nothing for unauthenticated sessions"
+  ],
+  "right": 2,
+  "trap": 0
+ }
+]

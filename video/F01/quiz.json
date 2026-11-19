@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 6,
+    "question": "Contoso wants an assistant that chats with employees, answers from the IT guides, and opens a ticket when the steps fail. Which piece do they build?",
+    "options": [
+      "A workflow from the drag and drop designer",
+      "An agent that chats and completes tasks",
+      "A classic agent flow that runs on its own"
+    ],
+    "right": 1,
+    "trap": 2
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Contoso builds an HR agent for leave requests. Every conversation follows the same rules and the same questions, in the same order. Which harness fits?",
+    "options": [
+      "The standard harness, for structured rules",
+      "The Microsoft Copilot harness, for reasoning",
+      "The Copilot chat harness, for Copilot Chat"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Nexo is live in Teams. Before each change, the IT lead wants to measure answer quality with a set of test questions. Which area do they open?",
+    "options": [
+      "Analytics, for performance and sessions",
+      "Administration, for inventory and costs",
+      "Evaluations, for test sets and quality"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Better or worse?",
+    "caption": "Friday: new instructions for Nexo. Monday: \"the answers got worse\". Nobody can prove it either way.",
+    "say": "Monday at Contoso. On Friday the team gave Nexo, the I T agent, new instructions. This morning someone says the answers got worse. Someone else says they got better. Nobody can prove anything, because nobody measured before the change. Everyone is guessing. By the end of this class you will know how to build a test set, so the next change is measured instead of guessed."
+  },
+  {
+    "title": "The same exam, every time",
+    "caption": "A test set is the agent's exam: each case is a question, sometimes with the expected answer.",
+    "say": "Here is the picture to keep. A test set is a student's exam. Each case is a question, and sometimes it also carries the expected answer, like the answer key. The trick is to give the same exam again after every change. If the student scores better on the same exam, the student improved. If you change the exam each time, the scores say nothing."
+  },
+  {
+    "title": "Two kinds of case",
+    "caption": "Single response = one question, one answer. Conversation = several turns.",
+    "say": "A case comes in two kinds. A single response case is one question and one answer, like where do I reset my password. A conversation case has several turns, like a user who asks for a laptop, then answers a question about the model, then asks for delivery. Use single responses for facts, and conversations when the agent must keep context across turns."
+  },
+  {
+    "title": "Import from a file",
+    "caption": "CSV or TXT with headers Question and Expected response. Up to 100 questions, 1000 characters each.",
+    "say": "The fastest way to fill a test set is a file. You import a CSV or a TXT file with two headers: Question and Expected response. There are limits to remember. Up to one hundred questions per file, and up to one thousand characters per question. Contoso exports forty real support questions, writes the expected answer next to each, and imports them in one go."
+  },
+  {
+    "title": "When the answer key matters",
+    "caption": "Expected responses are optional on import, but Compare meaning, Text similarity and Exact match need them.",
+    "say": "Here is the detail the exam loves. Expected responses are optional when you import. The file is accepted without them. But some test methods compare the agent's answer with the expected one: Compare meaning, Text similarity, and Exact match. Without an answer key, those methods have nothing to compare with. General quality is different, it grades the answer without needing one."
+  },
+  {
+    "title": "Decide: the missing column",
+    "caption": "Contoso imported a CSV with only a Question column. Now they want Exact match. What must they fix?",
+    "say": "Your turn. Contoso imported a CSV with only the Question column. Now they want to use Exact match. What must they fix first? Split the file into two smaller TXT files? Change each case into a conversation case? Or fill an Expected response for each row? Decide before I answer. Fill an Expected response for each row. Exact match compares with the answer key. File size and case type are not the problem."
+  },
+  {
+    "title": "Let the tool write questions",
+    "caption": "Quick question set: 10 questions from the agent description. From knowledge: files up to 5 MB, no folders.",
+    "say": "You can also generate cases. Quick question set writes ten questions from the agent description, a good first draft in seconds. Or generate from knowledge: text, Word, Excel, P D F, or SharePoint files, up to five megabytes each, and no folders. The questions then come from the content Nexo really knows, so you test its sources and not only its wording."
+  },
+  {
+    "title": "From real traffic",
+    "caption": "Monitor page (preview): pick real topics and use the Evaluate action to create cases.",
+    "say": "The best questions come from real users. On the Monitor page, in preview, you can take the real topics people talk about and use the Evaluate action to turn them into cases. Now the exam looks like Monday morning, not like the makers' imagination. A good test set starts from real traffic, and prefers coverage over polish."
+  },
+  {
+    "title": "Who can be evaluated",
+    "caption": "Only No authentication or Authenticate with Microsoft. Choose a test user profile. Not Fabric data agents.",
+    "say": "Not every agent can take the exam. Only agents with No authentication or Authenticate with Microsoft are evaluated. If the agent needs a signed in user, you choose a test user profile, and the run uses that identity. And one kind of agent is out completely: Fabric data agents cannot be evaluated. Check this before you build a single case."
+  },
+  {
+    "title": "Decide: which one can take the exam",
+    "caption": "Contoso has three agents. Which one can be evaluated with a test set?",
+    "say": "Your turn. Contoso has three agents and wants to evaluate one of them today. Which one can take the exam? The one using Authenticate with Microsoft? The one where makers Authenticate manually? Or the Fabric data agent of the finance team? Decide before I answer. The one using Authenticate with Microsoft, with a test user profile. Manual authentication is not supported, and Fabric data agents cannot be evaluated."
+  },
+  {
+    "title": "The Evaluate tab",
+    "caption": "Microsoft Copilot harness: Evaluate tab (preview). Create, run, review, change the agent, run the same set again.",
+    "say": "So far this is the standard harness. On the Microsoft Copilot harness, formerly GitHub Copilot harness, evaluation lives in the Evaluate tab, in preview. The cycle is a loop. Create a test set, configure and run it, review the results, change the agent, and run the same set again. Reusing the same set is what makes two runs comparable. Same exam, every time."
+  },
+  {
+    "title": "The words on that tab",
+    "caption": "Test set = conversations (test cases). Conversation = user messages + optional expected response. Evaluation = test set + method.",
+    "say": "That tab uses its own words. A test set is a collection of conversations, also called test cases. A conversation has user messages and, optionally, an expected agent response. And an evaluation is a named test set plus a test method. So when a question says evaluation, think of the pair: which exam, and how it is graded."
+  },
+  {
+    "title": "Three ways to add conversations",
+    "caption": "Upload CSV (up to 5 MB, template). Quick conversation set = 10, then Generate 25 or 50. Or write them.",
+    "say": "There are three ways to add conversations. Upload a CSV, up to five megabytes, and a template is available. Generate with A I: Quick conversation set creates ten conversations from the agent's description, instructions, and topics. After a first run, the menu also offers Generate twenty five and Generate fifty. Or write the questions yourself, which is still the best way to cover edge cases."
+  },
+  {
+    "title": "Credits and identity",
+    "caption": "Uses Copilot Credits badge. No Authenticate manually. User profile decides who runs it; default = signed-in user.",
+    "say": "Two practical details. Actions that cost money show a badge that says Uses Copilot Credits. And identity: the agent must use No authentication or Authenticate with Microsoft, and Authenticate manually is not supported here either. The User profile setting decides who runs the evaluation and invokes the agent's tools. By default it is the signed in user. Do not mix these limits with the standard harness numbers."
+  },
+  {
+    "title": "Decide: which limit applies",
+    "caption": "Nexo is on the Microsoft Copilot harness. Contoso uploads a file of real questions. Which limit applies?",
+    "say": "Your turn. Nexo now runs on the Microsoft Copilot harness, and Contoso wants to upload a file of real questions to the Evaluate tab. Which limit applies? One hundred questions of one thousand characters? A single CSV file up to five megabytes in size? Or twenty five conversations until the first run? Decide before I answer. A CSV up to five megabytes. One hundred questions is the standard harness, and twenty five is a generate option."
+  },
+  {
+    "title": "Monday, measured",
+    "caption": "Same test set before and after. CSV/TXT 100 × 1000 chars; expected responses for Exact match; auth limits.",
+    "say": "Back to Monday. This time Contoso ran the same test set before and after the new instructions, and the scores settle the argument in a minute. Remember for the exam. Standard harness: CSV or TXT, one hundred questions, one thousand characters each, and expected responses for Exact match. Only No authentication or Authenticate with Microsoft, no Fabric data agents. Evaluate tab: five megabytes, ten conversations, then twenty five or fifty."
+  }
+]

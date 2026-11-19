@@ -1,0 +1,466 @@
+{
+ "id": "L10",
+ "title": "Generative answers node",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 272.192,
+ "scenes": [
+  {
+   "title": "A confident answer from the wrong shelf",
+   "start": 0.8,
+   "end": 18.005,
+   "sentences": [
+    {
+     "text": "Contoso's HR agent is asked about parental leave.",
+     "start": 0.8,
+     "end": 4.319
+    },
+    {
+     "text": "The answer sounds sure, but it quotes a marketing page.",
+     "start": 4.6,
+     "end": 7.564
+    },
+    {
+     "text": "Valeria wants answers only from the HR policies site.",
+     "start": 7.845,
+     "end": 11.364
+    },
+    {
+     "text": "And she wants to show them in a card with the company style.",
+     "start": 11.645,
+     "end": 14.61
+    },
+    {
+     "text": "Today you learn how the Generative answers node does it.",
+     "start": 14.891,
+     "end": 18.004
+    }
+   ]
+  },
+  {
+   "title": "A librarian in the topic",
+   "start": 18.905,
+   "end": 35.239,
+   "sentences": [
+    {
+     "text": "Think of a librarian.",
+     "start": 18.905,
+     "end": 20.206
+    },
+    {
+     "text": "You ask a question.",
+     "start": 20.487,
+     "end": 21.702
+    },
+    {
+     "text": "The librarian goes to the shelves you point to, reads what is there, and writes you an answer.",
+     "start": 21.983,
+     "end": 26.888
+    },
+    {
+     "text": "You never choose the words.",
+     "start": 27.169,
+     "end": 28.555
+    },
+    {
+     "text": "You choose the shelves.",
+     "start": 28.836,
+     "end": 30.051
+    },
+    {
+     "text": "That is the Generative answers node: a librarian that works inside one topic.",
+     "start": 30.332,
+     "end": 35.238
+    }
+   ]
+  },
+  {
+   "title": "What the node does",
+   "start": 36.139,
+   "end": 54.536,
+   "sentences": [
+    {
+     "text": "With this node, the agent answers from knowledge sources inside a topic.",
+     "start": 36.139,
+     "end": 40.575
+    },
+    {
+     "text": "The sources can be documents in Dataverse, SharePoint sites, public websites and more.",
+     "start": 40.856,
+     "end": 46.124
+    },
+    {
+     "text": "And when no topic matches a question, the agent uses generative answers as its fallback.",
+     "start": 46.405,
+     "end": 51.887
+    },
+    {
+     "text": "The answer can also be saved to a variable.",
+     "start": 52.168,
+     "end": 54.535
+    }
+   ]
+  },
+  {
+   "title": "Search only selected sources",
+   "start": 55.436,
+   "end": 72.364,
+   "sentences": [
+    {
+     "text": "Here is the setting that fixes it.",
+     "start": 55.436,
+     "end": 57.248
+    },
+    {
+     "text": "By default, Search only selected sources is off, and the node searches all of the agent's sources.",
+     "start": 57.529,
+     "end": 63.438
+    },
+    {
+     "text": "Turn it on, and the node searches only the sources you select.",
+     "start": 63.719,
+     "end": 67.152
+    },
+    {
+     "text": "They replace the agent's sources for that node.",
+     "start": 67.433,
+     "end": 69.907
+    },
+    {
+     "text": "There is no fallback to the agent's sources.",
+     "start": 70.188,
+     "end": 72.363
+    }
+   ]
+  },
+  {
+   "title": "Decide: only the HR shelf",
+   "start": 73.264,
+   "end": 112.439,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 73.264,
+     "end": 74.138
+    },
+    {
+     "text": "Contoso's HR topic answers leave questions with a Generative answers node, but marketing documents keep slipping in.",
+     "start": 74.419,
+     "end": 81.906
+    },
+    {
+     "text": "The answers must come only from the policies SharePoint site.",
+     "start": 82.187,
+     "end": 85.471
+    },
+    {
+     "text": "What should Valeria turn on?",
+     "start": 85.752,
+     "end": 87.244
+    },
+    {
+     "text": "Moderation level set to Highest?",
+     "start": 87.525,
+     "end": 89.444
+    },
+    {
+     "text": "A separate fallback topic?",
+     "start": 89.725,
+     "end": 91.346
+    },
+    {
+     "text": "Or Search only selected sources?",
+     "start": 91.627,
+     "end": 93.695
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 93.976,
+     "end": 95.511
+    },
+    {
+     "text": "Search only selected sources.",
+     "start": 99.292,
+     "end": 101.168
+    },
+    {
+     "text": "Then the node uses only the sources you choose, and other departments cannot affect the answer.",
+     "start": 101.449,
+     "end": 106.867
+    },
+    {
+     "text": "Moderation sets how strict the answers are, and a fallback topic does not choose the sources.",
+     "start": 107.148,
+     "end": 112.438
+    }
+   ]
+  },
+  {
+   "title": "Customizing the answer",
+   "start": 113.339,
+   "end": 129.605,
+   "sentences": [
+    {
+     "text": "Next, the look of the answer.",
+     "start": 113.339,
+     "end": 114.916
+    },
+    {
+     "text": "Valeria wants it in an adaptive card with the company style.",
+     "start": 115.197,
+     "end": 118.652
+    },
+    {
+     "text": "So she saves the answer in a global variable.",
+     "start": 118.933,
+     "end": 121.492
+    },
+    {
+     "text": "Then she clears the Send a message checkbox.",
+     "start": 121.773,
+     "end": 124.14
+    },
+    {
+     "text": "Now the agent no longer returns the answer right away, and she presents it however she likes.",
+     "start": 124.421,
+     "end": 129.604
+    }
+   ]
+  },
+  {
+   "title": "Decide: outside the chosen site",
+   "start": 130.505,
+   "end": 165.989,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 130.505,
+     "end": 131.379
+    },
+    {
+     "text": "Valeria turned on Search only selected sources and chose the policies site.",
+     "start": 131.66,
+     "end": 136.246
+    },
+    {
+     "text": "A user asks something that site does not cover.",
+     "start": 136.527,
+     "end": 139.043
+    },
+    {
+     "text": "Which statement is true?",
+     "start": 139.324,
+     "end": 140.688
+    },
+    {
+     "text": "It still falls back to all of the agent's sources?",
+     "start": 140.969,
+     "end": 143.635
+    },
+    {
+     "text": "The selected sources replace the agent's sources?",
+     "start": 143.916,
+     "end": 146.667
+    },
+    {
+     "text": "Or the chosen sources are added to the agent's?",
+     "start": 146.948,
+     "end": 149.55
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 149.831,
+     "end": 151.366
+    },
+    {
+     "text": "The selected sources replace the agent's sources.",
+     "start": 155.147,
+     "end": 158.047
+    },
+    {
+     "text": "For that node, there is no fallback to the agent's other sources.",
+     "start": 158.328,
+     "end": 161.868
+    },
+    {
+     "text": "So a question outside the chosen site is not rescued by the rest.",
+     "start": 162.149,
+     "end": 165.988
+    }
+   ]
+  },
+  {
+   "title": "Citations and moderation",
+   "start": 166.889,
+   "end": 184.564,
+   "sentences": [
+    {
+     "text": "But there is a catch.",
+     "start": 166.889,
+     "end": 168.083
+    },
+    {
+     "text": "In Teams, citations are returned automatically only for responses you have not customized.",
+     "start": 168.364,
+     "end": 174.102
+    },
+    {
+     "text": "If you customize the answer, you must include the citation rendering yourself.",
+     "start": 174.383,
+     "end": 178.947
+    },
+    {
+     "text": "The node also has its own moderation level, from Lowest to Highest.",
+     "start": 179.228,
+     "end": 183.046
+    },
+    {
+     "text": "The default is High.",
+     "start": 183.327,
+     "end": 184.563
+    }
+   ]
+  },
+  {
+   "title": "Decide: the Teams card",
+   "start": 185.464,
+   "end": 222.527,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 185.464,
+     "end": 186.338
+    },
+    {
+     "text": "Contoso clears Send a message, saves the answer in a global variable, and shows it in an adaptive card.",
+     "start": 186.619,
+     "end": 192.932
+    },
+    {
+     "text": "The agent is also published in Teams.",
+     "start": 193.213,
+     "end": 195.559
+    },
+    {
+     "text": "What must Contoso add to the card?",
+     "start": 195.84,
+     "end": 197.759
+    },
+    {
+     "text": "The citation rendering in the card?",
+     "start": 198.04,
+     "end": 200.044
+    },
+    {
+     "text": "Nothing, Teams adds citations by itself?",
+     "start": 200.325,
+     "end": 202.842
+    },
+    {
+     "text": "Or a second Generative answers node?",
+     "start": 203.123,
+     "end": 205.148
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 205.429,
+     "end": 206.964
+    },
+    {
+     "text": "The citation rendering in the card.",
+     "start": 210.745,
+     "end": 212.814
+    },
+    {
+     "text": "In Teams, citations come back automatically only for responses you have not customized.",
+     "start": 213.095,
+     "end": 218.704
+    },
+    {
+     "text": "Once you customize, you must include the citations yourself.",
+     "start": 218.985,
+     "end": 222.526
+    }
+   ]
+  },
+  {
+   "title": "Set it up in the studio",
+   "start": 223.427,
+   "end": 245.84,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 223.427,
+     "end": 225.239
+    },
+    {
+     "text": "Open the Topics page and enter your topic.",
+     "start": 225.52,
+     "end": 228.122
+    },
+    {
+     "text": "Select Add node, point to Advanced, and choose Generative answers.",
+     "start": 228.403,
+     "end": 232.178
+    },
+    {
+     "text": "Open the node properties, and under Input select the System Activity Text variable.",
+     "start": 232.459,
+     "end": 237.364
+    },
+    {
+     "text": "Turn on Search only selected sources and choose your source.",
+     "start": 237.645,
+     "end": 241.143
+    },
+    {
+     "text": "Then test with a question that only another source knows, and see what happens.",
+     "start": 241.424,
+     "end": 245.839
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 246.74,
+   "end": 270.991,
+   "sentences": [
+    {
+     "text": "Back in the records archive.",
+     "start": 246.74,
+     "end": 248.254
+    },
+    {
+     "text": "Answers now come only from the policies site, and the card shows them in the company style.",
+     "start": 248.535,
+     "end": 253.675
+    },
+    {
+     "text": "Remember three things.",
+     "start": 253.956,
+     "end": 255.192
+    },
+    {
+     "text": "Search only selected sources replaces the agent's sources, with no fallback.",
+     "start": 255.473,
+     "end": 260.187
+    },
+    {
+     "text": "Clearing Send a message means you add the citations yourself.",
+     "start": 260.468,
+     "end": 263.987
+    },
+    {
+     "text": "And moderation goes from Lowest to Highest, with High as the default.",
+     "start": 264.268,
+     "end": 268.214
+    },
+    {
+     "text": "Next, custom data and your own sources.",
+     "start": 268.495,
+     "end": 270.99
+    }
+   ]
+  }
+ ]
+}

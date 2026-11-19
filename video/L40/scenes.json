@@ -1,0 +1,34 @@
+{"brand": "AB-620 · Module 7 · Lesson 6", "scenes": [
+ {"type": "flow", "header": {"kicker": "Power Platform Pipelines", "title": "The conveyor belt"},
+  "nodes": [
+   {"icon": "beaker", "title": "Dev", "at": "from Dev"},
+   {"icon": "checkmark_circle", "title": "Test", "sub": "Quality check", "at": "to Test"},
+   {"icon": "rocket", "title": "Production", "accent": true, "at": "to Production"}],
+  "below": [
+   {"icon": "cube_tree", "text": "Deploys managed solutions", "at": "managed solutions", "solid": true},
+   {"text": "Skipping the test stage", "at": "skip the test", "strike": true}]},
+ {"type": "split", "left": {"kicker": "Where you see them", "title": "From your unmanaged solution in Dev"},
+  "rows": [
+   {"icon": "checkmark_circle", "title": "Unmanaged solution · development", "desc": "See and run them here", "at": "unmanaged solution in", "hi": true},
+   {"icon": "dismiss_circle", "title": "Not from the default solution", "at": "default solution", "hi": true},
+   {"icon": "dismiss_circle", "title": "Not from the target environments", "at": "target environments", "hi": true},
+   {"icon": "send", "title": "Pick the pipeline and the stage", "at": "pick the pipeline", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Environment requirements", "title": "Which ones must be managed?"},
+  "cols": [
+   {"icon": "server", "title": "No need to be managed", "at": "#0",
+    "items": [{"text": "The host (a production environment)", "at": "host must"}, {"text": "Developer environments", "at": "Developer environments"}]},
+   {"icon": "shield_checkmark", "title": "Managed Environment", "sub": "Required", "accent": true, "at": "Every other",
+    "items": [{"text": "Test and Production", "at": "Test and Production"}]}]},
+ {"type": "split", "left": {"kicker": "Deployment rules", "title": "Validated before it runs"},
+  "rows": [
+   {"icon": "cube_tree", "title": "One solution at a time", "at": "one solution", "hi": true},
+   {"icon": "arrow_up_right", "title": "Default import type: Upgrade", "at": "Upgrade", "hi": true},
+   {"icon": "dismiss_circle", "title": "Not across tenants", "at": "across tenants", "hi": true},
+   {"icon": "plug_connected", "title": "Connections · references · variables", "desc": "Provided and validated beforehand", "at": "Connections,", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "Extensions and status codes", "title": "Contoso's NexoCore pipeline"}, "cols": 2,
+  "items": [
+   {"icon": "flow", "term": "Pre-deployment step", "def": "Runs before deploying", "at": "pre-deployment"},
+   {"icon": "key", "term": "Delegated deployment", "def": "Runs as a service principal", "at": "delegated"},
+   {"icon": "checkmark_circle", "term": "20", "def": "Complete or approve", "at": "twenty"},
+   {"icon": "dismiss_circle", "term": "30", "def": "Reject", "at": "thirty"}]}
+]}

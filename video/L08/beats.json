@@ -1,0 +1,486 @@
+{
+ "id": "L08",
+ "title": "Variables and scope",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 282.314,
+ "scenes": [
+  {
+   "title": "Asked twice",
+   "start": 0.8,
+   "end": 16.259,
+   "sentences": [
+    {
+     "text": "Marta opens Nexo to ask about her vacation.",
+     "start": 0.8,
+     "end": 3.658
+    },
+    {
+     "text": "Nexo asks for her employee number, and she types it.",
+     "start": 3.939,
+     "end": 6.946
+    },
+    {
+     "text": "Then she asks about her payslip.",
+     "start": 7.227,
+     "end": 8.954
+    },
+    {
+     "text": "Nexo asks for the same number again.",
+     "start": 9.235,
+     "end": 11.303
+    },
+    {
+     "text": "Marta sighs.",
+     "start": 11.584,
+     "end": 12.586
+    },
+    {
+     "text": "Today you learn where an agent keeps data, and who can use it.",
+     "start": 12.867,
+     "end": 16.258
+    }
+   ]
+  },
+  {
+   "title": "A named box and who can open it",
+   "start": 17.159,
+   "end": 35.559,
+   "sentences": [
+    {
+     "text": "Think of a variable as a small box with a name on it.",
+     "start": 17.159,
+     "end": 20.187
+    },
+    {
+     "text": "Inside, the agent keeps one piece of data to use later, like a name or a ticket number.",
+     "start": 20.468,
+     "end": 25.864
+    },
+    {
+     "text": "The scope says who can open the box.",
+     "start": 26.145,
+     "end": 28.214
+    },
+    {
+     "text": "Only one topic, or the whole agent.",
+     "start": 28.495,
+     "end": 30.819
+    },
+    {
+     "text": "Contoso's problem is simple: the box was locked inside one topic.",
+     "start": 31.1,
+     "end": 35.558
+    }
+   ]
+  },
+  {
+   "title": "Topic and Global",
+   "start": 36.459,
+   "end": 56.032,
+   "sentences": [
+    {
+     "text": "When you create a variable, it is a topic variable by default.",
+     "start": 36.459,
+     "end": 39.978
+    },
+    {
+     "text": "It lives only in the topic where you created it.",
+     "start": 40.259,
+     "end": 42.86
+    },
+    {
+     "text": "The payroll topic cannot see it, so it asks again.",
+     "start": 43.141,
+     "end": 46.106
+    },
+    {
+     "text": "A global variable carries the prefix Global dot, and it works in all topics.",
+     "start": 46.387,
+     "end": 50.994
+    },
+    {
+     "text": "So Global dot EmployeeId is filled once, and every topic reuses it.",
+     "start": 51.275,
+     "end": 56.031
+    }
+   ]
+  },
+  {
+   "title": "Decide: one number, many topics",
+   "start": 56.932,
+   "end": 91.776,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 56.932,
+     "end": 57.806
+    },
+    {
+     "text": "Contoso's vacation topic saves the employee number in a topic variable.",
+     "start": 58.087,
+     "end": 62.8
+    },
+    {
+     "text": "The payroll and benefits topics need the same number without asking again.",
+     "start": 63.081,
+     "end": 67.475
+    },
+    {
+     "text": "What should you do?",
+     "start": 67.756,
+     "end": 68.758
+    },
+    {
+     "text": "Copy the question into every topic?",
+     "start": 69.039,
+     "end": 71.235
+    },
+    {
+     "text": "Change the variable scope to global?",
+     "start": 71.516,
+     "end": 73.542
+    },
+    {
+     "text": "Or make it a new system variable instead?",
+     "start": 73.823,
+     "end": 76.04
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 76.321,
+     "end": 77.856
+    },
+    {
+     "text": "Change the variable scope to global.",
+     "start": 81.637,
+     "end": 83.663
+    },
+    {
+     "text": "You do it in the variable's properties panel.",
+     "start": 83.944,
+     "end": 86.375
+    },
+    {
+     "text": "Copying the question only asks the user again, and you cannot create system variables.",
+     "start": 86.656,
+     "end": 91.775
+    }
+   ]
+  },
+  {
+   "title": "System variables",
+   "start": 92.676,
+   "end": 108.665,
+   "sentences": [
+    {
+     "text": "Some boxes come already filled.",
+     "start": 92.676,
+     "end": 94.552
+    },
+    {
+     "text": "Copilot Studio creates system variables for you.",
+     "start": 94.833,
+     "end": 97.691
+    },
+    {
+     "text": "System dot Activity dot Text holds the last thing the user typed.",
+     "start": 97.972,
+     "end": 102.152
+    },
+    {
+     "text": "System dot User dot DisplayName holds the user's name.",
+     "start": 102.433,
+     "end": 106.059
+    },
+    {
+     "text": "You read them, but you do not create them.",
+     "start": 106.34,
+     "end": 108.664
+    }
+   ]
+  },
+  {
+   "title": "The type is set once",
+   "start": 109.565,
+   "end": 126.173,
+   "sentences": [
+    {
+     "text": "Each box also has a shape, called its type.",
+     "start": 109.565,
+     "end": 112.167
+    },
+    {
+     "text": "A variable takes its type from its first assignment.",
+     "start": 112.448,
+     "end": 115.135
+    },
+    {
+     "text": "If it starts with a number, it stays a Number.",
+     "start": 115.416,
+     "end": 117.868
+    },
+    {
+     "text": "Later, if you try to put text in it, you get an error.",
+     "start": 118.149,
+     "end": 120.9
+    },
+    {
+     "text": "The types include String, Boolean, Number, Table, Record, DateTime, Choice and Blank.",
+     "start": 121.181,
+     "end": 126.172
+    }
+   ]
+  },
+  {
+   "title": "Decide: text in a number box",
+   "start": 127.073,
+   "end": 160.68,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 127.073,
+     "end": 127.947
+    },
+    {
+     "text": "Valeria first sets Global dot EmployeeId to the number four two one five.",
+     "start": 128.228,
+     "end": 133.411
+    },
+    {
+     "text": "Later, a node saves the text E four two one five in the same variable.",
+     "start": 133.692,
+     "end": 138.299
+    },
+    {
+     "text": "What happens?",
+     "start": 138.58,
+     "end": 139.496
+    },
+    {
+     "text": "An error: the type is already Number?",
+     "start": 139.777,
+     "end": 141.782
+    },
+    {
+     "text": "It quietly converts itself to a String?",
+     "start": 142.063,
+     "end": 144.131
+    },
+    {
+     "text": "Or the text is stored as the number zero?",
+     "start": 144.412,
+     "end": 146.63
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 146.911,
+     "end": 148.446
+    },
+    {
+     "text": "An error: the type is already Number.",
+     "start": 152.227,
+     "end": 154.316
+    },
+    {
+     "text": "The type comes from the first assignment, and it does not change.",
+     "start": 154.597,
+     "end": 157.839
+    },
+    {
+     "text": "If an ID can have letters, start it as text.",
+     "start": 158.12,
+     "end": 160.679
+    }
+   ]
+  },
+  {
+   "title": "Environment variables",
+   "start": 161.58,
+   "end": 195.537,
+   "sentences": [
+    {
+     "text": "Now the inventory interface.",
+     "start": 161.58,
+     "end": 163.371
+    },
+    {
+     "text": "In development it must call a test server, and in production the real one.",
+     "start": 163.652,
+     "end": 167.683
+    },
+    {
+     "text": "Contoso keeps that address in an environment variable, Env dot ApiBaseUrl.",
+     "start": 167.964,
+     "end": 173.723
+    },
+    {
+     "text": "Environment variables are created in Power Platform, and they are read-only in Copilot Studio.",
+     "start": 174.004,
+     "end": 179.806
+    },
+    {
+     "text": "The administrator changes their values in Power Apps, not in the topic.",
+     "start": 180.087,
+     "end": 184.352
+    },
+    {
+     "text": "So the same agent moves between environments without touching a single node.",
+     "start": 184.633,
+     "end": 189.155
+    },
+    {
+     "text": "If a value changes, you republish the agent, except for secret-type ones, which are read at runtime.",
+     "start": 189.436,
+     "end": 195.536
+    }
+   ]
+  },
+  {
+   "title": "Decide: test server, real server",
+   "start": 196.437,
+   "end": 234.353,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 196.437,
+     "end": 197.311
+    },
+    {
+     "text": "Nexo calls an inventory address that is different in development and in production.",
+     "start": 197.592,
+     "end": 202.583
+    },
+    {
+     "text": "Contoso wants to move the agent without editing any node.",
+     "start": 202.864,
+     "end": 206.255
+    },
+    {
+     "text": "What should you use?",
+     "start": 206.536,
+     "end": 207.623
+    },
+    {
+     "text": "A global variable set in every topic?",
+     "start": 207.904,
+     "end": 210.228
+    },
+    {
+     "text": "A system variable that holds the address?",
+     "start": 210.509,
+     "end": 212.748
+    },
+    {
+     "text": "Or an environment variable for the address?",
+     "start": 213.029,
+     "end": 215.354
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 215.635,
+     "end": 217.17
+    },
+    {
+     "text": "An environment variable for the address.",
+     "start": 220.951,
+     "end": 223.062
+    },
+    {
+     "text": "It separates the parameter from the logic, and the administrator sets each value in Power Apps.",
+     "start": 223.343,
+     "end": 228.91
+    },
+    {
+     "text": "A global variable still means editing the agent, and you cannot create system variables.",
+     "start": 229.191,
+     "end": 234.352
+    }
+   ]
+  },
+  {
+   "title": "Make it global in the studio",
+   "start": 235.253,
+   "end": 259.032,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 235.253,
+     "end": 237.066
+    },
+    {
+     "text": "Open the vacation topic and add a Question node that asks for the employee number.",
+     "start": 237.347,
+     "end": 242.21
+    },
+    {
+     "text": "Under Save user response as, create a variable called EmployeeId.",
+     "start": 242.491,
+     "end": 246.714
+    },
+    {
+     "text": "Select it, open Variable properties, and change its scope to global.",
+     "start": 246.995,
+     "end": 251.068
+    },
+    {
+     "text": "In the payroll topic, add a Message and insert Global dot EmployeeId.",
+     "start": 251.349,
+     "end": 255.85
+    },
+    {
+     "text": "Test in the test chat and watch the variables panel.",
+     "start": 256.131,
+     "end": 259.031
+    }
+   ]
+  },
+  {
+   "title": "One box for the whole agent",
+   "start": 259.932,
+   "end": 281.113,
+   "sentences": [
+    {
+     "text": "Back to Marta.",
+     "start": 259.932,
+     "end": 260.955
+    },
+    {
+     "text": "She types her number once, and the payroll topic greets her with it.",
+     "start": 261.236,
+     "end": 264.819
+    },
+    {
+     "text": "Remember four boxes.",
+     "start": 265.1,
+     "end": 266.464
+    },
+    {
+     "text": "Topic is the default, and Global dot works in all topics.",
+     "start": 266.745,
+     "end": 270.435
+    },
+    {
+     "text": "System variables come from Copilot Studio.",
+     "start": 270.716,
+     "end": 273.275
+    },
+    {
+     "text": "Env dot comes from Power Platform and is read-only here.",
+     "start": 273.556,
+     "end": 276.84
+    },
+    {
+     "text": "And the first value fixes the type.",
+     "start": 277.121,
+     "end": 279.04
+    },
+    {
+     "text": "Next, formatted responses.",
+     "start": 279.321,
+     "end": 281.112
+    }
+   ]
+  }
+ ]
+}

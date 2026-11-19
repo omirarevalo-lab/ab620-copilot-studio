@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>F06 · Environments, Dataverse, and solutions · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { left: 100px; top: 130px; width: 1720px; height: 820px; }
+  #stage .uw .bar { font-size: 32px; } #stage .uw .bar .hc { font-size: 32px; } #stage .uw .nav div { font-size: 34px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage #uiA .nav, #stage #uiC .nav { display: none; } #stage #uiA .main, #stage #uiC .main { left: 0; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  .ly { position: absolute; left: 56px; top: 40px; right: 56px; bottom: 30px; }
+  .bwr .sb { opacity: 1; }
+  .dsh { border-bottom: 5px dashed #8a93a6; color: #8a93a6; }
+  #exams .exam .xl { top: 60px; }
+  #exams .exam .xq { top: 130px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1250px; top: 340px; width: 550px; font-size: 40px; }
+  #exams .exam .xp { left: 120px; top: 690px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* F06 · Environments, Dataverse, and solutions. "Contoso business park" in the 3840x2160 world.
+     Buildings (750 wide, top y 800, floor y 1450): Default x300 · Dev x1130 · Test x1960 · Prod x2790. Road y 1450-1750 (walkers feet ~1540, objects lane y 1575-1745).
+     Underground y 1790+: one basement room per building (y 1815-2090) with a Dataverse drum. Wide shot = scale .5 at (1920,1080). */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44', GREY = '#8a93a6', TMS = '#5b5fc7', KNW = '#0f7b8a', BRN = '#a8743a';
+  const KNWs = '#dff1f3', AMBs = '#fff3d6', PURs = '#efe7fb', REDs = '#fde8e6', GRNs = '#e3f4ea', GOLD = '#e8b100', BLUEs = '#e6ecfb', BRNs = '#f3e6d3';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const G = (id, html) => D(id, 'left:0;top:0;width:1px;height:1px;opacity:0', html);
+  const SB = (id, x, y, t, fs, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 40) + 'px;');
+  const T = (x, y, fs, col, t, id, ex, cls) => `<div class="px${cls ? ' ' + cls : ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const agC = (id, x, y) => agent(id, x, y, { folder: '' }).replace('height="500" viewBox="0 0 360 500"', 'height="390" viewBox="0 0 360 390"').replace('height="170" rx="40"', 'height="90" rx="40"');
+  const pers = (c, w) => person(c).replace('width="90" height="200"', `width="${w}" height="${Math.round(w * 200 / 90)}"`);
+  /* chip centred on cx: width estimated from the text (bold ~0.58 em per char) */
+  const CHW = (text, fs, icon) => Math.round(text.replace(/<[^>]*>/g, '').length * fs * 0.58 + 76 + (icon ? fs * 1.3 : 0));
+  const CHC = (id, cx, y, text, col, fs, icon, bg, ex, w0) => { const w = w0 || CHW(text, fs, icon);
+    return H(id, `left:${Math.round(cx - w / 2)}px;top:${y}px;width:${w}px;border:6px solid ${col};border-radius:26px;background:${bg || '#fff'};color:${col};font-size:${fs}px;font-weight:800;line-height:1.12;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:14px;text-align:center;box-shadow:0 10px 30px rgba(16,24,40,.12);${ex || ''}`,
+      (icon ? IC(icon, `width:${Math.round(fs * 1.15)}px;height:${Math.round(fs * 1.15)}px;flex:0 0 auto`) : '') + `<span>${text}</span>`); };
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SWX = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, t + 0.1); };
+  const XFADE = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.4 }, t); tl.fromTo(b, { opacity: 0 }, { opacity: 1, duration: 0.4, immediateRender: false }, t); };
+  const DRAW = (sel, t, d) => { ON(sel, t, 0.1); tl.fromTo(sel, { strokeDasharray: 3000, strokeDashoffset: 3000 }, { strokeDashoffset: 0, duration: d || 0.7, immediateRender: false }, t); };
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const TY = (sel, t, d, n) => { tl.set(sel, { opacity: 1 }, t); tl.fromTo(sel, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: d, ease: `steps(${n})`, immediateRender: false }, t); };
+  const pulse = (sel, t, col) => tl.fromTo(sel, { boxShadow: '0 0 0 0 rgba(47,91,211,0)' }, { boxShadow: `0 0 0 10px ${col || 'rgba(47,91,211,.6)'}`, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t);
+  const PULSEX = (sel, t, s) => tl.to(sel, { scale: s || 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.inOut' }, t);
+
+  /* ═════════ WORLD CONSTANTS ═════════ */
+  const BX = [300, 1130, 1960, 2790], BWD = 750, BTOP = 800, BFL = 1450;
+  const COL = [GREY, BLUE, AMB, GRN], TINT = ['#eceff5', BLUEs, AMBs, GRNs], NAME = ['Default', 'Nexo Dev', 'Nexo Test', 'Nexo Prod'];
+
+  /* ═════════ BACKGROUND: sky, skyline, ground, road, underground ═════════ */
+  ADD(D('', 'left:-1400px;top:-800px;width:6800px;height:2300px;background:linear-gradient(#dbe6f6,#f3f6fb 70%)') +
+    [0, 1, 2, 3, 4].map((i) => D('', `left:${260 + i * 700}px;top:${140 + (i % 3) * 110}px;width:${360 + (i % 2) * 120}px;height:90px;border-radius:45px;background:#fff;opacity:.85`)).join('') +
+    Array.from({ length: 24 }, (_, i) => D('', `left:${-140 + i * 175}px;top:${1450 - (760 + ((i * 53) % 7) * 70)}px;width:${150 + (i % 3) * 14}px;height:${760 + ((i * 53) % 7) * 70}px;background:${i % 2 ? '#dde3ef' : '#d3dbea'}`)).join('') +
+    D('', 'left:-1400px;top:1450px;width:6800px;height:20px;background:#d5dae6') + D('', 'left:-1400px;top:1470px;width:6800px;height:280px;background:#bfc6d6') +
+    D('', 'left:-1400px;top:1750px;width:6800px;height:40px;background:#d5dae6') + D('', 'left:-1400px;top:1790px;width:6800px;height:900px;background:#c9d0df') + D('', 'left:-1400px;top:1790px;width:6800px;height:6px;background:#aab3c8') +
+    Array.from({ length: 36 }, (_, i) => D('', `left:${-200 + i * 150}px;top:1606px;width:80px;height:10px;border-radius:5px;background:#dbe0ec`)).join(''));
+  /* trees */
+  ADD([60, 3600].map((x, k) => D('', `left:${x}px;top:${k ? 1180 : 1130}px;width:200px;height:320px`, D('', 'left:84px;top:170px;width:32px;height:150px;background:#9a7b57') + D('', `left:0;top:0;width:200px;height:${k ? 210 : 230}px;border-radius:50%;background:#7fbf9a`))).join(''));
+
+  ADD([1090, 1920, 2750].map((x) => D('', `left:${x - 7}px;top:1130px;width:14px;height:320px;background:#6b768f`) + D('', `left:${x - 36}px;top:1112px;width:72px;height:26px;border-radius:13px;background:#6b768f`)).join('') +
+    [0, 1, 2, 3, 4].map((i) => D('', `left:${2290 + i * 36}px;top:1472px;width:20px;height:276px;background:#e9edf5;opacity:.8`)).join(''));
+  /* basements + buildings */
+  const bld = (k) => { const x = BX[k], c = COL[k];
+    const wn = (i, r) => `left:${x + 60 + i * 215}px;top:${BTOP + 135 + r * 195}px;width:150px;height:125px;border:8px solid #d5dce9;border-radius:14px;background:#e8eefa`;
+    const wins = [0, 1, 2].map((i) => [0, 1].map((r) => D('', wn(i, r), k === 0 ? IC('person', `position:absolute;left:34px;top:18px;width:64px;height:64px;color:${['#8a5cd6', '#2f5bd3', '#0e8f8f', '#b4533f', '#b4337a', '#c08a2b'][i * 2 + r]}`) : '').replace('class="w"', 'class="w lint-ignore"')).join('')).join('');
+    return D('rm' + k, `left:${x}px;top:1815px;width:750px;height:275px;border:8px solid #8f9ab2;border-radius:22px;background:#eef2f9`) + D('', `left:${x + 8}px;top:2050px;width:734px;height:32px;background:#dfe5f0`) +
+      D('bd' + k, `left:${x}px;top:${BTOP}px;width:${BWD}px;height:${BFL - BTOP}px;border:8px solid #9aa4ba;border-radius:22px 22px 0 0;background:#f7f9fd`) +
+      D('tn' + k, `left:${x + 8}px;top:${BTOP + 92}px;width:734px;height:${BFL - BTOP - 92 - 8}px;background:${TINT[k]};opacity:0`) + wins +
+      D('', `left:${x + 8}px;top:${BFL - 30}px;width:734px;height:30px;background:#e3e7ef`) +
+      D('cp' + k, `left:${x}px;top:${BTOP}px;width:${BWD}px;height:92px;border-radius:22px 22px 0 0;background:#9aa4ba`) +
+      T(x + 175, BTOP + 8, 70, '#fff', NAME[k], 'sg' + k, `width:400px;text-align:center;opacity:0`); };
+  ADD([0, 1, 2, 3].map(bld).join(''));
+
+  /* walkers: small people on the upper road lane, one direction, same speed (never overtake) */
+  const WC = ['#8a5cd6', '#b4533f', '#0e8f8f', '#b4337a', '#2f5bd3', '#c08a2b', '#1e7f4f', '#8a5cd6', '#b4533f', '#0e8f8f'];
+  ADD(WC.map((c, k) => D('wk' + k, `left:0;top:${1452 + (k % 3) * 4}px;opacity:0`, pers(c, 60)).replace('class="w"', 'class="w lint-ignore"')).join(''));
+
+  /* tenant fence (S1 s4, faint in S8) */
+  ADD(H('fence', 'left:250px;top:700px;width:3340px;height:1110px;border:10px dashed #2f5bd3;border-radius:30px;clip-path:inset(0 100% 0 0)'));
+  ADD(CHC('fnc', 1920, 640, 'Contoso tenant · Europe', BLUE, 76, null, BLUEs));
+
+  /* drums (Dataverse) */
+  const drum = (id, x, y, w, h, lab, fs, dash) => D(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;opacity:0`,
+    D('', `left:0;top:${h * 0.14}px;width:${w}px;height:${h * 0.86}px;border-radius:${w * 0.12}px;background:${dash ? '#f4fafa' : KNW};border:6px ${dash ? 'dashed' : 'solid'} ${KNW}`) +
+    D('', `left:0;top:0;width:${w}px;height:${h * 0.3}px;border-radius:50%;background:${dash ? '#f4fafa' : '#27a3b3'};border:6px ${dash ? 'dashed' : 'solid'} ${KNW}`) +
+    T(0, h * 0.46, fs, dash ? KNW : '#fff', lab, id + 'L', `width:${w}px;text-align:center;opacity:0`));
+  ADD(drum('dv0', 360, 1900, 220, 160, '', 32) + drum('dv1', 1190, 1900, 220, 160, 'Dataverse', 34) + drum('dv2d', 2020, 1900, 220, 160, 'no database', 32, true) + drum('dv2', 2020, 1900, 220, 160, '', 32) + drum('dv3', 2850, 1900, 220, 160, '', 32));
+
+  /* ═════════ S0 · PROD ROOM + TEST ROOM ═════════ */
+  const NX = (id, x, s) => D(id, `left:${x}px;top:${BFL - 390 * s}px;width:${360 * s}px;height:${390 * s}px;opacity:0`, `<div style="position:absolute;left:0;top:0;width:360px;height:390px;transform:scale(${s});transform-origin:0 0">${agC(id + 'a', 0, 0)}</div>`);
+  const MK = (id, x, s) => D(id, `left:${x}px;top:${BFL - 486 * s}px;width:${900 * s}px;height:${520 * s}px;opacity:0`, `<div style="position:absolute;left:0;top:0;width:900px;height:520px;transform:scale(${s});transform-origin:0 0">${maker(id + 'm', 0, 0)}</div>`);
+  ADD(G('gDoor', D('', `left:2815px;top:1100px;width:150px;height:350px;border:8px solid ${TMS};border-radius:24px 24px 0 0;background:#fff`) + T(2815, 1370, 44, TMS, 'Teams', '', 'width:150px;text-align:center')));
+  ADD(H('e0', `left:2985px;top:${BFL - 204}px`, pers('#8a5cd6', 92)) + H('e1', `left:3125px;top:${BFL - 204}px`, pers('#0e8f8f', 92)));
+  ADD(NX('nx3', 3250, 0.62));
+  ADD(MK('mk0', 2290, 0.5));
+  ADD(H('col', `left:1850px;top:${BFL - 206}px`, pers('#0e8f8f', 92)));
+  const BW = (id, x, y, html) => D(id, `left:${x}px;top:${y}px;width:1px;height:1px;opacity:0`, SB(id + 's', 0, 0, html, 40)).replace('class="w"', 'class="w bwr"');
+  ADD(BW('bb0', 3031, 975, 'Which system? <span class="dsh">…</span>') + BW('bb1', 3181, 855, 'Which system? <span class="dsh">…</span>'));
+  ADD(H('tc0', `left:2405px;top:1234px;width:300px;height:170px;border:6px solid ${PUR};border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.25)`,
+    T(18, 12, 38, PUR, 'New topic') + D('', `left:18px;top:70px;width:250px;height:34px;border-radius:8px;background:${PURs}`) + D('', `left:18px;top:118px;width:250px;height:30px;border-radius:8px;border:4px dashed ${PUR}`)));
+  /* agent list card (colleague's laptop) */
+  const LST = (id, x, y) => H(id, `left:${x}px;top:${y}px;width:420px;height:290px;border:6px solid ${NAVY};border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.22)`,
+    T(22, 12, 44, NAVY, 'Agents') + T(22, 76, 44, '#141821', 'Sales bot') + T(22, 132, 44, '#141821', 'HR agent') +
+    D('', `left:14px;top:196px;width:386px;height:70px;border:5px dashed ${GREY};border-radius:16px`, T(10, 8, 44, GREY, 'Nexo? not here')));
+  ADD(LST('lst', 1985, 905));
+  ADD(H('qm', `left:3065px;top:905px;width:200px;height:200px;border:10px dashed ${RED};border-radius:50%;color:${RED};font-size:150px;font-weight:800;text-align:center;line-height:170px;background:#fff`, '?'));
+
+  /* ═════════ S1 · DEV (maker + Nexo), cards, arrows, cables ═════════ */
+  ADD(H('snd', `left:1138px;top:1392px;width:734px;height:58px;background:#f1dfb4`));
+  ADD(MK('mk1', 1160, 0.5) + NX('nx1', 1680, 0.5));
+  ADD(H('gst', `left:1130px;top:800px;width:750px;height:650px;border:8px dashed ${BLUE};border-radius:22px;background:rgba(47,91,211,.1)`));
+  const CARD = (id, x, y, fs) => H(id, `left:${x}px;top:${y}px;width:330px;height:190px;border:6px solid ${PUR};border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.22)`,
+    T(18, 12, fs, PUR, 'New topic') + D('', `left:18px;top:84px;width:280px;height:34px;border-radius:8px;background:${PURs}`) + D('', `left:18px;top:134px;width:280px;height:32px;border-radius:8px;background:${PURs}`));
+  ADD(CARD('ncd', 1265, 925, 46));
+  const GHO = (id, x) => H(id, `left:${x}px;top:1272px;width:300px;height:140px;border:6px dashed ${GREY};border-radius:22px`, T(18, 34, 40, '#5d6472', 'New topic'));
+  ADD(GHO('gh0', 560) + GHO('gh2', 2390));
+  ADD(`<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4400" height="2400" viewBox="0 0 4400 2400">
+    <path id="ar1" d="M1985 1050 H1770 V1215" fill="none" stroke="${BLUE}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <path id="ar1h" d="M1744 1195 L1770 1228 L1796 1195" fill="none" stroke="${BLUE}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <path id="cbA" d="M1770 1440 V1980 H1415" fill="none" stroke="${BLUE}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <path id="cbB" d="M1790 1330 V1000 H1955" fill="none" stroke="${RED}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+    <path id="cbS" d="M1690 1970 H1560" fill="none" stroke="${KNW}" stroke-width="12" stroke-linecap="round" opacity="0"/></svg>`);
+  ADD(H('xB', `left:1930px;top:960px;width:64px;height:64px;border-radius:50%;background:${RED};color:#fff;font-size:44px;font-weight:800;text-align:center;line-height:60px`, '✕'));
+
+  /* ═════════ S2 · types ═════════ */
+  /* developer cabin, trial tent, role figures (lower lane) */
+  ADD(H('cab', 'left:1470px;top:1590px;width:300px;height:170px', D('', `left:0;top:0;width:300px;height:0;border-left:150px solid transparent;border-right:150px solid transparent;border-bottom:56px solid ${PUR}`) + D('', `left:20px;top:56px;width:260px;height:114px;background:${PURs};border:6px solid ${PUR}`) + T(0, 78, 38, PUR, 'Developer', '', 'width:300px;text-align:center')) +
+    H('cabP', 'left:1790px;top:1640px', pers('#8a5cd6', 50)));
+  ADD(H('tent', 'left:1500px;top:1598px;width:300px;height:150px', D('', `left:0;top:0;width:0;height:0;border-left:150px solid transparent;border-right:150px solid transparent;border-bottom:150px solid ${AMB}`) + T(0, 92, 40, '#fff', 'Trial', '', 'width:300px;text-align:center')) +
+    H('tsg', `left:1860px;top:1603px;width:320px;height:130px;border:6px solid ${NAVY};border-radius:20px;background:#fff`, T(0, 12, 42, NAVY, '30 days', '', 'width:308px;text-align:center') + D('', `left:24px;top:84px;width:260px;height:24px;border-radius:12px;background:#e2e5eb`) + D('tsb', `left:24px;top:84px;width:260px;height:24px;border-radius:12px;background:${AMB};transform-origin:0 50%`)));
+  ADD(H('fa', 'left:1070px;top:1600px', pers('#1e7f4f', 66)) + H('fm', 'left:1690px;top:1600px', pers('#2f5bd3', 66)));
+
+  /* ═════════ S3 · Dataverse table, items, lock ═════════ */
+  const TR = (id, y, cells, col, fw) => D(id, `left:0;top:${y}px;width:690px;height:50px;opacity:${fw ? 1 : 0.4}`, cells.map((c, i) => T([14, 104, 300, 480][i], 5, 32, col, c, '', fw ? 'font-weight:800' : '')).join(''));
+  ADD(H('tbl', `left:1160px;top:1830px;width:690px;height:250px;border:6px solid ${KNW};border-radius:18px;background:#fff;transform-origin:50px 220px`,
+    T(14, 4, 34, KNW, 'Tickets') + [['ID', 'Title', 'Status', 'Owner'], ['101', 'VPN down', 'Open', 'Ana'], ['102', 'New hire', 'Done', 'Leo'], ['103', 'Printer', 'Open', 'Mia']].map((r, i) => TR('tr' + i, 48 + i * 49, r, i ? '#141821' : KNW, i === 0)).join('')));
+  ADD(H('bk', `left:1270px;top:1900px;width:110px;height:110px;border-radius:26px;background:${KNW};border:6px solid #0a5560`, IC('book_open', 'position:absolute;left:21px;top:21px;width:56px;height:56px;color:#fff')));
+  ADD(H('fl', `left:1380px;top:1260px;width:96px;height:110px;border-radius:14px;background:#fff;border:6px solid ${KNW}`, IC('document_text', 'position:absolute;left:14px;top:20px;width:56px;height:56px;color:#0f7b8a')));
+  ADD(H('sbx', `left:1545px;top:1935px;width:150px;height:112px;border-radius:12px;background:${BRN};border:5px solid #7a5222`, IC('toolbox', 'position:absolute;left:44px;top:26px;width:56px;height:56px;color:#fff')) + H('shf', 'left:1520px;top:2047px;width:200px;height:16px;background:#8f9ab2;border-radius:6px'));
+  ADD(H('adm', `left:1480px;top:1922px`, pers('#1e7f4f', 70)) + H('bpr', `left:1760px;top:1922px`, pers('#8a5cd6', 70)));
+  ADD(CHC('apill', 1665, 1840, 'Environment Admin', GRN, 34, null, GRNs, 'z-index:2'));
+  ADD(H('lk', `left:1400px;top:1886px;width:76px;height:76px;border-radius:50%;background:${KNW};border:5px solid #0a5560`, IC('lock_closed', 'position:absolute;left:10px;top:10px;width:44px;height:44px;color:#fff')) +
+    H('lko', `left:1400px;top:1886px;width:76px;height:76px;border-radius:50%;background:${GRN};border:5px solid #145c39;color:#fff;font-size:44px;font-weight:800;text-align:center;line-height:64px`, '✓'));
+  ADD(H('ky', `left:1730px;top:1960px;width:84px;height:84px;border-radius:50%;background:${GOLD};box-shadow:0 8px 20px rgba(16,24,40,.25)`, IC('key', 'position:absolute;left:16px;top:16px;width:52px;height:52px;color:#fff')));
+
+  /* lane chips S3 (one slot) */
+  const CS = 2380;
+  ADD(CHC('czo', CS, 1603, 'zero or one', KNW, 38, null, KNWs) + CHC('ckn', CS, 1603, 'knowledge source', KNW, 38, 'book_open', KNWs) + CHC('cup', CS, 1603, 'uploaded files', KNW, 38, 'document_text', KNWs) +
+    CHC('cso', CS, 1603, 'solutions depend on it', BRN, 38, 'toolbox', BRNs) + CHC('cda', CS, 1603, 'data access is granted separately', NAVY, 38, 'key', '#fff', '', 520));
+
+  /* ═════════ S5 · the moving box ═════════ */
+  const BOX = (id, x, y, w, h, fs, lab) => D(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;opacity:0;z-index:3`,
+    D(id + 'fl', `left:${-6}px;top:${-Math.round(h * 0.42)}px;width:${w + 12}px;height:${Math.round(h * 0.42)}px;background:${BRNs};border:5px solid #7a5222;border-radius:10px 10px 0 0;opacity:0`) +
+    D('', `left:0;top:0;width:${w}px;height:${h}px;background:${BRN};border:5px solid #7a5222;border-radius:10px`) +
+    D('', `left:${w / 2 - 26}px;top:0;width:52px;height:${Math.round(h * 0.3)}px;background:#e8cfa6;opacity:.8`) +
+    T(0, Math.round(h * 0.34), fs, '#fff', lab || 'solution', id + 'L', `width:${w}px;text-align:center`) + T(0, Math.round(h * 0.34), fs, '#fff', 'Nexo', id + 'N', `width:${w}px;text-align:center;opacity:0`) +
+    D(id + 'sl', `left:${w - 62}px;top:${Math.round(h * 0.3)}px;width:50px;height:50px;border-radius:50%;background:${RED};border:5px solid #7d1d16;opacity:0`, IC('checkmark_circle', 'position:absolute;left:5px;top:5px;width:30px;height:30px;color:#fff')));
+  ADD(BOX('bx', 1660, 1300, 220, 150, 40) + H('bpen', 'left:1730px;top:1215px;width:30px;height:110px;z-index:4', D('', `left:0;top:0;width:30px;height:80px;background:${GOLD};border:3px solid #7a5222;transform-origin:50% 100%`) + D('', `left:0;top:80px;width:0;height:0;border-left:15px solid transparent;border-right:15px solid transparent;border-top:30px solid #f2c9a6`)));
+  ADD([['bot', 'agent'], ['flow', 'flow'], ['braces', 'environment<br>variables'], ['plug_connected', 'connections']].map((r, k) => CHC('it' + k, 1700, 1090, r[1], BLUE, 38, r[0], BLUEs, '', r[1].length > 11 ? 330 : (k === 3 ? 330 : 240))).join('') +
+    [['bot', 0], ['flow', 1], ['braces', 2], ['plug_connected', 3]].map((r) => H('bi' + r[1], `left:${1672 + r[1] * 48}px;top:1398px;width:44px;height:44px;border-radius:10px;background:#fff`, IC(r[0], `position:absolute;left:6px;top:6px;width:32px;height:32px;color:${BLUE}`))).join(''));
+  ADD(H('sm', `left:1470px;top:${BFL - 204}px`, pers('#2f5bd3', 92)));
+  ADD(H('dsb', `left:1160px;top:1280px;width:330px;height:170px;background:#8a93a6;border:5px solid #5d6472;border-radius:12px`, T(0, 26, 44, '#fff', 'Default<br>solution', '', 'width:320px;text-align:center;line-height:1.15')));
+  ADD(CHC('cps', 1520, 1010, 'preferred solution', BLUE, 38, 'flag', BLUEs) + CHC('cum', 1520, 1010, 'unmanaged · editable', AMB, 38, 'document_text', AMBs) + CHC('cmg', 1520, 1010, 'managed · sealed', GRN, 38, 'lock_closed', GRNs));
+  /* van */
+  const VAN = H('van', `left:0;top:1582px;width:540px;height:180px`,
+    D('', `left:0;top:0;width:420px;height:130px;background:#fff;border:6px solid ${NAVY};border-radius:14px`, T(18, 30, 60, NAVY, 'Pipelines')) +
+    D('', `left:416px;top:36px;width:110px;height:94px;background:${BLUE};border-radius:12px 36px 8px 8px`) + D('', `left:456px;top:50px;width:52px;height:36px;background:#e6ecfb;border-radius:6px`) +
+    [60, 430].map((x) => D('', `left:${x}px;top:104px;width:70px;height:70px;border-radius:50%;background:#141821;border:10px solid #8a93a6`)).join(''));
+  ADD(VAN);
+
+  /* ═════════ S7 · laptop UI windows ═════════ */
+  const ROW = (id, y, h, inner, extra) => `<div class="w" id="${id}" style="left:0;top:${y}px;width:1608px;height:${h}px;border:4px solid #c9ced8;border-radius:20px;background:#fff;${extra || ''}">${inner}</div>`;
+  const PILL = (t, col, bg, x, y, fs) => `<span class="w" style="left:${x}px;top:${y}px;padding:4px 22px;border:4px solid ${col};border-radius:999px;background:${bg};color:${col};font-size:${fs || 34}px;font-weight:800;white-space:nowrap">${t}</span>`;
+  ADDU(uiWindow('uiA', { title: 'Copilot Studio', nav: [], on: -1, bar: '<span class="hc" id="envPick">Environment: <span style="display:inline-block;position:relative;margin-left:8px;min-width:210px;white-space:nowrap"><b id="envD">Nexo Dev</b><b id="envT" style="position:absolute;left:0;top:0;opacity:0">Nexo Test</b></span> ▾</span>', body: `<div class="ly">
+      <div class="w" style="left:0;top:0;font-size:48px;font-weight:800">Agents</div>
+      <div class="w" id="agD" style="left:0;top:84px;width:1608px;height:380px">
+        ${ROW('aD0', 0, 170, IC('bot', `position:absolute;left:30px;top:44px;width:76px;height:76px;color:${BLUE}`) + T(140, 28, 52, '#141821', 'Nexo') + T(140, 98, 34, '#5d6472', 'In development') + PILL('Draft', AMB, AMBs, 880, 52))}
+        ${ROW('aD1', 200, 170, IC('bot', `position:absolute;left:30px;top:44px;width:76px;height:76px;color:${BLUE}`) + T(140, 28, 52, '#141821', 'Expenses helper') + T(140, 98, 34, '#5d6472', 'Used by Finance') + PILL('Published', GRN, GRNs, 1330, 52))}</div>
+      <div class="w" id="agT" style="left:0;top:84px;width:1608px;height:380px;opacity:0">
+        ${ROW('aT0', 0, 170, IC('bot', `position:absolute;left:30px;top:44px;width:76px;height:76px;color:${BLUE}`) + T(140, 28, 52, '#141821', 'Expenses helper') + T(140, 98, 34, '#5d6472', 'Used by Finance') + PILL('Published', GRN, GRNs, 1330, 52))}
+        ${ROW('aT1', 200, 170, T(140, 56, 48, GREY, 'No Nexo yet'), 'border-style:dashed;background:#f7f9fd')}</div>
+      <div class="w" style="left:0;top:490px;width:1608px;height:150px;border:4px solid ${BLUE};border-radius:20px;background:${BLUEs}">${T(32, 18, 34, '#5d6472', 'You are working in')}
+        <div class="px" id="stD" style="left:32px;top:66px;font-size:46px;color:#141821">Nexo Dev ${PILL('Sandbox', AMB, AMBs, 300, 4)}</div>
+        <div class="px" id="stT" style="left:32px;top:66px;font-size:46px;color:#141821;opacity:0">Nexo Test ${PILL('Sandbox', AMB, AMBs, 330, 4)}</div></div>
+      <div class="w" id="pkd" style="left:1120px;top:-48px;width:488px;height:276px;border:4px solid ${BLUE};border-radius:20px;background:#fff;box-shadow:0 20px 50px rgba(16,24,40,.25);opacity:0;z-index:5">
+        ${['Nexo Dev', 'Nexo Test', 'Nexo Prod'].map((n, i) => `<div class="w" id="pk${i}" style="left:12px;top:${12 + i * 84}px;width:460px;height:76px;border-radius:14px;font-size:40px;font-weight:700;line-height:76px;padding-left:24px;color:#141821">${n}${i === 0 ? '<span id="pkC" style="margin-left:18px;color:#1e7f4f">✓</span>' : ''}</div>`).join('')}</div></div>` }));
+    ADDU(uiWindow('uiB', { title: 'Power Platform admin center', nav: ['Home', 'Manage', '&nbsp;&nbsp;Environments', 'Settings'], on: -1, body: `<div class="ly">
+      <div class="w" id="crB" style="left:0;top:0;font-size:48px;font-weight:800">Manage › Environments</div>
+      <div class="w" style="left:0;top:90px;width:1308px;height:70px;border-bottom:4px solid #c9ced8">${T(20, 14, 34, '#5d6472', 'Environment')}${T(820, 14, 34, '#5d6472', 'Type')}</div>
+      ${[['Contoso (default)', 'Default', GREY, '#eef0f5'], ['Nexo Dev', 'Sandbox', AMB, AMBs], ['Nexo Test', 'Sandbox', AMB, AMBs], ['Nexo Prod', 'Production', GRN, GRNs]].map((r, i) =>
+        `<div class="w" id="eB${i}" style="left:0;top:${170 + i * 112}px;width:1308px;height:100px;border:4px solid #c9ced8;border-radius:18px;background:#fff;opacity:.4">${IC('building', `position:absolute;left:24px;top:22px;width:56px;height:56px;color:${BLUE}`)}${T(110, 26, 44, '#141821', r[0])}<span class="w" id="eT${i}" style="left:800px;top:20px;padding:4px 24px;border:4px solid ${r[2]};border-radius:999px;background:${r[3]};color:${r[2]};font-size:36px;font-weight:800;white-space:nowrap;opacity:0">${r[1]}</span></div>`).join('')}</div>` }));
+  ADDU(uiWindow('uiC', { title: 'Power Apps · Solutions', nav: [], on: -1, body: `<div class="ly">
+      <div class="pane w" id="c1" style="left:0;top:0;width:1608px;height:640px">
+        <div class="w" style="left:0;top:0;font-size:48px;font-weight:800">Solutions</div><span class="btn pri" id="btnNew" style="position:absolute;left:1250px;top:0;padding:12px 38px;font-size:36px;white-space:nowrap">New solution</span>
+        ${[['Default solution', 'Unmanaged'], ['Contoso base', 'Managed'], ['Expenses', 'Unmanaged']].map((r, i) => ROW('sl' + i, 100 + i * 150, 130, IC('toolbox', `position:absolute;left:30px;top:30px;width:64px;height:64px;color:${BRN}`) + T(130, 34, 46, '#141821', r[0]) + PILL(r[1], r[1] === 'Managed' ? GRN : AMB, r[1] === 'Managed' ? GRNs : AMBs, 1320, 34))).join('')}</div>
+      <div class="pane w" id="c2" style="left:0;top:0;width:1608px;height:640px;opacity:0">
+        <div class="w" style="left:0;top:0;font-size:48px;font-weight:800">New solution</div>
+        <div class="fld w" style="left:0;top:100px;width:1608px;height:140px;font-size:46px"><small style="font-size:32px">Display name</small><span id="fnO" style="position:absolute;left:22px;top:62px;color:#8a93a6">Name your solution</span><span id="fnT" style="position:absolute;left:22px;top:62px;color:#141821;opacity:0;clip-path:inset(0 100% 0 0)">Nexo</span></div>
+        <div class="fld w" style="left:0;top:270px;width:1608px;height:140px;font-size:46px"><small style="font-size:32px">Publisher</small><span id="fpO" style="position:absolute;left:22px;top:62px;color:#8a93a6">Choose a publisher</span><span id="fpT" style="position:absolute;left:22px;top:62px;color:#141821;opacity:0;clip-path:inset(0 100% 0 0)">Contoso</span></div>
+        <span class="btn pri" id="btnCr" style="position:absolute;left:0;top:450px;padding:14px 60px;font-size:40px">Create</span></div>
+      <div class="pane w" id="c3" style="left:0;top:0;width:1608px;height:640px;opacity:0">
+        <div class="w" style="left:0;top:0;font-size:48px;font-weight:800">Nexo <span style="font-size:34px;font-weight:600;color:#5d6472;margin-left:14px">Solution · Contoso</span></div>
+        <span class="btn" id="btnAd" style="position:absolute;left:0;top:96px;padding:12px 36px;font-size:36px;white-space:nowrap">Add existing ▾</span><span class="btn" id="btnEx" style="position:absolute;left:330px;top:96px;padding:12px 36px;font-size:36px;white-space:nowrap">Export</span>
+        <div class="w" id="emp" style="left:0;top:200px;width:1608px;height:400px;border:4px dashed #c9ced8;border-radius:16px;color:#5d6472;font-size:42px;padding:150px 0 0 40px">No components yet<br><span style="font-size:34px;color:#8a93a6">Add existing components to Nexo</span></div>
+        ${ROW('nxr', 200, 130, IC('bot', `position:absolute;left:30px;top:30px;width:64px;height:64px;color:${BLUE}`) + T(130, 34, 46, '#141821', 'Nexo') + PILL('Agent', BLUE, BLUEs, 1330, 34), 'opacity:0')}
+        <div class="w" id="mAd" style="left:0;top:160px;width:420px;height:170px;border:4px solid ${BLUE};border-radius:16px;background:#fff;box-shadow:0 20px 50px rgba(16,24,40,.25);opacity:0;z-index:5">${['Agent', 'Flow'].map((n, i) => `<div class="w" id="ma${i}" style="left:10px;top:${10 + i * 76}px;width:392px;height:68px;border-radius:12px;font-size:40px;font-weight:700;line-height:68px;padding-left:24px">${n}</div>`).join('')}</div>
+        <div class="w" id="mEx" style="left:330px;top:160px;width:420px;height:170px;border:4px solid ${BLUE};border-radius:16px;background:#fff;box-shadow:0 20px 50px rgba(16,24,40,.25);opacity:0;z-index:5">${['Unmanaged', 'Managed'].map((n, i) => `<div class="w" id="me${i}" style="left:10px;top:${10 + i * 76}px;width:392px;height:68px;border-radius:12px;font-size:40px;font-weight:700;line-height:68px;padding-left:24px">${n}</div>`).join('')}</div></div></div>` }));
+  const PS = { pick: PC('#envPick'), pk1: PC('#pk1'), btnNew: PC('#btnNew'), btnCr: PC('#btnCr'), btnAd: PC('#btnAd'), ma0: PC('#ma0'), btnEx: PC('#btnEx'), me0: PC('#me0'), me1: PC('#me1') };
+
+  /* ═════════ S8 · closing objects ═════════ */
+  ADD(BOX('b8', 1640, 1260, 220, 190, 62, 'Nexo') + H('tk', 'left:2140px;top:1270px;width:100px;height:130px;border-radius:14px;background:#fff;border:6px solid #1f2a44', IC('clipboard_task_list_ltr', 'position:absolute;left:14px;top:26px;width:62px;height:62px;color:#1f2a44')) +
+    H('ck2', 'left:2275px;top:1000px;width:120px;height:120px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:80px;font-weight:800;text-align:center;line-height:112px', '✓') +
+    H('ck3', 'left:3030px;top:1000px;width:120px;height:120px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:80px;font-weight:800;text-align:center;line-height:112px', '✓'));
+  ADD([1, 2, 3].map((k) => CHC('pl' + k, BX[k] + 520, 1935, k === 3 ? 'real data' : 'Dataverse', k === 3 ? GRN : KNW, 64, null, k === 3 ? GRNs : KNWs, '', 440)).join(''));
+  const GATE = (k) => H('gt' + k, `left:${BX[k] + 70}px;top:1590px;width:610px;height:160px`, D('', 'left:0;top:0;width:34px;height:170px;background:#141821;border-radius:6px') + D('', 'left:576px;top:0;width:34px;height:170px;background:#141821;border-radius:6px') +
+    D('', 'left:20px;top:10px;width:570px;height:50px;border-radius:25px;border:4px solid #141821;background:repeating-linear-gradient(90deg,#c4392f 0 60px,#fff 60px 120px)'));
+  ADD(NX('nxw', 1415, 0.5));
+  ADD([1, 2, 3].map(GATE).join('') + [1, 2, 3].map((k) => CHC('gc' + k, BX[k] + 375, 1650, ['', 'Dev policy', 'Test policy', 'Prod policy'][k], RED, 58, null, '#fff', '', 460)).join(''));
+
+  /* ═════════ SCREEN LAYER ═════════ */
+  const BCp = (id, cls, t, fs) => `<div class="tag ${cls}" id="${id}" style="left:960px;top:880px;font-size:${fs || 48}px">${t}</div>`;
+  const TIT = (id, t, ex) => `<div class="ov" id="${id}" style="left:140px;top:122px;font-size:72px;font-weight:800;color:#141821;background:#fff;padding:6px 36px;border-radius:30px;box-shadow:0 14px 40px rgba(16,24,40,.18);${ex || ''}">${t}</div>`;
+  const RECAP = ['Environments separate the work', 'Dataverse: one per environment', 'Solutions carry it: managed to Prod'];
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    ${TIT('ovT0', 'Week five', 'top:50px;')}${TIT('ovTy', 'Types')}${TIT('ovT8', 'Back at Contoso')}
+    <div class="ov" id="ovTr" style="right:140px;top:122px;font-size:64px;font-weight:800;color:#141821;background:#fff;padding:6px 36px;border-radius:30px;box-shadow:0 14px 40px rgba(16,24,40,.18)">three reasons</div>
+    <div class="ov" id="kT0" style="left:0;top:124px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:14px 50px;border-radius:36px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:80px;font-weight:800;color:${BLUE};letter-spacing:-2px">Environments · Dataverse · Solutions</span></div>
+    <div class="ov" id="rcb" style="left:1010px;top:40px;width:770px;height:190px;background:#fff;border:6px solid ${NAVY};border-radius:26px;box-shadow:0 20px 60px rgba(16,24,40,.22)">${RECAP.map((r, k) => `<div id="rb${k}" style="position:absolute;left:22px;top:${14 + k * 54}px;height:50px;opacity:.6;font-size:36px;font-weight:800;color:#141821;white-space:nowrap"><i style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${[BLUE, KNW, BRN][k]};margin-right:14px"></i>${r}</div>`).join('')}</div>
+    ${BCp('tHF', 'amber', 'half-finished questions')}${BCp('tWL', 'red', 'where does Nexo live?')}${BCp('tNx', 'blue', 'next: test and publish').replace('left:960px;top:880px','left:520px;top:170px')}</div>`);
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (x, w, col, h4, inner, h) => `<div class="rm" style="left:${x}px;width:${w}px;height:${h || 280}px;border-color:${col}"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const mb = (x, y, w, h, col, tint, inner) => bx('', `left:${x}px;top:${y}px;width:${w}px;height:${h}px;border:5px solid ${col};border-radius:12px 12px 0 0;background:${tint}`, bx('', `left:0;top:0;width:${w - 10}px;height:22px;background:${col}`) + (inner || ''));
+  const mp = (x, y, c, w) => bx('', `left:${x}px;top:${y}px`, pers(c, w || 34));
+  EXAMS(
+    mkExam('exA', { q: 'A team wants a place to develop and test a new agent before real employees use it. They also want to copy it and reset it when tests go wrong. Which environment type fits?',
+      opts: ['The default environment', 'A production environment', 'A sandbox environment'],
+      why: '<div id="exA_w1">A <span class="g">sandbox</span> is for <span class="g">development and testing</span>, with <span class="g">copy and reset</span>.</div><div id="exA_w2"><span class="r">Default</span> is <span class="r">shared by everyone</span>; <span class="y">production</span> is for <span class="y">real work</span>.</div>',
+      proof: rmX(0, 826, '#6be3a0', 'Sandbox',
+          mb(34, 92, 330, 168, '#6be3a0', '#243256', mp(40, 80, '#6be3a0', 40) + mp(100, 80, '#8a5cd6', 40) + mp(160, 80, '#ffd166', 40) + mp(220, 80, '#ff8a80', 40)) +
+          bx('pA_cp', 'left:410px;top:98px;width:180px;height:84px;border:5px solid #6be3a0;border-radius:18px;color:#6be3a0;font-size:40px;font-weight:800;text-align:center;line-height:74px;opacity:.4', 'Copy') +
+          bx('pA_rs', 'left:614px;top:98px;width:180px;height:84px;border:5px solid #6be3a0;border-radius:18px;color:#6be3a0;font-size:40px;font-weight:800;text-align:center;line-height:74px;opacity:.4', 'Reset') +
+          bx('pA_ok', 'left:410px;top:200px;font-size:38px;font-weight:800;color:#6be3a0;white-space:nowrap;opacity:0', 'both work here')) +
+        rmX(854, 826, '#ff8a80', 'Default',
+          mb(34, 92, 360, 168, '#9fb0cf', '#243256', [30, 90, 150, 210, 270].map((x, i) => mp(x, 80, ['#8a5cd6', '#2f5bd3', '#0e8f8f', '#b4533f', '#b4337a'][i], 40)).join('')) +
+          bx('pA_sh', 'left:430px;top:98px;height:92px;padding:0 30px;border:4px solid #ff8a80;border-radius:18px;background:#ff8a80;color:#1d2742;font-size:44px;font-weight:800;line-height:84px;white-space:nowrap;opacity:0', 'shared') +
+          bx('pA_pr', 'left:430px;top:206px;font-size:38px;font-weight:800;color:#ffd166;white-space:nowrap;opacity:0', 'not for real work')) }),
+    mkExam('exB', { q: 'Nexo works well in the Nexo Dev environment. Now the team must take it to Nexo Prod, where real employees will use it. How do they move it?',
+      opts: ['Package it in a managed solution', 'Rebuild the agent by hand in Prod', 'Share the Dev agent with everyone'],
+      why: '<div id="exB_w1"><span class="g">Export</span> a <span class="g">managed solution</span> from Dev and <span class="g">import</span> it into Prod.</div><div id="exB_w2"><span class="r">Rebuilding by hand</span> invites <span class="r">mistakes</span>; Dev is for <span class="y">building</span>, not for real users.</div>',
+      proof: rmX(0, 826, '#6be3a0', 'Managed solution',
+          mb(30, 100, 190, 160, '#7b9cf0', '#243256', bx('', 'left:0;top:60px;width:180px;text-align:center;font-size:36px;font-weight:800;color:#7b9cf0', 'Dev')) +
+          bx('', 'left:226px;top:248px;width:250px;height:0;border-top:6px dashed #6be3a0;opacity:.7') + bx('pB_g', 'left:236px;top:150px;width:200px;height:100px', bx('', 'left:0;top:-14px', pers('#7b9cf0', 44)) + bx('', 'left:56px;top:20px;width:110px;height:80px;background:#a8743a;border:4px solid #7a5222;border-radius:10px', bx('', 'left:36px;top:0;width:34px;height:28px;background:#e8cfa6'))) +
+          mb(470, 100, 190, 160, '#6be3a0', '#243256', bx('', 'left:0;top:60px;width:180px;text-align:center;font-size:36px;font-weight:800;color:#6be3a0', 'Prod')) +
+          bx('pB_ck', 'left:690px;top:150px;width:90px;height:90px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:62px;font-weight:800;text-align:center;line-height:84px;opacity:0', '✓')) +
+        rmX(854, 826, '#ff8a80', 'By hand',
+          mb(30, 100, 220, 160, '#ff8a80', '#243256', bx('', 'left:0;top:60px;width:210px;text-align:center;font-size:36px;font-weight:800;color:#ff8a80', 'Prod')) +
+          [0, 1, 2].map((i) => bx('pB_pt' + i, `left:${290 + i * 86}px;top:${122 + (i % 2) * 12}px;width:62px;height:62px;border-radius:12px;background:#4a5a78;opacity:0`)).join('') +
+          bx('pB_ms', 'left:548px;top:122px;width:62px;height:62px;border:4px dashed #ff8a80;border-radius:12px;opacity:0') +
+          bx('pB_cap', 'left:290px;top:204px;font-size:36px;font-weight:800;color:#ff8a80;white-space:nowrap;opacity:0', 'one part missing')) }));
+
+  const XB = [360, 550, 740];
+  ['exA', 'exB'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1400, height: 170, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: [340, 452, 564][k], width: 1090, height: 100, fontSize: 32, duration: 0.6, ease: 'power2.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.5, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0.6, y: 20 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, t - 0.5));
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0 }, { opacity: 0.6, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    tl.fromTo(X + '_ring', { opacity: 0 }, { opacity: 0.3, duration: 0.4, immediateRender: false }, S(i, 0) + 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.1, 0.3);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(Gg + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    XCOMP(id, R + 0.9);
+    OFF(X, o.end, 0.4);
+  };
+  const SCRT = ['#ovT0', '#ovTy', '#ovT8', '#ovTr', '#kT0', '#rcb', '#tHF', '#tWL', '#tNx'];
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.65, 0.3); OFF('#cur', S(i, 0) - 0.65, 0.2); tl.set(SCRT, { opacity: 0 }, S(i, 0) - 0.4); };
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.6, 0.3); ON('#scr', S(i, 0) - 0.6, 0.3); };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - 2640, y: 540 - 1180, scale: 1 });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 });
+  gsap.set('.bwr .sb', { opacity: 1 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set(['#e0', '#e1', '#nx3', '#mk0', '#dv0', '#dv1', '#dv2d', '#dv3'], { opacity: 1 });
+  gsap.set(['#gDoor'], { opacity: 1 });
+
+  /* walkers: one direction, same speed (103 px/s), staggered so the road is never empty; later laps restart every 40 s */
+  { const SP = 3500 / 34; WC.forEach((c, k) => { const x0 = 150 + k * 340; let t = 0.01, x = x0, first = true;
+    while (t < 285) { const d = (3650 - x) / SP; tl.fromTo('#wk' + k, { x: x }, { x: 3650, duration: d, ease: 'none', immediateRender: false }, t);
+      tl.fromTo('#wk' + k, { opacity: first ? 1 : 0 }, { opacity: 1, duration: first ? 0.01 : 0.6, immediateRender: false }, t); tl.to('#wk' + k, { opacity: 0, duration: 0.6 }, t + d - 0.6);
+      t += d + 6; x = 150; first = false; } });
+    gsap.set(WC.map((c, k) => '#wk' + k), { x: (i) => 150 + i * 340, opacity: 1 }); }
+
+  /* ═════════ 0 · Changes on the live agent ═════════ */
+  ON('#ovT0', 0.2, 0.4); OFF('#ovT0', E(0, 0) + 0.2, 0.3);
+  { const a = S(0, 1) + 0.3;
+    tl.fromTo('#tc0', { opacity: 0, scale: 0.3, x: 0, y: 0 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, a);
+    tl.to('#tc0', { y: -330, duration: 0.6, ease: 'power2.inOut' }, a + 0.7); tl.to('#tc0', { x: 795, duration: 1.8, ease: 'power1.inOut' }, a + 1.3); tl.to('#tc0', { y: 11, duration: 0.5, ease: 'power2.in' }, a + 3.1); }
+  OFF('#tc0', S(0, 2) + 0.1, 0.3);
+  POPX('#bb0', S(0, 2) + 0.25); POPX('#bb1', S(0, 2) + 0.75); TAG('#tHF', W(0, 2, 'half finished', 0));
+  OFF('#tHF', S(0, 3) - 0.1, 0.3);
+  tl.fromTo('#col', { x: 0, opacity: 0 }, { x: 235, opacity: 1, duration: 3.4, ease: 'none', immediateRender: false }, S(0, 3) + 0.1);
+  POPX('#lst', W(0, 3, 'copilot studio', 0));
+    tl.to(['#bb0s', '#bb1s'], { borderColor: RED, duration: 0.3 }, W(0, 4, 'two problems', 0));
+  tl.to('#lst', { borderColor: RED, duration: 0.3 }, W(0, 4, 'two problems', 0.1));
+  OFF(['#bb0', '#bb1'], W(0, 4, 'nobody', -0.1), 0.3);
+  POP('#qm', W(0, 4, 'nobody', 0.1)); TAG('#tWL', W(0, 4, 'nobody', 0.3));
+  OFF(['#lst', '#qm', '#tWL', '#mk0'], S(0, 5) - 0.1, 0.35);
+  CAM(1920, 1080, 0.5, S(0, 5) - 0.05, 2.4, 'power2.inOut');
+  tl.fromTo('#kT0', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, S(0, 5) + 0.9);
+  OFF('#kT0', E(0, 5) + 0.15, 0.35);
+
+  /* ═════════ 1 · Separate office buildings ═════════ */
+  const LITB = (k, t) => { tl.to('#cp' + k, { backgroundColor: COL[k], duration: 0.4 }, t); tl.to('#bd' + k, { borderColor: COL[k], duration: 0.4 }, t); tl.to('#tn' + k, { opacity: 1, duration: 0.4 }, t); tl.fromTo('#sg' + k, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, t + 0.1); };
+  LITB(0, S(1, 0) + 0.3); LITB(1, S(1, 0) + 1.4); POP('#mk1', S(1, 0) + 1.5); POP('#nx1', S(1, 0) + 1.7); LITB(2, S(1, 0) + 2.6);
+  ADD(['development', 'testing', 'production'].map((t, i) => CHC('lb' + (i + 1), BX[i + 1] + 375, 1603, t, [BLUE, AMB, GRN][i], 68, null, '#fff', '', 520)).join(''));
+  FADEIN('#lb1', W(1, 1, 'development', -0.1), 0.4); FADEIN('#lb2', W(1, 1, 'testing', -0.1), 0.4);
+  FADEIN('#lb3', W(1, 1, 'production', -0.1), 0.4); LITB(3, W(1, 1, 'production', -0.1));
+  OFF(['#lb1', '#lb2', '#lb3'], S(1, 2) - 0.25, 0.3);
+  CAM(1500, 1080, 0.75, S(1, 2) - 0.6, 1.4, 'power2.inOut');
+  POPX('#ncd', S(1, 2) + 0.2);
+  ON(['#gh0', '#gh2'], S(1, 2) + 1.5, 0.4);
+  ADD(CHC('c12', 1560, 1603, 'stays until you move it', BLUE, 46, null, BLUEs));
+  FADEIN('#c12', W(1, 2, 'until you', -0.2), 0.4);
+  OFF(['#c12'], S(1, 3) - 0.1, 0.3);
+  ADD(CHC('cWh', 1860, 690, 'that\'s why', BLUE, 50, null, BLUEs));
+  POPX('#lst', S(1, 3) + 0.1); DRAW('#ar1', S(1, 3) + 0.9, 0.7); ON('#ar1h', S(1, 3) + 1.5, 0.2); FADEIN('#cWh', S(1, 3) + 1.4, 0.4);
+  OFF(['#lst', '#ar1', '#ar1h', '#cWh', '#gh0', '#gh2', '#ncd'], S(1, 4) - 0.35, 0.3);
+  CAM(1920, 1080, 0.5, S(1, 4) - 0.3, 1.4, 'power2.inOut');
+  tl.fromTo('#fence', { opacity: 1, clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 2.0, ease: 'power1.inOut', immediateRender: false }, S(1, 4) + 0.3);
+  POPX('#fnc', S(1, 4) + 1.2);
+  OFF('#fnc', S(1, 5) - 0.1, 0.3); tl.to('#fence', { opacity: 0.0, duration: 0.4 }, S(1, 5) - 0.1);
+  CAM(1650, 1400, 0.75, S(1, 5) - 0.1, 1.2, 'power2.inOut');
+  PULSEX('#dv1', S(1, 5) + 0.3, 1.1); DRAW('#cbA', S(1, 5) + 0.5, 0.8);
+  ADD(CHC('cOw', 1560, 1603, 'own environment only', GRN, 46, null, GRNs));
+  DRAW('#cbB', S(1, 5) + 1.5, 0.8); POP('#xB', S(1, 5) + 2.35); FADEIN('#cOw', S(1, 5) + 2.4, 0.4);
+  tl.to('#cbB', { strokeDashoffset: 3000, duration: 0.5, ease: 'power2.in' }, S(1, 5) + 3.0); OFF('#xB', S(1, 5) + 3.0, 0.3);
+  OFF(['#cOw', '#cbA'], E(1, 5) - 0.1, 0.35);
+
+  /* ═════════ 2 · Types of environment ═════════ */
+  CAM(1920, 1080, 0.5, S(2, 0) - 0.3, 1.4, 'power2.inOut');
+  ON('#ovTy', S(2, 0) + 0.1, 0.4); OFF('#ovTy', E(2, 0) + 0.3, 0.3);
+  CAM(960, 1260, 1, S(2, 1) - 0.6, 1.4, 'power2.inOut');
+  ADD(CHC('cdf1', 420, 1603, 'one per tenant', '#5d6472', 38, null, '#fff') + CHC('cdf2', 940, 1603, 'shared · experiments', '#5d6472', 38, null, '#fff'));
+  FADEIN('#cdf1', W(2, 1, 'one per tenant', -0.2), 0.4); FADEIN('#cdf2', W(2, 1, 'shared by', -0.1), 0.4);
+  OFF(['#cdf1', '#cdf2'], S(2, 2) - 0.6, 0.3);
+  CAM(2880, 1260, 1, S(2, 2) - 0.6, 1.4, 'power2.inOut');
+  ADD(CHC('cpr', 3165, 1603, 'real work', GRN, 42, null, GRNs));
+  tl.to('#bd3', { boxShadow: '0 0 0 18px rgba(30,127,79,.35)', duration: 0.4, yoyo: true, repeat: 1 }, S(2, 2) + 0.1); FADEIN('#cpr', W(2, 2, 'real work', -0.4), 0.4);
+  OFF('#cpr', S(2, 3) - 0.6, 0.3);
+  CAM(1510, 1200, 0.9, S(2, 3) - 0.6, 1.4, 'power2.inOut');
+  ADD(CHC('bCp', 1330, 1603, 'Copy', BLUE, 42, 'copy', '#fff') + CHC('bRs', 1680, 1603, 'Reset', BLUE, 42, 'arrow_clockwise', '#fff'));
+  ON('#snd', S(2, 3) + 0.1, 0.5); FADEIN('#bCp', S(2, 3) + 0.2, 0.4); FADEIN('#bRs', S(2, 3) + 0.5, 0.4);
+  { const tc = W(2, 3, 'copy', 0), tr = W(2, 3, 'reset', 0);
+    pulse('#bCp', tc, 'rgba(47,91,211,.6)'); tl.fromTo('#gst', { opacity: 0, x: 0 }, { opacity: 0.6, duration: 0.3, immediateRender: false }, tc + 0.1); tl.to('#gst', { x: 130, duration: 0.8, ease: 'power2.inOut' }, tc + 0.4); OFF('#gst', tc + 0.9, 0.4);
+    pulse('#bRs', tr, 'rgba(47,91,211,.6)'); OFF(['#mk1', '#nx1'], tr + 0.2, 0.4); ON(['#mk1', '#nx1'], tr + 1.3, 0.5); }
+  OFF(['#bCp', '#bRs', '#snd'], S(2, 4) - 0.5, 0.3);
+  CAM(1750, 1260, 1, S(2, 4) - 0.5, 1.2, 'power2.inOut');
+  POPX('#cab', S(2, 4) + 0.1); POP('#cabP', S(2, 4) + 0.5);
+  ADD(CHC('cdp', 2110, 1603, 'Developer Plan', PUR, 40, null, PURs));
+  FADEIN('#cdp', W(2, 4, 'developer plan', -0.2), 0.4);
+  OFF(['#cab', '#cabP', '#cdp'], S(2, 5) - 0.1, 0.3);
+  /* environment type chips on the buildings (between the two window rows) */
+  { const TYC = (id, k, t, col, bg) => CHC(id, BX[k] + 375, 1066, t, col, 36, null, bg, 'padding:2px 20px;z-index:2');
+    ADD(TYC('tyD', 0, 'Default', '#5d6472', '#fff') + TYC('tyS1', 1, 'Sandbox', AMB, AMBs) + TYC('tyS2', 2, 'Sandbox', AMB, AMBs) + TYC('tyP', 3, 'Production', GRN, GRNs));
+    FADEIN('#tyD', S(2, 1) + 0.05, 0.4); OFF('#tyD', S(2, 2) - 0.6, 0.3);
+    FADEIN('#tyP', W(2, 2, 'production', -0.1), 0.4); OFF('#tyP', S(2, 3) - 0.6, 0.3);
+    FADEIN('#tyS1', W(2, 3, 'sandbox', -0.1), 0.4); FADEIN('#tyS2', W(2, 3, 'sandbox', 0.1), 0.4); OFF(['#tyS1', '#tyS2'], S(2, 4) - 0.5, 0.3); }
+  POPX('#tent', S(2, 5) + 0.2); FADEIN('#tsg', W(2, 5, 'thirty', -0.4), 0.4);
+  tl.fromTo('#tsb', { scaleX: 1 }, { scaleX: 0, duration: 2.4, ease: 'none', immediateRender: false }, W(2, 5, 'thirty', 0));
+  OFF(['#tent', '#tsg'], E(2, 5) + 0.05, 0.35);
+  CAM(1900, 1260, 1, S(2, 6) - 0.6, 1.2, 'power2.inOut');
+  ADD(CHC('cEa', 1400, 1603, 'Environment Admin', GRN, 38, null, GRNs) + CHC('cEm', 2010, 1603, 'Environment Maker', BLUE, 38, null, BLUEs));
+  POP('#fa', W(2, 6, 'environment admin', -0.2)); FADEIN('#cEa', W(2, 6, 'environment admin', 0), 0.4);
+  POP('#fm', W(2, 6, 'environment maker', -0.2)); FADEIN('#cEm', W(2, 6, 'environment maker', 0), 0.4);
+  OFF(['#fa', '#fm', '#cEa', '#cEm'], E(2, 6) - 0.1, 0.35);
+
+  /* ═════════ 3 · Dataverse ═════════ */
+  CAM(1900, 1680, 1.1, S(3, 0) - 0.7, 1.6, 'power2.inOut');
+  tl.to('#dv1L', { opacity: 1, duration: 0.4 }, S(3, 0) + 0.8);
+  ON('#dv2d', S(3, 1) + 0.1, 0.4); tl.to('#dv2dL', { opacity: 1, duration: 0.3 }, S(3, 1) + 0.5); FADEIN('#czo', W(3, 1, 'zero or one', -0.1), 0.4);
+  OFF(['#czo', '#dv2d'], S(3, 2) - 0.1, 0.3);
+  tl.to('#dv1', { opacity: 0, scale: 0.6, duration: 0.4 }, S(3, 2) + 0.1); tl.fromTo('#tbl', { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out', immediateRender: false }, S(3, 2) + 0.2);
+  [0, 1, 2, 3].forEach((i) => { if (i) tl.to('#tr' + i, { opacity: 1, duration: 0.3 }, S(3, 2) + 1.0 + i * 0.45); });
+  ON('#ovTr', S(3, 3) + 0.1, 0.4); OFF('#ovTr', E(3, 3) + 0.2, 0.3);
+  FADEIN('#ckn', S(3, 4) + 0.1, 0.4);
+  { const t = S(3, 4) + 0.4;
+    tl.fromTo('#bk', { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, t); tl.to('#bk', { x: 400, y: -540, duration: 1.4, ease: 'power2.inOut' }, t + 0.2); OFF('#bk', t + 1.6, 0.25); }
+  OFF('#ckn', S(3, 5) - 0.1, 0.3); FADEIN('#cup', S(3, 5) + 0.05, 0.4);
+  tl.to('#tbl', { opacity: 0, scale: 0.3, duration: 0.4 }, S(3, 5) - 0.1); tl.to('#dv1', { opacity: 1, scale: 1, duration: 0.4 }, S(3, 5) + 0.1);
+  { const t = S(3, 5) + 0.3;
+    tl.fromTo('#fl', { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, t); tl.to('#fl', { x: -60, y: 640, duration: 1.2, ease: 'power2.in' }, t + 0.3); OFF('#fl', t + 1.4, 0.2); }
+  OFF('#cup', S(3, 6) - 0.1, 0.3); FADEIN('#cso', S(3, 6) + 0.05, 0.4);
+  POP('#sbx', S(3, 6) + 0.2); ON('#shf', S(3, 6) + 0.2, 0.3); DRAW('#cbS', S(3, 6) + 0.8, 0.5);
+  OFF(['#cso', '#sbx', '#shf', '#cbS'], S(3, 7) - 0.15, 0.35);
+  POP('#adm', S(3, 7) + 0.1); FADEIN('#apill', S(3, 7) + 0.3, 0.4); ON('#lk', S(3, 7) + 0.6, 0.3);
+  tl.to('#adm', { x: -40, duration: 0.7, ease: 'power2.inOut' }, W(3, 7, 'does not', -0.2));
+  tl.to('#adm', { x: -30, duration: 0.1, yoyo: true, repeat: 3 }, W(3, 7, 'data', 0)); tl.to('#lk', { x: 8, duration: 0.1, yoyo: true, repeat: 3 }, W(3, 7, 'data', 0));
+  OFF('#apill', S(3, 8) - 0.1, 0.3);
+  FADEIN('#cda', S(3, 8) + 0.05, 0.4); POP('#bpr', S(3, 8) + 0.0);
+  { const t = S(3, 8) + 0.15;
+    tl.fromTo('#ky', { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, t); tl.to('#ky', { y: -100, duration: 0.2, ease: 'power2.out' }, t + 0.1); tl.to('#ky', { x: -262, duration: 0.45, ease: 'power1.inOut' }, t + 0.3); tl.to('#ky', { y: 0, duration: 0.15 }, t + 0.75);
+    OFF('#ky', t + 0.95, 0.15); OFF('#lk', t + 0.95, 0.15); POP('#lko', t + 1.0); }
+  OFF(['#cda', '#adm', '#bpr', '#lko'], E(3, 8) + 0.1, 0.35);
+
+  /* ═════════ 4 · EXAM: a place to build ═════════ */
+  toExam(4);
+  EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.85 });
+  { const P = S(4, 9);
+    tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, P + 0.1);
+    tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(4, 10) + 0.1);
+    ON('#exA_p', S(4, 8) + 1.55, 0.4);
+    tl.to('#pA_cp', { opacity: 1, duration: 0.3 }, W(4, 9, 'copy', 0)); tl.to('#pA_rs', { opacity: 1, duration: 0.3 }, W(4, 9, 'reset', 0)); ON('#pA_ok', W(4, 9, 'reset', 0.5), 0.3);
+    ON('#pA_sh', W(4, 10, 'shared', 0), 0.3); ON('#pA_pr', W(4, 10, 'real work', -0.3), 0.3); }
+
+  /* ═════════ 5 · Solutions: the moving box ═════════ */
+  camAt(1800, 1260, 1, S(5, 0) - 0.62); fromExam(5);
+  tl.set(['#mk1', '#nx1'], { opacity: 0 }, S(5, 0) - 0.62);
+  POP('#sm', S(5, 0) - 0.4); POP('#bx', S(5, 0) + 0.2);
+  { const IT = (k, t) => {
+      tl.fromTo('#it' + k, { opacity: 0, y: 0, x: 0, scale: 1 }, { opacity: 1, duration: 0.2, immediateRender: false }, t);
+      tl.to('#it' + k, { x: 70, y: 210, scale: 0.35, duration: 0.4, ease: 'power2.in' }, t + 0.3); tl.set('#it' + k, { opacity: 0 }, t + 0.7);
+      tl.fromTo('#bi' + k, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: 'back.out(2)', immediateRender: false }, t + 0.68);
+      if (k === 0) tl.to('#nx1', { opacity: 0, duration: 0.01 }, t); };
+    IT(0, W(5, 1, 'agents', -0.2)); IT(1, W(5, 1, 'flows', -0.2)); IT(2, W(5, 1, 'environment variables', -0.25)); IT(3, W(5, 1, 'connections', -0.2)); }
+  ON('#dsb', S(5, 2) + 0.1, 0.4);
+  tl.to('#bxL', { opacity: 0, duration: 0.2 }, W(5, 2, 'preferred', 0)); tl.to('#bxN', { opacity: 1, duration: 0.3 }, W(5, 2, 'preferred', 0.2)); 
+  FADEIN('#cps', W(5, 2, 'preferred solution', 0), 0.4);
+  OFF('#cps', S(5, 3) - 0.1, 0.3); FADEIN('#cum', S(5, 3) + 0.1, 0.4);
+  tl.to('#bxfl', { opacity: 1, duration: 0.3 }, S(5, 3) + 0.2); ON('#bpen', S(5, 3) + 0.4, 0.3); tl.fromTo('#bpen', { rotation: -10 }, { rotation: 14, duration: 0.3, yoyo: true, repeat: 3, ease: 'sine.inOut' }, S(5, 3) + 0.7);
+  OFF(['#cum', '#bpen'], S(5, 4) - 0.1, 0.3); FADEIN('#cmg', S(5, 4) + 0.1, 0.4);
+  tl.to('#bxfl', { opacity: 0, duration: 0.3 }, S(5, 4) + 0.2); POP('#bxsl', W(5, 4, 'managed', 0.3));
+  OFF('#cmg', S(5, 5) - 0.05, 0.3);
+  { const t = S(5, 5) + 0.05;
+    tl.fromTo('#van', { x: 520, opacity: 1 }, { x: 1590, duration: 1.1, ease: 'power2.out', immediateRender: false }, t);
+    tl.to(['#bx', '#sm'], { y: 262, duration: 0.8, ease: 'power2.inOut' }, t + 0.1);
+    tl.set('#bx', { transformOrigin: '100% 100%' }, t + 0.95);
+    tl.to('#bx', { x: 115, y: 240, scale: 0.55, duration: 0.4, ease: 'power2.inOut' }, t + 1.0);
+    tl.to('#van', { x: 2070, duration: 1.0, ease: 'power2.inOut' }, t + 1.5); tl.to('#bx', { x: 595, duration: 1.0, ease: 'power2.inOut' }, t + 1.5); }
+  OFF(['#sm', '#dsb', '#bi0', '#bi1', '#bi2', '#bi3'], E(5, 5) - 0.4, 0.3);
+
+  /* ═════════ 6 · EXAM: the trip to production ═════════ */
+  toExam(6);
+  EXAMX('exB', 6, { pause: 7, reveal: 8, trap: 1, right: 0, opt: [S(6, 4), S(6, 5), S(6, 6)], end: S(7, 0) - 0.85 });
+  { const P = S(6, 9);
+    tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, P + 0.1);
+    tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(6, 10) + 0.1);
+    ON('#exB_p', S(6, 8) + 1.55, 0.4);
+    tl.to('#pB_g', { x: 250, duration: 1.8, ease: 'power2.inOut' }, W(6, 9, 'export', 0.0));
+    ON('#pB_ck', W(6, 9, 'prod', 0), 0.3);
+    [0, 1, 2].forEach((i) => ON('#pB_pt' + i, S(6, 10) + 0.2 + i * 0.35, 0.3)); ON('#pB_ms', S(6, 10) + 1.4, 0.3); ON('#pB_cap', W(6, 10, 'mistakes', 0), 0.3); }
+
+  /* ═════════ 7 · Find it in the portals (UI) ═════════ */
+  camAt(1425, 1319, 1.5, S(7, 0) - 0.6); fromExam(7);
+  tl.set(['#mk1'], { opacity: 1 }, S(7, 0) - 0.62);
+  UIIN2('#uiA', S(7, 0) - 0.45);
+  ON('#cur', S(7, 1) + 0.05, 0.3); CUR(PS.pick[0], PS.pick[1], S(7, 1) + 0.1, 0.8); pulse('#envPick', W(7, 1, 'top bar', 0), 'rgba(255,255,255,.7)');
+  CLICK(PS.pick[0], PS.pick[1], W(7, 2, 'switch', 0.1)); ON('#pkd', W(7, 2, 'switch', 0.2), 0.3);
+  CUR(PS.pk1[0], PS.pk1[1], W(7, 2, 'environments', -0.2), 0.7); tl.to('#pk1', { backgroundColor: BLUEs, duration: 0.2 }, W(7, 2, 'environments', 0.5));
+  CLICK(PS.pk1[0], PS.pk1[1], W(7, 2, 'the list', -0.1));
+  SWX('#agD', '#agT', W(7, 2, 'the list', 0)); SWX('#stD', '#stT', W(7, 2, 'the list', 0)); OFF('#pkd', W(7, 2, 'the list', 0.05), 0.2);
+  tl.to('#envD', { opacity: 0, duration: 0.2 }, W(7, 2, 'the list', 0.05)); tl.to('#envT', { opacity: 1, duration: 0.2 }, W(7, 2, 'the list', 0.1));
+  OFF('#cur', S(7, 3) - 0.3, 0.2);
+  XFADE('#uiA', '#uiB', S(7, 3) - 0.2);
+  tl.to('#uiB_nv1', { backgroundColor: '#fff', color: BLUE, fontWeight: 700, duration: 0.2 }, W(7, 3, 'under manage', 0.0)); tl.to('#crB', { color: BLUE, duration: 0.2 }, W(7, 3, 'under manage', 0.0)); tl.to('#uiB_nv2', { backgroundColor: '#fff', color: BLUE, fontWeight: 700, duration: 0.2 }, W(7, 3, 'manage, environments', 0.3));
+  [0, 1, 2, 3].forEach((i) => tl.to('#eB' + i, { opacity: 1, borderColor: BLUE, duration: 0.3 }, W(7, 3, 'every environment', 0.2) + i * 0.4));
+  [0, 1, 2, 3].forEach((i) => ON('#eT' + i, W(7, 3, 'its type', 0.0) + i * 0.3, 0.3));
+  XFADE('#uiB', '#uiC', S(7, 4) - 0.15);
+  ON('#cur', S(7, 4) + 0.1, 0.3); CUR(PS.btnNew[0], PS.btnNew[1], S(7, 4) + 0.15, 0.7);
+  CLICK(PS.btnNew[0], PS.btnNew[1], W(7, 4, 'create a solution', 0.1)); pulse('#btnNew', W(7, 4, 'create a solution', 0.1)); SWX('#c1', '#c2', W(7, 4, 'create a solution', 0.25));
+  tl.to('#fnO', { opacity: 0, duration: 0.2 }, W(7, 4, 'called nexo', -0.1)); TY('#fnT', W(7, 4, 'called nexo', 0.0), 0.5, 4);
+  tl.to('#fpO', { opacity: 0, duration: 0.2 }, W(7, 4, 'with its', -0.15)); TY('#fpT', W(7, 4, 'with its', 0.0), 0.5, 7);
+  CUR(PS.btnCr[0], PS.btnCr[1], E(7, 4) - 0.7, 0.5); CLICK(PS.btnCr[0], PS.btnCr[1], E(7, 4) - 0.1); pulse('#btnCr', E(7, 4) - 0.1); SWX('#c2', '#c3', E(7, 4) + 0.02);
+  CUR(PS.btnAd[0], PS.btnAd[1], S(7, 5) + 0.0, 0.5); CLICK(PS.btnAd[0], PS.btnAd[1], W(7, 5, 'add existing', 0.2)); ON('#mAd', W(7, 5, 'add existing', 0.3), 0.25);
+  CUR(PS.ma0[0], PS.ma0[1], W(7, 5, 'the agent', -0.5), 0.5); tl.to('#ma0', { backgroundColor: BLUEs, duration: 0.2 }, W(7, 5, 'the agent', -0.1)); CLICK(PS.ma0[0], PS.ma0[1], W(7, 5, 'the agent', 0.0));
+  OFF('#mAd', W(7, 5, 'the agent', 0.2), 0.2); OFF('#emp', W(7, 5, 'the agent', 0.2), 0.2); ON('#nxr', W(7, 5, 'the agent', 0.3), 0.3);
+  CUR(PS.btnEx[0], PS.btnEx[1], W(7, 5, 'export it', -0.5), 0.5); CLICK(PS.btnEx[0], PS.btnEx[1], W(7, 5, 'export it', 0.1)); pulse('#btnEx', W(7, 5, 'export it', 0.1)); ON('#mEx', W(7, 5, 'export it', 0.25), 0.25);
+  CUR(PS.me0[0], PS.me0[1] , W(7, 5, 'unmanaged', -0.4), 0.4); tl.to('#me0', { backgroundColor: AMBs, color: AMB, duration: 0.2 }, W(7, 5, 'unmanaged', 0.0));
+  tl.to('#me0', { backgroundColor: '#fff', color: '#141821', duration: 0.2 }, W(7, 5, 'or managed', -0.15)); CUR(PS.me1[0], PS.me1[1], W(7, 5, 'or managed', -0.3), 0.3); tl.to('#me1', { backgroundColor: GRNs, color: GRN, duration: 0.2 }, W(7, 5, 'or managed', 0.1));
+  OFF('#cur', E(7, 5) - 0.25, 0.2);
+  UIOUT2('#uiC', E(7, 5) - 0.1);
+
+  /* ═════════ 8 · Three buildings for Nexo ═════════ */
+  const PT = W(8, 3, 'then into prod', -0.2) + 1.4;
+  camAt(2100, 1230, 0.55, E(7, 5) + 0.3);
+  tl.set(['#sm', '#bx', '#van'], { opacity: 0 }, E(7, 5) + 0.3); tl.set('#nx1', { opacity: 0 }, E(7, 5) + 0.3);
+  tl.set(['#bi0', '#bi1', '#bi2', '#bi3', '#dsb'], { opacity: 0 }, E(7, 5) + 0.3);
+  ON('#ovT8', S(8, 0) + 0.1, 0.4); ON('#rcb', S(8, 0) + 0.3, 0.5);
+  tl.fromTo('#fence', { opacity: 0, clipPath: 'inset(0 0% 0 0)' }, { opacity: 0.45, duration: 0.6, immediateRender: false }, S(8, 0) + 0.2);
+  [1, 2, 3].forEach((k) => PULSEX('#sg' + k, W(8, 1, ['nexo dev', 'nexo test', 'nexo prod'][k - 1], 0), 1.18));
+  tl.to('#rb0', { opacity: 1, duration: 0.4 }, W(8, 1, 'three environments', 0));
+  OFF('#ovT8', S(8, 2) - 0.1, 0.3);
+  POP('#b8', S(8, 2) + 0.2); tl.to('#b8fl', { opacity: 1, duration: 0.3 }, S(8, 2) + 0.5); 
+  { const t = S(8, 3);
+    tl.fromTo('#van', { x: 540, opacity: 1 }, { x: 1585, duration: 1.1, ease: 'power2.out', immediateRender: false }, t - 0.9);
+    tl.to('#b8fl', { opacity: 0, duration: 0.3 }, W(8, 3, 'export', 0.3)); POP('#b8sl', W(8, 3, 'managed', 0.0)); tl.to('#rb2', { opacity: 1, duration: 0.4 }, W(8, 3, 'managed', 0.2));
+    tl.set('#b8', { transformOrigin: '100% 100%' }, W(8, 3, 'managed', 0.5));
+    tl.to('#b8', { x: 130, y: 240, scale: 0.55, duration: 0.5, ease: 'power2.inOut' }, W(8, 3, 'managed', 0.6));
+    const t1 = W(8, 3, 'import it', 0.0);
+    tl.to('#van', { x: 1995, duration: 0.9, ease: 'power2.inOut' }, t1); tl.to('#b8', { x: 540, duration: 0.9, ease: 'power2.inOut' }, t1);
+    POP('#tk', t1 + 1.0); POP('#ck2', t1 + 1.3);
+    const t2 = W(8, 3, 'then into prod', -0.2);
+    tl.to('#van', { x: 2560, duration: 0.8, ease: 'power2.inOut' }, t2); tl.to('#b8', { x: 1105, duration: 0.8, ease: 'power2.inOut' }, t2);
+    tl.to('#b8', { y: -10, duration: 0.5, ease: 'power2.inOut' }, t2 + 0.9); OFF('#b8', t2 + 1.4, 0.3); POP('#ck3', t2 + 1.5);
+    tl.to('#van', { x: 3900, duration: 1.4, ease: 'power2.in' }, t2 + 1.6); }
+  OFF(['#tk', '#ck2'], S(8, 4) - 0.1, 0.35);
+  OFF('#dv1L', S(8, 0) + 0.0, 0.2);
+  /* Prod receives Nexo only when it is deployed: bot, Teams door and users appear then */
+  tl.set(['#nx3', '#e0', '#e1'], { opacity: 0 }, E(7, 5) + 0.3);
+  tl.fromTo('#nx3', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)', immediateRender: false }, PT + 0.1); ON(['#e0', '#e1'], PT + 0.2, 0.4);
+  [1, 2, 3].forEach((k) => { ON('#dv' + k, S(8, 4) + 0.1 + k * 0.2, 0.4); FADEIN('#pl' + k, W(8, 4, 'own dataverse', 0) + k * 0.25, 0.4); });
+  tl.to('#rb1', { opacity: 1, duration: 0.4 }, W(8, 4, 'own dataverse', 0));
+  tl.to('#dv3', { boxShadow: '0 0 40px 10px rgba(30,127,79,.6)', duration: 0.5 }, W(8, 4, 'real data', -0.4));
+  OFF('#ck3', S(8, 5) - 0.1, 0.3);
+  [1, 2, 3].forEach((k) => { tl.fromTo('#gt' + k, { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out', immediateRender: false }, S(8, 5) + 0.2 + (k - 1) * 0.5); FADEIN('#gc' + k, S(8, 5) + 0.7 + (k - 1) * 0.5, 0.4); });
+  TAG('#tNx', S(8, 6) + 0.1);
+  { const t0 = S(8, 6) + 0.1, GL = (k, c, t) => tl.to('#bd' + k, { boxShadow: `0 0 0 18px ${c}`, duration: 0.5, yoyo: true, repeat: 1 }, t);
+    tl.set('#nxw', { x: 0, y: 120 }, 0.0);
+    tl.fromTo('#nxw', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.8)', immediateRender: false }, t0); GL(1, 'rgba(47,91,211,.35)', t0 + 0.1);
+    tl.to('#nxw', { x: 830, duration: 1.6, ease: 'power2.inOut' }, t0 + 0.7); GL(2, 'rgba(217,138,0,.35)', t0 + 2.3);
+    tl.to('#nxw', { x: 1660, duration: 1.8, ease: 'power2.inOut' }, t0 + 2.5); GL(3, 'rgba(30,127,79,.4)', t0 + 4.3);
+    OFF('#nxw', t0 + 4.4, 0.4); }
+  tl.to('#sg0', { opacity: 0, duration: 0.3 }, S(2, 3) - 0.9); tl.to('#sg0', { opacity: 1, duration: 0.3 }, E(7, 5) + 0.35);
+  tl.to(['#sg1', '#sg2'], { opacity: 0, duration: 0.3 }, S(3, 0) - 0.8); tl.to(['#sg1', '#sg2'], { opacity: 1, duration: 0.3 }, S(5, 0) - 0.5);
+  /* Teams door: hidden while a camera would cut it at the frame edge */
+  [[S(1, 2) - 0.9, S(1, 4) + 0.9], [S(1, 5) - 0.5, S(2, 2) - 0.5], [S(2, 3) - 0.9, PT]].forEach(([a, b], i) => { tl.to('#gDoor', { opacity: 0, duration: 0.3 }, a); tl.to('#gDoor', { opacity: 1, duration: 0.3 }, b); });
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

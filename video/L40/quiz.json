@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Valeria is ready to send NexoCore to Test with the pipeline. In Dev she sees the default solution and her own NexoCore, and Test holds an older managed copy. Where should she start the deployment?",
+    "options": [
+      "From the default solution in Dev",
+      "From an unmanaged solution in Dev",
+      "From the managed NexoCore copy in Test"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Contoso builds the NexoCore pipeline with a production host, a Developer environment for Dev, and a Test environment. Test is not a Managed Environment yet. What does the pipeline require?",
+    "options": [
+      "Make Dev a Managed Environment",
+      "Make the host a Managed Environment",
+      "Make Test a Managed Environment"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "The security team reviews NexoCore in its pre-deployment step. They find a problem and must stop this deployment to Test. What should their approval send back?",
+    "options": [
+      "Respond with status thirty",
+      "Respond with status twenty",
+      "Respond with status one hundred"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

@@ -1,0 +1,62 @@
+[
+ {
+  "title": "Three systems, three bridges",
+  "caption": "Module one. Contoso asks Nexo for three new jobs: invoices in an old program, live inventory, and tools other AI clients can share.",
+  "say": "Module one begins, and Valeria is now building Nexo herself. Contoso asks for three new jobs. Record invoices in an old desktop program that has no A P I. Check live inventory in a system with an OpenAPI file. And share those tools with other A I clients in the company. Three systems, three very different doors. Today you learn to pick the right bridge for each one, the base of every solution."
+ },
+ {
+  "title": "The bridges",
+  "caption": "Bridges: Power Platform connectors, custom connectors, REST API tool, MCP servers, agent flows, computer use. All of them appear as Tools.",
+  "say": "An agent that only chats is like an employee with no phone and no computer. Integration bridges give it hands to read, create and update data. Copilot Studio offers six: Power Platform connectors, already built for well known services. Custom connectors. The REST A P I tool. M C P servers. Agent flows, built inside Copilot Studio. And computer use. All of them show up in one place: Tools."
+ },
+ {
+  "title": "The question that sorts everything",
+  "caption": "Does the system expose an API? Connector exists: use it. OpenAPI file: REST API tool or custom connector. MCP: MCP server. Screen only: computer use.",
+  "say": "One question sorts almost every case: does the system expose an A P I? If a connector already exists, use it. If you have an OpenAPI file, use the REST A P I tool or a custom connector. If the system speaks the M C P protocol, connect it as an M C P server. And if it only has a screen, with no A P I at all, the answer is computer use."
+ },
+ {
+  "title": "The order to choose",
+  "caption": "Order: prebuilt connector, custom connector for a shared API, REST API tool for a one-off test, agent flow for ordered steps, MCP server.",
+  "say": "When several bridges could work, go down this order. A prebuilt connector first: no development, though large results slow the answer. No connector, and several agents need the same A P I? Build a custom connector you can reuse. A one off A P I in a test? The REST A P I tool, which is in preview and works only inside Copilot Studio. Steps that must run in order, with human approval: an agent flow. A central tool server for many agents: M C P."
+ },
+ {
+  "title": "Decide: the shared inventory API",
+  "caption": "The inventory API has an OpenAPI file. Three agents and a Power Automate flow need it. Which bridge?",
+  "say": "Your turn. Contoso's inventory system has an OpenAPI file, but no ready connector. Three different agents need it, and a Power Automate flow needs it too. Which bridge do they build? A REST A P I tool inside each agent? A custom connector they all share? Or a Send H T T P request node per topic? Decide before I answer. A custom connector. Many agents share it, and it also works in Power Automate. The REST A P I tool lives only inside Copilot Studio."
+ },
+ {
+  "title": "Every bridge has a price",
+  "caption": "Agent flows: rate limits, error paths, response size, credits. MCP: generative only, not from topics. HTTP node: not shareable. Bot Framework skills: C#, outside ALM.",
+  "say": "Every bridge has a price. Agent flows depend on A P I rate limits, need explicit error paths, limit the size of the response sent back, and use Copilot Credits. M C P needs generative orchestration, topics cannot call it, and the tool descriptions are set on the server. The Send H T T P request node is quick for one call, but you cannot share it. And Bot Framework skills reuse pro code, but need C sharp, Azure costs, and sit outside Power Platform A L M."
+ },
+ {
+  "title": "MCP and computer use",
+  "caption": "MCP: open protocol, same server for many AI clients, Streamable HTTP only. Computer use: vision on websites and apps. Both need generative orchestration.",
+  "say": "Two bridges deserve a closer look. M C P is an open protocol, so the same server can serve Copilot Studio and other A I clients. In Copilot Studio its transport must be Streamable H T T P. The older S S E transport is no longer supported. Computer use operates websites and desktop apps with vision and reasoning, as if a person were looking at the screen. Both need generative orchestration. Computer use costs five Copilot Credits per step with standard models."
+ },
+ {
+  "title": "Decide: the silent MCP tools",
+  "caption": "An agent with classic orchestration gets an MCP server. The maker wants a topic to call its tools, but they never run. What must change?",
+  "say": "Your turn. A maker connects an M C P server to an agent that still uses classic orchestration. They want a topic to call its tools, but the tools never run. What must change? Call the M C P tools from inside a topic? Switch the server transport to S S E? Or switch to generative orchestration? Decide before I answer. Switch to generative orchestration. M C P only works when the agent plans for itself. Topics cannot call it, and S S E is no longer supported."
+ },
+ {
+  "title": "Doing, answering, describing",
+  "caption": "Tools do; knowledge answers, including unstructured data indexed in Dataverse. The orchestrator picks a tool by its name and description.",
+  "say": "Keep two ideas apart. Tools are for doing things. Knowledge is for answering questions. One knowledge type is unstructured data: files from OneDrive or SharePoint, synced and vector indexed in Dataverse, plus third party articles that arrive through connectors. And when the agent picks a tool, it reads the tool's name and description. A vague description makes it choose badly, or choose nothing. Write it as if you were explaining the tool to a new teammate."
+ },
+ {
+  "title": "Decide: the old invoice program",
+  "caption": "Invoices live in an old desktop program with no API and no database access. Nexo must record each invoice. Which bridge?",
+  "say": "Your turn. Contoso records invoices in an old desktop program. It has no A P I and nobody can reach its database, but Nexo must type each new invoice into it. Which bridge fits? Computer use, working its screen? A custom connector to the program? Or an M C P server running on the program? Decide before I answer. Computer use. There is only a screen, so Nexo works it with vision. A connector and M C P both assume an A P I."
+ },
+ {
+  "title": "Add a tool in the studio",
+  "caption": "Tools, Add a tool, look at the categories, pick the bridge, write a clear name and description, create the connection, Add to agent, test.",
+  "say": "Here is how it looks in the studio. Open Nexo and go to the Tools tab. Select Add a tool and look at the categories: connectors, M C P, REST A P I, flows, and computer use. Pick the bridge that fits the system. For inventory, that is REST A P I with the OpenAPI file. Write a clear name and description. Create or select the connection, select Add to agent, and try it in the test pane."
+ },
+ {
+  "title": "Every system, its bridge",
+  "caption": "Invoices: computer use. Inventory: REST API tool. Shared with other AI clients: an MCP server. Each system gets the bridge it needs.",
+  "say": "Back to Valeria's three jobs. The old invoice program gets computer use, which works its screen with vision. Inventory, with its OpenAPI file, gets a REST A P I tool. And because other A I clients in Contoso need the same tools, the team also exposes them as an M C P server. Remember the question: does it have an A P I? Then follow the order. Next, who the agent is when it reaches those systems: identity and authentication."
+ }
+]

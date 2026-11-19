@@ -1,0 +1,11 @@
+{
+"0": ["Computer use", [["What", "The agent looks, moves the mouse, and types"], ["Picture", "An assistant who sits at the computer"], ["When", "Websites or Windows apps with only a screen"], ["Contoso", "Supplier invoice portal, no API"]]],
+"1": ["Setting it up", [["Requires", "Generative orchestration"], ["Works by", "Vision and reasoning"], ["Fields", "Name, description, model, instructions, machine"], ["Model", "For example OpenAI CUA"], ["Instructions", "Full URLs and explicit steps"]]],
+"2": ["Where it runs", [["Hosted browser", "Preview, for experimenting, no Entra join"], ["Cloud PC pool", "Preview, joined to Entra and Intune"], ["Your own machine", "Power Automate for desktop"], ["Production", "Your own machine registered in Power Automate"]]],
+"4": ["Computer use or RPA", [["RPA", "Power Automate desktop flows"], ["RPA fits", "Stable screen, simple rules"], ["Computer use fits", "Changing screens, on-screen decisions, self-correction"]]],
+"5": ["Credentials", [["Maker's credentials", "Risky if the agent is shared"], ["Stored credentials", "Internal storage or Azure Key Vault"], ["Or", "The end user's credentials"], ["Contoso", "Stored in Azure Key Vault"]]],
+"7": ["Supervision and access", [["Human supervision", "Outlook email to a reviewer"], ["When", "Potentially harmful instructions"], ["Access control", "Blocks actions, not the opening of sites"]]],
+"8": ["Cost per step", [["Standard models", "5 Copilot Credits"], ["Premium models", "15 Copilot Credits"], ["Microsoft 365 Copilot license", "Not included"]]],
+"10": ["Steps", [["Start", "Generative orchestration on"], ["Add", "Tools, Computer use tool"], ["Describe", "Clear name and description"], ["Model", "For example OpenAI CUA"], ["Instructions", "Full URLs, explicit steps"], ["Machine", "Hosted browser, Cloud PC pool, or your own"], ["Credentials", "Stored or the end user's"], ["Safety", "Human supervision, access control"]]],
+"11": ["Remember", [["Cost", "5 credits per step, 15 premium, not in the license"], ["Trap", "Hosted browser for production"], ["Access control", "Blocks actions, not opening sites"], ["Stable screen", "RPA; changing screens: Computer use"]]]
+}

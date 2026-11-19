@@ -1,0 +1,11 @@
+{
+"0": ["Custom connector", [["What", "Turns your own API into a tool"], ["Used by", "Power Apps, Power Automate, the agent"], ["Picture", "A custom adapter for an odd plug"], ["Idea", "Describe once, reuse many times"]]],
+"1": ["Three ways to start", [["Where", "Power Apps or Power Automate"], ["OpenAPI", "Swagger 2.0 file"], ["Postman", "Postman collection"], ["Blank", "From scratch"]]],
+"2": ["Authentication", [["Options", "No auth, Basic, API key, OAuth 2.0"], ["Contoso", "API key"], ["Extras", "Policy templates, C# code"], ["Before use", "Test the operations"]]],
+"4": ["Reaching the agent", [["Connection", "Stores the credentials"], ["Copilot Studio", "Add a tool, Custom connector"], ["Connector", "Describes the API"]]],
+"5": ["Between environments", [["Package", "A solution"], ["Connection reference", "Points to the connection in each environment"], ["Contoso", "Dev to Test"]]],
+"7": ["Governance (DLP)", [["Data policies", "Also govern custom connectors"], ["Classify", "By URL pattern"], ["Administrator", "Allows or blocks your API"]]],
+"8": ["When it makes sense", [["Internal API", "Already described in OpenAPI"], ["Also used by", "Power Apps and flows"], ["Why", "Reused everywhere, no repeated work"]]],
+"10": ["Steps", [["Gather", "OpenAPI (Swagger 2.0) or Postman collection"], ["Create", "Custom connector in Power Apps or Power Automate"], ["Authentication", "No auth, Basic, API key, OAuth 2.0"], ["Test, then connect", "Test operations, create a connection"], ["Agent", "Add a tool, Custom connector"], ["Move", "Solution + connection references"]]],
+"11": ["Remember", [["Sources", "OpenAPI, Postman, or blank"], ["Internal API in OpenAPI, reused", "Custom connector"], ["Move environments", "Connection references"], ["Trap", "DLP governs custom connectors too"]]]
+}

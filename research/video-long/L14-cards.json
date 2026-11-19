@@ -1,0 +1,10 @@
+{
+  "1": ["What you configure", [["Address", "The URL of the endpoint"], ["Method", "GET · POST · PATCH · PUT · DELETE"], ["Headers · Body", "Authorization · default No Content"]]],
+  "2": ["The body", [["JSON content", "A JSON object · POST or PUT"], ["Edit JSON and Formula", "A Power Fx object with variables"], ["Raw content", "A text string · Power Fx formula"]]],
+  "3": ["The response", [["Response data type", "Paste a sample JSON"], ["Get schema from sample JSON", "A variable with that shape"], ["Save user response as", "Where the reply is stored"]]],
+  "5": ["Default error handling", [["Default", "Raise an error"], ["What happens", "The agent stops"], ["Then", "On Error system topic fires"]]],
+  "6": ["Continue on error", [["Saved", "Status code and error body"], ["Error type", "Any · convert with Parse value"], ["Request timeout", "Thirty seconds by default"]]],
+  "8": ["Find a ticket", [["Request", "GET · body No Content"], ["On a 404", "Topic.StatusCode · Topic.ErrorResponse"], ["Reply", "I could not find that ticket"]]],
+  "9": ["Add the node", [["Where", "Add node · Advanced · Send HTTP request"], ["Request", "URL · method · Headers and body"], ["Reply and errors", "Sample JSON · variable · Continue on error"]]],
+  "11": ["Remember", [["The letter", "URL · method · headers · body"], ["Default", "Raise an error fires On Error"], ["Go on", "Continue on error · Parse value"]]]
+}

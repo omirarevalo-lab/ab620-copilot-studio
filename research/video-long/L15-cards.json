@@ -1,0 +1,12 @@
+{
+  "0": ["Two ways to call a tool", [["Explicit", "You call it from a topic"], ["By the agent", "It decides it needs it"], ["The difference", "Who is in control"]]],
+  "1": ["Classic orchestration", [["Generative orchestration", "Turned off"], ["The agent answers", "Only with topics"], ["Tools", "Called only from a topic"]]],
+  "2": ["Generative orchestration", [["Who picks", "The orchestrator, by itself"], ["What it picks", "The most suitable tool or topic"], ["What it reads", "Name and description"]]],
+  "4": ["Inside a topic", [["Add", "Add node · Add a tool"], ["Result", "An Action node appears"], ["Trigger phrases", "Select topics, never tools"]]],
+  "5": ["Tool settings", [["Allow agent to decide dynamically", "The agent can pick it"], ["Ask the end user before running", "Confirmation · No by default"], ["Authentication · Fill using", "Credentials · how inputs are filled"]]],
+  "7": ["After running", [["Default", "Don't respond"], ["Other choices", "Generative AI · specific response · adaptive card"], ["User's context", "Authentication must be enabled"]]],
+  "8": ["Topic-only tools", [["Where", "Add a tool in a topic"], ["Not on", "The Tools page · the orchestrator"], ["Create search query", "Message + context → clear query"]]],
+  "9": ["Perform custom search", [["Returns", "Raw results in a variable"], ["Then", "Filter · business rules · a prompt"], ["Generative answers", "Finds and writes in one step"]]],
+  "10": ["Add it in Copilot Studio", [["Tools page", "Add a tool · Add and configure"], ["Settings", "Name · Description · Ask before running"], ["Topic", "Add node · Add a tool · Action node"]]],
+  "12": ["Remember", [["Classic · Generative", "Explicit call · name and description"], ["Trigger phrases", "Topics only · ask before running"], ["Search tools", "Only inside topics"]]]
+}

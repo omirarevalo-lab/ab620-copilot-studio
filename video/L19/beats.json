@@ -1,0 +1,533 @@
+{
+ "id": "L19",
+ "title": "Error handling in flows",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 327.03,
+ "scenes": [
+  {
+   "title": "A plan B for the flow",
+   "start": 0.8,
+   "end": 23.043,
+   "sentences": [
+    {
+     "text": "Marta asks Nexo for help with her laptop, and CreateTicket must save her ticket in Dataverse.",
+     "start": 0.8,
+     "end": 6.538
+    },
+    {
+     "text": "Today the insert fails, and the flow stays silent.",
+     "start": 6.819,
+     "end": 9.804
+    },
+    {
+     "text": "Valeria knows that errors in a flow are not an if, they are a when.",
+     "start": 10.085,
+     "end": 13.69
+    },
+    {
+     "text": "Handling them is like having a plan B.",
+     "start": 13.971,
+     "end": 16.21
+    },
+    {
+     "text": "If the main path fails, the flow knows what to do instead of staying silent.",
+     "start": 16.491,
+     "end": 20.692
+    },
+    {
+     "text": "The classic pattern is called try catch.",
+     "start": 20.973,
+     "end": 23.042
+    }
+   ]
+  },
+  {
+   "title": "Try and Catch scopes",
+   "start": 23.943,
+   "end": 43.793,
+   "sentences": [
+    {
+     "text": "A scope is a container that groups actions, so they can be handled together.",
+     "start": 23.943,
+     "end": 28.016
+    },
+    {
+     "text": "Valeria adds a scope, names it Try, and moves the main actions inside it, such as the Dataverse insert.",
+     "start": 28.297,
+     "end": 34.782
+    },
+    {
+     "text": "Then she adds another scope called Catch, right after the Try.",
+     "start": 35.063,
+     "end": 38.475
+    },
+    {
+     "text": "The Try is the main path.",
+     "start": 38.756,
+     "end": 40.334
+    },
+    {
+     "text": "The Catch is the plan B, and it only handles the error.",
+     "start": 40.615,
+     "end": 43.792
+    }
+   ]
+  },
+  {
+   "title": "Run after",
+   "start": 44.693,
+   "end": 67.299,
+   "sentences": [
+    {
+     "text": "So when does the Catch run?",
+     "start": 44.693,
+     "end": 46.143
+    },
+    {
+     "text": "That is decided by run after, a setting that defines when an action runs, based on the result of the previous one.",
+     "start": 46.424,
+     "end": 53.42
+    },
+    {
+     "text": "Run after can check whether an action failed, timed out, was skipped, or succeeded.",
+     "start": 53.701,
+     "end": 58.671
+    },
+    {
+     "text": "Valeria sets it on the Catch, relative to the Try.",
+     "start": 58.952,
+     "end": 62.023
+    },
+    {
+     "text": "She selects has failed and has timed out.",
+     "start": 62.304,
+     "end": 64.628
+    },
+    {
+     "text": "Now the Catch runs only when the Try fails.",
+     "start": 64.909,
+     "end": 67.298
+    }
+   ]
+  },
+  {
+   "title": "Decide: when the Catch runs",
+   "start": 68.199,
+   "end": 99.672,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 68.199,
+     "end": 69.072
+    },
+    {
+     "text": "Valeria has put the Dataverse insert inside the Try scope.",
+     "start": 69.353,
+     "end": 72.936
+    },
+    {
+     "text": "Now she opens the settings of the Catch scope.",
+     "start": 73.217,
+     "end": 75.435
+    },
+    {
+     "text": "Which run after options should she select?",
+     "start": 75.716,
+     "end": 77.827
+    },
+    {
+     "text": "Is successful and is skipped?",
+     "start": 78.108,
+     "end": 79.686
+    },
+    {
+     "text": "Is skipped and has timed out?",
+     "start": 79.967,
+     "end": 81.544
+    },
+    {
+     "text": "Or has failed or has timed out?",
+     "start": 81.825,
+     "end": 83.702
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 83.983,
+     "end": 85.518
+    },
+    {
+     "text": "Has failed or has timed out.",
+     "start": 89.299,
+     "end": 91.026
+    },
+    {
+     "text": "The Catch must run when the Try fails or runs out of time.",
+     "start": 91.307,
+     "end": 94.527
+    },
+    {
+     "text": "Is successful is the trap, because the Catch would then run only when everything went well.",
+     "start": 94.808,
+     "end": 99.671
+    }
+   ]
+  },
+  {
+   "title": "Reading the error",
+   "start": 100.572,
+   "end": 121.297,
+   "sentences": [
+    {
+     "text": "Inside the Catch, Valeria needs to know what went wrong.",
+     "start": 100.572,
+     "end": 103.728
+    },
+    {
+     "text": "The result function returns the results of the actions inside the Try scope.",
+     "start": 104.009,
+     "end": 108.574
+    },
+    {
+     "text": "Some succeeded and one failed.",
+     "start": 108.855,
+     "end": 110.667
+    },
+    {
+     "text": "With the Filter array action, she keeps only the one that failed, with its exact message.",
+     "start": 110.948,
+     "end": 116.067
+    },
+    {
+     "text": "With that data she can log the error, or notify someone, such as the I T team.",
+     "start": 116.348,
+     "end": 121.296
+    }
+   ]
+  },
+  {
+   "title": "Retry policy",
+   "start": 122.197,
+   "end": 145.379,
+   "sentences": [
+    {
+     "text": "Some failures are transient.",
+     "start": 122.197,
+     "end": 123.796
+    },
+    {
+     "text": "The network fails for a moment, and a later try works.",
+     "start": 124.077,
+     "end": 126.999
+    },
+    {
+     "text": "A retry policy helps the flow recover from them.",
+     "start": 127.28,
+     "end": 130.223
+    },
+    {
+     "text": "It is set in the action settings, with an initial interval and a maximum number of retries.",
+     "start": 130.504,
+     "end": 135.943
+    },
+    {
+     "text": "Exponential retries are preferred, because they increase the interval between retries.",
+     "start": 136.224,
+     "end": 141.023
+    },
+    {
+     "text": "Each wait is longer than the last, so the problem has more time to clear.",
+     "start": 141.304,
+     "end": 145.378
+    }
+   ]
+  },
+  {
+   "title": "Decide: the external service",
+   "start": 146.279,
+   "end": 181.763,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 146.279,
+     "end": 147.152
+    },
+    {
+     "text": "CreateTicket also calls an external service.",
+     "start": 147.433,
+     "end": 150.291
+    },
+    {
+     "text": "Sometimes the network fails for a moment, and a later try works.",
+     "start": 150.572,
+     "end": 154.134
+    },
+    {
+     "text": "What should Valeria set on that call?",
+     "start": 154.415,
+     "end": 156.291
+    },
+    {
+     "text": "An exponential retry policy?",
+     "start": 156.572,
+     "end": 158.534
+    },
+    {
+     "text": "A Terminate with status Failed?",
+     "start": 158.815,
+     "end": 160.499
+    },
+    {
+     "text": "Or a Catch with is successful?",
+     "start": 160.78,
+     "end": 162.4
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 162.681,
+     "end": 164.216
+    },
+    {
+     "text": "An exponential retry policy.",
+     "start": 167.997,
+     "end": 169.959
+    },
+    {
+     "text": "A retry policy recovers from transient failures, and exponential retries increase the interval between retries.",
+     "start": 170.24,
+     "end": 177.364
+    },
+    {
+     "text": "Terminate is the trap here, because it stops the flow instead of trying again.",
+     "start": 177.645,
+     "end": 181.762
+    }
+   ]
+  },
+  {
+   "title": "Terminate",
+   "start": 182.663,
+   "end": 203.303,
+   "sentences": [
+    {
+     "text": "The Catch has one more job.",
+     "start": 182.663,
+     "end": 184.198
+    },
+    {
+     "text": "When the error is logged and someone is notified, the flow should not pretend that all went well.",
+     "start": 184.479,
+     "end": 189.598
+    },
+    {
+     "text": "Terminate is an action that stops the flow with a status and a message.",
+     "start": 189.879,
+     "end": 193.888
+    },
+    {
+     "text": "Valeria adds Terminate at the end of the Catch, with status Failed and a short message.",
+     "start": 194.169,
+     "end": 199.075
+    },
+    {
+     "text": "The run stops, and it leaves a diagnosis that anyone can read.",
+     "start": 199.356,
+     "end": 203.302
+    }
+   ]
+  },
+  {
+   "title": "The Contoso case",
+   "start": 204.203,
+   "end": 234.061,
+   "sentences": [
+    {
+     "text": "Here is the whole Contoso case.",
+     "start": 204.203,
+     "end": 206.186
+    },
+    {
+     "text": "In CreateTicket, the Dataverse insert goes inside the Try scope.",
+     "start": 206.467,
+     "end": 210.391
+    },
+    {
+     "text": "If it fails, the Catch scope runs, with run after on has failed and has timed out.",
+     "start": 210.672,
+     "end": 215.343
+    },
+    {
+     "text": "It uses the result function and Filter array to get the exact message.",
+     "start": 215.624,
+     "end": 220.018
+    },
+    {
+     "text": "It logs it, notifies the I T team, and ends with Terminate in status Failed.",
+     "start": 220.299,
+     "end": 225.418
+    },
+    {
+     "text": "The call to the external service has an exponential retry policy, because sometimes the network fails for a moment, and a later retry works.",
+     "start": 225.699,
+     "end": 234.06
+    }
+   ]
+  },
+  {
+   "title": "Build it in the designer",
+   "start": 234.961,
+   "end": 263.737,
+   "sentences": [
+    {
+     "text": "Here are the steps.",
+     "start": 234.961,
+     "end": 236.07
+    },
+    {
+     "text": "Open your agent flow in the designer.",
+     "start": 236.351,
+     "end": 238.462
+    },
+    {
+     "text": "Add a scope, name it Try, and move the main actions inside it.",
+     "start": 238.743,
+     "end": 242.432
+    },
+    {
+     "text": "Add another scope called Catch, right after the Try.",
+     "start": 242.713,
+     "end": 245.614
+    },
+    {
+     "text": "In the Catch settings, configure run after with has failed and has timed out.",
+     "start": 245.895,
+     "end": 250.118
+    },
+    {
+     "text": "Inside the Catch, use Filter array on the result of the Try.",
+     "start": 250.399,
+     "end": 253.982
+    },
+    {
+     "text": "Log the error or notify I T, and add Terminate with status Failed and a message.",
+     "start": 254.263,
+     "end": 259.424
+    },
+    {
+     "text": "Last, set an exponential retry policy on sensitive actions.",
+     "start": 259.705,
+     "end": 263.736
+    }
+   ]
+  },
+  {
+   "title": "Decide: the exact message",
+   "start": 264.637,
+   "end": 299.268,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 264.637,
+     "end": 265.511
+    },
+    {
+     "text": "The service manager wants each Try error logged with its exact message.",
+     "start": 265.792,
+     "end": 270.079
+    },
+    {
+     "text": "Valeria must read it first.",
+     "start": 270.36,
+     "end": 272.023
+    },
+    {
+     "text": "What should she add to read the error?",
+     "start": 272.304,
+     "end": 273.946
+    },
+    {
+     "text": "An exponential retry on every action?",
+     "start": 274.227,
+     "end": 276.53
+    },
+    {
+     "text": "Filter array on the result function?",
+     "start": 276.811,
+     "end": 278.922
+    },
+    {
+     "text": "Or a Catch that runs after is successful?",
+     "start": 279.203,
+     "end": 281.42
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 281.701,
+     "end": 283.236
+    },
+    {
+     "text": "Filter array on the result function.",
+     "start": 287.017,
+     "end": 289.107
+    },
+    {
+     "text": "The result function returns the Try results, and Filter array keeps the failed one.",
+     "start": 289.388,
+     "end": 294.208
+    },
+    {
+     "text": "A Catch on is successful is the trap, because it only runs when everything went well.",
+     "start": 294.489,
+     "end": 299.267
+    }
+   ]
+  },
+  {
+   "title": "Rules to remember",
+   "start": 300.168,
+   "end": 325.829,
+   "sentences": [
+    {
+     "text": "Back at Contoso, Marta's ticket is saved, and when something fails, the I T team knows why.",
+     "start": 300.168,
+     "end": 305.692
+    },
+    {
+     "text": "Remember the pattern.",
+     "start": 305.973,
+     "end": 307.124
+    },
+    {
+     "text": "A Try scope holds the main actions.",
+     "start": 307.405,
+     "end": 309.474
+    },
+    {
+     "text": "A Catch scope runs after has failed and has timed out, never is successful.",
+     "start": 309.755,
+     "end": 314.084
+    },
+    {
+     "text": "The result function and Filter array give you the error.",
+     "start": 314.365,
+     "end": 317.223
+    },
+    {
+     "text": "Exponential retry handles transient failures.",
+     "start": 317.504,
+     "end": 320.468
+    },
+    {
+     "text": "Terminate with status Failed leaves a status and a message.",
+     "start": 320.749,
+     "end": 324.076
+    },
+    {
+     "text": "Next, human in the loop.",
+     "start": 324.357,
+     "end": 325.828
+    }
+   ]
+  }
+ ]
+}

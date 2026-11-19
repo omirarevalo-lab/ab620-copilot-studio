@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L18 · Actions, connectors, and express mode · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .h { opacity: 0; }
+  .bl { position: absolute; left: 0; right: 0; margin: 0 auto; width: fit-content; top: 860px; white-space: nowrap; font-size: 42px; font-weight: 800; padding: 10px 32px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); opacity: 0; z-index: 8; }
+  .bl.vi { border-color: #7b5ea7; color: #7b5ea7; } .bl.am { border-color: #b8860b; color: #7a4d00; } .bl.st { border-color: #3d6e9e; color: #3d6e9e; } .bl.tl { border-color: #2f8f83; color: #1f6b61; } .bl.cy { border-color: #2a9db5; color: #0b6475; } .bl.nv { border-color: #1f2a44; color: #1f2a44; }
+  .pl { position: absolute; left: 120px; top: 120px; font-size: 40px; font-weight: 800; padding: 10px 28px; border-radius: 999px; background: #fff; border: 4px solid #2f5bd3; color: #2f5bd3; box-shadow: var(--shadow); white-space: nowrap; opacity: 0; z-index: 8; }
+  .exam .xq { font-size: 38px; }
+  .exam .xwhy { top: 545px; font-size: 38px; }
+  #exams .exam .xp { top: 646px; height: 316px; }
+  #exams .xo em.trap { font-size: 32px; }
+  #exams .xp .rm { height: 316px; width: 820px; }
+  .xp .rm h4 { font-size: 38px; }
+  .xp .pz { position: absolute; box-sizing: border-box; white-space: nowrap; font-weight: 800; font-size: 34px; border-radius: 16px; padding: 6px 18px; background: #2d3a5c; color: #fff; border: 4px solid #3a4a78; }
+  #uiS .nav div { font-size: 32px; } #uiS .bar { font-size: 32px; } #uiS .bar .t { font-size: 32px; } #uiS .bar .hc { font-size: 32px; } #uiS .btn { font-size: 32px; } #uiS .crumb { font-size: 32px; } #uiS .fld { font-size: 34px; } #uiS .fld small { font-size: 32px; } #uiS h3 { font-size: 44px; }
+  .uw .nc { position: absolute; box-sizing: border-box; border: 3px solid var(--line2); border-radius: 18px; padding: 12px 24px; background: #fff; }
+  #uiS .nc small { display: block; font-size: 32px !important; font-weight: 700; color: var(--muted); margin-bottom: 4px; }
+  .uw .cpu { position: absolute; font-size: 36px; font-weight: 800; padding: 6px 26px; border-radius: 999px; background: #cfe0ff; color: #1f3a8a; border: 3px solid #2f5bd3; white-space: nowrap; opacity: 0; }
+  .uw .urow { position: absolute; box-sizing: border-box; height: 80px; width: 428px; background: #fff; border: 3px solid var(--line2); border-radius: 16px; font-size: 34px; font-weight: 800; display: flex; align-items: center; padding-left: 24px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L18 · Actions, connectors, and express mode. World 3840x2160 = four stations of 1920x1080, camera scale 1.0 (designed in screen coordinates):
+     P (0,0) the four aisle racks (wall) · Q (1920,0) Connectors dock + cart line · R (0,1080) market entrance + conversation corner (floor line y 420 local) · T (1920,1080) express lane + tool counter + freight bay.
+     Camera centres: P 960,540 · Q 2880,540 · R 960,1620 · T 2880,1620. Bottom chips (.bl, screen layer) live at y 860-930: no world text there. */
+  const NAVY = '#1f2a44', BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', VIO = '#7b5ea7', AMB = '#e0a03a', AMBD = '#7a4d00', STL = '#3d6e9e', TEAL = '#2f8f83', CYAN = '#2a9db5', YEL = '#f2c230', GREY = '#8a93a6', INK = '#141821', PILL = '#cfe0ff', CORAL = '#e07a5f';
+  const P = [0, 0], Q = [1920, 0], R = [0, 1080], T = [1920, 1080];
+  const PS = (o, x, y) => `left:${o[0] + x}px;top:${o[1] + y}px`;
+  const lab = (id, o, x, y, w, h, t, bg, bd, col, fs, hid, st) => `<div class="w" id="${id}" style="${PS(o, x, y)};width:${w}px;height:${h}px;box-sizing:border-box;background:${bg};border:5px solid ${bd};border-radius:18px;color:${col};font-size:${fs || 34}px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:12px;text-align:center;line-height:1.15;white-space:nowrap;opacity:${hid ? 0 : 1};${st || ''}">${t}</div>`;
+  const blk = (o, x, y, w, h, bg, st) => `<div class="w" style="${PS(o, x, y)};width:${w}px;height:${h}px;background:${bg};${st || ''}"></div>`;
+  const human = (id, o, x, y, top, hair, extra, sc, hid) => `<svg class="w${hid ? ' h' : ''}" id="${id}" style="${PS(o, x, y)}" width="${200 * sc}" height="${380 * sc}" viewBox="0 0 200 380"><g><path d="M16 380 Q16 170 100 158 Q184 170 184 380 Z" fill="${top}"/><circle cx="100" cy="92" r="54" fill="#f2c9a6"/><path d="M44 90 Q44 30 100 30 Q156 30 156 90 Q130 62 100 64 Q70 62 44 90 Z" fill="${hair}"/><circle cx="80" cy="98" r="6" fill="#141821"/><circle cx="120" cy="98" r="6" fill="#141821"/><path d="M84 122 Q100 134 116 122" stroke="#141821" stroke-width="5" fill="none" stroke-linecap="round"/></g>${extra || ''}</svg>`;
+  const nexo = (id, o, x, y, hid) => agent(id, 0, 0, { folder: '' }).replace('width="360" height="500"', 'width="210" height="292"').replace(/style="left:0px;top:0px"/, `style="${PS(o, x, y)}"`).replace('<svg class="w"', `<svg class="w${hid ? ' h' : ''}"`);
+  const lap = (id, o, x, y, hid) => `<svg class="w${hid ? ' h' : ''}" id="${id}" style="${PS(o, x, y)}" width="200" height="130" viewBox="0 0 200 130"><rect x="30" y="8" width="140" height="92" rx="10" fill="#1f2a44"/><rect x="40" y="18" width="120" height="72" rx="5" fill="#e6ecfb"/><rect x="6" y="102" width="188" height="14" rx="7" fill="#8a93a6"/></svg>`;
+  const cartSvg = (w, items) => `<svg class="w" style="left:0;top:0" width="${w}" height="${w * 0.8}" viewBox="0 0 290 232"><path d="M0 30 L56 30 L80 150" stroke="#8a93a6" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M60 50 L282 50 L250 154 L84 154 Z" fill="#dfe4ee" stroke="#8a93a6" stroke-width="8" stroke-linejoin="round"/>${[1, 2, 3].map((k) => `<line x1="${60 + k * 55}" y1="50" x2="${84 + k * 41}" y2="154" stroke="#aeb6c6" stroke-width="5"/>`).join('')}<circle cx="116" cy="190" r="26" fill="#1f2a44"/><circle cx="116" cy="190" r="10" fill="#cfd5e2"/><circle cx="226" cy="190" r="26" fill="#1f2a44"/><circle cx="226" cy="190" r="10" fill="#cfd5e2"/>${items || ''}</svg>`;
+  const van = (id, o, x, y, w, col, hid) => `<svg class="w${hid ? ' h' : ''}" id="${id}" style="${PS(o, x, y)}" width="${w}" height="${w * 0.45}" viewBox="0 0 560 252"><rect x="10" y="20" width="400" height="180" rx="22" fill="${col}"/><path d="M410 70 h90 q40 0 50 50 v80 h-140 z" fill="${col}"/><rect x="440" y="88" width="70" height="52" rx="8" fill="#e6f4f2"/><circle cx="130" cy="210" r="36" fill="#1f2a44"/><circle cx="130" cy="210" r="14" fill="#cfd5e2"/><circle cx="460" cy="210" r="36" fill="#1f2a44"/><circle cx="460" cy="210" r="14" fill="#cfd5e2"/><g id="${id}_dr"><rect x="0" y="40" width="24" height="150" rx="6" fill="#16413b"/></g></svg>`;
+  const clockSvg = (id, o, x, y, d, mark) => `<svg class="w" id="${id}" style="${PS(o, x, y)}" width="${d}" height="${d}" viewBox="0 0 240 240"><circle cx="120" cy="120" r="112" fill="#fff" stroke="${NAVY}" stroke-width="10"/>${[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((k) => `<line x1="120" y1="20" x2="120" y2="${k % 3 ? 32 : 40}" stroke="${NAVY}" stroke-width="${k % 3 ? 5 : 8}" transform="rotate(${k * 30} 120 120)"/>`).join('')}${mark ? `<path d="M120 12 l-14 -2 l14 22 l14 -22 z" fill="${CYAN}" transform="rotate(120 120 120)"/>` : ''}<g id="${id}_h"><line x1="120" y1="132" x2="120" y2="46" stroke="${NAVY}" stroke-width="10" stroke-linecap="round"/></g><circle cx="120" cy="120" r="12" fill="${NAVY}"/></svg>`;
+  const LCG = (sd) => () => (sd = (sd * 1103515245 + 12345) % 2147483648) / 2147483648;
+  const unit = (o, x, y, w, h, seed) => { const r = LCG(seed), pal = ['#cdd5e4', '#c4cde0', '#e0d5bf', '#d4cab8', '#b9c7de', '#d3dceb'], rows = Math.max(2, Math.round(h / 96)), rh = h / rows; let g = `<rect x="3" y="3" width="${w - 6}" height="${h - 6}" rx="10" fill="#e6eaf3" stroke="#c5cde0" stroke-width="5"/>`; for (let k = 0; k < rows; k++) { let cx = 16; for (;;) { const cw = 54 + Math.floor(r() * 46), chh = rh * (0.5 + r() * 0.3); if (cx + cw > w - 16) break; g += `<rect x="${cx}" y="${(k + 1) * rh - 12 - chh}" width="${cw}" height="${chh}" rx="6" fill="${pal[Math.floor(r() * pal.length)]}"/>`; cx += cw + 10; } g += `<rect x="8" y="${(k + 1) * rh - 12}" width="${w - 16}" height="9" rx="4" fill="#aeb6c6"/>`; } return `<svg class="w" style="${PS(o, x, y)}" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${g}</svg>`; };
+  const icd = (n, s, c) => IC(n, `width:${s}px;height:${s}px;color:${c};flex:0 0 auto`);
+
+  /* ═══════ STATION P · the four aisles (wall racks) ═══════ */
+  const COLS = [{ c: VIO, t: 'AI capabilities', tc: '#fff' }, { c: AMB, t: 'Human in the loop', tc: '#3a2600' }, { c: STL, t: 'Built-in tools', tc: '#fff' }, { c: TEAL, t: 'Connectors', tc: '#fff' }];
+  ADD(unit(P, 100, 24, 1720, 150, 41) + unit(P, 100, 860, 500, 170, 42) + unit(P, 760, 880, 500, 150, 43) + unit(P, 1380, 860, 440, 170, 44));
+  ADD(blk(P, 100, 214, 1720, 14, '#aeb6c6', 'border-radius:7px'));
+  COLS.forEach((k, i) => {
+    const x0 = 120 + i * 432;
+    ADD(blk(P, x0 + 60, 226, 8, 12, GREY) + blk(P, x0 + 322, 226, 8, 12, GREY));
+    ADD(lab('sgP' + i, P, x0, 236, 390, 80, k.t, k.c, k.c, k.tc, 36, false, 'box-shadow:var(--shadow)'));
+    ADD(blk(P, x0, 340, 390, 480, '#e8ecf4', `box-sizing:border-box;border:6px solid ${k.c};border-radius:18px`));
+  });
+  const BXS = 'box-shadow:none';
+  ['generate text', 'process documents', 'Run a prompt', 'call an agent', 'respond to the agent'].forEach((t, k) => ADD(lab('bP0_' + k, P, 129, 356 + k * 92, 372, 76, t, '#fff', '#c9ced8', '#5d6472', 32)));
+  [['approvals', 'checkmark_circle'], ['information', 'question_circle']].forEach(([t, ic], k) => ADD(lab('bP1_' + k, P, 561, 356 + k * 92, 372, 76, icd(ic, 44, '#8a93a6') + t, '#fff', '#c9ced8', '#5d6472', 32)));
+  ADD(`<svg class="w" id="stP" style="${PS(P, 600, 560)}" width="150" height="190" viewBox="0 0 150 190"><rect x="45" y="0" width="60" height="60" rx="12" fill="${AMB}"/><rect x="62" y="60" width="26" height="50" fill="#8a6a2a"/><rect x="10" y="110" width="130" height="30" rx="10" fill="#8a6a2a"/><rect x="0" y="150" width="150" height="26" rx="8" fill="#c9ced8"/></svg>`);
+  ADD(`<div class="w" id="qcP" style="${PS(P, 790, 590)};width:110px;height:110px;border-radius:24px;background:#fff6dc;border:5px solid ${AMB};display:flex;align-items:center;justify-content:center">${icd('question_circle', 70, AMB)}</div>`);
+  [['arrow_sync', 'loops'], ['branch_fork', 'conditions'], ['database', 'data operations'], ['calendar', 'dates'], ['flow', 'child flows']].forEach(([ic, t], k) => ADD(lab('bP2_' + k, P, 993, 356 + k * 92, 372, 76, icd(ic, 44, '#8a93a6') + t, '#fff', '#c9ced8', '#5d6472', 32)));
+  ADD(`<svg class="w" id="arP" style="${PS(P, 1425, 360)}" width="372" height="440" viewBox="0 0 372 440"><path d="M30 440 V160 Q30 20 186 20 Q342 20 342 160 V440 Z" fill="#1f5f57"/><path d="M80 440 V170 Q80 70 186 70 Q292 70 292 170 V440 Z" fill="#2f8f83"/></svg>`);
+  ADD(`<div class="w" id="arP_i" style="${PS(P, 1511, 520)};width:200px;height:200px;display:flex;align-items:center;justify-content:center;color:#fff">${icd('plug_connected', 130, '#fff')}</div>`);
+
+  /* ═══════ STATION Q · Connectors dock + cart line ═══════ */
+  ADD(unit(Q, 820, 104, 1000, 150, 31) + unit(Q, 100, 880, 400, 150, 32) + unit(Q, 700, 890, 500, 140, 33) + unit(Q, 1400, 880, 420, 150, 34));
+  ADD(blk(Q, 180, 230, 580, 410, '#1f5f57', `box-sizing:border-box;border:14px solid ${TEAL};border-radius:24px`));
+  [0, 1, 2, 3, 4, 5].forEach((k) => ADD(blk(Q, 206, 258 + k * 56, 528, 10, '#2f8f83', 'border-radius:5px')));
+  ADD(lab('sgQ', Q, 250, 142, 380, 76, 'Connectors', TEAL, TEAL, '#fff', 40, false, 'box-shadow:var(--shadow)'));
+  ADD(blk(Q, 100, 650, 1720, 50, '#aeb6c6', 'border-radius:10px'));
+  ADD(blk(Q, 100, 735, 1720, 120, '#d3d9e4', 'border-radius:14px'));
+  ADD(van('vanQ', Q, 170, 420, 520, TEAL, false));
+  ADD(`<div class="w" id="dvQ" style="${PS(Q, 200, 492)};width:360px;height:70px;display:flex;align-items:center;justify-content:center;font-size:48px;font-weight:800;color:#fff">Dataverse</div>`);
+  ADD(van('gvQ', Q, 1500, 510, 300, '#5d8f8a', false));
+  ADD(lab('crQ', Q, 800, 570, 300, 78, 'Add a row', '#fff', TEAL, '#1f6b61', 36, true, 'box-shadow:var(--shadow)'));
+  ADD(lab('ctQ', Q, 120, 750, 270, 80, 'CreateTicket', YEL, '#b8920f', '#4a3a00', 34, true));
+  ADD(lab('cdQ1', Q, 410, 750, 570, 80, icd('database', 44, TEAL) + 'Dataverse · Add a row', '#fff', TEAL, INK, 34, true, 'box-shadow:var(--shadow)'));
+  ADD(lab('gapQ', Q, 1000, 750, 400, 80, 'Insert new action', '#fff8dc', YEL, '#6b5200', 32, true, 'border-style:dashed'));
+  ADD(lab('cdQ2', Q, 1000, 750, 400, 80, icd('sparkle', 44, VIO) + 'Run a prompt', '#fff', VIO, INK, 34, true, 'box-shadow:var(--shadow)'));
+  ADD(lab('trQ', Q, 1000, 590, 400, 76, icd('sparkle', 44, '#fff') + 'Run a prompt', VIO, VIO, '#fff', 34, true));
+  ADD(lab('tgEQ', Q, 930, 506, 280, 60, 'existing prompt', '#fff', VIO, VIO, 32, true));
+  ADD(lab('tgNQ', Q, 1230, 506, 230, 60, 'new prompt', '#fff', VIO, VIO, 32, true));
+  ADD(lab('chQ', Q, 880, 270, 520, 70, 'my laptop will not turn on', CORAL, CORAL, '#fff', 32, true));
+  ADD(lab('smQ', Q, 880, 390, 520, 70, 'Laptop will not turn on', '#efe9ff', VIO, INK, 34, true));
+
+  /* ═══════ STATION R · entrance + conversation corner ═══════ */
+  ADD(unit(R, 100, 120, 700, 290, 11) + unit(R, 1260, 120, 560, 290, 12) + unit(R, 100, 870, 360, 150, 13) + unit(R, 560, 890, 300, 130, 14) + unit(R, 1500, 890, 320, 130, 15));
+  [['bot', 800], ['toolbox', 920], ['cloud', 1040]].forEach(([ic, x]) => ADD(`<div class="w" style="${PS(R, x, 124)};width:92px;height:92px;box-sizing:border-box;border-radius:20px;background:#fff;border:4px solid #c9ced8;display:flex;align-items:center;justify-content:center">${icd(ic, 54, '#8a93a6')}</div>`));
+  ADD(lab('sgR', R, 1020, 250, 560, 80, 'When an agent calls a flow', '#fff', NAVY, NAVY, 34, false, 'box-shadow:var(--shadow)'));
+  ADD(`<svg class="w" id="tsR" style="${PS(R, 1160, 520)}" width="300" height="240" viewBox="0 0 300 240"><rect x="20" y="40" width="30" height="190" rx="8" fill="${NAVY}"/><rect x="250" y="40" width="30" height="190" rx="8" fill="${NAVY}"/><rect x="10" y="26" width="280" height="22" rx="10" fill="#3a4a78"/><g id="tsR_a">${[0, 120, 240].map((d) => `<rect x="144" y="52" width="12" height="78" rx="6" fill="#8a93a6" transform="rotate(${d} 150 130)"/>`).join("")}<circle cx="150" cy="130" r="20" fill="#3a4a78"/></g></svg>`);
+  ADD(blk(R, 300, 735, 260, 26, '#c9ced8', 'border-radius:8px'));
+  ADD(human('mR', R, 140, 486, CORAL, '#3a2a22', '', 0.72));
+  ADD(lap('lpR', R, 310, 610));
+  ADD(lab('bbM', R, 140, 270, 520, 70, 'my laptop will not turn on', CORAL, CORAL, '#fff', 32, true));
+  ADD(lab('idR', R, 290, 530, 330, 64, 'ticket ID: 4821', '#fff', GRN, INK, 32, true));
+  ADD(human('mgR', R, 1000, 530, '#7b8394', '#2b2b2b', '<rect x="80" y="190" width="40" height="190" fill="#e6e9f0"/>', 0.72, true));
+  ADD(nexo('nxR', R, 560, 468));
+  [0, 1, 2].forEach((k) => ADD(lab('stR' + k, R, 1260 + k * 180, 440, 160, 60, 'step ' + (k + 1), '#fff', GREY, '#5d6472', 32, true)));
+  ADD(`<div class="w" id="vlr" style="${PS(R, 1420, 569)};width:390px;height:290px">${human('vlH', [0, 0], 0, 0, '#8a5cd6', '#2b2b2b', '', 0.72).replace('style="left:0px;top:0px"', 'style="left:0;top:0"')}<div class="w" style="left:150px;top:70px;width:230px;height:184px">${cartSvg(230)}</div>
+    ${lab('ctR', [0, 0], 160, 112, 224, 56, 'CreateTicket', YEL, '#b8920f', '#4a3a00', 32, false)}
+    ${[0, 1, 2].map((k) => `<div class="w h" id="itR${k}" style="left:${164 + k * 78}px;top:0px;width:72px;height:72px;border-radius:16px;background:${[VIO, STL, TEAL][k]};display:flex;align-items:center;justify-content:center">${icd(['ticket_diagonal', 'document_text', 'mail'][k], 48, '#fff')}</div>`).join('')}</div>`);
+  ADD(`<div class="w h" id="dorR" style="${PS(R, 1460, 180)};width:240px;height:330px;box-sizing:border-box;background:#7b8394;border:10px solid ${NAVY};border-radius:20px 20px 0 0"></div>`);
+  ADD(lab('dgR', R, 1340, 124, 460, 64, 'Error handling in flows', NAVY, NAVY, '#fff', 34, true));
+
+  /* ═══════ STATION T · express lane, tool counter, freight bay ═══════ */
+  ADD([[100, 120, 330, 290, 21], [960, 120, 290, 290, 22], [1290, 120, 530, 290, 23], [100, 840, 330, 170, 24], [700, 905, 380, 110, 25], [1300, 905, 500, 110, 26]].map((a) => unit(T, ...a).replace('class="w"', 'class="w shB"')).join('') + [[560, 120, 280, 290, 22], [1440, 120, 300, 290, 23]].map((a) => unit(T, ...a).replace('class="w"', 'class="w h shA"')).join(''));
+  ADD(lab('sgT', T, 140, 232, 300, 80, 'Express mode', CYAN, CYAN, '#fff', 38, true, 'box-shadow:var(--shadow)'));
+  ADD(lab('pvT', T, 450, 242, 190, 62, 'preview', '#fff', CYAN, '#0b6475', 34, true));
+  ADD(clockSvg('ckT', T, 700, 150, 240, true));
+  ADD(lab('ckTl', T, 675, 400, 250, 64, 'two minutes', '#fff', NAVY, NAVY, 34, false));
+  ADD(blk(T, 130, 700, 1120, 50, GREY, 'border-radius:14px'));
+  ADD(`<div class="w" id="crTg" style="${PS(T, 160, 468)};width:290px;height:232px">${cartSvg(290, [0, 1, 2, 3, 4].map((k) => `<rect x="${72 + k * 40}" y="${20 + (k % 2) * 6}" width="34" height="34" rx="6" fill="${[VIO, STL, TEAL, AMB, CYAN][k]}"/>`).join(''))}${lab('ctT', [0, 0], 36, 70, 224, 56, 'CreateTicket', YEL, '#b8920f', '#4a3a00', 32, false)}</div>`);
+  ADD(`<svg class="w" id="prT" style="${PS(T, 1060, 560)}" width="220" height="140" viewBox="0 0 220 140"><rect x="10" y="30" width="200" height="104" rx="16" fill="${NAVY}"/><rect x="40" y="0" width="140" height="40" rx="8" fill="#d3d9e4"/><rect x="50" y="84" width="120" height="14" rx="7" fill="#0f1830"/><circle id="prT_lt" cx="184" cy="60" r="10" fill="#5d6472"/></svg>`);
+  ADD(lab('prTl', T, 930, 400, 360, 64, 'Respond to the agent', '#fff', NAVY, NAVY, 32, false));
+  ADD(`<div class="w h" id="rcpT" style="${PS(T, 1110, 664)};width:120px;height:150px;box-sizing:border-box;background:#fff;border:5px solid ${GRN};border-radius:10px;display:flex;align-items:center;justify-content:center">${icd('ticket_diagonal', 64, GRN)}</div>`);
+  /* right region: Marta + Nexo, counter, freight bay */
+  ADD(human('mT', T, 1300, 486, CORAL, '#3a2a22', '', 0.72, true));
+  ADD(blk(T, 1440, 735, 330, 26, '#c9ced8', 'border-radius:8px').replace('class="w"', 'class="w" id="cnT"'));
+  ADD(lap('lpT', T, 1460, 610, true));
+  ADD(nexo('nxT', T, 1590, 468, true));
+  ADD(`<div class="w h" id="wdT" style="${PS(T, 1350, 400)};width:200px;height:70px;box-sizing:border-box;background:#fff;border:5px solid ${CORAL};border-radius:30px;display:flex;align-items:center;justify-content:center;gap:16px">${[0, 1, 2].map(() => `<i style="display:block;width:20px;height:20px;border-radius:50%;background:${CORAL}"></i>`).join('')}</div>`);
+  ADD(lab('erT', T, 1595, 372, 200, 70, 'Error', '#eceff5', GREY, '#5d6472', 36, true));
+  ADD(lab('idT', T, 1380, 380, 330, 64, 'ticket ID: 4821', '#fff', GRN, INK, 32, true));
+  ADD(`<svg class="w h" id="tcD" style="${PS(T, 1330, 570)}" width="450" height="140" viewBox="0 0 450 140"><rect x="0" y="0" width="450" height="26" rx="10" fill="#aeb6c6"/><rect x="20" y="26" width="410" height="114" fill="${NAVY}"/><rect x="50" y="56" width="120" height="16" rx="8" fill="#3a4a78"/><rect x="50" y="90" width="200" height="16" rx="8" fill="#3a4a78"/><circle cx="360" cy="82" r="22" fill="#ffd166"/></svg>`);
+  ADD(clockSvg('ckS', T, 1480, 340, 150, false).replace('class="w"', 'class="w h"'));
+  ADD(lab('tcTl', T, 1360, 500, 400, 64, '100 seconds · tool', '#fff', NAVY, NAVY, 34, true));
+  ADD(lab('alT', T, 1470, 262, 250, 60, 'action limit', '#fff', AMB, AMBD, 34, true));
+  ADD(`<svg class="w h" id="fbD" style="${PS(T, 945, 300)}" width="450" height="400" viewBox="0 0 450 400"><rect x="0" y="30" width="450" height="370" rx="20" fill="#d3d9e4"/><rect x="30" y="60" width="390" height="340" fill="#aeb6c6"/>${[0, 1, 2, 3, 4, 5].map((k) => `<rect x="30" y="${74 + k * 52}" width="390" height="10" fill="#8a93a6"/>`).join('')}</svg>`);
+  ADD(lab('fbT', T, 995, 222, 360, 70, 'asynchronous', NAVY, NAVY, '#fff', 38, true));
+  ADD(lab('plT', T, 995, 600, 340, 90, 'reconciliation', '#fff6dc', '#b8860b', INK, 36, true, 'box-shadow:var(--shadow)'));
+  ADD(blk(T, 985, 692, 360, 30, '#8a6a2a', 'border-radius:6px;opacity:0').replace('class="w"', 'class="w h" id="plK"'));
+  /* the lane board */
+  const tile = (id, ic, t, extra) => `<div class="w" id="${id}" style="${extra};width:330px;height:230px;box-sizing:border-box;background:#f3f5f9;border:5px solid #c9ced8;border-radius:22px;color:#5d6472;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:32px;font-weight:800;text-align:center;line-height:1.15;padding:0 18px">${icd(ic, 60, 'currentColor')}<div style="text-wrap:balance">${t}</div></div>`;
+  const crossSvg = (id, st) => `<svg class="w h" id="${id}" style="${st}" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="#f3f5f9" stroke="${GREY}" stroke-width="8"/><path d="M28 28 L72 72 M72 28 L28 72" stroke="${GREY}" stroke-width="10" stroke-linecap="round"/></svg>`;
+  ADD(`<div class="w h" id="bdT" style="${PS(T, 130, 330)};width:1110px;height:350px;box-sizing:border-box;background:#fff;border:6px solid ${CYAN};border-radius:28px;box-shadow:var(--shadow)">
+    <div class="w" id="bdA" style="left:0;top:0;width:1098px;height:338px">
+      <div class="w" style="left:30px;top:14px;font-size:40px;font-weight:800;color:${NAVY}">requirements</div>
+      ${tile('tqA', 'bot', 'When an agent calls a flow', 'left:30px;top:84px')}${tile('tqB', 'arrow_reply', 'Respond to the agent', 'left:390px;top:84px')}${tile('tqC', 'card_ui', 'Copilot Studio plan', 'left:750px;top:84px')}</div>
+    <div class="w h" id="bdB" style="left:0;top:0;width:1098px;height:338px">
+      <div class="w" style="left:30px;top:14px;font-size:40px;font-weight:800;color:${NAVY}">limits</div>
+      ${tile('tlA', 'timer', '<span style="text-decoration:line-through">Delay</span>', 'left:30px;top:84px')}${tile('tlB', 'link', '<span style="text-decoration:line-through">webhooks</span>', 'left:390px;top:84px')}${tile('tlC', 'gauge', 'about 100 actions per run', 'left:750px;top:84px')}
+      ${crossSvg('xlA', 'left:145px;top:108px')}${crossSvg('xlB', 'left:505px;top:108px')}</div></div>`);
+  ADD([[480, 590, 120, 100, '#c9a96b'], [620, 602, 110, 88, '#d4b57a'], [510, 498, 110, 90, '#bfa062'], [1480, 590, 120, 100, '#c9a96b'], [1620, 602, 110, 88, '#d4b57a'], [1510, 498, 110, 90, '#bfa062']].map(([x, y, w, h, c]) => blk(T, x, y, w, h, c, 'box-sizing:border-box;border:5px solid #8a6a2a;border-radius:10px').replace('class="w"', 'class="w h cr"')).join('') + blk(T, 470, 692, 290, 24, '#8a6a2a', 'border-radius:6px').replace('class="w"', 'class="w h cr"') + blk(T, 1470, 692, 290, 24, '#8a6a2a', 'border-radius:6px').replace('class="w"', 'class="w h cr"'));
+  ADD(lab('pcT', T, 960, 226, 270, 70, icd('tag', 44, '#6b5200') + '0 extra', '#fff8dc', YEL, '#6b5200', 36, true));
+  ADD(`<svg class="w h" id="bkT" style="${PS(T, 150, 690)}" width="300" height="140" viewBox="0 0 300 140"><path d="M20 20 L280 20 L250 130 L50 130 Z" fill="#dfe4ee" stroke="${GREY}" stroke-width="8" stroke-linejoin="round"/></svg>`);
+  ADD(lab('crcT', T, 700, 710, 400, 80, 'connector responses', '#fff', GREY, '#5d6472', 34, true));
+  ADD(`<svg class="w h" id="xbT" style="${PS(T, 230, 700)}" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#fff" stroke="${GREY}" stroke-width="8"/><path d="M30 30 L70 70 M70 30 L30 70" stroke="${GREY}" stroke-width="10" stroke-linecap="round"/></svg>`);
+
+  /* ═══════ overlays: title pills + bottom chips ═══════ */
+  ADDS(`${[['plA', 'Module 3'], ['plB', 'actions'], ['plC', 'four groups'], ['plD', 'Run a prompt'], ['plE', 'Express mode'], ['plF', 'two figures'], ['plG', 'the Contoso case'], ['plH', 'Back at the market']].map(([id, t]) => `<div class="pl" id="${id}">${t}</div>`).join('')}
+    ${[['c0a', 'add more steps', ''], ['c0b', 'the steps a flow performs', ''], ['c0c', 'grouped by type', 'nv'], ['c0d', 'from connectors', 'tl'], ['c0e', 'find what you need quickly', ''],
+      ['c2a', 'actions from other systems', 'tl'], ['c2b', 'the ticket row', 'tl'], ['c2c', 'in AI capabilities', 'vi'], ['c2d', 'where she wants the step', ''], ['c2e', "summarizes Marta's text", 'vi'],
+      ['c4a', 'speed', ''], ['c4b', 'over two minutes = fails', 'nv'], ['c4c', 'Nexo gets an error', 'nv'], ['c4d', 'heavy processing', 'cy'], ['c4e', 'low data volume', 'cy'], ['c4f', 'in preview', 'cy'],
+      ['c5a', 'a flow used as a tool', 'am'], ['c5b', 'default window for an agent flow', 'cy'], ['c5c', 'express mode helps here', 'cy'], ['c5d', 'tool flow: plan for 100 seconds', 'am'],
+      ['c6a', 'no extra cost', 'am'], ['c6b', 'not supported', 'nv'], ['c6c', 'little data', 'nv'], ['c6d', 'long processes', 'nv'],
+      ['c8a', 'inserts the ticket row', 'tl'], ['c8b', 'summarizes the text', 'vi'], ['c8c', 'a lot of processing · little data', 'cy'], ['c8d', 'within two minutes', 'cy'], ['c8e', 'no express mode', 'nv'], ['c11', 'next lesson', 'nv']].map(([id, t, c]) => `<div class="bl ${c}" id="${id}">${t}</div>`).join('')}`);
+  /* recap board (scene 11): screen layer, all text drawn from its first frame */
+  const rrow = (id, y, h, inner) => `<div class="w" id="${id}" style="left:24px;top:${y}px;width:752px;height:${h}px;opacity:.32;font-size:32px;font-weight:800;color:${INK};line-height:1.2">${inner}</div>`;
+  const rc = (t, bg, col) => `<span style="display:inline-block;background:${bg};color:${col || '#fff'};border-radius:14px;padding:0 14px;margin:0 8px 6px 0;white-space:nowrap">${t}</span>`;
+  ADDS(`<div class="w h" id="rbR" style="left:1000px;top:100px;width:800px;height:420px;box-sizing:border-box;background:#fff;border:8px solid ${NAVY};border-radius:24px;overflow:hidden;z-index:6;box-shadow:var(--shadow)"><div style="position:absolute;left:24px;top:8px;font-size:40px;font-weight:800;color:${NAVY}">Remember</div>
+    ${rrow('rl0', 62, 90, rc('AI capabilities', VIO) + rc('Human in the loop', AMB, '#3a2600') + rc('Built-in tools', STL) + rc('Connectors', TEAL))}
+    ${rrow('rl1', 158, 46, rc('Run a prompt', VIO) + ': AI capabilities')}
+    ${rrow('rl2', 208, 90, rc('Express mode', CYAN) + '(preview): heavy processing · little data · two minutes')}
+    ${rrow('rl3', 302, 90, 'When an agent calls a flow · Respond to the agent · Copilot Studio plan')}</div>
+    <div class="bl nv h" id="lpTg" style="top:905px;left:890px;right:auto;margin:0;font-size:36px;opacity:0">Long processes: asynchronous</div>`);
+
+  /* ═══════ exam rooms ═══════ */
+  const pz = (x, y, t, st) => `<div class="pz" style="left:${x}px;top:${y}px;${st || ''}">${t}</div>`;
+  const okI = (x, y) => `<div class="w" style="left:${x}px;top:${y}px">${IC('checkmark_circle', 'width:70px;height:70px;color:#6be3a0')}</div>`;
+  const noI = (x, y) => `<div class="w" style="left:${x}px;top:${y}px">${IC('dismiss_circle', 'width:70px;height:70px;color:#ff8a80')}</div>`;
+  const vio = `background:${VIO};border-color:${VIO}`, teal = `background:${TEAL};border-color:${TEAL}`, cyan = `background:${CYAN};border-color:${CYAN}`, red = `background:${RED};border-color:${RED}`, grn = `background:${GRN};border-color:${GRN}`;
+  const proofA = `<div class="rm" id="pa_L" style="left:0;border-color:${GRN};opacity:0"><h4>Look under AI capabilities</h4>
+      ${pz(28, 70, 'generate text')}${pz(28, 144, 'process documents')}${pz(28, 218, 'Run a prompt', vio + ';box-shadow:0 0 0 6px rgba(190,170,255,.5)')}${pz(420, 218, 'AI capabilities', vio)}${okI(700, 196)}</div>
+    <div class="rm" id="pa_R" style="left:860px;border-color:${RED};opacity:0"><h4>Look under the Connectors group</h4>
+      ${pz(28, 70, 'Dataverse', teal)}${pz(28, 144, 'Add a row')}${pz(28, 218, 'no prompt box', 'background:#1d2742;color:#9fb0d6;border-style:dashed')}${pz(420, 144, 'other systems', red)}${noI(700, 196)}</div>`;
+  const proofB = `<div class="rm" id="pb_L" style="left:0;border-color:${GRN};opacity:0"><h4>Let it run asynchronously</h4>
+      <div class="pz" style="left:28px;top:84px;background:#fff6dc;color:#141821;border-color:#b8860b">reconciliation</div><div class="w" style="left:20px;top:150px;width:290px;height:22px;border-radius:6px;background:#8a6a2a"></div><svg class="w" style="left:335px;top:90px" width="95" height="70" viewBox="0 0 95 70"><path d="M6 35 H70 M52 12 L78 35 L52 58" stroke="#6be3a0" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="w" style="left:450px;top:70px;width:330px;height:112px;box-sizing:border-box;border:5px solid #3a4a78;border-radius:14px;background:repeating-linear-gradient(#aeb6c6 0 18px,#8a93a6 18px 24px)"></div>${pz(468, 96, 'asynchronous', grn)}${pz(28, 218, 'freight bay: no deadline', 'background:#1d2742')}${okI(700, 196)}</div>
+    <div class="rm" id="pb_R" style="left:860px;border-color:${RED};opacity:0"><h4>Turn on express mode for it</h4>
+      <div class="pz" style="left:28px;top:84px;background:#fff6dc;color:#141821;border-color:#b8860b">reconciliation</div><div class="w" style="left:20px;top:150px;width:290px;height:22px;border-radius:6px;background:#8a6a2a"></div><div class="w" style="left:340px;top:76px;width:24px;height:120px;border-radius:8px;background:#c9ced8"></div>${pz(410, 84, 'Express mode', cyan)}${pz(410, 150, 'does not fit', red)}${pz(28, 218, 'two minutes: past the mark', 'background:#1d2742')}${noI(700, 196)}</div>`;
+  const proofC = `<div class="rm" id="pc_L" style="left:0;border-color:${GRN};opacity:0"><h4>A Respond to the agent action</h4>
+      ${pz(28, 70, 'Respond to the agent', `border-color:${GRN}`)}${pz(28, 144, 'receipt reaches Nexo', 'background:#1d2742')}${pz(28, 218, 'required', grn)}${okI(700, 196)}</div>
+    <div class="rm" id="pc_R" style="left:860px;border-color:${RED};opacity:0"><h4>A webhook that calls the agent</h4>
+      ${pz(28, 70, 'webhooks', 'text-decoration:line-through;background:#1d2742')}${pz(28, 144, 'Express mode', cyan)}${pz(28, 218, 'not supported', red)}${noI(700, 196)}</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'Valeria wants a step that summarizes Marta\'s text with a prompt. She selects Insert new action in CreateTicket. Where should she look for Run a prompt?', opts: ['Look under the Connectors group', 'Look under AI capabilities', 'Look under Built-in tools'],
+      why: `<div id="exA_w1"><span class="g">Run a prompt</span> is one of the <span class="y">AI capabilities</span>, next to generate text</div><div id="exA_w2">Connectors bring actions from <span class="r">other systems</span>, not prompts</div>`, proof: proofA }),
+    mkExam('exB', { q: 'Contoso has a long reconciliation process that moves a lot of data. The service manager asks whether express mode should handle it. What should Valeria do?', opts: ['Turn on express mode for it', 'Add a Delay action to it', 'Let it run asynchronously'],
+      why: `<div id="exB_w1"><span class="g">Long processes</span> with lots of data are <span class="y">asynchronous</span></div><div id="exB_w2">Express mode is for <span class="y">heavy processing, little data</span></div>`, proof: proofB }),
+    mkExam('exC', { q: 'Valeria\'s new flow does heavy processing on little data, but it never sends an answer back, and express mode cannot help it. What must the flow have?', opts: ['A Respond to the agent action', 'A Delay action before the end', 'A webhook that calls the agent'],
+      why: `<div id="exC_w1">Requires the agent trigger, <span class="g">Respond to the agent</span>, a <span class="y">Copilot Studio plan</span></div><div id="exC_w2"><span class="r">Delay and webhooks</span> are not supported in express mode</div>`, proof: proofC })
+  );
+  document.querySelectorAll('#exams .xp .rm').forEach((e) => { e.style.opacity = 0; });
+
+  /* ═══════ UI window (scene 9) ═══════ */
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Contoso agent', nav: ['Designer', 'Overview'], on: 0, bar: `<span class="hc" id="uTest">${IC('beaker')}Test</span>`, body: `
+    <div class="lay" id="uL0" style="opacity:1"><div class="crumb">Agent flow › CreateTicket</div>
+      <div class="nc" id="uTr" style="left:0;top:48px;width:1228px;height:148px;display:flex;flex-direction:column;justify-content:center"><small>Trigger</small><div style="font-size:34px;font-weight:800">When an agent calls a flow</div><div style="position:absolute;right:32px;top:38px">${IC('bot', 'width:72px;height:72px;color:#8a93a6')}</div></div>
+      <div style="position:absolute;left:40px;top:170px;width:6px;height:340px;background:#c9ced8"></div>
+      <div id="uPl" style="position:absolute;left:14px;top:216px;width:64px;height:64px;border-radius:50%;background:#2f5bd3;color:#fff;font-size:50px;font-weight:800;display:flex;align-items:center;justify-content:center">+</div>
+      <div id="uIn" style="position:absolute;left:100px;top:226px;font-size:34px;font-weight:800;color:var(--accent);opacity:0;white-space:nowrap">Insert new action</div>
+      <div class="nc" id="uC1" style="left:0;top:200px;width:1228px;opacity:0"><small>Connectors</small><div style="font-size:34px;font-weight:800">Dataverse · Add a row</div></div>
+      <div class="nc" id="uC2" style="left:0;top:340px;width:1228px;opacity:0"><small>AI capabilities</small><div style="font-size:34px;font-weight:800">Run a prompt</div></div>
+      <div class="nc" id="uEn" style="left:0;top:490px;width:1228px;height:148px;display:flex;flex-direction:column;justify-content:center"><small>Action</small><div style="font-size:34px;font-weight:800">Respond to the agent</div><div style="position:absolute;right:32px;top:38px">${IC('arrow_reply', 'width:72px;height:72px;color:#8a93a6')}</div></div>
+      <div id="uPan" style="position:absolute;left:800px;top:50px;width:428px;height:400px;opacity:0">
+        <div class="urow" id="uRa" style="left:0;top:0;border-left:12px solid ${VIO}">AI capabilities</div><div class="urow" id="uRb" style="left:0;top:100px;border-left:12px solid ${AMB}">Human in the loop</div>
+        <div class="urow" id="uRd" style="left:0;top:200px;border-left:12px solid ${STL}">Built-in tools</div><div class="urow" id="uRc" style="left:0;top:300px;border-left:12px solid ${TEAL}">Connectors</div></div>
+      <div class="urow" id="uDv" style="left:800px;top:470px;border-left:12px solid ${TEAL};opacity:0">Dataverse</div>
+      <span class="cpu" id="uChA" style="left:0;top:650px">the steps in Copilot Studio</span><span class="cpu" id="uCh0" style="left:0;top:650px">open the agent flow</span><span class="cpu" id="uCh1" style="left:0;top:650px">review the groups</span></div>
+    <div class="lay" id="uL1"><div class="crumb">Overview</div><h3>CreateTicket</h3>
+      <div style="position:absolute;left:0;top:110px;width:1228px;height:80px;border-bottom:3px solid var(--line)"><b style="font-size:38px">Details</b><span class="btn" id="uEdit" style="position:absolute;right:0;top:8px">Edit</span></div>
+      <div class="fld" style="position:absolute;left:0;top:220px;width:1228px"><small>Name</small>CreateTicket</div>
+      <div class="fld" style="position:absolute;left:0;top:350px;width:1228px"><small>Trigger</small>When an agent calls a flow</div>
+      <div id="uTgR" style="position:absolute;left:0;top:500px;width:1228px;box-sizing:border-box;padding:18px 24px;border:3px solid var(--line2);border-radius:18px;display:flex;align-items:center;gap:24px"><div class="tgl" id="uTgl"><i></i></div><span style="font-size:38px;font-weight:800">Express mode</span></div>
+      <div id="uNt" style="position:absolute;left:0;top:640px;font-size:32px;font-weight:700;color:var(--muted);opacity:0;white-space:nowrap">if available in your environment</div></div>
+    <div class="lay" id="uL2"><div class="crumb">Test</div>
+      ${['When an agent calls a flow', 'Dataverse · Add a row', 'Run a prompt', 'Respond to the agent'].map((t, k) => `<div class="nc" id="uR${k}" style="left:0;top:${50 + k * 100}px;width:1228px;height:84px;padding:8px 24px;display:flex;align-items:center;gap:16px;font-size:34px;font-weight:800;opacity:0">${IC('checkmark_circle', 'width:44px;height:44px;color:' + GRN)}${t}</div>`).join('')}
+      <div id="uSt" style="position:absolute;left:0;top:490px;display:flex;align-items:center;gap:16px;padding:10px 30px;border-radius:20px;background:#e3f4ea;border:4px solid ${GRN};font-size:36px;font-weight:800;color:${GRN};opacity:0;white-space:nowrap">${IC('checkmark_circle', 'width:48px;height:48px')}Flow responds in under two minutes</div>
+      <span class="cpu" id="uCh2" style="left:0;top:650px">test it</span></div>` }));
+  const PU = { tr: PC('#uTr'), pl: PC('#uPl'), rc: PC('#uRc'), ra: PC('#uRa'), nav: PC('#uiS_nv1'), edit: PC('#uEdit'), tgl: PC('#uTgl'), test: PC('#uTest') };
+
+  /* ═══════ TIMELINE ═══════ */
+  const CAMX = (x, y, s, t) => tl.set('#world', { x: 960 - x * s, y: 540 - y * s, scale: s }, t);
+  const LB = (id, a, b) => { TAG('#' + id, a); if (b != null) OFF('#' + id, b, 0.25); };
+  const SET = (sel, t, v) => tl.set(sel, { opacity: v }, t);
+  const BOB = (sel, a, b, amp) => tl.fromTo(sel, { y: 0 }, { y: -amp, duration: 0.6, yoyo: true, repeat: Math.max(1, Math.round((b - a) / 0.6) - 1), ease: 'sine.inOut' }, a);
+  const GLOW = (sel, t, col, n) => tl.to(sel, { boxShadow: `0 0 0 14px ${col}`, duration: 0.35, yoyo: true, repeat: n == null ? 3 : n, ease: 'sine.inOut' }, t);
+  const LIT = (id, t, bg, bd, col) => { tl.to('#' + id, { backgroundColor: bg, borderColor: bd, color: col, duration: 0.3 }, t); tl.fromTo('#' + id, { scale: 1 }, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t); };
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, Rv = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = Rv - 0.15 - C0;
+    ON(X, S(i, 0) - 0.05, 0.12);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, S(i, 0) + 0.05);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, t - 0.1));
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', Rv, 0.2);
+    const Tr = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tr, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', opacity: 1, duration: 0.3 }, Rv);
+    tl.set(Tr + ' .tx', { textDecoration: 'line-through' }, Rv);
+    ON(Tr + ' .trap', Rv + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', opacity: 1, duration: 0.3 }, Rv);
+    ON(G + ' .ok', Rv + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, Rv);
+    OFF(X + '_q', Rv + 0.9, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.9, ease: 'power2.inOut' }, Rv + 1.0);
+    ON(X + '_p', S(i, 9), 0.2);
+    tl.fromTo(X + '_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(i, 9)); tl.fromTo(X + '_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, o.w2 != null ? o.w2 : S(i, 10));
+    OFF(X, o.end, 0.4);
+  };
+  const FILL = (id, i, chips, ts) => { document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:830px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`); (ts || [S(i, 1) + 0.4, S(i, 2) + 0.1, S(i, 3) + 0.1]).forEach((t, k) => ON(`#${id}_sc .fc:nth-child(${k + 1})`, t, 0.3)); OFF(`#${id}_sc`, S(i, 8) - 0.05, 0.25); };
+  FILL('exA', 3, ['Step: summarize Marta\'s text', 'Insert new action', 'Find Run a prompt']);
+  FILL('exB', 7, ['Long reconciliation', 'a lot of data', 'Express mode or not?'], [S(7, 1) + 0.3, W(7, 1, 'a lot of data', -0.1), S(7, 2) + 0.2]);
+  FILL('exC', 10, ['Heavy processing', 'Little data', 'No answer comes back']);
+
+  gsap.set('#world', { x: 0, y: -1080, scale: 1 });
+  gsap.set('#bdB', { scaleX: 0, transformOrigin: '50% 50%' });
+  gsap.set('#vlr', { x: -650, opacity: 0 });
+  gsap.set('#vlr .h', { opacity: 0 });
+  gsap.set(['#ckT_h', '#ckS_h'], { rotation: 0, svgOrigin: '120 120' });
+  const COLS_P = [['#sgP0', 'rgba(123,94,167,.35)'], ['#sgP1', 'rgba(224,160,58,.4)'], ['#sgP2', 'rgba(61,110,158,.35)'], ['#sgP3', 'rgba(47,143,131,.35)']];
+  const HAND = (sel, deg, t, d) => tl.to(sel, { rotation: deg, svgOrigin: '120 120', duration: d, ease: 'none' }, t);
+  const TQ_ON = ['#tqA', '#tqB', '#tqC'];
+
+  /* ── 0 Steps from the shelves (R, then P, Q, P) ── */
+  TAG('#plA', 0.3);
+  ON('#bbM', S(0, 0) + 0.3, 0.3);
+  BOB('#nxR', S(0, 0) + 0.3, S(0, 0) + 2.4, 18);
+  OFF(['#plA', '#bbM'], S(0, 1) + 0.4, 0.25);
+  ON('#vlr', 4.3, 0.3);
+  tl.fromTo('#vlr', { x: -650 }, { x: 0, duration: 3.4, ease: 'power1.inOut' }, S(0, 1) + 0.1);
+  LB('c0a', W(0, 1, 'to add more', 0.1), S(0, 2) - 0.1);
+  tl.to('#tsR_a', { rotation: 120, svgOrigin: '150 130', duration: 0.5, yoyo: true, repeat: 1 }, S(0, 1) + 1.2);
+  TAG('#plB', S(0, 2) + 0.1); LB('c0b', W(0, 2, 'the steps', 0.1), S(0, 3) - 0.1);
+  [0, 1, 2].forEach((k) => {
+    const t = S(0, 2) + 0.7 + k * 1.1;
+    tl.fromTo('#itR' + k, { opacity: 0, y: -90 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.in' }, t);
+    tl.to('#itR' + k, { y: 62, duration: 0.35, ease: 'power2.in' }, t + 0.45); OFF('#itR' + k, t + 0.78, 0.15);
+    POP('#stR' + k, t + 0.55);
+  });
+  OFF('#plB', S(0, 3) - 0.1, 0.25);
+  CAM(960, 540, 1, S(0, 3) - 0.6, 0.6);
+  COLS_P.forEach(([s, c], k) => GLOW(s, S(0, 3) + 0.3 + k * 0.45, c, 1));
+  LB('c0c', W(0, 3, 'grouped by type', 0.05), W(0, 3, 'and others', -0.3));
+  CAM(2880, 540, 1, W(0, 3, 'and others', -0.45), 1.3);
+  tl.fromTo('#vanQ', { x: 700 }, { x: 0, duration: 1.4, ease: 'power2.out' }, W(0, 3, 'and others', -0.35));
+  tl.fromTo('#dvQ', { x: 700 }, { x: 0, duration: 1.4, ease: 'power2.out' }, W(0, 3, 'and others', -0.35));
+  LB('c0d', W(0, 3, 'from connectors', 0.0), S(0, 4) - 0.1);
+  CAM(960, 540, 1, S(0, 4) - 0.38, 0.5);
+  LB('c0e', W(0, 4, 'find what', 0.0));
+
+  /* ── 1 The action catalog (P) ── */
+  OFF('#c0e', S(1, 0) - 0.05, 0.2);
+  OFF(['#stR0', '#stR1', '#stR2'], S(1, 0) - 0.5, 0.2);
+  TAG('#plC', S(1, 0) + 0.1);
+  COLS_P.forEach(([s, c], k) => GLOW(s, W(1, 0, 'four groups', 0.0), c, 1));
+  OFF('#plC', S(1, 1) - 0.1, 0.25);
+  GLOW('#sgP0', S(1, 1), 'rgba(123,94,167,.4)', 1);
+  ['generate text', 'process documents', 'run a prompt', 'call an agent', 'respond to the agent'].forEach((w, k) => LIT('bP0_' + k, W(1, 1, w, -0.05), '#efe9ff', VIO, INK));
+  GLOW('#sgP1', S(1, 2), 'rgba(224,160,58,.45)', 1);
+  LIT('bP1_0', W(1, 2, 'approvals', -0.05), '#fff6dc', AMB, INK); LIT('bP1_1', W(1, 2, 'information', -0.05), '#fff6dc', AMB, INK);
+  tl.fromTo('#stP', { y: 0 }, { y: -26, duration: 0.5, yoyo: true, repeat: 1 }, W(1, 2, 'approvals', 0)); tl.fromTo('#qcP', { y: 0 }, { y: -26, duration: 0.5, yoyo: true, repeat: 1 }, W(1, 2, 'information', 0));
+  GLOW('#sgP2', S(1, 3), 'rgba(61,110,158,.4)', 1);
+  ['loops', 'conditions', 'data operations', 'dates', 'child flows'].forEach((w, k) => LIT('bP2_' + k, W(1, 3, w, -0.05), '#e3edf7', STL, INK));
+  CAM(2880, 540, 1, S(1, 4) - 0.3, 1.3);
+  GLOW('#sgQ', W(1, 4, 'connectors', 0.3), 'rgba(47,143,131,.45)', 3);
+
+  /* ── 2 Connectors and Run a prompt (Q, P, Q) ── */
+  tl.to('#vanQ_dr', { rotation: -70, svgOrigin: '12 40', duration: 0.7, ease: 'back.out(1.5)' }, S(2, 0) + 0.3);
+  LB('c2a', S(2, 0) + 0.5, S(2, 1) - 0.1);
+  POP('#crQ', S(2, 0) + 1.8);
+  TAG('#ctQ', S(2, 1) + 0.05);
+  tl.to('#crQ', { x: -380, y: 150, scale: 0.95, duration: 0.8, ease: 'power2.inOut' }, W(2, 1, 'add the ticket', 0));
+  OFF('#crQ', W(2, 1, 'add the ticket', 0.8), 0.15); POP('#cdQ1', W(2, 1, 'add the ticket', 0.75));
+  LB('c2b', W(2, 1, 'the ticket row', 0), S(2, 2) - 0.1);
+  CAM(960, 540, 1, S(2, 2) - 0.6, 0.7);
+  TAG('#plD', S(2, 2) + 0.1);
+  LIT('bP0_2', W(2, 2, 'run a prompt', 0.1), '#efe9ff', VIO, INK); GLOW('#sgP0', W(2, 2, 'run a prompt', 0.2), 'rgba(123,94,167,.45)', 3);
+  LB('c2c', W(2, 2, 'inside ai', 0.2), S(2, 3) - 0.1);
+  OFF('#plD', S(2, 3) - 0.1, 0.25);
+  CAM(2880, 540, 1, S(2, 3) - 0.6, 0.8);
+  TAG('#gapQ', W(2, 3, 'insert new action', -0.1)); GLOW('#gapQ', W(2, 3, 'insert new action', 0.4), 'rgba(242,194,48,.5)', 3);
+  LB('c2d', W(2, 3, 'where she', 0.0), S(2, 4) - 0.1);
+  POPX('#trQ', S(2, 3) + 2.0);
+  const TAGQ = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.2 }, t); TAGQ('#tgEQ', S(2, 4) + 0.2); TAGQ('#tgNQ', W(2, 4, 'a new one', -0.7));
+  OFF(['#tgEQ', '#tgNQ'], S(2, 5) - 0.05, 0.2);
+  OFF('#trQ', S(2, 5) + 0.05, 0.2); OFF('#gapQ', S(2, 5) + 0.05, 0.2); POP('#cdQ2', S(2, 5) + 0.15);
+  ON('#chQ', S(2, 5) + 0.25, 0.3);
+  tl.to('#chQ', { y: 380, duration: 0.8, ease: 'power2.inOut' }, S(2, 5) + 0.9); OFF('#chQ', S(2, 5) + 1.6, 0.2);
+  POP('#smQ', S(2, 5) + 1.7);
+  LB('c2e', W(2, 5, 'summarizes', 0.0));
+
+  /* ── 3 EXAM A (T ready behind the room) ── */
+  OFF('#c2e', S(3, 0) - 0.1, 0.2);
+  SET(['#chQ', '#smQ'], S(3, 0) + 0.6, 0);
+  CAMX(2880, 1620, 1, S(3, 0) + 0.6);
+  EXAMX('exA', 3, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(3, 4), S(3, 5), S(3, 6)], end: S(4, 0) - 0.1 });
+  ON('#pa_L', S(3, 9) + 0.1, 0.3); ON('#pa_R', S(3, 10) + 0.1, 0.3);
+
+  /* ── 4 The two-minute window (T) ── */
+  LB('c4a', S(4, 0) + 0.2, S(4, 1) - 0.1);
+  HAND('#ckT_h', 400, S(4, 1) + 0.4, 4.2);
+  LB('c4b', W(4, 1, 'more than two', 0.0), S(4, 2) - 0.1);
+  ON(['#lpT', '#mT', '#wdT'], S(4, 2) + 0.05, 0.3);
+  tl.fromTo('#nxT', { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5 }, W(4, 2, 'and nexo', 0.0)); POP('#erT', W(4, 2, 'an error', -0.3));
+  LB('c4c', W(4, 2, 'nexo would', 0.0), S(4, 3) - 0.1);
+  OFF(['#mT', '#lpT', '#wdT', '#nxT', '#erT'], S(4, 3) - 0.05, 0.25);
+  TAG('#sgT', S(4, 3) + 0.05); TAG('#plE', S(4, 3) + 0.1); GLOW('#sgT', S(4, 3) + 0.6, 'rgba(42,157,181,.4)', 3);
+  OFF('#plE', S(4, 4) - 0.05, 0.25);
+  tl.set('#ckT_h', { rotation: 0, svgOrigin: '120 120' }, S(4, 4) + 0.05);
+  LB('c4d', W(4, 4, 'heavy processing', 0.0), W(4, 4, 'low data', -0.15)); LB('c4e', W(4, 4, 'low data volume', 0.0), S(4, 5) - 0.1);
+  tl.to('#crTg', { x: 600, duration: 2.0, ease: 'power1.inOut' }, W(4, 4, 'heavy processing', 0.2));
+  HAND('#ckT_h', 85, W(4, 4, 'heavy processing', 0.2), 2.0);
+  tl.to('#prT_lt', { attr: { fill: CYAN }, duration: 0.2 }, W(4, 4, 'finish', 0.0)); tl.fromTo('#rcpT', { opacity: 0, y: -70 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, W(4, 4, 'finish', 0.1));
+  TAG('#pvT', S(4, 5) + 0.1); LB('c4f', W(4, 5, 'preview', 0.0));
+
+  /* ── 5 Two figures (T: clock left, counter right) ── */
+  OFF(['#crTg', '#prT', '#prTl', '#rcpT', '#c4f'], S(5, 0) - 0.3, 0.25);
+  TAG('#plF', S(5, 0) + 0.1);
+  ON(['#tcD', '#ckS'], S(5, 0) + 0.2, 0.3); TAG('#tcTl', S(5, 0) + 0.5);
+  OFF('#plF', S(5, 1) - 0.1, 0.25);
+  GLOW('#tcTl', S(5, 1) + 0.1, 'rgba(224,160,58,.45)', 3); TAG('#alT', W(5, 1, 'action limit', -0.1)); LB('c5a', W(5, 1, 'a flow used', 0.0), S(5, 2) - 0.1);
+  OFF('#alT', S(5, 2) - 0.05, 0.2);
+  GLOW('#ckTl', S(5, 2) + 0.1, 'rgba(31,42,68,.35)', 3); GLOW('#sgT', S(5, 2) + 0.2, 'rgba(42,157,181,.4)', 3);
+  LB('c5b', W(5, 2, 'default window', 0.0), W(5, 2, 'and that is', -0.2)); LB('c5c', W(5, 2, 'and that is', 0.1), S(5, 3) - 0.1);
+  tl.to('#ckS', { scale: 1.15, duration: 0.5, yoyo: true, repeat: 1 }, S(5, 3) + 0.2); GLOW('#tcTl', S(5, 3) + 0.2, 'rgba(224,160,58,.45)', 3);
+  LB('c5d', W(5, 3, 'plan for', 0.0));
+
+  /* ── 6 Requirements and limits (T) ── */
+  OFF(['#ckT', '#ckTl', '#tcD', '#ckS', '#tcTl', '#c5d'], S(6, 0) - 0.15, 0.25);
+  ON('#bdT', S(6, 0) + 0.1, 0.3);
+  TQ_ON.forEach((id, k) => LIT(id.slice(1), [W(6, 1, 'when an agent', 0), W(6, 1, 'respond to the agent', 0), W(6, 1, 'copilot studio plan', 0)][k] - 0.05, '#e0f3f6', CYAN, '#0b5563'));
+  POP('#pcT', S(6, 2) + 0.15); LB('c6a', S(6, 2) + 0.1, S(6, 3) - 0.1);
+  tl.to('#bdA', { scaleX: 0, duration: 0.3, transformOrigin: '50% 50%' }, S(6, 3) + 0.2); OFF('#pcT', S(6, 3) + 0.2, 0.2);
+  tl.fromTo('#bdB', { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.35, transformOrigin: '50% 50%', immediateRender: false }, S(6, 3) + 0.5);
+  POP('#xlA', W(6, 4, 'delay', 0.1)); POP('#xlB', W(6, 4, 'webhooks', 0.0)); LB('c6b', W(6, 4, 'delay', 0.2), S(6, 5) - 0.1);
+  LIT('tlC', W(6, 5, 'about one hundred', 0), '#e0f3f6', CYAN, '#0b5563');
+  ON(['#bkT'], S(6, 5) + 0.1, 0.3); LB('c6c', S(6, 5) + 0.2, W(6, 5, 'very large', -0.2));
+  ON('#crcT', W(6, 5, 'very large', -0.3), 0.12);
+  tl.to('#crcT', { x: -250, duration: 0.8, ease: 'power2.in' }, W(6, 5, 'very large', 0.1)); POP('#xbT', W(6, 5, 'very large', 0.9)); tl.to('#crcT', { x: -80, duration: 0.5, ease: 'back.out(2)' }, W(6, 5, 'very large', 1.0));
+  OFF(['#bdT', '#bkT', '#crcT', '#xbT', '#c6c', '#xlA', '#xlB', '#sgT', '#pvT', '.shB'], S(6, 6) - 0.15, 0.25);
+  CAMX(3090, 1560, 1.3, S(6, 6) + 0.12);
+  ON(['#fbD'], S(6, 6) + 0.15, 0.3); ON('.cr', S(6, 6) + 0.15, 0.3); ON('.shA', S(6, 6) + 0.15, 0.3); TAG('#fbT', W(6, 6, 'asynchronously', -0.4)); POP('#plT', W(6, 6, 'long processes', 0.2)); ON('#plK', W(6, 6, 'long processes', 0.2), 0.3);
+  tl.fromTo(['#plT', '#plK'], { x: -420 }, { x: 0, duration: 1.6, ease: 'power2.out' }, W(6, 6, 'long processes', 0.2));
+  LB('c6d', S(6, 6) + 0.2);
+
+  /* ── 7 EXAM B (R ready behind the room: the Contoso case starts there) ── */
+  OFF('#c6d', S(7, 0) - 0.1, 0.2); SET('#cnT', S(6, 6) - 0.1, 0);
+  SET(['#fbD', '#fbT', '#plT', '#plK', '#sgT', '#pvT', '.cr', '.shA'], S(7, 0) + 0.6, 0); SET('.shB', S(7, 0) + 0.6, 1);
+  CAMX(960, 1620, 1, S(7, 0) + 0.6);
+  tl.set('#vlr', { x: -650, opacity: 1 }, S(7, 0) + 0.6); SET(['#itR0', '#itR1', '#itR2', '#stR0', '#stR1', '#stR2', '#bbM'], S(7, 0) + 0.6, 0);
+  EXAMX('exB', 7, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(7, 4), S(7, 5), S(7, 6)], w2: W(7, 9, 'express mode is', -0.1), end: S(8, 0) - 0.1 });
+  ON('#pb_L', S(7, 9) + 0.1, 0.3); ON('#pb_R', S(7, 10) + 0.1, 0.3);
+
+  /* ── 8 The Contoso case (R, Q, T) ── */
+  TAG('#plG', S(8, 0) + 0.2); BOB('#nxR', S(8, 0) + 0.3, S(8, 0) + 2.4, 18);
+  OFF('#plG', S(8, 1) - 0.1, 0.25);
+  tl.fromTo('#vlr', { x: -650 }, { x: 0, duration: 3.0, ease: 'power1.inOut' }, S(8, 1) + 0.15);
+  GLOW('#sgR', W(8, 1, 'when an agent', 0.1), 'rgba(31,42,68,.35)', 3);
+  tl.to('#tsR_a', { rotation: 120, svgOrigin: '150 130', duration: 0.5, yoyo: true, repeat: 1 }, S(8, 1) + 1.5);
+  CAMX(2880, 540, 1, S(8, 2) - 0.2);
+  SET('#ctQ', S(8, 0), 1); SET(['#cdQ1', '#cdQ2'], S(8, 0), 1);
+  LIT('cdQ1', W(8, 2, 'dataverse connector', 0.0), '#e0f3f2', TEAL, INK); LB('c8a', W(8, 2, 'inserts the ticket row', 0.0), W(8, 2, 'run a prompt', -0.15));
+  LIT('cdQ2', W(8, 2, 'run a prompt', 0.0), '#efe9ff', VIO, INK); LB('c8b', W(8, 2, 'summarizes', 0.0), S(8, 3) - 0.15);
+  OFF(['#vanQ', '#gvQ', '#dvQ', '#ctQ', '#cdQ1', '#cdQ2'], S(8, 3) - 0.6, 0.2); SET('#cnT', S(8, 3) - 0.8, 1);
+  SET(['#sgT', '#pvT', '#ckT', '#ckTl', '#crTg', '#prT', '#prTl'], S(8, 3) - 0.8, 0);
+  tl.set('#crTg', { x: 0 }, S(8, 3) - 0.8); tl.set('#ckT_h', { rotation: 0, svgOrigin: '120 120' }, S(8, 3) - 0.8); tl.set('#prT_lt', { attr: { fill: '#5d6472' } }, S(8, 3) - 0.8); SET('#rcpT', S(8, 3) - 0.8, 0);
+  ON(['#sgT', '#pvT', '#ckT', '#ckTl', '#crTg', '#prT'], S(8, 3) + 0.95, 0.25); ON('#prTl', S(8, 3) + 0.95, 0.25);
+  CAM(2880, 1620, 1, S(8, 3) - 0.35, 1.3);
+  GLOW('#prTl', W(8, 3, 'respond to the agent', 0.0), 'rgba(31,42,68,.35)', 3);
+  ON(['#mT', '#lpT'], S(8, 4) + 0.05, 0.3); ON('#nxT', S(8, 4) + 0.05, 0.3);
+  LB('c8c', W(8, 4, 'quite a lot', 0.0), W(8, 4, 'in preview', -0.3));
+  tl.to('#crTg', { x: 600, duration: 2.2, ease: 'power1.inOut' }, W(8, 4, 'moves little', 0.0)); HAND('#ckT_h', 85, W(8, 4, 'moves little', 0.0), 2.2);
+  tl.to('#prT_lt', { attr: { fill: CYAN }, duration: 0.2 }, W(8, 4, 'in preview', 0.0)); tl.fromTo('#rcpT', { opacity: 0, y: -70 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, W(8, 4, 'in preview', 0.1));
+  tl.fromTo('#idT', { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.6 }, W(8, 4, 'and it answers', 0.0));
+  LB('c8d', W(8, 4, 'within the two', 0.0), S(8, 5) - 0.1);
+  OFF(['#mT', '#lpT', '#nxT', '#idT', '#crTg', '#prT', '#prTl', '#rcpT', '#ckT', '#ckTl', '#sgT', '#pvT', '#cnT', '.shB'], S(8, 5) - 0.15, 0.25);
+  CAMX(3090, 1560, 1.3, S(8, 5) + 0.08);
+  ON('#fbD', S(8, 5) + 0.1, 0.3); ON('.cr', S(8, 5) + 0.1, 0.3); ON('.shA', S(8, 5) + 0.1, 0.3); TAG('#fbT', S(8, 5) + 0.15); POP('#plT', S(8, 5) + 0.35); ON('#plK', S(8, 5) + 0.35, 0.3);
+  tl.fromTo(['#plT', '#plK'], { x: -420 }, { x: 0, duration: 1.6, ease: 'power2.out' }, S(8, 5) + 0.35);
+  LB('c8e', W(8, 5, 'does not use', 0.0));
+
+  /* ── 9 Studio (UI) ── */
+  gsap.set('#uiS', { opacity: 0 });
+  OFF('#c8e', S(9, 0) - 0.1, 0.2);
+  CAMX(960, 1620, 1, S(9, 0) - 0.1);
+  SET(['#plT', '#plK', '#fbD', '#fbT', '.cr', '.shA', '#vanQ'], S(9, 0) - 0.1, 0);
+  tl.set('#vlr', { x: 0, opacity: 1 }, S(9, 0) - 0.1); SET(['#idR', '#mgR'], S(9, 0) - 0.1, 0); SET(['#sgR', '#mR', '#lpR', '#nxR'], S(9, 0) - 0.1, 1);
+  UIIN('#uiS', S(9, 0) + 0.1);
+  tl.set('#cur', { x: 1500, y: 930 }, S(9, 0)); ON('#cur', S(9, 0) + 1.4, 0.2);
+  CUR(PU.tr[0] + 300, PU.tr[1], S(9, 1) + 0.05, 0.7); CLICK(PU.tr[0] + 300, PU.tr[1], S(9, 1) + 0.9);
+  ON('#uChA', S(9, 0) + 0.9, 0.25); OFF('#uChA', S(9, 1) + 0.2, 0.15);
+  ON('#uCh0', S(9, 1) + 0.3, 0.25);
+  CUR(PU.pl[0] + 34, PU.pl[1] + 24, S(9, 2) + 0.05, 0.6); CLICK(PU.pl[0] + 34, PU.pl[1] + 24, S(9, 2) + 0.75);
+  ON('#uIn', S(9, 2) + 0.1, 0.25); OFF('#uCh0', S(9, 2) + 0.1, 0.2); ON('#uCh1', S(9, 2) + 0.3, 0.25);
+  gsap.set(['#uRa', '#uRb', '#uRd', '#uRc'], { opacity: 0 });
+  ON('#uPan', S(9, 2) + 0.95, 0.25);
+  ON('#uRa', W(9, 2, 'ai capabilities', -0.1), 0.2); ON('#uRb', W(9, 2, 'human in the loop', -0.1), 0.2); ON('#uRd', W(9, 2, 'built-in tools', -0.1), 0.2); ON('#uRc', W(9, 2, 'connectors', -0.1), 0.2);
+  CUR(PU.ra[0] + 150, PU.ra[1], W(9, 2, 'ai capabilities', -0.2), 0.5);
+  [['#uRa', 'ai capabilities', VIO], ['#uRa', 'human in the loop', AMB]].forEach(() => 0);
+  CUR(PU.rc[0] + 150, PU.rc[1], W(9, 3, 'connector', -0.4), 0.6); CLICK(PU.rc[0] + 150, PU.rc[1], W(9, 3, 'connector', 0.0));
+  OFF('#uCh1', W(9, 3, 'connector', -0.4), 0.2);
+  ON('#uDv', W(9, 3, 'dataverse', -0.2), 0.25); ON('#uC1', W(9, 3, 'dataverse', 0.3), 0.3); OFF(['#uPl', '#uIn'], W(9, 3, 'dataverse', 0.3), 0.2);
+  CUR(PU.ra[0] + 150, PU.ra[1], W(9, 3, 'then add', 0.0), 0.5); CLICK(PU.ra[0] + 150, PU.ra[1], W(9, 3, 'run a prompt', 0.0));
+  ON('#uC2', W(9, 3, 'run a prompt', 0.4), 0.3);
+  OFF(['#uPan', '#uDv'], S(9, 4) - 0.05, 0.2);
+  CUR(PU.nav[0] + 110, PU.nav[1], S(9, 4) + 0.05, 0.6); CLICK(PU.nav[0] + 110, PU.nav[1], W(9, 4, 'open overview', 0.3));
+  NAV('#uiS', 1, W(9, 4, 'open overview', 0.3), 2);
+  tl.to('#uL0', { opacity: 0, duration: 0.2 }, W(9, 4, 'open overview', 0.35)); ON('#uL1', W(9, 4, 'open overview', 0.55), 0.25);
+  CUR(PU.edit[0] - 100, PU.edit[1], W(9, 4, 'select edit', -0.3), 0.5); CLICK(PU.edit[0] - 100, PU.edit[1], W(9, 4, 'select edit', 0.4));
+  CUR(PU.tgl[0] - 30, PU.tgl[1] + 30, W(9, 4, 'turn on', -0.2), 0.5); CLICK(PU.tgl[0] - 30, PU.tgl[1] + 30, W(9, 4, 'express mode', 0.0));
+  tl.to('#uTgl', { backgroundColor: '#2f5bd3', duration: 0.2 }, W(9, 4, 'express mode', 0.1)); tl.to('#uTgl i', { x: 52, duration: 0.2 }, W(9, 4, 'express mode', 0.1));
+  ON('#uNt', W(9, 4, 'if your', 0.0), 0.3);
+  CUR(PU.test[0] + 24, PU.test[1] + 26, S(9, 5) - 0.1, 0.4); CLICK(PU.test[0] + 24, PU.test[1] + 26, S(9, 5) + 0.3);
+  NAV('#uiS', -1, S(9, 5) + 0.35, 2);
+  tl.to('#uL1', { opacity: 0, duration: 0.15 }, S(9, 5) + 0.35); ON('#uL2', S(9, 5) + 0.45, 0.2);
+  [0, 1, 2, 3].forEach((k) => ON('#uR' + k, S(9, 5) + 0.47 + k * 0.1, 0.12));
+  ON('#uSt', S(9, 5) + 1.0, 0.3); ON('#uCh2', S(9, 5) + 0.5, 0.25);
+  OFF('#cur', E(9, 5) - 0.45, 0.15);
+  UIOUT('#uiS', E(9, 5) - 0.4);
+
+  /* ── 10 EXAM C (R ready) ── */
+  EXAMX('exC', 10, { pause: 7, reveal: 8, trap: 2, right: 0, opt: [S(10, 4), S(10, 5), S(10, 6)], end: S(11, 0) - 0.1 });
+  ON('#pc_L', S(10, 9) + 0.1, 0.3); ON('#pc_R', S(10, 10) + 0.1, 0.3);
+
+  /* ── 11 Rules to remember (R) ── */
+  TAG('#plH', S(11, 0) + 0.1);
+  ON('#idR', S(11, 0) + 0.8, 0.3); tl.fromTo('#mgR', { opacity: 0, x: -70 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.5)' }, S(11, 0) + 1.2);
+  tl.fromTo('#nxR', { x: 0 }, { x: 60, duration: 2.6, ease: 'sine.inOut' }, S(11, 0) + 1.0);
+  OFF('#plH', S(11, 1) - 0.05, 0.25); OFF('#sgR', S(11, 1) - 0.2, 0.2);
+  ON('#rbR', S(11, 1) - 0.1, 0.3);
+  [0, 1, 2, 3].forEach((k) => tl.to('#rl' + k, { opacity: 1, duration: 0.3 }, S(11, 1 + k) + 0.15));
+  tl.fromTo('#vlr', { y: 0 }, { y: -10, duration: 0.7, yoyo: true, repeat: Math.ceil((B.duration + 2.5 - S(11, 1)) / 0.7), ease: 'sine.inOut' }, S(11, 1));
+  TAG('#lpTg', S(11, 5) + 0.2);
+  OFF(['#rbR', '#lpTg'], S(11, 6) - 0.1, 0.3);
+  ON('#dorR', S(11, 6) - 0.05, 0.3); TAG('#dgR', S(11, 6) + 0.1);
+  CAM(980, 1620, 1, S(11, 6) - 0.1, 1.6);
+  LB('c11', S(11, 6) + 0.5);
+  tl.fromTo('#mgR', { y: 0 }, { y: -14, duration: 0.6, yoyo: true, repeat: Math.ceil((B.duration + 2.5 - S(11, 2)) / 0.6), ease: 'sine.inOut' }, S(11, 2));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

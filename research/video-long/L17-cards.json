@@ -1,0 +1,11 @@
+{
+  "0": ["A recipe for the agent", [["Agent flow", "A sequence of automatic steps"], ["Like a recipe", "Input ingredients · output dish"], ["To be a tool", "A specific start and end"]]],
+  "1": ["Start and end", [["Trigger", "When an agent calls the flow"], ["In between", "The actions you want"], ["End", "Respond to the agent"]]],
+  "2": ["The inputs", [["Defined in", "The trigger"], ["Generative orchestration", "Fills them from the conversation"], ["Missing data", "The agent asks for it"]]],
+  "3": ["Custom value", [["What", "A fixed value on an input"], ["Replaces", "The automatic filling"], ["Effect", "The agent no longer asks"]]],
+  "5": ["Only the outputs arrive", [["Outputs", "Defined in Respond to the agent"], ["Internal variables", "Never reach the agent"], ["Outputs become", "Tool node variables · or the response"]]],
+  "6": ["Conditions to use it", [["Published", "Before it is added"], ["Real time", "Asynchronous response Off · Networking"], ["Action limit", "100 seconds"]]],
+  "8": ["CreateTicket at Contoso", [["Inputs", "title (from the message) · urgency (Custom value Medium)"], ["Output", "ticketId"], ["Before adding", "Published"]]],
+  "9": ["Build it in Copilot Studio", [["Flow", "New agent flow · When an agent calls the flow · inputs"], ["End", "Respond to the agent · outputs · Asynchronous response Off"], ["Then", "Publish · Tools · Add a tool · Flow"]]],
+  "11": ["Remember", [["Start · end", "When an agent calls the flow · Respond to the agent"], ["Inputs · outputs", "Custom value stops the questions · only explicit outputs arrive"], ["To show up", "Published · Asynchronous response Off · 100 seconds"]]]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "ab620-copilot-studio",
+  "version": "1.0.0",
+  "description": "Free, offline-first study app for the Microsoft AB-620 (Copilot Studio) and AB-400 exams, with video lessons, spaced repetition and exam practice.",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/omirarevalo-lab/ab620-copilot-studio.git"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "serve": "node tools/serve.mjs",
+    "validate": "node tools/validate-course.mjs",
+    "smoke": "node tools/smoke.mjs",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "ts-fsrs": "^5.4.2"
+  }
+}

@@ -1,0 +1,568 @@
+{
+ "id": "L01",
+ "title": "Integrate with enterprise systems",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 363.251,
+ "scenes": [
+  {
+   "title": "Three systems, three bridges",
+   "start": 0.8,
+   "end": 26.395,
+   "sentences": [
+    {
+     "text": "Module one begins, and Valeria is now building Nexo herself.",
+     "start": 0.8,
+     "end": 4.811
+    },
+    {
+     "text": "Contoso asks for three new jobs.",
+     "start": 5.091,
+     "end": 7.224
+    },
+    {
+     "text": "Record invoices in an old desktop program that has no A P I.",
+     "start": 7.504,
+     "end": 11.493
+    },
+    {
+     "text": "Check live inventory in a system with an OpenAPI file.",
+     "start": 11.773,
+     "end": 15.763
+    },
+    {
+     "text": "And share those tools with other A I clients in the company.",
+     "start": 16.043,
+     "end": 19.051
+    },
+    {
+     "text": "Three systems, three very different doors.",
+     "start": 19.331,
+     "end": 21.784
+    },
+    {
+     "text": "Today you learn to pick the right bridge for each one, the base of every solution.",
+     "start": 22.064,
+     "end": 26.395
+    }
+   ]
+  },
+  {
+   "title": "The bridges",
+   "start": 27.295,
+   "end": 54.324,
+   "sentences": [
+    {
+     "text": "An agent that only chats is like an employee with no phone and no computer.",
+     "start": 27.295,
+     "end": 31.796
+    },
+    {
+     "text": "Integration bridges give it hands to read, create and update data.",
+     "start": 32.076,
+     "end": 36.023
+    },
+    {
+     "text": "Copilot Studio offers six: Power Platform connectors, already built for well known services.",
+     "start": 36.303,
+     "end": 42.212
+    },
+    {
+     "text": "Custom connectors.",
+     "start": 42.492,
+     "end": 43.708
+    },
+    {
+     "text": "The REST A P I tool.",
+     "start": 43.988,
+     "end": 45.311
+    },
+    {
+     "text": "M C P servers.",
+     "start": 45.591,
+     "end": 46.977
+    },
+    {
+     "text": "Agent flows, built inside Copilot Studio.",
+     "start": 47.257,
+     "end": 50.137
+    },
+    {
+     "text": "And computer use.",
+     "start": 50.417,
+     "end": 51.569
+    },
+    {
+     "text": "All of them show up in one place: Tools.",
+     "start": 51.849,
+     "end": 54.324
+    }
+   ]
+  },
+  {
+   "title": "The question that sorts everything",
+   "start": 55.224,
+   "end": 78.061,
+   "sentences": [
+    {
+     "text": "One question sorts almost every case: does the system expose an A P I?",
+     "start": 55.224,
+     "end": 59.747
+    },
+    {
+     "text": "If a connector already exists, use it.",
+     "start": 60.027,
+     "end": 62.245
+    },
+    {
+     "text": "If you have an OpenAPI file, use the REST A P I tool or a custom connector.",
+     "start": 62.525,
+     "end": 67.837
+    },
+    {
+     "text": "If the system speaks the M C P protocol, connect it as an M C P server.",
+     "start": 68.117,
+     "end": 73.088
+    },
+    {
+     "text": "And if it only has a screen, with no A P I at all, the answer is computer use.",
+     "start": 73.368,
+     "end": 78.061
+    }
+   ]
+  },
+  {
+   "title": "The order to choose",
+   "start": 78.961,
+   "end": 108.121,
+   "sentences": [
+    {
+     "text": "When several bridges could work, go down this order.",
+     "start": 78.961,
+     "end": 81.735
+    },
+    {
+     "text": "A prebuilt connector first: no development, though large results slow the answer.",
+     "start": 82.015,
+     "end": 87.007
+    },
+    {
+     "text": "No connector, and several agents need the same A P I?",
+     "start": 87.287,
+     "end": 90.465
+    },
+    {
+     "text": "Build a custom connector you can reuse.",
+     "start": 90.745,
+     "end": 92.964
+    },
+    {
+     "text": "A one off A P I in a test?",
+     "start": 93.244,
+     "end": 94.908
+    },
+    {
+     "text": "The REST A P I tool, which is in preview and works only inside Copilot Studio.",
+     "start": 95.188,
+     "end": 100.287
+    },
+    {
+     "text": "Steps that must run in order, with human approval: an agent flow.",
+     "start": 100.567,
+     "end": 104.513
+    },
+    {
+     "text": "A central tool server for many agents: M C P.",
+     "start": 104.793,
+     "end": 108.121
+    }
+   ]
+  },
+  {
+   "title": "Decide: the shared inventory API",
+   "start": 109.021,
+   "end": 143.78,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 109.021,
+     "end": 109.896
+    },
+    {
+     "text": "Contoso's inventory system has an OpenAPI file, but no ready connector.",
+     "start": 110.176,
+     "end": 115.232
+    },
+    {
+     "text": "Three different agents need it, and a Power Automate flow needs it too.",
+     "start": 115.512,
+     "end": 119.48
+    },
+    {
+     "text": "Which bridge do they build?",
+     "start": 119.76,
+     "end": 121.211
+    },
+    {
+     "text": "A REST A P I tool inside each agent?",
+     "start": 121.491,
+     "end": 123.731
+    },
+    {
+     "text": "A custom connector they all share?",
+     "start": 124.011,
+     "end": 125.845
+    },
+    {
+     "text": "Or a Send H T T P request node per topic?",
+     "start": 126.125,
+     "end": 129.155
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 129.435,
+     "end": 130.971
+    },
+    {
+     "text": "A custom connector.",
+     "start": 134.751,
+     "end": 136.009
+    },
+    {
+     "text": "Many agents share it, and it also works in Power Automate.",
+     "start": 136.289,
+     "end": 139.745
+    },
+    {
+     "text": "The REST A P I tool lives only inside Copilot Studio.",
+     "start": 140.025,
+     "end": 143.78
+    }
+   ]
+  },
+  {
+   "title": "Every bridge has a price",
+   "start": 144.68,
+   "end": 175.304,
+   "sentences": [
+    {
+     "text": "Every bridge has a price.",
+     "start": 144.68,
+     "end": 146.173
+    },
+    {
+     "text": "Agent flows depend on A P I rate limits, need explicit error paths, limit the size of the response sent back, and use Copilot Credits.",
+     "start": 146.453,
+     "end": 155.285
+    },
+    {
+     "text": "M C P needs generative orchestration, topics cannot call it, and the tool descriptions are set on the server.",
+     "start": 155.565,
+     "end": 162.563
+    },
+    {
+     "text": "The Send H T T P request node is quick for one call, but you cannot share it.",
+     "start": 162.843,
+     "end": 167.664
+    },
+    {
+     "text": "And Bot Framework skills reuse pro code, but need C sharp, Azure costs, and sit outside Power Platform A L M.",
+     "start": 167.944,
+     "end": 175.304
+    }
+   ]
+  },
+  {
+   "title": "MCP and computer use",
+   "start": 176.204,
+   "end": 207.708,
+   "sentences": [
+    {
+     "text": "Two bridges deserve a closer look.",
+     "start": 176.204,
+     "end": 178.124
+    },
+    {
+     "text": "M C P is an open protocol, so the same server can serve Copilot Studio and other A I clients.",
+     "start": 178.404,
+     "end": 185.231
+    },
+    {
+     "text": "In Copilot Studio its transport must be Streamable H T T P.",
+     "start": 185.511,
+     "end": 189.735
+    },
+    {
+     "text": "The older S S E transport is no longer supported.",
+     "start": 190.015,
+     "end": 193.407
+    },
+    {
+     "text": "Computer use operates websites and desktop apps with vision and reasoning, as if a person were looking at the screen.",
+     "start": 193.687,
+     "end": 200.3
+    },
+    {
+     "text": "Both need generative orchestration.",
+     "start": 200.58,
+     "end": 202.905
+    },
+    {
+     "text": "Computer use costs five Copilot Credits per step with standard models.",
+     "start": 203.185,
+     "end": 207.708
+    }
+   ]
+  },
+  {
+   "title": "Decide: the silent MCP tools",
+   "start": 208.608,
+   "end": 243.708,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 208.608,
+     "end": 209.483
+    },
+    {
+     "text": "A maker connects an M C P server to an agent that still uses classic orchestration.",
+     "start": 209.763,
+     "end": 215.352
+    },
+    {
+     "text": "They want a topic to call its tools, but the tools never run.",
+     "start": 215.632,
+     "end": 219.131
+    },
+    {
+     "text": "What must change?",
+     "start": 219.411,
+     "end": 220.435
+    },
+    {
+     "text": "Call the M C P tools from inside a topic?",
+     "start": 220.715,
+     "end": 223.424
+    },
+    {
+     "text": "Switch the server transport to S S E?",
+     "start": 223.704,
+     "end": 225.923
+    },
+    {
+     "text": "Or switch to generative orchestration?",
+     "start": 226.203,
+     "end": 228.421
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 228.701,
+     "end": 230.237
+    },
+    {
+     "text": "Switch to generative orchestration.",
+     "start": 234.017,
+     "end": 236.023
+    },
+    {
+     "text": "M C P only works when the agent plans for itself.",
+     "start": 236.303,
+     "end": 239.737
+    },
+    {
+     "text": "Topics cannot call it, and S S E is no longer supported.",
+     "start": 240.017,
+     "end": 243.708
+    }
+   ]
+  },
+  {
+   "title": "Doing, answering, describing",
+   "start": 244.608,
+   "end": 272.699,
+   "sentences": [
+    {
+     "text": "Keep two ideas apart.",
+     "start": 244.608,
+     "end": 246.101
+    },
+    {
+     "text": "Tools are for doing things.",
+     "start": 246.381,
+     "end": 247.917
+    },
+    {
+     "text": "Knowledge is for answering questions.",
+     "start": 248.197,
+     "end": 250.331
+    },
+    {
+     "text": "One knowledge type is unstructured data: files from OneDrive or SharePoint, synced and vector indexed in Dataverse, plus third party articles that arrive through connectors.",
+     "start": 250.611,
+     "end": 261.619
+    },
+    {
+     "text": "And when the agent picks a tool, it reads the tool's name and description.",
+     "start": 261.899,
+     "end": 265.973
+    },
+    {
+     "text": "A vague description makes it choose badly, or choose nothing.",
+     "start": 266.253,
+     "end": 269.389
+    },
+    {
+     "text": "Write it as if you were explaining the tool to a new teammate.",
+     "start": 269.669,
+     "end": 272.699
+    }
+   ]
+  },
+  {
+   "title": "Decide: the old invoice program",
+   "start": 273.599,
+   "end": 306.245,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 273.599,
+     "end": 274.473
+    },
+    {
+     "text": "Contoso records invoices in an old desktop program.",
+     "start": 274.753,
+     "end": 278.145
+    },
+    {
+     "text": "It has no A P I and nobody can reach its database, but Nexo must type each new invoice into it.",
+     "start": 278.425,
+     "end": 284.633
+    },
+    {
+     "text": "Which bridge fits?",
+     "start": 284.913,
+     "end": 286.065
+    },
+    {
+     "text": "Computer use, working its screen?",
+     "start": 286.345,
+     "end": 288.18
+    },
+    {
+     "text": "A custom connector to the program?",
+     "start": 288.46,
+     "end": 290.359
+    },
+    {
+     "text": "Or an M C P server running on the program?",
+     "start": 290.639,
+     "end": 293.135
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 293.415,
+     "end": 294.951
+    },
+    {
+     "text": "Computer use.",
+     "start": 298.731,
+     "end": 299.733
+    },
+    {
+     "text": "There is only a screen, so Nexo works it with vision.",
+     "start": 300.013,
+     "end": 302.936
+    },
+    {
+     "text": "A connector and M C P both assume an A P I.",
+     "start": 303.216,
+     "end": 306.245
+    }
+   ]
+  },
+  {
+   "title": "Add a tool in the studio",
+   "start": 307.145,
+   "end": 332.825,
+   "sentences": [
+    {
+     "text": "Here is how it looks in the studio.",
+     "start": 307.145,
+     "end": 308.959
+    },
+    {
+     "text": "Open Nexo and go to the Tools tab.",
+     "start": 309.239,
+     "end": 311.585
+    },
+    {
+     "text": "Select Add a tool and look at the categories: connectors, M C P, REST A P I, flows, and computer use.",
+     "start": 311.865,
+     "end": 319.012
+    },
+    {
+     "text": "Pick the bridge that fits the system.",
+     "start": 319.292,
+     "end": 321.191
+    },
+    {
+     "text": "For inventory, that is REST A P I with the OpenAPI file.",
+     "start": 321.471,
+     "end": 325.524
+    },
+    {
+     "text": "Write a clear name and description.",
+     "start": 325.804,
+     "end": 327.447
+    },
+    {
+     "text": "Create or select the connection, select Add to agent, and try it in the test pane.",
+     "start": 327.727,
+     "end": 332.825
+    }
+   ]
+  },
+  {
+   "title": "Every system, its bridge",
+   "start": 333.725,
+   "end": 362.051,
+   "sentences": [
+    {
+     "text": "Back to Valeria's three jobs.",
+     "start": 333.725,
+     "end": 335.496
+    },
+    {
+     "text": "The old invoice program gets computer use, which works its screen with vision.",
+     "start": 335.776,
+     "end": 340.021
+    },
+    {
+     "text": "Inventory, with its OpenAPI file, gets a REST A P I tool.",
+     "start": 340.301,
+     "end": 344.525
+    },
+    {
+     "text": "And because other A I clients in Contoso need the same tools, the team also exposes them as an M C P server.",
+     "start": 344.805,
+     "end": 352.123
+    },
+    {
+     "text": "Remember the question: does it have an A P I?",
+     "start": 352.403,
+     "end": 354.877
+    },
+    {
+     "text": "Then follow the order.",
+     "start": 355.157,
+     "end": 356.48
+    },
+    {
+     "text": "Next, who the agent is when it reaches those systems: identity and authentication.",
+     "start": 356.76,
+     "end": 362.051
+    }
+   ]
+  }
+ ]
+}

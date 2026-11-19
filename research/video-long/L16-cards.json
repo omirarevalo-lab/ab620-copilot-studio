@@ -1,0 +1,11 @@
+{
+  "0": ["Two ways to use a flow", [["Agent flow", "An automatic recipe of steps"], ["Whole agent", "Used when it sees fit"], ["In a topic", "At an exact point"]]],
+  "1": ["A flow inside a topic", [["Available", "Only to that topic"], ["Runs", "Where you put it · like an Action node"], ["Contoso", "CreateTicket in Report problem"]]],
+  "2": ["A flow as an agent tool", [["Added from", "The agent's Tools page"], ["Type", "Agent-level tool"], ["Who picks", "The orchestrator, at run time"]]],
+  "4": ["Controlling the selection", [["Allow agent to decide dynamically", "Off: explicit calls only"], ["Ask the end user before running", "Only asks for confirmation"], ["The orchestrator", "Can still pick it"]]],
+  "5": ["Flow requirements", [["Trigger · action", "When an agent calls the flow · Respond to the agent"], ["Timing", "Published · real time · within 100 seconds"], ["Tool picker", "Solution flow only"]]],
+  "6": ["The async split", [["Respond to the agent", "Synchronous | asynchronous line"], ["After it", "Runs async · up to 30 days"], ["Long work", "Job ID fast · polling topic or follow-up"]]],
+  "8": ["Asynchronous response On", [["What", "Callback · flows over two minutes"], ["Where", "New infrastructure · Teams, not Microsoft Copilot or telephony"], ["For a tool", "Keep it Off · use the job ID"]]],
+  "9": ["Add it in Copilot Studio", [["Flow", "Create · publish"], ["Topic", "Add node (+) · Add a tool · Action node"], ["Then", "Inputs → topic variables · outputs → Message"]]],
+  "11": ["Remember", [["Exact point", "Add the flow to the topic"], ["Decide dynamically off", "Explicit calls only · ask before running only confirms"], ["Longer than 100 seconds", "Job ID at Respond to the agent · solution flow"]]]
+}

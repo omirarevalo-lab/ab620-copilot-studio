@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Contoso's inventory system has an OpenAPI file, but no ready connector. Three different agents need it, and a Power Automate flow needs it too. Which bridge do they build?",
+    "options": [
+      "A REST API tool inside each agent",
+      "A custom connector they all share",
+      "A Send HTTP request node per topic"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "A maker connects an MCP server to an agent that still uses classic orchestration. They want a topic to call its tools, but the tools never run. What must change?",
+    "options": [
+      "Call the MCP tools from inside a topic",
+      "Switch the server transport to SSE",
+      "Switch to generative orchestration"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Contoso records invoices in an old desktop program. It has no API and nobody can reach its database, but Nexo must type each new invoice into it. Which bridge fits?",
+    "options": [
+      "Computer use, working its screen",
+      "A custom connector to the program",
+      "An MCP server running on the program"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

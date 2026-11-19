@@ -1,0 +1,45 @@
+{"brand": "AB-620 · Module 1 · Lesson 1", "scenes": [
+ {"type": "split", "left": {"kicker": "Enterprise systems", "title": "Integration bridges", "sub": "An agent that only chats has no hands."},
+  "rows": [
+   {"icon": "document_text", "title": "Read or create data", "desc": "In your company systems", "at": "read or create", "hi": true},
+   {"icon": "plug_connected", "title": "Bridges = Tools", "desc": "That is their name in Copilot Studio", "at": "called Tools", "hi": true},
+   {"icon": "arrow_routing", "title": "Choose the right bridge", "desc": "For the system in front of you", "at": "right bridge", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "Six options", "title": "The available bridges"}, "cols": 3,
+  "items": [
+   {"icon": "plug_connected", "term": "Connector", "def": "Built for well-known services", "at": "Power Platform connectors"},
+   {"icon": "wrench", "term": "Custom connector", "def": "You build it yourself", "at": "custom connector"},
+   {"icon": "globe", "term": "REST API tool", "def": "From an OpenAPI file", "at": "REST API tool"},
+   {"icon": "apps", "term": "MCP server", "def": "Open protocol", "at": "M C P servers"},
+   {"icon": "flow", "term": "Agent flow", "def": "Automated steps", "at": "Agent flows"},
+   {"icon": "window_dev_tools", "term": "Computer use", "def": "Operates a screen", "at": "Computer use"}]},
+ {"type": "split", "left": {"kicker": "The key question", "title": "Does it expose an API?"},
+  "rows": [
+   {"icon": "plug_connected", "title": "A connector exists", "desc": "→ Use the connector", "at": "connector exists", "hi": true},
+   {"icon": "globe", "title": "You have an OpenAPI file", "desc": "→ REST API tool", "at": "Open A P I file", "hi": true},
+   {"icon": "apps", "title": "It speaks MCP", "desc": "→ Connect it as an MCP server", "at": "speaks the M C P", "hi": true},
+   {"icon": "window_dev_tools", "title": "Only a screen, no API", "desc": "→ Computer use", "at": "only has a screen", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "MCP in a nutshell", "title": "One open protocol, many clients"},
+  "nodes": [
+   {"icon": "apps", "title": "MCP server", "sub": "Open protocol", "accent": true, "at": "protocol is open"},
+   {"icon": "bot", "title": "Copilot Studio", "sub": "One client", "at": "from Copilot Studio"},
+   {"icon": "sparkle", "title": "Other AI clients", "sub": "Same server", "at": "other A I clients"}],
+  "below": [
+   {"icon": "checkmark_circle", "text": "Transport: Streamable HTTP", "at": "Streamable", "solid": true},
+   {"text": "SSE — not supported since August 2025", "at": "S S E", "strike": true}]},
+ {"type": "stats", "header": {"kicker": "Computer use in a nutshell", "title": "It operates the screen"},
+  "items": [
+   {"icon": "window_dev_tools", "value": "Screen", "label": "Websites and desktop apps, with vision and reasoning", "at": "looking at the screen"},
+   {"icon": "globe", "value": "No API", "label": "It does not need one", "at": "needs no"},
+   {"icon": "data_bar_vertical", "value": "5", "label": "Copilot Credits per step (standard models)", "at": "five Copilot Credits", "accent": true}],
+  "note": {"icon": "flag", "text": "Requires generative orchestration · use it when there is no other way", "at": "no other way"}},
+ {"type": "split", "left": {"kicker": "Contoso", "title": "One bridge per system"},
+  "rows": [
+   {"icon": "window_dev_tools", "title": "Invoices · old desktop program", "desc": "No API → Computer use", "at": "Invoices", "hi": true},
+   {"icon": "globe", "title": "Inventory · OpenAPI spec", "desc": "→ REST API tool", "at": "Inventory", "hi": true},
+   {"icon": "apps", "title": "Shared with other AI clients", "desc": "→ Expose them as an MCP server", "at": "other A I clients", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Only a graphical interface?"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "sub": "No API, no accessible database", "tone": "good", "at": "graphical interface", "items": [{"text": "Computer use", "at": "The answer is"}]},
+   {"icon": "flag", "title": "Trap", "sub": "They all assume an API or MCP server", "tone": "bad", "at": "The trap",
+    "items": [{"text": "Custom connector", "at": "custom connector"}, {"text": "REST API", "at": "REST A P I"}, {"text": "MCP", "at": "or M C P"}]}]}
+]}

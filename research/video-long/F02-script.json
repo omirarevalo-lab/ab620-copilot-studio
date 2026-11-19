@@ -1,0 +1,52 @@
+[
+ {
+  "title": "Nexo's second week",
+  "caption": "Nexo is live in Teams, but new requests arrive: a ticket status it cannot see, an incident missing data. Each lives in another piece.",
+  "say": "Two weeks later at Contoso. Nexo is live in Teams and answers V P N questions from the guides. But new requests arrive. An employee asks for the status of their ticket, and Nexo cannot see it. Another reports a server outage, and Nexo forgets to ask which system is down. Each problem lives in a different piece of the agent. Today we open Nexo and look inside."
+ },
+ {
+  "title": "The new employee",
+  "caption": "Four pieces, like a new employee: job description (instructions), document folder (knowledge), system access (tools), call scripts (topics).",
+  "say": "Every agent is built from four pieces. Think of hiring a new employee. You give them a job description: those are the instructions. A folder of documents to read: that is the knowledge. Access to the company systems: those are the tools. And a few scripts for delicate calls: those are the topics. Keep this picture, because almost any scenario question on the exam asks which piece fits."
+ },
+ {
+  "title": "Instructions: the job description",
+  "caption": "Instructions: plain-language text on the Overview page. Role, tone, scope, what to do when unsure. Short, clear, no contradictions.",
+  "say": "Start with the instructions, the job description. They are free text in plain language, written on the agent's Overview page. They say who the agent is, how it talks, and what it must not do. Nexo's instructions say: you are Nexo, the Contoso I T assistant. Answer briefly. If you do not know, offer to open a ticket. Keep them short and clear, with no contradictions, because the model tries to obey every line."
+ },
+ {
+  "title": "Knowing and doing",
+  "caption": "Knowledge is looked up: websites, files, SharePoint, Dataverse. Tools are run: connector, agent flow, prompt, REST API, MCP server, computer use.",
+  "say": "Next, knowing and doing. Knowledge is what the agent can look up: websites, files, SharePoint, or Dataverse. It answers questions with your organization's real information. Tools are what the agent can run: a connector, an agent flow, a prompt, a REST A P I, an M C P server, or computer use. They take action or bring in live data. Quick rule: if the answer is written in a document, it is knowledge. If you must query a system or change something, it is a tool."
+ },
+ {
+  "title": "Decide: ticket status",
+  "caption": "An employee wants the live status of their ticket, kept in the help desk system. Knowledge, a topic, or a tool?",
+  "say": "Your turn. An employee asks Nexo for the current status of their ticket. That status lives in the help desk system and changes all day. Which piece do they add? Knowledge, with the help desk guides? A topic, with fixed ticket questions? Or a tool that queries the help desk? Decide before I answer. A tool. The status is live data inside a system, so Nexo must query it. Knowledge only reads what is already written."
+ },
+ {
+  "title": "Topics: scripts made of nodes",
+  "caption": "A topic is a conversation you design: a trigger, then nodes such as Message, Question, Condition and a tool call. Use it for precision.",
+  "say": "Last piece: topics, the scripts for delicate calls. A topic is a conversation you design. It starts with a trigger, the node that decides when it begins. Then come nodes: a message, a question, a condition, a call to a tool. Inside a topic you control exactly what is said and in what order. Use one when you need precision: validating a value, following a fixed process, or returning an exact result. For everything else, let the agent combine knowledge and tools."
+ },
+ {
+  "title": "Decide: serious incidents",
+  "caption": "For every serious incident, IT needs the affected system, then the urgency, always in that order. Topic, instruction, or knowledge file?",
+  "say": "Your turn. For every serious incident, I T always needs the same data, asked in the same order: the affected system, then the urgency. How should Nexo collect it? A topic with fixed questions in order? An instruction that asks for both details? Or a knowledge file listing the questions? Decide before I answer. A topic. An exact, repeatable process is designed step by step. An instruction only guides the model, so a question can be skipped."
+ },
+ {
+  "title": "Find each piece in the studio",
+  "caption": "Overview holds the instructions; Knowledge adds sources; Tools has Add a tool; Topics lists system and custom topics. Then test and see which piece answered.",
+  "say": "Let us find each piece in Copilot Studio. Open Nexo. On Overview, the Instructions box holds the role, the tone, and the scope. Open Knowledge and add a source, such as a public website or a file. Open Tools and select Add a tool to see the connectors you can add. Open Topics to see the system topics and your own, and open one to read its nodes. Finally, ask something in the test panel and notice which piece answered."
+ },
+ {
+  "title": "Decide: the ignored tool",
+  "caption": "Nexo has a ticket tool but rarely chooses it, though the instructions mention tickets. Stricter instructions, a clear tool description, or more knowledge?",
+  "say": "Your turn. Nexo has a ticket tool, but it rarely chooses it, even though the instructions talk about tickets. What should the maker improve? Stricter rules in the instructions? A clear description of the tool? Or more ticket guides as knowledge? Decide before I answer. A clear description of the tool. The agent reads the descriptions of tools and topics to choose what to use. Instructions set the role and the tone, but they do not replace a good description."
+ },
+ {
+  "title": "Every piece in its place",
+  "caption": "Nexo fixed: brief instructions, SharePoint guides as knowledge, a ticket status tool, a serious incident topic. Documents, live systems, exact processes.",
+  "say": "Back to Contoso. The team fixes each problem with the right piece. The instructions keep answers brief. The SharePoint guides stay as knowledge. A new tool reads the ticket status from the help desk. And a topic called Report serious incident always asks for the affected system, then the urgency. Remember the rule: documents are knowledge, live systems are tools, exact processes are topics. In the next lesson, you will see how Nexo decides which piece to use."
+ }
+]

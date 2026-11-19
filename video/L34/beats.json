@@ -1,0 +1,708 @@
+{
+ "id": "L34",
+ "title": "Application Insights",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 442.865,
+ "scenes": [
+  {
+   "title": "Is Nexo working?",
+   "start": 0.8,
+   "end": 24.005,
+   "sentences": [
+    {
+     "text": "Monday at Contoso.",
+     "start": 0.8,
+     "end": 2.208
+    },
+    {
+     "text": "The manager asks the team a simple question about Nexo, the I T agent.",
+     "start": 2.488,
+     "end": 6.883
+    },
+    {
+     "text": "What do employees really ask it, and is it working?",
+     "start": 7.163,
+     "end": 9.957
+    },
+    {
+     "text": "The team opens the numbers and frowns.",
+     "start": 10.237,
+     "end": 12.349
+    },
+    {
+     "text": "Half of the conversations are their own tests from last week.",
+     "start": 12.629,
+     "end": 15.957
+    },
+    {
+     "text": "The other half nobody can explain.",
+     "start": 16.237,
+     "end": 18.157
+    },
+    {
+     "text": "By the end of this class you will know the two tools that answer that question, and how to keep the tests out.",
+     "start": 18.437,
+     "end": 24.005
+    }
+   ]
+  },
+  {
+   "title": "Black box and cockpit",
+   "start": 24.905,
+   "end": 50.735,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 24.905,
+     "end": 26.377
+    },
+    {
+     "text": "An airplane has a black box.",
+     "start": 26.657,
+     "end": 28.492
+    },
+    {
+     "text": "It records everything, and later an investigator queries it in detail.",
+     "start": 28.772,
+     "end": 33.039
+    },
+    {
+     "text": "That is Application Insights, an Azure service.",
+     "start": 33.319,
+     "end": 36.049
+    },
+    {
+     "text": "The airplane also has a cockpit dashboard, with the health of the flight at a glance.",
+     "start": 36.329,
+     "end": 40.788
+    },
+    {
+     "text": "That is the Monitor tab of the Microsoft Copilot harness, formerly GitHub Copilot harness.",
+     "start": 41.068,
+     "end": 46.999
+    },
+    {
+     "text": "One records for deep analysis, the other shows health now.",
+     "start": 47.279,
+     "end": 50.735
+    }
+   ]
+  },
+  {
+   "title": "Plug in the black box",
+   "start": 51.635,
+   "end": 77.443,
+   "sentences": [
+    {
+     "text": "First the black box.",
+     "start": 51.635,
+     "end": 52.979
+    },
+    {
+     "text": "In Azure, create an Application Insights resource and copy its Connection string.",
+     "start": 53.259,
+     "end": 58.229
+    },
+    {
+     "text": "That string identifies your resource.",
+     "start": 58.509,
+     "end": 60.493
+    },
+    {
+     "text": "Then, in Copilot Studio, open Nexo and go to Settings, then Advanced, then the Application Insights section.",
+     "start": 60.773,
+     "end": 67.92
+    },
+    {
+     "text": "Paste the Connection string and turn on Enable logging.",
+     "start": 68.2,
+     "end": 71.336
+    },
+    {
+     "text": "From now on, every conversation leaves a record in Azure.",
+     "start": 71.616,
+     "end": 75.051
+    },
+    {
+     "text": "Nothing else in the agent changes.",
+     "start": 75.331,
+     "end": 77.443
+    }
+   ]
+  },
+  {
+   "title": "Three extra switches",
+   "start": 78.343,
+   "end": 103.569,
+   "sentences": [
+    {
+     "text": "Below Enable logging there are three more switches.",
+     "start": 78.343,
+     "end": 81.095
+    },
+    {
+     "text": "Log conversation details adds the user, the name, and the message text.",
+     "start": 81.375,
+     "end": 85.855
+    },
+    {
+     "text": "Log sensitive Activity properties adds sensitive details of each activity.",
+     "start": 86.135,
+     "end": 90.7
+    },
+    {
+     "text": "Node execution events adds one event for every node that runs, so you can follow the path inside a topic.",
+     "start": 90.98,
+     "end": 97.657
+    },
+    {
+     "text": "More detail means more personal data stored, so turn each one on only when you really need it.",
+     "start": 97.937,
+     "end": 103.569
+    }
+   ]
+  },
+  {
+   "title": "customEvents and designMode",
+   "start": 104.469,
+   "end": 125.755,
+   "sentences": [
+    {
+     "text": "Where does the data land?",
+     "start": 104.469,
+     "end": 105.813
+    },
+    {
+     "text": "In a table called customEvents.",
+     "start": 106.093,
+     "end": 107.928
+    },
+    {
+     "text": "Each event carries a set of dimensions, and one of them matters a lot: designMode.",
+     "start": 108.208,
+     "end": 113.2
+    },
+    {
+     "text": "It is True when the conversation happened in the test canvas, the chat you use while building.",
+     "start": 113.48,
+     "end": 118.408
+    },
+    {
+     "text": "It is False for real users.",
+     "start": 118.688,
+     "end": 120.288
+    },
+    {
+     "text": "This small label is the answer to the Monday mess.",
+     "start": 120.568,
+     "end": 123.448
+    },
+    {
+     "text": "The tests are there, but they are marked.",
+     "start": 123.728,
+     "end": 125.755
+    }
+   ]
+  },
+  {
+   "title": "Decide: only real employees",
+   "start": 126.655,
+   "end": 158.896,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 126.655,
+     "end": 127.529
+    },
+    {
+     "text": "Nexo's numbers mix the team's tests with real employees.",
+     "start": 127.809,
+     "end": 131.308
+    },
+    {
+     "text": "The manager wants only real traffic.",
+     "start": 131.588,
+     "end": 133.849
+    },
+    {
+     "text": "What do you do?",
+     "start": 134.129,
+     "end": 135.089
+    },
+    {
+     "text": "Delete the old events from the customEvents table?",
+     "start": 135.369,
+     "end": 138.1
+    },
+    {
+     "text": "Filter designMode equal to False in the query?",
+     "start": 138.38,
+     "end": 141.303
+    },
+    {
+     "text": "Or publish the agent again to reset the counters?",
+     "start": 141.583,
+     "end": 144.527
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 144.807,
+     "end": 146.343
+    },
+    {
+     "text": "Filter designMode equal to False.",
+     "start": 150.123,
+     "end": 152.299
+    },
+    {
+     "text": "The tests stay recorded but drop out of the query.",
+     "start": 152.579,
+     "end": 155.48
+    },
+    {
+     "text": "Deleting loses data, and publishing resets nothing.",
+     "start": 155.76,
+     "end": 158.896
+    }
+   ]
+  },
+  {
+   "title": "Querying with K Q L",
+   "start": 159.796,
+   "end": 183.913,
+   "sentences": [
+    {
+     "text": "The language for those queries is K Q L, the query language of Azure.",
+     "start": 159.796,
+     "end": 164.127
+    },
+    {
+     "text": "The idea is short.",
+     "start": 164.407,
+     "end": 165.708
+    },
+    {
+     "text": "Start from customEvents, keep only the rows where designMode is False, and then group them, for example by the message text or by topic.",
+     "start": 165.988,
+     "end": 174.756
+    },
+    {
+     "text": "Now Contoso sees what employees really ask Nexo, and which questions come back every day.",
+     "start": 175.036,
+     "end": 180.711
+    },
+    {
+     "text": "That is the deep analysis the black box is for.",
+     "start": 180.991,
+     "end": 183.913
+    }
+   ]
+  },
+  {
+   "title": "A ready dashboard",
+   "start": 184.813,
+   "end": 206.736,
+   "sentences": [
+    {
+     "text": "You do not have to start from zero.",
+     "start": 184.813,
+     "end": 186.627
+    },
+    {
+     "text": "Inside Application Insights, under Workbooks, there is a ready panel called Copilot Studio Dashboard, in preview.",
+     "start": 186.907,
+     "end": 194.181
+    },
+    {
+     "text": "It already charts the main numbers of your agent.",
+     "start": 194.461,
+     "end": 196.915
+    },
+    {
+     "text": "The manager wants to see it too.",
+     "start": 197.195,
+     "end": 198.944
+    },
+    {
+     "text": "To share it, give the Reader role on the Application Insights resource.",
+     "start": 199.224,
+     "end": 203.085
+    },
+    {
+     "text": "Reader lets people look at the data without changing anything.",
+     "start": 203.365,
+     "end": 206.736
+    }
+   ]
+  },
+  {
+   "title": "Who can switch it off",
+   "start": 207.636,
+   "end": 234.785,
+   "sentences": [
+    {
+     "text": "Now the security side.",
+     "start": 207.636,
+     "end": 209.044
+    },
+    {
+     "text": "Contoso's security team wants to be sure no agent sends telemetry to Application Insights.",
+     "start": 209.324,
+     "end": 215.447
+    },
+    {
+     "text": "Switching off the toggles inside one agent is not an admin control.",
+     "start": 215.727,
+     "end": 219.801
+    },
+    {
+     "text": "Any maker could switch them on again.",
+     "start": 220.081,
+     "end": 222.001
+    },
+    {
+     "text": "The admin control is a data policy that blocks the connector called Application Insights in Copilot Studio.",
+     "start": 222.281,
+     "end": 229.343
+    },
+    {
+     "text": "There is also environment level telemetry, in preview, which uses traces and spans.",
+     "start": 229.623,
+     "end": 234.785
+    }
+   ]
+  },
+  {
+   "title": "Decide: no telemetry anywhere",
+   "start": 235.685,
+   "end": 268.988,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 235.685,
+     "end": 236.56
+    },
+    {
+     "text": "The security team must guarantee that no agent in the environment can send telemetry to Application Insights, not today and not next month.",
+     "start": 236.84,
+     "end": 246.035
+    },
+    {
+     "text": "What do they use?",
+     "start": 246.315,
+     "end": 247.403
+    },
+    {
+     "text": "Block its connector in a data policy?",
+     "start": 247.683,
+     "end": 249.795
+    },
+    {
+     "text": "Turn off Enable logging in every agent?",
+     "start": 250.075,
+     "end": 252.421
+    },
+    {
+     "text": "Or remove the Reader role from every maker?",
+     "start": 252.701,
+     "end": 255.048
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 255.328,
+     "end": 256.864
+    },
+    {
+     "text": "Block the Application Insights in Copilot Studio connector in a data policy.",
+     "start": 260.644,
+     "end": 265.7
+    },
+    {
+     "text": "Toggles can come back, and Reader is only for viewing.",
+     "start": 265.98,
+     "end": 268.988
+    }
+   ]
+  },
+  {
+   "title": "The cockpit: Monitor tab",
+   "start": 269.888,
+   "end": 291.768,
+   "sentences": [
+    {
+     "text": "Now the cockpit.",
+     "start": 269.888,
+     "end": 271.019
+    },
+    {
+     "text": "On the Microsoft Copilot harness, open the agent and select Monitor.",
+     "start": 271.299,
+     "end": 275.629
+    },
+    {
+     "text": "Set the date range.",
+     "start": 275.909,
+     "end": 277.104
+    },
+    {
+     "text": "Each percentage compares with the previous period of the same length.",
+     "start": 277.384,
+     "end": 281.16
+    },
+    {
+     "text": "If the agent was never published, the metrics are empty, because only real use counts.",
+     "start": 281.44,
+     "end": 286.581
+    },
+    {
+     "text": "And be patient: after a session ends, its data can take up to an hour to appear.",
+     "start": 286.861,
+     "end": 291.768
+    }
+   ]
+  },
+  {
+   "title": "The overview cards",
+   "start": 292.668,
+   "end": 315.273,
+   "sentences": [
+    {
+     "text": "The overview shows the health at a glance.",
+     "start": 292.668,
+     "end": 294.673
+    },
+    {
+     "text": "Total sessions, total users, average duration, and success rate.",
+     "start": 294.953,
+     "end": 299.092
+    },
+    {
+     "text": "A session is one conversation between a user and the agent.",
+     "start": 299.372,
+     "end": 303.127
+    },
+    {
+     "text": "If the agent also works on its own, you see autonomous runs and their fail rate.",
+     "start": 303.407,
+     "end": 308.1
+    },
+    {
+     "text": "For Contoso this answers the second half of the Monday question: is Nexo working?",
+     "start": 308.38,
+     "end": 313.223
+    },
+    {
+     "text": "The success rate says it plainly.",
+     "start": 313.503,
+     "end": 315.273
+    }
+   ]
+  },
+  {
+   "title": "Thumbs up, thumbs down",
+   "start": 316.173,
+   "end": 336.837,
+   "sentences": [
+    {
+     "text": "The Reactions card counts thumbs up and thumbs down from users.",
+     "start": 316.173,
+     "end": 319.693
+    },
+    {
+     "text": "One morning the card shows no numbers and asks you to turn on feedback.",
+     "start": 319.973,
+     "end": 324.005
+    },
+    {
+     "text": "That means the User feedback setting is off.",
+     "start": 324.285,
+     "end": 326.525
+    },
+    {
+     "text": "You find it in Settings, under Safety and access.",
+     "start": 326.805,
+     "end": 329.621
+    },
+    {
+     "text": "Turn it on, and employees can react to every answer Nexo gives.",
+     "start": 329.901,
+     "end": 333.805
+    },
+    {
+     "text": "Reactions are the cheapest signal you will ever get.",
+     "start": 334.085,
+     "end": 336.837
+    }
+   ]
+  },
+  {
+   "title": "Sessions and transcripts",
+   "start": 337.737,
+   "end": 359.124,
+   "sentences": [
+    {
+     "text": "Below the cards is the Sessions list.",
+     "start": 337.737,
+     "end": 339.892
+    },
+    {
+     "text": "It shows only the past twenty eight days.",
+     "start": 340.172,
+     "end": 342.22
+    },
+    {
+     "text": "For each session you see the status, which is completed, failed, or in progress, the tools that were used, and the credits it cost.",
+     "start": 342.5,
+     "end": 349.988
+    },
+    {
+     "text": "Open one and you get the full transcript, with every tool call and every use of knowledge.",
+     "start": 350.268,
+     "end": 355.537
+    },
+    {
+     "text": "A failed session tells you exactly where Nexo got lost.",
+     "start": 355.817,
+     "end": 359.124
+    }
+   ]
+  },
+  {
+   "title": "The billing number",
+   "start": 360.024,
+   "end": 383.992,
+   "sentences": [
+    {
+     "text": "One card matters to finance: Total estimated credits used.",
+     "start": 360.024,
+     "end": 363.907
+    },
+    {
+     "text": "That is the number used for billing.",
+     "start": 364.187,
+     "end": 366
+    },
+    {
+     "text": "It updates a few times a day, and you can split it by experience: production, Preview, and evaluations.",
+     "start": 366.28,
+     "end": 372.595
+    },
+    {
+     "text": "So you see how much the building and testing cost, apart from real use.",
+     "start": 372.875,
+     "end": 376.971
+    },
+    {
+     "text": "And the black box still works here: environment level telemetry in Application Insights works on both harnesses.",
+     "start": 377.251,
+     "end": 383.992
+    }
+   ]
+  },
+  {
+   "title": "Decide: the billing figure",
+   "start": 384.892,
+   "end": 415.125,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 384.892,
+     "end": 385.767
+    },
+    {
+     "text": "Finance wants the credits Contoso will be billed for this month on Nexo.",
+     "start": 386.047,
+     "end": 390.527
+    },
+    {
+     "text": "Where do you get the figure?",
+     "start": 390.807,
+     "end": 392.151
+    },
+    {
+     "text": "Add up the credits shown for each listed session?",
+     "start": 392.431,
+     "end": 394.863
+    },
+    {
+     "text": "Query the credit events in Application Insights?",
+     "start": 395.143,
+     "end": 397.916
+    },
+    {
+     "text": "Or read Total estimated credits used on Monitor?",
+     "start": 398.196,
+     "end": 401.268
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 401.548,
+     "end": 403.084
+    },
+    {
+     "text": "Total estimated credits used, on the Monitor tab.",
+     "start": 406.864,
+     "end": 409.957
+    },
+    {
+     "text": "It is the billing source of truth.",
+     "start": 410.237,
+     "end": 411.944
+    },
+    {
+     "text": "The sessions list is only a view of single sessions.",
+     "start": 412.224,
+     "end": 415.125
+    }
+   ]
+  },
+  {
+   "title": "Monday, solved",
+   "start": 416.025,
+   "end": 441.665,
+   "sentences": [
+    {
+     "text": "Back to Monday.",
+     "start": 416.025,
+     "end": 417.071
+    },
+    {
+     "text": "Contoso filters designMode equal to False, and the tests disappear.",
+     "start": 417.351,
+     "end": 421.639
+    },
+    {
+     "text": "The workbook shows what employees ask, and the Monitor tab shows Nexo is healthy.",
+     "start": 421.919,
+     "end": 426.633
+    },
+    {
+     "text": "Remember for the exam.",
+     "start": 426.913,
+     "end": 428.172
+    },
+    {
+     "text": "Connection string in Settings, Advanced.",
+     "start": 428.452,
+     "end": 430.628
+    },
+    {
+     "text": "Data in customEvents.",
+     "start": 430.908,
+     "end": 432.401
+    },
+    {
+     "text": "Block telemetry with a data policy on the connector.",
+     "start": 432.681,
+     "end": 435.881
+    },
+    {
+     "text": "Monitor keeps twenty eight days of sessions, data can take an hour, and its credits are what you pay.",
+     "start": 436.161,
+     "end": 441.665
+    }
+   ]
+  }
+ ]
+}

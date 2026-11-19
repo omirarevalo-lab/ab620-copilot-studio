@@ -1,0 +1,1427 @@
+{
+ "id": "L14",
+ "sha256": "8af166f6a4bbde3812618e9633e8b622a30b6729da446029a1c6abbcc8179cf4",
+ "generated": "2026-11-11T03:42:20.172Z",
+ "cues": [
+  {
+   "label": "status",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.77,
+   "wordT": 2.37,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ticket",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.77,
+   "wordT": 3.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tickets",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.77,
+   "wordT": 4.26,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "outside the agent",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.77,
+   "wordT": 5.83,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "check by itself",
+   "scene": 1,
+   "sentStart": 7.05,
+   "sentEnd": 10.36,
+   "wordT": 9.37,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "endpoint address",
+   "scene": 2,
+   "sentStart": 26.61,
+   "sentEnd": 28.91,
+   "wordT": 27.38,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the method",
+   "scene": 2,
+   "sentStart": 29.19,
+   "sentEnd": 32.56,
+   "wordT": 29.87,
+   "appears": 30.14,
+   "delta": 0.27,
+   "status": "ok"
+  },
+  {
+   "label": "method",
+   "scene": 2,
+   "sentStart": 29.19,
+   "sentEnd": 32.56,
+   "wordT": 30.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "patch",
+   "scene": 2,
+   "sentStart": 29.19,
+   "sentEnd": 32.56,
+   "wordT": 31.22,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "delete",
+   "scene": 2,
+   "sentStart": 29.19,
+   "sentEnd": 32.56,
+   "wordT": 32.23,
+   "appears": 31.91,
+   "delta": -0.32,
+   "status": "ok"
+  },
+  {
+   "label": "headers if needed",
+   "scene": 2,
+   "sentStart": 32.84,
+   "sentEnd": 35.72,
+   "wordT": 33.56,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "authorization",
+   "scene": 2,
+   "sentStart": 32.84,
+   "sentEnd": 35.72,
+   "wordT": 35.36,
+   "appears": 34.46,
+   "delta": -0.9,
+   "status": "ok"
+  },
+  {
+   "label": "the body",
+   "scene": 2,
+   "sentStart": 36,
+   "sentEnd": 39.22,
+   "wordT": 36.97,
+   "appears": 37.21,
+   "delta": 0.24,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 2,
+   "sentStart": 39.51,
+   "sentEnd": 43.26,
+   "wordT": 39.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the body",
+   "scene": 2,
+   "sentStart": 39.51,
+   "sentEnd": 43.26,
+   "wordT": 40.08,
+   "appears": 46.13,
+   "delta": 6.04,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content",
+   "scene": 2,
+   "sentStart": 39.51,
+   "sentEnd": 43.26,
+   "wordT": 40.95,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the body",
+   "scene": 3,
+   "sentStart": 44.16,
+   "sentEnd": 47.64,
+   "wordT": 45.76,
+   "appears": 46.13,
+   "delta": 0.36,
+   "status": "ok"
+  },
+  {
+   "label": "post or put",
+   "scene": 3,
+   "sentStart": 47.92,
+   "sentEnd": 53.85,
+   "wordT": 52.91,
+   "appears": 51.75,
+   "delta": -1.16,
+   "status": "ok"
+  },
+  {
+   "label": "raw content",
+   "scene": 3,
+   "sentStart": 60.68,
+   "sentEnd": 65.78,
+   "wordT": 61,
+   "appears": 60.79,
+   "delta": -0.21,
+   "status": "ok"
+  },
+  {
+   "label": "response data type",
+   "scene": 4,
+   "sentStart": 69.63,
+   "sentEnd": 76.92,
+   "wordT": 69.96,
+   "appears": 67.64,
+   "delta": -2.31,
+   "status": "ok"
+  },
+  {
+   "label": "copilot studio",
+   "scene": 4,
+   "sentStart": 77.2,
+   "sentEnd": 82.98,
+   "wordT": 77.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a variable with that shape",
+   "scene": 4,
+   "sentStart": 77.2,
+   "sentEnd": 82.98,
+   "wordT": 78.22,
+   "appears": 78.88,
+   "delta": 0.65,
+   "status": "ok"
+  },
+  {
+   "label": "the reply",
+   "scene": 4,
+   "sentStart": 77.2,
+   "sentEnd": 82.98,
+   "wordT": 82.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "save user response as",
+   "scene": 4,
+   "sentStart": 83.26,
+   "sentEnd": 86.57,
+   "wordT": 83.56,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 5,
+   "sentStart": 88.62,
+   "sentEnd": 91.12,
+   "wordT": 90.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the body",
+   "scene": 5,
+   "sentStart": 91.4,
+   "sentEnd": 93.94,
+   "wordT": 92.67,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the body",
+   "scene": 5,
+   "sentStart": 94.22,
+   "sentEnd": 96.07,
+   "wordT": 94.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "default",
+   "scene": 5,
+   "sentStart": 94.22,
+   "sentEnd": 96.07,
+   "wordT": 95.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "an object with the ticket data",
+   "scene": 5,
+   "sentStart": 96.36,
+   "sentEnd": 98.08,
+   "wordT": 96.36,
+   "appears": 87.58,
+   "delta": -8.78,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 5,
+   "sentStart": 96.36,
+   "sentEnd": 98.08,
+   "wordT": 97.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content",
+   "scene": 5,
+   "sentStart": 98.36,
+   "sentEnd": 100.17,
+   "wordT": 98.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content nothing is sent",
+   "scene": 5,
+   "sentStart": 98.36,
+   "sentEnd": 100.17,
+   "wordT": 98.36,
+   "appears": 87.58,
+   "delta": -10.78,
+   "status": "ok"
+  },
+  {
+   "label": "a text string with the ticket",
+   "scene": 5,
+   "sentStart": 100.46,
+   "sentEnd": 102.18,
+   "wordT": 100.7,
+   "appears": 87.58,
+   "delta": -13.12,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 5,
+   "sentStart": 100.46,
+   "sentEnd": 102.18,
+   "wordT": 101.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content",
+   "scene": 5,
+   "sentStart": 107.78,
+   "sentEnd": 109.68,
+   "wordT": 107.78,
+   "appears": 109.84,
+   "delta": 2.06,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content nothing is sent",
+   "scene": 5,
+   "sentStart": 107.78,
+   "sentEnd": 109.68,
+   "wordT": 107.78,
+   "appears": 87.58,
+   "delta": -20.2,
+   "status": "ok"
+  },
+  {
+   "label": "the body is no content by default which is typical for a get",
+   "scene": 5,
+   "sentStart": 109.96,
+   "sentEnd": 113.71,
+   "wordT": 109.96,
+   "appears": 110.08,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "the body",
+   "scene": 5,
+   "sentStart": 109.96,
+   "sentEnd": 113.71,
+   "wordT": 109.96,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content",
+   "scene": 5,
+   "sentStart": 109.96,
+   "sentEnd": 113.71,
+   "wordT": 110.83,
+   "appears": 109.84,
+   "delta": -0.99,
+   "status": "ok"
+  },
+  {
+   "label": "no content by default",
+   "scene": 5,
+   "sentStart": 109.96,
+   "sentEnd": 113.71,
+   "wordT": 110.83,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 5,
+   "sentStart": 109.96,
+   "sentEnd": 113.71,
+   "wordT": 111.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "post or put",
+   "scene": 5,
+   "sentStart": 113.99,
+   "sentEnd": 119.09,
+   "wordT": 116.26,
+   "appears": 114.12,
+   "delta": -2.14,
+   "status": "ok"
+  },
+  {
+   "label": "raw content",
+   "scene": 5,
+   "sentStart": 113.99,
+   "sentEnd": 119.09,
+   "wordT": 118.52,
+   "appears": 114.12,
+   "delta": -4.41,
+   "status": "ok"
+  },
+  {
+   "label": "unanswered",
+   "scene": 6,
+   "sentStart": 119.99,
+   "sentEnd": 122.19,
+   "wordT": 121.82,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 6,
+   "sentStart": 122.47,
+   "sentEnd": 124.79,
+   "wordT": 122.76,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "raise an error",
+   "scene": 6,
+   "sentStart": 122.47,
+   "sentEnd": 124.79,
+   "wordT": 123.92,
+   "appears": 122.55,
+   "delta": -1.37,
+   "status": "ok"
+  },
+  {
+   "label": "the agent stops",
+   "scene": 6,
+   "sentStart": 125.08,
+   "sentEnd": 128.4,
+   "wordT": 125.08,
+   "appears": 125.17,
+   "delta": 0.1,
+   "status": "ok"
+  },
+  {
+   "label": "the on error system topic",
+   "scene": 6,
+   "sentStart": 125.08,
+   "sentEnd": 128.4,
+   "wordT": 126.41,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "on error",
+   "scene": 6,
+   "sentStart": 125.08,
+   "sentEnd": 128.4,
+   "wordT": 126.74,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the rest of the topic does not run",
+   "scene": 6,
+   "sentStart": 128.68,
+   "sentEnd": 130.6,
+   "wordT": 128.68,
+   "appears": 128.95,
+   "delta": 0.27,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 6,
+   "sentStart": 130.88,
+   "sentEnd": 135.62,
+   "wordT": 132.24,
+   "appears": 122.55,
+   "delta": -9.68,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 6,
+   "sentStart": 130.88,
+   "sentEnd": 135.62,
+   "wordT": 134.6,
+   "appears": 126.51,
+   "delta": -8.09,
+   "status": "ok"
+  },
+  {
+   "label": "a calmer path",
+   "scene": 6,
+   "sentStart": 135.9,
+   "sentEnd": 138.37,
+   "wordT": 136.61,
+   "appears": 136.64,
+   "delta": 0.03,
+   "status": "ok"
+  },
+  {
+   "label": "continue on error",
+   "scene": 7,
+   "sentStart": 139.27,
+   "sentEnd": 142.49,
+   "wordT": 139.57,
+   "appears": 122.55,
+   "delta": -17.01,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 7,
+   "sentStart": 139.27,
+   "sentEnd": 142.49,
+   "wordT": 139.86,
+   "appears": 126.51,
+   "delta": -13.35,
+   "status": "ok"
+  },
+  {
+   "label": "status code",
+   "scene": 7,
+   "sentStart": 142.78,
+   "sentEnd": 147.47,
+   "wordT": 143.07,
+   "appears": 142.68,
+   "delta": -0.39,
+   "status": "ok"
+  },
+  {
+   "label": "status",
+   "scene": 7,
+   "sentStart": 142.78,
+   "sentEnd": 147.47,
+   "wordT": 143.07,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error body",
+   "scene": 7,
+   "sentStart": 142.78,
+   "sentEnd": 147.47,
+   "wordT": 144.24,
+   "appears": 143.73,
+   "delta": -0.51,
+   "status": "ok"
+  },
+  {
+   "label": "saved in variables",
+   "scene": 7,
+   "sentStart": 142.78,
+   "sentEnd": 147.47,
+   "wordT": 145.12,
+   "appears": 144.78,
+   "delta": -0.34,
+   "status": "ok"
+  },
+  {
+   "label": "the topic goes on",
+   "scene": 7,
+   "sentStart": 142.78,
+   "sentEnd": 147.47,
+   "wordT": 146.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "parse value",
+   "scene": 7,
+   "sentStart": 147.75,
+   "sentEnd": 151.29,
+   "wordT": 150.58,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 7,
+   "sentStart": 151.57,
+   "sentEnd": 155.64,
+   "wordT": 153.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "request timeout",
+   "scene": 7,
+   "sentStart": 151.57,
+   "sentEnd": 155.64,
+   "wordT": 153.95,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 8,
+   "sentStart": 157.7,
+   "sentEnd": 161.35,
+   "wordT": 159.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tickets",
+   "scene": 8,
+   "sentStart": 157.7,
+   "sentEnd": 161.35,
+   "wordT": 159.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error handling",
+   "scene": 8,
+   "sentStart": 165.34,
+   "sentEnd": 167.47,
+   "wordT": 166.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "keep the default raise an error",
+   "scene": 8,
+   "sentStart": 167.75,
+   "sentEnd": 169.55,
+   "wordT": 167.75,
+   "appears": 156.65,
+   "delta": -11.1,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 8,
+   "sentStart": 167.75,
+   "sentEnd": 169.55,
+   "wordT": 168.35,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "raise an error",
+   "scene": 8,
+   "sentStart": 167.75,
+   "sentEnd": 169.55,
+   "wordT": 168.65,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "set a longer request timeout",
+   "scene": 8,
+   "sentStart": 169.83,
+   "sentEnd": 171.62,
+   "wordT": 169.83,
+   "appears": 156.65,
+   "delta": -13.17,
+   "status": "ok"
+  },
+  {
+   "label": "request timeout",
+   "scene": 8,
+   "sentStart": 169.83,
+   "sentEnd": 171.62,
+   "wordT": 170.9,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "switch to continue on error",
+   "scene": 8,
+   "sentStart": 171.9,
+   "sentEnd": 173.63,
+   "wordT": 172.19,
+   "appears": 156.65,
+   "delta": -15.53,
+   "status": "ok"
+  },
+  {
+   "label": "continue on error",
+   "scene": 8,
+   "sentStart": 171.9,
+   "sentEnd": 173.63,
+   "wordT": 172.76,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "on error",
+   "scene": 8,
+   "sentStart": 171.9,
+   "sentEnd": 173.63,
+   "wordT": 173.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "switch to continue on error",
+   "scene": 8,
+   "sentStart": 179.22,
+   "sentEnd": 180.8,
+   "wordT": 179.22,
+   "appears": 156.65,
+   "delta": -22.57,
+   "status": "ok"
+  },
+  {
+   "label": "continue on error",
+   "scene": 8,
+   "sentStart": 179.22,
+   "sentEnd": 180.8,
+   "wordT": 179.85,
+   "appears": 181.2,
+   "delta": 1.35,
+   "status": "otro momento"
+  },
+  {
+   "label": "on error",
+   "scene": 8,
+   "sentStart": 179.22,
+   "sentEnd": 180.8,
+   "wordT": 180.17,
+   "appears": 181.62,
+   "delta": 1.45,
+   "status": "otro momento"
+  },
+  {
+   "label": "status code",
+   "scene": 8,
+   "sentStart": 181.08,
+   "sentEnd": 185.88,
+   "wordT": 181.98,
+   "appears": 142.68,
+   "delta": -39.3,
+   "status": "ok"
+  },
+  {
+   "label": "status",
+   "scene": 8,
+   "sentStart": 181.08,
+   "sentEnd": 185.88,
+   "wordT": 181.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error body",
+   "scene": 8,
+   "sentStart": 181.08,
+   "sentEnd": 185.88,
+   "wordT": 183.18,
+   "appears": 181.28,
+   "delta": -1.9,
+   "status": "ok"
+  },
+  {
+   "label": "the topic goes on",
+   "scene": 8,
+   "sentStart": 181.08,
+   "sentEnd": 185.88,
+   "wordT": 184.68,
+   "appears": 181.28,
+   "delta": -3.4,
+   "status": "ok"
+  },
+  {
+   "label": "the default raise an error stops the agent and fires on error",
+   "scene": 8,
+   "sentStart": 186.16,
+   "sentEnd": 189.89,
+   "wordT": 186.16,
+   "appears": 186.28,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "default",
+   "scene": 8,
+   "sentStart": 186.16,
+   "sentEnd": 189.89,
+   "wordT": 186.47,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "raise an error",
+   "scene": 8,
+   "sentStart": 186.16,
+   "sentEnd": 189.89,
+   "wordT": 186.78,
+   "appears": 181.62,
+   "delta": -5.17,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 8,
+   "sentStart": 186.16,
+   "sentEnd": 189.89,
+   "wordT": 189.27,
+   "appears": 181.62,
+   "delta": -7.65,
+   "status": "ok"
+  },
+  {
+   "label": "tickets",
+   "scene": 9,
+   "sentStart": 190.79,
+   "sentEnd": 193.61,
+   "wordT": 191.64,
+   "appears": 190.97,
+   "delta": -0.67,
+   "status": "ok"
+  },
+  {
+   "label": "the body",
+   "scene": 9,
+   "sentStart": 193.89,
+   "sentEnd": 200.57,
+   "wordT": 193.89,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content",
+   "scene": 9,
+   "sentStart": 193.89,
+   "sentEnd": 200.57,
+   "wordT": 195.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "continue on error",
+   "scene": 9,
+   "sentStart": 200.85,
+   "sentEnd": 211.02,
+   "wordT": 201.5,
+   "appears": 181.2,
+   "delta": -20.3,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 9,
+   "sentStart": 200.85,
+   "sentEnd": 211.02,
+   "wordT": 201.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "status code",
+   "scene": 9,
+   "sentStart": 200.85,
+   "sentEnd": 211.02,
+   "wordT": 207.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "status",
+   "scene": 9,
+   "sentStart": 200.85,
+   "sentEnd": 211.02,
+   "wordT": 207.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error body",
+   "scene": 9,
+   "sentStart": 200.85,
+   "sentEnd": 211.02,
+   "wordT": 209.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "i could not find that ticket",
+   "scene": 9,
+   "sentStart": 211.3,
+   "sentEnd": 214.89,
+   "wordT": 212.28,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 9,
+   "sentStart": 211.3,
+   "sentEnd": 214.89,
+   "wordT": 213.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "without stopping",
+   "scene": 9,
+   "sentStart": 211.3,
+   "sentEnd": 214.89,
+   "wordT": 214.24,
+   "appears": 213.71,
+   "delta": -0.52,
+   "status": "ok"
+  },
+  {
+   "label": "tickets",
+   "scene": 9,
+   "sentStart": 215.17,
+   "sentEnd": 219.63,
+   "wordT": 215.85,
+   "appears": 190.97,
+   "delta": -24.89,
+   "status": "ok"
+  },
+  {
+   "label": "copilot studio",
+   "scene": 10,
+   "sentStart": 220.53,
+   "sentEnd": 222.7,
+   "wordT": 222.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "select",
+   "scene": 10,
+   "sentStart": 222.98,
+   "sentEnd": 225.09,
+   "wordT": 224.19,
+   "appears": 228.95,
+   "delta": 4.76,
+   "status": "otro momento"
+  },
+  {
+   "label": "add node",
+   "scene": 10,
+   "sentStart": 222.98,
+   "sentEnd": 225.09,
+   "wordT": 224.49,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "advanced",
+   "scene": 10,
+   "sentStart": 225.38,
+   "sentEnd": 228.64,
+   "wordT": 225.97,
+   "appears": 224.97,
+   "delta": -1,
+   "status": "ok"
+  },
+  {
+   "label": "select",
+   "scene": 10,
+   "sentStart": 231.1,
+   "sentEnd": 233.08,
+   "wordT": 231.1,
+   "appears": 228.95,
+   "delta": -2.15,
+   "status": "ok"
+  },
+  {
+   "label": "headers and body",
+   "scene": 10,
+   "sentStart": 231.1,
+   "sentEnd": 233.08,
+   "wordT": 232.09,
+   "appears": 228.95,
+   "delta": -3.14,
+   "status": "ok"
+  },
+  {
+   "label": "response data type",
+   "scene": 10,
+   "sentStart": 233.36,
+   "sentEnd": 238.42,
+   "wordT": 233.68,
+   "appears": 228.95,
+   "delta": -4.73,
+   "status": "ok"
+  },
+  {
+   "label": "from sample data",
+   "scene": 10,
+   "sentStart": 233.36,
+   "sentEnd": 238.42,
+   "wordT": 234.94,
+   "appears": 235.41,
+   "delta": 0.47,
+   "status": "ok"
+  },
+  {
+   "label": "save user response as",
+   "scene": 10,
+   "sentStart": 238.7,
+   "sentEnd": 241.56,
+   "wordT": 239.05,
+   "appears": 233.32,
+   "delta": -5.73,
+   "status": "ok"
+  },
+  {
+   "label": "error handling",
+   "scene": 10,
+   "sentStart": 241.84,
+   "sentEnd": 246.78,
+   "wordT": 242.19,
+   "appears": 233.32,
+   "delta": -8.87,
+   "status": "ok"
+  },
+  {
+   "label": "continue on error",
+   "scene": 10,
+   "sentStart": 241.84,
+   "sentEnd": 246.78,
+   "wordT": 243.25,
+   "appears": 201.43,
+   "delta": -41.82,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 10,
+   "sentStart": 241.84,
+   "sentEnd": 246.78,
+   "wordT": 243.6,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "status",
+   "scene": 10,
+   "sentStart": 241.84,
+   "sentEnd": 246.78,
+   "wordT": 245.37,
+   "appears": 236.94,
+   "delta": -8.43,
+   "status": "ok"
+  },
+  {
+   "label": "continue on error",
+   "scene": 11,
+   "sentStart": 248.84,
+   "sentEnd": 252.89,
+   "wordT": 249.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "on error",
+   "scene": 11,
+   "sentStart": 248.84,
+   "sentEnd": 252.89,
+   "wordT": 249.78,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error body",
+   "scene": 11,
+   "sentStart": 248.84,
+   "sentEnd": 252.89,
+   "wordT": 251.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a structured record",
+   "scene": 11,
+   "sentStart": 255.76,
+   "sentEnd": 258.3,
+   "wordT": 257.34,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "parse value into a record",
+   "scene": 11,
+   "sentStart": 258.58,
+   "sentEnd": 260.24,
+   "wordT": 258.58,
+   "appears": 247.8,
+   "delta": -10.78,
+   "status": "ok"
+  },
+  {
+   "label": "parse value",
+   "scene": 11,
+   "sentStart": 258.58,
+   "sentEnd": 260.24,
+   "wordT": 258.58,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "send a message",
+   "scene": 11,
+   "sentStart": 260.52,
+   "sentEnd": 262.44,
+   "wordT": 260.52,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "send a message as plain text",
+   "scene": 11,
+   "sentStart": 260.52,
+   "sentEnd": 262.44,
+   "wordT": 260.52,
+   "appears": 247.8,
+   "delta": -12.72,
+   "status": "ok"
+  },
+  {
+   "label": "the on error system topic",
+   "scene": 11,
+   "sentStart": 262.72,
+   "sentEnd": 264.38,
+   "wordT": 263,
+   "appears": 247.8,
+   "delta": -15.2,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 11,
+   "sentStart": 262.72,
+   "sentEnd": 264.38,
+   "wordT": 263.27,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "parse value into a record",
+   "scene": 11,
+   "sentStart": 269.98,
+   "sentEnd": 271.64,
+   "wordT": 269.98,
+   "appears": 247.8,
+   "delta": -22.18,
+   "status": "ok"
+  },
+  {
+   "label": "parse value",
+   "scene": 11,
+   "sentStart": 269.98,
+   "sentEnd": 271.64,
+   "wordT": 269.98,
+   "appears": 272.04,
+   "delta": 2.06,
+   "status": "otro momento"
+  },
+  {
+   "label": "parse value",
+   "scene": 11,
+   "sentStart": 271.92,
+   "sentEnd": 277.15,
+   "wordT": 271.92,
+   "appears": 272.04,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "a structured record",
+   "scene": 11,
+   "sentStart": 271.92,
+   "sentEnd": 277.15,
+   "wordT": 274.86,
+   "appears": 272.04,
+   "delta": -2.83,
+   "status": "ok"
+  },
+  {
+   "label": "on error",
+   "scene": 11,
+   "sentStart": 277.43,
+   "sentEnd": 281.65,
+   "wordT": 277.43,
+   "appears": 272.38,
+   "delta": -5.06,
+   "status": "ok"
+  },
+  {
+   "label": "on error only runs when an error is not handled so it converts nothing",
+   "scene": 11,
+   "sentStart": 277.43,
+   "sentEnd": 281.65,
+   "wordT": 277.43,
+   "appears": 277.55,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "only runs when an error is not handled so it converts nothing",
+   "scene": 11,
+   "sentStart": 277.43,
+   "sentEnd": 281.65,
+   "wordT": 278.03,
+   "appears": 277.55,
+   "delta": -0.48,
+   "status": "ok"
+  },
+  {
+   "label": "back in the mail room",
+   "scene": 12,
+   "sentStart": 282.56,
+   "sentEnd": 288.25,
+   "wordT": 282.56,
+   "appears": 282.81,
+   "delta": 0.25,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 12,
+   "sentStart": 282.56,
+   "sentEnd": 288.25,
+   "wordT": 286.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "method",
+   "scene": 12,
+   "sentStart": 290.05,
+   "sentEnd": 296.02,
+   "wordT": 292.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content",
+   "scene": 12,
+   "sentStart": 290.05,
+   "sentEnd": 296.02,
+   "wordT": 294.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "no content by default",
+   "scene": 12,
+   "sentStart": 290.05,
+   "sentEnd": 296.02,
+   "wordT": 294.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "default",
+   "scene": 12,
+   "sentStart": 290.05,
+   "sentEnd": 296.02,
+   "wordT": 295.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "raise an error",
+   "scene": 12,
+   "sentStart": 296.3,
+   "sentEnd": 299.39,
+   "wordT": 296.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "default",
+   "scene": 12,
+   "sentStart": 296.3,
+   "sentEnd": 299.39,
+   "wordT": 297.71,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "on error",
+   "scene": 12,
+   "sentStart": 296.3,
+   "sentEnd": 299.39,
+   "wordT": 298.83,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "continue on error",
+   "scene": 12,
+   "sentStart": 299.68,
+   "sentEnd": 304.3,
+   "wordT": 299.68,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "on error",
+   "scene": 12,
+   "sentStart": 299.68,
+   "sentEnd": 304.3,
+   "wordT": 299.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "status",
+   "scene": 12,
+   "sentStart": 299.68,
+   "sentEnd": 304.3,
+   "wordT": 301.22,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "error body",
+   "scene": 12,
+   "sentStart": 299.68,
+   "sentEnd": 304.3,
+   "wordT": 302.14,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "parse value",
+   "scene": 12,
+   "sentStart": 299.68,
+   "sentEnd": 304.3,
+   "wordT": 303.07,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools inside a topic",
+   "scene": 12,
+   "sentStart": 304.58,
+   "sentEnd": 306.48,
+   "wordT": 304.96,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  }
+ ]
+}

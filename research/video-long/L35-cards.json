@@ -1,0 +1,13 @@
+{
+  "1": ["Same exam, every time", [["Test set", "The agent's exam"], ["Case", "Question (+ expected answer)"], ["Rule", "Rerun the same set to compare"]]],
+  "2": ["Two kinds of case", [["Single response", "One question, one answer"], ["Conversation", "Several turns"]]],
+  "3": ["Import from a file", [["Format", "CSV or TXT"], ["Headers", "Question, Expected response"], ["Limits", "100 questions, 1000 characters each"]]],
+  "4": ["Answer key", [["On import", "Expected response optional"], ["Needed by", "Compare meaning, Text similarity, Exact match"], ["Not needed", "General quality"]]],
+  "6": ["Generate cases", [["Quick question set", "10 questions from the description"], ["From knowledge", "Text, Word, Excel, PDF, SharePoint · 5 MB · no folders"]]],
+  "7": ["From real traffic", [["Monitor page (preview)", "Real topics › Evaluate action"]]],
+  "8": ["Who can be evaluated", [["Yes", "No authentication, Authenticate with Microsoft"], ["Signed-in", "Choose a test user profile"], ["No", "Fabric data agents"]]],
+  "10": ["Evaluate tab (Microsoft Copilot harness)", [["Status", "Preview"], ["Loop", "Create › run › review › change › rerun same set"]]],
+  "11": ["Words on the tab", [["Test set", "Collection of conversations (test cases)"], ["Conversation", "User messages + optional expected response"], ["Evaluation", "Named test set + test method"]]],
+  "12": ["Add conversations", [["Upload CSV", "Up to 5 MB, template"], ["Quick conversation set", "10, then Generate 25 or 50"], ["Manual", "Write them yourself"]]],
+  "13": ["Credits and identity", [["Badge", "Uses Copilot Credits"], ["Auth", "No auth or Authenticate with Microsoft (not manual)"], ["User profile", "Who runs it; default signed-in user"]]]
+}

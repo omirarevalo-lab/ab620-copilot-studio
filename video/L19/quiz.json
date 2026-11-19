@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "Valeria has put the Dataverse insert inside the Try scope. Now she opens the settings of the Catch scope. Which run after options should she select?",
+    "options": [
+      "Is successful and is skipped",
+      "Is skipped and has timed out",
+      "Has failed or has timed out"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "CreateTicket also calls an external service. Sometimes the network fails for a moment, and a later try works. What should Valeria set on that call?",
+    "options": [
+      "An exponential retry policy",
+      "A Terminate with status Failed",
+      "A Catch with is successful"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "The service manager wants each Try error logged with its exact message. Valeria must read it first. What should she add to read the error?",
+    "options": [
+      "An exponential retry on every action",
+      "Filter array on the result function",
+      "A Catch that runs after is successful"
+    ],
+    "right": 1,
+    "trap": 2
+  }
+]

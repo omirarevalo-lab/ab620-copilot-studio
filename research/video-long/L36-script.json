@@ -1,0 +1,87 @@
+[
+  {
+    "title": "Green, but wrong",
+    "caption": "Expected code CT-4471. Nexo said CT-4417. The evaluation showed green: the method graded the meaning.",
+    "say": "Tuesday at Contoso. Nexo, the I T agent, answers a question about an order. The expected code is C T four four seven one. Nexo says C T four four one seven. The evaluation shows green, because the method graded the meaning, and the meaning looked close. In real life, that is a wrong order. The test set was fine. The grading rule was wrong. Today you learn to pick the right one."
+  },
+  {
+    "title": "First what, then how",
+    "caption": "First decide what to measure, then choose the rule. Some methods give a score, others only Pass or Fail.",
+    "say": "Keep this picture. Evaluating an agent is like grading an exam. First you decide what you want to measure: the meaning, the exact words, a tool, safety. Then you choose the grader with the right rule. Some graders give a score, and you set the pass mark. Others only say pass or fail. Each test set can have several methods, and the wrong one gives misleading results."
+  },
+  {
+    "title": "General quality, the default judge",
+    "caption": "General quality: a language model grades out of 100 (relevance, groundedness, completeness, abstention). No expected response. On by default.",
+    "say": "The first grader is already on every test set. General quality is turned on by default. A language model grades each answer out of one hundred, looking at four things: relevance, groundedness, completeness, and abstention. It needs no expected response, so it works from day one, even before anyone writes an answer key. It is a good first check, but it judges quality, not exact facts."
+  },
+  {
+    "title": "Meaning or wording",
+    "caption": "Compare meaning: same intent as the expected response, default pass score 50. Text similarity: wording closeness, cosine 0 to 1.",
+    "say": "The next two graders both read the answer key. Compare meaning checks whether the answer has the same intent as the expected response, so different wording is fine. Its default pass score is fifty. Text similarity is stricter about the words themselves. It measures how close the wording is, with a cosine score from zero to one. Use meaning for policies explained in your own words, similarity when the phrasing matters."
+  },
+  {
+    "title": "Exact words, key words",
+    "caption": "Exact match: character by character, ideal for codes and numbers. Keyword match: Any or All of your keywords. Pass or Fail.",
+    "say": "Now the strict graders. Exact match wants the answer character by character, so it is ideal for order codes, prices, and numbers. Keyword match only looks for the words you list, and you choose Any or All. With All, every expected word or phrase must appear for the case to pass. These two give no score, only pass or fail, so use them when you need a clear yes or no."
+  },
+  {
+    "title": "Decide: the order code",
+    "caption": "Contoso wants to be sure Nexo returns the order code with every character in the right place. Which method should they add?",
+    "say": "Your turn. Contoso wants to be sure Nexo returns the order code with every character in the right place. Which method should they add? Compare meaning with its default pass score of fifty? Exact match with the code as expected response? Or General quality, which is turned on by default? Decide before I answer. Exact match. Codes must match character by character. Compare meaning tolerates near misses, and General quality needs no answer key."
+  },
+  {
+    "title": "Did it use the tool?",
+    "caption": "Tool use: Pass if the expected tools or topics were used, like Create Ticket. Pass or Fail, no score.",
+    "say": "Some answers are right only if the agent did something. When a user reports a broken laptop, Nexo should call the Create Ticket tool, not just say sorry. Tool use checks whether the expected tools or topics were used in the response. You list them on the case, and the grader looks for them. Like Exact match, it gives pass or fail, with no score."
+  },
+  {
+    "title": "The safety inspector",
+    "caption": "Content safety: hate, sexual content, violence, self-harm. Threshold 0 (strictest) to 7 (most permissive). One method per content type.",
+    "say": "Next, the safety inspector. Content safety checks answers for four kinds of harm: hate, sexual content, violence, and self harm. You set a severity threshold from zero to seven. Zero is the strictest, and seven is the most permissive. It gives pass or fail. One detail the exam likes: you add one Content safety method for each type of content, so checking all four means four methods."
+  },
+  {
+    "title": "Your own rule",
+    "caption": "Custom: your evaluation instructions plus at least two labels, each marked Pass or Fail, like Compliant and Non-compliant.",
+    "say": "When no built in grader fits, write your own. A Custom method has two parts. First, instructions that tell the grader what to judge, in plain language. Second, at least two labels, and each label is marked as pass or fail. Contoso writes, check that Nexo follows the H R privacy policy, with the labels Compliant, marked pass, and Non compliant, marked fail."
+  },
+  {
+    "title": "The correct refusal",
+    "caption": "General quality can flag a correct refusal (abstention) as needing improvement. For expected refusals, use Custom.",
+    "say": "Here is the trap. Some questions Nexo must refuse, like what does my manager earn. A good refusal is the right answer. But General quality can flag a correct refusal as needing improvement, even when it is exactly what you wanted. So for cases where the agent should refuse, use a Custom method. Your labels decide that a polite, correct refusal is a pass."
+  },
+  {
+    "title": "Decide: the salary question",
+    "caption": "Nexo must refuse salary questions, and it does. General quality keeps marking those refusals as needing improvement. What should Contoso do?",
+    "say": "Your turn. Nexo must refuse every question about salaries, and it does. But General quality keeps marking those refusals as needing improvement. What should Contoso do? Set the Content safety threshold to zero? Add Keyword match with the All option? Or create a Custom method with two labels? Decide before I answer. Create a Custom method. Expected refusals need your own rule. Content safety and keywords do not judge a correct refusal."
+  },
+  {
+    "title": "Nothing to grade",
+    "caption": "Missing expected response, keywords or tools = Invalid. Compare meaning, Text similarity, Exact match, Tool use: single response only.",
+    "say": "A grader needs material. If a case is missing what the method needs, an expected response, keywords, or tools, the result is not fail. It is Invalid. Also check the set type. Compare meaning, Text similarity, Exact match, and Tool use work only with single response cases. Keyword match and Custom work with single responses and conversations. After a run, always look for Invalid."
+  },
+  {
+    "title": "One grader on the harness",
+    "caption": "Microsoft Copilot harness, Evaluate tab: General quality is the only test method, and each test case gets Pass or Fail.",
+    "say": "Everything so far is the standard harness. On the Microsoft Copilot harness, formerly GitHub Copilot harness, the Evaluate tab has only one test method today: General quality. It is an A I based check of quality standards like relevance and completeness, and each test case gets pass or fail. Compare meaning, Exact match, Tool use, and the rest belong to the standard harness."
+  },
+  {
+    "title": "Same case, another run",
+    "caption": "Agent and grader are both AI-based, so results can differ between runs. Run important scenarios more than once.",
+    "say": "Because the check is A I based, and the agent is too, the same case can pass on one run and fail on the next. That is not a broken test. It is how these systems behave. So run your important scenarios more than once before you trust a result, and compare the runs on the same test set, as you learned in the last lesson."
+  },
+  {
+    "title": "What a Pass does not show",
+    "caption": "A Pass doesn't show which knowledge was used or whether a tool ran. Evidence: Preview activity trace, conversation history, Monitor tab.",
+    "say": "One more limit. A General quality pass does not show which knowledge sources Nexo used, or whether a tool really ran. The answer could read well and still skip the tool. For evidence, open the activity trace in the Preview tab and look at the Knowledge and Tool nodes. The conversation history shows which model answered, and the Monitor tab shows the credits."
+  },
+  {
+    "title": "Decide: proof of the tool",
+    "caption": "On the Microsoft Copilot harness, Nexo passes General quality. The manager wants proof that Create Ticket ran. Where do you look?",
+    "say": "Your turn. On the Microsoft Copilot harness, Nexo passes General quality. The manager wants proof the Create Ticket tool ran. Where do you look? The Tool node in the Preview activity trace? A Tool use method added to the Evaluate tab? Or a second evaluation run that also shows pass? Decide before I answer. The Tool node in the trace. The Evaluate tab offers only General quality, and a second pass proves nothing about tools."
+  },
+  {
+    "title": "The right grader",
+    "caption": "Codes: Exact match. Same idea, other words: Compare meaning. Tool: Tool use. Refusals: Custom. Harness: General quality only.",
+    "say": "Back to the order code. Contoso adds Exact match, and C T four four one seven now fails, as it should. Remember for the exam. Codes and numbers, Exact match. Same idea in other words, Compare meaning. A tool call, Tool use. Expected refusals, Custom. Missing material, Invalid. Safety, zero is strictest. And on the Microsoft Copilot harness, General quality is the only method, pass or fail."
+  }
+]

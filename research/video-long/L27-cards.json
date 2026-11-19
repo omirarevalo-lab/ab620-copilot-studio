@@ -1,0 +1,10 @@
+{
+"1": ["MCP", [["Model Context Protocol", "Open protocol"], ["MCP server", "Exposes tools and resources"], ["Clients", "Copilot Studio and other compatible agents"]]],
+"2": ["Transport", [["Streamable HTTP", "Supported"], ["SSE", "Not since August 2025"], ["SSE-only server", "Will not work"]]],
+"3": ["The wizard", [["Path", "Tools · Add a tool · New tool · Model Context Protocol"], ["Fields", "Name, description, server URL"], ["Description", "The orchestrator uses it to decide"], ["Requires", "Generative orchestration"]]],
+"5": ["Authentication", [["None", "No credentials"], ["API key", "Header or Query"], ["OAuth 2.0", "Dynamic discovery, Dynamic, Manual"], ["Alternative", "Custom connector, x-ms-agentic-protocol"]]],
+"6": ["Governance", [["MCP uses", "Power Platform connectors"], ["Data policies (DLP)", "Govern MCP servers"], ["Use", "Block unapproved servers"]]],
+"8": ["Allow all", [["On (default)", "All tools, new ones too"], ["Off", "Enable tools one by one"], ["New tools when off", "Disabled until a maker enables them"], ["Benefit", "Least privilege, fewer tools"]]],
+"9": ["Server side", [["Tool descriptions", "Read-only; fix on the server"], ["Resources", "Only as a tool's output"], ["MCP prompts", "Not supported"], ["Tool updates", "No republish"], ["Topics", "Can't call MCP"]]],
+"11": ["The steps", [["1", "Generative orchestration"], ["2", "Tools · Add a tool"], ["3", "New tool · Model Context Protocol"], ["4", "Name, description, URL"], ["5", "Authentication"], ["6", "Connection · Add to agent · test"]]]
+}

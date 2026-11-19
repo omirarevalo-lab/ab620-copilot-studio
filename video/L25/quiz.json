@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "A partner team's specification file is OpenAPI version 3. What happens when they upload it to the REST API tool?",
+    "options": [
+      "It is rejected, so they must convert it by hand",
+      "It is translated to version two automatically",
+      "it stays as version three inside the tool"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Nexo must help with orders but never delete one. How should Valeria limit what Nexo can do with the orders API?",
+    "options": [
+      "Ask Nexo in the instructions not to delete",
+      "Remove the delete words from the description",
+      "select only the create and get operations"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "A colleague uploads a specification and leaves every description empty. Now the agent never seems to call the tool. What is the most likely cause?",
+    "options": [
+      "The orchestrator has no descriptions",
+      "The upload needed a version three file",
+      "the tool needs a separate solution"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

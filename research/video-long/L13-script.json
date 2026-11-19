@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Two tickets, two different answers",
+    "caption": "Same ticket, different categories. Valeria proposes a saved instruction for the model: a custom prompt.",
+    "say": "The service desk at Contoso has a new problem. Marta sends two tickets that are almost the same, and the agent puts them in different categories. The service manager is not happy. Valeria has an idea: a saved recipe for the model, called a custom prompt. Nexo gets it as a new badge."
+  },
+  {
+    "title": "A recipe with variable ingredients",
+    "caption": "The instructions are the recipe. The inputs change. The model returns one result each time.",
+    "say": "Think of a recipe with variable ingredients. The recipe is the instructions, and it stays the same every time. What changes is the input, for example the text of a ticket. The model reads the instructions and the input, does the task once, and returns one result. The recipe is saved, so you can reuse it."
+  },
+  {
+    "title": "One turn, one result",
+    "caption": "A prompt is a single-turn tool. A conversation keeps a dialogue; a child agent is heavier.",
+    "say": "A prompt is a single-turn tool based on a model. It has instructions, inputs and, if you want, knowledge to consult. Unlike a conversation, it does one task and returns the result. It does not keep a dialogue going with the user. A child agent is heavier. For one small task, a prompt is the lighter choice."
+  },
+  {
+    "title": "Three doors for the same prompt",
+    "caption": "Agent tool, topic node, or the Run a prompt action inside an agent flow.",
+    "say": "You can use the same prompt in three places. As an agent tool, from the Tools tab. As a node inside a topic, with Add a tool and New prompt. Or as the Run a prompt action inside an agent flow. Same instructions, same inputs, three doors."
+  },
+  {
+    "title": "Decide: how many turns",
+    "caption": "Valeria compares a prompt with a long chat. How many turns does a prompt have?",
+    "say": "Your turn. Valeria explains custom prompts to the service manager. She compares a prompt with a long chat about the same ticket. How many turns does a prompt have? As many turns as the user needs? Two, it asks for missing input? Or only one, then it returns? Decide before I answer. Only one, then it returns. A prompt does one task and returns the result, and that is its whole run. A conversation keeps a dialogue going, and a child agent is heavier for a small task."
+  },
+  {
+    "title": "Inside the prompt editor",
+    "caption": "Write instructions by hand, with Copilot, or from a template. Keep them short, with a fallback.",
+    "say": "Inside the prompt editor, Valeria writes the instructions by hand, with help from Copilot, or from a template. She defines the inputs, such as the ticket text. Good instructions are clear and short, and they include a fallback output. If the text has too little information, the prompt answers not found instead of guessing a category."
+  },
+  {
+    "title": "The temperature dial",
+    "caption": "From zero to one, default zero. Disabled with the GPT five reasoning model. Set in the prompt settings.",
+    "say": "Temperature goes from zero to one, and zero is the default. At zero the responses are more predictable. With the G P T five reasoning model the slider appears disabled. It is set in the prompt settings, not in the agent settings. Valeria leaves the temperature at zero whenever she wants consistent results."
+  },
+  {
+    "title": "Decide: the same classification every time",
+    "caption": "Two nearly identical tickets got different categories. What should Valeria change?",
+    "say": "Your turn. Contoso's prompt classifies tickets, but two nearly identical tickets got different categories. The service manager wants similar tickets to always get the same classification. What should Valeria change? Lower the temperature to zero? Raise the temperature near one? Or move the slider into agent settings? Decide before I answer. Lower the temperature to zero. At zero the responses are more predictable, so similar tickets always get the same classification. A high temperature is for creative results, and it is set in the prompt settings, not the agent."
+  },
+  {
+    "title": "The Contoso case: Classify ticket",
+    "caption": "Input: ticket text. Returns category and urgency. Answers not found when the text is too thin.",
+    "say": "Contoso builds the prompt called Classify ticket. Its input is the ticket text. Its instructions ask for one category out of hardware, software or access, and one urgency out of high, medium or low. If a ticket has too little information, the prompt answers not found. With temperature zero, five similar tickets get the same classification."
+  },
+  {
+    "title": "Add it as a tool",
+    "caption": "Tools, Add a tool, New tool, Prompt. Instructions, input, model, temperature zero. Test, then Add and configure.",
+    "say": "Adding it as a tool takes a few steps. Open the agent and go to the Tools tab. Select Add a tool, then New tool, and choose Prompt. Write the instructions, add the input, choose the model, and leave the temperature at zero. Type sample data and select Test. Then select Save, and Add and configure."
+  },
+  {
+    "title": "Decide: where a prompt cannot go",
+    "caption": "The manager asks where a prompt can be attached. Which place does not take a prompt?",
+    "say": "Your turn. The service manager likes prompts. Now he asks where a prompt can be attached. Which place does not take a prompt? As a tool of your agent? As a publishing channel? Or as a node inside a topic? Decide before I answer. As a publishing channel. A prompt is used as an agent tool, as a topic node with Add a tool and New prompt, or as the Run a prompt action in a flow. Channels are how users reach the agent, so a prompt never goes there."
+  },
+  {
+    "title": "Three rules to remember",
+    "caption": "One recipe, changing inputs, one result. Single-turn. Clear instructions and temperature zero for consistency.",
+    "say": "Back to the two tickets. The prompt is saved as a tool, and now similar requests get the same category and urgency. Remember three things. A prompt is a recipe: same instructions, changing inputs, one result. It is single-turn, lighter than a child agent. Clear instructions and temperature zero give consistent classifications. Next, the Send H T T P request node."
+  }
+]

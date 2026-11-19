@@ -1,0 +1,57 @@
+[
+ {
+  "title": "The same ticket, two answers",
+  "caption": "Contoso's help desk agent words the same ticket status differently each day, and users type any request type they like.",
+  "say": "Contoso's help desk agent looks up a ticket. On Monday it says the ticket is in progress. On Tuesday, same ticket, it says someone is probably working on it. The service manager wants the exact status, every time. And when users must pick a request type, they type whatever they like. Today you learn how to give each answer the right shape."
+ },
+ {
+  "title": "A note or a form",
+  "caption": "A handwritten note can say anything. A form with checkboxes only accepts the boxes you print. Choose the shape on purpose.",
+  "say": "Think of two ways to answer a customer. A handwritten note can say anything, in any words. A form with checkboxes only accepts the boxes you print. A good agent chooses the shape on purpose. Sometimes exact text, sometimes buttons, sometimes a card."
+ },
+ {
+  "title": "The Message node",
+  "caption": "The Message node sends formatting, variables, images, videos, cards, quick replies and message variations. The Question node can too.",
+  "say": "The Message node sends a message to the user. It can carry basic formatting and variables, like the user's name. It can show images, videos and cards. It can add quick replies and message variations. The Question node can do all of this too."
+ },
+ {
+  "title": "Decide: a less robotic greeting",
+  "caption": "The greeting uses the same words every time. Users say the agent sounds robotic, and the meaning must stay. What should you add?",
+  "say": "Your turn. Contoso's greeting uses exactly the same words every single time. Users say the agent sounds robotic, and the meaning must stay the same. What should you add? Quick replies under the greeting? Message variations on the node? Or an adaptive card with the greeting? Decide before I answer. Message variations on the node. The agent picks one of several wordings at random each time. Quick replies and cards change the shape, not the wording."
+ },
+ {
+  "title": "Suggesting is not forcing",
+  "caption": "Quick replies only suggest: the user can ignore them and type anything. A Question node with multiple choice forces the pick.",
+  "say": "Now the request type. Valeria adds quick replies: hardware, software, access. They look like a choice, but they only suggest. The user can ignore them and type anything at all. To make the user pick from a list, use a Question node with multiple choice. Then the answer is always one of your options."
+ },
+ {
+  "title": "Decide: one of three types",
+  "caption": "A ticket must be hardware, software or access, and nothing else. Users must not type a different type. What should Contoso use?",
+  "say": "Your turn. A ticket must be labelled hardware, software or access, and nothing else. Users must not be able to type a different type. What should Contoso use? A multiple choice Question node? Quick replies on a Message node? Or message variations for each type? Decide before I answer. A multiple choice Question node. The user must pick one of your options. Quick replies only suggest, and the user can still type freely."
+ },
+ {
+  "title": "After running",
+  "caption": "After running sets how the agent responds when a tool finishes: Don't respond (default), generative AI, specific response, or adaptive card.",
+  "say": "Next, tools. When a tool finishes, the After running option decides how the agent responds. Don't respond is the default: the agent folds the output into its own answer. Write the response with generative AI lets the AI write the reply. Send specific response uses your own template with variables. And Send an adaptive card shows an interactive card."
+ },
+ {
+  "title": "Exact text with a template",
+  "caption": "Send specific response: a template with output variables, even Power Fx. The model does not rewrite it: Ticket 4821, status In progress.",
+  "say": "Back to the ticket. With Send specific response, Valeria writes a template with two output variables, the ticket number and the status. She can even use Power Fx formulas. The model does not rewrite it. So the user always sees Ticket four eight two one, status In progress, word for word. Every single time."
+ },
+ {
+  "title": "Decide: the exact status",
+  "caption": "After the ticket lookup tool runs, the manager wants the same exact sentence with number and status, no rewording. Which option fits?",
+  "say": "Your turn. After the ticket lookup tool runs, the service manager wants the same exact sentence with the number and the status. No rewording by the model. Which After running option fits? Write the response with generative AI? Don't respond, the default setting? Or Send specific response, a template? Decide before I answer. Send specific response, a template. The model does not rewrite it, so the text is exactly what you defined. Generative AI rewords the reply, and Don't respond folds it into the agent's own answer."
+ },
+ {
+  "title": "Shape the answers in the studio",
+  "caption": "Message node › variable icon › Add › Quick reply; Question node with multiple choice; tool › After running › Send specific response › test.",
+  "say": "Here is how it looks in the studio. Open a topic, select Add node, and add a Message node. Type the text and use the variable icon to insert a value. On the node toolbar, select Add, then Quick reply. To force a choice, add a Question node with multiple choice instead. Then open the ticket tool, find After running, and choose Send specific response. Write the template with output variables, and compare it in the test chat with Don't respond."
+ },
+ {
+  "title": "The right shape for each answer",
+  "caption": "Variations change the wording. Quick replies suggest, a multiple choice Question forces. After a tool, Send specific response gives exact text.",
+  "say": "Back at the help desk. Every user now sees the exact ticket status, and every ticket has a valid type. Remember three shapes. Message variations change the wording at random. Quick replies only suggest, and a multiple choice Question forces the choice. After a tool, Send specific response gives exact text from your template. Next, the generative answers node."
+ }
+]

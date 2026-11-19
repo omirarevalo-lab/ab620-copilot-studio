@@ -1,0 +1,134 @@
+{
+ "id": "L31",
+ "title": "A2A agents",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 92.995,
+ "scenes": [
+  {
+   "title": "Agents that talk to each other",
+   "start": 0.8,
+   "end": 17.957,
+   "sentences": [
+    {
+     "text": "A two A, Agent to Agent, is a standard that lets agents built with different frameworks work together, like two people who speak different languages but agree on a common protocol.",
+     "start": 0.8,
+     "end": 11.829
+    },
+    {
+     "text": "It supports multiple turns and rich metadata.",
+     "start": 12.109,
+     "end": 14.968
+    },
+    {
+     "text": "Think of it as a common language between agents.",
+     "start": 15.248,
+     "end": 17.957
+    }
+   ]
+  },
+  {
+   "title": "How to connect",
+   "start": 18.857,
+   "end": 36.015,
+   "sentences": [
+    {
+     "text": "You go to Agents, Add agent, A two A agent, and you paste the address of the endpoint, not the address of the agent card.",
+     "start": 18.857,
+     "end": 26.175
+    },
+    {
+     "text": "If there is a valid agent card, the name and description fill in by themselves; if not, write a good description.",
+     "start": 26.455,
+     "end": 33.473
+    },
+    {
+     "text": "Pay close attention to which one you paste.",
+     "start": 33.753,
+     "end": 36.015
+    }
+   ]
+  },
+  {
+   "title": "Authentication and data that travels",
+   "start": 36.915,
+   "end": 53.965,
+   "sentences": [
+    {
+     "text": "Authentication can be none, A P I key in the header or query, or O Auth two point zero.",
+     "start": 36.915,
+     "end": 42.547
+    },
+    {
+     "text": "The message carries a context I D, message identifiers, the language, and the full conversation history in the metadata.",
+     "start": 42.827,
+     "end": 50.592
+    },
+    {
+     "text": "All of that travels inside the metadata of the message.",
+     "start": 50.872,
+     "end": 53.965
+    }
+   ]
+  },
+  {
+   "title": "Development and reach",
+   "start": 54.865,
+   "end": 71.873,
+   "sentences": [
+    {
+     "text": "For development, expose your local agent with Dev Tunnels and make the port public.",
+     "start": 54.865,
+     "end": 59.772
+    },
+    {
+     "text": "Because A two A uses the custom connectors infrastructure, it can reach agents that are on-premises or in virtual networks.",
+     "start": 60.052,
+     "end": 67.86
+    },
+    {
+     "text": "This is very useful while you are still building and testing your agent.",
+     "start": 68.14,
+     "end": 71.873
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 72.773,
+   "end": 91.795,
+   "sentences": [
+    {
+     "text": "Choose carefully.",
+     "start": 72.773,
+     "end": 73.819
+    },
+    {
+     "text": "A two A for flows between agents.",
+     "start": 74.099,
+     "end": 76.211
+    },
+    {
+     "text": "A connector or H T T P for simple A P Is.",
+     "start": 76.491,
+     "end": 79.52
+    },
+    {
+     "text": "M C P for tools and resources.",
+     "start": 79.8,
+     "end": 82.083
+    },
+    {
+     "text": "And Activity Protocol for agents built with the Microsoft three six five Agents S D K.",
+     "start": 82.363,
+     "end": 88.379
+    },
+    {
+     "text": "This comparison shows up a lot in exam questions.",
+     "start": 88.659,
+     "end": 91.795
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+{"brand": "AB-620 · Module 1 · Lesson 3", "scenes": [
+ {"type": "flow", "header": {"kicker": "Publishing", "title": "Publishing is not saving"},
+  "nodes": [
+   {"icon": "document_text", "title": "Draft", "sub": "While you edit", "at": "in the draft"},
+   {"icon": "send", "title": "Publish", "sub": "One click", "accent": true, "at": "select Publish"},
+   {"icon": "apps", "title": "All channels", "sub": "Updated at once", "at": "all connected channels"}],
+  "below": [
+   {"text": "Republish channel by channel", "at": "republish channel", "strike": true},
+   {"icon": "checkmark_circle", "text": "The golden rule", "at": "golden rule", "solid": true}]},
+ {"type": "stats", "header": {"kicker": "The session detail", "title": "New content needs a new session"},
+  "items": [
+   {"icon": "send", "value": "New session", "label": "is when new content applies", "at": "new session starts"},
+   {"icon": "data_bar_vertical", "value": "30 min", "label": "of inactivity start a new one in most channels", "at": "thirty minutes", "accent": true}],
+  "note": {"icon": "flag", "text": "An open conversation can keep showing the previous version", "at": "previous version"}},
+ {"type": "split", "left": {"kicker": "Persistent channels", "title": "Forcing a new session"},
+  "rows": [
+   {"icon": "chat", "title": "Type \"start over\"", "desc": "In Teams", "at": "start over", "hi": true},
+   {"icon": "data_bar_vertical", "title": "Otherwise: up to an hour", "at": "up to an hour", "hi": true},
+   {"icon": "shield_checkmark", "title": "No need to touch authentication", "desc": "A fresh session is enough", "at": "touch authentication", "hi": true}]},
+ {"type": "terms", "header": {"kicker": "Channels", "title": "Which channels exist", "sub": "Some require authentication: check the list in Channels."}, "cols": 3,
+  "items": [
+   {"icon": "people_team", "term": "Teams", "def": "Where employees work", "at": "Teams,"},
+   {"icon": "apps", "term": "Microsoft 365", "def": "Microsoft 365 apps", "at": "Microsoft three"},
+   {"icon": "plug_connected", "term": "Direct Line", "def": "Covers the three on the right", "at": "Direct Line"},
+   {"icon": "globe", "term": "Demo website", "def": "Via Direct Line", "at": "covers the Demo"},
+   {"icon": "window_dev_tools", "term": "Custom websites", "def": "Via Direct Line", "at": "custom websites"},
+   {"icon": "phone", "term": "Mobile apps", "def": "Via Direct Line", "at": "mobile apps"}]},
+ {"type": "compare", "header": {"kicker": "Governance by connector", "title": "Each channel has its own connector"},
+  "cols": [
+   {"icon": "shield_checkmark", "title": "Blocked by the admin", "sub": "Makers can no longer use them", "tone": "bad", "at": "can block",
+    "items": [{"text": "WhatsApp", "at": "WhatsApp"}, {"text": "Facebook", "at": "Facebook"}]},
+   {"icon": "people_team", "title": "Kept", "sub": "Its connector controls it", "tone": "good", "at": "Teams connector",
+    "items": [{"text": "Teams", "at": "controls Teams"}]}],
+  "verdict": {"icon": "flag", "text": "Blocking the Teams connector would remove Teams", "at": "remove a channel"}},
+ {"type": "hub", "header": {"kicker": "Contoso", "title": "Published, governed, refreshed"},
+  "center": {"icon": "bot", "title": "Contoso agent", "at": "start"},
+  "topLabel": "Published in",
+  "top": [
+   {"icon": "people_team", "title": "Teams", "at": "in Teams"},
+   {"icon": "globe", "title": "Demo website", "at": "Demo website"}],
+  "bottomLabel": "Admin and users",
+  "bottom": [
+   {"icon": "shield_checkmark", "title": "WhatsApp + Facebook", "desc": "Blocked by the admin", "at": "blocks", "hi": true},
+   {"icon": "arrow_routing", "title": "Old answer?", "desc": "Her session started earlier → new session", "at": "old answer", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Old version after publishing?"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Their session started earlier: start a new one", "at": "session started earlier"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap",
+    "items": [{"text": "Publish only updates one channel", "at": "only updates"}, {"text": "You must republish each channel", "at": "republish each"}]}]}
+]}

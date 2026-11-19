@@ -1,0 +1,1617 @@
+{
+ "id": "L16",
+ "sha256": "08d3b3a116c0d3592212d8791afd4030e55da58ad8008f5f13640c2431aadb1a",
+ "generated": "2026-11-11T03:18:27.515Z",
+ "cues": [
+  {
+   "label": "create a ticket",
+   "scene": 1,
+   "sentStart": 5.18,
+   "sentEnd": 7.27,
+   "wordT": 5.96,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "agent flow",
+   "scene": 1,
+   "sentStart": 7.55,
+   "sentEnd": 13.37,
+   "wordT": 7.89,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "an automatic recipe of steps",
+   "scene": 1,
+   "sentStart": 7.55,
+   "sentEnd": 13.37,
+   "wordT": 8.92,
+   "appears": 8.11,
+   "delta": -0.81,
+   "status": "ok"
+  },
+  {
+   "label": "the whole agent",
+   "scene": 1,
+   "sentStart": 13.65,
+   "sentEnd": 17.21,
+   "wordT": 14.84,
+   "appears": 14.02,
+   "delta": -0.82,
+   "status": "ok"
+  },
+  {
+   "label": "an exact point in a topic",
+   "scene": 1,
+   "sentStart": 17.49,
+   "sentEnd": 23.21,
+   "wordT": 19.05,
+   "appears": 18.36,
+   "delta": -0.69,
+   "status": "ok"
+  },
+  {
+   "label": "exact point",
+   "scene": 1,
+   "sentStart": 17.49,
+   "sentEnd": 23.21,
+   "wordT": 19.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 1,
+   "sentStart": 17.49,
+   "sentEnd": 23.21,
+   "wordT": 20.35,
+   "appears": 17.55,
+   "delta": -2.8,
+   "status": "ok"
+  },
+  {
+   "label": "the exact point",
+   "scene": 2,
+   "sentStart": 24.11,
+   "sentEnd": 25.56,
+   "wordT": 24.47,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "exact point",
+   "scene": 2,
+   "sentStart": 24.11,
+   "sentEnd": 25.56,
+   "wordT": 24.84,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 2,
+   "sentStart": 25.84,
+   "sentEnd": 29.68,
+   "wordT": 27.63,
+   "appears": 17.55,
+   "delta": -10.08,
+   "status": "ok"
+  },
+  {
+   "label": "available only to that topic",
+   "scene": 2,
+   "sentStart": 25.84,
+   "sentEnd": 29.68,
+   "wordT": 28.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only to that topic",
+   "scene": 2,
+   "sentStart": 25.84,
+   "sentEnd": 29.68,
+   "wordT": 28.66,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "action node",
+   "scene": 2,
+   "sentStart": 29.96,
+   "sentEnd": 34.35,
+   "wordT": 33.84,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "the createticket flow",
+   "scene": 2,
+   "sentStart": 34.64,
+   "sentEnd": 39.18,
+   "wordT": 35.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "createticket",
+   "scene": 2,
+   "sentStart": 34.64,
+   "sentEnd": 39.18,
+   "wordT": 35.88,
+   "appears": 27.3,
+   "delta": -8.58,
+   "status": "ok"
+  },
+  {
+   "label": "report problem",
+   "scene": 2,
+   "sentStart": 34.64,
+   "sentEnd": 39.18,
+   "wordT": 37.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 2,
+   "sentStart": 34.64,
+   "sentEnd": 39.18,
+   "wordT": 38.77,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 2,
+   "sentStart": 39.46,
+   "sentEnd": 43.41,
+   "wordT": 42.09,
+   "appears": 17.55,
+   "delta": -24.54,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 2,
+   "sentStart": 39.46,
+   "sentEnd": 43.41,
+   "wordT": 43.08,
+   "appears": 17.55,
+   "delta": -25.52,
+   "status": "ok"
+  },
+  {
+   "label": "ticket number",
+   "scene": 2,
+   "sentStart": 43.69,
+   "sentEnd": 46.5,
+   "wordT": 44.81,
+   "appears": 17.55,
+   "delta": -27.26,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 2,
+   "sentStart": 43.69,
+   "sentEnd": 46.5,
+   "wordT": 46.22,
+   "appears": 17.55,
+   "delta": -28.67,
+   "status": "ok"
+  },
+  {
+   "label": "the other way",
+   "scene": 3,
+   "sentStart": 47.4,
+   "sentEnd": 48.55,
+   "wordT": 47.69,
+   "appears": 47.76,
+   "delta": 0.07,
+   "status": "ok"
+  },
+  {
+   "label": "tools page",
+   "scene": 3,
+   "sentStart": 48.84,
+   "sentEnd": 53.48,
+   "wordT": 51.16,
+   "appears": 49.31,
+   "delta": -1.85,
+   "status": "ok"
+  },
+  {
+   "label": "tools",
+   "scene": 3,
+   "sentStart": 48.84,
+   "sentEnd": 53.48,
+   "wordT": 51.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "agent level tool",
+   "scene": 3,
+   "sentStart": 48.84,
+   "sentEnd": 53.48,
+   "wordT": 52.61,
+   "appears": 49.19,
+   "delta": -3.42,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 3,
+   "sentStart": 53.77,
+   "sentEnd": 58.09,
+   "wordT": 54.07,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "at run time",
+   "scene": 3,
+   "sentStart": 53.77,
+   "sentEnd": 58.09,
+   "wordT": 55.62,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 3,
+   "sentStart": 53.77,
+   "sentEnd": 58.09,
+   "wordT": 57.17,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 3,
+   "sentStart": 58.38,
+   "sentEnd": 61.85,
+   "wordT": 61.58,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the agent choice",
+   "scene": 3,
+   "sentStart": 62.13,
+   "sentEnd": 64.8,
+   "wordT": 62.73,
+   "appears": 63.02,
+   "delta": 0.29,
+   "status": "ok"
+  },
+  {
+   "label": "a fixed step",
+   "scene": 3,
+   "sentStart": 62.13,
+   "sentEnd": 64.8,
+   "wordT": 63.91,
+   "appears": 64.24,
+   "delta": 0.33,
+   "status": "ok"
+  },
+  {
+   "label": "whenever it sees fit",
+   "scene": 3,
+   "sentStart": 65.08,
+   "sentEnd": 67.64,
+   "wordT": 66.5,
+   "appears": 65.65,
+   "delta": -0.85,
+   "status": "ok"
+  },
+  {
+   "label": "one exact moment",
+   "scene": 4,
+   "sentStart": 69.69,
+   "sentEnd": 73.09,
+   "wordT": 72.07,
+   "appears": 70.18,
+   "delta": -1.88,
+   "status": "ok"
+  },
+  {
+   "label": "no tickets in other conversations",
+   "scene": 4,
+   "sentStart": 73.37,
+   "sentEnd": 75.37,
+   "wordT": 73.37,
+   "appears": 73.56,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "the createticket flow",
+   "scene": 4,
+   "sentStart": 75.65,
+   "sentEnd": 78.04,
+   "wordT": 77.02,
+   "appears": 75.84,
+   "delta": -1.17,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 4,
+   "sentStart": 75.65,
+   "sentEnd": 78.04,
+   "wordT": 77.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "on the agent own tools page",
+   "scene": 4,
+   "sentStart": 78.32,
+   "sentEnd": 80.09,
+   "wordT": 78.32,
+   "appears": 78.34,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "tools page",
+   "scene": 4,
+   "sentStart": 78.32,
+   "sentEnd": 80.09,
+   "wordT": 79.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 4,
+   "sentStart": 78.32,
+   "sentEnd": 80.09,
+   "wordT": 79.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "in the report problem topic",
+   "scene": 4,
+   "sentStart": 80.37,
+   "sentEnd": 82.01,
+   "wordT": 80.37,
+   "appears": 80.39,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "report problem",
+   "scene": 4,
+   "sentStart": 80.37,
+   "sentEnd": 82.01,
+   "wordT": 81.03,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 4,
+   "sentStart": 80.37,
+   "sentEnd": 82.01,
+   "wordT": 81.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "in all topics of the agent",
+   "scene": 4,
+   "sentStart": 82.3,
+   "sentEnd": 84.17,
+   "wordT": 82.56,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "topics",
+   "scene": 4,
+   "sentStart": 82.3,
+   "sentEnd": 84.17,
+   "wordT": 83.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "in the report problem topic",
+   "scene": 4,
+   "sentStart": 89.77,
+   "sentEnd": 91.43,
+   "wordT": 89.77,
+   "appears": 80.39,
+   "delta": -9.38,
+   "status": "ok"
+  },
+  {
+   "label": "report problem",
+   "scene": 4,
+   "sentStart": 89.77,
+   "sentEnd": 91.43,
+   "wordT": 90.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 4,
+   "sentStart": 89.77,
+   "sentEnd": 91.43,
+   "wordT": 91.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 4,
+   "sentStart": 91.71,
+   "sentEnd": 96.87,
+   "wordT": 92.86,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "available only to that topic",
+   "scene": 4,
+   "sentStart": 91.71,
+   "sentEnd": 96.87,
+   "wordT": 93.43,
+   "appears": 91.84,
+   "delta": -1.6,
+   "status": "ok"
+  },
+  {
+   "label": "only to that topic",
+   "scene": 4,
+   "sentStart": 91.71,
+   "sentEnd": 96.87,
+   "wordT": 93.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "runs exactly where you put it",
+   "scene": 4,
+   "sentStart": 91.71,
+   "sentEnd": 96.87,
+   "wordT": 95.15,
+   "appears": 91.84,
+   "delta": -3.32,
+   "status": "ok"
+  },
+  {
+   "label": "on the tools page the orchestrator could pick it in any conversation",
+   "scene": 4,
+   "sentStart": 97.16,
+   "sentEnd": 101.06,
+   "wordT": 97.16,
+   "appears": 97.27,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "on the tools page",
+   "scene": 4,
+   "sentStart": 97.16,
+   "sentEnd": 101.06,
+   "wordT": 97.16,
+   "appears": 97.27,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "tools page",
+   "scene": 4,
+   "sentStart": 97.16,
+   "sentEnd": 101.06,
+   "wordT": 97.81,
+   "appears": 102.32,
+   "delta": 4.52,
+   "status": "otro momento"
+  },
+  {
+   "label": "tools",
+   "scene": 4,
+   "sentStart": 97.16,
+   "sentEnd": 101.06,
+   "wordT": 97.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the orchestrator could pick it in any conversation",
+   "scene": 4,
+   "sentStart": 97.16,
+   "sentEnd": 101.06,
+   "wordT": 98.46,
+   "appears": 97.27,
+   "delta": -1.18,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 4,
+   "sentStart": 97.16,
+   "sentEnd": 101.06,
+   "wordT": 98.78,
+   "appears": 97.34,
+   "delta": -1.44,
+   "status": "ok"
+  },
+  {
+   "label": "allow agent to decide dynamically",
+   "scene": 5,
+   "sentStart": 105.65,
+   "sentEnd": 109.3,
+   "wordT": 107.27,
+   "appears": 105.86,
+   "delta": -1.41,
+   "status": "ok"
+  },
+  {
+   "label": "only when a topic calls it",
+   "scene": 5,
+   "sentStart": 109.58,
+   "sentEnd": 114.59,
+   "wordT": 112.4,
+   "appears": 112.41,
+   "delta": 0.01,
+   "status": "ok"
+  },
+  {
+   "label": "only when a topic calls it explicitly",
+   "scene": 5,
+   "sentStart": 109.58,
+   "sentEnd": 114.59,
+   "wordT": 112.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 5,
+   "sentStart": 109.58,
+   "sentEnd": 114.59,
+   "wordT": 113.34,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a common trap",
+   "scene": 5,
+   "sentStart": 114.87,
+   "sentEnd": 116.56,
+   "wordT": 115.72,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 5,
+   "sentStart": 116.84,
+   "sentEnd": 120.38,
+   "wordT": 116.84,
+   "appears": 117.1,
+   "delta": 0.27,
+   "status": "ok"
+  },
+  {
+   "label": "does not block the selection",
+   "scene": 5,
+   "sentStart": 116.84,
+   "sentEnd": 120.38,
+   "wordT": 118.77,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "only asks for confirmation",
+   "scene": 5,
+   "sentStart": 120.66,
+   "sentEnd": 124.99,
+   "wordT": 120.99,
+   "appears": 120.93,
+   "delta": -0.06,
+   "status": "ok"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 5,
+   "sentStart": 120.66,
+   "sentEnd": 124.99,
+   "wordT": 122.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "not every flow can be a tool",
+   "scene": 6,
+   "sentStart": 125.89,
+   "sentEnd": 127.58,
+   "wordT": 125.89,
+   "appears": 126.25,
+   "delta": 0.36,
+   "status": "ok"
+  },
+  {
+   "label": "when an agent calls the flow",
+   "scene": 6,
+   "sentStart": 127.86,
+   "sentEnd": 132.7,
+   "wordT": 128.93,
+   "appears": 128.83,
+   "delta": -0.1,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 6,
+   "sentStart": 127.86,
+   "sentEnd": 132.7,
+   "wordT": 131.35,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "published",
+   "scene": 6,
+   "sentStart": 132.98,
+   "sentEnd": 137.63,
+   "wordT": 133.91,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "real time",
+   "scene": 6,
+   "sentStart": 132.98,
+   "sentEnd": 137.63,
+   "wordT": 134.84,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "solution flow",
+   "scene": 6,
+   "sentStart": 137.91,
+   "sentEnd": 141.96,
+   "wordT": 139.18,
+   "appears": 138.75,
+   "delta": -0.43,
+   "status": "ok"
+  },
+  {
+   "label": "or it does not appear",
+   "scene": 6,
+   "sentStart": 137.91,
+   "sentEnd": 141.96,
+   "wordT": 139.68,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "tool picker",
+   "scene": 6,
+   "sentStart": 137.91,
+   "sentEnd": 141.96,
+   "wordT": 141.46,
+   "appears": 138.05,
+   "delta": -3.41,
+   "status": "ok"
+  },
+  {
+   "label": "new tool",
+   "scene": 6,
+   "sentStart": 142.24,
+   "sentEnd": 150.2,
+   "wordT": 145.11,
+   "appears": 142.41,
+   "delta": -2.69,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 7,
+   "sentStart": 154.05,
+   "sentEnd": 158.14,
+   "wordT": 154.05,
+   "appears": 154.41,
+   "delta": 0.36,
+   "status": "ok"
+  },
+  {
+   "label": "synchronous",
+   "scene": 7,
+   "sentStart": 154.05,
+   "sentEnd": 158.14,
+   "wordT": 157.03,
+   "appears": 154.2,
+   "delta": -2.82,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous",
+   "scene": 7,
+   "sentStart": 154.05,
+   "sentEnd": 158.14,
+   "wordT": 157.77,
+   "appears": 154.3,
+   "delta": -3.47,
+   "status": "ok"
+  },
+  {
+   "label": "run asynchronously",
+   "scene": 7,
+   "sentStart": 158.42,
+   "sentEnd": 164.69,
+   "wordT": 159.99,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "power automate flow duration limit",
+   "scene": 7,
+   "sentStart": 158.42,
+   "sentEnd": 164.69,
+   "wordT": 161.56,
+   "appears": 161.56,
+   "delta": 0,
+   "status": "ok"
+  },
+  {
+   "label": "polling topic",
+   "scene": 7,
+   "sentStart": 170.8,
+   "sentEnd": 174.88,
+   "wordT": 171.43,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 7,
+   "sentStart": 170.8,
+   "sentEnd": 174.88,
+   "wordT": 171.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "follow up message",
+   "scene": 7,
+   "sentStart": 170.8,
+   "sentEnd": 174.88,
+   "wordT": 172.68,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 7,
+   "sentStart": 170.8,
+   "sentEnd": 174.88,
+   "wordT": 173.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "final result",
+   "scene": 7,
+   "sentStart": 170.8,
+   "sentEnd": 174.88,
+   "wordT": 174.25,
+   "appears": 172.27,
+   "delta": -1.98,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 8,
+   "sentStart": 176.93,
+   "sentEnd": 179.47,
+   "wordT": 176.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only when a topic calls it",
+   "scene": 8,
+   "sentStart": 179.75,
+   "sentEnd": 182.05,
+   "wordT": 180.52,
+   "appears": 179.94,
+   "delta": -0.58,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 8,
+   "sentStart": 179.75,
+   "sentEnd": 182.05,
+   "wordT": 181.28,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "which setting",
+   "scene": 8,
+   "sentStart": 182.33,
+   "sentEnd": 184.1,
+   "wordT": 182.33,
+   "appears": 182.52,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "turn off allow agent to decide dynamically",
+   "scene": 8,
+   "sentStart": 184.38,
+   "sentEnd": 186.96,
+   "wordT": 184.38,
+   "appears": 184.41,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "allow agent to decide dynamically",
+   "scene": 8,
+   "sentStart": 184.38,
+   "sentEnd": 186.96,
+   "wordT": 185.12,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "turn on ask the end user before running",
+   "scene": 8,
+   "sentStart": 187.25,
+   "sentEnd": 189.44,
+   "wordT": 187.25,
+   "appears": 187.27,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 8,
+   "sentStart": 187.25,
+   "sentEnd": 189.44,
+   "wordT": 187.79,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "remove the flow from the report problem topic",
+   "scene": 8,
+   "sentStart": 189.72,
+   "sentEnd": 192.56,
+   "wordT": 190.04,
+   "appears": 189.74,
+   "delta": -0.3,
+   "status": "ok"
+  },
+  {
+   "label": "report problem",
+   "scene": 8,
+   "sentStart": 189.72,
+   "sentEnd": 192.56,
+   "wordT": 191.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 8,
+   "sentStart": 189.72,
+   "sentEnd": 192.56,
+   "wordT": 192.24,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "turn off allow agent to decide dynamically",
+   "scene": 8,
+   "sentStart": 198.16,
+   "sentEnd": 200.78,
+   "wordT": 198.16,
+   "appears": 184.41,
+   "delta": -13.75,
+   "status": "ok"
+  },
+  {
+   "label": "allow agent to decide dynamically",
+   "scene": 8,
+   "sentStart": 198.16,
+   "sentEnd": 200.78,
+   "wordT": 198.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "with it off the agent uses the flow only when a topic calls it explicitly",
+   "scene": 8,
+   "sentStart": 201.06,
+   "sentEnd": 205.6,
+   "wordT": 201.06,
+   "appears": 201.18,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "with it off the agent uses the flow",
+   "scene": 8,
+   "sentStart": 201.06,
+   "sentEnd": 205.6,
+   "wordT": 201.06,
+   "appears": 201.18,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "only when a topic calls it",
+   "scene": 8,
+   "sentStart": 201.06,
+   "sentEnd": 205.6,
+   "wordT": 203.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only when a topic calls it explicitly",
+   "scene": 8,
+   "sentStart": 201.06,
+   "sentEnd": 205.6,
+   "wordT": 203.48,
+   "appears": 201.18,
+   "delta": -2.3,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 8,
+   "sentStart": 201.06,
+   "sentEnd": 205.6,
+   "wordT": 204.39,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 8,
+   "sentStart": 205.88,
+   "sentEnd": 211.66,
+   "wordT": 205.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only asks for confirmation",
+   "scene": 8,
+   "sentStart": 205.88,
+   "sentEnd": 211.66,
+   "wordT": 207.92,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the orchestrator can still pick it",
+   "scene": 8,
+   "sentStart": 205.88,
+   "sentEnd": 211.66,
+   "wordT": 209.62,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "orchestrator",
+   "scene": 8,
+   "sentStart": 205.88,
+   "sentEnd": 211.66,
+   "wordT": 209.96,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "newer separate",
+   "scene": 9,
+   "sentStart": 212.56,
+   "sentEnd": 217.94,
+   "wordT": 214.52,
+   "appears": 213.82,
+   "delta": -0.7,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous",
+   "scene": 9,
+   "sentStart": 212.56,
+   "sentEnd": 217.94,
+   "wordT": 216.47,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 9,
+   "sentStart": 212.56,
+   "sentEnd": 217.94,
+   "wordT": 216.47,
+   "appears": 213.13,
+   "delta": -3.34,
+   "status": "ok"
+  },
+  {
+   "label": "a callback",
+   "scene": 9,
+   "sentStart": 218.22,
+   "sentEnd": 221.53,
+   "wordT": 218.77,
+   "appears": 218.83,
+   "delta": 0.06,
+   "status": "ok"
+  },
+  {
+   "label": "two minutes",
+   "scene": 9,
+   "sentStart": 218.22,
+   "sentEnd": 221.53,
+   "wordT": 220.98,
+   "appears": 219.59,
+   "delta": -1.39,
+   "status": "ok"
+  },
+  {
+   "label": "new infrastructure",
+   "scene": 9,
+   "sentStart": 221.81,
+   "sentEnd": 224.96,
+   "wordT": 224.26,
+   "appears": 221.97,
+   "delta": -2.29,
+   "status": "ok"
+  },
+  {
+   "label": "fully supported",
+   "scene": 9,
+   "sentStart": 225.25,
+   "sentEnd": 230.07,
+   "wordT": 225.99,
+   "appears": 226.21,
+   "delta": 0.22,
+   "status": "ok"
+  },
+  {
+   "label": "teams",
+   "scene": 9,
+   "sentStart": 225.25,
+   "sentEnd": 230.07,
+   "wordT": 227.1,
+   "appears": 226.21,
+   "delta": -0.89,
+   "status": "ok"
+  },
+  {
+   "label": "microsoft copilot",
+   "scene": 9,
+   "sentStart": 225.25,
+   "sentEnd": 230.07,
+   "wordT": 228.58,
+   "appears": 226.71,
+   "delta": -1.87,
+   "status": "ok"
+  },
+  {
+   "label": "telephony",
+   "scene": 9,
+   "sentStart": 225.25,
+   "sentEnd": 230.07,
+   "wordT": 229.7,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "not the tool pattern",
+   "scene": 9,
+   "sentStart": 230.35,
+   "sentEnd": 232.09,
+   "wordT": 231.1,
+   "appears": 230.71,
+   "delta": -0.39,
+   "status": "ok"
+  },
+  {
+   "label": "agent flow",
+   "scene": 10,
+   "sentStart": 240.08,
+   "sentEnd": 242.6,
+   "wordT": 241.03,
+   "appears": 238.2,
+   "delta": -2.83,
+   "status": "ok"
+  },
+  {
+   "label": "publish",
+   "scene": 10,
+   "sentStart": 240.08,
+   "sentEnd": 242.6,
+   "wordT": 241.97,
+   "appears": 238.2,
+   "delta": -3.78,
+   "status": "ok"
+  },
+  {
+   "label": "topics",
+   "scene": 10,
+   "sentStart": 242.88,
+   "sentEnd": 247.64,
+   "wordT": 244.92,
+   "appears": 238.2,
+   "delta": -6.72,
+   "status": "ok"
+  },
+  {
+   "label": "topics page",
+   "scene": 10,
+   "sentStart": 242.88,
+   "sentEnd": 247.64,
+   "wordT": 244.92,
+   "appears": 243.94,
+   "delta": -0.98,
+   "status": "ok"
+  },
+  {
+   "label": "report problem",
+   "scene": 10,
+   "sentStart": 242.88,
+   "sentEnd": 247.64,
+   "wordT": 246.62,
+   "appears": 243.94,
+   "delta": -2.68,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 10,
+   "sentStart": 242.88,
+   "sentEnd": 247.64,
+   "wordT": 247.3,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "add node",
+   "scene": 10,
+   "sentStart": 247.92,
+   "sentEnd": 250.01,
+   "wordT": 248.18,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "add a tool",
+   "scene": 10,
+   "sentStart": 250.29,
+   "sentEnd": 252.72,
+   "wordT": 250.64,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "createticket",
+   "scene": 10,
+   "sentStart": 250.29,
+   "sentEnd": 252.72,
+   "wordT": 252.37,
+   "appears": 253.29,
+   "delta": 0.92,
+   "status": "otro momento"
+  },
+  {
+   "label": "action node",
+   "scene": 10,
+   "sentStart": 253,
+   "sentEnd": 255.41,
+   "wordT": 253.3,
+   "appears": 58.44,
+   "delta": -194.86,
+   "status": "ok"
+  },
+  {
+   "label": "at that exact point",
+   "scene": 10,
+   "sentStart": 253,
+   "sentEnd": 255.41,
+   "wordT": 254.21,
+   "appears": 253.58,
+   "delta": -0.63,
+   "status": "ok"
+  },
+  {
+   "label": "exact point",
+   "scene": 10,
+   "sentStart": 253,
+   "sentEnd": 255.41,
+   "wordT": 254.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic",
+   "scene": 10,
+   "sentStart": 255.69,
+   "sentEnd": 259.7,
+   "wordT": 256.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "topic variables",
+   "scene": 10,
+   "sentStart": 255.69,
+   "sentEnd": 259.7,
+   "wordT": 256.93,
+   "appears": 255.88,
+   "delta": -1.04,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 10,
+   "sentStart": 255.69,
+   "sentEnd": 259.7,
+   "wordT": 259.39,
+   "appears": 58.44,
+   "delta": -200.96,
+   "status": "ok"
+  },
+  {
+   "label": "turn off allow agent to decide dynamically",
+   "scene": 10,
+   "sentStart": 259.98,
+   "sentEnd": 265.08,
+   "wordT": 262.85,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "allow agent to decide dynamically",
+   "scene": 10,
+   "sentStart": 259.98,
+   "sentEnd": 265.08,
+   "wordT": 263.49,
+   "appears": 260.18,
+   "delta": -3.31,
+   "status": "ok"
+  },
+  {
+   "label": "a job that runs for hours",
+   "scene": 11,
+   "sentStart": 267.14,
+   "sentEnd": 270.42,
+   "wordT": 268.45,
+   "appears": 267.63,
+   "delta": -0.82,
+   "status": "ok"
+  },
+  {
+   "label": "what should valeria do",
+   "scene": 11,
+   "sentStart": 274.12,
+   "sentEnd": 275.42,
+   "wordT": 274.12,
+   "appears": 274.31,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "turn on the asynchronous response option",
+   "scene": 11,
+   "sentStart": 275.7,
+   "sentEnd": 277.89,
+   "wordT": 275.7,
+   "appears": 275.72,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous",
+   "scene": 11,
+   "sentStart": 275.7,
+   "sentEnd": 277.89,
+   "wordT": 276.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 11,
+   "sentStart": 275.7,
+   "sentEnd": 277.89,
+   "wordT": 276.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "move every action before the response",
+   "scene": 11,
+   "sentStart": 278.18,
+   "sentEnd": 280.31,
+   "wordT": 278.18,
+   "appears": 278.2,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "reply early work after the response",
+   "scene": 11,
+   "sentStart": 280.59,
+   "sentEnd": 283.04,
+   "wordT": 280.94,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "reply early work after the response",
+   "scene": 11,
+   "sentStart": 288.64,
+   "sentEnd": 290.96,
+   "wordT": 288.64,
+   "appears": 280.61,
+   "delta": -8.03,
+   "status": "ok"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 11,
+   "sentStart": 291.24,
+   "sentEnd": 297.94,
+   "wordT": 293.16,
+   "appears": 291.44,
+   "delta": -1.72,
+   "status": "ok"
+  },
+  {
+   "label": "run asynchronously",
+   "scene": 11,
+   "sentStart": 291.24,
+   "sentEnd": 297.94,
+   "wordT": 297.3,
+   "appears": 291.37,
+   "delta": -5.94,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous",
+   "scene": 11,
+   "sentStart": 298.22,
+   "sentEnd": 302.4,
+   "wordT": 298.22,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "asynchronous response",
+   "scene": 11,
+   "sentStart": 298.22,
+   "sentEnd": 302.4,
+   "wordT": 298.22,
+   "appears": 298.41,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "asynchronous response on is a separate callback so for a tool keep it off",
+   "scene": 11,
+   "sentStart": 298.22,
+   "sentEnd": 302.4,
+   "wordT": 298.22,
+   "appears": 298.34,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "a separate callback",
+   "scene": 11,
+   "sentStart": 298.22,
+   "sentEnd": 302.4,
+   "wordT": 299.42,
+   "appears": 298.34,
+   "delta": -1.07,
+   "status": "ok"
+  },
+  {
+   "label": "back at the plant",
+   "scene": 12,
+   "sentStart": 303.3,
+   "sentEnd": 307.06,
+   "wordT": 303.3,
+   "appears": 303.56,
+   "delta": 0.26,
+   "status": "ok"
+  },
+  {
+   "label": "ticket number",
+   "scene": 12,
+   "sentStart": 303.3,
+   "sentEnd": 307.06,
+   "wordT": 305.33,
+   "appears": 303.97,
+   "delta": -1.36,
+   "status": "ok"
+  },
+  {
+   "label": "exact point",
+   "scene": 12,
+   "sentStart": 308.86,
+   "sentEnd": 317.96,
+   "wordT": 311.41,
+   "appears": 309.05,
+   "delta": -2.35,
+   "status": "ok"
+  },
+  {
+   "label": "topic",
+   "scene": 12,
+   "sentStart": 308.86,
+   "sentEnd": 317.96,
+   "wordT": 313.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "allow agent to decide dynamically",
+   "scene": 12,
+   "sentStart": 308.86,
+   "sentEnd": 317.96,
+   "wordT": 314.69,
+   "appears": 309.05,
+   "delta": -5.63,
+   "status": "ok"
+  },
+  {
+   "label": "explicit calls only",
+   "scene": 12,
+   "sentStart": 308.86,
+   "sentEnd": 317.96,
+   "wordT": 316.87,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask the end user before running",
+   "scene": 12,
+   "sentStart": 318.25,
+   "sentEnd": 321.98,
+   "wordT": 318.25,
+   "appears": 318.45,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "only asks for confirmation",
+   "scene": 12,
+   "sentStart": 318.25,
+   "sentEnd": 321.98,
+   "wordT": 320.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "respond to the agent",
+   "scene": 12,
+   "sentStart": 322.26,
+   "sentEnd": 329.3,
+   "wordT": 326.85,
+   "appears": 322.45,
+   "delta": -4.4,
+   "status": "ok"
+  },
+  {
+   "label": "solution flow",
+   "scene": 12,
+   "sentStart": 322.26,
+   "sentEnd": 329.3,
+   "wordT": 328.69,
+   "appears": 322.45,
+   "delta": -6.23,
+   "status": "ok"
+  },
+  {
+   "label": "create an agent flow and its parameters",
+   "scene": 12,
+   "sentStart": 329.58,
+   "sentEnd": 332.44,
+   "wordT": 329.94,
+   "appears": 330.95,
+   "delta": 1.01,
+   "status": "tarde"
+  },
+  {
+   "label": "agent flow",
+   "scene": 12,
+   "sentStart": 329.58,
+   "sentEnd": 332.44,
+   "wordT": 330.65,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+{
+ "1": [
+  "The librarian",
+  [
+   [
+    "You ask",
+    "A question"
+   ],
+   [
+    "The librarian reads",
+    "The shelves you point to"
+   ],
+   [
+    "You choose",
+    "The shelves, not the words"
+   ]
+  ]
+ ],
+ "2": [
+  "Generative answers node",
+  [
+   [
+    "Sources",
+    "Dataverse, SharePoint, websites"
+   ],
+   [
+    "Fallback",
+    "When no topic matches"
+   ],
+   [
+    "Output",
+    "The answer, or save to a variable"
+   ]
+  ]
+ ],
+ "3": [
+  "Search only selected sources",
+  [
+   [
+    "Off (default)",
+    "All of the agent's sources"
+   ],
+   [
+    "On",
+    "Only the sources you select"
+   ],
+   [
+    "Fallback",
+    "None to the agent's sources"
+   ]
+  ]
+ ],
+ "5": [
+  "Customizing the answer",
+  [
+   [
+    "Save the answer",
+    "In a global variable"
+   ],
+   [
+    "Send a message",
+    "Cleared: no reply right away"
+   ],
+   [
+    "Show it",
+    "In an adaptive card"
+   ]
+  ]
+ ],
+ "7": [
+  "Citations and moderation",
+  [
+   [
+    "Teams citations",
+    "Automatic only if not customized"
+   ],
+   [
+    "Customized",
+    "You render the citations"
+   ],
+   [
+    "Moderation",
+    "Lowest to Highest · default High"
+   ]
+  ]
+ ],
+ "9": [
+  "In the studio",
+  [
+   [
+    "Add node",
+    "Advanced · Generative answers"
+   ],
+   [
+    "Properties",
+    "Input: System.Activity.Text"
+   ],
+   [
+    "Setting",
+    "Search only selected sources: On"
+   ]
+  ]
+ ],
+ "10": [
+  "Three rules",
+  [
+   [
+    "Selected sources",
+    "Replace the agent's · no fallback"
+   ],
+   [
+    "Send a message cleared",
+    "You add the citations"
+   ],
+   [
+    "Moderation",
+    "Lowest to Highest · default High"
+   ]
+  ]
+ ]
+}

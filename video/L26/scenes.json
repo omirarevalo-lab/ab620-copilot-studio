@@ -1,0 +1,31 @@
+{"brand": "AB-620 · Module 4 · Lesson 5", "scenes": [
+ {"type": "split", "left": {"kicker": "Computer use", "title": "An assistant at the screen", "sub": "A digital employee."},
+  "rows": [
+   {"icon": "eye", "title": "Looks at the screen", "desc": "Vision and reasoning", "at": "looks at the screen", "hi": true},
+   {"icon": "window_dev_tools", "title": "No API, only a screen", "at": "no A P I", "hi": true},
+   {"icon": "sparkle", "title": "Requires generative orchestration", "at": "requires generative", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Setting it up", "title": "Explain it like to a newcomer", "pill": {"text": "Clearer steps, fewer mistakes", "at": "fewer mistakes"}},
+  "window": {"title": "Computer use · setup", "heading": "Details", "rail": ["apps", "bot", "toolbox", "window_dev_tools", "settings"],
+   "cards": [
+    {"icon": "tag", "title": "Name · description", "at": "a name"},
+    {"icon": "brain_circuit", "title": "Model", "at": "a model"},
+    {"icon": "notepad", "title": "Instructions", "desc": "Full addresses, explicit steps", "at": "instructions,", "hi": true},
+    {"icon": "window_dev_tools", "title": "Machine", "at": "the machine"}]}},
+ {"type": "split", "left": {"kicker": "Where it runs", "title": "Three places"},
+  "rows": [
+   {"icon": "globe", "title": "Hosted browser · preview", "desc": "For experimenting", "at": "Hosted browser", "hi": true},
+   {"icon": "cloud", "title": "Cloud PC pool · preview", "desc": "Joined to Entra and Intune", "at": "Cloud PC", "hi": true},
+   {"icon": "window_dev_tools", "title": "Your own machine", "desc": "With Power Automate for desktop", "at": "own machine", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Credentials and supervision", "title": "Whose credentials?"},
+  "cols": [
+   {"icon": "flag", "title": "Maker's credentials", "sub": "Risky if the agent is shared", "tone": "bad", "at": "maker's credentials", "items": []},
+   {"icon": "key", "title": "Better", "tone": "good", "at": "It is better",
+    "items": [{"text": "Stored: internal storage or Azure Key Vault", "at": "stored credentials"}, {"text": "The end user's credentials", "at": "end user's"}]}],
+  "verdict": {"icon": "mail", "text": "Human supervision: Outlook email to a reviewer", "at": "Human supervision"}},
+ {"type": "stats", "header": {"kicker": "Cost and the exam", "title": "Copilot Credits per step"},
+  "items": [
+   {"icon": "money", "value": "5", "label": "Per step · standard models", "at": "five Copilot"},
+   {"icon": "money", "value": "15", "label": "Per step · premium models", "at": "fifteen", "accent": true},
+   {"icon": "dismiss_circle", "value": "Not included", "label": "In the Microsoft 365 Copilot license", "at": "not included"}],
+  "note": {"icon": "flag", "text": "Trap: Hosted browser for production — it is only for experimenting", "at": "the trap"}}
+]}

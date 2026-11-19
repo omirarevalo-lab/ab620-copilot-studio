@@ -1,0 +1,33 @@
+{"brand": "AB-620 · Module 7 · Lesson 2", "scenes": [
+ {"type": "stats", "header": {"kicker": "General quality", "title": "A grade out of 100"},
+  "items": [
+   {"icon": "gauge", "value": "100", "label": "Scored by a language model", "at": "out of one hundred", "accent": true},
+   {"icon": "checkmark_circle", "value": "4", "label": "Relevance · groundedness · completeness · abstention", "at": "relevance"},
+   {"icon": "dismiss_circle", "value": "None", "label": "No expected response needed", "at": "does not need"}],
+  "note": {"icon": "flag", "text": "On by default: a good first check", "at": "on by default"}},
+ {"type": "compare", "header": {"kicker": "Need an expected response", "title": "Compare meaning and Text similarity"},
+  "cols": [
+   {"icon": "brain_circuit", "title": "Compare meaning", "sub": "The intent of the answer", "accent": true, "at": "Compare meaning",
+    "items": [{"text": "Default pass score: 50", "at": "fifty"}, {"text": "Accepts different wording", "at": "different wording"}]},
+   {"icon": "text_t", "title": "Text similarity", "sub": "Stricter about words", "at": "Text similarity",
+    "items": [{"text": "Cosine score from 0 to 1", "at": "cosine"}]}],
+  "verdict": {"icon": "checkmark_circle", "text": "Both need an expected response in every case", "at": "Both methods"}},
+ {"type": "terms", "header": {"kicker": "Pass or fail only", "title": "Exact, Keyword, and Tool use", "sub": "No score: a clear yes or no."}, "cols": 3,
+  "items": [
+   {"icon": "number_symbol", "term": "Exact match", "def": "Codes or numbers", "at": "Exact match"},
+   {"icon": "tag", "term": "Keyword match", "def": "Any or All", "at": "Keyword match"},
+   {"icon": "toolbox", "term": "Tool use", "def": "Expected tools or topics were used", "at": "Tool use"}]},
+ {"type": "compare", "header": {"kicker": "Content safety and Custom", "title": "Safety, or your own rules"},
+  "cols": [
+   {"icon": "shield_checkmark", "title": "Content safety", "sub": "Hate · sexual · violence · self harm", "at": "Content safety",
+    "items": [{"text": "Severity 0 (strictest) to 7 (most permissive)", "at": "zero, the strictest"}]},
+   {"icon": "notepad", "title": "Custom", "sub": "Your own instructions", "accent": true, "at": "Custom lets",
+    "items": [{"text": "At least two labels, each Pass or Fail", "at": "two labels"}, {"text": "e.g. Compliant · Non-compliant", "at": "Compliant"}]}]},
+ {"type": "flow", "header": {"kicker": "Invalid and expected refusals", "title": "Choose by what you measure"},
+  "nodes": [
+   {"icon": "dismiss_circle", "title": "Missing input", "sub": "Expected response · keywords · tools", "at": "missing what"},
+   {"icon": "warning", "title": "Invalid", "accent": true, "at": "result is Invalid"}],
+  "below": [
+   {"icon": "flag", "text": "General quality may flag a correct refusal", "at": "correct refusal"},
+   {"icon": "notepad", "text": "Expected refusals → Custom", "at": "use Custom", "solid": true}]}
+]}

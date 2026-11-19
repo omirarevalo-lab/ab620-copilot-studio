@@ -1,0 +1,33 @@
+{"brand": "AB-620 · Module 4 · Lesson 3", "scenes": [
+ {"type": "hub", "header": {"kicker": "Custom connector", "title": "Your API as a reusable piece"},
+  "center": {"icon": "wrench", "title": "Custom connector", "at": "custom connector"},
+  "topLabel": "Described once",
+  "top": [{"icon": "plug_connected", "title": "Your API", "desc": "An adapter for an odd plug", "at": "describe your API"}],
+  "bottomLabel": "Used without repeating work",
+  "bottom": [
+   {"icon": "bot", "title": "Agent", "at": "the agent"},
+   {"icon": "apps", "title": "Power Apps", "at": "Power Apps"},
+   {"icon": "flow", "title": "Power Automate", "at": "Power Automate"}]},
+ {"type": "compare", "header": {"kicker": "How it is built", "title": "In Power Apps or Power Automate"},
+  "cols": [
+   {"icon": "document_text", "title": "Starting point", "at": "#0",
+    "items": [{"text": "OpenAPI file", "at": "Open A P I file"}, {"text": "Postman collection", "at": "Postman"}, {"text": "From scratch", "at": "from scratch"}]},
+   {"icon": "key", "title": "Authentication", "accent": true, "at": "authentication",
+    "items": [{"text": "None · Basic", "at": "Basic"}, {"text": "API key", "at": "A P I key"}, {"text": "OAuth 2.0", "at": "OAuth"}]}],
+  "verdict": {"icon": "code", "text": "You can also add C# code", "at": "#2"}},
+ {"type": "split", "left": {"kicker": "Bringing it to the agent", "title": "Add a tool › Custom connector"},
+  "rows": [
+   {"icon": "toolbox", "title": "Add a tool › Custom connector", "at": "Add a tool", "hi": true},
+   {"icon": "key", "title": "Connection", "desc": "Your credentials · the saved key", "at": "connection with", "hi": true},
+   {"icon": "tag", "title": "Connection reference", "desc": "A label pointing to the right key in each environment", "at": "connection references", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Governance with DLP", "title": "Data policies apply too"},
+  "nodes": [
+   {"icon": "wrench", "title": "Custom connector", "at": "also apply"},
+   {"icon": "link", "title": "Classified by URL pattern", "at": "U R L pattern"},
+   {"icon": "shield_checkmark", "title": "Admin allows or blocks", "sub": "In each environment", "accent": true, "at": "allow or block"}],
+  "below": [{"icon": "people_team", "text": "The security team decides", "at": "security team", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "An internal API, reusable everywhere"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Custom connector", "at": "the answer is"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Forget that DLP governs custom connectors", "at": "D L P"}]}]}
+]}

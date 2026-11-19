@@ -1,0 +1,9 @@
+{
+"1": ["Connected agent", [["What", "Another Copilot Studio agent"], ["Where", "Same environment"], ["Knows", "A single area: the specialist"], ["Orchestrator reads", "The descriptions"], ["Descriptions alike", "The orchestrator hesitates"]]],
+"2": ["Appears in Add agent if", [["Published", "Yes"], ["Environment", "The same one"], ["Settings, General", "Let other agents connect to and use this one: on"], ["You", "Own it, or it is shared with you"], ["Pass conversation history", "On by default · can be turned off per connection"]]],
+"4": ["Two ways to invoke", [["Orchestrator", "Decides from the description · flexibility"], ["Topic with Redirect node", "You control the moment"], ["Inputs and outputs", "Topic variables"]]],
+"5": ["In the instructions", [["You type", "A forward slash (/)"], ["You choose", "The agent by name"], ["Example", "For payroll questions, hand off to /HR agent."], ["Result", "Tells the main agent when to use it"], ["Routing still wrong?", "Name the connected agents in the instructions"]]],
+"6": ["Limits that get asked", [["Chaining", "A main agent with connected agents cannot be a connected agent"], ["Use general knowledge", "Child and connected agents follow the main agent's setting"], ["Citations", "Can be lost on the way back"]]],
+"8": ["Upkeep", [["Description", "Local copy in the main agent · does not sync"], ["Your edits", "Stay local · review from time to time"], ["Enabled toggle", "Pauses · keeps the setup"], ["Disconnect agent", "Removes for good · rebuild to reconnect · source not affected"], ["Transcripts", "Each connected agent writes its own"]]],
+"10": ["The steps", [["1", "Specialist agent in the same environment"], ["2", "Clear description of what it solves"], ["3", "Main agent: Agents · Add agent"], ["4", "Orchestrator decides, or topic with Redirect node"], ["5", "Reference it with a forward slash (/)"], ["6", "Test with a question only the specialist can answer"]]]
+}

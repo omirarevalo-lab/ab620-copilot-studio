@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Answers from our own articles",
+    "caption": "Marta gets a general answer. Valeria wants answers only from the articles her flow picks, with a link to each.",
+    "say": "Contoso's support team keeps an incident database. Marta asks about a printer fault, and the agent gives a general answer. Valeria wants answers built only from the articles her own flow picks, each with a link. Today you learn Custom data. It is how you hand the node your own data."
+  },
+  {
+    "title": "A tray for the cook",
+    "caption": "Custom data is a tray: you hand the node your own table, and it answers using only that.",
+    "say": "Picture a kitchen with a serving hatch. Nexo is the cook. Usually it takes ingredients from the pantry shelves. With Custom data, you hand it a tray instead. The information is not in a file or on a website. You calculate it yourself, with a flow or a query, and the cook serves only what is on the tray."
+  },
+  {
+    "title": "Where the option is",
+    "caption": "In the Generative answers node, under Classic data, you pass a Table variable.",
+    "say": "The option is in the properties of the Generative answers node, in the section called Classic data. There you put a variable of type Table. Use it when the source is a private A P I or the result of a flow, not a public site or a file. At Contoso, the table comes out of a flow."
+  },
+  {
+    "title": "The shape of the table",
+    "caption": "Content is required. ContentLocation, the citation address, and Title are optional.",
+    "say": "Each row in the table needs Content. It is required, and it holds the article text. Optionally, a row can have ContentLocation, the address used for the citation, and Title, the article title. With ContentLocation filled in, the agent can cite the link of each article for Marta."
+  },
+  {
+    "title": "Only three records",
+    "caption": "Only the first three records are used. Filter and sort the table first, most relevant rows on top.",
+    "say": "Now the limit. Only the first three records are used to generate the answer. So there is no point sending hundreds of rows and hoping the node reads them all. Filter and sort the table before you pass it, with the most relevant rows on top. Contoso's flow does exactly that, and returns three articles."
+  },
+  {
+    "title": "Decide: hundreds of rows",
+    "caption": "The flow finds hundreds of matching articles. What should Valeria do with the table before passing it to Custom data?",
+    "say": "Your turn. Contoso's incident flow finds hundreds of matching articles. Valeria must pass them on. What should she do with the table first? Send every row and let the node read them all? Filter and sort first, best rows on top? Or pass the first three rows as they come? Decide before I answer. Filter and sort first, best rows on top. Only the first three records are used, so the best rows go on top. More rows do not raise the limit, and unsorted rows can miss the best."
+  },
+  {
+    "title": "Only with your data",
+    "caption": "Search only selected sources on with no sources, your variable in Custom data, web search and general knowledge off.",
+    "say": "To answer only from your table, turn on Search only selected sources and select no sources. Then put your variable in Custom data. Turn off Web search and Allow the AI to use its own general knowledge. Now the agent answers only from the three articles and cites each link."
+  },
+  {
+    "title": "Decide: answer only from the table",
+    "caption": "The agent must answer only from the table the flow returns. What should Valeria do with Search only selected sources?",
+    "say": "Your turn. Contoso's flow returns a table of three articles, already in Custom data. The agent must answer only from that table. What should Valeria do with Search only selected sources? Turn it on and select no sources? Turn it on and select all sources? Or leave it off and let the agent decide? Decide before I answer. Turn it on and select no sources. Then the node searches no knowledge sources, so only your table is left. Selecting all sources brings them back in."
+  },
+  {
+    "title": "Set it up in the studio",
+    "caption": "Generative answers node, Properties: Search only selected sources on with no sources, variable in Custom data, web and general knowledge off, test.",
+    "say": "Here is how it looks in the studio. Open the Generative answers node and go to Properties. Turn on Search only selected sources and select no sources. Under Classic data, put your variable in Custom data. Turn off Web search and Allow the AI to use its own general knowledge. Then test a question and check that the citation uses ContentLocation."
+  },
+  {
+    "title": "Decide: the required field",
+    "caption": "Valeria checks the table her flow returns. Which field can no row be missing?",
+    "say": "Your turn. Contoso is checking the table its flow returns before sending it to Custom data. Valeria wants to know which field no row can be missing. Which field is it? ContentLocation, because it holds the link? Title, because the answer needs a heading? Or Content, because it holds the text? Decide before I answer. Content, because it holds the text. Content is the only required field. ContentLocation and Title are optional, so a row can leave them out."
+  },
+  {
+    "title": "Three rules to remember",
+    "caption": "Content is the only required field. Only the first three records count. Answer only from your data: Search only selected sources, no sources.",
+    "say": "Back in the kitchen. Marta asks again, and the answer comes only from the three articles, each with a link. Remember three things. Content is the only required field. Only the first three records count, so filter and sort first. And to answer only from your data, use Search only selected sources with no sources. Next, Adaptive Cards."
+  }
+]

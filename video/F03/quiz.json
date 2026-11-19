@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 7,
+    "question": "An agent uses classic orchestration. A maker adds a tool with a perfect name and description and expects the agent to choose it on its own. Will it?",
+    "options": [
+      "Yes, because the description is very clear",
+      "No, classic only calls tools from a topic",
+      "Or yes, but only as a fallback choice here"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "A generative agent has two topics, Reset password and Unlock account. For the same request sometimes one runs, sometimes the other. What should the maker fix?",
+    "options": [
+      "Switch the agent to classic orchestration instead",
+      "Add many more trigger phrases to both topics",
+      "Or rewrite both descriptions so they differ"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 14,
+    "pauseSentence": 7,
+    "question": "Contoso's standard harness agent works well. A team member wants to switch it to the Microsoft Copilot harness. What is true?",
+    "options": [
+      "It cannot be transferred, a move means rebuilding",
+      "It moves by itself when the harness leaves preview",
+      "Or there is a Settings button that converts it"
+    ],
+    "right": 0,
+    "trap": 2
+  }
+]

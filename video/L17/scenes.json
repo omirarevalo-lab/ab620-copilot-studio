@@ -1,0 +1,47 @@
+{"brand": "AB-620 · Module 3 · Lesson 1", "scenes": [
+ {"type": "split", "left": {"kicker": "Agent flows", "title": "A recipe for the agent", "sub": "It must start and end in a specific way."},
+  "chain": [
+   {"icon": "flow", "title": "Automatic steps", "at": "automatic steps"},
+   {"icon": "braces", "title": "Input ingredients", "at": "input ingredients"},
+   {"icon": "checkmark_circle", "title": "Output dish", "accent": true, "at": "output dish"}],
+  "rows": [{"icon": "flag", "title": "A very specific start and end", "desc": "So the agent can use it", "at": "very specific", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Trigger and response", "title": "How it starts and ends"},
+  "nodes": [
+   {"icon": "flag", "title": "When an agent calls the flow", "sub": "The trigger", "at": "When an agent calls"},
+   {"icon": "flow", "title": "Your actions", "sub": "In between", "at": "end with"},
+   {"icon": "arrow_reply", "title": "Respond to the agent", "sub": "The last action", "accent": true, "at": "Respond to the agent"}],
+  "below": [{"text": "Power Apps · webhook · schedule triggers", "at": "other trigger", "strike": true}]},
+ {"type": "split", "left": {"kicker": "The inputs", "title": "The agent fills them in"},
+  "rows": [
+   {"icon": "flag", "title": "Defined in the trigger", "at": "defined in the trigger", "hi": true},
+   {"icon": "chat", "title": "Filled from the conversation context", "at": "conversation context", "hi": true},
+   {"icon": "question_circle", "title": "Or it asks questions for them", "at": "generates questions", "hi": true},
+   {"icon": "dismiss_circle", "title": "No Question node for each one", "at": "Question node", "hi": true},
+   {"icon": "settings", "title": "Custom value → it stops asking", "at": "Custom value", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "The outputs", "title": "Defined in Respond to the agent"},
+  "nodes": [
+   {"icon": "arrow_reply", "title": "Respond to the agent", "sub": "Defines the outputs", "at": "defined in Respond"},
+   {"icon": "braces", "title": "Agent variables", "sub": "The outputs arrive", "at": "as variables"},
+   {"icon": "sparkle", "title": "Or the response", "sub": "Written by the orchestrator", "accent": true, "at": "orchestrator uses"}],
+  "below": [
+   {"text": "The flow's internal variables", "at": "internal variables", "strike": true},
+   {"icon": "checkmark_circle", "text": "Only explicit outputs count", "at": "#3", "solid": true}]},
+ {"type": "stats", "header": {"kicker": "Real time and publishing", "title": "Three simple conditions"},
+  "items": [
+   {"icon": "send", "value": "Published", "label": "To show up as a tool", "at": "published"},
+   {"icon": "settings", "value": "Off", "label": "Asynchronous response · Networking section", "at": "Asynchronous response", "accent": true},
+   {"icon": "timer", "value": "100 s", "label": "The action limit to answer", "at": "one hundred seconds"}]},
+ {"type": "split", "left": {"kicker": "Contoso", "title": "CreateTicket", "sub": "Fills what it can, asks for what is missing."},
+  "window": {"title": "CreateTicket · agent flow", "heading": "Parameters", "rail": ["apps", "bot", "flow", "toolbox", "settings"],
+   "cards": [
+    {"icon": "text_t", "title": "Input: title", "at": "title"},
+    {"icon": "gauge", "title": "Input: urgency", "at": "urgency"},
+    {"icon": "ticket_diagonal", "title": "Output: ticket identifier", "at": "ticket identifier", "hi": true},
+    {"icon": "settings", "title": "Custom value → stops asking", "at": "Custom value", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "The flow does not show up as a tool"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Check", "tone": "good", "at": "#0",
+    "items": [{"text": "Trigger or Respond to the agent missing", "at": "trigger or Respond"}, {"text": "Not published", "at": "not published"}, {"text": "Asynchronous response still on", "at": "Asynchronous"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Internal variables reach the agent", "at": "only receives"}]}],
+  "verdict": {"icon": "braces", "text": "Only explicit outputs reach it", "at": "internal variables"}}
+]}

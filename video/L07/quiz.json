@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Nexo now answers questions about salaries and leave. Compliance says only members of the HR security group may chat, controlled with the Share option. Which setting makes this possible?",
+    "options": [
+      "Authenticate with Microsoft and Share",
+      "No authentication with a private link",
+      "Require secured access with one secret"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Contoso turns on Require secured access for its public website. Marketing worries that every customer must now create an account. What is true?",
+    "options": [
+      "Every customer must sign in with Microsoft",
+      "It only applies to users outside the network",
+      "The page client needs a secret or a token"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 8,
+    "pauseSentence": 7,
+    "question": "The secret sits in the website's JavaScript, and any visitor can copy it. Valeria must fix this and keep the agent protected. What should she do?",
+    "options": [
+      "Move the secret into an HTML comment",
+      "Turn off Require secured access entirely",
+      "Have the server send the page a token"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

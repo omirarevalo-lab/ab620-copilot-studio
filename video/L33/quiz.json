@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Valeria has several models deployed in Foundry for the ticket classifier. She can connect only one kind of them to her prompt. Which model can she connect?",
+    "options": [
+      "A chat completion model",
+      "A G P T five family model",
+      "any model type in Foundry"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Valeria connects a second chat completion model to another prompt. The test fails with the error Resource not found, and her endpoint is a Responses endpoint. What should she change?",
+    "options": [
+      "Retype the deployment name",
+      "Switch to a G P T five model",
+      "end it in chat completions"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "The service manager reviews the costs of the ticket classifier. The model runs from Foundry, inside a Copilot Studio prompt. Where is the model usage billed?",
+    "options": [
+      "In the Copilot Studio rates",
+      "Separately, through Azure",
+      "per user, in Microsoft Teams"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

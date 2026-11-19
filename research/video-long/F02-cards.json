@@ -1,0 +1,8 @@
+{
+  "1": ["The new employee", [["Instructions", "Job description"], ["Knowledge", "Folder of documents"], ["Tools", "Access to systems"], ["Topics", "Scripts for delicate calls"]]],
+  "2": ["Instructions", [["Where", "Overview page"], ["What", "Role, tone, scope, what to do when unsure"], ["Style", "Short, clear, no contradictions"]]],
+  "3": ["Knowing and doing", [["Knowledge", "Websites · files · SharePoint · Dataverse"], ["Tools", "Connector · agent flow · prompt · REST API · MCP · computer use"], ["Rule", "Written in a document → knowledge; live system or change → tool"]]],
+  "5": ["Topics", [["Starts with", "A trigger"], ["Nodes", "Message · Question · Condition · Call a tool"], ["Use for", "Precision: exact, repeatable processes"]]],
+  "7": ["In the studio", [["Overview", "Instructions box"], ["Knowledge", "Add a source"], ["Tools", "Add a tool"], ["Topics", "System and custom, open to see nodes"], ["Test", "Which piece answered?"]]],
+  "9": ["Nexo, fixed", [["Instructions", "Answer briefly"], ["Knowledge", "SharePoint IT guides"], ["Tool", "Ticket status from the help desk"], ["Topic", "Report serious incident"]]]
+}

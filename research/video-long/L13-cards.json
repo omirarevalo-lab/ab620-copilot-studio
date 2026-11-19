@@ -1,0 +1,138 @@
+{
+  "1": [
+    "The recipe idea",
+    [
+      [
+        "The recipe",
+        "The instructions, always the same"
+      ],
+      [
+        "The ingredients",
+        "The inputs, like the ticket text"
+      ],
+      [
+        "The result",
+        "One output per run"
+      ]
+    ]
+  ],
+  "2": [
+    "What a prompt is",
+    [
+      [
+        "Type",
+        "Single-turn tool on a model"
+      ],
+      [
+        "Has",
+        "Instructions, inputs, optional knowledge"
+      ],
+      [
+        "Not",
+        "A dialogue; a child agent is heavier"
+      ]
+    ]
+  ],
+  "3": [
+    "Three doors",
+    [
+      [
+        "Agent tool",
+        "Tools · New tool · Prompt"
+      ],
+      [
+        "Topic node",
+        "Add a tool · New prompt"
+      ],
+      [
+        "Agent flow",
+        "Run a prompt action"
+      ]
+    ]
+  ],
+  "5": [
+    "The prompt editor",
+    [
+      [
+        "Instructions",
+        "By hand, with Copilot, or a template"
+      ],
+      [
+        "Rules",
+        "Clear and short, with a fallback"
+      ],
+      [
+        "Fallback",
+        "not found when the text is thin"
+      ]
+    ]
+  ],
+  "6": [
+    "Temperature",
+    [
+      [
+        "Range",
+        "Zero to one · default zero"
+      ],
+      [
+        "At zero",
+        "More predictable responses"
+      ],
+      [
+        "GPT five reasoning",
+        "The slider is disabled"
+      ]
+    ]
+  ],
+  "8": [
+    "Classify ticket",
+    [
+      [
+        "Input",
+        "The ticket text"
+      ],
+      [
+        "Returns",
+        "Category and urgency"
+      ],
+      [
+        "Fallback",
+        "not found if too little info"
+      ]
+    ]
+  ],
+  "9": [
+    "Add as a tool",
+    [
+      [
+        "Where",
+        "Tools · Add a tool · New tool · Prompt"
+      ],
+      [
+        "Settings",
+        "Model · temperature zero"
+      ],
+      [
+        "Finish",
+        "Test · Save · Add and configure"
+      ]
+    ]
+  ],
+  "11": [
+    "Remember",
+    [
+      [
+        "A prompt is",
+        "A recipe: one result per run"
+      ],
+      [
+        "Single-turn",
+        "Lighter than a child agent"
+      ],
+      [
+        "Consistency",
+        "Clear instructions · temperature zero"
+      ]
+    ]
+  ]
+}

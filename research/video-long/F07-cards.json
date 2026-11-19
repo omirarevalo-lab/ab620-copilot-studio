@@ -1,0 +1,8 @@
+{
+  "1": ["Test pane", [["Tests", "The draft, without publishing"], ["Select a reply", "Jump to its topic and node"], ["Track between topics", "Canvas follows the chat"], ["Reset", "Clears the test chat (saving does not)"]]],
+  "2": ["Activity map", [["Shows", "The plan live: topics, tools, knowledge, order"], ["Needs", "Generative orchestration"], ["Variables", "Test tab: values while you chat"]]],
+  "3": ["Publish", [["Does", "Applies the current version to all channels"], ["Without it", "Users keep the old version"], ["Live chats", "Not cut off; new session gets the update"], ["Session ends", "About 30 min without activity"], ["Trial", "Can test, cannot publish"]]],
+  "5": ["Channels", [["Microsoft", "Teams and Microsoft Copilot · SharePoint"], ["Others", "WhatsApp · website · mobile app · Facebook"], ["Azure Bot Service", "Slack · Telegram · Twilio · email"], ["Demo website", "Stakeholders only"]]],
+  "6": ["Authentication", [["With Microsoft", "Default; Teams, SharePoint, Power Apps, Copilot"], ["Manually", "Other channels with sign-in"], ["None", "Anyone with the link; no user credentials"]]],
+  "8": ["Routine", [["1", "Test pane, select reply, activity map, Variables"], ["2", "Publish, confirm, wait"], ["3", "Channels › Teams and Microsoft Copilot"], ["4", "Open the agent in Teams first"], ["5", "Then Make the agent available to others"]]]
+}

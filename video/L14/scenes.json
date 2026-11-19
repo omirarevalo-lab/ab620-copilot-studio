@@ -1,0 +1,43 @@
+{"brand": "AB-620 · Module 2 · Lesson 7", "scenes": [
+ {"type": "flow", "header": {"kicker": "Send HTTP request", "title": "Calling an API from the topic"},
+  "nodes": [
+   {"icon": "branch_fork", "title": "Topic", "at": "lets a topic"},
+   {"icon": "send", "title": "HTTP request", "accent": true, "at": "call an internet"},
+   {"icon": "server", "title": "Another system", "sub": "Read or change data", "at": "another system"}],
+  "below": [{"icon": "globe", "text": "Data that lives outside the agent", "at": "outside the agent", "solid": true}]},
+ {"type": "split", "left": {"kicker": "What you configure", "title": "Four fields", "sub": "Each one has a clear purpose."},
+  "window": {"title": "Send HTTP request", "heading": "Properties", "rail": ["apps", "bot", "branch_fork", "send", "settings"],
+   "cards": [
+    {"icon": "link", "title": "URL of the endpoint", "at": "endpoint", "hi": true},
+    {"icon": "arrow_routing", "title": "Method", "desc": "GET · POST · PATCH · PUT · DELETE", "at": "method", "hi": true},
+    {"icon": "key", "title": "Headers · e.g. Authorization", "at": "headers", "hi": true},
+    {"icon": "document_text", "title": "Body", "desc": "No Content by default", "at": "body", "hi": true}]}},
+ {"type": "terms", "header": {"kicker": "The body", "title": "Three ways to send it"}, "cols": 3,
+  "items": [
+   {"icon": "braces", "term": "JSON content", "def": "A JSON object · typical for POST or PUT", "at": "JSON content"},
+   {"icon": "code", "term": "Edit JSON › Formula", "def": "A Power Fx object with variables", "at": "Formula"},
+   {"icon": "text_t", "term": "Raw content", "def": "A text string, written with Power Fx", "at": "Raw content"}]},
+ {"type": "flow", "header": {"kicker": "The response", "title": "A variable shaped like the sample"},
+  "nodes": [
+   {"icon": "code", "title": "Sample JSON", "sub": "In Response data type", "at": "paste a sample"},
+   {"icon": "settings", "title": "Get schema from sample", "accent": true, "at": "Get schema"},
+   {"icon": "braces", "title": "Typed variable", "sub": "Used in the rest of the topic", "at": "creates a variable"},
+   {"icon": "database", "title": "Save user response as", "sub": "Where it is stored", "at": "Save user response"}]},
+ {"type": "flow", "header": {"kicker": "Default error behavior", "title": "Raise an error"},
+  "nodes": [
+   {"icon": "error_circle", "title": "The call fails", "at": "call fails"},
+   {"icon": "dismiss_circle", "title": "The agent stops", "at": "agent stops"},
+   {"icon": "alert", "title": "On Error topic", "sub": "Shows an error message", "accent": true, "at": "On Error"}],
+  "below": [{"icon": "flag", "text": "Why topics stop suddenly", "at": "stop suddenly", "solid": true}]},
+ {"type": "split", "left": {"kicker": "Continue on error", "title": "The topic goes on"},
+  "rows": [
+   {"icon": "number_symbol", "title": "Status code → a variable", "at": "status code", "hi": true},
+   {"icon": "document_text", "title": "Error body → a variable", "at": "error body", "hi": true},
+   {"icon": "code", "title": "Type Any → Parse value node", "at": "Parse value", "hi": true},
+   {"icon": "timer", "title": "Default timeout: 30 seconds", "at": "default timeout", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Handle the error, keep going"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Continue on error", "at": "the answer is"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "Keep the default → On Error fires", "at": "default value"}]}],
+  "verdict": {"icon": "document_text", "text": "Default body: No Content", "at": "default body"}}
+]}

@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 6,
+    "question": "An IT support agent for Contoso employees will be published in Teams. Which authentication option?",
+    "options": [
+      "Authenticate with Microsoft",
+      "Authenticate manually with a generic OAuth 2 provider",
+      "No authentication, everyone in Teams is an employee"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Customers sign in to the Contoso portal with the portal's own accounts and have no Microsoft account. Which option fits?",
+    "options": [
+      "No authentication, it is a public website",
+      "Authenticate with Microsoft, the simplest secure choice",
+      "Authenticate manually with a generic OAuth 2 provider"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 13,
+    "pauseSentence": 6,
+    "question": "When does Copilot Studio create the Microsoft Entra Agent ID?",
+    "options": [
+      "When the agent is published to its first channel",
+      "When the agent is created",
+      "After an admin enables it for the environment"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

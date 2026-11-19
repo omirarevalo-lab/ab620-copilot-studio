@@ -1,0 +1,50 @@
+[
+ {
+  "scene": 5,
+  "pauseSentence": 6,
+  "question": "The agent's Foundry IQ answers about leave are strange and incomplete. Where do you fix it?",
+  "options": [
+   "Remove the connection and add it again",
+   "In Copilot Studio, edit the agent instructions",
+   "In Microsoft Foundry, with the knowledge base owner"
+  ],
+  "right": 2,
+  "trap": 1
+ },
+ {
+  "scene": 9,
+  "pauseSentence": 7,
+  "question": "You ask for revenue by region. The trace shows the policy tool was called instead of Fabric IQ. What do you change?",
+  "options": [
+   "Make the tool descriptions clearer",
+   "Replace Fabric IQ with a knowledge source",
+   "Rebuild the revenue metrics in Copilot Studio"
+  ],
+  "right": 0,
+  "trap": 2
+ },
+ {
+  "scene": 12,
+  "pauseSentence": 7,
+  "question": "A maker wants email and meeting context and adds the separate Mail, Teams and OneDrive tools instead of Work IQ. Is that the recommended choice?",
+  "options": [
+   "Yes, Work IQ cannot read email",
+   "No, they are a legacy experience on the standard harness and billing",
+   "Yes, they read the same data"
+  ],
+  "right": 1,
+  "trap": 2
+ },
+ {
+  "scene": 15,
+  "pauseSentence": 6,
+  "question": "The sales director wants revenue by region, and the measures are already modelled in a Fabric semantic model. Which capability?",
+  "options": [
+   "A knowledge source with an exported spreadsheet",
+   "Work IQ, because the question came in a Teams chat",
+   "Fabric IQ"
+  ],
+  "right": 2,
+  "trap": 1
+ }
+]

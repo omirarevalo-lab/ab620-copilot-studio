@@ -1,0 +1,33 @@
+{"brand": "AB-620 · Module 4 · Lesson 4", "scenes": [
+ {"type": "split", "left": {"kicker": "REST API tool", "title": "The API menu", "sub": "Cross out the dishes it must not order."},
+  "rows": [
+   {"icon": "document_text", "title": "Upload the API description", "at": "upload the description", "hi": true},
+   {"icon": "checkbox_checked", "title": "Choose the operations", "at": "choose which operations", "hi": true},
+   {"icon": "dismiss_circle", "title": "Not selected = cannot be used", "at": "simply cannot", "hi": true}]},
+ {"type": "path", "header": {"kicker": "Upload the spec", "title": "Tools › New tool › REST API"},
+  "crumbs": [
+   {"icon": "toolbox", "text": "Tools", "at": "In Tools"},
+   {"icon": "cursor_click", "text": "New tool", "at": "New tool"},
+   {"icon": "globe", "text": "REST API", "accent": true, "at": "REST A P I"}],
+  "cards": [
+   {"icon": "code", "title": "OpenAPI spec in JSON, version 2", "desc": "Version 3 is converted automatically", "at": "version two", "hi": true},
+   {"icon": "document_text", "title": "Improve the description", "desc": "The orchestrator uses it to decide", "at": "improve the description", "hi": true},
+   {"icon": "cube_tree", "title": "Choose a solution", "at": "choose a solution", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Choose operations", "title": "Only the power it needs"},
+  "window": {"title": "REST API tool · operations", "heading": "Expose to the agent", "rail": ["apps", "bot", "toolbox", "globe", "settings"],
+   "cards": [
+    {"icon": "checkbox_checked", "title": "Create", "at": "create", "hi": true},
+    {"icon": "checkbox_checked", "title": "Get", "at": "get,", "hi": true},
+    {"icon": "dismiss_circle", "title": "Delete", "desc": "Not exposed", "at": "not delete"},
+    {"icon": "document_text", "title": "Name + description for each", "desc": "Inputs and outputs, complete", "at": "name and a description", "hi": true}]}},
+ {"type": "split", "left": {"kicker": "Authentication", "title": "Three options", "sub": "None · API key · OAuth 2.0"},
+  "rows": [
+   {"icon": "key", "title": "API key", "desc": "Label · name · location (header or query)", "at": "With an A P I key", "hi": true},
+   {"icon": "person", "title": "The user provides the key", "desc": "At run time", "at": "run time", "hi": true},
+   {"icon": "shield_checkmark", "title": "OAuth 2.0", "desc": "Plus the identity provider details", "at": "With O Auth", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Limit what the agent can do"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "#0", "items": [{"text": "Select operations", "at": "select operations"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "the trap", "items": [{"text": "A spec without descriptions", "at": "without descriptions"}]}],
+  "verdict": {"icon": "sparkle", "text": "The orchestrator uses descriptions to decide", "at": "orchestrator uses"}}
+]}

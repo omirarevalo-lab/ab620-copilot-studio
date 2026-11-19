@@ -1,0 +1,31 @@
+{"brand": "AB-620 · Module 5 · Lesson 4", "scenes": [
+ {"type": "flow", "header": {"kicker": "Microsoft Foundry agents · preview", "title": "A specialist in Foundry"},
+  "nodes": [
+   {"icon": "code", "title": "Foundry agent", "sub": "Own code and models", "at": "own code"},
+   {"icon": "bot", "title": "Copilot Studio", "sub": "Invokes it", "accent": true, "at": "invoke"},
+   {"icon": "arrow_sync", "title": "Reuse", "sub": "Another team's work", "at": "reuse"}]},
+ {"type": "path", "header": {"kicker": "How to add it", "title": "Agents › Add an agent › Foundry"},
+  "crumbs": [
+   {"icon": "bot", "text": "Agents", "at": "go to Agents"},
+   {"icon": "cursor_click", "text": "Add an agent", "at": "Add an agent"},
+   {"icon": "link", "text": "Connect to an external agent", "at": "external agent"},
+   {"icon": "cloud", "text": "Microsoft Foundry", "accent": true, "at": "Microsoft Foundry"}],
+  "cards": [
+   {"icon": "link", "title": "Project endpoint", "desc": "For the connection", "at": "project endpoint", "hi": true},
+   {"icon": "tag", "title": "Name · description · Agent Id", "desc": "Each one matters", "at": "a name", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Requirement one", "title": "Activity protocol enabled"},
+  "nodes": [
+   {"icon": "dismiss_circle", "title": "New agents", "sub": "Only Responses and A2A", "at": "New agents"},
+   {"icon": "code", "title": "REST API or Python SDK", "sub": "The only way to enable it", "accent": true, "at": "R E S T"},
+   {"icon": "error_circle", "title": "Missing?", "sub": "Error 400", "at": "four hundred"}]},
+ {"type": "compare", "header": {"kicker": "Requirement two", "title": "Only the new Foundry portal"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "New portal", "tone": "good", "at": "new Foundry portal", "items": [{"text": "It works", "at": "work."}]},
+   {"icon": "flag", "title": "Previous portal", "tone": "bad", "at": "previous portal", "items": [{"text": "404 · Version not found", "at": "Version not found"}]}],
+  "verdict": {"icon": "search", "text": "404? Check where the agent was created", "at": "where the agent"}},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "A diagnosis question"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Error 404", "tone": "good", "at": "#0", "items": [{"text": "The agent is from the old portal", "at": "old portal"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "classic trap", "items": [{"text": "Look for the Activity protocol in the portal", "at": "Activity protocol"}]}],
+  "verdict": {"icon": "code", "text": "The portal shows only Responses and A2A", "at": "only Responses"}}
+]}

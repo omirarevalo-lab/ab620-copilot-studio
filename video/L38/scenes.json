@@ -1,0 +1,30 @@
+{"brand": "AB-620 · Module 7 · Lesson 4", "scenes": [
+ {"type": "split", "left": {"kicker": "Solutions", "title": "Your agent's suitcase", "sub": "Components travel together, in order."},
+  "chain": [
+   {"icon": "cube_tree", "title": "Solution", "accent": true, "at": "suitcase"},
+   {"icon": "bot", "title": "Your agent", "at": "pack your agent"},
+   {"icon": "globe", "title": "Another environment", "at": "another environment"}],
+  "rows": [{"icon": "cube_tree", "title": "Created in the default solution", "desc": "Unless you set a preferred solution", "at": "default solution", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "Publisher and types", "title": "Unmanaged to develop, managed to deploy", "sub": "One custom solution with your own publisher."},
+  "cols": [
+   {"icon": "wrench", "title": "Unmanaged", "sub": "For development", "at": "Unmanaged solutions", "items": []},
+   {"icon": "rocket", "title": "Managed", "sub": "For deployment", "accent": true, "at": "managed solutions are",
+    "items": [{"text": "Publisher = the owner's label, it does not change", "at": "owner's label"}, {"text": "Export as managed to deploy", "at": "export as managed"}]}]},
+ {"type": "flow", "header": {"kicker": "Add required objects", "title": "Before you export"},
+  "nodes": [
+   {"icon": "branch_fork", "title": "New topics or flows", "sub": "Added later", "at": "new topics"},
+   {"icon": "settings", "title": "Advanced › Add required objects", "accent": true, "at": "Add required"}],
+  "below": [
+   {"text": "Removing the agent removes its components", "at": "does not remove", "strike": true},
+   {"icon": "flag", "text": "Easy to forget, so it is on the exam", "at": "easy step", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "After you import", "title": "Finish the trip"},
+  "nodes": [
+   {"icon": "send", "title": "Import", "at": "After you import"},
+   {"icon": "key", "title": "Authentication again", "at": "authentication again"},
+   {"icon": "rocket", "title": "Publish", "accent": true, "at": "and publish"}],
+  "below": [{"icon": "cube_tree", "text": "Local changes? Solution Layers › Remove unmanaged layer", "at": "Remove unmanaged", "solid": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Two clues"},
+  "cols": [
+   {"icon": "flag", "title": "It will not export", "tone": "bad", "at": "will not export", "items": [{"text": "A topic with dots in its name", "at": "dots"}]},
+   {"icon": "lock_closed", "title": "Managed solution", "accent": true, "at": "cannot change", "items": [{"text": "The publisher of a component cannot change", "at": "managed solution"}]}]}
+]}

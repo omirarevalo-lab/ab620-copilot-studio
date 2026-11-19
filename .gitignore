@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.venv-tts/
+tools/tts-models/
+test-results/
+playwright-report/
+tests/.results/
+tests/shots/
+video/*/_build/
+video/*/_frames/
+video/*/*.mp4
+video/*/*.vtt
+.DS_Store
+Thumbs.db

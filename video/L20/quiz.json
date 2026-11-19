@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "Valeria builds the laptop approval with two manual stages. The service manager approves the first one, and Valeria wants the same manager on the second one too. What should she do?",
+    "options": [
+      "Assign the manager to both stages",
+      "Use a second approver instead",
+      "Turn both stages into conditions"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Marta's laptop request arrives without a cost center. The flow cannot continue until someone types it in. What should Valeria add?",
+    "options": [
+      "A new manual approval stage",
+      "A condition on the cost center",
+      "A Request for information"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "The laptop approval works in development. Valeria exports the solution and imports it into production. What must she do with the multistage approval?",
+    "options": [
+      "Recreate the approval after import",
+      "Nothing, it travels with the solution",
+      "Export it again as unmanaged first"
+    ],
+    "right": 0,
+    "trap": 1
+  }
+]

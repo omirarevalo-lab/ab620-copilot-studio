@@ -1,0 +1,11 @@
+{
+"0": ["Azure AI Search", [["What", "Azure service that stores documents in an index"], ["For the agent", "Answers with your own documents"], ["Picture", "A tidy filing cabinet"]]],
+"1": ["Filed by meaning", [["Supported", "Vectorized indexes, integrated vectorization"], ["In Azure", "Import and vectorize data"], ["Embeddings", "Numeric meaning of a text"], ["The question", "Same embeddings model"]]],
+"2": ["Semantic ranker", [["Does", "Reorders results by meaning"], ["Configured", "In Azure first"], ["Copilot Studio", "Supports it, never creates it"]]],
+"4": ["Connecting", [["Where", "Add knowledge, Featured, or Generative answers node"], ["Authentication", "Access Key, Client Certificate Auth, Service principal, Microsoft Entra ID Integrated"], ["Recommended", "Microsoft Entra ID Integrated: no key to rotate"], ["Access Key", "Quick setup, non-production"]]],
+"5": ["Always Create new connection", [["Endpoint + key by hand", "Faulty environment-level connection"], ["Effect", "Every agent can be blocked"], ["Delete it", "Not possible in the product"], ["Recover", "Reset external access, or recreate the agent"]]],
+"7": ["Index and citations", [["Per connection", "Only one vector index"], ["Status", "In progress, then Ready"], ["Citation", "metadata_storage_path, or a field with a full URL"], ["Users", "Need access to the cited documents"]]],
+"8": ["Not here", [["Azure OpenAI on your data", "Classic data in the Generative answers node"], ["Private endpoint", "Virtual Network support in Power Platform"]]],
+"10": ["Steps", [["Azure", "Service + index (Import and vectorize data)"], ["Semantic ranker", "Configure in Azure first"], ["Copilot Studio", "Knowledge, Add knowledge, Featured, Azure AI Search"], ["Connection", "Create it, pick authentication"], ["Index", "One vector index, wait for Ready"]]],
+"11": ["Remember", [["Semantic ranker", "Configured in Azure"], ["Connection", "Create new connection, never by hand"], ["Per connection", "One vector index, final status Ready"], ["Azure OpenAI on your data", "Classic data"]]]
+}

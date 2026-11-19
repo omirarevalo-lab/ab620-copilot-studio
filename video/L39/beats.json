@@ -1,0 +1,124 @@
+{
+ "id": "L39",
+ "title": "Environment variables",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 91.731,
+ "scenes": [
+  {
+   "title": "Same agent, different environment",
+   "start": 0.8,
+   "end": 19.965,
+   "sentences": [
+    {
+     "text": "An environment variable is like the table number in each restaurant of a chain.",
+     "start": 0.8,
+     "end": 5.301
+    },
+    {
+     "text": "The menu is the same, but the local detail changes.",
+     "start": 5.581,
+     "end": 8.824
+    },
+    {
+     "text": "This way the same agent works in Dev, Test, and Production without editing it.",
+     "start": 9.104,
+     "end": 13.755
+    },
+    {
+     "text": "Think of one menu that is identical everywhere, with one small value that changes in each place.",
+     "start": 14.035,
+     "end": 19.965
+    }
+   ]
+  },
+  {
+   "title": "The types",
+   "start": 20.865,
+   "end": 36.679,
+   "sentences": [
+    {
+     "text": "The types are Decimal number, Text, J S O N, Two options, Data source, and Secret.",
+     "start": 20.865,
+     "end": 26.369
+    },
+    {
+     "text": "The base U R L of an A P I is a good example of the Text type.",
+     "start": 26.649,
+     "end": 30.575
+    },
+    {
+     "text": "For example, the base address of an A P I can be Text, but a password should be Secret, never Text.",
+     "start": 30.855,
+     "end": 36.679
+    }
+   ]
+  },
+  {
+   "title": "Secret and Key Vault",
+   "start": 37.579,
+   "end": 55.909,
+   "sentences": [
+    {
+     "text": "The Secret type stores a reference to a secret in Azure Key Vault.",
+     "start": 37.579,
+     "end": 41.355
+    },
+    {
+     "text": "The real secret does not live in Dataverse or in the solution, and only Azure Key Vault is supported.",
+     "start": 41.635,
+     "end": 47.928
+    },
+    {
+     "text": "You have to register the resource provider in the subscription, and give the Key Vault Secrets User role to the person who creates the variable.",
+     "start": 48.208,
+     "end": 55.909
+    }
+   ]
+  },
+  {
+   "title": "When you export and import",
+   "start": 56.809,
+   "end": 73.263,
+   "sentences": [
+    {
+     "text": "Before you export, you can remove the current value, so you do not carry the development value.",
+     "start": 56.809,
+     "end": 62.079
+    },
+    {
+     "text": "When you import, you are asked for the value of the new environment.",
+     "start": 62.359,
+     "end": 65.836
+    },
+    {
+     "text": "This way each environment uses its own values, and nobody carries the development setup into production by mistake.",
+     "start": 66.116,
+     "end": 73.263
+    }
+   ]
+  },
+  {
+   "title": "In Copilot Studio",
+   "start": 74.163,
+   "end": 90.531,
+   "sentences": [
+    {
+     "text": "In Copilot Studio, the variables are read-only.",
+     "start": 74.163,
+     "end": 77.107
+    },
+    {
+     "text": "The published agent includes the values from when it was published, so you republish after a change, except with Secret, which is retrieved at runtime.",
+     "start": 77.387,
+     "end": 86.24
+    },
+    {
+     "text": "It is an easy detail to forget, so memorize it before the exam.",
+     "start": 86.52,
+     "end": 90.531
+    }
+   ]
+  }
+ ]
+}

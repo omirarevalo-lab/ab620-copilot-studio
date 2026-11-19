@@ -1,0 +1,768 @@
+{
+ "id": "L05",
+ "title": "Security and governance",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 497.485,
+ "scenes": [
+  {
+   "title": "Monday morning at Contoso",
+   "start": 0.8,
+   "end": 27.227,
+   "sentences": [
+    {
+     "text": "Monday morning at Contoso.",
+     "start": 0.8,
+     "end": 2.507
+    },
+    {
+     "text": "A maker builds an HR agent and, to test faster, switches authentication to No authentication.",
+     "start": 2.787,
+     "end": 8.995
+    },
+    {
+     "text": "Then the link gets shared.",
+     "start": 9.275,
+     "end": 10.619
+    },
+    {
+     "text": "Now anyone with that link can chat with an agent that knows HR policies.",
+     "start": 10.899,
+     "end": 15.464
+    },
+    {
+     "text": "Who should have stopped this?",
+     "start": 15.744,
+     "end": 16.981
+    },
+    {
+     "text": "Copilot Studio has two safety nets, and admins have tools to govern hundreds of agents at once.",
+     "start": 17.261,
+     "end": 23.384
+    },
+    {
+     "text": "By the end of this class you will know exactly which one stops what.",
+     "start": 23.664,
+     "end": 27.227
+    }
+   ]
+  },
+  {
+   "title": "The alarm and the guard",
+   "start": 28.127,
+   "end": 48.153,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 28.127,
+     "end": 29.599
+    },
+    {
+     "text": "The security scan is an alarm.",
+     "start": 29.879,
+     "end": 31.777
+    },
+    {
+     "text": "It rings when you weaken a setting, but you can still walk through the door.",
+     "start": 32.057,
+     "end": 35.684
+    },
+    {
+     "text": "A data policy is a guard.",
+     "start": 35.964,
+     "end": 37.777
+    },
+    {
+     "text": "The administrator posts it at the door, and it simply does not let you pass.",
+     "start": 38.057,
+     "end": 42.025
+    },
+    {
+     "text": "One warns, the other prevents.",
+     "start": 42.305,
+     "end": 44.055
+    },
+    {
+     "text": "Many governance questions on the exam come down to this difference.",
+     "start": 44.335,
+     "end": 48.153
+    }
+   ]
+  },
+  {
+   "title": "The alarm in action",
+   "start": 49.053,
+   "end": 76.571,
+   "sentences": [
+    {
+     "text": "Let's watch the alarm.",
+     "start": 49.053,
+     "end": 50.44
+    },
+    {
+     "text": "Our maker switches from Authenticate with Microsoft to No authentication.",
+     "start": 50.72,
+     "end": 55.2
+    },
+    {
+     "text": "The scan warns.",
+     "start": 55.48,
+     "end": 56.568
+    },
+    {
+     "text": "If tools switch from end user credentials to the maker's own credentials, it warns again.",
+     "start": 56.848,
+     "end": 62.117
+    },
+    {
+     "text": "If the agent is shared with the whole organization, it warns too, because by default an agent is shared with nobody.",
+     "start": 62.397,
+     "end": 69.629
+    },
+    {
+     "text": "Notice the pattern.",
+     "start": 69.909,
+     "end": 71.083
+    },
+    {
+     "text": "Each warning means a default was weakened.",
+     "start": 71.363,
+     "end": 73.603
+    },
+    {
+     "text": "And notice the limit: the maker can still publish.",
+     "start": 73.883,
+     "end": 76.571
+    }
+   ]
+  },
+  {
+   "title": "The guard: data policies",
+   "start": 77.471,
+   "end": 104.241,
+   "sentences": [
+    {
+     "text": "Now the guard.",
+     "start": 77.471,
+     "end": 78.473
+    },
+    {
+     "text": "The administrator defines data policies in Power Platform, for each environment.",
+     "start": 78.753,
+     "end": 83.617
+    },
+    {
+     "text": "A data policy works on connectors.",
+     "start": 83.897,
+     "end": 86.052
+    },
+    {
+     "text": "Here is the key idea: almost everything an agent does rides on a connector.",
+     "start": 86.332,
+     "end": 90.791
+    },
+    {
+     "text": "Channels, knowledge sources, tools, even M C P servers.",
+     "start": 91.071,
+     "end": 94.932
+    },
+    {
+     "text": "So when the admin blocks a connector, that capability simply disappears for every maker in the environment.",
+     "start": 95.212,
+     "end": 101.313
+    },
+    {
+     "text": "It does not warn, it blocks.",
+     "start": 101.593,
+     "end": 103.172
+    },
+    {
+     "text": "Blocked.",
+     "start": 103.452,
+     "end": 104.241
+    }
+   ]
+  },
+  {
+   "title": "Three groups",
+   "start": 105.141,
+   "end": 136.965,
+   "sentences": [
+    {
+     "text": "A data policy sorts every connector into one of three groups.",
+     "start": 105.141,
+     "end": 108.811
+    },
+    {
+     "text": "Business, Non-business, and Blocked.",
+     "start": 109.091,
+     "end": 111.16
+    },
+    {
+     "text": "Blocked connectors can't be used by any agent.",
+     "start": 111.44,
+     "end": 114.085
+    },
+    {
+     "text": "Business and Non-business connectors can both be used, but never together in one agent.",
+     "start": 114.365,
+     "end": 119.549
+    },
+    {
+     "text": "Picture an agent that reads SharePoint, which the admin put in Business, and posts to a social network the admin put in Non-business.",
+     "start": 119.829,
+     "end": 127.851
+    },
+    {
+     "text": "The moment the maker adds the second one, an error appears, in real time.",
+     "start": 128.131,
+     "end": 132.291
+    },
+    {
+     "text": "If a maker needs a blocked connector, ask the admin to move it to another group.",
+     "start": 132.571,
+     "end": 136.965
+    }
+   ]
+  },
+  {
+   "title": "Decide: it worked yesterday",
+   "start": 137.865,
+   "end": 164.977,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 137.865,
+     "end": 138.74
+    },
+    {
+     "text": "An agent works perfectly in the development environment.",
+     "start": 139.02,
+     "end": 142.348
+    },
+    {
+     "text": "In production, adding the same tool fails at once with an error.",
+     "start": 142.628,
+     "end": 146.148
+    },
+    {
+     "text": "Is the scan to blame, or a data policy?",
+     "start": 146.428,
+     "end": 148.924
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 149.204,
+     "end": 150.74
+    },
+    {
+     "text": "It is a data policy, and it belongs to the production environment.",
+     "start": 151.02,
+     "end": 154.967
+    },
+    {
+     "text": "Policies are set per environment, so a connector can be allowed in development and blocked in production.",
+     "start": 155.247,
+     "end": 161.199
+    },
+    {
+     "text": "Check the target environment while you design, not on launch day.",
+     "start": 161.479,
+     "end": 164.977
+    }
+   ]
+  },
+  {
+   "title": "Credentials and Teams",
+   "start": 165.877,
+   "end": 195.139,
+   "sentences": [
+    {
+     "text": "Admins have a second lever, beyond connectors.",
+     "start": 165.877,
+     "end": 168.48
+    },
+    {
+     "text": "In the Power Platform admin center there is a setting called Control maker provided credentials.",
+     "start": 168.76,
+     "end": 174.371
+    },
+    {
+     "text": "When it is enforced, makers can no longer set tools to run with their own credentials.",
+     "start": 174.651,
+     "end": 179.493
+    },
+    {
+     "text": "Every connection is signed in by the end user, at runtime.",
+     "start": 179.773,
+     "end": 183.229
+    },
+    {
+     "text": "One more limit for Teams.",
+     "start": 183.509,
+     "end": 185.045
+    },
+    {
+     "text": "If an agent there uses custom Active Directory authentication, single sign on does not work for connectors, so users sign in to each connector by hand.",
+     "start": 185.325,
+     "end": 195.139
+    }
+   ]
+  },
+  {
+   "title": "One connector per source",
+   "start": 196.039,
+   "end": 222.852,
+   "sentences": [
+    {
+     "text": "Knowledge works the same way, with a twist.",
+     "start": 196.039,
+     "end": 198.343
+    },
+    {
+     "text": "Each type of knowledge source has its own connector.",
+     "start": 198.623,
+     "end": 201.439
+    },
+    {
+     "text": "Uploaded documents have one.",
+     "start": 201.719,
+     "end": 203.468
+    },
+    {
+     "text": "SharePoint and OneDrive have another.",
+     "start": 203.748,
+     "end": 205.924
+    },
+    {
+     "text": "Public websites have a third.",
+     "start": 206.204,
+     "end": 207.953
+    },
+    {
+     "text": "So an admin can block public websites and keep SharePoint fully working.",
+     "start": 208.233,
+     "end": 212.457
+    },
+    {
+     "text": "Blocking one never touches the others.",
+     "start": 212.737,
+     "end": 214.849
+    },
+    {
+     "text": "And if blocking a whole connector is too blunt, endpoint filtering lets the admin allow or deny specific addresses instead.",
+     "start": 215.129,
+     "end": 222.852
+    }
+   ]
+  },
+  {
+   "title": "Closing the Monday door",
+   "start": 223.752,
+   "end": 250.501,
+   "sentences": [
+    {
+     "text": "Back to Monday morning.",
+     "start": 223.752,
+     "end": 225.032
+    },
+    {
+     "text": "How does the admin make sure nobody ever publishes an agent without sign in?",
+     "start": 225.312,
+     "end": 229.579
+    },
+    {
+     "text": "There is a connector for exactly that: Chat without Microsoft Entra I D authentication in Copilot Studio.",
+     "start": 229.859,
+     "end": 236.92
+    },
+    {
+     "text": "Block it in the data policy.",
+     "start": 237.2,
+     "end": 238.928
+    },
+    {
+     "text": "Now the No authentication option is gone.",
+     "start": 239.208,
+     "end": 241.597
+    },
+    {
+     "text": "Makers can only choose Authenticate with Microsoft, or Authenticate manually.",
+     "start": 241.877,
+     "end": 246.635
+    },
+    {
+     "text": "The alarm would only have warned.",
+     "start": 246.915,
+     "end": 248.728
+    },
+    {
+     "text": "The guard closes the door.",
+     "start": 249.008,
+     "end": 250.501
+    }
+   ]
+  },
+  {
+   "title": "Decide: the exam version",
+   "start": 251.401,
+   "end": 280.735,
+   "sentences": [
+    {
+     "text": "Here is how the exam asks it.",
+     "start": 251.401,
+     "end": 253.108
+    },
+    {
+     "text": "An admin must prevent any agent from being published without authentication.",
+     "start": 253.388,
+     "end": 257.761
+    },
+    {
+     "text": "Option one, rely on the security scan.",
+     "start": 258.041,
+     "end": 260.495
+    },
+    {
+     "text": "Option two, block the Chat without Microsoft Entra I D authentication connector.",
+     "start": 260.775,
+     "end": 266.215
+    },
+    {
+     "text": "Option three, enforce Control maker provided credentials.",
+     "start": 266.495,
+     "end": 269.951
+    },
+    {
+     "text": "Decide.",
+     "start": 270.231,
+     "end": 271.105
+    },
+    {
+     "text": "The answer is option two.",
+     "start": 271.385,
+     "end": 272.9
+    },
+    {
+     "text": "The scan only warns, and that setting controls credentials, not sign in.",
+     "start": 273.18,
+     "end": 277.575
+    },
+    {
+     "text": "When the question says prevent, think data policy.",
+     "start": 277.855,
+     "end": 280.735
+    }
+   ]
+  },
+  {
+   "title": "Three zones",
+   "start": 281.635,
+   "end": 312.155,
+   "sentences": [
+    {
+     "text": "Now zoom out.",
+     "start": 281.635,
+     "end": 282.68
+    },
+    {
+     "text": "A large company has hundreds of agents, and they don't all need the same rules.",
+     "start": 282.96,
+     "end": 287.269
+    },
+    {
+     "text": "Zoned governance sorts them into three zones by purpose and risk.",
+     "start": 287.549,
+     "end": 291.624
+    },
+    {
+     "text": "Zone one is for citizens: private, read only agents made in Agent Builder or as SharePoint agents.",
+     "start": 291.904,
+     "end": 298.581
+    },
+    {
+     "text": "Zone two is for partnered makers, approved by I T, with a coach, in I T managed environments.",
+     "start": 298.861,
+     "end": 305.24
+    },
+    {
+     "text": "Zone three is for professional developers: A L M, the strongest controls, and service level agreements.",
+     "start": 305.52,
+     "end": 312.155
+    }
+   ]
+  },
+  {
+   "title": "What each zone allows",
+   "start": 313.055,
+   "end": 348.476,
+   "sentences": [
+    {
+     "text": "Each zone takes effect through its environment and policies.",
+     "start": 313.055,
+     "end": 316.212
+    },
+    {
+     "text": "Zone one allows only Microsoft three sixty five and Power Platform connectors, runs in the user's own context, lives in developer environments, and has sharing turned off.",
+     "start": 316.492,
+     "end": 327.82
+    },
+    {
+     "text": "Zone two adds advanced connector policies, approved data sources, environment groups and rules, deployment pipelines, and I T approval before publishing.",
+     "start": 328.1,
+     "end": 337.977
+    },
+    {
+     "text": "Zone three keeps advanced connector policies, adds Microsoft Purview, and shares agents through Integrated apps in the Microsoft three sixty five admin center.",
+     "start": 338.257,
+     "end": 348.476
+    }
+   ]
+  },
+  {
+   "title": "Decide: which zone?",
+   "start": 349.376,
+   "end": 379.208,
+   "sentences": [
+    {
+     "text": "To place any agent, ask four questions.",
+     "start": 349.376,
+     "end": 351.723
+    },
+    {
+     "text": "Who builds it?",
+     "start": 352.003,
+     "end": 353.005
+    },
+    {
+     "text": "Who will use it?",
+     "start": 353.285,
+     "end": 354.331
+    },
+    {
+     "text": "What data and permissions does it need?",
+     "start": 354.611,
+     "end": 356.68
+    },
+    {
+     "text": "How critical is it?",
+     "start": 356.96,
+     "end": 358.176
+    },
+    {
+     "text": "Try one.",
+     "start": 358.456,
+     "end": 359.288
+    },
+    {
+     "text": "An HR benefits agent, built by an I T approved maker, used by other departments, with shared HR data, and no service level agreement.",
+     "start": 359.568,
+     "end": 368.933
+    },
+    {
+     "text": "Which zone?",
+     "start": 369.213,
+     "end": 370.109
+    },
+    {
+     "text": "Decide.",
+     "start": 370.389,
+     "end": 371.264
+    },
+    {
+     "text": "Zone two.",
+     "start": 371.544,
+     "end": 372.397
+    },
+    {
+     "text": "Not zone one, because others use it and the data is shared.",
+     "start": 372.677,
+     "end": 375.941
+    },
+    {
+     "text": "Not zone three, because nothing demands an S L A.",
+     "start": 376.221,
+     "end": 379.208
+    }
+   ]
+  },
+  {
+   "title": "Environment groups",
+   "start": 380.108,
+   "end": 406.383,
+   "sentences": [
+    {
+     "text": "Environment groups apply rules at scale.",
+     "start": 380.108,
+     "end": 382.284
+    },
+    {
+     "text": "An environment belongs to one group only, and groups can't overlap or nest.",
+     "start": 382.564,
+     "end": 387.108
+    },
+    {
+     "text": "When a tenant admin sets rules on a group, such as agent sharing, generative A I settings, or transcript access, every environment inherits them as read only.",
+     "start": 387.388,
+     "end": 397.585
+    },
+    {
+     "text": "Here is the trap.",
+     "start": 397.865,
+     "end": 398.932
+    },
+    {
+     "text": "An environment admin can't override them locally.",
+     "start": 399.212,
+     "end": 402.007
+    },
+    {
+     "text": "If a change is needed, it goes through a tenant admin, at the group level.",
+     "start": 402.287,
+     "end": 406.383
+    }
+   ]
+  },
+  {
+   "title": "Agent three sixty five",
+   "start": 407.283,
+   "end": 440.643,
+   "sentences": [
+    {
+     "text": "Last piece: seeing every agent.",
+     "start": 407.283,
+     "end": 409.416
+    },
+    {
+     "text": "Microsoft Agent three sixty five gives admins one place to see and control them.",
+     "start": 409.696,
+     "end": 415.115
+    },
+    {
+     "text": "Copilot Studio agents join automatically, with no setup from the maker.",
+     "start": 415.395,
+     "end": 419.96
+    },
+    {
+     "text": "Admins find drafts and published agents in the Power Platform admin center, under Manage, Inventory.",
+     "start": 420.24,
+     "end": 426.576
+    },
+    {
+     "text": "The registry lives in the Microsoft three sixty five admin center.",
+     "start": 426.856,
+     "end": 430.973
+    },
+    {
+     "text": "An admin can block an agent: nobody can use it in any channel, but makers can still open and test it.",
+     "start": 431.253,
+     "end": 437.547
+    },
+    {
+     "text": "Microsoft Purview logs every governance action.",
+     "start": 437.827,
+     "end": 440.643
+    }
+   ]
+  },
+  {
+   "title": "Decide: the silent agent",
+   "start": 441.543,
+   "end": 468.145,
+   "sentences": [
+    {
+     "text": "One more.",
+     "start": 441.543,
+     "end": 442.396
+    },
+    {
+     "text": "Our Monday agent, still set to No authentication, is used all week.",
+     "start": 442.676,
+     "end": 446.879
+    },
+    {
+     "text": "The admin opens the activity dashboards.",
+     "start": 447.159,
+     "end": 449.548
+    },
+    {
+     "text": "What does the admin see for those chats?",
+     "start": 449.828,
+     "end": 451.791
+    },
+    {
+     "text": "Decide.",
+     "start": 452.071,
+     "end": 452.945
+    },
+    {
+     "text": "Nothing.",
+     "start": 453.225,
+     "end": 453.972
+    },
+    {
+     "text": "Telemetry needs an authenticated session, at least one qualifying license, and an agent that is not multitenant.",
+     "start": 454.252,
+     "end": 461.377
+    },
+    {
+     "text": "So an agent without sign in is not only exposed, it is also invisible.",
+     "start": 461.657,
+     "end": 466.116
+    },
+    {
+     "text": "Two reasons to close that door.",
+     "start": 466.396,
+     "end": 468.145
+    }
+   ]
+  },
+  {
+   "title": "What to remember",
+   "start": 469.045,
+   "end": 496.285,
+   "sentences": [
+    {
+     "text": "Let's close.",
+     "start": 469.045,
+     "end": 470.027
+    },
+    {
+     "text": "The scan is the alarm, it warns.",
+     "start": 470.307,
+     "end": 472.248
+    },
+    {
+     "text": "The data policy is the guard, it blocks, per environment, by connector, in three groups.",
+     "start": 472.528,
+     "end": 477.84
+    },
+    {
+     "text": "Each knowledge source has its own connector.",
+     "start": 478.12,
+     "end": 480.445
+    },
+    {
+     "text": "To stop agents without sign in, block that one connector.",
+     "start": 480.725,
+     "end": 484.117
+    },
+    {
+     "text": "Zones sort agents by who builds them, who uses them, the data, and how critical they are.",
+     "start": 484.397,
+     "end": 489.709
+    },
+    {
+     "text": "And Agent three sixty five sees everything, as long as users sign in.",
+     "start": 489.989,
+     "end": 494.299
+    },
+    {
+     "text": "Now Monday morning can't happen.",
+     "start": 494.579,
+     "end": 496.285
+    }
+   ]
+  }
+ ]
+}

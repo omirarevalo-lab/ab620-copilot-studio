@@ -1,0 +1,55 @@
+{
+ "brand": "AB-620 · Basics · Lesson 7",
+ "scenes": [
+  { "type": "compare",
+    "header": { "kicker": "Two moments", "title": "Rehearsal and premiere" },
+    "cols": [
+      { "icon": "window_dev_tools", "title": "Test pane", "sub": "The rehearsal", "at": "test pane",
+        "items": [ { "text": "The version you are editing, with no risk", "at": "being edited" } ] },
+      { "icon": "send", "title": "Publish", "sub": "The premiere", "accent": true, "at": "select Publish",
+        "items": [ { "text": "Changes reach all connected channels", "at": "connected channels" } ] }
+    ],
+    "verdict": { "icon": "flag", "text": "Forgot to publish? Users still see the old version", "at": "forget to publish" } },
+  { "type": "split",
+    "left": { "kicker": "Test your agent", "title": "Chat while you build" },
+    "window": { "title": "Test your agent", "heading": "While you build", "rail": ["apps", "bot", "flow", "toolbox", "window_dev_tools"], "at": "start",
+      "cards": [
+        { "icon": "branch_fork", "title": "Jump to the node", "desc": "Select a response: the canvas shows its node", "at": "select a response", "hi": true },
+        { "icon": "arrow_routing", "title": "Track between topics", "desc": "Follow the conversation across topics", "at": "Track between topics", "hi": true },
+        { "icon": "settings", "title": "Reset", "desc": "Saving does not clear the test chat", "at": "Reset", "hi": true }
+      ] } },
+  { "type": "split",
+    "left": { "kicker": "Generative orchestration", "title": "Activity map", "sub": "The agent's plan, step by step." },
+    "rows": [
+      { "icon": "map", "title": "Knowledge, topics, tools — and the order", "at": "which knowledge", "hi": true },
+      { "icon": "document_text", "title": "Variables", "desc": "Test tab of the Variables panel", "at": "Variables panel", "hi": true },
+      { "icon": "flag", "title": "Snapshot with diagnostics", "desc": "Careful: it can include sensitive information", "at": "snapshot", "hi": true }
+    ] },
+  { "type": "stats",
+    "header": { "kicker": "Publish", "title": "When users see the change" },
+    "items": [
+      { "icon": "send", "value": "New session", "label": "New content appears when a session starts", "at": "new session starts" },
+      { "icon": "data_bar_vertical", "value": "30 min", "label": "of inactivity ends a session in most channels", "at": "thirty minutes" },
+      { "icon": "people_team", "value": "start over", "label": "restarts the session in Teams", "at": "start over" }
+    ],
+    "note": { "icon": "key", "text": "Trial account: you can test, but you cannot publish", "at": "trial account" } },
+  { "type": "terms",
+    "header": { "kicker": "Channels", "title": "Where your users chat", "sub": "Admins can block channels with policies." },
+    "cols": 3,
+    "items": [
+      { "icon": "people_team", "term": "Teams + Microsoft Copilot", "def": "Where people already work", "at": "Teams and Microsoft Copilot" },
+      { "icon": "book_open", "term": "SharePoint", "def": "On a site", "at": "SharePoint" },
+      { "icon": "globe", "term": "Website", "def": "Demo site: stakeholders only", "at": "a website" },
+      { "icon": "phone", "term": "Mobile app", "def": "In your own app", "at": "mobile app" },
+      { "icon": "chat", "term": "WhatsApp, Facebook", "def": "Messaging", "at": "WhatsApp" },
+      { "icon": "cloud", "term": "Azure Bot Service", "def": "Slack, Telegram, email…", "at": "Azure Bot Service" }
+    ] },
+  { "type": "split",
+    "left": { "kicker": "Authentication", "title": "Who can chat?" },
+    "rows": [
+      { "icon": "shield_checkmark", "title": "Authenticate with Microsoft", "desc": "Default · Teams, Power Apps, Microsoft Copilot", "at": "Authenticate with Microsoft", "hi": true, "badge": { "text": "Default", "at": "0:By default" } },
+      { "icon": "key", "title": "Authenticate manually", "desc": "Other channels with sign-in", "at": "Authenticate manually", "hi": true },
+      { "icon": "globe", "title": "No authentication", "desc": "Anyone with the link · no tools with user credentials", "at": "No authentication", "hi": true }
+    ] }
+ ]
+}

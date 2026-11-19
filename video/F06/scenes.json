@@ -1,0 +1,240 @@
+{
+ "brand": "AB-620 · Basics · Lesson 6",
+ "scenes": [
+  {
+   "type": "flow",
+   "header": {
+    "kicker": "Environments",
+    "title": "Separate offices in one tenant"
+   },
+   "nodes": [
+    {
+     "icon": "window_dev_tools",
+     "title": "Development",
+     "sub": "Where you build",
+     "at": "development environment"
+    },
+    {
+     "icon": "send",
+     "title": "Move it",
+     "sub": "Nothing appears on its own",
+     "accent": true,
+     "at": "does not appear"
+    },
+    {
+     "icon": "checkmark_circle",
+     "title": "Production",
+     "sub": "Real work",
+     "at": "until you move"
+    }
+   ],
+   "below": [
+    {
+     "icon": "key",
+     "text": "Own connections",
+     "at": "own connections"
+    },
+    {
+     "icon": "cube_tree",
+     "text": "Own Dataverse (if any)",
+     "at": "Dataverse"
+    },
+    {
+     "icon": "bot",
+     "text": "Agents use resources from their own environment",
+     "at": "same environment",
+     "solid": true
+    }
+   ]
+  },
+  {
+   "type": "terms",
+   "header": {
+    "kicker": "Environment types",
+    "title": "Pick the right one"
+   },
+   "cols": 3,
+   "items": [
+    {
+     "icon": "apps",
+     "term": "Default",
+     "def": "Every tenant · for experimenting",
+     "at": "The default one"
+    },
+    {
+     "icon": "checkmark_circle",
+     "term": "Production",
+     "def": "Real work",
+     "at": "Production is"
+    },
+    {
+     "icon": "window_dev_tools",
+     "term": "Sandbox",
+     "def": "Development and testing",
+     "at": "Sandbox"
+    },
+    {
+     "icon": "person",
+     "term": "Developer",
+     "def": "Personal · Developer Plan",
+     "at": "Developer is"
+    },
+    {
+     "icon": "flag",
+     "term": "Trial",
+     "def": "Expires after 30 days",
+     "at": "trial"
+    }
+   ]
+  },
+  {
+   "type": "split",
+   "left": {
+    "kicker": "Dataverse",
+    "title": "The Power Platform database",
+    "sub": "Zero or one per environment."
+   },
+   "rows": [
+    {
+     "icon": "book_open",
+     "title": "Tables as knowledge",
+     "at": "tables can serve",
+     "hi": true
+    },
+    {
+     "icon": "document_text",
+     "title": "Stores the files you upload",
+     "at": "stores the files",
+     "hi": true
+    },
+    {
+     "icon": "cube_tree",
+     "title": "Solutions depend on it",
+     "at": "solutions depend",
+     "hi": true
+    },
+    {
+     "icon": "shield_checkmark",
+     "title": "Admin ≠ access to the data",
+     "desc": "Not automatic for environment admins",
+     "at": "environment administrator",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "header": {
+    "kicker": "Solutions",
+    "title": "A moving box"
+   },
+   "nodes": [
+    {
+     "icon": "window_dev_tools",
+     "title": "Development",
+     "sub": "Unmanaged · editable",
+     "at": "unmanaged version"
+    },
+    {
+     "icon": "cube_tree",
+     "title": "Export",
+     "sub": "Managed · packaged",
+     "accent": true,
+     "at": "export the managed"
+    },
+    {
+     "icon": "checkmark_circle",
+     "title": "Test · Production",
+     "sub": "Managed",
+     "at": "packaged"
+    }
+   ],
+   "below": [
+    {
+     "icon": "cube_tree",
+     "text": "Agent, flows, variables, connections — together",
+     "at": "1:groups your agent"
+    },
+    {
+     "icon": "flow",
+     "text": "Pipelines automate the trip",
+     "at": "Pipelines",
+     "solid": true
+    }
+   ]
+  },
+  {
+   "type": "split",
+   "left": {
+    "kicker": "Solutions",
+    "title": "Where agents are created"
+   },
+   "rows": [
+    {
+     "icon": "apps",
+     "title": "Default solution",
+     "desc": "If you configure nothing",
+     "at": "default solution",
+     "hi": true
+    },
+    {
+     "icon": "flag",
+     "title": "Preferred solution",
+     "desc": "New agents are created there",
+     "at": "preferred solution",
+     "hi": true
+    },
+    {
+     "icon": "cube_tree",
+     "title": "Custom solution",
+     "desc": "Needed to move agents: Add existing, then export",
+     "at": "custom solution",
+     "hi": true
+    }
+   ]
+  },
+  {
+   "type": "roadmap",
+   "header": {
+    "kicker": "Contoso",
+    "title": "Nexo's path to production"
+   },
+   "stops": [
+    {
+     "icon": "window_dev_tools",
+     "title": "Development",
+     "sub": "Unmanaged solution",
+     "at": "development,"
+    },
+    {
+     "icon": "clipboard_task_list_ltr",
+     "title": "Testing",
+     "sub": "Managed version",
+     "at": "testing,"
+    },
+    {
+     "icon": "checkmark_circle",
+     "title": "Production",
+     "sub": "Real data",
+     "at": "production."
+    }
+   ],
+   "notes": [
+    {
+     "icon": "cube_tree",
+     "text": "The same solution moves to production",
+     "at": "same solution"
+    },
+    {
+     "icon": "shield_checkmark",
+     "text": "Development never touches sensitive data",
+     "at": "never touches"
+    }
+   ],
+   "next": {
+    "title": "Test and publish an agent",
+    "at": "sensitive information"
+   }
+  }
+ ]
+}

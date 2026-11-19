@@ -1,0 +1,484 @@
+{
+ "id": "F02",
+ "title": "Anatomy of an agent",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 292.683,
+ "scenes": [
+  {
+   "title": "Nexo's second week",
+   "start": 0.8,
+   "end": 23.771,
+   "sentences": [
+    {
+     "text": "Two weeks later at Contoso.",
+     "start": 0.8,
+     "end": 2.464
+    },
+    {
+     "text": "Nexo is live in Teams and answers V P N questions from the guides.",
+     "start": 2.744,
+     "end": 7.224
+    },
+    {
+     "text": "But new requests arrive.",
+     "start": 7.504,
+     "end": 8.891
+    },
+    {
+     "text": "An employee asks for the status of their ticket, and Nexo cannot see it.",
+     "start": 9.171,
+     "end": 13.16
+    },
+    {
+     "text": "Another reports a server outage, and Nexo forgets to ask which system is down.",
+     "start": 13.44,
+     "end": 18.155
+    },
+    {
+     "text": "Each problem lives in a different piece of the agent.",
+     "start": 18.435,
+     "end": 21.336
+    },
+    {
+     "text": "Today we open Nexo and look inside.",
+     "start": 21.616,
+     "end": 23.771
+    }
+   ]
+  },
+  {
+   "title": "The new employee",
+   "start": 24.671,
+   "end": 48.26,
+   "sentences": [
+    {
+     "text": "Every agent is built from four pieces.",
+     "start": 24.671,
+     "end": 26.953
+    },
+    {
+     "text": "Think of hiring a new employee.",
+     "start": 27.233,
+     "end": 28.919
+    },
+    {
+     "text": "You give them a job description: those are the instructions.",
+     "start": 29.199,
+     "end": 32.399
+    },
+    {
+     "text": "A folder of documents to read: that is the knowledge.",
+     "start": 32.679,
+     "end": 35.815
+    },
+    {
+     "text": "Access to the company systems: those are the tools.",
+     "start": 36.095,
+     "end": 38.847
+    },
+    {
+     "text": "And a few scripts for delicate calls: those are the topics.",
+     "start": 39.127,
+     "end": 42.327
+    },
+    {
+     "text": "Keep this picture, because almost any scenario question on the exam asks which piece fits.",
+     "start": 42.607,
+     "end": 48.26
+    }
+   ]
+  },
+  {
+   "title": "Instructions: the job description",
+   "start": 49.16,
+   "end": 75.608,
+   "sentences": [
+    {
+     "text": "Start with the instructions, the job description.",
+     "start": 49.16,
+     "end": 51.933
+    },
+    {
+     "text": "They are free text in plain language, written on the agent's Overview page.",
+     "start": 52.213,
+     "end": 56.544
+    },
+    {
+     "text": "They say who the agent is, how it talks, and what it must not do.",
+     "start": 56.824,
+     "end": 60.579
+    },
+    {
+     "text": "Nexo's instructions say: you are Nexo, the Contoso I T assistant.",
+     "start": 60.859,
+     "end": 65.573
+    },
+    {
+     "text": "Answer briefly.",
+     "start": 65.853,
+     "end": 66.899
+    },
+    {
+     "text": "If you do not know, offer to open a ticket.",
+     "start": 67.179,
+     "end": 69.611
+    },
+    {
+     "text": "Keep them short and clear, with no contradictions, because the model tries to obey every line.",
+     "start": 69.891,
+     "end": 75.608
+    }
+   ]
+  },
+  {
+   "title": "Knowing and doing",
+   "start": 76.508,
+   "end": 106.305,
+   "sentences": [
+    {
+     "text": "Next, knowing and doing.",
+     "start": 76.508,
+     "end": 77.873
+    },
+    {
+     "text": "Knowledge is what the agent can look up: websites, files, SharePoint, or Dataverse.",
+     "start": 78.153,
+     "end": 83.252
+    },
+    {
+     "text": "It answers questions with your organization's real information.",
+     "start": 83.532,
+     "end": 87.436
+    },
+    {
+     "text": "Tools are what the agent can run: a connector, an agent flow, a prompt, a REST A P I, an M C P server, or computer use.",
+     "start": 87.716,
+     "end": 96.207
+    },
+    {
+     "text": "They take action or bring in live data.",
+     "start": 96.487,
+     "end": 98.663
+    },
+    {
+     "text": "Quick rule: if the answer is written in a document, it is knowledge.",
+     "start": 98.943,
+     "end": 102.697
+    },
+    {
+     "text": "If you must query a system or change something, it is a tool.",
+     "start": 102.977,
+     "end": 106.305
+    }
+   ]
+  },
+  {
+   "title": "Decide: ticket status",
+   "start": 107.205,
+   "end": 138.039,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 107.205,
+     "end": 108.08
+    },
+    {
+     "text": "An employee asks Nexo for the current status of their ticket.",
+     "start": 108.36,
+     "end": 111.88
+    },
+    {
+     "text": "That status lives in the help desk system and changes all day.",
+     "start": 112.16,
+     "end": 115.893
+    },
+    {
+     "text": "Which piece do they add?",
+     "start": 116.173,
+     "end": 117.517
+    },
+    {
+     "text": "Knowledge, with the help desk guides?",
+     "start": 117.797,
+     "end": 119.803
+    },
+    {
+     "text": "A topic, with fixed ticket questions?",
+     "start": 120.083,
+     "end": 122.216
+    },
+    {
+     "text": "Or a tool that queries the help desk?",
+     "start": 122.496,
+     "end": 124.501
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 124.781,
+     "end": 126.317
+    },
+    {
+     "text": "A tool.",
+     "start": 130.097,
+     "end": 130.929
+    },
+    {
+     "text": "The status is live data inside a system, so Nexo must query it.",
+     "start": 131.209,
+     "end": 135.241
+    },
+    {
+     "text": "Knowledge only reads what is already written.",
+     "start": 135.521,
+     "end": 138.039
+    }
+   ]
+  },
+  {
+   "title": "Topics: scripts made of nodes",
+   "start": 138.939,
+   "end": 168.309,
+   "sentences": [
+    {
+     "text": "Last piece: topics, the scripts for delicate calls.",
+     "start": 138.939,
+     "end": 142.096
+    },
+    {
+     "text": "A topic is a conversation you design.",
+     "start": 142.376,
+     "end": 144.723
+    },
+    {
+     "text": "It starts with a trigger, the node that decides when it begins.",
+     "start": 145.003,
+     "end": 148.288
+    },
+    {
+     "text": "Then come nodes: a message, a question, a condition, a call to a tool.",
+     "start": 148.568,
+     "end": 152.899
+    },
+    {
+     "text": "Inside a topic you control exactly what is said and in what order.",
+     "start": 153.179,
+     "end": 157.211
+    },
+    {
+     "text": "Use one when you need precision: validating a value, following a fixed process, or returning an exact result.",
+     "start": 157.491,
+     "end": 164.509
+    },
+    {
+     "text": "For everything else, let the agent combine knowledge and tools.",
+     "start": 164.789,
+     "end": 168.309
+    }
+   ]
+  },
+  {
+   "title": "Decide: serious incidents",
+   "start": 169.209,
+   "end": 201.725,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 169.209,
+     "end": 170.084
+    },
+    {
+     "text": "For every serious incident, I T always needs the same data, asked in the same order: the affected system, then the urgency.",
+     "start": 170.364,
+     "end": 178.215
+    },
+    {
+     "text": "How should Nexo collect it?",
+     "start": 178.495,
+     "end": 180.052
+    },
+    {
+     "text": "A topic with fixed questions in order?",
+     "start": 180.332,
+     "end": 182.444
+    },
+    {
+     "text": "An instruction that asks for both details?",
+     "start": 182.724,
+     "end": 185.049
+    },
+    {
+     "text": "Or a knowledge file listing the questions?",
+     "start": 185.329,
+     "end": 187.527
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 187.807,
+     "end": 189.343
+    },
+    {
+     "text": "A topic.",
+     "start": 193.123,
+     "end": 194.019
+    },
+    {
+     "text": "An exact, repeatable process is designed step by step.",
+     "start": 194.299,
+     "end": 197.733
+    },
+    {
+     "text": "An instruction only guides the model, so a question can be skipped.",
+     "start": 198.013,
+     "end": 201.725
+    }
+   ]
+  },
+  {
+   "title": "Find each piece in the studio",
+   "start": 202.625,
+   "end": 228.903,
+   "sentences": [
+    {
+     "text": "Let us find each piece in Copilot Studio.",
+     "start": 202.625,
+     "end": 205.143
+    },
+    {
+     "text": "Open Nexo.",
+     "start": 205.423,
+     "end": 206.532
+    },
+    {
+     "text": "On Overview, the Instructions box holds the role, the tone, and the scope.",
+     "start": 206.812,
+     "end": 210.993
+    },
+    {
+     "text": "Open Knowledge and add a source, such as a public website or a file.",
+     "start": 211.273,
+     "end": 215.199
+    },
+    {
+     "text": "Open Tools and select Add a tool to see the connectors you can add.",
+     "start": 215.479,
+     "end": 219.404
+    },
+    {
+     "text": "Open Topics to see the system topics and your own, and open one to read its nodes.",
+     "start": 219.684,
+     "end": 224.633
+    },
+    {
+     "text": "Finally, ask something in the test panel and notice which piece answered.",
+     "start": 224.913,
+     "end": 228.903
+    }
+   ]
+  },
+  {
+   "title": "Decide: the ignored tool",
+   "start": 229.803,
+   "end": 261.572,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 229.803,
+     "end": 230.677
+    },
+    {
+     "text": "Nexo has a ticket tool, but it rarely chooses it, even though the instructions talk about tickets.",
+     "start": 230.957,
+     "end": 236.653
+    },
+    {
+     "text": "What should the maker improve?",
+     "start": 236.933,
+     "end": 238.448
+    },
+    {
+     "text": "Stricter rules in the instructions?",
+     "start": 238.728,
+     "end": 240.691
+    },
+    {
+     "text": "A clear description of the tool?",
+     "start": 240.971,
+     "end": 242.699
+    },
+    {
+     "text": "Or more ticket guides as knowledge?",
+     "start": 242.979,
+     "end": 244.856
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 245.136,
+     "end": 246.672
+    },
+    {
+     "text": "A clear description of the tool.",
+     "start": 250.452,
+     "end": 252.159
+    },
+    {
+     "text": "The agent reads the descriptions of tools and topics to choose what to use.",
+     "start": 252.439,
+     "end": 256.812
+    },
+    {
+     "text": "Instructions set the role and the tone, but they do not replace a good description.",
+     "start": 257.092,
+     "end": 261.572
+    }
+   ]
+  },
+  {
+   "title": "Every piece in its place",
+   "start": 262.472,
+   "end": 291.483,
+   "sentences": [
+    {
+     "text": "Back to Contoso.",
+     "start": 262.472,
+     "end": 263.731
+    },
+    {
+     "text": "The team fixes each problem with the right piece.",
+     "start": 264.011,
+     "end": 266.763
+    },
+    {
+     "text": "The instructions keep answers brief.",
+     "start": 267.043,
+     "end": 269.069
+    },
+    {
+     "text": "The SharePoint guides stay as knowledge.",
+     "start": 269.349,
+     "end": 271.44
+    },
+    {
+     "text": "A new tool reads the ticket status from the help desk.",
+     "start": 271.72,
+     "end": 274.728
+    },
+    {
+     "text": "And a topic called Report serious incident always asks for the affected system, then the urgency.",
+     "start": 275.008,
+     "end": 280.96
+    },
+    {
+     "text": "Remember the rule: documents are knowledge, live systems are tools, exact processes are topics.",
+     "start": 281.24,
+     "end": 287.277
+    },
+    {
+     "text": "In the next lesson, you will see how Nexo decides which piece to use.",
+     "start": 287.557,
+     "end": 291.483
+    }
+   ]
+  }
+ ]
+}

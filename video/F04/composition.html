@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>F04 · Knowledge: where the answers come from · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { top: 150px; height: 780px; }
+  #stage .uw .fld small { font-size: 30px; } #stage .uw .fld { font-size: 34px; }
+  #stage .uw .btn { font-size: 32px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage #uiA .nav { display: none; } #stage #uiA .main { left: 0; }
+  .tag.knw { color: #0f7b8a; border: 3px solid #0f7b8a; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  .ly { position: absolute; left: 56px; top: 40px; right: 56px; bottom: 30px; }
+  .pane { position: absolute; left: 0; top: 0; width: 880px; height: 500px; opacity: 0; }
+  .bwr .sb { opacity: 1; }
+  #exams .exam .xl { top: 60px; }
+  #exams .exam .xq { top: 130px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1200px; top: 345px; width: 600px; font-size: 36px; }
+  #exams .exam .xp { left: 204px; top: 690px; transform: scale(.9); transform-origin: 0 0; }
+  #exams #exB .xp { top: 640px; }
+  #exA .xo b.k, #exB .xo b.k { background: #dff1f3; color: #0f7b8a; } #exA .xl, #exB .xl { color: #7fd0da; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* F04 · Knowledge: where the answers come from. World 3840x2160 + extensions.
+     Office (y 840-1500): Teams door x 240-560 · Nexo desk x 780-1260 (Nexo wrapper #nxw at 800,980) · IT people x 1280-1760 (feet 1560).
+     Library wing x 2300-4236 (5 shelves, pitch 390, y 650-1500) · reading corner x 2900-3340 · aisle + badge gate x 1500-2270 (scene 3).
+     Annex (scene 5) panel x 4800-6200 y 450-1090, lane y 1130-1450 · underground maker desk 1200,2600 (laptop screen 1730,2825) ·
+     closing diorama y 4000-6160 (local y + 4000), camera 0.5 over x 0-3840. */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44', GB = '#4a5a78', GREY = '#8a93a6', TMS = '#5b5fc7';
+  const KNW = '#0f7b8a', KNWs = '#dff1f3', AMBs = '#fff3d6', PURs = '#efe7fb', REDs = '#fde8e6';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const G = (id, html) => D(id, 'left:0;top:0;width:1px;height:1px;opacity:0', html);
+  const PL = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 60) + 'px;');
+  const SB = (id, x, y, t, fs, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 56) + 'px;');
+  const T = (x, y, fs, col, t, id, ex, cls) => `<div class="px${cls ? ' ' + cls : ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const agC = (id, x, y) => agent(id, x, y, { folder: '' }).replace('height="500" viewBox="0 0 360 500"', 'height="390" viewBox="0 0 360 390"').replace('height="170" rx="40"', 'height="90" rx="40"');
+  const pers = (c, w) => person(c).replace('width="90" height="200"', `width="${w}" height="${Math.round(w * 200 / 90)}"`);
+  const CH = (id, x, y, w, icon, text, col, fs, bg, ex) => H(id, `left:${x}px;top:${y}px;width:${w}px;border:6px solid ${col};border-radius:26px;background:${bg || '#fff'};color:${col};font-size:${fs}px;font-weight:800;line-height:1.12;padding:10px 20px;display:flex;align-items:center;gap:14px;box-shadow:0 10px 30px rgba(16,24,40,.12);${ex || ''}`,
+    (icon ? IC(icon, `width:${Math.round(fs * 1.15)}px;height:${Math.round(fs * 1.15)}px;flex:0 0 auto`) : '') + `<span>${text}</span>`);
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SWX = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, t + 0.25); };
+  const DRAW = (sel, t, d) => { ON(sel, t, 0.1); tl.fromTo(sel, { strokeDasharray: 1500, strokeDashoffset: 1500 }, { strokeDashoffset: 0, duration: d || 0.7, immediateRender: false }, t); };
+  const EMERGE = (sel, t) => tl.fromTo(sel, { opacity: 0, y: 240, scale: 0.7 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: 'back.out(1.5)', immediateRender: false }, t);
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const TY = (sel, t, d, n) => { tl.set(sel, { opacity: 1 }, t); tl.fromTo(sel, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: d, ease: `steps(${n})`, immediateRender: false }, t); };
+  const pulse = (sel, t, col) => tl.fromTo(sel, { boxShadow: '0 0 0 0 rgba(47,91,211,0)' }, { boxShadow: `0 0 0 10px ${col || 'rgba(47,91,211,.6)'}`, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t);
+  const LIT = (sel, t, col) => tl.to(sel, { opacity: 1, borderColor: col, duration: 0.35 }, t);
+
+  /* ═════════ BACKGROUNDS (extensions, underground, closing diorama) ═════════ */
+  const Y = 4000;
+  ADD(D('', 'left:-2000px;top:0;width:2000px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)') + D('', 'left:-2000px;top:1500px;width:2000px;height:660px;background:#e3e7ef') +
+    D('', 'left:3840px;top:0;width:3600px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)') + D('', 'left:3840px;top:1500px;width:3600px;height:660px;background:#e3e7ef') + D('', 'left:3840px;top:1500px;width:3600px;height:6px;background:#d3d9e4') +
+    D('', 'left:-2000px;top:2160px;width:9000px;height:1840px;background:#d9deea') + D('', 'left:-2000px;top:2160px;width:9000px;height:10px;background:#c2c9da') +
+    D('', `left:-2000px;top:${Y - 10}px;width:8000px;height:1510px;background:linear-gradient(#f4f6fa,#eef1f7)`) + D('', `left:-2000px;top:${Y + 1500}px;width:8000px;height:1500px;background:#e3e7ef`) + D('', `left:-2000px;top:${Y + 1500}px;width:8000px;height:6px;background:#d3d9e4`));
+
+  /* ═════════ LIBRARY WING: five shelves ═════════ */
+  const SHX = (i) => 2300 + i * 390;
+  const SHN = [['Websites', 'globe'], ['Files', 'document_text'], ['SharePoint', 'organization'], ['Dataverse', 'table'], ['Connectors', 'plug_connected']];
+  const BKC = [KNW, '#4fc3d0', '#0a5560'];
+  const shelfHtml = (i) => D('sh' + i, `left:${SHX(i)}px;top:650px;width:360px;height:850px;border:8px solid ${KNW};border-radius:26px 26px 0 0;background:#fff`,
+    IC(SHN[i][1], `position:absolute;left:120px;top:20px;width:96px;height:96px;color:${KNW}`) +
+    [0, 1, 2, 3].map((k) => {
+      if (i === 1 && k === 3) return D('drw', `left:14px;top:${150 + k * 180}px;width:316px;height:112px;border:6px solid ${KNW};border-radius:12px;background:${KNWs}`, IC('table', `position:absolute;left:24px;top:20px;width:56px;height:56px;color:${KNW}`) + D('', `left:200px;top:40px;width:90px;height:14px;border-radius:7px;background:${KNW}`));
+      return D('', `left:14px;top:${150 + k * 180 + 122}px;width:316px;height:12px;background:${KNW}`) +
+        (i === 1 && k === 2 ? '' : [0, 1, 2, 3, 4, 5].map((j) => (i === 0 && k === 1 && j === 0) ? '' : D(`b${i}_${k}_${j}`, `left:${14 + j * 52}px;top:${150 + k * 180}px;width:44px;height:122px;border-radius:6px 6px 0 0;background:${BKC[(j + k) % 3]}`)).join(''));
+    }).join(''));
+  const SHARE = (i) => i === 1 ? 'bs' : '';
+  ADD(G('gLib', [0, 1, 2, 3, 4].map(shelfHtml).join('') +
+    D('bk', `left:${SHX(0) + 8 + 14}px;top:${650 + 8 + 150 + 180}px;width:44px;height:122px;border-radius:6px 6px 0 0;background:${KNW};box-shadow:0 0 0 0 rgba(15,123,138,.6)`)));
+  const SGN = [0, 1, 2, 3, 4].map((i) => PL('sg' + i, SHX(i) + 180, 548, SHN[i][0], 'knw', 56)).join('');
+  ADD(SGN);
+
+  /* ═════════ OFFICE: door, Nexo, desk, IT people ═════════ */
+  ADD(G('gDoor', D('', `left:240px;top:840px;width:320px;height:660px;border:8px solid ${TMS};border-radius:24px 24px 0 0;background:#fff`) + T(240, 1280, 60, TMS, 'Teams', '', 'width:320px;text-align:center')));
+  ADD(D('nxw', 'left:800px;top:980px;width:360px;height:390px;opacity:0', agC('nxa', 0, 0) +
+    D('nxb', `left:130px;top:306px;width:100px;height:62px;border-radius:12px;background:${KNW};border:5px solid #0a5560;opacity:0`, IC('book_open', 'position:absolute;left:22px;top:6px;width:42px;height:42px;color:#fff'))));
+  ADD(G('gDesk', D('', 'left:780px;top:1370px;width:480px;height:44px;border-radius:12px;background:#b5bcca') + D('', 'left:800px;top:1414px;width:440px;height:86px;background:#c9ced8')));
+  ADD(['#8a5cd6', '#1e7f4f', '#0e8f8f', '#b4533f'].map((c, k) => H('it' + k, `left:${1280 + k * 120}px;top:1240px;transform-origin:50% 100%`, pers(c, 120))).join(''));
+
+  /* ═════════ SCENE 0: the confident wrong answer ═════════ */
+  const BW = (id, x, y, html) => D(id, `left:${x}px;top:${y}px;width:1px;height:1px;opacity:0`, SB(id + 's', 0, 0, html, 56)).replace('class="w"', 'class="w bwr"');
+  ADD(BW('bw1', 450, 730, 'How do I reset<br>my password?'));
+  const RC0 = [['1', 'Open the Contoso portal'], ['2', 'Choose Security'], ['3', 'Press Reset']];
+  ADD(H('rc0', `left:1190px;top:800px;width:724px;height:414px;background:#fff;border:8px solid ${NAVY};border-radius:30px;box-shadow:0 20px 60px rgba(16,24,40,.22);overflow:hidden`,
+    D('', `left:0;top:0;width:708px;height:92px;background:${NAVY}`) + T(32, 16, 52, '#fff', 'Nexo') +
+    D('rt0', 'left:610px;top:12px;width:68px;height:68px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:48px;font-weight:800;text-align:center;line-height:64px;opacity:0', '✓') +
+    D('rs0', 'left:430px;top:14px;width:250px;height:64px;border:4px dashed #ff9d95;border-radius:14px;color:#ff9d95;font-size:44px;font-weight:800;text-align:center;line-height:56px;opacity:0', 'invented') +
+    RC0.map((r, k) => D('rr' + k, `left:24px;top:${112 + k * 100}px;width:660px;height:84px;opacity:.4`, D('', `left:0;top:14px;width:54px;height:54px;border-radius:50%;background:${NAVY};color:#fff;font-size:34px;font-weight:800;text-align:center;line-height:54px`, r[0]) + T(76, 16, 44, '#141821', r[1], 'rrt' + k, 'font-weight:700'))).join('')));
+  ADD(H('bkO', 'left:1040px;top:1234px;width:96px;height:124px;border:6px dashed #8a93a6;border-radius:8px 8px 0 0;background:#fff'));
+  ADD(H('qc', 'left:660px;top:660px;width:480px;height:290px', D('', 'left:0;top:30px;width:480px;height:230px;border-radius:115px;background:#e3e7ef;border:6px dashed #8a93a6') +
+    [[70, 70, 110], [150, 30, 130], [245, 85, 100], [320, 40, 120], [395, 95, 90]].map((q) => T(q[0], q[1], q[2], '#8a93a6', '?')).join('')));
+
+  /* ═════════ SCENE 1: the librarian (reading corner, answer card) ═════════ */
+  ADD(BW('tb', 1740, 900, 'every book?'));
+  ADD(H('rd', 'left:1920px;top:1390px;width:340px;height:40px;border-radius:12px;background:#b5bcca') + H('rd2', 'left:1936px;top:1430px;width:308px;height:70px;background:#c9ced8'));
+  ADD(H('ob', 'left:1950px;top:1284px;width:300px;height:106px', `<svg width="300" height="106" viewBox="0 0 300 106"><path d="M150 14 Q80 0 8 14 V100 Q80 86 150 100 Z" fill="#fff" stroke="${KNW}" stroke-width="6"/><path d="M150 14 Q220 0 292 14 V100 Q220 86 150 100 Z" fill="#fff" stroke="${KNW}" stroke-width="6"/>${[34, 54, 74].map((y) => `<path d="M26 ${y} H130 M170 ${y} H274" stroke="#c9ced8" stroke-width="7" stroke-linecap="round"/>`).join('')}</svg>`));
+  ADD(`<svg class="w" style="left:0;top:0;overflow:visible" width="4400" height="2160" viewBox="0 0 4400 2160"><path id="cb1" d="M2335 1050 C2310 1150 2250 1230 2200 1284" fill="none" stroke="${KNW}" stroke-width="12" stroke-linecap="round" opacity="0"/><path id="cb2" d="M2060 1280 C2020 1180 2020 1040 2020 945" fill="none" stroke="${KNW}" stroke-width="12" stroke-linecap="round" opacity="0"/></svg>`);
+  ADD(CH('cit1', 1650, 860, 640, 'book_open', 'Source: IT Guide, page 3', KNW, 40, KNWs));
+  ADD(H('ac1', `left:1750px;top:600px;width:540px;height:330px;background:#fff;border:8px solid #c9ced8;border-radius:28px;box-shadow:0 20px 60px rgba(16,24,40,.22)`,
+    T(30, 30, 44, '#141821', 'Reset your password') + [0, 1, 2].map((k) => D('', `left:30px;top:${128 + k * 52}px;width:${k === 2 ? 300 : 440}px;height:20px;border-radius:10px;background:#dde1ea`)).join('')));
+  ADD(PL('gdp', 2020, 495, 'Grounded', 'knw', 56));
+
+  /* ═════════ SCENE 2: the shelves (fence, drawer, chips, doors) ═════════ */
+  ADD(H('fence', `left:${SHX(0) + 8 + 6}px;top:${650 + 8 + 140}px;width:122px;height:142px;border:6px dashed ${KNW};border-radius:14px`));
+  ADD(H('docI', `left:${SHX(1) + 8 + 120}px;top:1190px;width:80px;height:80px;color:${KNW}`, IC('document_text', 'width:80px;height:80px')));
+  const SCH = ['Bing · your<br>URLs only', 'stored in<br>Dataverse', 'sites and<br>libraries', 'environment<br>tables', 'Microsoft<br>Search index'];
+  ADD(SCH.map((t, i) => H('sc' + i, `left:${SHX(i)}px;top:1530px;width:360px;height:140px;border:6px solid ${KNW};border-radius:24px;background:${KNWs};color:${KNW};font-size:50px;font-weight:800;line-height:1.12;text-align:center;padding-top:14px`, t)).join(''));
+  const DR = (id, x, w, t) => H(id, `left:${x}px;top:340px;width:${w}px;height:120px;border:6px solid ${PUR};border-radius:26px;background:#fff;color:${PUR};font-size:52px;font-weight:800;display:flex;align-items:center;gap:16px;padding:0 22px;opacity:0`,
+    D('', `position:relative;width:44px;height:74px;border:5px solid ${PUR};border-radius:8px 8px 0 0;background:${PURs};flex:0 0 auto`, D('', `left:28px;top:36px;width:8px;height:8px;border-radius:50%;background:${PUR}`)) + `<span>${t}</span>`);
+  ADD(DR('dr0', 2300, 600, 'When you create') + DR('dr1', 2950, 580, 'Knowledge page') + DR('dr2', 3580, 780, 'Generative answers node'));
+
+  /* ═════════ SCENE 3: badge gate, users, cards ═════════ */
+  ADD(H('gt', 'left:2060px;top:1150px;width:210px;height:350px', D('', 'left:30px;top:0;width:28px;height:350px;border-radius:8px 8px 0 0;background:#1f2a44') + D('', 'left:176px;top:0;width:28px;height:350px;border-radius:8px 8px 0 0;background:#1f2a44') +
+    D('gtA', 'left:58px;top:110px;width:118px;height:24px;border-radius:12px;background:#c4392f;transform-origin:0 50%') + D('rdr', 'left:0;top:10px;width:84px;height:100px;border-radius:14px;background:#2d3a5c;border:5px solid #1f2a44', D('gtL', 'left:26px;top:30px;width:28px;height:28px;border-radius:50%;background:#d98a00'))));
+  ADD(H('empM', 'left:1930px;top:1280px', pers('#b4533f', 130)) + H('empI', 'left:1590px;top:1280px', pers('#8a5cd6', 130)));
+  ADD(H('bdg', 'left:1990px;top:1390px;width:50px;height:34px;border-radius:6px;background:#fff;border:5px solid #0f7b8a', D('', 'left:4px;top:6px;width:30px;height:8px;background:#0f7b8a')));
+  ADD(BW('tq', 1825, 1030, 'Travel policy?'));
+  const lockH = (i) => H('lk' + i, `left:${SHX(i) + 240}px;top:662px;width:96px;height:96px;border-radius:50%;background:${NAVY}`, IC('lock_closed', 'position:absolute;left:20px;top:20px;width:56px;height:56px;color:#fff'));
+  ADD([2, 3, 4].map(lockH).join(''));
+  ADD(CH('chSign', 3080, 380, 640, 'key', 'user\'s sign-in', NAVY, 52, '#fff'));
+  ADD(CH('chAuth', 1560, 990, 700, 'shield_checkmark', 'User authentication', NAVY, 52, '#fff'));
+  const miniCard = (id, x, title, n, lit) => H(id, `left:${x}px;top:580px;width:310px;height:250px;border:6px solid ${KNW};border-radius:24px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.18)`,
+    T(0, 18, 52, KNW, title, '', 'width:298px;text-align:center') + [0, 1, 2, 3, 4].map((j) => D(`${id}_${j}`, `left:${22 + j * 54}px;top:112px;width:42px;height:100px;border-radius:6px 6px 0 0;background:#d7dbe3`)).join(''));
+  ADD(miniCard('mcI', 1500, 'Intern') + miniCard('mcM', 1850, 'Manager'));
+  ADD(H('ac3', `left:1560px;top:560px;width:700px;height:300px;background:#fff;border:8px solid ${KNW};border-radius:28px;box-shadow:0 20px 60px rgba(16,24,40,.22)`,
+    T(30, 24, 50, '#141821', 'Reset your password') + [0, 1, 2].map((k) => D('', `left:30px;top:${118 + k * 52}px;width:${k === 2 ? 340 : 600}px;height:20px;border-radius:10px;background:#dde1ea`)).join('')));
+  ADD(H('ac3b', `left:1560px;top:560px;width:700px;height:300px;background:#fff;border:8px solid ${PUR};border-radius:28px;box-shadow:0 20px 60px rgba(16,24,40,.22)`,
+    T(30, 20, 50, '#141821', 'Reset your password') + [0, 1].map((k) => D('', `left:30px;top:${100 + k * 40}px;width:${k === 1 ? 340 : 600}px;height:18px;border-radius:9px;background:#dde1ea`)).join('') +
+    ['Open guide', 'Details'].map((t, k) => D('', `left:${30 + k * 350}px;top:188px;width:${k ? 240 : 320}px;height:80px;border-radius:40px;background:${PURs};border:4px solid ${PUR};color:${PUR};font-size:50px;font-weight:800;text-align:center;line-height:72px`, t)).join('')));
+  ADD(CH('cit3', 1560, 890, 700, 'book_open', 'IT Guide, page 3', KNW, 50, KNWs));
+  ADD(H('cit3d', 'left:1560px;top:890px;width:700px;height:96px;border:6px dashed #8a93a6;border-radius:26px'));
+  ADD(H('hand', 'left:2160px;top:1040px;width:90px;height:90px;border-radius:50%;background:#1f2a44', IC('cursor_click', 'position:absolute;left:18px;top:18px;width:54px;height:54px;color:#fff')));
+
+  /* ═════════ SCENE 5: settings console (annex) ═════════ */
+  const PXA = 4800, tgl = (id, on) => D(id, `left:1166px;top:42px;width:130px;height:70px;border-radius:35px;background:${on ? GRN : '#c9ced8'}`, D(id + 'k', `left:${on ? 70 : 6}px;top:7px;width:56px;height:56px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.3)`));
+  const crow = (id, k, label, extra) => D(id, `left:24px;top:${112 + k * 170}px;width:1336px;height:156px;border:5px solid #c9ced8;border-radius:20px;background:#fff;opacity:.45`, T(30, 14, 50, '#141821', label) + extra);
+  const cchip = (id, txt, col, bg, ex) => D(id, `left:30px;top:84px;height:56px;padding:0 22px;border:4px solid ${col};border-radius:999px;background:${bg};color:${col};font-size:40px;font-weight:800;line-height:48px;white-space:nowrap;opacity:0;${ex || ''}`, txt);
+  ADD(H('cp', `left:${PXA}px;top:450px;width:1400px;height:640px;background:#fff;border:8px solid ${NAVY};border-radius:30px;box-shadow:0 30px 80px rgba(16,24,40,.25);overflow:hidden`,
+    D('', `left:0;top:0;width:1384px;height:100px;background:${NAVY}`) + T(40, 20, 56, '#fff', 'Settings › Generative AI', 'cpH', 'opacity:.55') +
+    crow('cr0', 0, 'Allow ungrounded responses', tgl('tg0', true) + cchip('cc0', 'the key switch', '#7a4d00', AMBs)) +
+    crow('cr1', 1, 'Use information from the web', tgl('tg1', false) + cchip('cc1', 'whole public web · Bing', KNW, KNWs) + D('glb', `left:960px;top:20px;width:120px;height:120px;color:${KNW};opacity:0`, IC('globe', 'width:120px;height:120px'))) +
+    crow('cr2', 2, 'Content moderation', D('', 'left:660px;top:44px;width:620px;height:16px;border-radius:8px;background:#c9ced8') + D('', 'left:660px;top:44px;width:527px;height:16px;border-radius:8px;background:#2f5bd3') + D('kn', 'left:1165px;top:30px;width:44px;height:44px;border-radius:50%;background:#fff;border:6px solid #2f5bd3') +
+      T(660, 82, 40, '#5d6472', 'Lowest') + T(1280, 82, 40, '#5d6472', 'Highest', '', 'transform:translateX(-100%)') + cchip('cc2', 'default: High', '#2f5bd3', '#e6ecfb'))));
+  const LX = 4800;
+  ADD(H('lD', `left:${LX - 40}px;top:1180px;width:120px;height:270px;border:8px solid ${TMS};border-radius:18px 18px 0 0;background:#fff`) + H('lDt', `left:${LX - 60}px;top:1120px;width:160px;height:54px;text-align:center;font-size:44px;font-weight:800;color:${TMS}`, 'Teams'));
+  ADD(H('lB', `left:${LX + 500}px;top:1130px;width:30px;height:320px;border-radius:8px;background:${GB}`));
+  ADD(H('lF', `left:${LX + 210}px;top:1190px;width:260px;height:200px;border:6px solid ${GB};border-radius:22px;background:#e4e8f1;color:${GB};font-size:44px;font-weight:800;text-align:center;line-height:1.15;padding-top:36px`, 'Fallback<br>topic'));
+  ADD(H('lT', `left:${LX + 1140}px;top:1150px;width:260px;height:300px;border:6px solid ${GB};border-radius:22px;background:#fff`,
+    [['book_open', 'no source', 24], ['wrench', 'no tool', 164]].map((r) => IC(r[0], `position:absolute;left:20px;top:${r[2]}px;width:70px;height:70px;color:#8a93a6`) + D('', `left:12px;top:${r[2] + 34}px;width:86px;height:6px;border-radius:3px;background:${RED};transform:rotate(-45deg)`) + T(104, r[2] + 12, 40, '#141821', r[1].replace(' ', '<br>'), '', 'line-height:1.05')).join('')));
+  ADD(H('lR', `left:${LX + 840}px;top:1200px;width:250px;height:190px;border:6px dashed ${RED};border-radius:22px;background:#fff;color:${RED};font-size:44px;font-weight:800;text-align:center;line-height:1.15;padding-top:40px`, 'generated<br>answer'));
+
+  /* ═════════ UNDERGROUND: maker, UI window ═════════ */
+  ADD(maker('mk', 1200, 2600));
+  const TABS = ['Overview', 'Knowledge', 'Tools', 'Topics', 'Settings'];
+  const rowU = (id, ic, t, top, ex) => `<div class="w" id="${id}" style="left:0;top:${top}px;width:880px;height:84px;border:4px solid #c9ced8;border-radius:16px;background:#fff;${ex || 'opacity:.4'}">${IC(ic, 'position:absolute;left:24px;top:14px;width:46px;height:46px;color:#2f5bd3')}${T(96, 16, 34, '#141821', t)}</div>`;
+  const tglU = (id) => `<div class="w" id="${id}" style="left:730px;top:25px;width:110px;height:50px;border-radius:25px;background:#c9ced8"><div class="w" id="${id}k" style="left:5px;top:5px;width:40px;height:40px;border-radius:50%;background:#fff"></div></div>`;
+  ADDU(uiWindow('uiA', { title: 'Copilot Studio · Nexo', nav: [], on: -1, bar: '<span class="hc" id="nxChip">Agent: Nexo</span>', body: `
+    <div class="ly" id="l1">
+      <div style="display:flex;gap:6px;border-bottom:3px solid #e2e5eb;height:70px">${TABS.map((t, k) => `<span id="tb${k}" style="display:inline-block;padding:10px 20px;font-size:34px;font-weight:700;color:#8a93a6;border-bottom:6px solid rgba(47,91,211,0);height:70px">${t}</span>`).join('')}</div>
+      <div class="w" style="left:0;top:100px;width:880px;height:500px">
+        <div class="pane" id="p1" style="opacity:1"><div class="w" style="left:0;top:0;width:880px;height:210px;border:4px solid #c9ced8;border-radius:22px;background:#fff;padding:26px 34px">
+          <div style="font-size:42px;font-weight:800;margin-bottom:10px">Nexo</div><div style="font-size:34px;line-height:1.5;color:#5d6472">Contoso IT assistant<br>Answers staff questions</div></div>
+          <div class="w" style="left:0;top:240px;width:880px;height:230px;border:4px dashed #c9ced8;border-radius:16px;color:#5d6472;font-size:34px;line-height:1.3;padding:56px 0 0 34px">Knowledge: no sources yet<br><span style="font-size:30px;color:#8a93a6">Nexo answers from the model alone</span></div></div>
+        <div class="pane" id="p2"><span class="btn pri" id="btnK" style="position:absolute;left:0;top:0;padding:14px 40px;font-size:32px">Add knowledge</span>
+          <div class="w" id="ns" style="left:0;top:98px;width:880px;height:230px;border:4px dashed #c9ced8;border-radius:16px;color:#5d6472;font-size:34px;line-height:1.3;padding:56px 0 0 34px">No sources yet<br><span style="font-size:30px;color:#8a93a6">Add one to ground the answers</span></div>
+          <div class="w" id="pk" style="left:0;top:92px;width:880px;height:382px;border:4px solid #2f5bd3;border-radius:22px;background:#fff;box-shadow:0 20px 50px rgba(16,24,40,.2);opacity:0">
+            <div class="w" style="left:26px;top:14px;font-size:36px;font-weight:800;color:#2f5bd3">Add knowledge</div>
+            ${[['globe', 'Public website'], ['document_text', 'Files'], ['organization', 'SharePoint'], ['table', 'Dataverse']].map((r, k) => `<div class="w" id="tl${k}" style="left:${26 + (k % 2) * 424}px;top:${74 + Math.floor(k / 2) * 138}px;width:400px;height:124px;border:4px solid #c9ced8;border-radius:18px;background:#fff">${IC(r[0], 'position:absolute;left:22px;top:30px;width:56px;height:56px;color:#2f5bd3')}${T(100, 36, 34, '#141821', r[1])}</div>`).join('')}</div></div>
+        <div class="pane" id="p3">
+          ${[['fU', 'URL', 'support.vpnvendor.example', 0], ['fN', 'Name', 'VPN vendor support', 120], ['fD', 'Description', 'Official VPN setup and troubleshooting steps', 240]].map((f) => `<div class="fld w" id="${f[0]}" style="left:0;top:${f[3]}px;width:880px;height:104px"><small>${f[1]}</small><span id="${f[0]}t" style="position:absolute;left:22px;top:46px;white-space:nowrap;color:#141821;opacity:0;clip-path:inset(0 100% 0 0)">${f[2]}</span></div>`).join('')}
+          <div class="w" id="cdChip" style="left:0;top:374px;padding:6px 24px;border:4px solid #1e7f4f;border-radius:999px;color:#1e7f4f;font-size:30px;font-weight:800;white-space:nowrap;background:#e3f4ea;opacity:0">clear description</div></div>
+        <div class="pane" id="p4"><span class="btn" style="position:absolute;left:0;top:0;padding:14px 40px;font-size:32px">Add knowledge</span>
+          <div class="w" style="left:0;top:92px;width:880px;height:92px;border:4px solid #c9ced8;border-radius:16px;background:#fff">${IC('globe', 'position:absolute;left:24px;top:18px;width:46px;height:46px;color:#0f7b8a')}${T(96, 22, 34, '#141821', 'VPN vendor support')}
+            <div class="w" id="stP" style="left:586px;top:16px;padding:6px 18px;border-radius:999px;background:#fff3d6;border:3px solid #d98a00;color:#7a4d00;font-size:30px;font-weight:800;white-space:nowrap">Processing…</div>
+            <div class="w" id="stR" style="left:668px;top:16px;padding:6px 26px;border-radius:999px;background:#e3f4ea;border:3px solid #1e7f4f;color:#1e7f4f;font-size:30px;font-weight:800;white-space:nowrap;opacity:0">Ready</div></div></div>
+        <div class="pane" id="p5"><div class="w" style="left:0;top:0;font-size:32px;font-weight:700;color:#5d6472">Settings › Generative AI</div>
+          <div class="w" id="sw0" style="left:0;top:50px;width:880px;height:110px;border:4px solid #c9ced8;border-radius:16px;background:#fff">${T(30, 34, 34, '#141821', 'Allow ungrounded responses')}${tglU('tgu0')}</div>
+          <div class="w" id="sw1" style="left:0;top:190px;width:880px;height:110px;border:4px solid #c9ced8;border-radius:16px;background:#fff">${T(30, 34, 34, '#141821', 'Use information from the web')}${tglU('tgu1')}</div>
+          <div class="w" id="sw2" style="left:0;top:330px;width:880px;height:110px;border:4px solid #c9ced8;border-radius:16px;background:#fff">${T(30, 34, 34, '#141821', 'Content moderation')}${T(716, 34, 34, '#2f5bd3', 'High')}</div></div>
+      </div>
+      <div class="w" id="tp" style="left:920px;top:90px;width:552px;height:460px;border:4px solid #2f5bd3;border-radius:22px;background:#f7f9ff">
+        <div style="position:absolute;left:26px;top:14px;font-size:36px;font-weight:800;color:#2f5bd3">Test your agent</div>
+        <div class="w" style="left:26px;top:68px;background:#e2e5eb;border-radius:18px;padding:8px 20px;font-size:30px">Hi! How can I help?</div>
+        <div id="tU" class="w" style="right:26px;top:116px;max-width:400px;background:#2f5bd3;color:#fff;border-radius:18px;padding:10px 20px;font-size:30px;line-height:1.25;opacity:0">How do I reset my VPN token?</div>
+        <div id="tR" class="w" style="left:26px;top:214px;max-width:440px;background:#e6ecfb;border-radius:18px;padding:10px 20px;font-size:30px;line-height:1.25;opacity:0">Open the vendor token page, then choose Reset.</div>
+        <div id="tChip" class="w" style="left:26px;top:312px;background:#dff1f3;border:4px solid #0f7b8a;color:#0f7b8a;border-radius:999px;padding:6px 22px;font-size:30px;font-weight:800;white-space:nowrap;opacity:0">[1] VPN vendor support</div>
+        <div class="fld" id="tIn" style="position:absolute;left:26px;right:26px;bottom:22px;height:66px;color:#8a93a6;padding:12px 22px"><span id="phT">Ask something…</span><span id="tyT" style="position:absolute;left:22px;top:12px;white-space:nowrap;color:#141821;opacity:0;clip-path:inset(0 100% 0 0)">How do I reset my VPN token?</span></div></div></div>` }));
+  const PS = { chip: PC('#nxChip'), tb1: PC('#tb1'), bk: PC('#btnK'), tl0: PC('#tl0'), tb4: PC('#tb4'), tin: PC('#tIn') };
+
+  /* ═════════ CLOSING DIORAMA (local y + Y) ═════════ */
+  const bookRows = (x0, w, rows, y0) => [...Array(rows).keys()].map((k) => D('', `left:${x0 + 14}px;top:${y0 + k * 150 + 118}px;width:${w - 44}px;height:12px;background:${KNW}`) +
+    [...Array(Math.floor((w - 44) / 56)).keys()].map((j) => D('', `left:${x0 + 14 + j * 56}px;top:${y0 + k * 150}px;width:46px;height:118px;border-radius:6px 6px 0 0;background:${BKC[(j + k) % 3]}`)).join('')).join('');
+  const DRC = [['1', 'Open the sign-in page'], ['2', 'Choose Forgot password'], ['3', 'Follow the email link']];
+  ADD(G('gDio',
+    D('', `left:240px;top:${Y + 840}px;width:320px;height:660px;border:8px solid ${TMS};border-radius:24px 24px 0 0;background:#fff`) + T(240, Y + 1280, 70, TMS, 'Teams', '', 'width:320px;text-align:center') +
+    agC('dNx', 700, Y + 1010) + D('', `left:640px;top:${Y + 1400}px;width:540px;height:44px;border-radius:12px;background:#b5bcca`) + D('', `left:670px;top:${Y + 1444}px;width:480px;height:56px;background:#c9ced8`) +
+    D('dSw', `left:240px;top:${Y + 470}px;width:860px;height:220px;border:8px solid ${NAVY};border-radius:30px;background:#fff;opacity:.35`, T(40, 30, 64, '#141821', 'Allow ungrounded<br>responses', '', 'line-height:1.1') +
+      D('dSwt', `left:640px;top:60px;width:170px;height:90px;border-radius:45px;background:${GRN}`, D('dSwk', 'left:90px;top:9px;width:72px;height:72px;border-radius:50%;background:#fff'))) +
+    D('dSh', `left:1180px;top:${Y + 470}px;width:700px;height:220px;border:8px solid ${INSc()};border-radius:30px;background:#fff;opacity:.35`, IC('notepad', `position:absolute;left:36px;top:60px;width:90px;height:90px;color:${INSc()}`) + T(160, 30, 66, '#141821', 'Always cite<br>the source', '', 'line-height:1.1')) +
+    D('dS0', `left:2260px;top:${Y + 720}px;width:600px;height:780px;border:8px solid ${KNW};border-radius:26px 26px 0 0;background:#fff;opacity:.35`, bookRows(0, 600, 4, 150)) +
+    D('dS1', `left:2920px;top:${Y + 720}px;width:600px;height:780px;border:8px solid ${KNW};border-radius:26px 26px 0 0;background:#fff;opacity:.35`, bookRows(0, 600, 4, 150)) +
+    D('dBd', `left:2180px;top:${Y + 270}px;width:1420px;height:380px;border:8px solid ${NAVY};border-radius:30px;background:#fff;opacity:.35`,
+      [['Knowledge is looked up', KNW], ['SharePoint respects permissions', BLUE], ['No source → no generated answer', RED]].map((r, k) => D('rb' + k, `left:36px;top:${22 + k * 114}px;width:1330px;height:100px;opacity:.5`, D('', `left:0;top:14px;width:70px;height:70px;border-radius:50%;background:${r[1]}`) + T(100, 14, 66, '#141821', r[0]))).join('')) +
+    ['#8a5cd6', '#1e7f4f', '#0e8f8f', '#b4533f'].map((c, k) => D('dp' + k, `left:${1380 + k * 230}px;top:${Y + 1450}px`, pers(c, 190))).join('')));
+  function INSc() { return '#5a6b8c'; }
+  ADD(PL('dL0', 2560, Y + 744, 'IT SharePoint', 'knw', 64) + PL('dL1', 3220, Y + 744, 'VPN vendor site', 'knw', 64));
+  ADD(BW('dBw', 560, Y + 760, 'How do I reset<br>my password?').replace('SB(', 'SB('));
+  ADD(H('dAc', `left:1300px;top:${Y + 720}px;width:900px;height:600px;background:#fff;border:8px solid ${NAVY};border-radius:30px;box-shadow:0 20px 60px rgba(16,24,40,.22);overflow:hidden`,
+    D('', `left:0;top:0;width:884px;height:100px;background:${NAVY}`) + T(36, 14, 64, '#fff', 'Nexo') +
+    D('dTk', `left:780px;top:14px;width:72px;height:72px;border-radius:50%;background:${GRN};color:#fff;font-size:52px;font-weight:800;text-align:center;line-height:68px`, '✓') +
+    DRC.map((r, k) => D('', `left:30px;top:${112 + k * 104}px;width:830px;height:96px`, D('', `left:0;top:12px;width:64px;height:64px;border-radius:50%;background:${NAVY};color:#fff;font-size:40px;font-weight:800;text-align:center;line-height:64px`, r[0]) + T(90, 14, 62, '#141821', r[1], '', 'font-weight:700'))).join('') +
+    D('dCit', `left:30px;top:${420}px;width:830px;height:150px;border:6px solid ${KNW};border-radius:26px;background:${KNWs};color:${KNW};font-size:58px;font-weight:800;line-height:1.1;display:flex;align-items:center;gap:16px;padding:0 24px;opacity:0`, IC('book_open', 'width:64px;height:64px;flex:0 0 auto') + '<span>Reset your password ·<br>IT SharePoint</span>')));
+
+  /* ═════════ SCREEN LAYER (kinetic text + pills in reserved slots) ═════════ */
+  const TLp = (id, cls, t) => `<div class="tag ${cls}" id="${id}" style="left:120px;top:110px;transform:none;font-size:46px">${t}</div>`;
+  const BCp = (id, cls, t) => `<div class="tag ${cls}" id="${id}" style="left:960px;top:870px;font-size:48px">${t}</div>`;
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    <div class="ov" id="ovT0" style="left:140px;top:122px;font-size:72px;font-weight:800;color:#141821">Week three</div>
+    <div class="ov" id="ovT8" style="left:140px;top:122px;font-size:72px;font-weight:800;color:#141821">Back at Contoso</div>
+    <div class="ov" id="kK" style="left:0;top:58px;width:1120px;text-align:center"><span style="display:inline-block;background:#fff;padding:10px 60px;border-radius:36px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:104px;font-weight:800;color:${KNW};letter-spacing:-2px">Knowledge</span></div>
+    <div class="ov" id="kL" style="left:0;top:110px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:14px 50px;border-radius:36px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:80px;font-weight:800;color:#141821;letter-spacing:-1px">looks up, then answers</span></div>
+    ${BCp('bPortal', 'red', 'no such portal')}${BCp('bGuide', 'navy', 'no guide')}${BCp('bGuess', 'amber', 'a guess')}${BCp('bExam', 'navy', 'the exam loves this')}${BCp('bSame', 'navy', 'same question, different answers')}${BCp('bCustom', 'amber', 'custom response: add citations yourself')}${BCp('bNext', 'blue', 'next: tools').replace('left:960px;top:870px', 'left:360px;top:880px')}</div>`);
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (x, w, col, h4, inner, h) => `<div class="rm" style="left:${x}px;width:${w}px;height:${h || 300}px;border-color:${col}"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const pBook = (id, x, y) => bx(id, `left:${x}px;top:${y}px;width:62px;height:120px;border-radius:8px 8px 0 0;background:#3a4a78;border:4px solid #3a4a78`);
+  EXAMS(
+    mkExam('exA', { q: 'Contoso keeps its HR policies in a SharePoint site, with permissions for each department. Every employee must only get answers from documents they can already open. How do they add them?',
+      opts: ['Upload copies of the documents as files', 'Add the SharePoint site as knowledge', 'Paste the policies into the instructions'],
+      why: '<div id="exA_w1">SharePoint uses the <span class="g">user\'s sign-in</span>, so each person only sees <span class="g">what they can open</span>.</div><div id="exA_w2">Uploaded copies <span class="r">lose those permissions</span>.</div>',
+      proof: rmX(0, 820, '#4fc3d0', 'SharePoint', bx('', 'left:30px;top:110px;width:90px;height:90px;border-radius:50%;background:#243256;border:4px solid #4fc3d0', IC('person', 'position:absolute;left:17px;top:17px;width:52px;height:52px;color:#4fc3d0')) +
+          [0, 1, 2, 3, 4, 5].map((j) => pBook('pA_a' + j, 160 + j * 100, 92)).join('') + bx('pA_t1', 'left:30px;top:226px;font-size:40px;font-weight:800;color:#6be3a0;white-space:nowrap;opacity:0', 'only their department')) +
+        rmX(860, 820, '#ff8a80', 'Uploaded copies', bx('', 'left:30px;top:110px;width:90px;height:90px;border-radius:50%;background:#243256;border:4px solid #ff8a80', IC('cloud_arrow_up', 'position:absolute;left:17px;top:17px;width:52px;height:52px;color:#ff8a80')) +
+          [0, 1, 2, 3, 4, 5].map((j) => pBook('pA_c' + j, 160 + j * 100, 92)).join('') + bx('pA_t2', 'left:30px;top:218px;height:56px;padding:0 24px;border:4px dashed #ff8a80;border-radius:14px;font-size:40px;font-weight:800;color:#ff8a80;white-space:nowrap;line-height:48px;opacity:0', 'no permissions')) }),
+    mkExam('exB', { q: 'Sometimes Nexo still answers with no source at all, straight from the model\'s general knowledge. IT wants those answers blocked, so the Fallback topic runs instead. What do they change?',
+      opts: ['Raise content moderation up to Highest', 'Turn on Use information from the web', 'Switch off Allow ungrounded responses'],
+      why: '<div id="exB_w1">With <span class="g">no source and no tool</span>, the generated answer is <span class="g">blocked</span> and <span class="g">Fallback</span> runs.</div><div id="exB_w2">Moderation <span class="r">filters harmful content</span>; the web only <span class="r">adds sources</span>.</div>',
+      proof: rmX(0, 820, '#ffd166', 'Settings', bx('', 'left:30px;top:90px;font-size:38px;font-weight:800;color:#fff;white-space:nowrap', 'Allow ungrounded<br>responses').replace('white-space:nowrap', 'white-space:nowrap;line-height:1.1') +
+          bx('pB_tg', 'left:640px;top:96px;width:130px;height:66px;border-radius:33px;background:#1e7f4f', bx('pB_tgk', 'left:68px;top:6px;width:54px;height:54px;border-radius:50%;background:#fff')) + bx('pB_off', 'left:640px;top:172px;font-size:40px;font-weight:800;color:#ffd166;opacity:0', 'Off'), 250) +
+        rmX(860, 820, '#9fb0cf', 'Result', bx('pB_rp', 'left:20px;top:96px;width:240px;height:116px;border:5px dashed #ff8a80;border-radius:16px;color:#ff8a80;font-size:38px;font-weight:800;text-align:center;line-height:1.1;padding-top:14px', 'generated<br>answer') +
+          bx('', 'left:300px;top:90px;width:24px;height:130px;background:#9fb0cf;border-radius:8px') +
+          bx('pB_fb', 'left:370px;top:96px;width:420px;height:116px;border:5px solid #9fb0cf;background:#243256;border-radius:16px;color:#e4e8f1;font-size:44px;font-weight:800;text-align:center;line-height:106px;opacity:0', 'Fallback topic'), 250) +
+        bx('pB_note', 'left:0;top:268px;width:1680px;height:76px;border:4px solid #ffd166;border-radius:16px;color:#ffd166;font-size:40px;font-weight:800;line-height:68px;text-align:center;opacity:0', 'not a full guarantee → instructions: always cite the source') }));
+
+  const XB = [360, 550, 740];
+  ['exA', 'exB'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1380, height: 170, fontSize: 48 })));
+  const XCOMP = (id, t, tops, h) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: tops[k], width: 1040, height: h, fontSize: 34, duration: 0.7, ease: 'power2.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.5, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0.6, y: 20 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, t - 0.5));
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0 }, { opacity: 0.6, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    tl.fromTo(X + '_ring', { opacity: 0 }, { opacity: 0.3, duration: 0.4, immediateRender: false }, S(i, 0) + 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.1, 0.3);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(Gg + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X, o.end, 0.4);
+  };
+  const SCRT = ['#ovT0', '#ovT8', '#kK', '#kL', '#bPortal', '#bGuide', '#bGuess', '#bExam', '#bSame', '#bCustom', '#bNext'];
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.65, 0.3); OFF('#cur', S(i, 0) - 0.65, 0.2); tl.set(SCRT, { opacity: 0 }, S(i, 0) - 0.4); };
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.6, 0.3); ON('#scr', S(i, 0) - 0.6, 0.3); };
+  const sets = (sel, t) => tl.set(sel, { opacity: 0 }, t);
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - 750 * 1.25, y: 540 - 1100 * 1.25, scale: 1.25 });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 });
+  gsap.set('.bwr .sb', { opacity: 1 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set(['#dL0', '#dL1'], { opacity: 0 });
+
+  /* ═════════ 0 · A confident wrong answer ═════════ */
+  tl.set(['#gDoor', '#gDesk', '#nxw'], { opacity: 1 }, 0);
+  CAM(1030, 1080, 0.95, S(0, 2) - 0.4, 1.6, 'power2.inOut');
+  ON('#ovT0', S(0, 0), 0.4); OFF('#ovT0', E(0, 0) + 0.2, 0.3);
+  EMERGE('#bw1', S(0, 1) + 0.1); tl.to('#bw1', { x: 450, duration: 1.8, ease: 'power2.inOut' }, S(0, 1) + 1.0);
+  POPX('#rc0', S(0, 2) + 0.15);
+  tl.to('#rr0', { opacity: 1, duration: 0.3 }, W(0, 2, 'open the', -0.1)); tl.to('#rr1', { opacity: 1, duration: 0.3 }, W(0, 2, 'choose', -0.1)); tl.to('#rr2', { opacity: 1, duration: 0.3 }, W(0, 2, 'press', -0.1));
+  POP('#rt0', W(0, 2, 'sure', -0.1));
+  OFF('#bw1', S(0, 3) - 0.1, 0.3);
+  TAG('#bPortal', S(0, 3) + 0.15);
+  tl.to('#rrt0', { color: RED, duration: 0.3 }, S(0, 3) + 0.2); tl.set('#rrt0', { textDecoration: 'line-through' }, S(0, 3) + 0.2);
+  OFF('#bPortal', S(0, 4) - 0.05, 0.3);
+  OFF('#rt0', S(0, 4) + 0.1, 0.2); POP('#rs0', S(0, 4) + 0.3);
+  tl.fromTo('#bkO', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.45, immediateRender: false }, W(0, 5, 'nobody', 0.0));
+  TAG('#bGuide', W(0, 5, 'nobody', 0.1)); OFF('#bGuide', W(0, 5, 'filled', -0.55), 0.3);
+  POP('#qc', W(0, 5, 'filled', 0.0));
+  TAG('#bGuess', W(0, 5, 'guess', -0.2)); OFF('#bGuess', E(0, 5) + 0.9, 0.3);
+  [0, 1, 2, 3].forEach((k) => tl.fromTo('#it' + k, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: 'back.out(1.6)', immediateRender: false }, S(0, 6) + 0.2 + k * 0.18));
+  [0, 1, 2, 3].forEach((k) => tl.to('#it' + k, { rotation: 5, duration: 0.14, yoyo: true, repeat: 5, ease: 'sine.inOut' }, S(0, 7) + 0.1 + k * 0.1));
+  OFF(['#rc0', '#qc', '#bkO'], E(0, 7) + 0.05, 0.4); OFF(['#it0', '#it1', '#it2', '#it3'], E(0, 7) + 0.05, 0.4);
+  ON('#gLib', S(0, 8) - 0.05, 0.4); OFF(['#gDoor', '#gDesk'], S(0, 8) + 0.0, 0.5);
+  CAM(2420, 1040, 0.8, S(0, 8) - 0.1, 2.3, 'power2.inOut');
+  gsap.set(['#sh3', '#sh4'], { opacity: 0 });
+  tl.fromTo('#kK', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, S(0, 8) + 0.3);
+
+  /* ═════════ 1 · The librarian ═════════ */
+  OFF('#kK', S(1, 0) + 0.3, 0.4);
+  tl.to(['#sh1', '#sh2'], { opacity: 0.35, duration: 0.5 }, S(1, 0) + 0.3);
+  tl.to('#nxw', { x: 760, y: 130, duration: 1.9, ease: 'power2.inOut' }, S(0, 8) + 0.0);
+  POP('#nxb', S(1, 0) + 0.3);
+  EMERGE('#tb', S(1, 1) + 0.5); tl.set('#tbs', { textDecoration: 'line-through', color: '#8a93a6' }, S(1, 1) + 1.6); OFF('#tb', S(1, 2) - 0.1, 0.3);
+  tl.to('#bk', { boxShadow: '0 0 0 14px rgba(15,123,138,.45)', duration: 0.3, yoyo: true, repeat: 1 }, W(1, 2, 'shelf', 0.0));
+  ON(['#rd', '#rd2'], W(1, 2, 'shelf', 0.4), 0.4);
+  tl.to('#bk', { x: -244, y: 276, duration: 0.9, ease: 'power2.inOut' }, W(1, 2, 'read the page', -0.1));
+  SWAP('#bk', '#ob', W(1, 2, 'read the page', 0.85));
+  tl.to('#ob', { y: -44, scale: 1.15, duration: 0.6, ease: 'power2.out' }, W(1, 2, 'show you', 0.0));
+  tl.fromTo('#kL', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, immediateRender: false }, S(1, 3) + 0.1); OFF('#kL', S(1, 4) + 0.1, 0.4);
+  FADEIN('#ac1', S(1, 4) + 0.3, 0.5); DRAW('#cb1', S(1, 4) + 0.9, 0.6); DRAW('#cb2', S(1, 4) + 1.6, 0.7);
+  tl.to('#ac1', { borderColor: KNW, duration: 0.4 }, W(1, 5, 'grounded', 0.0)); TAG('#gdp', W(1, 5, 'grounded', 0.0));
+  tl.fromTo('#cit1', { opacity: 0, y: 0 }, { opacity: 1, y: 100, duration: 0.7, ease: 'power2.out', immediateRender: false }, W(1, 6, 'cite', -0.2));
+  OFF(['#cb1', '#cb2'], W(1, 5, 'grounded', 0.8), 0.3);
+  OFF(['#ac1', '#cit1', '#gdp', '#ob', '#rd', '#rd2'], E(1, 6) - 0.2, 0.4);
+  OFF('#nxw', E(1, 6) - 0.3, 0.4);
+
+  /* ═════════ 2 · The shelves ═════════ */
+  CAM(3268, 1000, 0.62, E(1, 6) - 0.4, 1.5, 'power2.inOut');
+  tl.to(['#sh1', '#sh2', '#sh3', '#sh4'], { opacity: 1, duration: 0.5 }, S(2, 0));
+  tl.to(['#sg0', '#sg1', '#sg2', '#sg3', '#sg4'], { opacity: 0.4, duration: 0.4 }, S(2, 0) + 0.3);
+  const SIGN = (i, t) => tl.to('#sg' + i, { opacity: 1, duration: 0.3 }, t);
+  SIGN(0, W(2, 1, 'public websites', -0.1)); ON('#fence', W(2, 1, 'only inside', 0.0), 0.4); FADEIN('#sc0', W(2, 1, 'only inside', 0.3), 0.4);
+  SIGN(1, W(2, 2, 'files', -0.1)); tl.fromTo('#docI', { opacity: 1, y: 0 }, { y: 170, duration: 0.8, ease: 'power2.in', immediateRender: false }, W(2, 2, 'which', 0.0)); tl.set('#docI', { opacity: 0 }, W(2, 2, 'which', 0.85));
+  FADEIN('#sc1', W(2, 2, 'stored', 0.0), 0.4);
+  SIGN(2, W(2, 3, 'sharepoint', -0.1)); FADEIN('#sc2', W(2, 3, 'sharepoint', 0.2), 0.4);
+  SIGN(3, W(2, 4, 'dataverse', -0.1)); FADEIN('#sc3', W(2, 4, 'dataverse', 0.2), 0.4);
+  SIGN(4, W(2, 5, 'connectors', -0.1)); FADEIN('#sc4', W(2, 5, 'indexed', 0.0), 0.4);
+  tl.to(['#dr0', '#dr1', '#dr2'], { opacity: 0.4, duration: 0.4 }, S(2, 6) + 0.1);
+  LIT('#dr0', W(2, 6, 'create', -0.1), PUR); LIT('#dr1', W(2, 6, 'knowledge page', -0.1), PUR); LIT('#dr2', W(2, 6, 'generative answers', -0.1), PUR);
+  OFF(['#dr0', '#dr1', '#dr2', '#sc0', '#sc1', '#sc2', '#sc3', '#sc4', '#fence'], E(2, 6) - 0.1, 0.4);
+
+  /* ═════════ 3 · Who can see what ═════════ */
+  CAM(2930, 1000, 0.66, E(2, 6) - 0.2, 1.1, 'power2.inOut');
+  tl.fromTo('#gt', { opacity: 0, x: 90 }, { opacity: 1, x: 0, duration: 0.6, ease: 'back.out(1.4)', immediateRender: false }, S(3, 0) + 0.2);
+  TAG('#bExam', W(3, 0, 'exam', -0.2)); OFF('#bExam', E(3, 0) + 0.3, 0.3);
+  POP('#lk2', W(3, 1, 'sharepoint', 0.0)); POP('#lk3', W(3, 1, 'dataverse', 0.0)); POP('#lk4', W(3, 1, 'enterprise', 0.0));
+  FADEIN('#chSign', W(3, 1, 'sign in', -0.6), 0.4); OFF('#chSign', S(3, 2) + 0.2, 0.3);
+  tl.fromTo('#empM', { opacity: 0, x: -760 }, { opacity: 1, x: 0, duration: 1.4, ease: 'power2.out', immediateRender: false }, S(3, 2) - 0.1);
+  tl.fromTo('#bdg', { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, W(3, 2, 'only shows', -0.4));
+  tl.to('#bdg', { x: 100, y: -190, duration: 0.6, ease: 'power2.inOut' }, W(3, 2, 'only shows', -0.2));
+  tl.to('#gtL', { backgroundColor: GRN, duration: 0.2 }, W(3, 2, 'only shows', 0.5)); tl.to('#gtA', { rotation: -80, backgroundColor: GRN, duration: 0.5 }, W(3, 2, 'only shows', 0.5)); OFF('#bdg', W(3, 2, 'only shows', 0.55), 0.2);
+  tl.to([...Array(24).keys()].map((n) => `#b2_${Math.floor(n / 6)}_${n % 6}`), { backgroundColor: '#d7dbe3', duration: 0.4 }, W(3, 2, 'only shows', 0.4));
+  tl.to(['#b2_0_0', '#b2_0_1', '#b2_1_0', '#b2_1_2', '#b2_2_1'], { backgroundColor: KNW, boxShadow: '0 0 24px 6px rgba(79,195,208,.8)', duration: 0.5 }, W(3, 2, 'already open', -0.4));
+  tl.fromTo('#empI', { opacity: 0, x: -520 }, { opacity: 1, x: 0, duration: 1.0, ease: 'power2.out', immediateRender: false }, S(3, 3) + 0.0);
+  EMERGE('#tq', S(3, 3) + 0.5);
+  tl.fromTo('#mcI,#mcM', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.15, immediateRender: false }, W(3, 3, 'different', -0.8));
+  tl.to(['#mcI_0', '#mcI_1'], { backgroundColor: KNW, duration: 0.4 }, W(3, 3, 'different', 0.0));
+  tl.to([0, 1, 2, 3, 4].map((j) => '#mcM_' + j), { backgroundColor: KNW, duration: 0.4, stagger: 0.12 }, W(3, 3, 'different', 0.2));
+  TAG('#bSame', W(3, 3, 'ask the same', 0.0)); OFF('#bSame', E(3, 3) + 0.3, 0.3);
+  OFF('#tq', S(3, 4) - 0.15, 0.3);
+  tl.to('#mcI', { x: 1713, y: 5, scale: 0.2, duration: 0.7, ease: 'power2.in' }, S(3, 4) - 0.15); tl.to('#mcM', { x: 1563, y: 5, scale: 0.2, duration: 0.7, ease: 'power2.in' }, S(3, 4) - 0.05);
+  OFF(['#mcI', '#mcM'], S(3, 4) + 0.45, 0.2);
+  tl.fromTo('#sh2', { boxShadow: '0 0 0 0 rgba(15,123,138,0)' }, { boxShadow: '0 0 0 16px rgba(15,123,138,.45)', duration: 0.3, yoyo: true, repeat: 1, immediateRender: false }, S(3, 4) + 0.5);
+  tl.to('#empI', { x: 380, duration: 1.0, ease: 'power1.inOut' }, S(3, 4) - 0.1); tl.to('#empM', { x: 340, duration: 1.0, ease: 'power1.inOut' }, S(3, 4) + 0.2);
+  OFF('#empI', S(3, 4) + 0.7, 0.3); OFF('#empM', S(3, 4) + 1.0, 0.3);
+  FADEIN('#chAuth', W(3, 4, 'user authentication', -0.5), 0.4); OFF('#chAuth', E(3, 4) + 0.1, 0.3);
+  FADEIN('#ac3', S(3, 5) - 0.05, 0.45);
+  FADEIN('#cit3', W(3, 5, 'citations', 0.0), 0.4);
+  SWAP('#ac3', '#ac3b', W(3, 6, 'customize', 0.0));
+  OFF('#cit3', W(3, 6, 'customize', 0.2), 0.25); ON('#cit3d', W(3, 6, 'customize', 0.55), 0.3);
+  TAG('#bCustom', W(3, 6, 'adaptive card', 0.0));
+  tl.fromTo('#hand', { opacity: 0, x: 0, y: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, W(3, 6, 'must add', -0.4));
+  tl.to('#hand', { y: -150, duration: 0.9, ease: 'power2.inOut' }, W(3, 6, 'must add', -0.2));
+  OFF('#cit3d', W(3, 6, 'yourself', -0.3), 0.15); ON('#cit3', W(3, 6, 'yourself', -0.2), 0.3); OFF('#hand', W(3, 6, 'yourself', 0.2), 0.3);
+
+  /* ═════════ 4 · EXAM: the HR policies ═════════ */
+  toExam(4);
+  EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 0, right: 1, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.85 });
+  {
+    const PRt = S(4, 9) + 0.1;
+    XCOMP('exA', PRt - 0.6, [345, 450, 555], 100);
+    tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(4, 9) + 0.4);
+    tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(4, 10) + 0.1);
+    ON('#exA_p', PRt + 0.2, 0.4);
+    tl.to(['#pA_a0', '#pA_a1', '#pA_a2'], { backgroundColor: '#6be3a0', borderColor: '#6be3a0', duration: 0.4, stagger: 0.15 }, PRt + 0.5); ON('#pA_t1', PRt + 0.9, 0.3);
+    tl.to([0, 1, 2, 3, 4, 5].map((j) => '#pA_c' + j), { backgroundColor: '#ffffff', borderColor: '#ffffff', duration: 0.4, stagger: 0.08 }, S(4, 10) + 0.2); ON('#pA_t2', S(4, 10) + 0.5, 0.3);
+  }
+
+  /* ═════════ 5 · The ungrounded switch ═════════ */
+  camAt(5500, 950, 0.85, S(5, 0) - 0.6); fromExam(5);
+  tl.fromTo('#cp', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.4)', immediateRender: false }, S(5, 0) - 0.55);
+  tl.to(['#lD', '#lDt', '#lB', '#lF'], { opacity: 0.35, duration: 0.5 }, S(5, 0) - 0.4);
+  tl.to('#cpH', { opacity: 1, duration: 0.35 }, W(5, 1, 'generative', -0.2));
+  LIT('#cr0', W(5, 2, 'allow', -0.1), AMB); ON('#cc0', W(5, 2, 'key switch', -0.2), 0.35);
+  tl.to('#tg0', { backgroundColor: '#c9ced8', duration: 0.3 }, W(5, 3, 'turn it off', 0.1)); tl.to('#tg0k', { left: 6, duration: 0.3 }, W(5, 3, 'turn it off', 0.1));
+  tl.to(['#lD', '#lDt', '#lB'], { opacity: 1, duration: 0.4 }, W(5, 3, 'turn it off', 0.7));
+  POPX('#lT', W(5, 3, 'no source', -0.3));
+  POPX('#lR', W(5, 3, 'generated answer', -0.2));
+  tl.to('#lR', { x: -270, duration: 0.9, ease: 'power2.inOut' }, W(5, 3, 'generated answer', 0.6));
+  tl.to('#lB', { backgroundColor: RED, duration: 0.2 }, W(5, 3, 'blocked', 0.0)); tl.to('#lR', { opacity: 0.45, duration: 0.3 }, W(5, 3, 'blocked', 0.2));
+  tl.to('#lF', { opacity: 1, duration: 0.4 }, W(5, 3, 'fallback topic', -0.2)); tl.to('#lF', { x: -70, duration: 0.7, ease: 'power2.inOut' }, W(5, 3, 'fallback topic', 0.5)); tl.to('#lD', { backgroundColor: '#e6e7f7', duration: 0.4 }, W(5, 3, 'runs instead', 0.0));
+  LIT('#cr1', W(5, 4, 'use information', -0.1), '#c9ced8');
+  ON('#cc1', W(5, 4, 'whole public', -0.2), 0.35);
+  tl.fromTo('#glb', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.8)', immediateRender: false }, W(5, 4, 'whole public', 0.0));
+  LIT('#cr2', W(5, 5, 'content moderation', -0.1), BLUE);
+  ON('#cc2', W(5, 5, 'default', -0.2), 0.35);
+  tl.fromTo('#kn', { x: -300 }, { x: 0, duration: 0.9, ease: 'power2.out', immediateRender: false }, W(5, 5, 'lowest', 0.0));
+
+  /* ═════════ 6 · EXAM: no source, no answer ═════════ */
+  toExam(6);
+  EXAMX('exB', 6, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(6, 4), S(6, 5), S(6, 6)], end: S(7, 0) - 0.85 });
+  {
+    const R = S(6, 8);
+    XCOMP('exB', R + 0.4, [345, 440, 535], 92);
+    ON('#exB_p', R + 1.1, 0.4); tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, R + 1.0);
+    tl.to('#pB_tg', { backgroundColor: '#5d6a86', duration: 0.3 }, R + 1.4); tl.to('#pB_tgk', { left: 6, duration: 0.3 }, R + 1.4); ON('#pB_off', R + 1.6, 0.3);
+    tl.to('#pB_rp', { x: 30, duration: 0.5, ease: 'power2.in' }, R + 1.9); tl.to('#pB_rp', { opacity: 0.45, duration: 0.3 }, R + 2.4);
+    tl.fromTo('#pB_fb', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.5, immediateRender: false }, R + 2.6);
+    tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(6, 9) + 0.1);
+    tl.to(['#exB_p .rm'], { opacity: 0.5, duration: 0.4 }, S(6, 10) - 0.1);
+    tl.fromTo('#pB_note', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, immediateRender: false }, S(6, 10) + 0.1);
+  }
+
+  /* ═════════ 7 · Add knowledge in the studio (UI) ═════════ */
+  camAt(1730, 2825, 1.5, S(7, 0) - 0.6); fromExam(7);
+  UIIN2('#uiA', S(7, 0) - 0.45);
+  const TABON = (k, t) => TABS.forEach((u, j) => tl.to('#tb' + j, { color: j === k ? '#2f5bd3' : '#8a93a6', borderBottomColor: j === k ? '#2f5bd3' : 'rgba(47,91,211,0)', duration: 0.2 }, t));
+  tl.set('#tb0', { color: '#2f5bd3', borderBottomColor: '#2f5bd3' }, 0);
+  ON('#cur', S(7, 1) + 0.1, 0.3); CUR(PS.chip[0], PS.chip[1], S(7, 1) + 0.15, 0.7); CLICK(PS.chip[0], PS.chip[1], W(7, 1, 'open nexo', 0.3)); pulse('#nxChip', W(7, 1, 'open nexo', 0.3), 'rgba(255,255,255,.7)');
+  CUR(PS.tb1[0], PS.tb1[1], W(7, 1, 'knowledge page', -0.7), 0.8); CLICK(PS.tb1[0], PS.tb1[1], W(7, 1, 'knowledge page', 0.2));
+  TABON(1, W(7, 1, 'knowledge page', 0.25)); SWX('#p1', '#p2', W(7, 1, 'knowledge page', 0.25));
+  CUR(PS.bk[0], PS.bk[1], S(7, 2) + 0.05, 0.7); CLICK(PS.bk[0], PS.bk[1], W(7, 2, 'add knowledge', 0.2)); pulse('#btnK', W(7, 2, 'add knowledge', 0.2));
+  OFF('#ns', W(7, 2, 'add knowledge', 0.35), 0.15);
+  tl.fromTo('#pk', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, immediateRender: false }, W(7, 2, 'add knowledge', 0.5));
+  CUR(PS.tl0[0], PS.tl0[1], W(7, 2, 'choose', 0.0), 0.7); CLICK(PS.tl0[0], PS.tl0[1], W(7, 2, 'public website', 0.2)); pulse('#tl0', W(7, 2, 'public website', 0.2));
+  OFF('#cur', W(7, 2, 'public website', 0.7), 0.2);
+  SWX('#p2', '#p3', E(7, 2) - 0.05);
+  TY('#fUt', W(7, 3, 'address', 0.0), 1.1, 25); TY('#fNt', W(7, 3, 'a name', 0.0), 0.9, 18); TY('#fDt', W(7, 3, 'clear description', -0.1), 1.8, 44);
+  FADEIN('#cdChip', W(7, 3, 'pick the right', 0.0), 0.4);
+  SWX('#p3', '#p4', S(7, 4) - 0.05);
+  tl.to('#stP', { opacity: 0, duration: 0.2 }, W(7, 4, 'ready', 0.0)); tl.fromTo('#stR', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.8)', immediateRender: false }, W(7, 4, 'ready', 0.15));
+  ON('#cur', W(7, 5, 'open settings', -0.5), 0.2); CUR(PS.tb4[0], PS.tb4[1], W(7, 5, 'open settings', -0.5), 0.6); CLICK(PS.tb4[0], PS.tb4[1], W(7, 5, 'open settings', 0.3));
+  TABON(4, W(7, 5, 'open settings', 0.35)); SWX('#p4', '#p5', W(7, 5, 'open settings', 0.35));
+  OFF('#cur', W(7, 5, 'open settings', 0.8), 0.2);
+  pulse('#sw0', W(7, 5, 'two switches', 0.0)); pulse('#sw1', W(7, 5, 'two switches', 0.5));
+  ON('#cur', S(7, 6) + 0.0, 0.2); CUR(PS.tin[0], PS.tin[1], S(7, 6) + 0.0, 0.7);
+  tl.to('#phT', { opacity: 0, duration: 0.2 }, S(7, 6) + 0.7);
+  TY('#tyT', S(7, 6) + 0.8, 1.0, 28);
+  tl.to('#tyT', { opacity: 0, duration: 0.15 }, S(7, 6) + 1.85); tl.to('#phT', { opacity: 1, duration: 0.2 }, S(7, 6) + 1.9);
+  tl.fromTo('#tU', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, S(7, 6) + 1.9);
+  OFF('#cur', S(7, 6) + 2.0, 0.2);
+  tl.fromTo('#tR', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, S(7, 6) + 2.4);
+  tl.fromTo('#tChip', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, W(7, 6, 'citation', 0.0));
+  UIOUT2('#uiA', E(7, 6) - 0.1);
+  /* cut to the closing diorama through a short fade (no empty frame > 0.5 s) */
+  camAt(1880, Y + 1071, 0.52, S(8, 0) - 0.35);
+  tl.set('#gDio', { opacity: 1 }, S(8, 0) - 0.35);
+
+  /* ═════════ 8 · Back to the password question (closing) ═════════ */
+  ON('#ovT8', S(8, 0) + 0.1, 0.4);
+  [0, 1, 2, 3].forEach((k) => tl.fromTo('#dp' + k, { y: 0 }, { y: -30, duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, S(8, 0) + 0.5 + k * 0.3));
+  tl.to('#dS0', { opacity: 1, duration: 0.4 }, W(8, 1, 'sharepoint site', -0.1)); TAG('#dL0', W(8, 1, 'sharepoint site', 0.0));
+  tl.to('#dS1', { opacity: 1, duration: 0.4 }, W(8, 1, 'vendor', -0.1)); TAG('#dL1', W(8, 1, 'vendor', 0.0));
+  tl.to('#dSw', { opacity: 1, duration: 0.4 }, W(8, 2, 'turned off', -0.2));
+  tl.to('#dSwt', { backgroundColor: '#c9ced8', duration: 0.3 }, W(8, 2, 'turned off', 0.2)); tl.to('#dSwk', { left: 8, duration: 0.3 }, W(8, 2, 'turned off', 0.2));
+  tl.to('#dSh', { opacity: 1, duration: 0.4 }, W(8, 2, 'always cite', -0.2));
+  OFF('#ovT8', S(8, 3) - 0.1, 0.3);
+  EMERGE('#dBw', S(8, 3) + 0.1); tl.to('#dBw', { x: 400, duration: 1.4, ease: 'power2.inOut' }, S(8, 3) + 0.9);
+  OFF('#dBw', S(8, 4) - 0.1, 0.3);
+  tl.fromTo('#dAc', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, immediateRender: false }, S(8, 4) + 0.15);
+  ON('#dCit', W(8, 4, 'citation', 0.0), 0.4);
+  tl.to('#dBd', { opacity: 1, duration: 0.4 }, S(8, 5) - 0.15);
+  tl.to('#rb0', { opacity: 1, duration: 0.4 }, W(8, 5, 'looked up', -0.2)); tl.to('#rb1', { opacity: 1, duration: 0.4 }, W(8, 5, 'respects', -0.2)); tl.to('#rb2', { opacity: 1, duration: 0.4 }, W(8, 5, 'no source means', -0.2));
+  TAG('#bNext', S(8, 6) + 0.1);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

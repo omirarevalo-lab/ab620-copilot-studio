@@ -1,0 +1,62 @@
+[
+  {
+    "title": "Two ways to use a flow",
+    "caption": "An agent flow is an automatic recipe of steps. Give it to the whole agent, or place it at an exact point in a topic.",
+    "say": "Marta has a problem with her laptop, and she tells the Contoso agent. Nexo needs to create a ticket for her. An agent flow is an automatic recipe of steps, like creating a ticket or sending an email. You can give it to the whole agent, which uses it when it sees fit. Or you can place it at an exact point in a topic, like a step that always goes in the same place."
+  },
+  {
+    "title": "A flow inside a topic",
+    "caption": "A flow added to a topic is available only to that topic, and runs where you put it, like an Action node.",
+    "say": "First, the exact point. When you add a flow to a topic, it is available only to that topic. It runs exactly at the point on the canvas where you put it, like an Action node. At Contoso, the CreateTicket flow goes inside the Report problem topic. It runs right after the agent collects the title and the urgency. Then it returns the ticket number, shown in a message."
+  },
+  {
+    "title": "A flow as an agent tool",
+    "caption": "A flow added from the agent's Tools page is an agent-level tool. The orchestrator can pick it at run time, without a topic calling it.",
+    "say": "Now the other way. If you add the flow from the agent's Tools page, it becomes an agent-level tool. The orchestrator can pick it directly at run time, without a topic calling it. So the flow is no longer tied to one moment in one topic. It becomes the agent's choice, not a fixed step. Nexo can reach for it whenever it sees fit."
+  },
+  {
+    "title": "Decide: the exact moment",
+    "caption": "CreateTicket must run at one exact moment, and never in other conversations. Where should Valeria add the flow?",
+    "say": "Your turn. The service manager wants a ticket at one exact moment. No tickets in other conversations. Where should Valeria add the CreateTicket flow? On the agent's own Tools page? In the Report problem topic? Or in all topics of the agent? Decide before I answer. In the Report problem topic. A flow in a topic is available only to that topic, and runs exactly where you put it. On the Tools page, the orchestrator could pick it in any conversation."
+  },
+  {
+    "title": "Controlling the selection",
+    "caption": "Allow agent to decide dynamically off: explicit topic calls only. Ask the end user before running only asks for confirmation.",
+    "say": "But what if Contoso also adds the flow as an agent tool? Then Valeria turns off Allow agent to decide dynamically. With that setting off, the agent uses the flow only when a topic calls it explicitly. Watch out for a common trap. Ask the end user before running does not block the selection. It only asks for confirmation, and the orchestrator can still pick the flow."
+  },
+  {
+    "title": "What a flow needs",
+    "caption": "A tool flow needs the When an agent calls the flow trigger, Respond to the agent, publishing, a reply within 100 seconds, and a solution.",
+    "say": "Not every flow can be a tool. It must have the When an agent calls the flow trigger, and a Respond to the agent action. It must be published, respond in real time, and do so within one hundred seconds. It must also be a solution flow, or it does not appear in the tool picker. Good news: if you create the flow as a new tool from the agent, Copilot Studio adds the trigger and the response action for you."
+  },
+  {
+    "title": "Long jobs: the async split",
+    "caption": "Actions after Respond to the agent run asynchronously, up to 30 days. For long work, return a job ID quickly, then report the result later.",
+    "say": "Some jobs take longer than one hundred seconds. Respond to the agent is the line between synchronous and asynchronous. Actions placed after it run asynchronously, up to Power Automate's flow duration limit of thirty days. So for long work, start the job and return a job I D quickly, within one hundred seconds. Then a polling topic or a follow-up message gives the final result."
+  },
+  {
+    "title": "Decide: only when a topic calls",
+    "caption": "CreateTicket is also an agent tool, but must run only when a topic calls it. Which setting should Valeria change?",
+    "say": "Your turn. CreateTicket is now an agent tool too. It must run only when a topic calls it. Which setting should Valeria change? Turn off Allow agent to decide dynamically? Turn on Ask the end user before running? Or remove the flow from the Report problem topic? Decide before I answer. Turn off Allow agent to decide dynamically. With it off, the agent uses the flow only when a topic calls it explicitly. Ask the end user before running only asks for confirmation, and the orchestrator can still pick it."
+  },
+  {
+    "title": "A separate callback option",
+    "caption": "Asynchronous response On is a newer, separate callback for flows over two minutes. It is not the tool pattern: for a tool, keep it Off.",
+    "say": "Microsoft also documents a newer, separate option, called Asynchronous response On. It is a callback for flows that run longer than two minutes. It works only in environments on the new infrastructure. It is fully supported in Teams, but not in Microsoft Copilot or telephony. But it is not the tool pattern. For a flow used as a tool, keep it Off, and use the job I D approach."
+  },
+  {
+    "title": "Add it in Copilot Studio",
+    "caption": "Publish the flow, open the topic, Add node, Add a tool, select the flow. Map inputs to topic variables and use outputs in a Message.",
+    "say": "Here are the steps in Copilot Studio. Create a simple agent flow and publish it. Open your agent, go to the Topics page, and open the Report problem topic. Select Add node under the node you want. Choose Add a tool and select CreateTicket. An Action node appears at that exact point. Map the inputs to topic variables, and use the outputs in a Message. If you also added it as an agent tool, turn off Allow agent to decide dynamically."
+  },
+  {
+    "title": "Decide: the long job",
+    "caption": "A Contoso flow starts a job that runs for hours, but a tool must respond within 100 seconds. What should Valeria do?",
+    "say": "Your turn. A Contoso flow starts a job that runs for hours. As a tool, it must respond within one hundred seconds. What should Valeria do? Turn on the Asynchronous response option? Move every action before the response? Or reply early, work after the response? Decide before I answer. Reply early, work after the response. Return a job I D at Respond to the agent, and place the long actions after it, where they run asynchronously. Asynchronous response On is a separate callback, so for a tool keep it Off."
+  },
+  {
+    "title": "Three rules to remember",
+    "caption": "Exact point: add the flow to the topic. Decide dynamically off: explicit calls only. Long job: job ID at Respond to the agent.",
+    "say": "Back at the plant, Marta reads her ticket number, and Nexo moves on. Remember three things. A flow that must run at an exact point goes inside the topic, and turning off Allow agent to decide dynamically means explicit calls only. Ask the end user before running only asks for confirmation. And for a job longer than one hundred seconds, return a job I D at Respond to the agent, in a solution flow. Next, create an agent flow and its parameters."
+  }
+]

@@ -1,0 +1,523 @@
+{
+ "id": "L16",
+ "title": "Agent flows inside a topic",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 333.638,
+ "scenes": [
+  {
+   "title": "Two ways to use a flow",
+   "start": 0.8,
+   "end": 23.211,
+   "sentences": [
+    {
+     "text": "Marta has a problem with her laptop, and she tells the Contoso agent.",
+     "start": 0.8,
+     "end": 4.895
+    },
+    {
+     "text": "Nexo needs to create a ticket for her.",
+     "start": 5.176,
+     "end": 7.266
+    },
+    {
+     "text": "An agent flow is an automatic recipe of steps, like creating a ticket or sending an email.",
+     "start": 7.547,
+     "end": 13.37
+    },
+    {
+     "text": "You can give it to the whole agent, which uses it when it sees fit.",
+     "start": 13.651,
+     "end": 17.212
+    },
+    {
+     "text": "Or you can place it at an exact point in a topic, like a step that always goes in the same place.",
+     "start": 17.493,
+     "end": 23.21
+    }
+   ]
+  },
+  {
+   "title": "A flow inside a topic",
+   "start": 24.111,
+   "end": 46.503,
+   "sentences": [
+    {
+     "text": "First, the exact point.",
+     "start": 24.111,
+     "end": 25.56
+    },
+    {
+     "text": "When you add a flow to a topic, it is available only to that topic.",
+     "start": 25.841,
+     "end": 29.68
+    },
+    {
+     "text": "It runs exactly at the point on the canvas where you put it, like an Action node.",
+     "start": 29.961,
+     "end": 34.355
+    },
+    {
+     "text": "At Contoso, the CreateTicket flow goes inside the Report problem topic.",
+     "start": 34.636,
+     "end": 39.179
+    },
+    {
+     "text": "It runs right after the agent collects the title and the urgency.",
+     "start": 39.46,
+     "end": 43.406
+    },
+    {
+     "text": "Then it returns the ticket number, shown in a message.",
+     "start": 43.687,
+     "end": 46.502
+    }
+   ]
+  },
+  {
+   "title": "A flow as an agent tool",
+   "start": 47.403,
+   "end": 67.64,
+   "sentences": [
+    {
+     "text": "Now the other way.",
+     "start": 47.403,
+     "end": 48.554
+    },
+    {
+     "text": "If you add the flow from the agent's Tools page, it becomes an agent-level tool.",
+     "start": 48.835,
+     "end": 53.484
+    },
+    {
+     "text": "The orchestrator can pick it directly at run time, without a topic calling it.",
+     "start": 53.765,
+     "end": 58.095
+    },
+    {
+     "text": "So the flow is no longer tied to one moment in one topic.",
+     "start": 58.376,
+     "end": 61.852
+    },
+    {
+     "text": "It becomes the agent's choice, not a fixed step.",
+     "start": 62.133,
+     "end": 64.799
+    },
+    {
+     "text": "Nexo can reach for it whenever it sees fit.",
+     "start": 65.08,
+     "end": 67.639
+    }
+   ]
+  },
+  {
+   "title": "Decide: the exact moment",
+   "start": 68.54,
+   "end": 101.059,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 68.54,
+     "end": 69.414
+    },
+    {
+     "text": "The service manager wants a ticket at one exact moment.",
+     "start": 69.695,
+     "end": 73.086
+    },
+    {
+     "text": "No tickets in other conversations.",
+     "start": 73.367,
+     "end": 75.371
+    },
+    {
+     "text": "Where should Valeria add the CreateTicket flow?",
+     "start": 75.652,
+     "end": 78.04
+    },
+    {
+     "text": "On the agent's own Tools page?",
+     "start": 78.321,
+     "end": 80.091
+    },
+    {
+     "text": "In the Report problem topic?",
+     "start": 80.372,
+     "end": 82.014
+    },
+    {
+     "text": "Or in all topics of the agent?",
+     "start": 82.295,
+     "end": 84.171
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 84.452,
+     "end": 85.987
+    },
+    {
+     "text": "In the Report problem topic.",
+     "start": 89.768,
+     "end": 91.431
+    },
+    {
+     "text": "A flow in a topic is available only to that topic, and runs exactly where you put it.",
+     "start": 91.712,
+     "end": 96.874
+    },
+    {
+     "text": "On the Tools page, the orchestrator could pick it in any conversation.",
+     "start": 97.155,
+     "end": 101.058
+    }
+   ]
+  },
+  {
+   "title": "Controlling the selection",
+   "start": 101.959,
+   "end": 124.991,
+   "sentences": [
+    {
+     "text": "But what if Contoso also adds the flow as an agent tool?",
+     "start": 101.959,
+     "end": 105.371
+    },
+    {
+     "text": "Then Valeria turns off Allow agent to decide dynamically.",
+     "start": 105.652,
+     "end": 109.299
+    },
+    {
+     "text": "With that setting off, the agent uses the flow only when a topic calls it explicitly.",
+     "start": 109.58,
+     "end": 114.592
+    },
+    {
+     "text": "Watch out for a common trap.",
+     "start": 114.873,
+     "end": 116.558
+    },
+    {
+     "text": "Ask the end user before running does not block the selection.",
+     "start": 116.839,
+     "end": 120.379
+    },
+    {
+     "text": "It only asks for confirmation, and the orchestrator can still pick the flow.",
+     "start": 120.66,
+     "end": 124.99
+    }
+   ]
+  },
+  {
+   "title": "What a flow needs",
+   "start": 125.891,
+   "end": 150.2,
+   "sentences": [
+    {
+     "text": "Not every flow can be a tool.",
+     "start": 125.891,
+     "end": 127.575
+    },
+    {
+     "text": "It must have the When an agent calls the flow trigger, and a Respond to the agent action.",
+     "start": 127.856,
+     "end": 132.698
+    },
+    {
+     "text": "It must be published, respond in real time, and do so within one hundred seconds.",
+     "start": 132.979,
+     "end": 137.628
+    },
+    {
+     "text": "It must also be a solution flow, or it does not appear in the tool picker.",
+     "start": 137.909,
+     "end": 141.962
+    },
+    {
+     "text": "Good news: if you create the flow as a new tool from the agent, Copilot Studio adds the trigger and the response action for you.",
+     "start": 142.243,
+     "end": 150.199
+    }
+   ]
+  },
+  {
+   "title": "Long jobs: the async split",
+   "start": 151.1,
+   "end": 174.876,
+   "sentences": [
+    {
+     "text": "Some jobs take longer than one hundred seconds.",
+     "start": 151.1,
+     "end": 153.766
+    },
+    {
+     "text": "Respond to the agent is the line between synchronous and asynchronous.",
+     "start": 154.047,
+     "end": 158.142
+    },
+    {
+     "text": "Actions placed after it run asynchronously, up to Power Automate's flow duration limit of thirty days.",
+     "start": 158.423,
+     "end": 164.694
+    },
+    {
+     "text": "So for long work, start the job and return a job I D quickly, within one hundred seconds.",
+     "start": 164.975,
+     "end": 170.52
+    },
+    {
+     "text": "Then a polling topic or a follow-up message gives the final result.",
+     "start": 170.801,
+     "end": 174.875
+    }
+   ]
+  },
+  {
+   "title": "Decide: only when a topic calls",
+   "start": 175.776,
+   "end": 211.665,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 175.776,
+     "end": 176.65
+    },
+    {
+     "text": "CreateTicket is now an agent tool too.",
+     "start": 176.931,
+     "end": 179.468
+    },
+    {
+     "text": "It must run only when a topic calls it.",
+     "start": 179.749,
+     "end": 182.052
+    },
+    {
+     "text": "Which setting should Valeria change?",
+     "start": 182.333,
+     "end": 184.103
+    },
+    {
+     "text": "Turn off Allow agent to decide dynamically?",
+     "start": 184.384,
+     "end": 186.964
+    },
+    {
+     "text": "Turn on Ask the end user before running?",
+     "start": 187.245,
+     "end": 189.442
+    },
+    {
+     "text": "Or remove the flow from the Report problem topic?",
+     "start": 189.723,
+     "end": 192.559
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 192.84,
+     "end": 194.375
+    },
+    {
+     "text": "Turn off Allow agent to decide dynamically.",
+     "start": 198.156,
+     "end": 200.779
+    },
+    {
+     "text": "With it off, the agent uses the flow only when a topic calls it explicitly.",
+     "start": 201.06,
+     "end": 205.603
+    },
+    {
+     "text": "Ask the end user before running only asks for confirmation, and the orchestrator can still pick it.",
+     "start": 205.884,
+     "end": 211.664
+    }
+   ]
+  },
+  {
+   "title": "A separate callback option",
+   "start": 212.565,
+   "end": 236.728,
+   "sentences": [
+    {
+     "text": "Microsoft also documents a newer, separate option, called Asynchronous response On.",
+     "start": 212.565,
+     "end": 217.94
+    },
+    {
+     "text": "It is a callback for flows that run longer than two minutes.",
+     "start": 218.221,
+     "end": 221.527
+    },
+    {
+     "text": "It works only in environments on the new infrastructure.",
+     "start": 221.808,
+     "end": 224.964
+    },
+    {
+     "text": "It is fully supported in Teams, but not in Microsoft Copilot or telephony.",
+     "start": 225.245,
+     "end": 230.066
+    },
+    {
+     "text": "But it is not the tool pattern.",
+     "start": 230.347,
+     "end": 232.095
+    },
+    {
+     "text": "For a flow used as a tool, keep it Off, and use the job I D approach.",
+     "start": 232.376,
+     "end": 236.727
+    }
+   ]
+  },
+  {
+   "title": "Add it in Copilot Studio",
+   "start": 237.628,
+   "end": 265.081,
+   "sentences": [
+    {
+     "text": "Here are the steps in Copilot Studio.",
+     "start": 237.628,
+     "end": 239.803
+    },
+    {
+     "text": "Create a simple agent flow and publish it.",
+     "start": 240.084,
+     "end": 242.6
+    },
+    {
+     "text": "Open your agent, go to the Topics page, and open the Report problem topic.",
+     "start": 242.881,
+     "end": 247.638
+    },
+    {
+     "text": "Select Add node under the node you want.",
+     "start": 247.919,
+     "end": 250.008
+    },
+    {
+     "text": "Choose Add a tool and select CreateTicket.",
+     "start": 250.289,
+     "end": 252.72
+    },
+    {
+     "text": "An Action node appears at that exact point.",
+     "start": 253.001,
+     "end": 255.411
+    },
+    {
+     "text": "Map the inputs to topic variables, and use the outputs in a Message.",
+     "start": 255.692,
+     "end": 259.702
+    },
+    {
+     "text": "If you also added it as an agent tool, turn off Allow agent to decide dynamically.",
+     "start": 259.983,
+     "end": 265.08
+    }
+   ]
+  },
+  {
+   "title": "Decide: the long job",
+   "start": 265.981,
+   "end": 302.404,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 265.981,
+     "end": 266.855
+    },
+    {
+     "text": "A Contoso flow starts a job that runs for hours.",
+     "start": 267.136,
+     "end": 270.42
+    },
+    {
+     "text": "As a tool, it must respond within one hundred seconds.",
+     "start": 270.701,
+     "end": 273.836
+    },
+    {
+     "text": "What should Valeria do?",
+     "start": 274.117,
+     "end": 275.418
+    },
+    {
+     "text": "Turn on the Asynchronous response option?",
+     "start": 275.699,
+     "end": 277.895
+    },
+    {
+     "text": "Move every action before the response?",
+     "start": 278.176,
+     "end": 280.308
+    },
+    {
+     "text": "Or reply early, work after the response?",
+     "start": 280.589,
+     "end": 283.042
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 283.323,
+     "end": 284.858
+    },
+    {
+     "text": "Reply early, work after the response.",
+     "start": 288.639,
+     "end": 290.963
+    },
+    {
+     "text": "Return a job I D at Respond to the agent, and place the long actions after it, where they run asynchronously.",
+     "start": 291.244,
+     "end": 297.942
+    },
+    {
+     "text": "Asynchronous response On is a separate callback, so for a tool keep it Off.",
+     "start": 298.223,
+     "end": 302.403
+    }
+   ]
+  },
+  {
+   "title": "Three rules to remember",
+   "start": 303.304,
+   "end": 332.437,
+   "sentences": [
+    {
+     "text": "Back at the plant, Marta reads her ticket number, and Nexo moves on.",
+     "start": 303.304,
+     "end": 307.058
+    },
+    {
+     "text": "Remember three things.",
+     "start": 307.339,
+     "end": 308.575
+    },
+    {
+     "text": "A flow that must run at an exact point goes inside the topic, and turning off Allow agent to decide dynamically means explicit calls only.",
+     "start": 308.856,
+     "end": 317.964
+    },
+    {
+     "text": "Ask the end user before running only asks for confirmation.",
+     "start": 318.245,
+     "end": 321.978
+    },
+    {
+     "text": "And for a job longer than one hundred seconds, return a job I D at Respond to the agent, in a solution flow.",
+     "start": 322.259,
+     "end": 329.298
+    },
+    {
+     "text": "Next, create an agent flow and its parameters.",
+     "start": 329.579,
+     "end": 332.436
+    }
+   ]
+  }
+ ]
+}

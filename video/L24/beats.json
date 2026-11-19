@@ -1,0 +1,129 @@
+{
+ "id": "L24",
+ "title": "Custom connector as a tool",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 90.987,
+ "scenes": [
+  {
+   "title": "Your API as a reusable piece",
+   "start": 0.8,
+   "end": 16.507,
+   "sentences": [
+    {
+     "text": "A custom connector is like a custom adapter for an odd plug.",
+     "start": 0.8,
+     "end": 4.469
+    },
+    {
+     "text": "You describe your API once, and then the agent, Power Apps, and Power Automate use it without repeating work.",
+     "start": 4.749,
+     "end": 11.363
+    },
+    {
+     "text": "One description of the A P I serves all those places and saves a lot of effort.",
+     "start": 11.643,
+     "end": 16.507
+    }
+   ]
+  },
+  {
+   "title": "How it is built",
+   "start": 17.407,
+   "end": 33.305,
+   "sentences": [
+    {
+     "text": "You build it in Power Apps or Power Automate, from an Open A P I file, a Postman collection, or from scratch.",
+     "start": 17.407,
+     "end": 24.105
+    },
+    {
+     "text": "You choose the authentication: no authentication, Basic, A P I key, or OAuth two point zero.",
+     "start": 24.385,
+     "end": 30.956
+    },
+    {
+     "text": "You can also add code in C sharp.",
+     "start": 31.236,
+     "end": 33.305
+    }
+   ]
+  },
+  {
+   "title": "Bringing it to the agent",
+   "start": 34.205,
+   "end": 52.944,
+   "sentences": [
+    {
+     "text": "In Copilot Studio you use Add a tool and choose Custom connector.",
+     "start": 34.205,
+     "end": 38.301
+    },
+    {
+     "text": "You need a connection with your credentials.",
+     "start": 38.581,
+     "end": 40.672
+    },
+    {
+     "text": "And to move it between environments with solutions, you use connection references.",
+     "start": 40.952,
+     "end": 45.347
+    },
+    {
+     "text": "Think of the connection as the saved key, and the connection reference as a label that points to the right key in each environment.",
+     "start": 45.627,
+     "end": 52.944
+    }
+   ]
+  },
+  {
+   "title": "Governance with DLP",
+   "start": 53.844,
+   "end": 71.303,
+   "sentences": [
+    {
+     "text": "Watch out for governance.",
+     "start": 53.844,
+     "end": 55.273
+    },
+    {
+     "text": "Power Platform data policies also apply to custom connectors, and they can classify them by U R L pattern.",
+     "start": 55.553,
+     "end": 62.807
+    },
+    {
+     "text": "An administrator can allow or block your connector.",
+     "start": 63.087,
+     "end": 65.967
+    },
+    {
+     "text": "This way the security team decides whether your connector can be used in each environment.",
+     "start": 66.247,
+     "end": 71.303
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 72.203,
+   "end": 89.787,
+   "sentences": [
+    {
+     "text": "If they ask you to use an internal A P I already described in Open A P I and reusable by Power Apps and Flows, the answer is custom connector.",
+     "start": 72.203,
+     "end": 81.931
+    },
+    {
+     "text": "The trap: forgetting that D L P also governs custom connectors.",
+     "start": 82.211,
+     "end": 86.349
+    },
+    {
+     "text": "Remember both points to answer with confidence on the exam.",
+     "start": 86.629,
+     "end": 89.787
+    }
+   ]
+  }
+ ]
+}

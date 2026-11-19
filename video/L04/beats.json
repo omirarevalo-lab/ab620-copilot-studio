@@ -1,0 +1,708 @@
+{
+ "id": "L04",
+ "title": "Responsible AI and moderation",
+ "voice": "af_heart",
+ "speed": 1,
+ "duration": 456.584,
+ "scenes": [
+  {
+   "title": "Three bad answers on Friday",
+   "start": 0.8,
+   "end": 24.005,
+   "sentences": [
+    {
+     "text": "Friday at Contoso.",
+     "start": 0.8,
+     "end": 2.272
+    },
+    {
+     "text": "The HR agent has a rough day.",
+     "start": 2.552,
+     "end": 4.536
+    },
+    {
+     "text": "Someone sends it an offensive message.",
+     "start": 4.816,
+     "end": 7.013
+    },
+    {
+     "text": "Another employee asks about a policy that is not in its sources, and the agent invents an answer.",
+     "start": 7.293,
+     "end": 13.096
+    },
+    {
+     "text": "A third person asks for a coworker's leave balance, and gets it.",
+     "start": 13.376,
+     "end": 16.875
+    },
+    {
+     "text": "Three bad answers, and each one has a different fix.",
+     "start": 17.155,
+     "end": 19.949
+    },
+    {
+     "text": "By the end of this class you will know which control stops which problem.",
+     "start": 20.229,
+     "end": 24.005
+    }
+   ]
+  },
+  {
+   "title": "The filter on the tap",
+   "start": 24.905,
+   "end": 47.66,
+   "sentences": [
+    {
+     "text": "Here is the picture to keep.",
+     "start": 24.905,
+     "end": 26.377
+    },
+    {
+     "text": "A generative agent is a tap that writes new answers.",
+     "start": 26.657,
+     "end": 29.836
+    },
+    {
+     "text": "Responsible A I is the set of controls you add so it speaks safely.",
+     "start": 30.116,
+     "end": 34.276
+    },
+    {
+     "text": "Content moderation is the filter on the tap: you decide how fine it is.",
+     "start": 34.556,
+     "end": 39.079
+    },
+    {
+     "text": "Grounding is a different valve: it only lets out water that comes from your own pipes, your sources and tools.",
+     "start": 39.359,
+     "end": 45.396
+    },
+    {
+     "text": "Two controls, two different jobs.",
+     "start": 45.676,
+     "end": 47.66
+    }
+   ]
+  },
+  {
+   "title": "Two checkpoints",
+   "start": 48.56,
+   "end": 71.677,
+   "sentences": [
+    {
+     "text": "Content filtering checks two points in every exchange.",
+     "start": 48.56,
+     "end": 51.675
+    },
+    {
+     "text": "First, what the user sends.",
+     "start": 51.955,
+     "end": 53.576
+    },
+    {
+     "text": "Second, what the agent answers.",
+     "start": 53.856,
+     "end": 55.691
+    },
+    {
+     "text": "If either one is harmful, the exchange is blocked, and the user sees the message: the content was filtered due to Responsible A I restrictions.",
+     "start": 55.971,
+     "end": 64.717
+    },
+    {
+     "text": "Behind it, the error code is Content Filtered.",
+     "start": 64.997,
+     "end": 67.621
+    },
+    {
+     "text": "Remember that name, because you will search for it later when you troubleshoot.",
+     "start": 67.901,
+     "end": 71.677
+    }
+   ]
+  },
+  {
+   "title": "Where the level lives: standard harness",
+   "start": 72.577,
+   "end": 93.921,
+   "sentences": [
+    {
+     "text": "Where do you set the filter?",
+     "start": 72.577,
+     "end": 73.964
+    },
+    {
+     "text": "It depends on the harness.",
+     "start": 74.244,
+     "end": 75.695
+    },
+    {
+     "text": "On the standard harness you can set the moderation level in three places: for the whole agent, for a generative answers node, and for a prompt.",
+     "start": 75.975,
+     "end": 84.252
+    },
+    {
+     "text": "When they disagree, at runtime the topic's level takes precedence.",
+     "start": 84.532,
+     "end": 88.372
+    },
+    {
+     "text": "So a strict node inside a topic stays strict, even if the agent level is more relaxed.",
+     "start": 88.652,
+     "end": 93.921
+    }
+   ]
+  },
+  {
+   "title": "Highest filters more",
+   "start": 94.821,
+   "end": 116.808,
+   "sentences": [
+    {
+     "text": "Now the direction of the scale, which the exam loves to twist.",
+     "start": 94.821,
+     "end": 98.277
+    },
+    {
+     "text": "Highest applies the strictest filter, so the agent generates fewer responses.",
+     "start": 98.557,
+     "end": 103.229
+    },
+    {
+     "text": "Lowest generates more responses, with more risk of harmful content.",
+     "start": 103.509,
+     "end": 107.776
+    },
+    {
+     "text": "Highest does not mean more answers.",
+     "start": 108.056,
+     "end": 109.891
+    },
+    {
+     "text": "It means a finer filter, so less gets through.",
+     "start": 110.171,
+     "end": 112.645
+    },
+    {
+     "text": "Picture the tap again: the finer the filter, the less water comes out.",
+     "start": 112.925,
+     "end": 116.808
+    }
+   ]
+  },
+  {
+   "title": "Decide: the most answers",
+   "start": 117.708,
+   "end": 149.48,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 117.708,
+     "end": 118.583
+    },
+    {
+     "text": "A maker complains that the agent refuses too many questions.",
+     "start": 118.863,
+     "end": 122.575
+    },
+    {
+     "text": "They want the level that generates the most responses, and they accept more risk.",
+     "start": 122.855,
+     "end": 127.356
+    },
+    {
+     "text": "Which content moderation level is that?",
+     "start": 127.636,
+     "end": 129.791
+    },
+    {
+     "text": "Medium, because it balances answers and safety?",
+     "start": 130.071,
+     "end": 132.929
+    },
+    {
+     "text": "Highest, because it unlocks the most answers?",
+     "start": 133.209,
+     "end": 135.684
+    },
+    {
+     "text": "Or Lowest?",
+     "start": 135.964,
+     "end": 136.881
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 137.161,
+     "end": 138.697
+    },
+    {
+     "text": "Lowest.",
+     "start": 142.477,
+     "end": 143.288
+    },
+    {
+     "text": "It generates more responses, with more risk of harmful content.",
+     "start": 143.568,
+     "end": 147.365
+    },
+    {
+     "text": "Highest is the strictest filter.",
+     "start": 147.645,
+     "end": 149.48
+    }
+   ]
+  },
+  {
+   "title": "One dial on the Microsoft Copilot harness",
+   "start": 150.38,
+   "end": 173.985,
+   "sentences": [
+    {
+     "text": "On the Microsoft Copilot harness, formerly called the GitHub Copilot harness, it is simpler.",
+     "start": 150.38,
+     "end": 156.076
+    },
+    {
+     "text": "There is one moderation level for the whole agent, on the A I and behavior tab of the agent settings.",
+     "start": 156.356,
+     "end": 162.265
+    },
+    {
+     "text": "The levels are minimum, low, medium, high and maximum.",
+     "start": 162.545,
+     "end": 165.959
+    },
+    {
+     "text": "The change takes effect after you save and publish.",
+     "start": 166.239,
+     "end": 169.14
+    },
+    {
+     "text": "And because it is one dial, lowering it for one task lowers it for every task.",
+     "start": 169.42,
+     "end": 173.985
+    }
+   ]
+  },
+  {
+   "title": "The silent filter",
+   "start": 174.885,
+   "end": 199.557,
+   "sentences": [
+    {
+     "text": "Here is a trap from real life.",
+     "start": 174.885,
+     "end": 176.613
+    },
+    {
+     "text": "On the standard harness, when moderation filters a generative answers node, the node simply returns no answer, and it gives no sign that moderation was the cause.",
+     "start": 176.893,
+     "end": 186.813
+    },
+    {
+     "text": "The user just sees nothing useful.",
+     "start": 187.093,
+     "end": 188.949
+    },
+    {
+     "text": "To find out what happened, open the conversation transcripts or Application Insights, and look for Content Filtered.",
+     "start": 189.229,
+     "end": 196.035
+    },
+    {
+     "text": "That code tells you the filter, not a bug, ate the answer.",
+     "start": 196.315,
+     "end": 199.557
+    }
+   ]
+  },
+  {
+   "title": "Decide: one creative task",
+   "start": 200.457,
+   "end": 232.419,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 200.457,
+     "end": 201.332
+    },
+    {
+     "text": "An agent runs on the Microsoft Copilot harness.",
+     "start": 201.612,
+     "end": 204.641
+    },
+    {
+     "text": "The maker lowers the moderation level to help one creative writing task.",
+     "start": 204.921,
+     "end": 209.188
+    },
+    {
+     "text": "What is the effect?",
+     "start": 209.468,
+     "end": 210.62
+    },
+    {
+     "text": "Nothing changes until an admin approves it?",
+     "start": 210.9,
+     "end": 213.609
+    },
+    {
+     "text": "Every task of the agent uses the lower level, once the maker saves and publishes?",
+     "start": 213.889,
+     "end": 218.945
+    },
+    {
+     "text": "Or only that task's node uses the lower level?",
+     "start": 219.225,
+     "end": 222.041
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 222.321,
+     "end": 223.857
+    },
+    {
+     "text": "Every task.",
+     "start": 227.637,
+     "end": 228.661
+    },
+    {
+     "text": "On this harness the level is one setting for the whole agent.",
+     "start": 228.941,
+     "end": 232.419
+    }
+   ]
+  },
+  {
+   "title": "No source, no answer",
+   "start": 233.319,
+   "end": 257.972,
+   "sentences": [
+    {
+     "text": "Now the second valve.",
+     "start": 233.319,
+     "end": 234.599
+    },
+    {
+     "text": "The setting is called allow ungrounded responses.",
+     "start": 234.879,
+     "end": 237.652
+    },
+    {
+     "text": "An ungrounded response is one that does not rely on any source or tool used in that turn.",
+     "start": 237.932,
+     "end": 243.991
+    },
+    {
+     "text": "Turn the setting off, and if the agent used no source or tool, the response is blocked and the fallback is triggered instead.",
+     "start": 244.271,
+     "end": 251.524
+    },
+    {
+     "text": "The fallback is a backup reply.",
+     "start": 251.804,
+     "end": 253.745
+    },
+    {
+     "text": "This stops the agent from making things up without relying on your data.",
+     "start": 254.025,
+     "end": 257.972
+    }
+   ]
+  },
+  {
+   "title": "Each setting has one job",
+   "start": 258.872,
+   "end": 284.488,
+   "sentences": [
+    {
+     "text": "Keep the jobs apart, because the exam mixes them on purpose.",
+     "start": 258.872,
+     "end": 262.563
+    },
+    {
+     "text": "Allow ungrounded responses does not filter harmful content.",
+     "start": 262.843,
+     "end": 266.704
+    },
+    {
+     "text": "Temperature does not filter harmful content either.",
+     "start": 266.984,
+     "end": 269.928
+    },
+    {
+     "text": "Moderation filters harm.",
+     "start": 270.208,
+     "end": 271.893
+    },
+    {
+     "text": "The grounding setting requires sources.",
+     "start": 272.173,
+     "end": 274.264
+    },
+    {
+     "text": "So if the problem is invented answers, moderation will not fix it.",
+     "start": 274.544,
+     "end": 278.469
+    },
+    {
+     "text": "And if the problem is offensive content, turning off ungrounded responses will not fix it either.",
+     "start": 278.749,
+     "end": 284.488
+    }
+   ]
+  },
+  {
+   "title": "Decide: the invented policy",
+   "start": 285.388,
+   "end": 317.52,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 285.388,
+     "end": 286.263
+    },
+    {
+     "text": "The HR agent answers questions about policies that are not in its sources, and the answers are invented.",
+     "start": 286.543,
+     "end": 292.9
+    },
+    {
+     "text": "What fixes this?",
+     "start": 293.18,
+     "end": 294.332
+    },
+    {
+     "text": "Turn off allow ungrounded responses?",
+     "start": 294.612,
+     "end": 296.809
+    },
+    {
+     "text": "Lower the temperature?",
+     "start": 297.089,
+     "end": 298.348
+    },
+    {
+     "text": "Or raise content moderation to Highest?",
+     "start": 298.628,
+     "end": 300.932
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 301.212,
+     "end": 302.748
+    },
+    {
+     "text": "Turn off allow ungrounded responses.",
+     "start": 306.528,
+     "end": 308.789
+    },
+    {
+     "text": "With no source or tool in the turn, the response is blocked and the fallback runs.",
+     "start": 309.069,
+     "end": 313.635
+    },
+    {
+     "text": "Moderation only screens for harm, not for made-up facts.",
+     "start": 313.915,
+     "end": 317.52
+    }
+   ]
+  },
+  {
+   "title": "Moderation is not policy",
+   "start": 318.42,
+   "end": 343.199,
+   "sentences": [
+    {
+     "text": "Back to the third bad answer: a coworker's leave balance.",
+     "start": 318.42,
+     "end": 321.748
+    },
+    {
+     "text": "Nothing in that request is harmful, so moderation lets it through.",
+     "start": 322.028,
+     "end": 325.676
+    },
+    {
+     "text": "Moderation only screens for harm.",
+     "start": 325.956,
+     "end": 328.111
+    },
+    {
+     "text": "It does not check whether a request fits your company's policies.",
+     "start": 328.391,
+     "end": 331.74
+    },
+    {
+     "text": "For that you use other controls: instructions that say what the agent must not do, a narrow knowledge scope, the right tools, and permissions, so each user only reaches their own data.",
+     "start": 332.02,
+     "end": 343.199
+    }
+   ]
+  },
+  {
+   "title": "Decide: the leave balance",
+   "start": 344.099,
+   "end": 376.828,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 344.099,
+     "end": 344.973
+    },
+    {
+     "text": "Any employee can ask the HR agent for a coworker's leave balance, and the agent answers.",
+     "start": 345.253,
+     "end": 350.629
+    },
+    {
+     "text": "Which controls should stop this?",
+     "start": 350.909,
+     "end": 352.659
+    },
+    {
+     "text": "Turn off allow ungrounded responses?",
+     "start": 352.939,
+     "end": 355.136
+    },
+    {
+     "text": "Or instructions, knowledge scope, tools and permissions?",
+     "start": 355.416,
+     "end": 358.637
+    },
+    {
+     "text": "Raise content moderation to maximum?",
+     "start": 358.917,
+     "end": 361.136
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 361.416,
+     "end": 362.952
+    },
+    {
+     "text": "Instructions, knowledge scope, tools and permissions.",
+     "start": 366.732,
+     "end": 369.74
+    },
+    {
+     "text": "The request is not harmful, so moderation does not see a problem.",
+     "start": 370.02,
+     "end": 373.753
+    },
+    {
+     "text": "This is a policy question, not a harm question.",
+     "start": 374.033,
+     "end": 376.828
+    }
+   ]
+  },
+  {
+   "title": "Say it is an AI",
+   "start": 377.728,
+   "end": 400.885,
+   "sentences": [
+    {
+     "text": "One more good habit.",
+     "start": 377.728,
+     "end": 378.944
+    },
+    {
+     "text": "Tell users they are talking to an A I, right at the start.",
+     "start": 379.224,
+     "end": 382.467
+    },
+    {
+     "text": "The recommended practice is to put a notice in the Conversation Start topic, the topic that runs when the conversation begins.",
+     "start": 382.747,
+     "end": 390.277
+    },
+    {
+     "text": "Something like: I am an artificial intelligence assistant, and my answers are generated.",
+     "start": 390.557,
+     "end": 395.933
+    },
+    {
+     "text": "The employee then knows who they are talking to, and reads the answers with the right care.",
+     "start": 396.213,
+     "end": 400.885
+    }
+   ]
+  },
+  {
+   "title": "The steps",
+   "start": 401.785,
+   "end": 427.359,
+   "sentences": [
+    {
+     "text": "Here are the steps on the standard harness.",
+     "start": 401.785,
+     "end": 403.855
+    },
+    {
+     "text": "Open your agent and go to Settings, then Generative A I.",
+     "start": 404.135,
+     "end": 407.591
+    },
+    {
+     "text": "Under content moderation, choose the level, for example Highest.",
+     "start": 407.871,
+     "end": 411.604
+    },
+    {
+     "text": "Turn off allow ungrounded responses if you want to require sources.",
+     "start": 411.884,
+     "end": 416.108
+    },
+    {
+     "text": "Save.",
+     "start": 416.388,
+     "end": 417.135
+    },
+    {
+     "text": "In the test panel, ask an awkward question and another one outside your sources, and watch what happens.",
+     "start": 417.415,
+     "end": 423.217
+    },
+    {
+     "text": "Finally, add an A I notice in the Conversation Start topic.",
+     "start": 423.497,
+     "end": 427.359
+    }
+   ]
+  },
+  {
+   "title": "Friday, fixed",
+   "start": 428.259,
+   "end": 455.384,
+   "sentences": [
+    {
+     "text": "Back to Friday at Contoso.",
+     "start": 428.259,
+     "end": 430.008
+    },
+    {
+     "text": "The offensive message is stopped by moderation, at both checkpoints.",
+     "start": 430.288,
+     "end": 434.32
+    },
+    {
+     "text": "The invented policy is stopped by turning off allow ungrounded responses, so the fallback runs.",
+     "start": 434.6,
+     "end": 440.275
+    },
+    {
+     "text": "The leave balance is stopped by instructions, knowledge scope and permissions.",
+     "start": 440.555,
+     "end": 444.779
+    },
+    {
+     "text": "Remember for the exam: Highest filters more, the topic level wins on the standard harness, and one dial rules the whole agent on the Microsoft Copilot harness.",
+     "start": 445.059,
+     "end": 455.384
+    }
+   ]
+  }
+ ]
+}

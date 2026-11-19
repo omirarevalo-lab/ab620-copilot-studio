@@ -1,0 +1,43 @@
+{"brand": "AB-620 · Module 1 · Lesson 7", "scenes": [
+ {"type": "compare", "header": {"kicker": "Audiences", "title": "Internal is not external"},
+  "cols": [
+   {"icon": "key", "title": "Staff door", "sub": "Asks for a badge", "at": "staff door", "items": [{"text": "Employees", "at": "badge"}]},
+   {"icon": "globe", "title": "Public service desk", "sub": "Open to everyone", "at": "public service desk", "items": [{"text": "Anonymous public", "at": "is open"}]}],
+  "verdict": {"icon": "shield_checkmark", "text": "Who uses it decides how you protect it", "at": "protect it"}},
+ {"type": "split", "left": {"kicker": "Employees", "title": "Authenticate with Microsoft"},
+  "rows": [
+   {"icon": "key", "title": "The user always signs in", "at": "always signs in", "hi": true},
+   {"icon": "people_team", "title": "Share controls who can chat", "desc": "Inside the organization", "at": "Share option", "hi": true},
+   {"icon": "checkmark_circle", "title": "Natural for internal audiences", "at": "natural option", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Anonymous public", "title": "No authentication", "sub": "Use it with great care."},
+  "rows": [
+   {"icon": "globe", "title": "Anyone with the link", "at": "Anyone who has", "hi": true},
+   {"icon": "shield_checkmark", "title": "Only if there is no internal data", "at": "internal data", "hi": true},
+   {"icon": "key", "title": "Generic OAuth 2: no Share", "desc": "You can't pick specific users", "at": "O Auth two", "hi": true}]},
+ {"type": "flow", "header": {"kicker": "Your own website", "title": "Require secured access"},
+  "nodes": [
+   {"icon": "globe", "title": "Your website", "sub": "The client", "at": "your own website"},
+   {"icon": "key", "title": "Secret or token", "sub": "Required to connect", "accent": true, "at": "with a secret"},
+   {"icon": "chat", "title": "Channel", "sub": "Access protected", "at": "protects access"}],
+  "below": [{"icon": "flag", "text": "It doesn't identify each end user", "at": "does not force", "solid": true}]},
+ {"type": "flow", "header": {"kicker": "Keep the secret safe", "title": "The secret stays out of the browser"},
+  "nodes": [
+   {"icon": "window_dev_tools", "title": "Your server", "sub": "Holds the secret", "at": "Your own service"},
+   {"icon": "key", "title": "Token", "sub": "Valid for one conversation", "accent": true, "at": "for a token"},
+   {"icon": "globe", "title": "Web page", "sub": "Gets only the token", "at": "gives the token"}],
+  "below": [{"text": "Secret in the browser", "at": "never reaches", "strike": true}]},
+ {"type": "hub", "header": {"kicker": "Contoso", "title": "Two audiences, two designs"},
+  "center": {"icon": "bot", "title": "Contoso agents", "at": "start"},
+  "topLabel": "Audiences",
+  "top": [
+   {"icon": "people_team", "title": "Intranet", "desc": "Authenticate with Microsoft", "at": "intranet"},
+   {"icon": "globe", "title": "Public website", "desc": "Require secured access", "at": "public website"}],
+  "bottomLabel": "The key",
+  "bottom": [
+   {"icon": "window_dev_tools", "title": "Own server generates tokens", "at": "generates tokens", "hi": true},
+   {"icon": "flag", "title": "Secret in page code?", "desc": "Any visitor could read it", "at": "page code", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "An agent embedded in your own site"},
+  "cols": [
+   {"icon": "checkmark_circle", "title": "Answer", "tone": "good", "at": "The answer", "items": [{"text": "Require secured access + a token generated on the server", "at": "token generated"}]},
+   {"icon": "flag", "title": "Trap", "tone": "bad", "at": "The trap", "items": [{"text": "The secret in the browser code", "at": "secret in the browser"}]}]}
+]}

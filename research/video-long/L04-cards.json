@@ -1,0 +1,12 @@
+{
+"1": ["Two controls", [["Content moderation", "Filters harmful content"], ["Grounding", "Requires sources or tools"]]],
+"2": ["Two checkpoints", [["Checked", "User message and agent answer"], ["Blocked", "Error code ContentFiltered"]]],
+"3": ["Standard harness levels", [["Where", "Agent, generative answers node, prompt"], ["At runtime", "Topic's level takes precedence"]]],
+"4": ["Moderation scale", [["Highest", "Strictest filter, fewer responses"], ["Lowest", "More responses, more risk"]]],
+"6": ["Microsoft Copilot harness", [["Setting", "One Moderation level for the agent"], ["Where", "AI & behavior tab"], ["Levels", "Minimum to Maximum"], ["Active", "After save and publish"]]],
+"7": ["Silent filter", [["Standard harness node", "Returns no answer, no sign"], ["Find it", "Transcripts or Application Insights: ContentFiltered"]]],
+"9": ["Allow ungrounded responses: Off", [["No source or tool in the turn", "Response blocked"], ["Then", "Fallback is triggered"]]],
+"10": ["One job each", [["Moderation", "Harmful content"], ["Ungrounded responses / temperature", "Do not filter harm"]]],
+"12": ["Moderation is not policy", [["Moderation", "Only screens for harm"], ["Policy", "Instructions, knowledge scope, tools, permissions"]]],
+"14": ["AI notice", [["Where", "Conversation Start topic"], ["Says", "You are talking to an AI"]]]
+}

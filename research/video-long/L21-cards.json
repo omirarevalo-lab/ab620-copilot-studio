@@ -1,0 +1,10 @@
+{
+"2": ["Three tabs", [["Overview", "Flow details, recent runs, turn off, delete"], ["Activity", "Run history, status, duration"], ["Analytics", "Runs, error rate, trends"]]],
+"3": ["Activity", [["Open a run", "Diagnose where it failed"], ["Several runs", "Resubmit or cancel"], ["Analytics delay", "Up to 30 minutes"]]],
+"6": ["Flow cost", [["Rate", "13 Copilot Credits per 100 actions"], ["Test runs", "Free"], ["M365 Copilot license + When an agent calls the flow", "Not charged"]]],
+"7": ["Example", [["20 actions × 500 runs", "10,000 actions"], ["Cost", "≈ 1,300 Copilot Credits"]]],
+"8": ["Capacity runs out", [["New runs", "Blocked"], ["Running", "Finish"], ["Agent", "Keeps answering without flows"], ["Avoid it", "Link pay-as-you-go"]]],
+"10": ["What counts", [["Standard", "Per event, defined rates"], ["Microsoft Copilot harness", "LLM tokens, tools, runtime"]]],
+"11": ["When credits accrue", [["Standard, Copilot chat", "Runtime only"], ["Microsoft Copilot harness", "Also build time"], ["M365 Copilot license exception", "Not on Microsoft Copilot harness"]]],
+"13": ["Cost drivers", [["Model", "Reasoning models use premium tokens"], ["Context", "Organizational context drawn in"], ["Tools", "Number of tools and actions"], ["Complexity", "Task and orchestration"]]]
+}

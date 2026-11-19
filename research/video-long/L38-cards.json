@@ -1,0 +1,9 @@
+{
+  "1": ["Where an agent lives", [["Solution", "Groups everything in your agent"], ["Set nothing", "Default solution"], ["Preferred solution set", "Agents are created in it"]]],
+  "2": ["Custom solution", [["Publisher", "Contoso · prefix nexo"], ["Preferred solution", "NexoCore"], ["Keep one publisher", "Cannot change in managed"]]],
+  "3": ["Two kinds", [["Unmanaged", "For development"], ["Managed", "For deployment"], ["How managed is made", "Export the unmanaged one as managed"]]],
+  "5": ["Before you export", [["New topics or flows", "Advanced › Add required objects"], ["Remove the agent", "Its components stay"]]],
+  "6": ["Export trap", [["Topic with dots in its name", "Will not export"], ["Fix", "Rename the topic"]]],
+  "8": ["After you import", [["Then", "Set up authentication again · publish"], ["Local changes", "Solution Layers › Remove unmanaged layer"]]],
+  "10": ["Steps", [["1", "Custom solution · publisher · prefix"], ["2", "Set as preferred solution"], ["3", "Create or add the agent"], ["4", "Advanced › Add required objects"], ["5", "Export as managed"], ["6", "Import · auth · publish"]]]
+}

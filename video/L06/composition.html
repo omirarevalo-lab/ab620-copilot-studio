@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>L06 · Component collections and skills · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  .c4 { position: absolute; left: 120px; width: 1680px; height: 100px; box-sizing: border-box; background: #fff; border: 8px solid #8a93a6; border-radius: 30px; display: flex; align-items: center; gap: 24px; padding: 0 34px; font-size: 50px; font-weight: 800; color: #141821; box-shadow: var(--shadow); opacity: 0; white-space: nowrap; }
+  .c4 > svg { height: 70px; width: auto; flex: 0 0 auto; }
+  .c4 .ic { width: 64px; height: 64px; color: #8a93a6; }
+  .c4 .rs { color: #c4392f; }
+  .c4 .sk { position: absolute; left: 16px; right: 16px; top: 50%; height: 10px; margin-top: -5px; background: #c4392f; border-radius: 5px; opacity: 0; }
+  .rl { position: absolute; left: 36px; display: flex; align-items: center; gap: 18px; height: 88px; font-size: 44px; font-weight: 700; color: #141821; opacity: 0; }
+  .rl .ic { width: 54px; height: 54px; color: #1e7f4f; }
+  .bw { position: absolute; left: 40px; width: 1170px; height: 140px; display: flex; align-items: center; gap: 22px; font-size: 40px; font-weight: 700; color: #141821; opacity: 0; }
+  .bw .l { width: 590px; line-height: 1.12; } .bw .ar { font-size: 48px; font-weight: 800; color: #8a93a6; }
+  .bw .rr { color: #fff; border-radius: 22px; padding: 10px 28px; font-size: 40px; font-weight: 800; white-space: nowrap; }
+  .ts { position: absolute; left: 100px; width: 1720px; height: 210px; box-sizing: border-box; background: #fff; border: 8px solid; border-radius: 32px; display: flex; align-items: center; gap: 28px; padding: 0 40px; font-size: 50px; font-weight: 800; box-shadow: var(--shadow); opacity: 0; white-space: nowrap; }
+  .ts .ic { width: 90px; height: 90px; }
+  .ts .rt { font-size: 48px; color: #141821; }
+  .sidec { position: absolute; left: 1350px; top: 150px; width: 520px; height: 700px; box-sizing: border-box; background: #fff; border: 8px solid #1f2a44; border-radius: 40px; box-shadow: var(--shadow); opacity: 0; }
+  .sidec .ly { position: absolute; left: 0; top: 0; right: 0; bottom: 0; opacity: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; font-size: 48px; font-weight: 800; text-align: center; }
+  .uopt { position: absolute; left: 0; width: 1180px; height: 190px; box-sizing: border-box; border: 4px solid var(--line2); border-radius: 22px; padding: 22px 34px; font-size: 32px; font-weight: 600; color: var(--muted); opacity: 0; background: #fff; }
+  .uopt b { display: block; font-size: 44px; color: #141821; margin-bottom: 8px; }
+  .exam .xo em.trap { font-size: 32px; }
+  .exam .xl { font-size: 36px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* L06 · Component collections and skills. World layout (3840x2160): agents IT/HR/Sales at x 1500/1940/2380 (y 1010) · Lego box 1620,250 (1000x560) · maker 420,1040
+     skills library 40,300 · big scroll 740,250 · Development 2800,1150 · Production 3440,1150 · lockers 3000/3420,980 */
+  const PX = (id, x, y, t, c, fs) => pill(id, x, y, t, c).replace('style="', 'style="font-size:' + Math.round((fs || 40) * 1.2) + 'px;');
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44', TEAL = '#0f8a9d', BRN = '#9a5b13';
+  const CXS = [1680, 2120, 2560];
+  const blk = (id, x, y, w, h, ic, col, lbl, fs, row) => `<div class="w blk" id="${id}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${col};border-radius:26px;border:5px solid #fff;box-shadow:0 10px 24px rgba(16,24,40,.25);display:flex;flex-direction:${row ? 'row' : 'column'};align-items:center;justify-content:center;gap:${row ? 16 : 6}px;color:#fff;font-size:${fs || 34}px;font-weight:800;line-height:1.05;text-align:center;opacity:0;box-sizing:border-box">${IC(ic, 'width:' + (row ? 56 : 64) + 'px;height:' + (row ? 56 : 64) + 'px')}<span>${lbl}</span></div>`;
+  const lbox = (w, h) => `<div style="position:relative;width:${w}px;height:${h}px;border:6px solid #7ea1e6;border-radius:18px;background:rgba(126,161,230,.35);box-sizing:border-box"><i style="position:absolute;left:10%;top:22%;width:34%;height:52%;background:${BLUE};border-radius:8px"></i><i style="position:absolute;left:52%;top:22%;width:34%;height:52%;background:${AMB};border-radius:8px"></i></div>`;
+  const truck = (id, x, y, st) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px;${st || ''}" width="360" height="220" viewBox="0 0 360 220"><rect x="4" y="60" width="250" height="115" rx="16" fill="#fff" stroke="#1f2a44" stroke-width="7"/><text x="129" y="135" font-size="52" font-weight="800" fill="#1f2a44" text-anchor="middle">Solution</text><path d="M262 95 h50 l38 40 v40 h-88 z" fill="#2f5bd3" stroke="#1f2a44" stroke-width="7" stroke-linejoin="round"/><path d="M280 108 h28 l20 24 h-48 z" fill="#e6ecfb"/><circle cx="64" cy="185" r="30" fill="#141821" stroke="#fff" stroke-width="5"/><circle cx="300" cy="185" r="30" fill="#141821" stroke="#fff" stroke-width="5"/></svg>`;
+  const bldg = (id, x, y, fill, stroke) => { let w = ''; for (let r = 0; r < 4; r++) for (let c = 0; c < 3; c++) w += `<rect x="${60 + c * 110}" y="${90 + r * 90}" width="70" height="56" rx="8" fill="#fff" opacity=".85"/>`; return `<svg class="w bld" id="${id}" style="left:${x}px;top:${y}px;opacity:0" width="400" height="600" viewBox="0 0 400 600"><rect x="10" y="40" width="380" height="560" rx="16" fill="${fill}" stroke="${stroke}" stroke-width="8"/>${w}<rect x="150" y="440" width="100" height="160" fill="${stroke}"/></svg>`; };
+  const sMini = (id, x, y, w, st) => `<svg class="w" id="${id}" style="left:${x}px;top:${y}px;${st || ''}" width="${w}" height="${Math.round(w * 1.35)}" viewBox="0 0 90 122"><rect x="12" y="10" width="66" height="102" rx="8" fill="#fffaf0" stroke="#d9b86c" stroke-width="5"/><rect x="4" y="4" width="82" height="16" rx="8" fill="#d9b86c"/><rect x="4" y="102" width="82" height="16" rx="8" fill="#d9b86c"/><rect x="24" y="32" width="42" height="9" rx="4" fill="#2f5bd3"/><rect x="24" y="50" width="42" height="7" rx="3" fill="#8a93a6"/><rect x="24" y="64" width="30" height="7" rx="3" fill="#c9ced8"/><rect x="24" y="78" width="38" height="7" rx="3" fill="#c9ced8"/></svg>`;
+  const circ = (id, x, y, s, col, inner, st) => `<div class="w" id="${id}" style="left:${x}px;top:${y}px;width:${s}px;height:${s}px;border-radius:50%;background:#fff;border:7px solid ${col};color:${col};display:flex;align-items:center;justify-content:center;opacity:0;box-sizing:border-box;${st || ''}">${inner}</div>`;
+  const KEY = IC('key', 'width:44px;height:44px;vertical-align:-8px;margin-right:8px');
+  const PEN = '<svg width="70" height="70" viewBox="0 0 70 70"><path d="M10 60 L14 44 L44 14 a6 6 0 0 1 8 0 l4 4 a6 6 0 0 1 0 8 L26 56 Z" fill="currentColor"/></svg>';
+
+  /* ───────── world: extension panels (wide shots near the edges) ───────── */
+  ADD(`<div class="w" style="left:3840px;top:0;width:1600px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="left:3840px;top:1500px;width:1600px;height:700px;background:#e3e7ef"></div>
+    <div class="w" style="left:-1600px;top:0;width:1600px;height:1500px;background:linear-gradient(#f4f6fa,#eef1f7)"></div><div class="w" style="left:-1600px;top:1500px;width:1600px;height:700px;background:#e3e7ef"></div>`);
+
+  /* ───────── cables box → agents (behind everything) ───────── */
+  const dC = ['M1750 810 C 1750 930, 1680 940, 1680 1040', 'M2120 810 C 2120 900, 2120 960, 2120 1040', 'M2490 810 C 2490 930, 2560 940, 2560 1040'];
+  ADD(`<svg class="w" id="cabs" style="left:0;top:0" width="3840" height="2160" viewBox="0 0 3840 2160">${dC.map((d, k) => cable('g' + k, d, '#8a93a6', 10, '18 16')).join('')}${dC.map((d, k) => cable('cb' + k, d, BLUE, 14)).join('')}</svg>`);
+
+  /* ───────── Development / Production / road / bike ───────── */
+  ADD(bldg('bDev', 2800, 1150, '#c9d8f7', '#7ea1e6') + bldg('bPrd', 3440, 1150, '#cfe9da', '#6fb58f'));
+  ADD(`<div class="w bld" id="road" style="left:2700px;top:1835px;width:1300px;height:36px;border-radius:18px;background:#c9ced8;opacity:0"></div><div class="w bld" id="lane" style="left:2700px;top:2018px;width:1300px;height:10px;border-radius:5px;background:#d3d9e4;opacity:0"></div>`);
+  ADD(PX('lbDev', 3000, 1070, 'Development', 'navy', 52) + PX('lbPrd', 3640, 1070, 'Production', 'navy', 52));
+  ADD(truck('trk', 2860, 1620, 'opacity:0'));
+  ADD(`<div class="w" id="bxm" style="left:2890px;top:1555px;opacity:0">${lbox(190, 125)}</div>`);
+  ADD(`<svg class="w" id="bike" style="left:2850px;top:1890px;opacity:0" width="230" height="150" viewBox="0 0 230 150"><circle cx="48" cy="105" r="38" fill="none" stroke="#1f2a44" stroke-width="9"/><circle cx="182" cy="105" r="38" fill="none" stroke="#1f2a44" stroke-width="9"/><path d="M48 105 L100 50 L160 50 L182 105 M100 50 L118 105 L48 105 M160 50 L150 30 M150 30 L176 30" fill="none" stroke="#1f2a44" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><rect x="62" y="0" width="80" height="46" rx="10" fill="rgba(126,161,230,.45)" stroke="#7ea1e6" stroke-width="6"/><rect x="76" y="12" width="22" height="24" rx="4" fill="${BLUE}"/><rect x="106" y="12" width="22" height="24" rx="4" fill="${AMB}"/></svg>`);
+  ADD(PX('lbDirect', 2500, 1905, 'Export collection directly<br><span style="font-size:46px;color:#5d6472">managed · simpler cases</span>', 'amber', 46));
+  ADD(PX('lbExp', 3200, 1960, 'export', 'blue', 54) + PX('lbImp', 3590, 1960, 'import', 'blue', 54));
+  ADD(PX('lbCont', 3320, 985, 'Power Platform container', 'navy', 48));
+  ADD(circ('ck17', 3580, 880, 170, GRN, IC('checkmark_circle', 'width:110px;height:110px')));
+
+  /* ───────── skills library + big scroll ───────── */
+  let libS = '';
+  [330, 610].forEach((py) => { libS += `<rect x="20" y="${py}" width="660" height="18" rx="8" fill="#8fa6dc"/>`; for (let k = 0; k < 5; k++) { const x = 48 + k * 128; libS += `<rect x="${x}" y="${py - 200}" width="86" height="200" rx="14" fill="#fffaf0" stroke="#d9b86c" stroke-width="6"/><rect x="${x - 6}" y="${py - 210}" width="98" height="26" rx="13" fill="#d9b86c"/><rect x="${x - 6}" y="${py - 30}" width="98" height="26" rx="13" fill="#d9b86c"/><rect x="${x + 14}" y="${py - 150}" width="58" height="14" rx="5" fill="#2f5bd3"/><rect x="${x + 14}" y="${py - 120}" width="58" height="10" rx="5" fill="#8a93a6"/><rect x="${x + 14}" y="${py - 96}" width="40" height="10" rx="5" fill="#c9ced8"/><rect x="${x + 14}" y="${py - 72}" width="50" height="10" rx="5" fill="#c9ced8"/>`; } });
+  ADD(`<div class="w" id="lib" style="left:40px;top:300px;width:700px;height:700px;opacity:0"><svg class="w" style="left:0;top:0" width="700" height="700" viewBox="0 0 700 700"><rect x="0" y="100" width="700" height="600" rx="30" fill="#e6ecfb" stroke="#7ea1e6" stroke-width="8"/>${libS}</svg></div>`);
+  ADD(PX('lbLib', 390, 318, 'Skills library', 'blue', 56));
+  ADD(PX('hc8', 1060, 70, 'Microsoft Copilot harness<br><span style="font-size:48px;font-weight:600">formerly GitHub Copilot harness</span>', 'blue', 48));
+  ADD(`<div class="w" id="scr" style="left:740px;top:250px;width:640px;height:680px;opacity:0">
+    <div id="scBody" class="w" style="left:20px;top:20px;width:600px;height:640px;background:#fffaf0;border:5px solid #d9b86c;box-sizing:border-box;overflow:hidden;box-shadow:0 16px 40px rgba(16,24,40,.2)">
+      <div id="sc_n" class="w" style="left:20px;top:44px;width:556px;height:104px;border:4px solid #c9ced8;border-radius:16px;box-sizing:border-box;padding:6px 20px;opacity:0"><div style="font-size:32px;font-weight:700;color:#5d6472">name</div><div style="font-size:50px;font-weight:800;color:${BLUE}">refund-requests</div></div>
+      <div id="sc_d" class="w" style="left:20px;top:164px;width:556px;height:150px;border:4px solid #c9ced8;border-radius:16px;box-sizing:border-box;padding:6px 20px;opacity:0"><div style="font-size:32px;font-weight:700;color:#5d6472">description</div><div style="font-size:46px;font-weight:800;color:#141821;line-height:1.1">Use for refund requests</div></div>
+      <div id="sc_i" class="w" style="left:20px;top:330px;width:556px;height:270px;border:4px solid #c9ced8;border-radius:16px;box-sizing:border-box;padding:6px 20px;opacity:0"><div style="font-size:32px;font-weight:700;color:#5d6472">instructions · Markdown</div>
+        <div style="height:18px;width:60%;background:#141821;border-radius:6px;margin-top:20px"></div><div style="height:14px;width:92%;background:#c9ced8;border-radius:6px;margin-top:22px"></div><div style="height:14px;width:80%;background:#c9ced8;border-radius:6px;margin-top:16px"></div><div style="height:14px;width:88%;background:#c9ced8;border-radius:6px;margin-top:16px"></div><div style="height:14px;width:55%;background:#c9ced8;border-radius:6px;margin-top:16px"></div></div>
+    </div>
+    <div class="w" style="left:0;top:0;width:640px;height:40px;border-radius:20px;background:#d9b86c"></div><div id="scBot" class="w" style="left:0;top:640px;width:640px;height:40px;border-radius:20px;background:#d9b86c"></div></div>`);
+  /* routing: bubble → orchestrator → scroll */
+  ADD(`<svg class="w" id="rt" style="left:0;top:0" width="3840" height="1300" viewBox="0 0 3840 1300"><path id="rtA" d="M1250 900 C 1250 800, 1470 800, 1470 668" fill="none" stroke="${GRN}" stroke-width="12" stroke-linecap="round" opacity="0"/><path id="rtB" d="M1410 580 C 1400 560, 1395 530, 1386 500" fill="none" stroke="${GRN}" stroke-width="12" stroke-linecap="round" opacity="0"/></svg>`);
+  ADD(circ('orch', 1405, 535, 130, GRN, IC('arrow_routing', 'width:76px;height:76px')) + PX('lbOrch', 1470, 685, 'Orchestrator', 'green', 44));
+  ADD(say('ub', 1250, 975, 'I want a refund', 'blue'));
+  ADD(`<div class="w" id="clipA" style="left:1346px;top:640px;opacity:0"><svg width="50" height="100" viewBox="0 0 50 100"><path d="M10 80 V25 a15 15 0 0 1 30 0 V78 a22 22 0 0 1 -44 0 V30" fill="none" stroke="#8a93a6" stroke-width="7" stroke-linecap="round"/></svg></div>
+    ${circ('fileA', 1410, 700, 96, '#5d6472', IC('document_text', 'width:56px;height:56px'))}${circ('fileB', 1410, 810, 96, '#5d6472', IC('document_text', 'width:56px;height:56px'))}`);
+  ADD(PX('lbSup', 1250, 945, 'supporting files', 'navy', 44));
+  ADD(circ('fMd', 880, 960, 100, BLUE, IC('document_text', 'width:60px;height:60px')) + PX('lbMd', 930, 1070, 'Markdown file', 'blue', 50) + circ('fPk', 1230, 960, 100, PUR, IC('cube_tree', 'width:60px;height:60px')) + PX('lbPk', 1280, 1070, 'Package', 'purple', 50));
+  [0, 1, 2].forEach((k) => ADD(sMini('ms' + k, 1010, 480, 90, 'opacity:0')));
+  ADD(PX('lbFor', 1060, 150, 'for the model: routing', 'amber', 56));
+  ADD(PX('lbSk', 1350, 945, 'Skill · Microsoft Copilot harness', 'blue', 60));
+
+  /* ───────── the Lego box ───────── */
+  ADD(`<div class="w" id="lego" style="left:1620px;top:250px;width:1000px;height:560px;opacity:0"><div class="w" style="left:0;top:0;width:1000px;height:560px;box-sizing:border-box;border:8px solid #7ea1e6;border-radius:34px;background:rgba(214,226,250,.55)"></div><div class="w" style="left:0;top:0;width:1000px;height:78px;border-radius:34px 34px 0 0;background:#1f2a44;color:#fff;font-size:44px;font-weight:800;display:flex;align-items:center;padding-left:36px;box-sizing:border-box">Greeting and escalation</div></div>
+    <div class="w" id="shelf" style="left:1560px;top:810px;width:1120px;height:22px;border-radius:10px;background:#8fa6dc;opacity:0"></div>`);
+  const TYPES = [['Topics', 'chat', BLUE], ['Tools', 'wrench', AMB], ['Knowledge', 'book_open', GRN], ['Flows', 'flow', PUR], ['Entities', 'tag', TEAL], ['Child<br>agents', 'bot', NAVY], ['MCP', 'plug_connected', BRN]];
+  const TP = [[1657, 350], [1891, 350], [2125, 350], [2359, 350], [1779, 545], [2013, 545], [2247, 545]];
+  ADD(TYPES.map(([l, ic, c], k) => blk('t' + k, TP[k][0], TP[k][1], 224, 170, ic, c, l, 38)).join(''));
+  ADD(blk('gA', 1650, 420, 300, 170, 'chat', BLUE, 'Greeting', 42) + blk('gB', 1980, 420, 300, 170, 'chat', BLUE, 'Escalate to<br>a human', 40) + blk('gC', 2310, 420, 300, 170, 'wrench', AMB, 'Create ticket', 40));
+  ADD(blk('hb0', 1805, 620, 300, 150, 'link', '#3a4a78', 'Connector', 34, true).replace('border:5px solid #fff', 'border:6px solid #ffd166') + blk('hb1', 2135, 620, 300, 150, 'braces', '#3a4a78', 'Environment<br>variable', 32, true).replace('border:5px solid #fff', 'border:6px solid #ffd166'));
+  ADD(`<svg class="w" id="lock" style="left:2540px;top:258px;opacity:0" width="120" height="150" viewBox="0 0 120 150"><path d="M30 66 V44 a30 30 0 0 1 60 0 V66" fill="none" stroke="#1f2a44" stroke-width="14"/><rect id="lkB" x="8" y="62" width="104" height="80" rx="16" fill="#1f2a44" stroke="#fff" stroke-width="5"/><circle cx="60" cy="96" r="11" fill="#fff"/><rect x="55" y="100" width="10" height="24" rx="4" fill="#fff"/></svg>`);
+  ADD(PX('kh0', 2900, 300, KEY + 'Creator', 'navy', 46) + PX('kh1', 2900, 400, KEY + 'System customizer', 'navy', 46) + PX('kh2', 2900, 500, KEY + 'Administrator', 'navy', 46));
+  ADD(PX('lbBox', 2120, 150, 'Component collection', 'blue', 56) + PX('fixOnce', 2120, 150, 'fix once, everyone gets it', 'green', 60) + PX('lbAll', 2120, 150, 'one collection, three agents', 'blue', 60)
+    + PX('useChg', 2120, 150, '<span style="color:#1e7f4f">use ✓</span> · <span style="color:#c4392f">change ✕</span>', 'navy', 64) + PX('clean', 2120, 150, 'box stays clean', 'green', 60));
+  ADD(circ('ckBox', 2480, 640, 170, GRN, IC('checkmark_circle', 'width:110px;height:110px')));
+  ADD(chip('auth', 1260, 330, 'person', 'HR author', 'sm purple') + circ('pen', 1470, 450, 100, '#8a93a6', PEN) + circ('wr2', 1600, 360, 110, AMB, IC('wrench', 'width:64px;height:64px')));
+  ADD(PX('lbOne', 2120, 150, 'one box · three agents', 'blue', 64));
+
+  /* ───────── desks: three agents ───────── */
+  ADD([0, 1, 2].map((k) => `<div class="w fl" id="fl${k}" style="left:${CXS[k] - 200}px;top:1000px;width:400px;height:520px;border:14px solid #1e7f4f;border-radius:60px;box-sizing:border-box;opacity:0"></div>`).join(''));
+  ADD(agent('aIT', 1500, 1010, { folder: '' }) + agent('aHR', 1940, 1010, { folder: 'HR' }) + agent('aSA', 2380, 1010, { folder: '' }));
+  ADD(`<svg class="w" id="hs" style="left:1500px;top:1010px" width="360" height="500" viewBox="0 0 360 500"><path d="M62 190 Q62 78 180 78 Q298 78 298 190" fill="none" stroke="#1f2a44" stroke-width="14" stroke-linecap="round"/><rect x="42" y="168" width="28" height="74" rx="12" fill="#1f2a44"/><rect x="290" y="168" width="28" height="74" rx="12" fill="#1f2a44"/><path d="M56 242 Q60 292 128 292" fill="none" stroke="#1f2a44" stroke-width="8" stroke-linecap="round"/><circle cx="132" cy="292" r="12" fill="#1f2a44"/></svg>
+    <div class="w" id="bdg" style="left:2518px;top:1380px;width:88px;height:88px;border-radius:50%;background:#fff;border:5px solid #1f2a44;color:#2f5bd3;display:flex;align-items:center;justify-content:center;box-sizing:border-box">${IC('chart_multiple', 'width:50px;height:50px')}</div>`);
+  ADD(maker('mk', 420, 1040));
+  ADD(PX('nIT', 1680, 1665, 'IT agent', 'blue', 50) + PX('nHR', 2120, 1665, 'HR agent', 'blue', 50) + PX('nSA', 2560, 1665, 'Sales agent', 'blue', 50));
+  ADD(CXS.map((cx, k) => `<div class="w slot" id="sl${k}" style="left:${cx - 170}px;top:1525px;width:340px;height:124px;border-radius:28px;border:6px dashed #8a93a6;box-sizing:border-box;opacity:0"></div>`).join(''));
+  ADD(['cIT', 'cHR', 'cSA'].map((id, k) => `<div class="w gch" id="${id}" style="left:${CXS[k] - 150}px;top:1537px;width:300px;height:100px;border-radius:24px;background:#fff;border:6px solid ${BLUE};color:${BLUE};display:flex;align-items:center;gap:12px;padding:0 20px;box-sizing:border-box;font-size:44px;font-weight:800;opacity:0">${IC('chat', 'width:50px;height:50px')}Greeting</div>`).join(''));
+  ADD(PX('bug1', 2120, 1450, 'bug', 'red', 46) + PX('bug2', 2560, 1450, 'bug', 'red', 46) + PX('pv3', 2120, 1790, 'three versions', 'red', 64));
+  ADD(circ('cpIc', 870, 1040, 130, '#8a93a6', IC('copy', 'width:80px;height:80px')) + circ('wr', 1560, 1430, 110, AMB, IC('wrench', 'width:64px;height:64px')));
+
+  /* scene 12: portable skill card */
+  ADD(`<div class="w" id="pcard" style="left:1820px;top:1540px;width:600px;height:430px;background:#fffaf0;border:7px solid #d9b86c;border-radius:28px;box-sizing:border-box;padding:14px 28px;opacity:0;box-shadow:var(--shadow)"><div style="font-size:46px;font-weight:800;color:#2f5bd3;height:64px">Skill</div>
+    ${['tone', 'audience', 'policy'].map((t, k) => `<div id="pr${k}" style="opacity:0;font-size:44px;font-weight:700;color:#1e7f4f;height:70px;display:flex;align-items:center;gap:12px">${IC('checkmark_circle', 'width:50px;height:50px')}${t}</div>`).join('')}
+    <div id="pr3" style="opacity:0;font-size:38px;font-weight:700;color:#d98a00;height:70px;display:flex;align-items:center;gap:12px;white-space:nowrap">${IC('wrench', 'width:46px;height:46px')}use the HR lookup tool</div></div>`);
+  ADD(PX('lbHard', 3200, 1250, "don't hard-code tools or data", 'amber', 48) + PX('lbNoTool', 3200, 1370, 'no such tool at Sales', 'red', 48));
+
+  /* scene 15: memory toggles, lockers, users */
+  ADD(CXS.map((cx, k) => `<div class="w tgc" id="tg${k}" style="left:${cx - 165}px;top:925px;width:330px;height:84px;border-radius:42px;background:#fff;border:5px solid #8a93a6;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;padding:0 14px 0 26px;font-size:44px;font-weight:800;color:#5d6472;opacity:0;box-shadow:var(--shadow)">Memory<i id="tk${k}" style="display:block;width:80px;height:46px;border-radius:23px;background:#c9ced8;position:relative"><b id="tn${k}" style="position:absolute;left:5px;top:5px;width:36px;height:36px;border-radius:50%;background:#fff"></b></i></div>`).join(''));
+  ADD(PX('pvM', 2120, 840, 'Preview', 'amber', 56));
+  const locker = (id, x) => `<svg class="w lk" id="${id}" style="left:${x}px;top:980px;opacity:0" width="300" height="520" viewBox="0 0 300 520"><rect x="6" y="6" width="288" height="508" rx="18" fill="#8fa6dc" stroke="#5b79c0" stroke-width="8"/><rect x="26" y="30" width="248" height="200" rx="10" fill="#aebfe6"/><rect x="26" y="250" width="248" height="240" rx="10" fill="#aebfe6"/><rect x="60" y="60" width="180" height="14" rx="6" fill="#5b79c0"/><rect x="60" y="90" width="180" height="14" rx="6" fill="#5b79c0"/><circle cx="236" cy="330" r="14" fill="#1f2a44"/></svg>`;
+  ADD(locker('lkA', 3000) + locker('lkB', 3420));
+  ADD(`<div class="w lk" id="usrA" style="left:3045px;top:1530px;opacity:0">${person('#8a5cd6')}</div><div class="w lk" id="usrB" style="left:3465px;top:1530px;opacity:0">${person('#1e7f4f')}</div>`);
+  ADD(PX('lbUA', 3090, 1745, 'User A', 'purple', 48) + PX('lbUB', 3510, 1745, 'User B', 'green', 48));
+  ADD(circ('noteA', 3050, 1400, 96, PUR, IC('document_text', 'width:56px;height:56px')));
+  ADD(`<svg class="w" id="xarc" style="left:0;top:700px;opacity:0" width="3840" height="400" viewBox="0 700 3840 400"><path d="M3150 960 C 3150 790, 3570 790, 3570 960" fill="none" stroke="${RED}" stroke-width="12" stroke-dasharray="22 16" stroke-linecap="round"/><path d="M3546 925 L3570 970 L3598 928" fill="none" stroke="${RED}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/></svg>`);
+  ADD(circ('xx', 3305, 760, 110, RED, '<span style="font-size:70px;font-weight:800;line-height:1">✕</span>'));
+  ADD(`<svg class="w" id="nb" style="left:3020px;top:400px;opacity:0" width="700" height="230" viewBox="0 0 700 230"><rect x="4" y="4" width="692" height="222" rx="16" fill="#d9b88a" stroke="#8a5a2b" stroke-width="8"/><rect x="40" y="30" width="120" height="100" fill="#ffe27a"/><rect x="200" y="50" width="120" height="100" fill="#ffb3c1"/><rect x="360" y="30" width="120" height="100" fill="#a8d4ff"/><rect x="520" y="60" width="120" height="100" fill="#ffe27a"/><circle cx="100" cy="42" r="8" fill="#c4392f"/><circle cx="260" cy="62" r="8" fill="#c4392f"/><circle cx="420" cy="42" r="8" fill="#c4392f"/><circle cx="580" cy="72" r="8" fill="#c4392f"/><path id="nbX" d="M30 20 L670 210 M670 20 L30 210" stroke="${RED}" stroke-width="16" stroke-linecap="round" opacity="0"/></svg>`);
+  ADD(PX('lbNb', 3370, 650, 'one shared noticeboard', 'red', 46) + PX('lbLk', 3360, 880, 'a locker per user', 'green', 56));
+
+  /* ───────── UI windows ───────── */
+  const navS = ['Overview', 'Build', 'Skills', 'Preview'];
+  const skel = '<div style="height:22px;width:62%;background:#e2e5eb;border-radius:8px;margin-top:20px"></div><div style="height:22px;width:48%;background:#e2e5eb;border-radius:8px;margin-top:20px"></div><div style="height:22px;width:55%;background:#e2e5eb;border-radius:8px;margin-top:20px"></div>';
+  ADDU(uiWindow('uiK', { title: 'HR agent', nav: navS, on: 0, body: `
+    <div class="lay" id="kL0" style="opacity:1"><div class="crumb">Overview</div><h3>HR agent</h3>${skel}</div>
+    <div class="lay" id="kL1"><div class="crumb">Build › Skills</div><h3>Skills</h3><span class="btn pri" id="kAdd">+ Add skill</span></div>
+    <div class="lay" id="kL2"><div class="crumb">Skills › Add skill</div><h3>Add skill</h3>
+      <div class="uopt" id="kO1" style="top:130px"><b>Markdown file</b>YAML front matter (name, description) + instructions</div>
+      <div class="uopt" id="kO2" style="top:350px"><b>ZIP</b>SKILL.md + supporting files</div></div>` }));
+  const PK = { nv1: PC('#uiK_nv1'), nv2: PC('#uiK_nv2'), add: PC('#kAdd') };
+
+  ADDU(uiWindow('uiR', { title: 'HR agent', nav: navS, on: 2, body: `
+    <div class="lay" style="opacity:1"><div class="crumb">Build › Skills</div><h3>Skills</h3>
+      <div class="row" style="width:1180px"><b>refund-requests</b><span style="display:flex;align-items:center;gap:18px"><span id="rUpd" style="opacity:0;font-size:32px;font-weight:800;color:var(--green)">updated</span><span class="btn pri" id="rRep">Replace</span></span></div>
+      <div class="note" id="rHint" style="opacity:0;margin-top:34px;color:#141821">${IC('document_text', 'color:#2f5bd3')}Edit the source file first</div></div>` }));
+  const PR = { rep: PC('#rRep') };
+
+  const navM = ['Overview', 'Build', 'Settings', 'Preview'];
+  const rowW = 'style="width:1180px"';
+  ADDU(uiWindow('uiM', { title: 'IT agent', nav: navM, on: 0, body: `
+    <div class="lay" id="mL0" style="opacity:1"><div class="crumb">Overview</div><h3>IT agent</h3>${skel}</div>
+    <div class="lay" id="mL1"><div class="crumb">Settings</div><h3>Settings</h3><div class="row" ${rowW}><b>General</b></div><div class="row" ${rowW}><b>Security</b></div><div class="row" ${rowW} id="mRow"><b>Component collections</b><span style="font-size:36px;color:var(--muted)">›</span></div></div>
+    <div class="lay" id="mL2"><div class="crumb">Settings › Component collections</div><h3>Component collections</h3><span class="btn pri" id="mNew">+ New collection</span></div>
+    <div class="lay" id="mL3"><div class="crumb">New collection</div><h3>New collection</h3><div class="fld" style="width:760px;height:92px"><small>Name</small><span id="mNmT" style="opacity:0">Greeting and escalation</span></div>
+      <div id="mCp" style="opacity:0;margin-top:22px;font-size:32px;font-weight:800;color:var(--muted)">Components</div>
+      <div class="row" id="mC1" style="opacity:0;width:900px;padding:12px 0"><b style="display:flex;align-items:center;gap:12px">${IC('chat', 'color:#2f5bd3;width:40px;height:40px')}Greeting <span style="font-size:32px;color:var(--muted);font-weight:600">topic</span></b></div>
+      <div class="row" id="mC2" style="opacity:0;width:900px;padding:12px 0"><b style="display:flex;align-items:center;gap:12px">${IC('wrench', 'color:#d98a00;width:40px;height:40px')}Create ticket <span style="font-size:32px;color:var(--muted);font-weight:600">tool</span></b></div>
+      <div style="margin-top:22px"><span class="btn" id="mAddC">+ Add components</span><span class="btn pri" id="mSave" style="margin-left:20px">Save</span></div>
+      <div id="mToast" style="opacity:0;position:absolute;right:0;top:0;background:var(--green);color:#fff;font-size:32px;font-weight:800;padding:14px 28px;border-radius:14px">✓ Saved</div></div>` }));
+  const PM = { nv2: PC('#uiM_nv2'), row: PC('#mRow'), nw: PC('#mNew'), ac: PC('#mAddC'), sv: PC('#mSave') };
+
+  ADDU(uiWindow('uiN', { title: 'HR agent', nav: navM, on: 2, body: `
+    <div class="lay" style="opacity:1"><div class="crumb">Settings › Component collections</div><h3>Component collections</h3><span class="btn pri" id="nAdd">+ Add collection</span>
+      <div id="nCol" style="opacity:0;margin-top:26px;width:1100px;border:3px solid var(--line2);border-radius:20px;padding:18px 30px"><div style="font-size:34px;font-weight:800;margin-bottom:6px;display:flex;gap:12px;align-items:center">${IC('cube_tree', 'color:#2f5bd3')}Greeting and escalation</div>
+        ${['Greeting', 'Create ticket'].map((t, k) => `<div class="row" style="width:100%;padding:14px 0"><b>${t}</b><span style="display:flex;gap:14px;align-items:center"><span class="btn"${k === 0 ? ' id="nUse"' : ''} style="color:var(--green);border-color:var(--green)">Use</span><span class="btn"${k === 0 ? ' id="nEdit"' : ''} style="color:#8a93a6;background:#f3f5f9">${IC('lock_closed', 'width:30px;height:30px;vertical-align:-6px')} Edit</span></span></div>`).join('')}</div>
+      <div id="nRo" style="opacity:0;position:absolute;left:1090px;top:330px;white-space:nowrap;background:var(--red);color:#fff;font-size:32px;font-weight:800;padding:10px 24px;border-radius:12px">Read-only</div>
+      <div class="note" id="nOk" style="opacity:0;margin-top:24px">${IC('lock_closed')}The box is protected</div></div>` }));
+  const PN = { add: PC('#nAdd'), use: PC('#nUse'), ed: PC('#nEdit') };
+
+  /* ───────── overlays ───────── */
+  const crate = '<svg width="100" height="90" viewBox="0 0 100 90"><rect x="4" y="10" width="92" height="76" rx="8" fill="#c58f4f" stroke="#7a5320" stroke-width="5"/><path d="M4 36 H96 M4 60 H96" stroke="#7a5320" stroke-width="4"/></svg>';
+  ADDS(`<div class="ov kin title" id="ovTitle">Three agents at Contoso<small>Component collections and skills</small></div><div class="ov kin q" id="ovQ"><span>Share pieces the right way</span></div>
+    <div class="ov" id="cal" style="left:560px;top:90px;width:800px;height:210px;box-sizing:border-box;background:#fff;border:8px solid #d98a00;border-radius:36px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;gap:24px;font-size:72px;font-weight:800;color:#7a4d00">${IC('calendar', 'width:110px;height:110px;color:#d98a00')}A month later</div>
+    <div class="c4" id="c4a" style="top:752px">${IC('copy')}Copy and paste → <span class="rs">out of sync</span><i class="sk"></i></div>
+    <div class="c4" id="c4b" style="top:862px">${miniBot(86)}Child agent → <span class="rs">not shared</span><i class="sk"></i></div>
+    <div class="c4" id="c4c" style="top:972px">${crate}Export whole agent → <span class="rs">too much</span><i class="sk"></i></div>
+    <div id="rules" class="ov" style="left:980px;top:90px;width:880px;height:900px;box-sizing:border-box;background:#fff;border:8px solid #1f2a44;border-radius:36px;box-shadow:var(--shadow)">
+      <div style="position:absolute;left:36px;top:22px;font-size:52px;font-weight:800">Skill name</div>
+      <div style="position:absolute;left:36px;top:104px;background:#e6ecfb;color:#2f5bd3;border-radius:999px;padding:8px 30px;font-size:50px;font-weight:800">refund-requests</div>
+      ${['lowercase letters', 'numbers', 'hyphens', 'no hyphen at start or end', 'unique in the agent'].map((t, k) => `<div class="rl" id="rl${k}" style="top:${216 + k * 92}px">${IC('checkmark_circle')}${t}</div>`).join('')}
+      <div class="rl" id="rlBad" style="top:700px;color:#c4392f"><span style="text-decoration:line-through;font-size:54px;font-weight:800">-Refunds_</span>${IC('dismiss_circle', 'color:#c4392f')}</div></div>
+    <div id="board" class="ov" style="left:40px;top:60px;width:1280px;height:960px;box-sizing:border-box;background:#fff;border:8px solid #1f2a44;border-radius:40px;box-shadow:var(--shadow)">
+      <div style="position:absolute;left:40px;top:20px;font-size:56px;font-weight:800;color:#1f2a44">Skill, or something else?</div>
+      ${[['Repeatable, consistent, reused', 'Skill', BLUE], ['One-off need', 'Agent instructions', NAVY], ['Single external action', 'Tool', AMB], ['Fixed sequence, defined inputs and outputs', 'Workflow', PUR], ['Own owner and life cycle', 'Connected agent', GRN]].map(([l, r, c], k) => `<div class="bw" id="bw${k}" style="top:${118 + k * 162}px"><span class="l">${l}</span><span class="ar">→</span><span class="rr" style="background:${c}">${r}</span></div>`).join('')}</div>
+    <div class="sidec" id="side">
+      <div class="ly" id="sl_0">${sMini('', 0, 0, 190, 'position:relative')}<span style="color:${BLUE}">Skill</span></div>
+      <div class="ly" id="sl_1">${IC('notepad', 'width:190px;height:190px;color:#1f2a44')}<span style="color:#1f2a44">Instructions</span></div>
+      <div class="ly" id="sl_2">${IC('wrench', 'width:190px;height:190px;color:#d98a00')}<span style="color:#d98a00">Tool</span></div>
+      <div class="ly" id="sl_3"><div style="position:relative;width:440px;height:110px"><div style="position:absolute;left:10px;right:10px;top:62px;height:10px;border-radius:5px;background:#8a93a6"></div>${[0, 1, 2, 3, 4].map((k) => `<div style="position:absolute;left:${k * 100}px;top:48px;width:38px;height:38px;border-radius:50%;background:#8a5cd6;border:5px solid #fff"></div>`).join('')}<div id="trn" style="position:absolute;left:-6px;top:6px;width:76px;height:44px;border-radius:12px;background:#2f5bd3;border:4px solid #1f2a44"></div></div><span style="color:#8a5cd6">Workflow</span><span id="eo" style="font-size:42px;color:#fff;background:#8a5cd6;border-radius:999px;padding:6px 26px;opacity:0">enforces order</span></div>
+      <div class="ly" id="sl_4"><div style="position:relative">${miniBot(170)}<div style="position:absolute;right:-26px;bottom:2px;width:70px;height:70px;border-radius:50%;background:#fff;border:6px solid #1e7f4f;color:#1e7f4f;display:flex;align-items:center;justify-content:center">${IC('person', 'width:40px;height:40px')}</div></div><span style="color:#1e7f4f">Connected agent</span></div></div>
+    <div class="ts" id="ts0" style="top:130px;border-color:#c4392f"><svg width="70" height="95" viewBox="0 0 90 122"><rect x="12" y="10" width="66" height="102" rx="8" fill="#fffaf0" stroke="#d9b86c" stroke-width="5"/><rect x="4" y="4" width="82" height="16" rx="8" fill="#d9b86c"/><rect x="4" y="102" width="82" height="16" rx="8" fill="#d9b86c"/><rect x="22" y="30" width="46" height="14" rx="4" fill="none" stroke="#c4392f" stroke-width="4" stroke-dasharray="6 5"/><rect x="24" y="56" width="42" height="7" rx="3" fill="#c9ced8"/><rect x="24" y="70" width="30" height="7" rx="3" fill="#c9ced8"/></svg><span style="color:#c4392f">Upload fails</span><span style="font-size:46px;color:#8a93a6">→</span><span class="rt">front matter · name · description</span></div>
+    <div class="ts" id="ts1" style="top:380px;border-color:#d98a00">${IC('alert', 'color:#d98a00')}<span style="color:#d98a00">Fires wrongly</span><span style="font-size:46px;color:#8a93a6">→</span><span class="rt">refine the <b style="color:#1e7f4f">description</b></span></div>
+    <div class="ts" id="ts2" style="top:630px;border-color:#2f5bd3">${IC('error_circle', 'color:#2f5bd3')}<span style="color:#2f5bd3">Wrong output</span><span style="font-size:46px;color:#8a93a6">→</span><span class="rt">refine the <b style="color:#1e7f4f">instructions</b></span></div>
+    <div class="rcard" id="rcd0" style="left:100px;top:620px;width:580px;height:390px;font-size:46px;border-color:#c4392f;color:#c4392f">${IC('lock_closed')}Consumers can't edit</div>
+    <div class="rcard" id="rcd1" style="left:670px;top:620px;width:580px;height:390px;font-size:46px;border-color:#2f5bd3;color:#2f5bd3">${IC('toolbox')}Solutions carry heavy collections</div>
+    <div class="rcard" id="rcd2" style="left:1240px;top:620px;width:580px;height:390px;font-size:46px;border-color:#1e7f4f;color:#1e7f4f">${IC('filter')}Fires wrongly → refine the description</div>`);
+  gsap.set('.rl,.bw,.ts,#side .ly', { opacity: 0 });
+
+  /* ───────── exam rooms ───────── */
+  const botCol = (id, y, lb) => `<div class="w" id="${id}" style="left:960px;top:${y}px;opacity:0">${miniBot(100)}</div><div class="w" id="${id}l" style="left:1090px;top:${y + 28}px;font-size:46px;font-weight:800;color:#fff;opacity:0">${lb}</div>`;
+  const proofA = `<div class="rm" style="left:0;top:20px;width:620px;height:340px;border-color:#7ea1e6"><h4>Collection</h4>
+      ${[BLUE, BLUE, AMB].map((c, k) => `<div style="position:absolute;left:${34 + k * 180}px;top:120px;width:160px;height:120px;border-radius:22px;background:${c};border:4px solid #fff"></div>`).join('')}
+      <div id="pa_lk" style="position:absolute;right:24px;top:10px;color:#ffd166;opacity:0">${IC('lock_closed', 'width:78px;height:78px')}</div></div>
+    <svg class="w" style="left:0;top:0" width="1680" height="400" viewBox="0 0 1680 400">${[0, 1, 2].map((k) => `<path id="pa_c${k}" d="M620 190 C 780 190, 800 ${75 + k * 125}, 950 ${75 + k * 125}" fill="none" stroke="#6be3a0" stroke-width="10" stroke-linecap="round" opacity="0"/>`).join('')}</svg>
+    ${botCol('pa_b0', 20, 'IT agent')}${botCol('pa_b1', 145, 'HR agent')}${botCol('pa_b2', 270, 'Sales agent')}`;
+  const proofB = `<div class="rm" style="left:0;top:10px;width:420px;height:320px;border-color:#3a4a78"><h4>Development</h4></div>
+    <div class="rm" style="left:1260px;top:10px;width:420px;height:320px;border-color:#3a4a78"><h4>Production</h4><div id="pb_ok" style="position:absolute;right:24px;bottom:20px;color:#6be3a0;opacity:0">${IC('checkmark_circle', 'width:100px;height:100px')}</div></div>
+    <div class="w" style="left:0;top:346px;width:1680px;height:14px;border-radius:7px;background:#3a4a78"></div>
+    <div class="w" id="pb_g" style="left:440px;top:112px;width:360px;height:240px;opacity:0">${truck('', 0, 24)}<div class="w" id="pb_bx" style="left:20px;top:-1px">${lbox(130, 86)}</div></div>`;
+  const stn = [0, 1, 2, 3, 4];
+  const proofC = `<div class="w" style="left:60px;top:176px;width:1500px;height:14px;border-radius:7px;background:#5b6b95"></div>
+    ${stn.map((k) => `<div class="w" style="left:${40 + k * 340}px;top:130px;width:106px;height:106px;border-radius:50%;background:#2d3a5c;border:6px solid #fff;color:#fff;font-size:50px;font-weight:800;display:flex;align-items:center;justify-content:center;box-sizing:border-box">${k + 1}</div>`).join('')}
+    <div class="w" id="pc_tr" style="left:-4px;top:60px;width:150px;height:66px;border-radius:16px;background:#2f5bd3;border:5px solid #fff;color:#fff;display:flex;align-items:center;justify-content:center;opacity:0;box-sizing:border-box">${IC('arrow_routing', 'width:44px;height:44px')}</div>
+    <svg class="w" style="left:0;top:0" width="1680" height="400" viewBox="0 0 1680 400"><path id="pc_sk" d="M432 120 C 432 20, 1112 20, 1112 120" fill="none" stroke="#ff8a80" stroke-width="10" stroke-dasharray="20 14" stroke-linecap="round" opacity="0"/></svg>
+    <div class="w" id="pc_x" style="left:710px;top:-8px;color:#ff8a80;opacity:0">${IC('dismiss_circle', 'width:86px;height:86px')}</div>
+    <div class="lb" id="pc_lb" style="left:560px;top:290px;opacity:0">cannot skip a station</div>`;
+  const proofD = `<div class="chip sm" id="pd_s" style="left:0;top:120px;width:480px;font-size:38px;opacity:0;border-color:#2f5bd3;color:#2f5bd3">${IC('question_circle')}Shipping times?</div>
+    <div class="chip sm" id="pd_r" style="left:0;top:120px;width:480px;font-size:38px;opacity:0;border-color:#2f5bd3;color:#2f5bd3">${IC('question_circle')}I want a refund</div>
+    <div class="w" id="pd_sc" style="left:620px;top:10px;width:700px;height:330px;border:7px solid #d9b86c;border-radius:26px;background:#fffaf0;color:#141821;box-sizing:border-box">
+      <div style="position:absolute;left:28px;top:12px;font-size:42px;font-weight:800;color:#2f5bd3">refunds skill</div>
+      <div id="pd_dl" style="position:absolute;left:28px;top:84px;right:28px;height:140px;border:5px solid #8a93a6;border-radius:18px;padding:8px 20px;box-sizing:border-box;font-size:42px;font-weight:700"><div style="font-size:32px;color:#5d6472">description</div><span id="pd_d0">Order questions</span><span id="pd_d1" style="position:absolute;left:20px;top:46px;opacity:0;color:#1e7f4f">Refund requests</span></div>
+      <div style="position:absolute;left:28px;top:250px;width:60%;height:16px;border-radius:6px;background:#c9ced8"></div><div style="position:absolute;left:28px;top:282px;width:45%;height:16px;border-radius:6px;background:#c9ced8"></div></div>
+    <div class="w" id="pd_ln" style="left:480px;top:156px;width:140px;height:12px;border-radius:6px;background:#6be3a0;opacity:0"></div>
+    <div class="w" id="pd_bad" style="left:1380px;top:60px;color:#ff8a80;opacity:0">${IC('dismiss_circle', 'width:90px;height:90px')}</div>
+    <div class="w" id="pd_ok" style="left:1380px;top:60px;color:#6be3a0;opacity:0">${IC('checkmark_circle', 'width:90px;height:90px')}</div>
+    <div class="lb" id="pd_lb" style="left:1340px;top:170px;font-size:40px;opacity:0">routes</div>`;
+  EXAMS(
+    mkExam('exA', { q: 'Contoso wants the same topics and tool in its IT, HR and Sales agents, and their authors must not change them. What should the maker use?', opts: ["A component collection","Copy the topics by hand into each agent","Export the whole IT agent and import it three times"],
+      why: '<div id="exA_w1"><span class="y">One source</span>, used everywhere</div><div id="exA_w2">Consumers <span class="r">cannot edit</span> its components</div>', proof: proofA }),
+    mkExam('exB', { q: 'The collection now includes connectors and environment variables and must move to production. What is recommended?', opts: ["Rebuild the components by hand in production","Export the collection directly","Add the collection to a solution, then export and import the solution"],
+      why: '<div id="exB_w1">Connectors and variables → <span class="g">a solution is the carrier</span></div><div id="exB_w2">Direct export → <span class="y">simpler cases</span></div>', proof: proofB }),
+    mkExam('exC', { q: 'Five steps must always run in the same order, with defined inputs and outputs, and the order must be enforced. What should the maker use?', opts: ["A single tool","A workflow","A skill, because it runs consistently"],
+      why: '<div id="exC_w1">Order must be <span class="y">enforced</span> → <span class="g">workflow</span></div><div id="exC_w2">A skill <span class="y">guides</span>, a workflow <span class="g">guarantees</span> the sequence</div>', proof: proofC }),
+    mkExam('exD', { q: 'A refunds skill keeps activating for questions about shipping times. Its output for real refund requests is perfect. What should the maker refine?', opts: ["The name, so it sounds more specific","The instructions inside the skill","The description"],
+      why: '<div id="exD_w1">Routing is the problem → <span class="g">description</span></div><div id="exD_w2">Wrong output would mean the <span class="y">instructions</span></div>', proof: proofD })
+  );
+
+  /* ═════════════════ TIMELINE ═════════════════ */
+  gsap.set('#world', { x: 960 - 1650 * 0.75, y: 540 - 1250 * 0.75, scale: 0.75 });
+  gsap.set(['#pr0', '#pr1', '#pr2', '#pr3'], { opacity: 0 });
+  gsap.set('#sc_n,#sc_d,#sc_i', { opacity: 0 });
+
+  /* ── 0 Three copies ── */
+  tl.fromTo('#ovTitle', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.2);
+  OFF('#ovTitle', 2.4, 0.5);
+  [['I T', 'nIT', ['#aIT', '#hs']], ['H R', 'nHR', ['#aHR']], ['Sales', 'nSA', ['#aSA', '#bdg']]].forEach(([w, n, a]) => { const t = W(0, 0, w, 0.1); POP('#' + n, t); tl.fromTo(a, { y: 0 }, { y: -28, duration: 0.2, yoyo: true, repeat: 1, ease: 'power1.out' }, t); });
+  ON('.slot', W(0, 1, 'greeting', -0.2), 0.4);
+  POP('#cpIc', S(0, 2) + 0.1);
+  ['cIT', 'cHR', 'cSA'].forEach((id, k) => tl.fromTo('#' + id, { x: 930 - (CXS[k] - 150), y: 1090 - 1537, opacity: 0, scale: 0.6 }, { x: 0, y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power2.inOut' }, S(0, 2) + 0.4 + k * 1.0));
+  OFF('#cpIc', S(0, 3) - 0.1, 0.3);
+  tl.fromTo('#cal', { opacity: 0, rotationX: -90, transformPerspective: 900 }, { opacity: 1, rotationX: 0, duration: 0.6, ease: 'back.out(1.4)' }, S(0, 3) + 0.0);
+  OFF('#cal', W(0, 3, 'someone', -0.1), 0.3);
+  tl.fromTo('#wr', { opacity: 0, x: -160, y: -100, rotation: -50 }, { opacity: 1, x: 0, y: 0, rotation: 25, duration: 0.6, ease: 'power2.out' }, W(0, 3, 'fixes', 0));
+  tl.to('#cIT', { borderColor: GRN, color: GRN, duration: 0.3 }, W(0, 3, 'fixes', 0.7));
+  OFF('#wr', W(0, 3, 'fixes', 1.3), 0.3);
+  TAG('#bug1', W(0, 4, 'H R', 0)); tl.to('#cHR', { borderColor: RED, color: RED, duration: 0.3 }, W(0, 4, 'H R', 0));
+  TAG('#bug2', W(0, 4, 'Sales', 0)); tl.to('#cSA', { borderColor: RED, color: RED, duration: 0.3 }, W(0, 4, 'Sales', 0));
+  TAG('#pv3', S(0, 5) + 0.5);
+  OFF(['#pv3', '#bug1', '#bug2', '.gch', '.slot', '#nIT', '#nHR', '#nSA'], S(0, 6) - 0.2, 0.4);
+  CAM(2120, 760, 0.8, S(0, 6) - 0.3, 1.8);
+  tl.fromTo('#ovQ', { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: 'back.out(1.6)' }, S(0, 6) + 0.5);
+
+  /* ── 1 The Lego box ── */
+  OFF('#ovQ', S(1, 0) + 0.3, 0.4);
+  ON('#lego', S(1, 0) - 0.2, 0.5); ON('#shelf', S(1, 0) - 0.2, 0.5);
+  CAM(2120, 520, 0.95, S(1, 0) - 0.4, 1.6);
+  [['#gA', 'Lego'], ['#gB', 'every team'], ['#gC', 'nobody']].forEach(([g, w]) => tl.fromTo(g, { y: -300, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'bounce.out' }, W(1, 1, w, 0)));
+  POP('#lock', W(1, 1, 'nobody', 0.5));
+  TAG('#lbBox', W(1, 2, 'component collection', 0));
+  CAM(2120, 820, 0.7, S(1, 3) - 0.3, 1.5);
+  [0, 1, 2].forEach((k) => { tl.fromTo('#cb' + k, { opacity: 1, strokeDasharray: 600, strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.9, ease: 'power2.out' }, W(1, 3, 'reuse', 0 + k * 0.35)); ON('#g' + k, W(1, 3, 'reuse', k * 0.35), 0.01); });
+  OFF('#lbBox', S(1, 4) - 0.2, 0.3);
+  POP('#wr2', S(1, 4) + 0.1);
+  tl.to('#gA', { boxShadow: '0 0 0 18px rgba(30,127,79,.9)', duration: 0.3 }, S(1, 4) + 0.7);
+  TAG('#fixOnce', W(1, 4, 'fix', 0));
+  tl.fromTo('.fl', { opacity: 0 }, { opacity: 1, duration: 0.25, yoyo: true, repeat: 3 }, W(1, 4, 'every agent', -0.2));
+  OFF('#wr2', S(1, 4) + 2.2, 0.3);
+  tl.to('#gA', { boxShadow: '0 0 0 0 rgba(30,127,79,0)', duration: 0.3 }, S(1, 4) + 2.6);
+
+  /* ── 2 What goes in the box ── */
+  OFF(['#fixOnce', '#gA', '#gB', '#gC'], S(2, 0) - 0.2, 0.3);
+  CAM(2120, 520, 0.95, S(2, 0) - 0.4, 1.4);
+  TYPES.forEach((_, k) => tl.fromTo('#t' + k, { y: -300, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'bounce.out' }, S(2, k + 1) - 0.1));
+  CAM(2120, 820, 0.7, S(2, 8) - 0.3, 1.3);
+  tl.fromTo('#cb0,#cb1,#cb2', { strokeWidth: 14 }, { strokeWidth: 26, duration: 0.3, yoyo: true, repeat: 3 }, S(2, 8) + 0.2);
+  CAM(2120, 520, 0.95, S(2, 9) - 0.3, 1.3);
+  OFF(TYPES.map((_, k) => '#t' + k), S(2, 9) - 0.2, 0.3);
+  [['#gA', ', Greeting'], ['#gB', 'Escalate to a human'], ['#gC', 'Create ticket']].forEach(([g, w]) => tl.fromTo(g, { y: -300, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'bounce.out' }, W(2, 9, w, 0.1)));
+  CAM(2120, 820, 0.7, S(2, 10) - 0.3, 1.3);
+  TAG('#lbAll', S(2, 10) + 0.2);
+  tl.fromTo('#cb0,#cb1,#cb2', { strokeWidth: 14 }, { strokeWidth: 26, duration: 0.3, yoyo: true, repeat: 3 }, S(2, 10) + 0.4);
+
+  /* ── 3 Use, but do not touch ── */
+  OFF('#lbAll', S(3, 0) - 0.3, 0.3);
+  CAM(2200, 520, 0.95, S(3, 0) - 0.4, 1.4);
+  SLIDE('#auth', W(3, 1, 'authors', -0.2));
+  ON('#pen', W(3, 1, 'authors', 0.2), 0.3);
+  tl.to('#pen', { x: 170, y: 30, duration: 0.7, ease: 'power2.in' }, W(3, 1, 'cannot', -0.9));
+  tl.to('#pen', { x: 130, y: 10, rotation: -25, duration: 0.15, yoyo: true, repeat: 3 }, W(3, 1, 'cannot', -0.1));
+  tl.to('#lkB', { fill: RED, duration: 0.2 }, W(3, 1, 'cannot', -0.1));
+  tl.fromTo('#lock', { x: 0 }, { x: 12, duration: 0.06, yoyo: true, repeat: 7 }, W(3, 1, 'cannot', -0.1));
+  TAG('#useChg', W(3, 1, 'cannot', 0.3));
+  OFF(['#auth', '#pen', '#useChg'], S(3, 2) - 0.2, 0.3);
+  tl.to('#lkB', { fill: NAVY, duration: 0.3 }, S(3, 2) - 0.2);
+  ['creator', 'system customizer', 'administrator'].forEach((w, k) => { const t = W(3, 2, w, -0.1); POP('#kh' + k, t); tl.to('#kh' + k, { backgroundColor: '#ffe9a8', duration: 0.2 }, t + 0.3); });
+  tl.to('#lkB', { fill: GRN, duration: 0.3 }, S(3, 3));
+  TAG('#clean', S(3, 4));
+
+  /* ── 4 Why not copy and paste ── */
+  OFF(['#clean', '#kh0', '#kh1', '#kh2'], S(4, 0) - 0.3, 0.3);
+  CAM(2120, 1385, 0.7, S(4, 0) - 0.4, 1.4);
+  POPX('#c4a', S(4, 1) + 0.1);
+  ON(['.slot', '#cIT', '#cHR', '#cSA'], S(4, 2) + 0.1, 0.4); ON(['#bug1', '#bug2'], S(4, 2) + 0.3, 0.4);
+  tl.fromTo('#c4a .sk', { opacity: 0, scaleX: 0, transformOrigin: '0% 50%' }, { opacity: 1, scaleX: 1, duration: 0.4 }, S(4, 2) + 0.2);
+  tl.to('#c4a', { borderColor: RED, duration: 0.3 }, S(4, 2) + 0.2);
+  OFF(['.slot', '#cIT', '#cHR', '#cSA', '#bug1', '#bug2'], S(4, 3) - 0.1, 0.3);
+  POPX('#c4b', S(4, 4) + 0.1);
+  tl.fromTo('#c4b .sk', { opacity: 0, scaleX: 0, transformOrigin: '0% 50%' }, { opacity: 1, scaleX: 1, duration: 0.4 }, W(4, 4, 'belongs', 0));
+  tl.to('#c4b', { borderColor: RED, duration: 0.3 }, W(4, 4, 'belongs', 0));
+  POPX('#c4c', S(4, 5) + 0.1);
+  tl.fromTo('#c4c .sk', { opacity: 0, scaleX: 0, transformOrigin: '0% 50%' }, { opacity: 1, scaleX: 1, duration: 0.4 }, W(4, 5, 'too much', 0));
+  tl.to('#c4c', { borderColor: RED, duration: 0.3 }, W(4, 5, 'too much', 0));
+  OFF(['#c4a', '#c4b', '#c4c'], S(4, 6) - 0.5, 0.4);
+  CAM(2120, 520, 0.95, S(4, 6) - 0.4, 1.3);
+  POP('#ckBox', S(4, 6) + 0.5);
+
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal), Pz = S(i, o.pause), C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0), 0.4);
+    tl.fromTo(X + ' .xl, ' + X + ' .gh', { opacity: 0 }, { opacity: 1, duration: 0.3 }, S(i, 0) + 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.1);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, t));
+    tl.fromTo(X + '_sc .fc', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, stagger: Math.max(0.5, (o.opt[0] - S(i, 1) - 1.2) / 3) }, S(i, 1) + 0.4);
+    OFF(X + ' .gh', R, 0.3); OFF(X + '_sc', R, 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R, 0.2);
+    const T = `${X}_o${o.trap}`, G = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(T, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.3 }, R);
+    tl.set(T + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(T + ' .trap', R + 0.1, 0.3);
+    tl.to(G, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.3 }, R);
+    ON(G + ' .ok', R + 0.1, 0.3);
+    tl.to(O, { opacity: 0.5, duration: 0.4 }, R);
+    OFF(X + '_q', R + 0.7, 0.4);
+    tl.to(X + '_g', { y: -290, duration: 0.5, ease: 'power2.inOut' }, R + 0.7);
+    OFF(X, o.end, 0.4);
+  };
+  /* ghost slots + scenario chips so the screen is never empty while the question is read */
+  const FILL = (id, chips) => {
+    document.getElementById(id + '_g').insertAdjacentHTML('afterbegin', [0, 1, 2].map((k) => `<div class="gh" style="position:absolute;left:120px;top:${410 + k * 138}px;width:1240px;height:118px;box-sizing:border-box;border:5px dashed #3a4a78;border-radius:22px;color:#3a4a78;font-size:44px;font-weight:800;display:flex;align-items:center;padding-left:46px">${'ABC'[k]}</div>`).join(''));
+    document.getElementById(id).insertAdjacentHTML('beforeend', `<div id="${id}_sc" style="position:absolute;left:120px;top:860px;width:1680px;display:flex;flex-direction:row;flex-wrap:wrap;gap:14px 18px">${chips.map((c) => `<div class="fc" style="opacity:0;align-self:flex-start;background:#1d2742;border:5px solid #ffd166;color:#fff;border-radius:22px;padding:10px 28px;font-size:38px;font-weight:700">${c}</div>`).join('')}</div>`);
+  };
+  FILL('exA', ['Same topics and tool', 'IT, HR and Sales agents', 'Authors must not change them']);
+  FILL('exB', ['Connectors', 'Environment variables', 'Move to production']);
+  FILL('exC', ['Five steps', 'Same order every time', 'The order must be enforced']);
+  FILL('exD', ['Refunds skill', 'Fires for shipping times', 'Refund output is perfect']);
+  /* ── 5 EXAM A ── */
+  OFF('#ckBox', S(5, 0), 0.01);
+  EXAMX('exA', 5, { pause: 6, reveal: 7, trap: 1, right: 0, q: S(5, 1) - 0.1, opt: [S(5, 3), S(5, 4), S(5, 5)], end: S(6, 0) - 0.1 });
+  tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(5, 8));
+  tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, W(5, 8, 'consumers', -0.2));
+  ON('#exA_p', S(5, 8) + 0.1, 0.4);
+  ON('#pa_lk', S(5, 8) + 0.4, 0.3);
+  [0, 1, 2].forEach((k) => { const t = S(5, 8) + 0.4 + k * 0.35; ON('#pa_b' + k, t, 0.3); ON('#pa_b' + k + 'l', t, 0.3); tl.fromTo('#pa_c' + k, { opacity: 1, strokeDasharray: 600, strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 0.7, ease: 'power2.out' }, t); });
+
+  /* ── 6 Heavy boxes travel in a solution ── */
+  CAM(2120, 560, 0.9, S(6, 0) - 0.3, 1.2);
+  [['#hb0', 'connectors'], ['#hb1', 'environment']].forEach(([h, w]) => tl.fromTo(h, { y: -300, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'bounce.out' }, W(6, 1, w, 0)));
+  CAM(3250, 1500, 0.9, S(6, 2) - 0.2, 1.6);
+  ON('.bld', S(6, 2), 0.5); ON(['#bDev', '#bPrd'], S(6, 2), 0.5);
+  TAG('#lbDev', S(6, 2) + 0.6); TAG('#lbPrd', S(6, 2) + 0.9);
+  ON('#trk', S(6, 3) + 0.1, 0.5);
+  tl.fromTo('#trk', { y: 40 }, { y: 0, duration: 0.5, ease: 'back.out(1.6)' }, S(6, 3) + 0.1);
+  TAG('#lbCont', W(6, 4, 'container', -0.2));
+  tl.fromTo('#bxm', { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out' }, W(6, 5, 'add', 0));
+  TAG('#lbExp', W(6, 5, 'export', 0));
+  tl.to(['#trk', '#bxm'], { x: 580, duration: 1.4, ease: 'power1.inOut' }, W(6, 5, 'export', 0.4));
+  TAG('#lbImp', W(6, 5, 'import', 0));
+  tl.to('#bxm', { x: 810, y: 40, duration: 0.6, ease: 'power2.out' }, W(6, 5, 'target', 0));
+  OFF(['#lbExp', '#lbImp', '#lbCont'], S(6, 6) - 0.2, 0.3);
+  ON(['#lane', '#bike'], S(6, 6) + 0.1, 0.4);
+  TAG('#lbDirect', W(6, 6, 'directly', 0));
+  tl.to('#bike', { x: 650, duration: 3.2, ease: 'power1.inOut' }, S(6, 6) + 0.4);
+
+  /* ── 7 EXAM B ── */
+  tl.set(['#bDev', '#bPrd', '#road', '#lane', '#trk', '#bxm', '#bike', '#lbDev', '#lbPrd', '#lbDirect', '#lbCont'], { opacity: 0 }, S(7, 0) + 0.3);
+  EXAMX('exB', 7, { pause: 6, reveal: 7, trap: 1, right: 2, q: S(7, 1) - 0.1, opt: [S(7, 3), S(7, 4), S(7, 5)], end: S(8, 0) - 0.1 });
+  tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(7, 7) + 1.4);
+  tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(7, 8));
+  ON('#exB_p', S(7, 7) + 1.4, 0.4); ON('#pb_g', S(7, 7) + 1.4, 0.3);
+  tl.to('#pb_g', { x: 460, duration: 1.4, ease: 'power1.inOut' }, S(7, 7) + 1.9);
+  tl.to('#pb_bx', { x: 360, y: -20, duration: 0.7, ease: 'power2.out' }, S(7, 8) + 0.6);
+  ON('#pb_ok', S(7, 8) + 1.2, 0.3);
+
+  /* ── 8 Skills ── */
+  CAM(1060, 600, 0.9, S(8, 0) - 0.4, 1.6);
+  ON(['#lib', '#lbLib'], S(8, 0) - 0.2, 0.5);
+  TAG('#hc8', S(8, 1) + 0.1);
+  ON('#scr', S(8, 2) - 0.1, 0.2);
+  tl.fromTo('#scBody', { height: 30 }, { height: 640, duration: 0.9, ease: 'power2.out' }, S(8, 2));
+  tl.fromTo('#scBot', { top: 30 }, { top: 640, duration: 0.9, ease: 'power2.out' }, S(8, 2));
+  tl.fromTo('#sc_n', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(8, 2, 'name', 0));
+  tl.fromTo('#sc_d', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(8, 2, 'description', 0));
+  tl.fromTo('#sc_i', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(8, 2, 'instructions', 0));
+  POP('#orch', S(8, 3) + 0.1); TAG('#lbOrch', S(8, 3) + 0.3);
+  POP('#ub', W(8, 3, 'request', -0.3));
+  tl.fromTo('#rtA', { opacity: 1, strokeDasharray: 700, strokeDashoffset: 700 }, { strokeDashoffset: 0, duration: 0.8, ease: 'power2.out' }, W(8, 3, 'matches', -0.6));
+  tl.fromTo('#rtB', { opacity: 1, strokeDasharray: 200, strokeDashoffset: 200 }, { strokeDashoffset: 0, duration: 0.4, ease: 'power2.out' }, W(8, 3, 'description', -0.3));
+  tl.to('#sc_d', { borderColor: GRN, duration: 0.3 }, W(8, 3, 'description', -0.3));
+  tl.to('#scBody', { boxShadow: '0 0 0 14px rgba(30,127,79,.5)', duration: 0.4 }, W(8, 3, 'description', 0.2));
+  OFF(['#ub', '#rtA', '#rtB', '#orch', '#lbOrch'], S(8, 4) - 0.2, 0.3);
+  tl.to('#scBody', { boxShadow: '0 16px 40px rgba(16,24,40,.2)', duration: 0.3 }, S(8, 4) - 0.2);
+  tl.to('#sc_d', { borderColor: '#c9ced8', duration: 0.3 }, S(8, 4) - 0.2);
+  ON(['#clipA'], S(8, 4) + 0.1, 0.3); POP('#fileA', S(8, 4) + 0.3); POP('#fileB', S(8, 4) + 0.6); TAG('#lbSup', W(8, 4, 'supporting', 0));
+  OFF(['#clipA', '#fileA', '#fileB', '#lbSup'], S(8, 5) - 0.3, 0.3);
+  CAM(1700, 800, 0.7, S(8, 5) - 0.3, 1.4);
+  [0, 1, 2].forEach((k) => tl.fromTo('#ms' + k, { opacity: 0, x: 0, y: 0 }, { opacity: 1, x: CXS[k] - 45 - 1010, y: 850, duration: 1.3, ease: 'power2.inOut' }, W(8, 5, 'many agents', -0.6 + k * 0.3)));
+  POP('#fMd', W(8, 5, 'markdown file', -0.2)); TAG('#lbMd', W(8, 5, 'markdown file', 0.1));
+  POP('#fPk', W(8, 5, 'package', -0.3)); TAG('#lbPk', W(8, 5, 'package', 0));
+
+  /* ── 9 Writing and adding a skill ── */
+  OFF(['#hc8', '#fMd', '#lbMd', '#fPk', '#lbPk', '#ms0', '#ms1', '#ms2'], S(9, 0) - 0.4, 0.3);
+  CAM(1400, 600, 1.0, S(9, 0) - 0.4, 1.4);
+  TAG('#lbFor', S(9, 0) + 0.8);
+  tl.to('#sc_d', { borderColor: AMB, backgroundColor: '#fff3d6', duration: 0.4 }, S(9, 0) + 0.8);
+  tl.fromTo('#lbFor', { scale: 1 }, { scale: 1.12, duration: 0.25, yoyo: true, repeat: 3 }, W(9, 1, 'routing', 0));
+  OFF('#lbFor', S(9, 2) - 0.2, 0.3);
+  tl.to('#sc_d', { borderColor: '#c9ced8', backgroundColor: '#fffaf0', duration: 0.3 }, S(9, 2) - 0.2);
+  tl.to('#sc_n', { borderColor: BLUE, duration: 0.3 }, S(9, 2));
+  ON('#rules', S(9, 2) - 0.2, 0.4);
+  ['lowercase', 'numbers', 'hyphens', 'unique'].forEach((w, k) => ON('#rl' + [0, 1, 2, 4][k], W(9, 2, w, -0.1), 0.3));
+  ON('#rl3', W(9, 2, 'never starts', 0), 0.3);
+  ON('#rlBad', W(9, 2, 'never starts', 0.9), 0.3);
+  /* UI: Build tab → Skills → Add */
+  CAM(950, 1265, 2.4, E(9, 2) - 0.9, 1.2, 'power2.in');
+  OFF('#rules', E(9, 2) - 0.5, 0.3);
+  UIIN('#uiK', E(9, 2) - 0.2);
+  ON('#cur', S(9, 3) - 0.3, 0.2);
+  CUR(PK.nv1[0], PK.nv1[1], S(9, 3) + 0.1, 0.6); CLICK(PK.nv1[0], PK.nv1[1], W(9, 3, 'Build', 0)); NAV('#uiK', 1, W(9, 3, 'Build', 0), 4);
+  CUR(PK.nv2[0], PK.nv2[1], W(9, 3, 'Build', 0.35), 0.5); CLICK(PK.nv2[0], PK.nv2[1], W(9, 3, 'under', 0.3)); NAV('#uiK', 2, W(9, 3, 'under', 0.3), 4);
+  tl.to('#kL0', { opacity: 0, duration: 0.2 }, W(9, 3, 'under', 0.3)); ON('#kL1', W(9, 3, 'under', 0.4), 0.25);
+  CUR(PK.add[0], PK.add[1], W(9, 3, 'under', 0.8), 0.5); CLICK(PK.add[0], PK.add[1], W(9, 3, 'Markdown file', -0.3));
+  tl.to('#kL1', { opacity: 0, duration: 0.2 }, W(9, 3, 'Markdown file', -0.3)); ON('#kL2', W(9, 3, 'Markdown file', -0.2), 0.25);
+  tl.fromTo('#kO1', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, W(9, 3, 'Markdown file', 0.2));
+  tl.fromTo('#kO2', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 }, W(9, 3, 'zip', -0.1));
+  OFF('#cur', E(9, 3) - 0.8, 0.2);
+  UIOUT('#uiK', E(9, 3) - 0.5);
+
+  /* ── 10 Skill, or something else? ── */
+  CAM(1060, 640, 0.9, S(10, 0) - 0.5, 0.01);
+  OFF('#scr', S(10, 0) - 0.3, 0.3);
+  ON('#uiBack', S(10, 0) - 0.1, 0.4); ON('#board', S(10, 0) - 0.1, 0.4); ON('#side', S(10, 0) + 0.3, 0.4);
+  const BWT = [W(10, 1, 'repeatable', -0.2), S(10, 3), S(10, 4), S(10, 5), S(10, 6)];
+  BWT.forEach((t, k) => { POPX('#bw' + k, t); if (k > 0) OFF('#sl_' + (k - 1), t, 0.25); ON('#sl_' + k, t + 0.1, 0.3); });
+  tl.fromTo('#trn', { x: 0 }, { x: 370, duration: 2.6, ease: 'none' }, S(10, 5) + 0.6);
+  POP('#eo', W(10, 5, 'enforces', 0));
+
+  /* ── 11 EXAM C ── */
+  tl.set(['#board', '#side', '#uiBack'], { opacity: 0 }, S(11, 0) + 0.3);
+  EXAMX('exC', 11, { pause: 7, reveal: 8, trap: 2, right: 1, q: S(11, 1) - 0.1, opt: [S(11, 4), S(11, 5), S(11, 6)], end: S(12, 0) - 0.1 });
+  tl.fromTo('#exC_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(11, 9));
+  tl.fromTo('#exC_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(11, 10));
+  ON('#exC_p', S(11, 9) + 0.1, 0.4); ON('#pc_tr', S(11, 9) + 0.2, 0.3);
+  [1, 2, 3, 4].forEach((k) => tl.to('#pc_tr', { x: k * 340, duration: 0.7, ease: 'power1.inOut' }, S(11, 9) + 0.9 + (k - 1) * 0.95));
+  ON('#pc_sk', S(11, 10) + 0.2, 0.3); ON('#pc_x', S(11, 10) + 0.4, 0.3); ON('#pc_lb', S(11, 10) + 0.6, 0.3);
+
+  /* ── 12 Portable instructions ── */
+  tl.set('#cabs', { opacity: 0 }, S(12, 0) - 0.5);
+  CAM(2400, 1400, 0.75, S(12, 0) - 0.5, 0.01);
+  POPX('#pcard', S(12, 0) + 0.2);
+  ['tone', 'audience', 'policy'].forEach((w, k) => tl.fromTo('#pr' + k, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35 }, W(12, 1, w, -0.1)));
+  TAG('#lbHard', W(12, 2, 'hard coding', 0));
+  tl.to('#pcard', { x: 440, duration: 1.2, ease: 'power2.inOut' }, W(12, 2, 'because', -0.2));
+  tl.fromTo('#pr3', { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35 }, W(12, 3, 'use the', -0.1));
+  tl.to('#pr3', { color: RED, duration: 0.3 }, W(12, 3, 'breaks', 0));
+  tl.to('#pcard', { borderColor: RED, duration: 0.3 }, W(12, 3, 'breaks', 0));
+  TAG('#lbNoTool', W(12, 3, 'no such tool', -0.2));
+
+  /* ── 13 Fixing a skill ── */
+  OFF(['#pcard', '#lbHard', '#lbNoTool'], S(13, 0) - 0.2, 0.3);
+  POPX('#ts0', W(13, 1, 'upload', -0.1)); POPX('#ts1', W(13, 2, 'fires', -0.2)); POPX('#ts2', W(13, 3, 'fires', -0.2));
+  OFF(['#ts0', '#ts1', '#ts2'], S(13, 4) - 1.0, 0.3);
+  CAM(950, 1265, 2.4, S(13, 4) - 1.3, 1.1, 'power2.in');
+  UIIN('#uiR', S(13, 4) - 0.8);
+  ON('#cur', S(13, 4) - 0.2, 0.2);
+  CUR(PR.rep[0], PR.rep[1], S(13, 4) + 0.1, 0.8);
+  POPX('#rHint', W(13, 4, 'edit the source', 0));
+  CLICK(PR.rep[0], PR.rep[1], W(13, 4, 'Replace', 0));
+  ON('#rUpd', W(13, 4, 'Replace', 0.3), 0.3);
+  OFF('#cur', E(13, 4) - 0.6, 0.2);
+  UIOUT('#uiR', E(13, 4) - 0.4);
+
+  /* ── 14 EXAM D ── */
+  EXAMX('exD', 14, { pause: 7, reveal: 8, trap: 1, right: 2, q: S(14, 1) - 0.1, opt: [S(14, 4), S(14, 5), S(14, 6)], end: S(15, 0) - 0.1 });
+  tl.fromTo('#exD_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(14, 9));
+  tl.fromTo('#exD_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(14, 10));
+  ON('#exD_p', S(14, 8) + 1.3, 0.4);
+  tl.fromTo('#pd_s', { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.4 }, S(14, 8) + 1.4);
+  ON('#pd_ln', S(14, 8) + 1.8, 0.2); ON('#pd_bad', S(14, 8) + 1.9, 0.2);
+  tl.to('#pd_sc', { borderColor: RED, duration: 0.3 }, S(14, 8) + 1.9);
+  const rw = W(14, 9, 'orchestrator', 0);
+  OFF(['#pd_ln', '#pd_bad'], rw - 0.2, 0.2);
+  tl.to('#pd_sc', { borderColor: '#d9b86c', duration: 0.3 }, rw - 0.2);
+  OFF('#pd_d0', rw, 0.3); ON('#pd_d1', rw, 0.3);
+  tl.to('#pd_dl', { borderColor: GRN, duration: 0.3 }, rw);
+  tl.to('#pd_s', { y: 190, duration: 0.4 }, rw + 0.5);
+  tl.to('#pd_s', { x: 1450, duration: 1.0, ease: 'power1.inOut' }, rw + 0.9);
+  OFF('#pd_s', rw + 1.8, 0.2);
+  tl.fromTo('#pd_r', { opacity: 0, x: -80 }, { opacity: 1, x: 0, duration: 0.4 }, S(14, 10));
+  ON('#pd_ln', S(14, 10) + 0.4, 0.2); ON('#pd_ok', S(14, 10) + 0.5, 0.2); ON('#pd_lb', S(14, 10) + 0.5, 0.2);
+  tl.to('#pd_sc', { borderColor: GRN, duration: 0.3 }, S(14, 10) + 0.5);
+
+  /* ── 15 Memory, per user ── */
+  CAM(2500, 1100, 0.7, S(15, 0) - 0.5, 0.01);
+  tl.set('#cabs', { opacity: 0 }, S(15, 0) - 0.5);
+  TAG('#pvM', W(15, 0, 'preview', -0.1));
+  CXS.forEach((_, k) => POP('#tg' + k, S(15, 1) + k * 0.2));
+  CXS.forEach((_, k) => { const t = W(15, 1, 'on or off', 0) + 0.3 + k * 0.2; tl.to('#tk' + k, { backgroundColor: GRN, duration: 0.25 }, t); tl.to('#tn' + k, { x: 34, duration: 0.25 }, t); });
+  ON(['#lkA', '#usrA'], S(15, 2) + 0.2, 0.4); ON(['#lkB', '#usrB'], S(15, 2) + 0.8, 0.4); TAG('#lbUA', S(15, 2) + 0.4); TAG('#lbUB', S(15, 2) + 1.0);
+  ON('#noteA', W(15, 3, 'one person', 0), 0.2);
+  tl.to('#noteA', { x: 60, y: -280, duration: 0.9, ease: 'power2.inOut' }, W(15, 3, 'one person', 0.2));
+  ON('#xarc', W(15, 3, 'never shared', 0), 0.3); POP('#xx', W(15, 3, 'never shared', 0.4));
+  OFF(['#xarc', '#xx'], S(15, 4) - 0.2, 0.3);
+  ON('#nb', W(15, 4, 'noticeboard', -0.6), 0.4);
+  tl.fromTo('#nbX', { opacity: 0 }, { opacity: 1, duration: 0.3 }, W(15, 4, 'noticeboard', 0.1));
+  TAG('#lbNb', W(15, 4, 'noticeboard', 0.1));
+  TAG('#lbLk', W(15, 4, 'locker', 0));
+
+  /* ── 16 The steps ── */
+  OFF(['.tgc', '#pvM', '.lk', '#lbUA', '#lbUB', '#noteA', '#nb', '#lbNb', '#lbLk'], S(16, 0) - 0.6, 0.4);
+  CAM(950, 1265, 2.4, S(16, 0) - 0.5, 1.2, 'power2.in');
+  UIIN('#uiM', S(16, 0) + 0.1);
+  ON('#cur', S(16, 1) - 0.4, 0.2);
+  CUR(PM.nv2[0], PM.nv2[1], S(16, 1) - 0.3, 0.7); CLICK(PM.nv2[0], PM.nv2[1], W(16, 1, 'Settings', 0)); NAV('#uiM', 2, W(16, 1, 'Settings', 0), 4);
+  tl.to('#mL0', { opacity: 0, duration: 0.2 }, W(16, 1, 'Settings', 0)); ON('#mL1', W(16, 1, 'Settings', 0.1), 0.25);
+  CUR(PM.row[0], PM.row[1], S(16, 2) - 0.1, 0.6); CLICK(PM.row[0], PM.row[1], W(16, 2, 'component', 0));
+  tl.to('#mL1', { opacity: 0, duration: 0.2 }, W(16, 2, 'component', 0)); ON('#mL2', W(16, 2, 'component', 0.1), 0.25);
+  CUR(PM.nw[0], PM.nw[1], S(16, 3) - 0.1, 0.6); CLICK(PM.nw[0], PM.nw[1], W(16, 3, 'Create', 0.2));
+  tl.to('#mL2', { opacity: 0, duration: 0.2 }, W(16, 3, 'Create', 0.2)); ON('#mL3', W(16, 3, 'Create', 0.3), 0.25);
+  ON('#mNmT', W(16, 3, 'name', 0), 0.3);
+  CUR(PM.ac[0], PM.ac[1], S(16, 4) - 0.1, 0.6); CLICK(PM.ac[0], PM.ac[1], S(16, 4) + 0.5);
+  ON('#mCp', S(16, 4) + 0.6, 0.3); POPX('#mC1', W(16, 4, 'greeting', 0.1)); POPX('#mC2', W(16, 4, 'tool', 0.1));
+  CUR(PM.sv[0], PM.sv[1], S(16, 5) - 0.1, 0.6); CLICK(PM.sv[0], PM.sv[1], S(16, 5) + 0.5); POPX('#mToast', S(16, 5) + 0.7);
+  OFF('#uiM', S(16, 6), 0.25); tl.fromTo('#uiN', { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'power2.out' }, S(16, 6) + 0.3);
+  CUR(PN.add[0], PN.add[1], S(16, 6) + 0.2, 0.7); CLICK(PN.add[0], PN.add[1], W(16, 6, 'add that', 0)); POPX('#nCol', W(16, 6, 'add that', 0.2));
+  CUR(PN.use[0], PN.use[1], S(16, 7) + 0.1, 0.6); CLICK(PN.use[0], PN.use[1], W(16, 7, 'use its', 0.2));
+  CUR(PN.ed[0], PN.ed[1], W(16, 7, 'use its', 0.9), 0.6); CLICK(PN.ed[0], PN.ed[1], W(16, 7, 'not edit', 0));
+  POP('#nRo', W(16, 7, 'not edit', 0.1)); tl.fromTo('#nEdit', { x: 0 }, { x: 8, duration: 0.06, yoyo: true, repeat: 5 }, W(16, 7, 'not edit', 0.1));
+  POPX('#nOk', S(16, 8) + 0.2);
+  OFF('#cur', E(16, 8) - 0.5, 0.2);
+  UIOUT('#uiN', E(16, 8) - 0.4);
+
+  /* ── 17 One box, three agents ── */
+  CAM(2300, 950, 0.6, S(17, 0) - 0.2, 1.6);
+  tl.set('#cabs', { opacity: 1 }, S(17, 0) - 0.2);
+  tl.fromTo('.fl', { opacity: 0 }, { opacity: 1, duration: 0.25, yoyo: true, repeat: 3 }, W(17, 1, 'one fix', 0));
+  TAG('#lbOne', S(17, 1) + 0.2);
+  OFF('#lbOne', S(17, 2) - 0.2, 0.3);
+  ON(['#bDev', '#bPrd', '#road', '#trk', '#bxm'], S(17, 2), 0.5); ON(['#lbDev', '#lbPrd'], S(17, 2) + 0.3, 0.4);
+  POP('#ck17', W(17, 2, 'solution', 0));
+  ON('#scr', S(17, 3), 0.4); TAG('#lbSk', S(17, 3) + 0.3);
+  POPX('#rcd0', W(17, 4, 'consumers', -0.2)); POPX('#rcd1', W(17, 4, 'solutions', -0.2)); POPX('#rcd2', W(17, 4, 'fires', -0.2));
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

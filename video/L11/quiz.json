@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 5,
+    "pauseSentence": 7,
+    "question": "Contoso's incident flow finds hundreds of matching articles. Valeria must pass them to Custom data. What should she do with the table first?",
+    "options": [
+      "Send every row and let the node read them all",
+      "Filter and sort first, best rows on top",
+      "Pass the first three rows as they come"
+    ],
+    "right": 1,
+    "trap": 0
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Contoso's flow returns a table of three articles, already in Custom data. The agent must answer only from that table. What should Valeria do with Search only selected sources?",
+    "options": [
+      "Turn it on and select no sources",
+      "Turn it on and select all sources",
+      "Leave it off and let the agent decide"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Contoso is checking the table its flow returns before sending it to Custom data. Valeria wants to know which field no row can be missing. Which field is it?",
+    "options": [
+      "ContentLocation, because it holds the link",
+      "Title, because the answer needs a heading",
+      "Content, because it holds the text"
+    ],
+    "right": 2,
+    "trap": 0
+  }
+]

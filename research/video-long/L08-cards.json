@@ -1,0 +1,9 @@
+{
+  "1": ["A named box", [["Variable", "One piece of data kept for later"], ["Scope", "Who can open the box"], ["Reach", "One topic or the whole agent"]]],
+  "2": ["Topic and Global", [["Topic", "Default · only in its own topic"], ["Global.", "Works in all topics"], ["Global.EmployeeId", "Filled once, reused everywhere"]]],
+  "4": ["System variables", [["Created by", "Copilot Studio"], ["System.Activity.Text", "The user's last message"], ["System.User.DisplayName", "The user's name"]]],
+  "5": ["The type", [["Set by", "The first assignment"], ["Starts as a number", "Stays a Number"], ["Text later", "Error"], ["Types", "String, Boolean, Number, Table, Record, DateTime, Choice, Blank"]]],
+  "7": ["Environment variables", [["Prefix", "Env."], ["Created in", "Power Platform"], ["In Copilot Studio", "Read-only · edited in Power Apps"], ["Dev vs prod", "Different value, same nodes"], ["Value changes", "Republish (except secret-type)"]]],
+  "9": ["In the studio", [["1", "Question node › Save user response as"], ["2", "New variable EmployeeId"], ["3", "Variable properties › scope global"], ["4", "Other topic › Message › insert Global.EmployeeId"], ["5", "Test chat › variables panel"]]],
+  "10": ["Remember", [["Topic", "Default, one topic"], ["Global.", "All topics"], ["System.", "Created by Copilot Studio"], ["Env.", "Power Platform, read-only here"], ["Type", "Fixed by the first value"]]]
+}

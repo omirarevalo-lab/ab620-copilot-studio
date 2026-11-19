@@ -1,0 +1,9 @@
+{
+  "1": ["Environment variable", [["Travels", "With the solution"], ["Value", "Given per environment at import or deploy"], ["Result", "Same agent in Dev, Test, Production"]]],
+  "2": ["Types", [["Decimal number · Text · JSON", "Two options · Data source · Secret"], ["ApiBaseUrl", "Text"], ["A key", "Secret, never Text"]]],
+  "3": ["Secret", [["Stores", "A reference to Azure Key Vault"], ["Real secret", "Not in Dataverse or the solution"], ["Store", "Azure Key Vault only · same tenant"]]],
+  "5": ["Before Secret works", [["Azure subscription", "Register Microsoft.PowerPlatform provider"], ["Who creates it", "Key Vault Secrets User role"]]],
+  "6": ["Two values", [["Current value", "Set per environment · remove before export"], ["Import or deploy", "Asks for the new environment's value"]]],
+  "8": ["In Copilot Studio", [["Variables", "Read-only"], ["Published agent", "Values from publish time · republish"], ["Exception", "Secret, read at runtime"]]],
+  "10": ["Steps", [["1", "Create variable · choose type"], ["2", "Value only in Dev"], ["3", "Secret · link Key Vault secret"], ["4", "Register resource provider"], ["5", "Key Vault Secrets User role"], ["6", "Remove current value · export"], ["7", "Import Test · enter value · republish"]]]
+}

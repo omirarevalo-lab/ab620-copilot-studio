@@ -1,0 +1,62 @@
+[
+  {
+    "title": "A ticket that lives outside",
+    "caption": "The tickets live outside the agent. Valeria proposes a node that calls an API by itself: Send HTTP request.",
+    "say": "Marta wants to know the status of her ticket, but the tickets live in another system, outside the agent. The service manager wants the agent to check by itself. Valeria has the answer: the Send H T T P request node. It lets a topic call an A P I on the internet, like asking another system for a piece of data by message. Nexo gets a courier badge."
+  },
+  {
+    "title": "Address, method, headers, body",
+    "caption": "Type the URL, choose the method, add headers such as Authorization, and define the body. Default body: No Content.",
+    "say": "Think of a letter leaving the mail room. You type the endpoint address, the U R L. You choose the method: get, post, patch, put, or delete. You add headers if needed, such as Authorization. Then you define the body, what goes inside the envelope. By default the body is No Content, which is typical for a get."
+  },
+  {
+    "title": "What goes inside the envelope",
+    "caption": "JSON content sends a JSON object. Edit JSON and Formula uses Power Fx. Raw content sends a text string.",
+    "say": "When there is something to send, the body has two kinds of content. With J S O N content, you send a J S O N object, typical for post or put. With Edit J S O N and Formula, you write it as a Power F X object that uses variables. With Raw content, you send a text string, also written with a Power F X formula."
+  },
+  {
+    "title": "The reply letter",
+    "caption": "Paste a sample JSON, choose Get schema from sample JSON, then pick a variable in Save user response as.",
+    "say": "The other system answers with a reply letter. In Response data type, Valeria pastes a sample J S O N and chooses Get schema from sample J S O N. Copilot Studio generates a variable with that shape, so the topic knows the fields of the reply. In Save user response as, she chooses where to store it."
+  },
+  {
+    "title": "Decide: the body of a get",
+    "caption": "Valeria reads one ticket with a GET and leaves the body as it is. What does the body hold by default?",
+    "say": "Your turn. Valeria adds the node to read one ticket. She uses get and leaves the body as it is. What does the body hold by default? An object with the ticket data? No Content, nothing is sent? Or a text string with the ticket? Decide before I answer. No Content, nothing is sent. The body is No Content by default, which is typical for a get. A J S O N object is for post or put, and a text string is Raw content."
+  },
+  {
+    "title": "When the call fails",
+    "caption": "By default the node uses Raise an error: the agent stops and the On Error system topic fires.",
+    "say": "Sometimes the letter comes back unanswered. By default the node uses Raise an error. The agent stops, and the On Error system topic fires. The rest of the topic does not run. Many authors leave this default and then do not understand why On Error appears. Valeria wants a calmer path for Contoso."
+  },
+  {
+    "title": "Continue on error",
+    "caption": "Continue on error saves the status code and the error body. The error is type Any: use Parse value. Timeout: thirty seconds.",
+    "say": "With Continue on error, the node does not stop the agent. The status code and the error body are saved in variables, and the topic goes on. The error is of type Any, so you convert it with a Parse value node. One more setting to know: the default request timeout is thirty seconds."
+  },
+  {
+    "title": "Decide: reply and go on",
+    "caption": "A missing ticket makes the API fail and the topic stops. What should Valeria choose in Error handling?",
+    "say": "Your turn. Marta asks about a missing ticket, and the tickets A P I fails. The service manager wants the topic to reply and go on. What should Valeria choose in Error handling? Keep the default, Raise an error? Set a longer request timeout? Or switch to Continue on error? Decide before I answer. Switch to Continue on error. It saves the status code and the error body in variables, and the topic goes on. The default, Raise an error, stops the agent and fires On Error."
+  },
+  {
+    "title": "The Contoso case: find a ticket",
+    "caption": "GET with No Content. On a 404 the code goes to Topic.StatusCode, the body to Topic.ErrorResponse, and the topic replies.",
+    "say": "Contoso queries its tickets A P I with a get. The body stays as No Content, and the response is saved in a variable built from a sample J S O N. Contoso chose Continue on error, so if the A P I returns a four oh four, the code goes into Topic Status Code and the error body into Topic Error Response. The topic replies, I could not find that ticket, without stopping. To create tickets, Contoso uses a post with J S O N content."
+  },
+  {
+    "title": "Add it in Copilot Studio",
+    "caption": "Add node, Advanced, Send HTTP request. URL and method, headers and body, sample JSON, response variable, Continue on error.",
+    "say": "Here are the steps in Copilot Studio. Open a topic and select Add node. Point to Advanced and choose Send H T T P request. Type the U R L and choose get. Select Edit in Headers and body. In Response data type, choose From sample data and paste a sample J S O N. In Save user response as, create a variable. In Error handling, choose Continue on error and define the status and error variables."
+  },
+  {
+    "title": "Decide: reading the error",
+    "caption": "The error body waits in a variable of type Any. Which node converts it into a structured record?",
+    "say": "Your turn. Valeria chose Continue on error, so the error body waits in a variable. It is of type Any, and she wants its fields. Which node converts it into a structured record? Parse value, into a record? Send a message, as plain text? Or the On Error system topic? Decide before I answer. Parse value, into a record. Parse value converts a value of type Any into a structured record the topic can use. On Error only runs when an error is not handled, so it converts nothing."
+  },
+  {
+    "title": "Three rules to remember",
+    "caption": "Address, method, headers, body (default No Content). Raise an error fires On Error. Continue on error plus Parse value.",
+    "say": "Back in the mail room, Marta's question now gets an answer, even when the ticket does not exist. Remember three things. The node sends a letter with an address, a method, headers, and a body that is No Content by default. Raise an error is the default, and it fires On Error. Continue on error saves the status and the error body, and Parse value reads it. Next, tools inside a topic."
+  }
+]

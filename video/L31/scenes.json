@@ -1,0 +1,38 @@
+{"brand": "AB-620 · Module 5 · Lesson 5", "scenes": [
+ {"type": "split", "left": {"kicker": "A2A · Agent to Agent", "title": "Agents that talk to each other", "sub": "A common language between agents."},
+  "chain": [
+   {"icon": "bot", "title": "Framework A", "at": "different frameworks"},
+   {"icon": "arrow_sync", "title": "Common protocol", "accent": true, "at": "agree on"},
+   {"icon": "sparkle", "title": "Framework B", "at": "common protocol"}],
+  "rows": [{"icon": "chat", "title": "Multiple turns · rich metadata", "at": "multiple turns", "hi": true}]},
+ {"type": "path", "header": {"kicker": "How to connect", "title": "Agents › Add agent › A2A agent"},
+  "crumbs": [
+   {"icon": "bot", "text": "Agents", "at": "go to Agents"},
+   {"icon": "cursor_click", "text": "Add agent", "at": "Add agent"},
+   {"icon": "arrow_sync", "text": "A2A agent", "accent": true, "at": "A two A agent"}],
+  "cards": [
+   {"icon": "link", "title": "Paste the endpoint address", "desc": "Not the agent card address", "at": "endpoint", "hi": true},
+   {"icon": "card_ui", "title": "Valid agent card → name and description fill in", "at": "valid agent card", "hi": true},
+   {"icon": "document_text", "title": "If not: write a good description", "at": "good description", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Authentication and data", "title": "None · API key · OAuth 2.0", "sub": "API key in the header or the query."},
+  "window": {"title": "A2A message · metadata", "heading": "What travels", "rail": ["apps", "bot", "chat", "arrow_sync", "settings"],
+   "cards": [
+    {"icon": "tag", "title": "Context ID", "at": "context I D", "hi": true},
+    {"icon": "chat", "title": "Message identifiers", "at": "message identifiers", "hi": true},
+    {"icon": "globe", "title": "Language", "at": "the language", "hi": true},
+    {"icon": "history", "title": "Full conversation history", "at": "conversation history", "hi": true}]}},
+ {"type": "flow", "header": {"kicker": "Development and reach", "title": "Dev Tunnels while you build"},
+  "nodes": [
+   {"icon": "window_dev_tools", "title": "Local agent", "at": "local agent"},
+   {"icon": "link", "title": "Dev Tunnels", "accent": true, "at": "Dev Tunnels"},
+   {"icon": "globe", "title": "Public port", "at": "port public"}],
+  "below": [
+   {"icon": "plug_connected", "text": "Custom connectors infrastructure", "at": "custom connectors"},
+   {"icon": "building", "text": "Reaches on-premises and virtual networks", "at": "on-premises", "solid": true}]},
+ {"type": "terms", "header": {"kicker": "For the exam", "title": "Choose carefully"}, "cols": 2,
+  "items": [
+   {"icon": "arrow_sync", "term": "A2A", "def": "Flows between agents", "at": "A two A for"},
+   {"icon": "globe", "term": "Connector or HTTP", "def": "Simple APIs", "at": "connector or"},
+   {"icon": "apps", "term": "MCP", "def": "Tools and resources", "at": "M C P for"},
+   {"icon": "code", "term": "Activity Protocol", "def": "Agents built with the M365 Agents SDK", "at": "Activity Protocol"}]}
+]}

@@ -1,0 +1,464 @@
+{
+ "id": "F08",
+ "title": "Exam map and glossary",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 281.577,
+ "scenes": [
+  {
+   "title": "Where do I start?",
+   "start": 0.8,
+   "end": 25.179,
+   "sentences": [
+    {
+     "text": "Meet Valeria, a developer at Contoso.",
+     "start": 0.8,
+     "end": 3.36
+    },
+    {
+     "text": "She has watched Nexo grow over the last seven classes, and now she wants the certification herself, in two months.",
+     "start": 3.64,
+     "end": 10.381
+    },
+    {
+     "text": "She opens the list of skills measured, and it is long.",
+     "start": 10.661,
+     "end": 13.605
+    },
+    {
+     "text": "Where should she start?",
+     "start": 13.885,
+     "end": 15.059
+    },
+    {
+     "text": "Think of planning a trip.",
+     "start": 15.339,
+     "end": 16.661
+    },
+    {
+     "text": "Before you start walking, you check how heavy each stretch is, and which words you will need on the way.",
+     "start": 16.941,
+     "end": 22.253
+    },
+    {
+     "text": "That is today: the exam map and the glossary.",
+     "start": 22.533,
+     "end": 25.179
+    }
+   ]
+  },
+  {
+   "title": "The exam in a few lines",
+   "start": 26.079,
+   "end": 49.513,
+   "sentences": [
+    {
+     "text": "The exam is A B six twenty, Designing and Building Integrated A I Solutions in Copilot Studio.",
+     "start": 26.079,
+     "end": 32.244
+    },
+    {
+     "text": "Passing it earns the Microsoft Certified A I Agent Builder Associate.",
+     "start": 32.524,
+     "end": 36.855
+    },
+    {
+     "text": "It lasts one hundred and twenty minutes, it is proctored, and it can include interactive parts.",
+     "start": 37.135,
+     "end": 42.511
+    },
+    {
+     "text": "You pass with seven hundred points out of one thousand.",
+     "start": 42.791,
+     "end": 45.628
+    },
+    {
+     "text": "And that number is a scaled score, which matters more than it seems.",
+     "start": 45.908,
+     "end": 49.513
+    }
+   ]
+  },
+  {
+   "title": "The rules of the room",
+   "start": 50.413,
+   "end": 76.901,
+   "sentences": [
+    {
+     "text": "A few rules of the room.",
+     "start": 50.413,
+     "end": 51.821
+    },
+    {
+     "text": "The exam comes in several languages, including Spanish, but local versions are updated about eight weeks after the English one.",
+     "start": 52.101,
+     "end": 59.568
+    },
+    {
+     "text": "If you fail, you can retake it after twenty four hours.",
+     "start": 59.848,
+     "end": 62.963
+    },
+    {
+     "text": "During the exam you can open Microsoft Learn, but not its Q and A, its practice assessments, or profile pages.",
+     "start": 63.243,
+     "end": 70.709
+    },
+    {
+     "text": "To search a page, use Control F.",
+     "start": 70.989,
+     "end": 73.059
+    },
+    {
+     "text": "Open Learn only for a quick check, because the clock keeps running.",
+     "start": 73.339,
+     "end": 76.901
+    }
+   ]
+  },
+  {
+   "title": "Decide: seventy percent",
+   "start": 77.801,
+   "end": 109.851,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 77.801,
+     "end": 78.676
+    },
+    {
+     "text": "In her practice sessions, Valeria answers about seventy percent of the questions correctly.",
+     "start": 78.956,
+     "end": 83.927
+    },
+    {
+     "text": "She thinks: seven hundred out of a thousand, so seventy percent is enough.",
+     "start": 84.207,
+     "end": 88.153
+    },
+    {
+     "text": "Is she right?",
+     "start": 88.433,
+     "end": 89.351
+    },
+    {
+     "text": "No, seven hundred is a scaled score?",
+     "start": 89.631,
+     "end": 91.871
+    },
+    {
+     "text": "Yes, seven hundred means seventy percent?",
+     "start": 92.151,
+     "end": 94.497
+    },
+    {
+     "text": "Or only if each domain reaches seventy?",
+     "start": 94.777,
+     "end": 97.124
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 97.404,
+     "end": 98.94
+    },
+    {
+     "text": "No.",
+     "start": 102.72,
+     "end": 103.381
+    },
+    {
+     "text": "Seven hundred is a scaled score.",
+     "start": 103.661,
+     "end": 105.667
+    },
+    {
+     "text": "It does not equal seventy percent correct, so aim well above the line.",
+     "start": 105.947,
+     "end": 109.851
+    }
+   ]
+  },
+  {
+   "title": "Three domains, three weights",
+   "start": 110.751,
+   "end": 140.596,
+   "sentences": [
+    {
+     "text": "Now the map.",
+     "start": 110.751,
+     "end": 111.647
+    },
+    {
+     "text": "The exam has three domains.",
+     "start": 111.927,
+     "end": 113.548
+    },
+    {
+     "text": "Domain one, plan and configure agent solutions: thirty to thirty five percent.",
+     "start": 113.828,
+     "end": 118.927
+    },
+    {
+     "text": "Planning, agent flows and topics.",
+     "start": 119.207,
+     "end": 121.34
+    },
+    {
+     "text": "Domain two, integrate and extend agents: forty to forty five percent.",
+     "start": 121.62,
+     "end": 126.121
+    },
+    {
+     "text": "Knowledge, tools, multi agent solutions and Azure services.",
+     "start": 126.401,
+     "end": 130.412
+    },
+    {
+     "text": "Domain three, test and manage agents: twenty to twenty five percent.",
+     "start": 130.692,
+     "end": 134.959
+    },
+    {
+     "text": "Evaluation and A L M.",
+     "start": 135.239,
+     "end": 136.903
+    },
+    {
+     "text": "The weights are ranges, so every exam is a little different.",
+     "start": 137.183,
+     "end": 140.596
+    }
+   ]
+  },
+  {
+   "title": "Decide: where the weeks go",
+   "start": 141.496,
+   "end": 172.863,
+   "sentences": [
+    {
+     "text": "Your turn.",
+     "start": 141.496,
+     "end": 142.371
+    },
+    {
+     "text": "Valeria has eight weeks before her exam date.",
+     "start": 142.651,
+     "end": 145.253
+    },
+    {
+     "text": "She wants to spend most of them where the exam weighs the most.",
+     "start": 145.533,
+     "end": 148.733
+    },
+    {
+     "text": "Where should most of her study time go?",
+     "start": 149.013,
+     "end": 150.933
+    },
+    {
+     "text": "Plan and configure: planning and topics?",
+     "start": 151.213,
+     "end": 153.837
+    },
+    {
+     "text": "Test and manage: evaluation and A L M?",
+     "start": 154.117,
+     "end": 156.827
+    },
+    {
+     "text": "Or integrate and extend: knowledge, tools?",
+     "start": 157.107,
+     "end": 159.88
+    },
+    {
+     "text": "Decide before I answer.",
+     "start": 160.16,
+     "end": 161.696
+    },
+    {
+     "text": "Integrate and extend.",
+     "start": 165.476,
+     "end": 166.863
+    },
+    {
+     "text": "It is forty to forty five percent, almost half.",
+     "start": 167.143,
+     "end": 170.001
+    },
+    {
+     "text": "But all three count, so no domain is skipped.",
+     "start": 170.281,
+     "end": 172.863
+    }
+   ]
+  },
+  {
+   "title": "How this course follows the map",
+   "start": 173.763,
+   "end": 201.509,
+   "sentences": [
+    {
+     "text": "This course follows the same map.",
+     "start": 173.763,
+     "end": 175.661
+    },
+    {
+     "text": "Module zero, the one you are finishing, gives you the basics.",
+     "start": 175.941,
+     "end": 179.269
+    },
+    {
+     "text": "Modules one to three cover domain one: planning, advanced topics and agent flows.",
+     "start": 179.549,
+     "end": 184.861
+    },
+    {
+     "text": "Modules four to six cover domain two: knowledge and tools, M C P and multi agent, and Azure and monitoring.",
+     "start": 185.141,
+     "end": 192.757
+    },
+    {
+     "text": "Module seven covers domain three: evaluation and A L M.",
+     "start": 193.037,
+     "end": 197.027
+    },
+    {
+     "text": "Every topic has theory, a video, questions, and a hands on challenge.",
+     "start": 197.307,
+     "end": 201.509
+    }
+   ]
+  },
+  {
+   "title": "Words so far: the agent",
+   "start": 202.409,
+   "end": 227.175,
+   "sentences": [
+    {
+     "text": "Now the glossary, looking back at Nexo.",
+     "start": 202.409,
+     "end": 204.756
+    },
+    {
+     "text": "An agent is an A I assistant that chats and acts.",
+     "start": 205.036,
+     "end": 207.937
+    },
+    {
+     "text": "A topic is a conversation you design with nodes.",
+     "start": 208.217,
+     "end": 211.311
+    },
+    {
+     "text": "A tool is a capability the agent runs.",
+     "start": 211.591,
+     "end": 214.151
+    },
+    {
+     "text": "A connector is a wrapper around an A P I.",
+     "start": 214.431,
+     "end": 216.863
+    },
+    {
+     "text": "Knowledge is the sources the agent looks up.",
+     "start": 217.143,
+     "end": 219.745
+    },
+    {
+     "text": "Orchestration is the decision about what to use for each message.",
+     "start": 220.025,
+     "end": 223.972
+    },
+    {
+     "text": "And the harness is the engine that runs the agent.",
+     "start": 224.252,
+     "end": 227.175
+    }
+   ]
+  },
+  {
+   "title": "Words so far: where it lives",
+   "start": 228.075,
+   "end": 252.091,
+   "sentences": [
+    {
+     "text": "And the words about where Nexo lives.",
+     "start": 228.075,
+     "end": 230.037
+    },
+    {
+     "text": "An environment is a Power Platform space with its apps and data.",
+     "start": 230.317,
+     "end": 234.221
+    },
+    {
+     "text": "A solution is the container that moves components between environments.",
+     "start": 234.501,
+     "end": 238.704
+    },
+    {
+     "text": "Dataverse is the Power Platform database.",
+     "start": 238.984,
+     "end": 241.629
+    },
+    {
+     "text": "D L P means the administrator's data policies.",
+     "start": 241.909,
+     "end": 245.173
+    },
+    {
+     "text": "A channel is where the user chats with the agent.",
+     "start": 245.453,
+     "end": 248.099
+    },
+    {
+     "text": "And Copilot Credits are the unit used to bill agent usage.",
+     "start": 248.379,
+     "end": 252.091
+    }
+   ]
+  },
+  {
+   "title": "Valeria's plan",
+   "start": 252.991,
+   "end": 280.377,
+   "sentences": [
+    {
+     "text": "Back to Valeria.",
+     "start": 252.991,
+     "end": 254.057
+    },
+    {
+     "text": "She opens the study guide and books a date with Pearson VUE.",
+     "start": 254.337,
+     "end": 257.964
+    },
+    {
+     "text": "Most of her weeks go to domain two, with a weekly block for domain one, and evaluation and A L M in the last weeks.",
+     "start": 258.244,
+     "end": 265.519
+    },
+    {
+     "text": "Her lab environment is ready, and after every topic she rebuilds a piece of Nexo herself.",
+     "start": 265.799,
+     "end": 271.495
+    },
+    {
+     "text": "One week before the exam, she reviews this glossary and her mistakes.",
+     "start": 271.775,
+     "end": 275.743
+    },
+    {
+     "text": "Module zero is done.",
+     "start": 276.023,
+     "end": 277.559
+    },
+    {
+     "text": "Next, module one: planning the solution.",
+     "start": 277.839,
+     "end": 280.377
+    }
+   ]
+  }
+ ]
+}

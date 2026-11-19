@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 4,
+    "pauseSentence": 7,
+    "question": "A vendor's ticket server only offers the SSE transport. What happens when Valeria connects it to Nexo?",
+    "options": [
+      "It works through the wizard as usual",
+      "It works with a custom connector instead",
+      "it does not work in Copilot Studio"
+    ],
+    "right": 2,
+    "trap": 1
+  },
+  {
+    "scene": 7,
+    "pauseSentence": 7,
+    "question": "Makers could connect Nexo to MCP servers that nobody has approved. How should the security team block those servers?",
+    "options": [
+      "With a data policy, also called D L P",
+      "By requiring an A P I key on each server",
+      "by turning off generative orchestration"
+    ],
+    "right": 0,
+    "trap": 1
+  },
+  {
+    "scene": 10,
+    "pauseSentence": 7,
+    "question": "Nexo keeps calling the wrong ticket tool because the tool description from the server is unclear. What should Valeria do?",
+    "options": [
+      "Edit the description in Copilot Studio",
+      "Ask the server owner to change it",
+      "call the tool from a topic instead"
+    ],
+    "right": 1,
+    "trap": 0
+  }
+]

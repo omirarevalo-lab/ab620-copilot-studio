@@ -1,0 +1,9 @@
+{
+"1": ["Fabric data agent", [["What", "Answers natural language questions about Fabric data"], ["Like", "An analyst who turns your question into a query"], ["Writing", "Read-only · never changes data"], ["Credentials", "The user's own permissions"]]],
+"2": ["Queries and sources", [["Queries", "NL2SQL, NL2DAX, NL2KQL · read-only"], ["Runs with", "The user's credentials"], ["Sources", "Up to 5"], ["Choices", "Warehouse, lakehouse, Power BI semantic model"], ["Also", "KQL database, mirrored database, ontology, Microsoft Graph"], ["Lakehouse", "A Fabric data store with tables"]]],
+"4": ["Result limits", [["Maximum answer", "25 rows by 25 columns"], ["Language", "English only"], ["Language model", "Cannot be changed"]]],
+"5": ["Requirements", [["Fabric", "Paid capacity, F2 or higher"], ["Alternative", "Power BI Premium P1 or higher with Fabric enabled"], ["Trial", "Not enough"], ["In Fabric", "Create and publish the data agent"], ["Copilot Studio", "External agent (preview)"]]],
+"7": ["Limits in Copilot Studio", [["Redirect node", "Cannot target it"], ["Instructions", "Cannot reference it"], ["Microsoft Copilot", "Does not work if the main agent is deployed there"], ["Agent evaluation", "Does not support it"]]],
+"8": ["The director's answer", [["Question", "Sales by region for the quarter, in English"], ["Via", "Nexo · external agent"], ["Query", "Read-only, on the lakehouse"], ["Credentials", "The director's"], ["Answer", "A table, up to 25 rows by 25 columns"], ["Capacity", "F2"]]],
+"10": ["The steps", [["1", "Confirm a paid Fabric capacity, F2 or higher"], ["2", "Fabric: create the data agent · sources (up to 5)"], ["3", "Publish the data agent in Fabric"], ["4", "Copilot Studio: Agents · Add agent · external agent (preview)"], ["5", "Write a good description"], ["6", "Test questions in English"], ["7", "No Redirect from a topic · no reference in instructions"]]]
+}

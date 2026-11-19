@@ -1,0 +1,38 @@
+[
+  {
+    "scene": 3,
+    "pauseSentence": 7,
+    "question": "The invoice job worked on the Hosted browser. Now it must run for real every month. Where should Nexo run in production?",
+    "options": [
+      "On the Hosted browser that already worked",
+      "On a Cloud P C pool joined to Entra and Intune",
+      "on their own machine in Power Automate"
+    ],
+    "right": 2,
+    "trap": 0
+  },
+  {
+    "scene": 6,
+    "pauseSentence": 7,
+    "question": "Another team copies data into an old desktop application every day. The screen never changes and the rules are simple. Which option fits best?",
+    "options": [
+      "A Power Automate desktop flow",
+      "Computer use on a Cloud P C pool",
+      "Computer use on their own machine"
+    ],
+    "right": 0,
+    "trap": 2
+  },
+  {
+    "scene": 9,
+    "pauseSentence": 7,
+    "question": "Marta's team has Microsoft 365 Copilot licenses and the invoice job uses a standard model. What does each step of Computer use cost?",
+    "options": [
+      "Fifteen Copilot Credits per step",
+      "Five Copilot Credits per step",
+      "nothing, the license covers it"
+    ],
+    "right": 1,
+    "trap": 2
+  }
+]

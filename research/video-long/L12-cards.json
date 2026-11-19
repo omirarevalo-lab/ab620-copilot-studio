@@ -1,0 +1,138 @@
+{
+ "1": [
+  "The mini form",
+  [
+   [
+    "Looks like",
+    "Text, fields, and buttons"
+   ],
+   [
+    "Compared to",
+    "A sheet filled in all at once"
+   ],
+   [
+    "The agent gets",
+    "Everything together on submit"
+   ]
+  ]
+ ],
+ "2": [
+  "Which node collects",
+  [
+   [
+    "Ask with Adaptive Card",
+    "At least one submit button"
+   ],
+   [
+    "Typed values",
+    "Saved in variables"
+   ],
+   [
+    "Message / Question",
+    "Informational only"
+   ]
+  ]
+ ],
+ "4": [
+  "Six input elements",
+  [
+   [
+    "Text · Number",
+    "Multiline · optional min and max"
+   ],
+   [
+    "Date · Time · Toggle",
+    "Date, time, true or false"
+   ],
+   [
+    "ChoiceSet",
+    "Dropdown or radio buttons"
+   ]
+  ]
+ ],
+ "5": [
+  "Variables and ids",
+  [
+   [
+    "On save",
+    "Output variables are created"
+   ],
+   [
+    "Not right?",
+    "Edit Schema"
+   ],
+   [
+    "Dynamic list",
+    "Table with title and value"
+   ]
+  ]
+ ],
+ "6": [
+  "Versions by channel",
+  [
+   [
+    "Web Chat",
+    "1.6, no Action.Execute"
+   ],
+   [
+    "Teams · live chat widget",
+    "1.5"
+   ],
+   [
+    "Test chat",
+    "Renders 1.6"
+   ]
+  ]
+ ],
+ "8": [
+  "Closed without Submit",
+  [
+   [
+    "Variables",
+    "Stay empty"
+   ],
+   [
+    "Add",
+    "A Condition node right after"
+   ],
+   [
+    "Retries",
+    "Unique id in Action.Submit data"
+   ]
+  ]
+ ],
+ "10": [
+  "In the studio",
+  [
+   [
+    "Add node",
+    "Ask with Adaptive Card"
+   ],
+   [
+    "Properties",
+    "Edit adaptive card"
+   ],
+   [
+    "After Save",
+    "Review with Edit Schema"
+   ]
+  ]
+ ],
+ "11": [
+  "Three rules",
+  [
+   [
+    "Collect fields",
+    "Ask with Adaptive Card"
+   ],
+   [
+    "Teams limit",
+    "Schema 1.5"
+   ],
+   [
+    "Closed card",
+    "Add a Condition node"
+   ]
+  ]
+ ]
+}

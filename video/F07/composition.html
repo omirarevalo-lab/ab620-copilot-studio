@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>F07 · Test and publish an agent · world style</title>
+<script src="gsap.min.js"></script>
+<!-- TAIL 2.5 -->
+<link rel="stylesheet" href="style.css" />
+<style>
+  #stage .uw { left: 100px; top: 130px; width: 1720px; height: 820px; }
+  #stage .uw .bar { font-size: 32px; } #stage .uw .bar .hc { font-size: 32px; } #stage .uw .nav div { font-size: 34px; }
+  #stage #uiBack { background: #eef1f7; }
+  #stage #uiT { top: 166px; height: 748px; } #stage #uiT .nav { display: none; } #stage #uiT .main { left: 0; }
+  .px { position: absolute; font-weight: 800; white-space: nowrap; line-height: 1.1; }
+  .ly { position: absolute; left: 56px; top: 40px; right: 56px; bottom: 30px; }
+  .sb.old { border-color: #5a6b8c; } .sb.old:after { border-top-color: #5a6b8c; }
+  .sb.grn { border-color: #1e7f4f; } .sb.grn:after { border-top-color: #1e7f4f; }
+  #exams .exam .xl { top: 60px; }
+  #exams .exam .xq { top: 130px; font-size: 36px; padding: 22px 44px; }
+  #exams .exam .xo { left: 120px; }
+  #exams .exam .xo em.trap { font-size: 32px; }
+  #exams .exam .xring { left: 1540px; top: 520px; }
+  #exams .exam .xwhy { left: 1240px; top: 340px; width: 560px; font-size: 38px; }
+  #exams .exam .xp { left: 120px; top: 690px; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{{DURATION}}">
+<section class="clip" data-start="0" data-duration="{{DURATION}}" data-track-index="2">
+<div id="stage"></div>
+</section>
+<audio id="narr" src="narration.mp3" data-start="0" data-duration="{{DURATION}}" data-track-index="1" data-volume="1"></audio>
+</div>
+
+<!-- @world -->
+<script>
+  /* F07 · Test and publish an agent. "Contoso theatre" in the 3840x2160 world (wide shot = scale .5 at (1920,1080) = the whole canvas).
+     Left zone: stage-lights screen (x150-1030,y350-850) + lighting desk (y880-1040) + maker (x300-705,y1065-1300) + wall clock (x1180-1580) / Variables panel (x1070-1690).
+     Stage x1700-3300: left/right curtains, valance y330-450, deck y930-950, front face y950-1040, Nexo x1960, card board x2330, REHEARSAL sign x2240-2760 y480-580.
+     Hall floor y1040-1380 (band y1040-1270: chip slots, seats y1270-1360, carpet x2180-2780). Facade y1380-1880: signs y1392-1628, doors y1640-1880 (x = DX[k]-180..+180).
+     Street y1880-2400 (queue people). Box-office stub x3360-3640 y650-990. Annex (scene 6) x4350-6400 y410-1380, never seen in wide shots. */
+  const BLUE = '#2f5bd3', GRN = '#1e7f4f', RED = '#c4392f', AMB = '#d98a00', PUR = '#8a5cd6', NAVY = '#1f2a44', GREY = '#8a93a6', OLD = '#5a6b8c', DIM = '#5b6578', TMS = '#5b5fc7', GOLD = '#e8b100';
+  const BLUEs = '#e6ecfb', AMBs = '#fff3d6', PURs = '#efe7fb', REDs = '#fde8e6', GRNs = '#e3f4ea', OLDs = '#e7eaf1';
+  const D = (id, st, html) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${html || ''}</div>`;
+  const H = (id, st, html) => D(id, st + ';opacity:0', html);
+  const G = (id, html) => D(id, 'left:0;top:0;width:1px;height:1px;opacity:0', html);
+  const SB = (id, x, y, t, fs, c) => say(id, x, y, t, c).replace('style="', 'style="font-size:' + (fs || 40) + 'px;');
+  const T = (x, y, fs, col, t, id, ex, cls) => `<div class="px${cls ? ' ' + cls : ''}"${id ? ` id="${id}"` : ''} style="left:${x}px;top:${y}px;font-size:${fs}px;color:${col};${ex || ''}">${t}</div>`;
+  const pers = (c, w) => person(c).replace('width="90" height="200"', `width="${w}" height="${Math.round(w * 200 / 90)}"`);
+  const agC = (id, x, y) => agent(id, x, y, { folder: '' }).replace('height="500" viewBox="0 0 360 500"', 'height="390" viewBox="0 0 360 390"').replace('height="170" rx="40"', 'height="90" rx="40"');
+  const CHW = (text, fs, icon) => Math.round(text.replace(/<[^>]*>/g, '').length * fs * 0.58 + 76 + (icon ? fs * 1.3 : 0));
+  const CHC = (id, cx, y, text, col, fs, icon, bg, ex, w0) => { const w = w0 || CHW(text, fs, icon);
+    return H(id, `left:${Math.round(cx - w / 2)}px;top:${y}px;width:${w}px;border:6px solid ${col};border-radius:26px;background:${bg || '#fff'};color:${col};font-size:${fs}px;font-weight:800;line-height:1.12;padding:10px 20px;display:flex;align-items:center;justify-content:center;gap:14px;text-align:center;box-shadow:0 10px 30px rgba(16,24,40,.12);box-sizing:content-box;${ex || ''}`,
+      (icon ? IC(icon, `width:${Math.round(fs * 1.15)}px;height:${Math.round(fs * 1.15)}px;flex:0 0 auto`) : '') + `<span>${text}</span>`); };
+  const camAt = (x, y, s, t) => CAM(x, y, s, t, 0.01);
+  const UIIN2 = (sel, t) => { ON('#uiBack', t - 0.2, 0.3); tl.fromTo(sel, { opacity: 0, scale: 0.28 }, { opacity: 1, scale: 1, duration: 0.7, ease: 'power3.out' }, t); };
+  const UIOUT2 = (sel, t) => { tl.to(sel, { opacity: 0, scale: 0.28, duration: 0.5, ease: 'power3.in' }, t); OFF('#uiBack', t + 0.5, 0.4); };
+  const SWX = (a, b, t) => { tl.to(a, { opacity: 0, duration: 0.25 }, t); tl.fromTo(b, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, t + 0.1); };
+  const DRAW = (sel, t, d) => { ON(sel, t, 0.1); tl.fromTo(sel, { strokeDasharray: 3000, strokeDashoffset: 3000 }, { strokeDashoffset: 0, duration: d || 0.7, immediateRender: false }, t); };
+  const FADEIN = (sel, t, d) => tl.fromTo(sel, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: d || 0.4, immediateRender: false }, t);
+  const TY = (sel, t, d, n) => { tl.set(sel, { opacity: 1 }, t); tl.fromTo(sel, { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: d, ease: `steps(${n})`, immediateRender: false }, t); };
+  const pulse = (sel, t, col) => tl.fromTo(sel, { boxShadow: '0 0 0 0 rgba(47,91,211,0)' }, { boxShadow: `0 0 0 10px ${col || 'rgba(47,91,211,.6)'}`, duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, t);
+  const PULSEX = (sel, t, s) => tl.to(sel, { scale: s || 1.12, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.inOut' }, t);
+  const CHIP = (sel, a, b) => { FADEIN(sel, a, 0.4); OFF(sel, b, 0.3); };
+
+  /* ═════════ WORLD CONSTANTS ═════════ */
+  const DX = [510, 980, 1450, 1920, 2390, 2860, 3330];
+  const DNAME = ['Teams and<br>Microsoft<br>Copilot', 'SharePoint', 'WhatsApp', 'Website', 'Mobile app', 'Facebook', 'Azure Bot<br>Service'];
+  const WC = [1895, 1235, 0.52];
+  const PCOL = ['#8a5cd6', '#b4533f', '#0e8f8f', '#b4337a', '#c08a2b', '#2f5bd3', '#1e7f4f'];
+
+  /* ═════════ BACKGROUND ═════════ */
+  ADD(D('', 'left:-1400px;top:-700px;width:9200px;height:2130px;background:linear-gradient(#cfd6e6,#eef1f7 40%)') +
+    Array.from({ length: 32 }, (_, i) => D('', `left:${-300 + i * 300}px;top:240px;width:34px;height:1140px;background:#e1e6f1`)).join('') +
+    D('', 'left:-1400px;top:0;width:9200px;height:230px;background:#c3cbdd') + D('', 'left:-1400px;top:226px;width:9200px;height:16px;background:#9aa4ba') +
+    Array.from({ length: 28 }, (_, i) => D('', `left:${120 + i * 300}px;top:250px;width:90px;height:60px;border-radius:12px 12px 45px 45px;background:#6b768f`)).join('') +
+    D('', 'left:-1400px;top:1040px;width:9200px;height:340px;background:#e3e7ef') + D('', 'left:-1400px;top:1040px;width:9200px;height:8px;background:#d3d9e4') +
+    D('', 'left:-1400px;top:1380px;width:9200px;height:520px;background:#cfd6e4') + D('', 'left:-1400px;top:1372px;width:9200px;height:16px;background:#aab3c8') +
+    D('', 'left:-1400px;top:1880px;width:9200px;height:560px;background:#bfc6d6') + D('', 'left:-1400px;top:1880px;width:9200px;height:14px;background:#a3acc0') +
+    Array.from({ length: 40 }, (_, i) => D('', `left:${-200 + i * 220}px;top:2118px;width:120px;height:12px;border-radius:6px;background:#d3d9e6`)).join(''));
+
+  /* stage */
+  ADD(D('', 'left:1700px;top:450px;width:1600px;height:490px;background:#f4f6fb') + [0, 1, 2, 3, 4].map((i) => D('', `left:${1980 + i * 280}px;top:470px;width:120px;height:450px;background:#eaeef7`)).join('') +
+    D('', 'left:1700px;top:930px;width:1600px;height:20px;background:#e3d3b0') + D('', 'left:1700px;top:950px;width:1600px;height:90px;background:#b69a6a') + D('', 'left:1700px;top:950px;width:1600px;height:8px;background:#a68a5a') +
+    D('', 'left:1700px;top:330px;width:190px;height:620px;background:#2d3a5c') + D('', 'left:3110px;top:330px;width:190px;height:620px;background:#2d3a5c') +
+    [0, 1, 2].map((i) => D('', `left:${1730 + i * 55}px;top:450px;width:14px;height:500px;background:#3a4a78`) + D('', `left:${3140 + i * 55}px;top:450px;width:14px;height:500px;background:#3a4a78`)).join('') +
+    D('', 'left:1700px;top:330px;width:1600px;height:120px;background:#1f2a44') + D('', 'left:1700px;top:440px;width:1600px;height:10px;background:#e8b100'));
+  ADD(D('cvL', 'left:1890px;top:450px;width:610px;height:500px;background:linear-gradient(90deg,#3a4a78,#2d3a5c);transform-origin:0 50%;z-index:6', [0, 1, 2, 3, 4].map((i) => D('', `left:${60 + i * 120}px;top:0;width:12px;height:500px;background:#4a5a88`)).join('')) +
+    D('cvR', 'left:2500px;top:450px;width:610px;height:500px;background:linear-gradient(270deg,#3a4a78,#2d3a5c);transform-origin:100% 50%;z-index:6', [0, 1, 2, 3, 4].map((i) => D('', `left:${60 + i * 120}px;top:0;width:12px;height:500px;background:#4a5a88`)).join('')));
+  /* REHEARSAL / OPEN sign + light cones */
+  ADD(D('', 'left:2494px;top:450px;width:8px;height:34px;background:#6b768f') +
+    D('lmp', 'left:2240px;top:484px;width:520px;height:100px;border:6px solid #c9ced8;border-radius:24px;background:#e7eaf1;color:#5b6578;font-size:64px;font-weight:800;text-align:center;line-height:88px;box-sizing:border-box', 'REHEARSAL') +
+    H('lmpG', 'left:2240px;top:484px;width:520px;height:100px;border:6px solid #1e7f4f;border-radius:24px;background:#e3f4ea;color:#1e7f4f;font-size:64px;font-weight:800;text-align:center;line-height:88px;box-sizing:border-box', 'OPEN') +
+    H('cone', 'left:2140px;top:590px;width:720px;height:340px;background:linear-gradient(rgba(255,209,102,.45),rgba(255,209,102,.05));clip-path:polygon(32% 0,68% 0,100% 100%,0 100%)') +
+    H('coneG', 'left:2140px;top:590px;width:720px;height:340px;background:linear-gradient(rgba(30,127,79,.3),rgba(30,127,79,.04));clip-path:polygon(32% 0,68% 0,100% 100%,0 100%)'));
+  /* Nexo on stage */
+  const NXs = (id, x, y, s, o) => D(id, `left:${x}px;top:${y}px;width:${360 * s}px;height:${390 * s}px;${o || ''}`, `<div style="position:absolute;left:0;top:0;width:360px;height:390px;transform:scale(${s});transform-origin:0 0">${agC(id + 'a', 0, 0)}</div>`);
+  ADD(NXs('nx', 1960, 658, 0.75));
+
+  /* left zone: stage-lights screen, desk, clock, maker */
+  const MAPS = D('scrM', 'left:150px;top:360px;width:880px;height:500px;border:10px solid #1f2a44;border-radius:26px;background:#141b2d;box-sizing:border-box',
+    D('mDef', 'left:0;top:0;width:860px;height:480px', IC('lightbulb', 'position:absolute;left:300px;top:130px;width:230px;height:230px;color:#6b7fb0')) +
+    H('mTit', 'left:0;top:0', T(30, 20, 48, '#fff', 'Activity map')) +
+    [['Topics', 100], ['Tools', 230], ['Knowledge', 360]].map((r, i) => H('ln' + i, 'left:0;top:0;width:1px;height:1px', T(30, r[1] + 26, 42, '#c9d3ea', r[0]) + D('', `left:260px;top:${r[1]}px;width:570px;height:96px;border:4px solid #3a4a78;border-radius:20px;background:#1d2742`) + D('ln' + i + 'L', `left:260px;top:${r[1]}px;width:570px;height:96px;border:4px solid ${PUR};border-radius:20px;background:#2d3a5c;opacity:0`))).join('') +
+    `<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="860" height="480" viewBox="0 0 860 480"><path id="mP" d="M515 360 V 336" fill="none" stroke="${PUR}" stroke-width="12" stroke-linecap="round" opacity="0"/><path id="mP2" d="M515 360 V 330 M488 346 L515 322 L542 346" fill="none" stroke="${PUR}" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>` +
+    H('n1', `left:272px;top:372px;width:520px;height:72px;border:5px solid ${PUR};border-radius:16px;background:#fff`, D('', `left:10px;top:7px;width:48px;height:48px;border-radius:50%;background:${PUR};color:#fff;font-size:34px;font-weight:800;text-align:center;line-height:48px`, '1') + T(70, 14, 34, '#141821', 'Knowledge: IT guides')) +
+    H('n2', `left:272px;top:242px;width:520px;height:72px;border:5px solid ${PUR};border-radius:16px;background:#fff`, D('', `left:10px;top:7px;width:48px;height:48px;border-radius:50%;background:${PUR};color:#fff;font-size:34px;font-weight:800;text-align:center;line-height:48px`, '2') + T(70, 14, 34, '#141821', 'Tool: Create ticket')) +
+    H('mTk', `left:796px;top:240px;width:52px;height:52px;border-radius:50%;background:${GRN};color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:50px;z-index:3`, '✓'));
+  ADD(MAPS);
+  ADD(H('ins', `left:170px;top:380px;width:840px;height:460px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:22px;background:#fff;z-index:4`, D('', `left:30px;top:30px;width:770px;height:150px;box-sizing:border-box;border:6px solid ${AMB};border-radius:22px;background:${AMBs};color:${AMB};font-size:64px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:18px`, IC('document_text', 'width:76px;height:76px') + 'Draft changed') + D('', `left:0;top:184px;width:824px;text-align:center;font-size:64px;font-weight:800;color:${NAVY};line-height:80px`, '↓') + D('', `left:30px;top:270px;width:770px;height:150px;box-sizing:border-box;border:6px solid ${OLD};border-radius:22px;background:${OLDs};color:${OLD};font-size:64px;font-weight:800;display:flex;align-items:center;justify-content:center;gap:18px`, IC('send', 'width:76px;height:76px') + 'not published')));
+  ADD(D('', 'left:150px;top:880px;width:880px;height:160px;border-radius:22px;background:#6b4fa8') + D('', 'left:150px;top:880px;width:880px;height:46px;border-radius:22px 22px 0 0;background:#8a5cd6') +
+    Array.from({ length: 12 }, (_, i) => D('', `left:${200 + i * 66}px;top:946px;width:16px;height:70px;border-radius:8px;background:#3d2c70`) + D('', `left:${190 + i * 66}px;top:${966 + (i * 37) % 28}px;width:36px;height:22px;border-radius:6px;background:#f3f5f9`)).join(''));
+  ADD(D('wcl', 'left:1180px;top:360px;width:400px;height:400px;border-radius:50%;border:14px solid #1f2a44;background:#fff;box-sizing:border-box',
+    Array.from({ length: 12 }, (_, i) => D('', `left:179px;top:12px;width:10px;height:${i % 3 ? 20 : 40}px;background:#1f2a44;transform-origin:5px 168px;transform:rotate(${i * 30}deg)`)).join('') +
+    D('wcH', 'left:179px;top:80px;width:12px;height:112px;border-radius:6px;background:#1f2a44;transform-origin:6px 106px') + D('wcM', 'left:182px;top:40px;width:8px;height:152px;border-radius:4px;background:#d98a00;transform-origin:4px 146px') + D('', 'left:170px;top:170px;width:28px;height:28px;border-radius:50%;background:#1f2a44')));
+  const MKs = (id, x, y, s, extra) => D(id, `left:${x}px;top:${y}px;width:${900 * s}px;height:${520 * s}px;${extra || ''}`, `<div style="position:absolute;left:0;top:0;width:900px;height:520px;transform:scale(${s});transform-origin:0 0">${maker(id + 'm', 0, 0)}</div>`);
+  ADD(MKs('mk', 300, 1068, 0.45));
+
+  /* seats + carpet */
+  ADD(D('', 'left:2180px;top:1048px;width:600px;height:332px;background:#c9d3e8') + D('', 'left:2196px;top:1048px;width:568px;height:332px;border-left:8px solid #aab3c8;border-right:8px solid #aab3c8;box-sizing:border-box') +
+    [1150, 1320, 1490, 1660, 1830, 2000, 2830, 3000].map((x) => D('', `left:${x}px;top:1262px;width:130px;height:72px;border-radius:20px 20px 8px 8px;background:#5b6578`) + D('', `left:${x + 10}px;top:1316px;width:110px;height:24px;border-radius:8px;background:#8a93a6`)).join(''));
+
+  /* publish lever */
+  ADD(D('lvB', 'left:1400px;top:950px;width:300px;height:80px;border-radius:20px;background:#1f2a44;color:#fff;font-size:64px;font-weight:800;text-align:center;line-height:78px', 'Publish') +
+    D('lvH', 'left:1540px;top:830px;width:20px;height:128px;transform-origin:50% 100%;transform:rotate(-34deg)', D('', 'left:0;top:0;width:20px;height:128px;border-radius:10px;background:#8a93a6') + D('', 'left:-18px;top:-30px;width:56px;height:56px;border-radius:50%;background:#c4392f;border:5px solid #7d1d16')) +
+    H('lvLk', 'left:1500px;top:812px;width:96px;height:96px;border-radius:50%;background:#fff;border:6px solid #c4392f;z-index:3', IC('lock_closed', 'position:absolute;left:18px;top:18px;width:54px;height:54px;color:#c4392f')));
+
+  /* box-office stub (right wall) */
+  ADD(D('', 'left:3360px;top:650px;width:280px;height:340px;border:8px solid #1f2a44;border-radius:20px 20px 0 0;background:#e6ecfb;box-sizing:border-box',
+    T(0, 16, 64, NAVY, 'Box<br>office', 'bxo', 'width:264px;text-align:center;line-height:1.05') + D('', 'left:40px;top:170px;width:180px;height:100px;border:6px solid #1f2a44;border-radius:14px;background:#141b2d') + D('', 'left:0;top:270px;width:264px;height:20px;background:#1f2a44')));
+
+  /* facade: signs + doors + sub-signs */
+  const DIMS = 'background:#e7eaf1;color:#5b6578;border:6px solid #c9ced8';
+  ADD(DX.map((x, k) => D('sg' + k, `left:${x - 200}px;top:1392px;width:400px;height:236px;box-sizing:border-box;${DIMS};border-radius:24px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:64px;font-weight:800;line-height:1.1`, DNAME[k]) +
+    D('dr' + k, `left:${x - 180}px;top:1640px;width:360px;height:240px;box-sizing:border-box;border:10px solid #6b768f;border-radius:18px 18px 0 0;background:#aab3c8`, D('', 'left:165px;top:0;width:6px;height:230px;background:#6b768f') + D('', 'left:132px;top:110px;width:14px;height:40px;border-radius:7px;background:#6b768f') + D('', 'left:190px;top:110px;width:14px;height:40px;border-radius:7px;background:#6b768f'))).join(''));
+  ADD(H('sdm', 'left:1790px;top:1662px;width:260px;height:80px;border:5px solid #1e7f4f;border-radius:16px;background:#fff;color:#1e7f4f;font-size:54px;font-weight:800;text-align:center;line-height:70px;box-sizing:border-box;z-index:2', 'demo') +
+    H('scu', 'left:1790px;top:1758px;width:260px;height:80px;border:5px solid #1e7f4f;border-radius:16px;background:#fff;color:#1e7f4f;font-size:54px;font-weight:800;text-align:center;line-height:70px;box-sizing:border-box;z-index:2', 'custom'));
+  /* queue: row 1 (feet ~1992) and row 2 (feet ~2040) at every door */
+  ADD(DX.map((x, k) => D('qa' + k, `left:${x - 50}px;top:1850px`, pers(PCOL[k], 64)) + D('qb' + k, `left:${x + 30}px;top:1898px`, pers(PCOL[(k + 3) % 7], 64))).join(''));
+  /* street furniture */
+  ADD([700, 1700, 2650].map((x) => D('', `left:${x}px;top:2150px;width:300px;height:14px;background:#d3d9e6`)).join(''));
+
+  /* ═════════ SCENE OBJECTS ═════════ */
+  /* S0: card, DRAFT pill, outlines, eager maker, Teams-door bubbles */
+  ADD(H('crd', `left:2330px;top:790px;width:600px;height:176px;box-sizing:border-box;border:8px solid ${AMB};border-radius:24px;background:#fff;color:${AMB};font-size:64px;font-weight:800;line-height:1.1;text-align:center;padding-top:14px;box-shadow:0 14px 40px rgba(16,24,40,.22);z-index:3`, 'Locked account:<br>new steps'));
+  ADD(CHC('tgD', 2630, 676, 'DRAFT', AMB, 64, null, AMBs, 'z-index:4'));
+  ADD(H('dsh1', `left:1930px;top:620px;width:1180px;height:360px;border:8px dashed ${AMB};border-radius:30px`) + H('dsh2', `left:290px;top:1650px;width:440px;height:370px;border:8px dashed ${OLD};border-radius:30px`));
+  ADD(G('emg', D('emgB', 'left:0;top:0;width:1px;height:1px', D('', 'left:-90px;top:-400px;width:180px', pers('#e0802b', 180)) + D('', `left:-220px;top:-262px;width:440px;height:172px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:20px;background:#fff;color:${NAVY};font-size:64px;font-weight:800;line-height:1.1;text-align:center;padding-top:6px`, 'Share with<br>everyone') + D('', 'left:-266px;top:-208px;width:46px;height:46px;border-radius:50%;background:#f2c9a6') + D('', 'left:220px;top:-208px;width:46px;height:46px;border-radius:50%;background:#f2c9a6'))));
+  ADD(SB('bOld', 510, 1716, 'Old steps', 64, 'old') + SB('bNew', 700, 1716, 'New steps', 64, 'grn') + SB('bNew9', 510, 1716, 'New steps', 64, 'grn') + SB('bChat', 370, 1716, '…', 64, 'blue') + SB('bSt', 510, 1716, 'start over', 64, 'grn'));
+  /* S3/S9 */
+  ADD(`<svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="4000" height="2200" viewBox="0 0 4000 2200"><path id="wr" d="M2480 1048 V1372 M2480 1372 H510 M2480 1372 H3330" fill="none" stroke="${GRN}" stroke-width="12" stroke-linecap="round" opacity="0"/></svg>`);
+  ADD(G('tmk', D('', 'left:-50px;top:-222px;width:100px', pers('#2f5bd3', 100)) + D('', `left:-100px;top:-330px;width:200px;height:92px;box-sizing:border-box;border:6px solid ${AMB};border-radius:999px;background:${AMBs};color:${AMB};font-size:64px;font-weight:800;text-align:center;line-height:80px`, 'Trial')));
+  ADD(['nw', 'mkT'].map((id, i) => H(id, `left:${i ? 400 : 760}px;top:1850px`, pers(i ? '#2f5bd3' : '#0e8f8f', 64))).join(''));
+  ADD([0, 1, 2, 3].map((i) => H('it' + i, `left:${1000 + i * 90}px;top:1900px`, pers('#0e8f8f', 64))).join('') + DX.map((x, k) => H('qd' + k, `left:${x - 130}px;top:1905px`, pers(PCOL[(k + 5) % 7], 64))).join(''));
+  ADD(Array.from({ length: 18 }, (_, i) => H('ws' + i, 'left:0;top:1900px', pers(PCOL[i % 7], 64))).join(''));
+  ADD(['Slack', 'Telegram', 'Twilio', 'Email'].map((n, i) => H('pq' + i, `left:${3170 + (i % 2) * 270}px;top:${1200 + Math.floor(i / 2) * 84}px;width:260px;height:72px;box-sizing:border-box;border:5px solid ${BLUE};border-radius:14px;background:${BLUEs};color:${BLUE};font-size:48px;font-weight:800;text-align:center;line-height:62px`, n)).join(''));
+
+  /* S6 annex: lobby with three ticket windows (x4350-6400, y480-1380). Wide shots never reach it. */
+  const ANX = []; const ADDA = (h) => ANX.push(h);
+  const WIN = (id, x, w, icon, title) => D(id, `left:${x}px;top:620px;width:${w}px;height:360px;box-sizing:border-box;border:8px solid #c9ced8;border-radius:24px;background:#f3f5f9`,
+    IC(icon, `position:absolute;left:${w / 2 - 60 - 8}px;top:30px;width:120px;height:120px;color:#aab3c8`).replace('class="ic"', `class="ic" id="${id}i"`) + T(0, 176, 46, '#5b6578', title, id + 't', `width:${w - 16}px;text-align:center;line-height:1.18`));
+  ADDA(D('', 'left:3900px;top:410px;width:3000px;height:970px;background:#e1e6f2;border-radius:30px 30px 0 0') +
+    T(4800, 470, 72, NAVY, 'Box office') + D('adr', 'left:4350px;top:620px;width:300px;height:360px;box-sizing:border-box;border:10px solid #5b5fc7;border-radius:18px 18px 0 0;background:#fff', T(0, 24, 60, TMS, 'Teams', '', 'width:280px;text-align:center') + IC('chat', `position:absolute;left:90px;top:150px;width:100px;height:100px;color:${TMS}`)) +
+    WIN('w1', 4760, 520, 'shield_checkmark', 'Authenticate<br>with Microsoft') + WIN('w2', 5320, 520, 'form', 'Authenticate<br>manually') + WIN('w3', 5880, 520, 'lock_closed', 'No<br>authentication') +
+    D('', 'left:4350px;top:980px;width:2050px;height:70px;border-radius:12px;background:#1f2a44') + D('', 'left:4350px;top:1050px;width:2050px;height:330px;background:#d3d9e8') +
+    [4780, 4900, 5000, 5340, 5460, 5560].map((x, k) => D('', `left:${x + (k < 3 ? 30 : 0)}px;top:${1196 + (k % 2) * 16}px`, pers(['#8a5cd6', '#b4533f', '#0e8f8f', '#b4337a', '#c08a2b', '#2f5bd3'][k], 80))).join(''));
+  ADDA(NXs('n6', 4472, 765, 0.55, 'opacity:0'));
+  ADDA(H('gt3', 'left:6000px;top:1070px;width:420px;height:140px', D('', 'left:0;top:20px;width:30px;height:100px;background:#141821;border-radius:6px') + D('', 'left:390px;top:20px;width:30px;height:100px;background:#141821;border-radius:6px') + D('gtb', 'left:20px;top:26px;width:190px;height:34px;border-radius:17px;border:4px solid #141821;background:repeating-linear-gradient(90deg,#c4392f 0 38px,#fff 38px 76px);transform-origin:0 50%')));
+  ADDA(['#8a5cd6', '#b4533f', '#0e8f8f'].map((c, i) => D('aw' + i, `left:${6090 + i * 100}px;top:${1196 + (i % 2) * 16}px`, pers(c, 80))).join(''));
+  ADDA(H('wrn', 'left:6110px;top:1240px;width:150px;height:110px;border-radius:24px;background:#fff;border:6px solid #1f2a44', IC('wrench', 'position:absolute;left:36px;top:18px;width:72px;height:72px;color:#1f2a44')) +
+    H('wky', 'left:6290px;top:1240px;width:110px;height:110px;border-radius:24px;background:#fff;border:6px solid #c4392f', IC('key', 'position:absolute;left:21px;top:21px;width:62px;height:62px;color:#c4392f') + T(0, 0, 90, RED, '✕', '', 'width:98px;text-align:center;line-height:98px')));
+  ADDA([['Teams', 4760, 240], ['SharePoint', 5020, 320], ['Power Apps', 5360, 330], ['Microsoft Copilot', 5710, 440]].map((r, i) => H('tl' + i, `left:${r[1]}px;top:1076px;width:${r[2]}px;height:84px;box-sizing:border-box;border:5px solid ${GRN};border-radius:20px;background:#fff;color:#141821;font-size:38px;font-weight:800;line-height:74px;padding-left:20px;white-space:nowrap`, r[0] + `<span style="position:absolute;right:14px;top:10px;width:50px;height:50px;border-radius:50%;background:${GRN};color:#fff;font-size:34px;line-height:50px;text-align:center">✓</span>`)).join(''));
+  ADD(G('annex', ANX.join('')));
+
+  /* ═════════ UI WINDOWS ═════════ */
+  const BUB = (id, y, t, user) => `<div class="w" id="${id}" style="left:${user ? 300 : 24}px;top:${y}px;width:420px;height:76px;box-sizing:border-box;border:4px solid ${user ? BLUE : '#c9ced8'};border-radius:18px;background:${user ? BLUEs : '#f3f5f9'};font-size:34px;font-weight:700;line-height:68px;padding-left:20px;color:#141821;opacity:0">${t}</div>`;
+  const NODE = (id, y, t, w) => `<div class="w" id="${id}" style="left:44px;top:${y}px;width:${w || 740}px;height:100px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:18px;background:#fff;font-size:36px;font-weight:700;line-height:92px;padding-left:24px;color:#141821">${t}</div>`;
+  const CKC = (id, x, y) => `<div class="w" id="${id}" style="left:${x}px;top:${y}px;width:52px;height:52px;border-radius:50%;background:${GRN};color:#fff;font-size:36px;font-weight:800;text-align:center;line-height:50px;opacity:0">✓</div>`;
+  ADDU(uiWindow('uiT', { title: 'Copilot Studio · Nexo', nav: [], on: -1, body: `<div class="ly">
+    <div class="w" id="tcp" style="left:0;top:0;width:740px;height:600px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:20px;background:#fff">
+      ${T(24, 14, 40, NAVY, 'Test your agent')}
+      <span class="w btn" id="tRs" style="left:392px;top:12px;padding:6px 22px;font-size:32px">Reset</span>
+      <span class="w btn" id="tSv" style="left:540px;top:12px;padding:6px 20px;font-size:32px;display:flex;align-items:center;gap:10px">${IC('cloud_arrow_up', 'width:36px;height:36px')}Save</span>
+      <span class="w" id="tDr" style="left:24px;top:86px;padding:4px 22px;border:4px solid ${AMB};border-radius:999px;background:${AMBs};color:${AMB};font-size:32px;font-weight:800;white-space:nowrap;opacity:0">draft · not published</span>
+      ${BUB('b0', 168, 'My account is locked', true)}${BUB('b1', 258, 'Locked account steps')}${BUB('b2', 348, 'I forgot my password', true)}${BUB('b3', 438, 'Password reset link')}
+      <div class="w" id="rsH" style="left:24px;top:250px;width:690px;font-size:36px;font-weight:700;color:#5b6578;text-align:center;line-height:1.3;opacity:0">Ask the agent something<br>to start a new test</div>
+      <div class="w" id="tCh" style="left:24px;top:528px;padding:6px 22px;border:5px solid ${GRN};border-radius:20px;background:${GRNs};color:${GRN};font-size:32px;font-weight:800;white-space:nowrap;opacity:0">saving does not clear the chat</div>
+    </div>
+    <div class="w" id="trp" style="left:780px;top:0;width:828px;height:600px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:20px;background:#fff">
+      <div class="w" id="tpl" style="left:0;top:0;width:820px;height:520px">${T(44, 14, 40, NAVY, 'Topics')}${['Locked account', 'Password reset', 'Greeting'].map((n, i) => `<div class="w" style="left:44px;top:${100 + i * 130}px;width:740px;height:100px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:18px;background:#fff;font-size:38px;font-weight:700;line-height:92px;padding-left:96px;color:#141821">${IC('chat', 'position:absolute;left:24px;top:24px;width:46px;height:46px;color:' + BLUE)}${n}<span class="w" style="right:24px;top:22px;padding:2px 22px;border:4px solid ${GRN};border-radius:999px;background:${GRNs};color:${GRN};font-size:32px;line-height:44px">On</span></div>`).join('')}</div>
+      <div class="w" id="cv1" style="left:0;top:0;width:820px;height:520px;opacity:0">${T(44, 14, 40, NAVY, 'Topic: Locked account')}${NODE('nd0', 100, 'Trigger: account locked')}${NODE('nd1', 230, 'Question: which account?')}${NODE('nd2', 360, 'Message: Locked account steps')}
+        <div class="w" style="left:402px;top:200px;width:6px;height:30px;background:#aab3c8"></div><div class="w" style="left:402px;top:330px;width:6px;height:30px;background:#aab3c8"></div>${CKC('ck0', 716, 124)}${CKC('ck1', 716, 254)}${CKC('ck2', 716, 384)}</div>
+      <div class="w" id="cv2" style="left:0;top:0;width:820px;height:520px;opacity:0">${T(44, 14, 40, NAVY, 'Topic: Password reset')}${NODE('nd3', 100, 'Trigger: forgot password')}${NODE('nd4', 230, 'Question: which email?')}${NODE('nd5', 360, 'Message: Password reset link')}
+        <div class="w" style="left:402px;top:200px;width:6px;height:30px;background:#aab3c8"></div><div class="w" style="left:402px;top:330px;width:6px;height:30px;background:#aab3c8"></div></div>
+      <div class="w" id="tgr" style="left:0;top:490px;width:820px;height:90px">${T(44, 22, 38, '#141821', 'Track between topics')}<div class="w" id="tgl" style="left:640px;top:14px;width:110px;height:58px;border-radius:29px;background:#c9ced8"><div class="w" id="tgk" style="left:6px;top:6px;width:46px;height:46px;border-radius:50%;background:#fff"></div></div></div>
+    </div>
+    <svg class="w lint-ignore" style="left:0;top:0;overflow:visible" width="1608" height="672" viewBox="0 0 1608 672"><path id="lnk" d="M448 296 H760 V410 H816 M796 392 L818 410 L796 428" fill="none" stroke="${BLUE}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg></div>` }));
+
+  const TILE = (id, x, y, t, ic) => `<div class="w" id="${id}" style="left:${x}px;top:${y}px;width:380px;height:112px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:18px;background:#fff;font-size:32px;font-weight:700;line-height:1.15;padding:14px 4px 0 78px;white-space:nowrap;color:#141821">${IC(ic, 'position:absolute;left:18px;top:30px;width:50px;height:50px;color:' + BLUE)}${t}</div>`;
+  ADDU(uiWindow('uiS', { title: 'Copilot Studio · Nexo', nav: ['Overview', 'Topics', 'Channels', 'Settings'], on: 1,
+    bar: `<span class="hc" id="pubSt" style="margin-left:auto;display:grid;background:#fff;color:${GRN};font-weight:800;opacity:0"><span id="pSa" style="grid-area:1/1;color:${AMB};opacity:0;white-space:nowrap">Publishing…</span><b id="pSb" style="grid-area:1/1;opacity:0;white-space:nowrap">Published</b></span><span class="hc" id="bTest" style="margin-left:14px">Test</span><span class="hc" id="bPub" style="margin-left:14px;background:${BLUE}">Publish</span>`,
+    body: `<div class="ly">
+    <div class="w" id="vE" style="left:0;top:0;width:1308px;height:672px">
+      ${T(0, 0, 44, '#141821', 'Topic: Locked account')}
+      ${NODE('sn0', 80, 'Trigger: account locked', 680).replace('left:44px', 'left:0')}${NODE('sn1', 210, 'Question: which account?', 680).replace('left:44px', 'left:0')}${NODE('sn2', 340, 'Message: Locked account steps', 680).replace('left:44px', 'left:0')}
+      ${CKC('sk2', 616, 364)}
+      <div class="w" id="stp" style="left:740px;top:0;width:568px;height:520px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:20px;background:#fff;opacity:1">
+        ${T(20, 12, 38, NAVY, 'Test your agent')}
+        <div class="w" id="sb0" style="left:130px;top:80px;width:400px;height:72px;box-sizing:border-box;border:4px solid ${BLUE};border-radius:18px;background:${BLUEs};font-size:34px;font-weight:700;line-height:64px;padding-left:20px;opacity:0">My account is locked</div>
+        <div class="w" id="sb1" style="left:20px;top:168px;width:400px;height:72px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:18px;background:#f3f5f9;font-size:34px;font-weight:700;line-height:64px;padding-left:20px;opacity:0">Locked account steps</div>
+        <div class="w" id="vtp" style="left:20px;top:270px;width:524px;height:232px;box-sizing:border-box;border:4px solid ${PUR};border-radius:18px;background:#fff;opacity:0">
+          ${T(18, 12, 36, PUR, 'Variables · Test')}
+          <div class="w" style="left:18px;top:76px;width:486px;height:60px;border-radius:12px;background:${PURs};font-size:32px;font-weight:700;line-height:60px;padding-left:14px;white-space:nowrap">UserEmail = ana@contoso.com</div>
+          <div class="w" style="left:18px;top:150px;width:486px;height:60px;border-radius:12px;background:${PURs};font-size:32px;font-weight:700;line-height:60px;padding-left:14px;white-space:nowrap">Issue = email login</div></div></div>
+      <div class="w" id="amp" style="left:0;top:560px;width:1308px;height:100px;box-sizing:border-box;border:4px solid ${PUR};border-radius:20px;background:${PURs};opacity:0">
+        ${T(24, 24, 36, PUR, 'Activity map')}
+        <div class="w" style="left:290px;top:18px;width:430px;height:60px;box-sizing:border-box;border:4px solid ${PUR};border-radius:14px;background:#fff;font-size:34px;font-weight:700;line-height:52px;padding-left:16px;white-space:nowrap">1 · Knowledge: IT guides</div>
+        <div class="w" style="left:740px;top:18px;width:430px;height:60px;box-sizing:border-box;border:4px solid ${PUR};border-radius:14px;background:#fff;font-size:34px;font-weight:700;line-height:52px;padding-left:16px;white-space:nowrap">2 · Tool: Create ticket</div></div>
+      <div class="w" id="dlg" style="left:788px;top:-8px;width:520px;height:236px;box-sizing:border-box;border:5px solid ${BLUE};border-radius:24px;background:#fff;box-shadow:0 30px 80px rgba(16,24,40,.35);opacity:0;z-index:8">
+        ${T(0, 30, 44, '#141821', 'Publish this agent?', '', 'width:510px;text-align:center')}
+        <span class="w btn" id="dlC" style="left:24px;top:136px;padding:12px 34px;font-size:36px">Cancel</span>
+        <span class="w btn pri" id="dlP" style="left:270px;top:136px;padding:12px 36px;font-size:36px">Publish</span></div>
+    </div>
+    <div class="w" id="vC" style="left:0;top:0;width:1308px;height:672px;opacity:0">
+      ${T(0, 0, 44, '#141821', 'Channels')}
+      ${TILE('ch0', 0, 76, 'Teams and<br>Microsoft Copilot', 'people_team')}${TILE('ch1', 400, 76, 'SharePoint', 'organization')}${TILE('ch2', 0, 204, 'WhatsApp', 'chat')}${TILE('ch3', 400, 204, 'Website', 'globe')}
+      ${TILE('ch4', 0, 332, 'Mobile app', 'phone')}${TILE('ch5', 400, 332, 'Facebook', 'people_team')}${TILE('ch6', 0, 460, 'Azure Bot Service', 'cloud')}
+      <div class="w" id="chp" style="left:820px;top:0;width:488px;height:572px;box-sizing:border-box;border:4px solid ${BLUE};border-radius:20px;background:#fff;opacity:0">
+        ${T(24, 16, 40, NAVY, 'Teams and<br>Microsoft Copilot', '', 'line-height:1.1')}
+        <span class="w btn pri" id="chB1" style="left:24px;top:150px;width:432px;box-sizing:border-box;padding:14px 20px;font-size:34px;line-height:1.15;text-align:center">Open the agent<br>in Teams</span>
+        <span class="w btn" id="chB2" style="left:24px;top:310px;width:432px;box-sizing:border-box;padding:14px 20px;font-size:34px;line-height:1.15;text-align:center;opacity:.5">Make the agent<br>available to others</span></div>
+      <div class="w" id="tmw" style="left:60px;top:150px;width:760px;height:340px;box-sizing:border-box;border:5px solid ${TMS};border-radius:22px;background:#fff;box-shadow:0 30px 80px rgba(16,24,40,.35);opacity:0;z-index:9">
+        <div class="w" style="left:0;top:0;width:750px;height:70px;border-radius:17px 17px 0 0;background:${TMS};color:#fff;font-size:38px;font-weight:800;line-height:70px;padding-left:26px;box-sizing:border-box">Teams · Nexo</div>
+        <div class="w" style="left:300px;top:94px;width:420px;height:72px;box-sizing:border-box;border:4px solid ${BLUE};border-radius:18px;background:${BLUEs};font-size:34px;font-weight:700;line-height:64px;padding-left:20px">My account is locked</div>
+        <div class="w" style="left:24px;top:184px;width:420px;height:72px;box-sizing:border-box;border:4px solid #c9ced8;border-radius:18px;background:#f3f5f9;font-size:34px;font-weight:700;line-height:64px;padding-left:20px">Locked account steps</div>
+        <div class="w" id="jyu" style="left:24px;top:270px;padding:4px 22px;border:5px solid ${GRN};border-radius:20px;background:${GRNs};color:${GRN};font-size:34px;font-weight:800;white-space:nowrap;opacity:0">just you</div></div>
+    </div></div>` }));
+  const PS = { rep: PC('#b1'), rs: PC('#tRs'), tgl: PC('#tgl'), sRep: PC('#sn2'), pub: PC('#bPub'), dlP: PC('#dlP'), chN: PC('#uiS_nv2'), tm: PC('#ch0'), b1: PC('#chB1'), b2: PC('#chB2'), test: PC('#bTest'), sb1: PC('#sb1') };
+
+  /* ═════════ SCREEN LAYER ═════════ */
+  const TIT = (id, t, ex) => `<div class="ov" id="${id}" style="left:140px;top:110px;font-size:72px;font-weight:800;color:#141821;background:#fff;padding:6px 36px;border-radius:30px;box-shadow:0 14px 40px rgba(16,24,40,.18);${ex || ''}">${t}</div>`;
+  const RECAP = ['Test pane tests the draft', 'Test in a real channel too', 'Every change: publish again'];
+  ADDS(`<div id="scr" style="position:absolute;left:0;top:0;width:1920px;height:1080px">
+    ${TIT('ovT0', 'Week six')}${TIT('ovT9', 'Back at Contoso')}
+    <div class="ov" id="kT" style="left:0;top:250px;width:1920px;text-align:center"><span style="display:inline-block;background:#fff;padding:8px 46px;border-radius:34px;box-shadow:0 20px 60px rgba(16,24,40,.18);font-size:104px;font-weight:800;color:${BLUE};letter-spacing:-3px;white-space:nowrap">Rehearse, then open the doors</span></div>
+            <div class="tag blue" id="tNx" style="left:960px;top:948px;font-size:44px">next: the exam map</div></div>`);
+
+  /* ═════════ EXAMS ═════════ */
+  const rmX = (x, w, col, h4, inner, h) => `<div class="rm" style="left:${x}px;width:${w}px;height:${h || 330}px;border-color:${col}"><h4>${h4}</h4>${inner}</div>`;
+  const bx = (id, st, inner) => `<div class="w"${id ? ` id="${id}"` : ''} style="${st}">${inner || ''}</div>`;
+  const MINI = (id, x, y, w, h, col, head, inner, ex) => bx(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;border:5px solid ${col};border-radius:14px;background:#243256;${ex || ''}`, bx('', 'left:0;top:6px;width:' + (w - 10) + 'px;text-align:center;font-size:34px;font-weight:800;color:#c9d3ea', head) + (inner || ''));
+  const MC = (id, x, y, w, h, col, t) => bx(id, `left:${x}px;top:${y}px;width:${w}px;height:${h}px;box-sizing:border-box;border:5px solid ${col};border-radius:12px;color:${col};font-size:36px;font-weight:800;text-align:center;line-height:${h - 12}px;opacity:0`, t);
+  EXAMS(
+    mkExam('exA', { q: 'The team fixed a wrong answer in a topic and saved it. A day later, employees in Teams still get the old answer, even in brand new chats. What is missing?',
+      opts: ['Reset the conversation in the test pane', 'Publish the agent so channels update', 'Wait for the old sessions to expire'],
+      why: '<div id="exA_w1"><span class="g">Saving</span> only changes the <span class="g">draft</span>.</div><div id="exA_w2">Channels see a change <span class="g">after you publish</span>; <span class="r">waiting</span> changes nothing.</div>',
+      proof: rmX(0, 826, '#ff8a80', 'Saved only', MINI('pA_st', 20, 96, 270, 200, '#ffd166', 'Stage', MC('pA_dc', 20, 74, 220, 96, '#ffd166', 'DRAFT').replace('opacity:0', 'opacity:1')) + MINI('pA_dr', 310, 96, 270, 200, '#9fb0cf', 'Teams door', MC('pA_oc', 20, 74, 220, 96, '#9fb0cf', 'old').replace('opacity:0', 'opacity:1')) + bx('pA_tm', 'left:648px;top:92px;width:100px;height:100px', IC('timer', 'width:100px;height:100px;color:#ffd166')) + bx('pA_nc', 'left:590px;top:214px;width:216px;text-align:center;font-size:36px;font-weight:800;color:#ff8a80;white-space:nowrap;opacity:0', 'no change')) + rmX(854, 826, '#6be3a0', 'Published', bx('pA_lv', 'left:24px;top:96px;width:150px;height:160px', bx('', 'left:0;top:116px;width:150px;height:40px;border-radius:10px;background:#9fb0cf') + bx('pA_lh', 'left:67px;top:16px;width:16px;height:104px;border-radius:8px;background:#c9d3ea;transform-origin:50% 100%;transform:rotate(-34deg)') + bx('', 'left:50px;top:0;width:50px;height:50px;border-radius:50%;background:#c4392f;opacity:0')) + MINI('pA_dr2', 210, 96, 270, 200, '#9fb0cf', 'Teams door', MC('pA_oc2', 20, 74, 220, 96, '#9fb0cf', 'old').replace('opacity:0', 'opacity:1') + MC('pA_nc2', 20, 74, 220, 96, '#6be3a0', 'new').replace('border-radius:12px', 'border-radius:12px;background:#243256')) + bx('pA_ok', 'left:616px;top:92px;width:84px;height:84px;border-radius:50%;background:#1e7f4f;color:#fff;font-size:60px;font-weight:800;text-align:center;line-height:78px;opacity:0', '✓') + bx('pA_lv2', 'left:510px;top:196px;width:296px;text-align:center;font-size:36px;font-weight:800;line-height:1.1;color:#6be3a0;opacity:0', 'channels<br>updated')) }),
+    mkExam('exB', { q: 'In Teams, Nexo must identify each employee and run tools with that person\'s own credentials. The team wants no extra setup. Which authentication do they choose?',
+      opts: ['Authenticate manually in each channel', 'No authentication, open to the link', 'Authenticate with Microsoft in Teams'],
+      why: '<div id="exB_w1"><span class="g">Microsoft</span> sign-in works in <span class="g">Teams</span> with <span class="g">no extra setup</span>.</div><div id="exB_w2"><span class="r">Manual</span> is for other channels; <span class="r">no authentication</span> blocks user credentials.</div>',
+      proof: rmX(0, 826, '#6be3a0', 'With Microsoft', bx('pB_em', 'left:20px;top:118px', pers('#7b9cf0', 64)) + bx('pB_ar1', 'left:92px;top:196px;width:90px;height:0;border-top:6px dashed #6be3a0;opacity:0') + MINI('pB_dr', 190, 96, 200, 200, '#6be3a0', 'Teams', IC('chat', 'position:absolute;left:55px;top:76px;width:84px;height:84px;color:#6be3a0'), 'opacity:0') + bx('pB_ar2', 'left:400px;top:196px;width:60px;height:0;border-top:6px dashed #6be3a0;opacity:0') + bx('pB_tl', 'left:470px;top:96px;width:330px;height:200px;box-sizing:border-box;border:5px solid #6be3a0;border-radius:14px;background:#243256;opacity:0', bx('', 'left:0;top:34px;width:320px;text-align:center;font-size:40px;font-weight:800;color:#fff', 'Tool runs') + bx('', 'left:0;top:106px;width:320px;text-align:center;font-size:34px;font-weight:800;color:#6be3a0', 'own credentials'))) + rmX(854, 826, '#ff8a80', 'Manual', bx('pB_fm', 'left:24px;top:90px;width:470px;height:214px;box-sizing:border-box;border:5px solid #9fb0cf;border-radius:14px;background:#243256', ['Client ID', 'Secret', 'Token URL'].map((f, i) => bx('', `left:16px;top:${8 + i * 66}px;width:428px;height:56px;box-sizing:border-box;border:3px solid #6b7fb0;border-radius:8px;font-size:34px;font-weight:700;color:#c9d3ea;line-height:50px;padding-left:14px`, f)).join('')) + bx('pB_xs', 'left:508px;top:150px;width:270px;height:84px;box-sizing:border-box;border:5px solid #ffd166;border-radius:20px;color:#ffd166;font-size:38px;font-weight:800;line-height:74px;text-align:center;white-space:nowrap;opacity:0', 'extra setup')) }));
+
+  const XB = [360, 550, 740];
+  ['exA', 'exB'].forEach((id) => [0, 1, 2].forEach((k) => gsap.set(`#${id}_o${k}`, { top: XB[k], width: 1400, height: 170, fontSize: 48 })));
+  const XCOMP = (id, t) => [0, 1, 2].forEach((k) => tl.to(`#${id}_o${k}`, { top: [340, 452, 564][k], width: 1090, height: 100, fontSize: 36, duration: 0.6, ease: 'power2.inOut' }, t));
+  const EXAMX = (id, i, o) => {
+    const X = '#' + id, R = S(i, o.reveal) + 0.2, C0 = E(i, o.pause) + 0.1, CD = R - 0.15 - C0;
+    ON(X, S(i, 0) - 0.5, 0.4);
+    tl.fromTo(X + '_q', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 }, S(i, 0) - 0.4);
+    o.opt.forEach((t, k) => tl.fromTo(`${X}_o${k}`, { opacity: 0.6, y: 20 }, { opacity: 1, y: 0, duration: 0.4, immediateRender: false }, t - 0.5));
+    tl.fromTo(`${X}_o0,${X}_o1,${X}_o2`, { opacity: 0 }, { opacity: 0.6, duration: 0.4, immediateRender: false }, S(i, 0) - 0.4);
+    tl.fromTo(X + '_ring', { opacity: 0 }, { opacity: 0.3, duration: 0.4, immediateRender: false }, S(i, 0) + 0.3);
+    ON(X + '_ring', C0 - 0.05, 0.15);
+    tl.fromTo(X + '_arc', { strokeDashoffset: 0 }, { strokeDashoffset: 691.2, duration: CD, ease: 'none' }, C0);
+    tl.set(X + '_n3', { opacity: 0 }, C0 + CD / 3); tl.set(X + '_n2', { opacity: 1 }, C0 + CD / 3);
+    tl.set(X + '_n2', { opacity: 0 }, C0 + 2 * CD / 3); tl.set(X + '_n1', { opacity: 1 }, C0 + 2 * CD / 3);
+    OFF(X + '_ring', R - 0.1, 0.1);
+    const Tt = `${X}_o${o.trap}`, Gg = `${X}_o${o.right}`, O = [0, 1, 2].filter((k) => k !== o.trap && k !== o.right).map((k) => `${X}_o${k}`);
+    tl.to(Tt, { backgroundColor: '#fde8e6', borderColor: '#c4392f', color: '#c4392f', duration: 0.6 }, R);
+    tl.set(Tt + ' .tx', { textDecoration: 'line-through' }, R);
+    ON(Tt + ' .trap', R + 0.2, 0.6);
+    tl.to(Gg, { backgroundColor: '#e3f4ea', borderColor: '#1e7f4f', color: '#1e7f4f', duration: 0.6 }, R);
+    ON(Gg + ' .ok', R + 0.2, 0.6);
+    tl.to(O, { opacity: 0.5, duration: 0.6 }, R);
+    XCOMP(id, R + 0.9);
+    OFF(X, o.end, 0.4);
+  };
+  const SCRT = ['#ovT0', '#ovT9', '#kT', '#tNx'];
+  const toExam = (i) => { OFF(['#world', '#uiBack', '.uw', '#scr'], S(i, 0) - 0.65, 0.3); OFF('#cur', S(i, 0) - 0.65, 0.2); tl.set(SCRT, { opacity: 0 }, S(i, 0) - 0.4); };
+  const fromExam = (i) => { ON('#world', S(i, 0) - 0.6, 0.3); ON('#scr', S(i, 0) - 0.6, 0.3); };
+
+  /* ═════════ INITIAL STATE ═════════ */
+  gsap.set('#world', { x: 960 - WC[0] * WC[2], y: 540 - WC[1] * WC[2], scale: WC[2] });
+  gsap.set('.tag,.sb,.chip,.capi,.lab', { opacity: 0 });
+  gsap.set('#cur', { opacity: 0 });
+  gsap.set(['#cvL', '#cvR'], { scaleX: 0 });
+  gsap.set('#lvLk', { scale: 0.8 });
+  const doorLit = (k, t) => { tl.to('#dr' + k, { backgroundColor: GRNs, borderColor: GRN, duration: 0.4 }, t); tl.to('#sg' + k, { backgroundColor: '#ffffff', color: GRN, borderColor: GRN, duration: 0.4 }, t); };
+  const doorOld = (k, t) => { tl.to('#dr' + k, { backgroundColor: '#aab3c8', borderColor: '#6b768f', duration: 0.5 }, t); tl.to('#sg' + k, { backgroundColor: '#e7eaf1', color: '#5b6578', borderColor: '#c9ced8', duration: 0.5 }, t); };
+  const doorDim = (k, t) => { tl.set('#dr' + k, { backgroundColor: '#aab3c8', borderColor: '#6b768f' }, t); tl.set('#sg' + k, { backgroundColor: '#e7eaf1', color: '#5b6578', borderColor: '#c9ced8' }, t); };
+  /* slow wall clock: always moving */
+  tl.to('#wcM', { rotation: 360 * 14, duration: 290, ease: 'none' }, 0); tl.to('#wcH', { rotation: 360 * 14 / 12, duration: 290, ease: 'none' }, 0);
+
+  /* ═════════ 0 · The fix nobody sees ═════════ */
+  ON('#ovT0', 0.2, 0.4); OFF('#ovT0', E(0, 0) + 0.2, 0.3);
+  /* the lamp is on from the start? no: dim until scene 1 */
+  tl.set('#crd', { x: -2065, y: 285 }, 0); tl.set('#emg', { x: 3380, y: 1366 }, 0); tl.set('#tmk', { x: 1130, y: 1160 }, 0);
+  { const a = S(0, 1) + 0.1;
+    tl.fromTo('#crd', { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.4, ease: 'back.out(1.6)', immediateRender: false }, a);
+    tl.to('#crd', { x: 0, duration: 1.1, ease: 'power1.inOut' }, a + 0.4); tl.to('#crd', { y: 0, duration: 0.45, ease: 'power2.inOut' }, a + 1.5);
+    FADEIN('#tgD', a + 2.0, 0.4); }
+  ADD(CHC('cFr', 1500, 1075, 'Friday', BLUE, 64, 'calendar', BLUEs) + CHC('cMo', 1500, 1075, 'Monday', BLUE, 64, 'calendar', BLUEs) + CHC('cNt', 1500, 1075, 'never tried in Teams', RED, 64, null, REDs) + CHC('cTp', 1500, 1075, 'test ≠ publish', NAVY, 64, null, '#fff'));
+  FADEIN('#cFr', S(0, 1) + 2.0, 0.4); OFF('#cFr', S(0, 2), 0.25); FADEIN('#cMo', S(0, 2) + 0.1, 0.4); OFF('#cMo', S(0, 3) - 0.15, 0.3);
+  POPX('#bOld', W(0, 2, 'old answer', -0.6));
+  ON('#emg', W(0, 3, 'eager', -0.2), 0.4);
+  tl.to('#emg', { x: 2680, duration: 3.0, ease: 'none' }, W(0, 3, 'eager', 0)); tl.to('#emgB', { y: -14, duration: 0.3, yoyo: true, repeat: 11, ease: 'sine.inOut' }, W(0, 3, 'eager', 0));
+  FADEIN('#cNt', W(0, 3, 'without ever', -0.1), 0.4); OFF('#cNt', S(0, 4) - 0.1, 0.3);
+  ON(['#dsh1', '#dsh2'], W(0, 4, 'two mistakes', 0), 0.4); FADEIN('#cTp', W(0, 4, 'difference', -0.3), 0.4);
+  OFF(['#cTp', '#dsh1', '#dsh2', '#crd', '#tgD', '#bOld', '#emg'], S(0, 5) - 0.1, 0.35);
+  tl.to('#cvL', { scaleX: 1, duration: 1.0, ease: 'power2.inOut' }, S(0, 5) + 0.1); tl.to('#cvR', { scaleX: 1, duration: 1.0, ease: 'power2.inOut' }, S(0, 5) + 0.1);
+  tl.fromTo('#kT', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: 'back.out(1.5)', immediateRender: false }, S(0, 5) + 1.0);
+  OFF('#kT', E(0, 5) - 0.15, 0.35);
+  tl.to(['#cvL', '#cvR'], { scaleX: 0, duration: 0.9, ease: 'power2.inOut' }, E(0, 5) - 0.1);
+
+  /* ═════════ 1 · Rehearsal on an empty stage ═════════ */
+  ADD(CHC('cRh', 1500, 1075, 'test pane = rehearsal', AMB, 64, null, AMBs));
+  tl.to('#lmp', { backgroundColor: AMBs, color: AMB, borderColor: AMB, duration: 0.4 }, S(1, 0)); ON('#cone', S(1, 0) + 0.1, 0.5);
+  FADEIN('#cRh', S(1, 0) + 0.3, 0.4); OFF('#cRh', S(1, 1) - 0.45, 0.3);
+  CAM(570, 1050, 1.6, S(1, 1) - 0.5, 1.0, 'power2.inOut');
+  UIIN2('#uiT', S(1, 1) + 0.15);
+  ON('#tDr', W(1, 1, 'without publishing', -0.4), 0.3);
+  tl.fromTo('#b0', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(1, 1, 'chat', 0)); tl.fromTo('#b1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(1, 1, 'version you are', 0));
+  ON('#cur', S(1, 2) + 0.05, 0.3); CUR(PS.rep[0], PS.rep[1], S(1, 2) + 0.1, 0.8); CLICK(PS.rep[0], PS.rep[1], W(1, 2, 'jump', -0.3));
+  tl.to('#b1', { backgroundColor: BLUEs, borderColor: BLUE, duration: 0.2 }, W(1, 2, 'jump', -0.3));
+  tl.to('#tpl', { opacity: 0, duration: 0.25 }, W(1, 2, 'jump', -0.1)); tl.fromTo('#cv1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(1, 2, 'jump', 0));
+  DRAW('#lnk', W(1, 2, 'jump', 0.1), 0.8); tl.to('#nd2', { backgroundColor: BLUEs, borderColor: BLUE, duration: 0.3 }, W(1, 2, 'node that', 0));
+  OFF('#cur', W(1, 2, 'node that', 0.8), 0.2); OFF('#lnk', S(1, 3) - 0.1, 0.3);
+  [0, 1, 2].forEach((i) => tl.fromTo('#ck' + i, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)', immediateRender: false }, S(1, 3) + 0.15 + i * 0.5));
+  ON('#cur', W(1, 4, 'turn on', -0.7), 0.2); CUR(PS.tgl[0], PS.tgl[1], W(1, 4, 'turn on', -0.7), 0.6); CLICK(PS.tgl[0], PS.tgl[1], W(1, 4, 'track', 0.1));
+  tl.to('#tgl', { backgroundColor: BLUE, duration: 0.2 }, W(1, 4, 'track', 0.1)); tl.to('#tgk', { x: 52, duration: 0.2 }, W(1, 4, 'track', 0.1));
+  OFF('#cur', W(1, 4, 'canvas', -0.5), 0.2);
+  tl.fromTo('#b2', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(1, 4, 'canvas', -0.4)); tl.fromTo('#b3', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(1, 4, 'canvas', 0.6));
+  tl.to('#cv1', { x: -60, opacity: 0, duration: 0.4 }, W(1, 4, 'canvas', 0.7)); tl.fromTo('#cv2', { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.4, immediateRender: false }, W(1, 4, 'canvas', 0.9));
+  ON('#cur', S(1, 5) + 0.1, 0.2); CUR(PS.rs[0], PS.rs[1], S(1, 5) + 0.1, 0.7); CLICK(PS.rs[0], PS.rs[1], W(1, 5, 'reset', 0.1)); pulse('#tRs', W(1, 5, 'reset', 0.1));
+  OFF(['#b0', '#b1', '#b2', '#b3'], W(1, 5, 'reset', 0.3), 0.3); ON('#rsH', W(1, 5, 'reset', 0.7), 0.3);
+  tl.to('#cur', { x: PS.rs[0] + 150, duration: 0.5, ease: 'power2.inOut' }, W(1, 5, 'saving', -0.3)); pulse('#tSv', W(1, 5, 'saving', 0.2)); ON('#tCh', W(1, 5, 'saving', 0.2), 0.4);
+  OFF('#cur', E(1, 5) - 0.8, 0.2);
+  UIOUT2('#uiT', E(1, 5) - 0.1);
+
+  /* ═════════ 2 · The activity map ═════════ */
+  camAt(930, 850, 1, E(1, 5) + 0.35);
+  ADD(CHC('cGo', 1500, 1075, 'generative orchestration', PUR, 36, null, PURs) + CHC('cPl', 1500, 1075, 'the plan they wanted', GRN, 36, null, GRNs) + CHC('cWh', 1500, 1075, 'why it did that', NAVY, 36, null, '#fff'));
+  ADD(H('tpn', `left:720px;top:1048px;width:430px;height:210px;box-sizing:border-box;border:6px solid ${BLUE};border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(16,24,40,.22)`,
+    T(18, 10, 34, NAVY, 'Test your agent') + D('', `left:16px;top:70px;width:394px;height:112px;box-sizing:border-box;border:4px solid ${BLUE};border-radius:16px;background:${BLUEs}`, T(14, 8, 36, '#141821', 'I can\'t get into<br>my email', 'tpT', 'line-height:1.15;clip-path:inset(0 100% 0 0)'))));
+  ADD(H('vrp', `left:1070px;top:360px;width:620px;height:430px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:26px;background:#fff`,
+    T(24, 18, 44, NAVY, 'Variables · Test') + [['UserEmail', 'ana@contoso.com'], ['Issue', 'email login'], ['TicketId', '4821']].map((r, i) => H('vr' + i, `left:16px;top:${100 + i * 104}px;width:572px;height:84px;border-radius:14px;background:${PURs}`, T(14, 22, 34, '#141821', `<span style="color:${PUR}">${r[0]}</span> = ${r[1]}`))).join('')));
+  OFF('#mDef', S(2, 0) + 0.1, 0.3); ON('#mTit', S(2, 0) + 0.2, 0.4);
+  FADEIN('#cGo', W(2, 0, 'generative', -0.1), 0.4); OFF('#cGo', S(2, 2) - 0.1, 0.3);
+  [0, 1, 2].forEach((i) => { ON('#ln' + i, S(2, 0) + 0.6 + i * 0.35, 0.4); const w = W(2, 1, ['topics', 'tools', 'knowledge'][i], -0.1); ON('#ln' + i + 'L', w, 0.3); OFF('#ln' + i + 'L', w + 1.2, 0.3); });
+  POPX('#tpn', S(2, 2) + 0.1); TY('#tpT', S(2, 2) + 0.7, 1.6, 12);
+  { const t1 = W(2, 3, 'knowledge', -0.2), t2 = W(2, 3, 'tickets', -0.5);
+    ON('#ln2L', t1, 0.3); POPX('#n1', t1 + 0.1); DRAW('#mP2', t2 - 0.2, 0.5); ON('#ln1L', t2, 0.3); POPX('#n2', t2 + 0.3); }
+  POP('#mTk', S(2, 4) + 0.2); FADEIN('#cPl', W(2, 4, 'exactly', -0.1), 0.4); OFF('#cPl', S(2, 5) - 0.1, 0.3);
+  OFF('#wcl', S(2, 5) - 0.1, 0.3); ON('#vrp', S(2, 5) + 0.3, 0.4);
+  [0, 1, 2].forEach((i) => ON('#vr' + i, S(2, 5) + 0.5 + i * 1.4, 0.4));
+  FADEIN('#cWh', S(2, 6) + 0.15, 0.4); PULSEX('#scrM', S(2, 6) + 0.4, 1.04); PULSEX('#vrp', S(2, 6) + 0.4, 1.04);
+  OFF(['#cWh', '#tpn', '#vrp'], E(2, 6) - 0.4, 0.25);
+  OFF(['#mTit', '#ln0', '#ln1', '#ln2', '#n1', '#n2', '#mTk', '#mP2'], E(2, 6) - 0.4, 0.25); ON('#mDef', E(2, 6) - 0.1, 0.3); ON('#wcl', E(2, 6) - 0.1, 0.3);
+
+  /* ═════════ 3 · Publish: opening the doors ═════════ */
+  tl.set('#bxo', { opacity: 0 }, S(1, 1) - 0.85);
+  /* camera back to wide; curtain closes while rehearsal goes on, publish opens it */
+  CAM(WC[0], WC[1], WC[2], S(3, 0) - 1.2, 0.9, 'power2.inOut');
+  tl.to(['#cvL', '#cvR'], { scaleX: 1, duration: 0.8, ease: 'power2.inOut' }, S(3, 0) - 0.9);
+  tl.to('#lvH', { rotation: 34, duration: 0.35, ease: 'power2.in' }, S(3, 0) + 0.3);
+  tl.to(['#cvL', '#cvR'], { scaleX: 0, duration: 1.2, ease: 'power2.inOut' }, S(3, 0) + 0.6);
+  tl.to('#lmp', { opacity: 0, duration: 0.3 }, S(3, 0) + 0.6); tl.to('#lmpG', { opacity: 1, duration: 0.4 }, S(3, 0) + 0.8); tl.to('#cone', { opacity: 0, duration: 0.3 }, S(3, 0) + 0.6); ON('#coneG', S(3, 0) + 0.8, 0.4);
+  ON('#bxo', S(3, 0) + 0.3, 0.3);
+  { const t = S(3, 1) + 0.1;
+    DRAW('#wr', t, 1.6);
+    [3, 2, 4, 1, 5, 0, 6].forEach((k, i) => { doorLit(k, t + 0.5 + i * 0.22); }); }
+  ON('#ins', S(3, 2) + 0.1, 0.4); tl.to('#lmpG', { opacity: 0, duration: 0.25 }, S(3, 2) - 0.1); [0, 1, 2, 3, 4, 5, 6].forEach((k) => doorOld(k, S(3, 2) + 0.3 + k * 0.12)); OFF('#ins', E(3, 2) - 0.1, 0.3); tl.to('#lvH', { rotation: -34, duration: 0.3 }, E(3, 2) - 0.1); tl.to('#lvH', { rotation: 34, duration: 0.35, ease: 'power2.in' }, S(3, 3) + 0.05); [0, 1, 2, 3, 4, 5, 6].forEach((k) => doorLit(k, S(3, 3) + 0.35 + k * 0.15)); tl.to('#lmpG', { opacity: 1, duration: 0.3 }, E(3, 2) + 0.25);
+  ADD(CHC('cMin', 2480, 1075, 'a few minutes', NAVY, 64, 'timer', '#fff') + CHC('cLive', 2480, 1075, 'live chats continue', GRN, 64, null, GRNs) + CHC('cNew', 2480, 1075, 'new session = new version', GRN, 64, null, GRNs) + CHC('c30', 2480, 1075, '30 min without activity', OLD, 64, 'timer', OLDs) + CHC('cTr', 2480, 1075, 'trial: test yes, publish no', RED, 64, null, REDs));
+  CHIP('#cMin', S(3, 3) + 0.15, E(3, 3) + 0.2);
+  tl.fromTo('#bChat', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(3, 4) + 0.1);
+  CHIP('#cLive', S(3, 4) + 0.5, S(3, 5) - 0.1);
+  FADEIN('#cNew', S(3, 5) + 0.15, 0.4);
+  ON('#nw', S(3, 5) + 0.3, 0.2); tl.to('#nw', { x: -110, duration: 1.4, ease: 'none' }, S(3, 5) + 0.4);
+  tl.to('#nw', { y: -120, duration: 0.6, ease: 'none' }, S(3, 5) + 1.9); OFF('#nw', S(3, 5) + 2.2, 0.3);
+  tl.fromTo('#bNew', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(3, 5) + 2.6);
+  OFF('#cNew', W(3, 5, 'thirty', -0.45), 0.3); FADEIN('#c30', W(3, 5, 'thirty', -0.1), 0.4);
+  OFF('#bChat', E(3, 5) - 0.4, 0.35); OFF('#bNew', E(3, 5) - 0.4, 0.35); OFF('#c30', S(3, 6) - 0.1, 0.3);
+  POPX('#bSt', W(3, 6, 'start over', -0.5));
+  OFF('#bSt', S(3, 7) - 0.1, 0.3);
+  ON('#tmk', S(3, 7) + 0.1, 0.5); tl.to('#tmk', { x: 1320, duration: 1.4, ease: 'none' }, S(3, 7) + 0.3);
+  tl.to('#lvH', { rotation: 4, duration: 0.2, yoyo: true, repeat: 3 }, S(3, 7) + 1.9); POP('#lvLk', S(3, 7) + 2.1); FADEIN('#cTr', W(3, 7, 'cannot publish', -0.8), 0.4);
+  /* resets hidden by the exam room */
+  { const t = S(4, 0) - 0.7;
+    tl.set(['#lvLk', '#tmk', '#wr', '#ins', '#cTr', '#bxo'], { opacity: 0 }, t); tl.set('#lvH', { rotation: -34 }, t); [0, 1, 2, 3, 4, 5, 6].forEach((k) => doorDim(k, t));
+    tl.set('#lmpG', { opacity: 0 }, t); tl.set('#lmp', { opacity: 1, backgroundColor: '#e7eaf1', color: '#5b6578', borderColor: '#c9ced8' }, t); tl.set(['#coneG', '#cone'], { opacity: 0 }, t); }
+
+  /* ═════════ 4 · EXAM: the old answer ═════════ */
+  toExam(4);
+  EXAMX('exA', 4, { pause: 7, reveal: 8, trap: 2, right: 1, opt: [S(4, 4), S(4, 5), S(4, 6)], end: S(5, 0) - 0.85 });
+  { const P = S(4, 9), R = S(4, 8);
+    tl.fromTo('#exA_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, P + 0.1);
+    tl.fromTo('#exA_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(4, 10) + 0.1);
+    ON('#exA_p', R + 1.55, 0.4);
+    tl.to('#pA_tm', { rotation: 720, duration: 3.0, ease: 'none' }, W(4, 10, 'waiting', 0)); ON('#pA_nc', W(4, 10, 'changes nothing', 0), 0.3);
+    tl.to('#pA_lh', { rotation: 34, duration: 0.4 }, W(4, 10, 'after you publish', 0)); OFF('#pA_oc2', W(4, 10, 'after you publish', 0.3), 0.2); ON('#pA_nc2', W(4, 10, 'after you publish', 0.35), 0.3); tl.to('#pA_dr2', { borderColor: '#6be3a0', duration: 0.3 }, W(4, 10, 'after you publish', 0.35)); ON('#pA_ok', W(4, 10, 'after you publish', 0.8), 0.3); ON('#pA_lv2', W(4, 10, 'after you publish', 1.0), 0.3); }
+
+  /* ═════════ 5 · Channels ═════════ */
+  camAt(1116, 1645, 0.9, S(5, 0) - 0.62); fromExam(5);
+  ADD(CHC('cCh', 1590, 1090, 'channel = where people talk to the agent', BLUE, 40, null, BLUEs) + CHC('cWu', 2722, 1090, 'where users already chat', GRN, 46, null, GRNs) + CHC('cAd', 2722, 1090, 'admins can block channels', RED, 46, null, REDs) + CHC('cSt', 2722, 1090, 'stakeholders only', AMB, 46, null, AMBs));
+  FADEIN('#cCh', S(5, 0) + 0.2, 0.4); OFF('#cCh', S(5, 1) + 0.5, 0.3);
+  const HOP = (k, t) => { tl.to('#qa' + k, { y: -26, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.out' }, t); tl.to('#qb' + k, { y: -26, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.out' }, t + 0.1); };
+  [[0, S(5, 1)], [1, S(5, 2)], [2, S(5, 3)]].forEach(([k, t]) => { doorLit(k, t + 0.05); HOP(k, t + 0.3); });
+  CAM(2722, 1645, 0.9, S(5, 4) - 0.6, 1.2, 'power2.inOut');
+  doorLit(3, S(5, 4) + 0.05); HOP(3, S(5, 4) + 0.3); ON('#sdm', W(5, 4, 'demo', 0), 0.3); ON('#scu', W(5, 4, 'your own', 0), 0.3);
+  doorLit(4, W(5, 5, 'mobile app', 0)); HOP(4, W(5, 5, 'mobile app', 0.2)); doorLit(5, W(5, 5, 'facebook', 0)); HOP(5, W(5, 5, 'facebook', 0.2)); doorLit(6, W(5, 5, 'azure bot service', 0)); HOP(6, W(5, 5, 'azure bot service', 0.2));
+  ['slack', 'telegram', 'twilio', 'email'].forEach((w, i) => tl.fromTo('#pq' + i, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out', immediateRender: false }, W(5, 5, w, -0.3)));
+  OFF(['#sdm', '#scu'], S(5, 6) - 0.1, 0.3); OFF(['#pq0', '#pq1', '#pq2', '#pq3'], S(5, 6) + 0.9, 0.3);
+  FADEIN('#cWu', S(5, 6) + 0.1, 0.4); [0, 2, 4, 5].forEach((k, i) => HOP(k, S(5, 6) + 0.5 + i * 0.25)); OFF('#cWu', S(5, 7) - 0.1, 0.3);
+  FADEIN('#cAd', S(5, 7) + 0.1, 0.4);
+  ADD(H('blk', `left:${DX[5] - 190}px;top:1650px;width:380px;height:40px;border-radius:20px;border:5px solid #141821;background:repeating-linear-gradient(90deg,#c4392f 0 50px,#fff 50px 100px);z-index:3`));
+  tl.fromTo('#blk', { opacity: 0, y: -80 }, { opacity: 1, y: 0, duration: 0.6, ease: 'bounce.out', immediateRender: false }, S(5, 7) + 0.5);
+  OFF(['#cAd', '#blk'], S(5, 8) - 0.1, 0.3);
+  FADEIN('#cSt', S(5, 8) + 0.1, 0.4); ON('#sdm', S(5, 8) + 0.1, 0.3);
+  tl.to('#qb3', { x: 150, y: 70, duration: 1.0, ease: 'power2.inOut' }, W(5, 8, 'never', 0));
+  OFF(['#cSt', '#sdm'], E(5, 8) - 0.1, 0.3);
+
+  /* ═════════ 6 · Who is at the door ═════════ */
+  tl.set('#qb3', { x: 0, y: 0 }, S(6, 0) - 0.7);
+  CAM(5640, 940, 1, S(6, 0) - 0.8, 1.4, 'power2.inOut'); ON('#annex', S(6, 0) + 0.15, 0.4);
+  ADD(CHC('cAu', 5600, 520, 'authentication', NAVY, 46, null, '#fff') + CHC('cDf', 5600, 520, 'default', BLUE, 46, null, BLUEs) + CHC('cNx', 5600, 520, 'no extra setup', BLUE, 46, null, BLUEs) + CHC('cOt', 5600, 520, 'other channels', AMB, 46, null, AMBs) + CHC('cNc', 5600, 520, 'no user credentials', RED, 46, null, REDs) + CHC('cFt', 5700, 520, 'Nexo: the default fits', GRN, 46, null, GRNs));
+  FADEIN('#cAu', S(6, 0) + 0.3, 0.4); OFF('#cAu', S(6, 1) - 0.1, 0.3);
+  const WL = (id, col, bg, t) => { tl.to('#' + id, { borderColor: col, backgroundColor: bg, duration: 0.4 }, t); tl.to('#' + id + 'i', { color: col, duration: 0.4 }, t); tl.to('#' + id + 't', { color: col, duration: 0.4 }, t); };
+  WL('w1', BLUE, BLUEs, W(6, 1, 'authenticate', 0)); FADEIN('#cDf', W(6, 1, 'default', -0.1), 0.4); OFF('#cDf', S(6, 2) - 0.1, 0.3);
+  [0, 1, 2, 3].forEach((i) => tl.fromTo('#tl' + i, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, immediateRender: false }, [W(6, 2, 'teams', 0), W(6, 2, 'sharepoint', 0), W(6, 2, 'power apps', 0), W(6, 2, 'microsoft copilot', 0)][i]));
+  FADEIN('#cNx', W(6, 2, 'no extra', -0.1), 0.4); OFF(['#cNx', '#tl0', '#tl1', '#tl2', '#tl3'], S(6, 3) - 0.1, 0.3);
+  WL('w2', AMB, AMBs, W(6, 3, 'authenticate manually', 0)); FADEIN('#cOt', W(6, 3, 'other channels', -0.2), 0.4); OFF('#cOt', S(6, 4) - 0.1, 0.3);
+  WL('w3', RED, REDs, W(6, 4, 'no authentication', 0)); ON('#gt3', W(6, 4, 'anyone', -0.3), 0.4); tl.to('#gtb', { rotation: -34, duration: 0.5 }, W(6, 4, 'anyone', 0));
+  ['aw0', 'aw1', 'aw2'].forEach((id, i) => { const t = W(6, 4, 'link', -0.3) + i * 0.5; tl.to('#' + id, { y: -126, duration: 1.6, ease: 'none' }, t); OFF('#' + id, t + 1.3, 0.3); });
+  ON('#wrn', S(6, 5) + 0.6, 0.4); ON('#wky', S(6, 5) + 1.1, 0.4); FADEIN('#cNc', W(6, 5, 'credentials', -0.8), 0.4); OFF(['#cNc', '#wrn', '#wky', '#gt3'], S(6, 6) - 0.7, 0.35); tl.to('#w3', { borderColor: '#c9ced8', backgroundColor: '#f3f5f9', duration: 0.4 }, S(6, 6) - 0.7); tl.to('#w3i', { color: '#aab3c8', duration: 0.4 }, S(6, 6) - 0.7); tl.to('#w3t', { color: '#5b6578', duration: 0.4 }, S(6, 6) - 0.7);
+  CAM(5375, 940, 0.88, S(6, 6) - 0.5, 1.0, 'power2.inOut');
+  tl.fromTo('#n6', { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.5, ease: 'back.out(1.8)', immediateRender: false }, S(6, 6) + 0.2);
+  tl.to('#w1', { boxShadow: '0 0 0 14px rgba(47,91,211,.35)', duration: 0.4, yoyo: true, repeat: 1 }, S(6, 6) + 0.8); FADEIN('#cFt', W(6, 6, 'the default', -0.2), 0.4);
+
+  /* ═════════ 7 · EXAM: who signs in ═════════ */
+  toExam(7); [0, 1, 2, 3, 4, 5, 6].forEach((k) => doorDim(k, S(7, 0) - 0.7));
+  EXAMX('exB', 7, { pause: 7, reveal: 8, trap: 0, right: 2, opt: [S(7, 4), S(7, 5), S(7, 6)], end: S(8, 0) - 0.85 });
+  { const R = S(7, 8);
+    tl.fromTo('#exB_w1', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(7, 9) + 0.1);
+    tl.fromTo('#exB_w2', { opacity: 0 }, { opacity: 1, duration: 0.4 }, S(7, 10) + 0.1);
+    ON('#exB_p', R + 1.55, 0.4);
+    ON('#pB_ar1', S(7, 9) + 0.1, 0.3); ON('#pB_dr', W(7, 9, 'teams', 0), 0.3); ON('#pB_ar2', W(7, 9, 'no extra', -0.2), 0.3); ON('#pB_tl', W(7, 9, 'no extra', 0.3), 0.3);
+    ON('#pB_xs', W(7, 10, 'other channels', 0), 0.3); }
+
+  /* ═════════ 8 · Test, publish, share (UI) ═════════ */
+  camAt(570, 1050, 1.6, S(8, 0) - 0.62); fromExam(8);
+  UIIN2('#uiS', S(8, 0) - 0.45);
+  ON('#cur', S(8, 1) - 0.2, 0.3); CUR(PS.test[0], PS.test[1], S(8, 1) - 0.2, 0.7); CLICK(PS.test[0], PS.test[1], W(8, 1, 'test pane', 0.1)); pulse('#bTest', W(8, 1, 'test pane', 0.1), 'rgba(255,255,255,.7)');
+  tl.fromTo('#sb0', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(8, 1, 'ask', 0)); tl.fromTo('#sb1', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, W(8, 1, 'question', 0.5));
+  CUR(PS.sb1[0], PS.sb1[1], S(8, 2) + 0.1, 0.6); CLICK(PS.sb1[0], PS.sb1[1], W(8, 2, 'reply', 0)); tl.to('#sb1', { backgroundColor: BLUEs, borderColor: BLUE, duration: 0.2 }, W(8, 2, 'reply', 0));
+  tl.to('#sn2', { backgroundColor: BLUEs, borderColor: BLUE, duration: 0.3 }, W(8, 2, 'node', 0)); tl.fromTo('#sk2', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'back.out(2)', immediateRender: false }, W(8, 2, 'node', 0.3));
+  CUR(PS.sb1[0] + 230, PS.sb1[1] + 10, S(8, 3) + 0.1, 0.5); ON('#amp', W(8, 3, 'activity map', 0), 0.4); ON('#vtp', W(8, 3, 'variables', 0), 0.4);
+  CUR(PS.pub[0], PS.pub[1], S(8, 4) - 0.35, 0.8); CLICK(PS.pub[0], PS.pub[1], W(8, 4, 'publish', 0.1)); pulse('#bPub', W(8, 4, 'publish', 0.1), 'rgba(255,255,255,.7)');
+  ON('#dlg', W(8, 4, 'publish', 0.25), 0.3); CUR(PS.dlP[0], PS.dlP[1], W(8, 4, 'confirm', -0.35), 0.5); CLICK(PS.dlP[0], PS.dlP[1], W(8, 4, 'confirm', 0.3)); pulse('#dlP', W(8, 4, 'confirm', 0.3));
+  OFF('#dlg', W(8, 4, 'confirm', 0.55), 0.25); ON('#pubSt', W(8, 4, 'wait', 0), 0.25); ON('#pSa', W(8, 4, 'wait', 0), 0.25);
+  tl.to('#pSa', { opacity: 0, duration: 0.2 }, W(8, 4, 'finishes', 0)); ON('#pSb', W(8, 4, 'finishes', 0.2), 0.3);
+  OFF('#cur', E(8, 4) - 0.1, 0.2);
+  tl.to('#vE', { opacity: 0, duration: 0.3 }, S(8, 5) + 0.05); tl.to('#uiS_nv1', { backgroundColor: '#f3f5f9', color: '#5d6472', fontWeight: 400, borderLeftColor: 'rgba(47,91,211,0)', duration: 0.2 }, W(8, 5, 'channels', 0)); tl.to('#uiS_nv2', { backgroundColor: '#fff', color: BLUE, fontWeight: 700, borderLeftColor: BLUE, duration: 0.2 }, W(8, 5, 'channels', 0)); tl.fromTo('#vC', { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, W(8, 5, 'channels', 0.1));
+  ON('#cur', W(8, 5, 'choose', -0.3), 0.2); CUR(PS.tm[0], PS.tm[1], W(8, 5, 'choose', -0.3), 0.6); CLICK(PS.tm[0], PS.tm[1], W(8, 5, 'teams and microsoft copilot', 0.2)); tl.to('#ch0', { backgroundColor: BLUEs, borderColor: BLUE, duration: 0.2 }, W(8, 5, 'teams and microsoft copilot', 0.2)); ON('#chp', W(8, 5, 'teams and microsoft copilot', 0.4), 0.3);
+  CUR(PS.b1[0], PS.b1[1], S(8, 6) + 0.05, 0.6); CLICK(PS.b1[0], PS.b1[1], W(8, 6, 'open the agent in teams', 0.4)); pulse('#chB1', W(8, 6, 'open the agent in teams', 0.4));
+  OFF(['#ch0', '#ch1', '#ch2', '#ch3', '#ch4', '#ch5', '#ch6'], W(8, 6, 'try it', -0.7), 0.25); ON('#tmw', W(8, 6, 'try it', -0.4), 0.3); ON('#jyu', W(8, 6, 'yourself', 0), 0.3); OFF('#tmw', E(8, 6) + 0.05, 0.25); ON(['#ch0', '#ch1', '#ch2', '#ch3', '#ch4', '#ch5', '#ch6'], E(8, 6) + 0.35, 0.3);
+  tl.to('#chB2', { opacity: 1, duration: 0.3 }, S(8, 7) + 0.1); CUR(PS.b2[0], PS.b2[1], S(8, 7) + 0.1, 0.6); CLICK(PS.b2[0], PS.b2[1], W(8, 7, 'make the agent', 0.4)); pulse('#chB2', W(8, 7, 'make the agent', 0.4));
+  OFF('#cur', E(8, 7) - 0.25, 0.2);
+  UIOUT2('#uiS', E(8, 7) - 0.1);
+
+  /* ═════════ 9 · Opening night ═════════ */
+  camAt(WC[0], WC[1], WC[2], E(8, 7) + 0.3);
+  tl.set(['#cvL', '#cvR'], { scaleX: 0 }, E(8, 7) + 0.3);
+  tl.set('#lmp', { backgroundColor: AMBs, color: AMB, borderColor: AMB, opacity: 1 }, E(8, 7) + 0.3); tl.set('#cone', { opacity: 1 }, E(8, 7) + 0.3);
+  tl.set('#lvH', { rotation: -34 }, E(8, 7) + 0.3); tl.set('#bxo', { opacity: 1 }, E(8, 7) + 0.3);
+  ON('#ovT9', S(9, 0) + 0.1, 0.4); OFF('#ovT9', E(9, 0) + 0.5, 0.3);
+  ADD(H('rcw', `left:2270px;top:478px;width:830px;height:262px;box-sizing:border-box;border:8px solid ${NAVY};border-radius:26px;background:#fff;box-shadow:0 20px 60px rgba(16,24,40,.22);z-index:3`, RECAP.map((r, k) => `<div id="rb${k}" style="position:absolute;left:28px;top:${16 + k * 74}px;height:64px;opacity:.6;font-size:46px;font-weight:800;color:#141821;white-space:nowrap;line-height:64px"><i style="display:inline-block;width:24px;height:24px;border-radius:50%;background:${[BLUE, AMB, GRN][k]};margin-right:16px"></i>${r}</div>`).join('')));
+  ADD(CHC('cJu', 1500, 1075, 'Open in Teams: just you', NAVY, 64, null, '#fff') + CHC('cGl', 1500, 1075, 'green light', GRN, 64, null, GRNs) + CHC('cIT', 1500, 1075, 'IT department', '#0e8f8f', 64, null, '#dff1f3') + CHC('cEv', 1500, 1075, 'everyone', GRN, 64, null, GRNs));
+  ADD(H('tb9', `left:1100px;top:1075px;width:640px;height:176px;box-sizing:border-box;border:8px solid ${AMB};border-radius:24px;background:#fff;color:${AMB};font-size:64px;font-weight:800;line-height:1.1;text-align:center;padding-top:14px;box-shadow:0 14px 40px rgba(16,24,40,.22)`, 'Locked account:<br>new steps'));
+  /* s0 */
+  tl.to('#cone', { opacity: 0.55, duration: 0.5, yoyo: true, repeat: 3 }, S(9, 0) + 0.2);
+  [0, 2, 4, 6].forEach((k, i) => HOP(k, S(9, 0) + 0.3 + i * 0.25));
+  /* s1: the test pane shows the fix */
+  POPX('#tb9', S(9, 1) + 0.15); PULSEX('#tb9', W(9, 1, 'looks right', -0.2), 1.06);
+  OFF('#tb9', S(9, 2) - 0.1, 0.3);
+  /* s2: publish, then the maker alone tries the Teams door */
+  tl.to('#lvH', { rotation: 34, duration: 0.35, ease: 'power2.in' }, S(9, 2) + 0.3); tl.to('#lvB', { backgroundColor: GRN, duration: 0.3 }, S(9, 2) + 0.6);
+  doorLit(0, S(9, 2) + 1.0); tl.fromTo('#bNew9', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.6)', immediateRender: false }, S(9, 2) + 1.3);
+  FADEIN('#cJu', W(9, 2, 'open nexo', 0), 0.4);
+  tl.set('#mkT', { x: 0, y: 0 }, 0); ON('#mkT', W(9, 2, 'open nexo', 0.1), 0.3); tl.to('#mkT', { x: 110, duration: 1.2, ease: 'none' }, W(9, 2, 'open nexo', 0.2)); tl.to('#mkT', { y: -130, duration: 0.5, ease: 'none' }, W(9, 2, 'open nexo', 1.5)); OFF('#mkT', W(9, 2, 'open nexo', 1.8), 0.3);
+  OFF('#cJu', E(9, 2) - 0.05, 0.3);
+  /* s3: green light */
+  tl.to('#lmp', { opacity: 0, duration: 0.3 }, S(9, 3) - 0.05); tl.to('#cone', { opacity: 0, duration: 0.3 }, S(9, 3) - 0.05); tl.to('#lmpG', { opacity: 1, duration: 0.4 }, S(9, 3) + 0.05); ON('#coneG', S(9, 3) + 0.05, 0.4);
+  FADEIN('#cGl', S(9, 3) + 0.1, 0.4); OFF('#cGl', E(9, 3) + 0.3, 0.3);
+  /* s4: IT department, then the whole company */
+  OFF('#bNew9', S(9, 4) - 0.2, 0.3);
+  FADEIN('#cIT', W(9, 4, 'department', -0.5), 0.4);
+  [0, 1, 2, 3].forEach((i) => { const t = W(9, 4, 'department', -0.4) + i * 0.3; tl.set('#it' + i, { x: 0, y: 0 }, 0); ON('#it' + i, t, 0.3); tl.to('#it' + i, { x: -440, duration: 1.2, ease: 'none' }, t); tl.to('#it' + i, { y: -140, duration: 0.5, ease: 'none' }, t + 1.2); OFF('#it' + i, t + 1.5, 0.3); });
+  OFF('#cIT', W(9, 4, 'whole company', -0.45), 0.3); FADEIN('#cEv', W(9, 4, 'whole company', -0.1), 0.4);
+  DX.forEach((x, k) => POP('#qd' + k, W(9, 4, 'whole company', 0.1) + k * 0.15));
+  OFF('#cEv', S(9, 5) - 0.1, 0.3);
+  /* s5-s7: recap board replaces the sign */
+  tl.to(['#lmpG', '#coneG'], { opacity: 0, duration: 0.3 }, S(9, 5) - 0.1);
+  CAM(2500, 720, 0.8, S(9, 5) - 0.2, 1.6, 'power2.inOut'); CAM(2500, 690, 0.8, S(9, 5) + 1.8, S(9, 7) - 0.4 - S(9, 5) - 1.8, 'none'); OFF('#wcl', S(9, 5) - 0.2, 0.4); ON('#wcl', S(9, 7) - 0.4, 0.4); OFF('#rcw', S(9, 7) - 0.5, 0.3); ON('#rcw', S(9, 5) + 0.4, 0.4);
+  [W(9, 5, 'test pane', 0), W(9, 5, 'never replaces', 0), S(9, 6) + 0.1].forEach((t, k) => { tl.to('#rb' + k, { opacity: 1, duration: 0.4 }, t); tl.to('#nx', { y: -26, duration: 0.2, yoyo: true, repeat: 1, ease: 'power2.out' }, t); });
+  CAM(1895, 1285, 0.5, S(9, 7) - 0.4, 1.4, 'power2.inOut'); CAM(1895, 1275, 0.51, S(9, 7) + 1.1, 3.0, 'none'); TAG('#tNx', S(9, 7) + 0.1);
+  /* tail: employees keep walking into the Teams door and the doors keep hopping */
+  { const tEnd = B.duration + 2.5;
+    for (let i = 0; i < 18; i++) { const t = S(9, 7) - 0.2 + i * 0.5; if (t > tEnd - 1.9) break;
+      tl.set('#ws' + i, { x: 900, y: 0 }, 0); ON('#ws' + i, t, 0.01);
+      tl.to('#ws' + i, { x: 520 + (i % 3) * 20, duration: 1.1, ease: 'none' }, t); tl.to('#ws' + i, { y: -150, duration: 0.5, ease: 'none' }, t + 1.1); OFF('#ws' + i, t + 1.4, 0.3); }
+    [0, 1, 2, 3, 4, 5, 6].forEach((k, i) => { HOP(k, S(9, 7) + 0.4 + i * 0.35); HOP(k, S(9, 7) + 2.9 + i * 0.3); }); }
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines['main'] = tl;
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{"brand": "AB-620 · Module 1 · Lesson 2", "scenes": [
+ {"type": "flow", "header": {"kicker": "Identity strategy", "title": "Who is talking to your agent?"},
+  "nodes": [
+   {"icon": "globe", "title": "Open door", "sub": "Anyone comes in", "at": "can be open"},
+   {"icon": "shield_checkmark", "title": "Company access", "sub": "Access control", "at": "access control"},
+   {"icon": "key", "title": "Your own lock", "sub": "Your own provider", "at": "own lock"}],
+  "below": [{"icon": "arrow_routing", "text": "Three paths in Copilot Studio", "at": "three paths", "solid": true}]},
+ {"type": "split", "left": {"kicker": "Path 1", "title": "No authentication", "sub": "Convenient, but risky."},
+  "rows": [
+   {"icon": "globe", "title": "Anyone with the link can chat", "at": "Anyone who has", "hi": true},
+   {"icon": "shield_checkmark", "title": "Dangerous with internal data", "at": "dangerous", "hi": true},
+   {"icon": "flag", "title": "Usually the exam trap", "desc": "Chosen \"for simplicity\"", "at": "trap", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Path 2", "title": "Authenticate with Microsoft"},
+  "rows": [
+   {"icon": "shield_checkmark", "title": "Entra ID, set up automatically", "at": "Entra I D", "hi": true},
+   {"icon": "people_team", "title": "In Teams: no sign-in screen", "desc": "The user is already identified", "at": "already identified", "hi": true},
+   {"icon": "flag", "title": "Teams and Microsoft 365 channels", "desc": "Only support this option", "at": "only support", "hi": true}]},
+ {"type": "split", "left": {"kicker": "Path 3", "title": "Authenticate manually", "sub": "For users without a Microsoft account · generic OAuth 2."},
+  "window": {"title": "Topic · User variables", "heading": "Available after sign-in", "rail": ["apps", "bot", "branch_fork", "key", "settings"], "at": "O Auth two",
+   "cards": [
+    {"icon": "person", "title": "User.Id", "at": "User dot Id", "hi": true},
+    {"icon": "person", "title": "User.DisplayName", "at": "DisplayName", "hi": true},
+    {"icon": "key", "title": "User.AccessToken", "at": "AccessToken", "hi": true},
+    {"icon": "checkmark_circle", "title": "User.IsLoggedIn", "at": "IsLoggedIn", "hi": true}]}},
+ {"type": "compare", "header": {"kicker": "Contoso", "title": "Each audience, its own option"},
+  "cols": [
+   {"icon": "people_team", "title": "Internal support", "sub": "Lives in Teams", "at": "internal support",
+    "items": [{"text": "Authenticate with Microsoft", "at": "Authenticate with Microsoft"}, {"text": "Never asks for a sign-in", "at": "never asks"}]},
+   {"icon": "globe", "title": "Customer portal", "sub": "Its own accounts", "accent": true, "at": "customer portal",
+    "items": [{"text": "Authenticate manually", "at": "manual authentication"}, {"text": "OAuth 2 provider", "at": "O Auth two"}]}]},
+ {"type": "path", "header": {"kicker": "Where you set it up", "title": "Settings › Security › Authentication"},
+  "crumbs": [
+   {"icon": "settings", "text": "Settings", "at": "open Settings"},
+   {"icon": "shield_checkmark", "text": "Security", "at": "Security"},
+   {"icon": "key", "text": "Authentication", "accent": true, "at": "choose Authentication"}],
+  "cards": [
+   {"icon": "send", "title": "Save and publish", "desc": "So the channels receive the change", "at": "publish so", "hi": true},
+   {"icon": "document_text", "title": "Check the User variables", "desc": "In a topic", "at": "User variables", "hi": true},
+   {"icon": "window_dev_tools", "title": "Test the sign-in", "desc": "In a test conversation", "at": "test conversation", "hi": true}]},
+ {"type": "compare", "header": {"kicker": "What the exam asks", "title": "Two rules to memorize"},
+  "cols": [
+   {"icon": "people_team", "title": "Teams channel", "tone": "good", "at": "Teams channel", "items": [{"text": "Only Authenticate with Microsoft", "at": "only Authenticate"}]},
+   {"icon": "person", "title": "Non-Microsoft accounts", "tone": "good", "at": "non-Microsoft", "items": [{"text": "Authenticate manually · OAuth 2", "at": "Authenticate manually"}]}],
+  "verdict": {"icon": "flag", "text": "Trap: no authentication \"for simplicity\"", "at": "usual trap"}}
+]}

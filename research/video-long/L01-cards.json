@@ -1,0 +1,10 @@
+{
+  "1": ["The bridges", [["Connectors", "Prebuilt, for well-known services"], ["Custom connectors", "You build them"], ["REST API tool", "From an OpenAPI file"], ["MCP servers", "Open protocol tool servers"], ["Agent flows", "Built inside Copilot Studio"], ["Computer use", "Operates the screen"], ["Where", "All appear under Tools"]]],
+  "2": ["Does it have an API?", [["Connector exists", "Use it"], ["OpenAPI file", "REST API tool or custom connector"], ["Speaks MCP", "MCP server"], ["Screen only", "Computer use"]]],
+  "3": ["Order of choice", [["1", "Prebuilt connector (large results are slow)"], ["2", "Custom connector if several agents share the API"], ["3", "REST API tool: one-off test, preview, Copilot Studio only"], ["4", "Agent flow: ordered steps, human approval"], ["5", "MCP: shared tool server"]]],
+  "5": ["Costs", [["Agent flows", "Rate limits, error paths, response size, credits"], ["MCP", "Generative only, not from topics, descriptions on server"], ["Send HTTP request", "Quick, not shareable"], ["Bot Framework skills", "C#, Azure costs, outside Power Platform ALM"]]],
+  "6": ["MCP and computer use", [["MCP", "Open protocol, many AI clients"], ["Transport", "Streamable HTTP; SSE not supported"], ["Computer use", "Vision and reasoning on sites and apps"], ["Both", "Need generative orchestration"], ["Cost", "Computer use: 5 credits per step (standard)"]]],
+  "8": ["Doing vs answering", [["Tools", "Do things"], ["Knowledge", "Answer questions"], ["Unstructured data", "OneDrive/SharePoint files indexed in Dataverse; KB articles via connectors"], ["Descriptions", "The orchestrator picks by name and description"]]],
+  "10": ["In the studio", [["1", "Tools › Add a tool"], ["2", "Categories: connectors, MCP, REST API, flows, computer use"], ["3", "Pick the bridge, clear name and description"], ["4", "Connection › Add to agent › test"]]],
+  "11": ["Contoso's bridges", [["Invoices", "Computer use (no API)"], ["Inventory", "REST API tool (OpenAPI)"], ["Other AI clients", "Same tools as an MCP server"]]]
+}

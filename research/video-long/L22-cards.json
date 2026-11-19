@@ -1,0 +1,10 @@
+{
+"1": ["Two families", [["Copilot connectors", "The library: a catalog searched fast"], ["Power Platform connectors", "The phone call: ask the owner right then"]]],
+"2": ["Copilot connectors", [["How", "Index content into Microsoft Graph"], ["Permissions", "Respects the source ACL"], ["Gives", "Semantic indexing and citations"], ["Set up by", "Tenant admin, reused in Copilot and Microsoft Search"]]],
+"3": ["Power Platform connectors", [["Real-time knowledge", "Preview"], ["Each question", "Live to the source, with the user's identity"], ["Data", "Not copied or moved"], ["Indexed", "Only metadata: table and column names"]]],
+"5": ["Which one", [["Stable: manuals, policies", "Copilot connectors"], ["By the minute, not replicated", "Power Platform connectors"], ["Both", "Mixed mode"]]],
+"6": ["Contoso", [["Manuals, HR policies", "Copilot connector, citations"], ["Warehouse inventory", "Power Platform, real-time"], ["Nexo", "Mixed mode"]]],
+"8": ["Publishing to channels", [["With Copilot connectors", "Scope ExternalItem.Read.All"], ["Where", "Authentication"], ["Exam trap", "Forgetting the scope"]]],
+"10": ["Steps", [["Knowledge tab", "Add knowledge"], ["Stable + citations", "Copilot connector (admin enables)"], ["By the minute", "Power Platform connector, real-time"], ["Publish to channels", "ExternalItem.Read.All"]]],
+"11": ["Remember", [["Stable + citations", "Copilot connectors"], ["By the minute, no copy", "Power Platform, real-time"], ["Publishing", "ExternalItem.Read.All"]]]
+}

@@ -1,0 +1,134 @@
+{
+ "id": "L38",
+ "title": "Solutions and agents",
+ "voice": "af_heart",
+ "speed": 1.0,
+ "duration": 93.059,
+ "scenes": [
+  {
+   "title": "Your agent's suitcase",
+   "start": 0.8,
+   "end": 16.869,
+   "sentences": [
+    {
+     "text": "A solution is like a suitcase where you pack your agent to take it to another environment.",
+     "start": 0.8,
+     "end": 5.728
+    },
+    {
+     "text": "Every agent is created inside one: the default solution, unless you set a preferred solution.",
+     "start": 6.008,
+     "end": 11.789
+    },
+    {
+     "text": "This way your components travel together and in order, from one environment to another.",
+     "start": 12.069,
+     "end": 16.869
+    }
+   ]
+  },
+  {
+   "title": "Publisher and types",
+   "start": 17.769,
+   "end": 40.841,
+   "sentences": [
+    {
+     "text": "To move agents, it is best to use a custom solution with your own publisher.",
+     "start": 17.769,
+     "end": 22.164
+    },
+    {
+     "text": "Keep just one.",
+     "start": 22.444,
+     "end": 23.489
+    },
+    {
+     "text": "Unmanaged solutions are for development, and managed solutions are for deployment.",
+     "start": 23.769,
+     "end": 28.569
+    },
+    {
+     "text": "Think of the publisher as the owner's label on the suitcase: there is only one, and it does not change inside a managed solution.",
+     "start": 28.849,
+     "end": 36.38
+    },
+    {
+     "text": "First you develop in unmanaged, then you export as managed to deploy.",
+     "start": 36.66,
+     "end": 40.841
+    }
+   ]
+  },
+  {
+   "title": "Add required objects",
+   "start": 41.741,
+   "end": 58.643,
+   "sentences": [
+    {
+     "text": "Components that you add later, such as new topics or flows, must be added before you export, with Advanced and Add required objects.",
+     "start": 41.741,
+     "end": 50.083
+    },
+    {
+     "text": "Removing an agent from the solution does not remove its components.",
+     "start": 50.363,
+     "end": 54.373
+    },
+    {
+     "text": "It is an easy step to forget, and that is why it shows up on the exam.",
+     "start": 54.653,
+     "end": 58.643
+    }
+   ]
+  },
+  {
+   "title": "After you import",
+   "start": 59.543,
+   "end": 76.529,
+   "sentences": [
+    {
+     "text": "After you import, you have to set up authentication again and publish.",
+     "start": 59.543,
+     "end": 63.489
+    },
+    {
+     "text": "And if you need to remove local changes from a managed agent, use Solution Layers and Remove unmanaged layer.",
+     "start": 63.769,
+     "end": 70.596
+    },
+    {
+     "text": "These are the two steps that finish the solution's trip between environments and clean up anything local.",
+     "start": 70.876,
+     "end": 76.529
+    }
+   ]
+  },
+  {
+   "title": "For the exam",
+   "start": 77.429,
+   "end": 91.859,
+   "sentences": [
+    {
+     "text": "Here are two exam clues.",
+     "start": 77.429,
+     "end": 78.88
+    },
+    {
+     "text": "If it will not export, look for a topic with dots in its name.",
+     "start": 79.16,
+     "end": 82.531
+    },
+    {
+     "text": "And you cannot change the publisher of a component in a managed solution.",
+     "start": 82.811,
+     "end": 86.928
+    },
+    {
+     "text": "These are small details, but they appear a lot in the questions on this topic.",
+     "start": 87.208,
+     "end": 91.859
+    }
+   ]
+  }
+ ]
+}

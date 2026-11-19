@@ -1,0 +1,1957 @@
+{
+ "id": "L20",
+ "sha256": "69455292384c822ca16824036c9d26a70d84731932b6e78804d844ca00a7bd89",
+ "generated": "2026-11-11T09:59:40.677Z",
+ "cues": [
+  {
+   "label": "new laptop",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.94,
+   "wordT": 2.72,
+   "appears": 0.89,
+   "delta": -1.83,
+   "status": "ok"
+  },
+  {
+   "label": "laptop",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.94,
+   "wordT": 3.1,
+   "appears": 0,
+   "delta": -3.1,
+   "status": "ok"
+  },
+  {
+   "label": "agent flow",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 6.94,
+   "wordT": 6.18,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "someone must say yes",
+   "scene": 1,
+   "sentStart": 7.22,
+   "sentEnd": 10.29,
+   "wordT": 7.53,
+   "appears": 7.78,
+   "delta": 0.25,
+   "status": "ok"
+  },
+  {
+   "label": "human in the loop",
+   "scene": 1,
+   "sentStart": 10.58,
+   "sentEnd": 13.22,
+   "wordT": 12.04,
+   "appears": 0,
+   "delta": -12.04,
+   "status": "ok"
+  },
+  {
+   "label": "a boss who signs",
+   "scene": 1,
+   "sentStart": 13.5,
+   "sentEnd": 19.52,
+   "wordT": 16.98,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 1,
+   "sentStart": 19.8,
+   "sentEnd": 23.06,
+   "wordT": 21.55,
+   "appears": 21.6,
+   "delta": 0.05,
+   "status": "ok"
+  },
+  {
+   "label": "piece of data",
+   "scene": 1,
+   "sentStart": 19.8,
+   "sentEnd": 23.06,
+   "wordT": 22.31,
+   "appears": 22.37,
+   "delta": 0.06,
+   "status": "ok"
+  },
+  {
+   "label": "waits for the answer",
+   "scene": 1,
+   "sentStart": 23.34,
+   "sentEnd": 25.69,
+   "wordT": 23.86,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 2,
+   "sentStart": 26.59,
+   "sentEnd": 32.2,
+   "wordT": 27.39,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a multistage approval",
+   "scene": 2,
+   "sentStart": 26.59,
+   "sentEnd": 32.2,
+   "wordT": 30.19,
+   "appears": 26.94,
+   "delta": -3.25,
+   "status": "ok"
+  },
+  {
+   "label": "multistage approval",
+   "scene": 2,
+   "sentStart": 26.59,
+   "sentEnd": 32.2,
+   "wordT": 31,
+   "appears": 29.98,
+   "delta": -1.02,
+   "status": "ok"
+  },
+  {
+   "label": "action",
+   "scene": 2,
+   "sentStart": 26.59,
+   "sentEnd": 32.2,
+   "wordT": 31.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "human review",
+   "scene": 2,
+   "sentStart": 32.48,
+   "sentEnd": 35.89,
+   "wordT": 33.62,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "manual",
+   "scene": 2,
+   "sentStart": 36.17,
+   "sentEnd": 41.03,
+   "wordT": 36.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "conditions",
+   "scene": 2,
+   "sentStart": 36.17,
+   "sentEnd": 41.03,
+   "wordT": 39.41,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "only in agent flows",
+   "scene": 2,
+   "sentStart": 41.32,
+   "sentEnd": 44.62,
+   "wordT": 42.73,
+   "appears": 41.67,
+   "delta": -1.06,
+   "status": "ok"
+  },
+  {
+   "label": "approvals app",
+   "scene": 2,
+   "sentStart": 44.9,
+   "sentEnd": 50.53,
+   "wordT": 46.31,
+   "appears": 46.36,
+   "delta": 0.05,
+   "status": "ok"
+  },
+  {
+   "label": "teams",
+   "scene": 2,
+   "sentStart": 44.9,
+   "sentEnd": 50.53,
+   "wordT": 47.37,
+   "appears": 47.48,
+   "delta": 0.11,
+   "status": "ok"
+  },
+  {
+   "label": "outlook",
+   "scene": 2,
+   "sentStart": 44.9,
+   "sentEnd": 50.53,
+   "wordT": 48.07,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "power automate portal",
+   "scene": 2,
+   "sentStart": 44.9,
+   "sentEnd": 50.53,
+   "wordT": 49.48,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "manual stage",
+   "scene": 3,
+   "sentStart": 51.44,
+   "sentEnd": 54.42,
+   "wordT": 51.73,
+   "appears": 51.07,
+   "delta": -0.66,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 3,
+   "sentStart": 51.44,
+   "sentEnd": 54.42,
+   "wordT": 51.73,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a person decides",
+   "scene": 3,
+   "sentStart": 51.44,
+   "sentEnd": 54.42,
+   "wordT": 53.52,
+   "appears": 51.99,
+   "delta": -1.54,
+   "status": "ok"
+  },
+  {
+   "label": "approval type",
+   "scene": 3,
+   "sentStart": 54.7,
+   "sentEnd": 56.56,
+   "wordT": 55.81,
+   "appears": 54.66,
+   "delta": -1.15,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 3,
+   "sentStart": 54.7,
+   "sentEnd": 56.56,
+   "wordT": 55.81,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "first to respond",
+   "scene": 3,
+   "sentStart": 56.84,
+   "sentEnd": 60.19,
+   "wordT": 56.84,
+   "appears": 51.07,
+   "delta": -5.76,
+   "status": "ok"
+  },
+  {
+   "label": "ends with the first response",
+   "scene": 3,
+   "sentStart": 56.84,
+   "sentEnd": 60.19,
+   "wordT": 57.95,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "everyone must approve",
+   "scene": 3,
+   "sentStart": 60.47,
+   "sentEnd": 63.73,
+   "wordT": 60.47,
+   "appears": 51.07,
+   "delta": -9.39,
+   "status": "ok"
+  },
+  {
+   "label": "approve",
+   "scene": 3,
+   "sentStart": 60.47,
+   "sentEnd": 63.73,
+   "wordT": 61.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 3,
+   "sentStart": 64.01,
+   "sentEnd": 68.15,
+   "wordT": 65.19,
+   "appears": 51.07,
+   "delta": -14.12,
+   "status": "ok"
+  },
+  {
+   "label": "assigned to",
+   "scene": 3,
+   "sentStart": 64.01,
+   "sentEnd": 68.15,
+   "wordT": 66.67,
+   "appears": 51.07,
+   "delta": -15.6,
+   "status": "ok"
+  },
+  {
+   "label": "details",
+   "scene": 3,
+   "sentStart": 64.01,
+   "sentEnd": 68.15,
+   "wordT": 67.85,
+   "appears": 51.07,
+   "delta": -16.78,
+   "status": "ok"
+  },
+  {
+   "label": "the same approver to several manual stages",
+   "scene": 3,
+   "sentStart": 68.43,
+   "sentEnd": 73.31,
+   "wordT": 70.68,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "same approver",
+   "scene": 3,
+   "sentStart": 68.43,
+   "sentEnd": 73.31,
+   "wordT": 71.06,
+   "appears": 70.99,
+   "delta": -0.07,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 3,
+   "sentStart": 68.43,
+   "sentEnd": 73.31,
+   "wordT": 72.56,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a model decides",
+   "scene": 4,
+   "sentStart": 74.22,
+   "sentEnd": 76.84,
+   "wordT": 76.12,
+   "appears": 74.77,
+   "delta": -1.35,
+   "status": "ok"
+  },
+  {
+   "label": "model",
+   "scene": 4,
+   "sentStart": 74.22,
+   "sentEnd": 76.84,
+   "wordT": 76.36,
+   "appears": 84.15,
+   "delta": 7.79,
+   "status": "otro momento"
+  },
+  {
+   "label": "instructions",
+   "scene": 4,
+   "sentStart": 77.12,
+   "sentEnd": 83.11,
+   "wordT": 78.32,
+   "appears": 78.33,
+   "delta": 0.01,
+   "status": "ok"
+  },
+  {
+   "label": "documents",
+   "scene": 4,
+   "sentStart": 77.12,
+   "sentEnd": 83.11,
+   "wordT": 81.11,
+   "appears": 80.78,
+   "delta": -0.33,
+   "status": "ok"
+  },
+  {
+   "label": "images",
+   "scene": 4,
+   "sentStart": 77.12,
+   "sentEnd": 83.11,
+   "wordT": 81.51,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "knowledge",
+   "scene": 4,
+   "sentStart": 77.12,
+   "sentEnd": 83.11,
+   "wordT": 82.71,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "model",
+   "scene": 4,
+   "sentStart": 83.39,
+   "sentEnd": 85.57,
+   "wordT": 84.33,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "approve",
+   "scene": 4,
+   "sentStart": 85.85,
+   "sentEnd": 89.65,
+   "wordT": 86.99,
+   "appears": 73.85,
+   "delta": -13.13,
+   "status": "ok"
+  },
+  {
+   "label": "reject",
+   "scene": 4,
+   "sentStart": 85.85,
+   "sentEnd": 89.65,
+   "wordT": 87.75,
+   "appears": 73.85,
+   "delta": -13.89,
+   "status": "ok"
+  },
+  {
+   "label": "rationale",
+   "scene": 4,
+   "sentStart": 85.85,
+   "sentEnd": 89.65,
+   "wordT": 89.27,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "laptop",
+   "scene": 5,
+   "sentStart": 96.36,
+   "sentEnd": 100.11,
+   "wordT": 97.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approval",
+   "scene": 5,
+   "sentStart": 96.36,
+   "sentEnd": 100.11,
+   "wordT": 98.02,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "two manual stages",
+   "scene": 5,
+   "sentStart": 96.36,
+   "sentEnd": 100.11,
+   "wordT": 98.86,
+   "appears": 96.84,
+   "delta": -2.01,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 5,
+   "sentStart": 96.36,
+   "sentEnd": 100.11,
+   "wordT": 99.27,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "service manager",
+   "scene": 5,
+   "sentStart": 100.39,
+   "sentEnd": 106.25,
+   "wordT": 100.71,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "assign the manager to both stages",
+   "scene": 5,
+   "sentStart": 107.86,
+   "sentEnd": 109.89,
+   "wordT": 107.86,
+   "appears": 107.88,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "use a second approver instead",
+   "scene": 5,
+   "sentStart": 110.17,
+   "sentEnd": 111.94,
+   "wordT": 110.17,
+   "appears": 110.19,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "second approver",
+   "scene": 5,
+   "sentStart": 110.17,
+   "sentEnd": 111.94,
+   "wordT": 110.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "turn both stages into conditions",
+   "scene": 5,
+   "sentStart": 112.22,
+   "sentEnd": 114.39,
+   "wordT": 112.58,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "conditions",
+   "scene": 5,
+   "sentStart": 112.22,
+   "sentEnd": 114.39,
+   "wordT": 114.03,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "use a second approver instead",
+   "scene": 5,
+   "sentStart": 119.99,
+   "sentEnd": 121.76,
+   "wordT": 119.99,
+   "appears": 110.19,
+   "delta": -9.8,
+   "status": "ok"
+  },
+  {
+   "label": "second approver",
+   "scene": 5,
+   "sentStart": 119.99,
+   "sentEnd": 121.76,
+   "wordT": 120.7,
+   "appears": 122.23,
+   "delta": 1.54,
+   "status": "otro momento"
+  },
+  {
+   "label": "the same approver to several manual stages",
+   "scene": 5,
+   "sentStart": 122.04,
+   "sentEnd": 127.8,
+   "wordT": 123.06,
+   "appears": 122.16,
+   "delta": -0.89,
+   "status": "ok"
+  },
+  {
+   "label": "same approver",
+   "scene": 5,
+   "sentStart": 122.04,
+   "sentEnd": 127.8,
+   "wordT": 123.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "manual",
+   "scene": 5,
+   "sentStart": 122.04,
+   "sentEnd": 127.8,
+   "wordT": 124.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "assigning the manager to both stages is the trap",
+   "scene": 5,
+   "sentStart": 128.08,
+   "sentEnd": 132.62,
+   "wordT": 128.08,
+   "appears": 128.2,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "assigning the manager to both stages is",
+   "scene": 5,
+   "sentStart": 128.08,
+   "sentEnd": 132.62,
+   "wordT": 128.08,
+   "appears": 128.2,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "the trap",
+   "scene": 5,
+   "sentStart": 128.08,
+   "sentEnd": 132.62,
+   "wordT": 130.35,
+   "appears": 128.2,
+   "delta": -2.15,
+   "status": "ok"
+  },
+  {
+   "label": "conditions",
+   "scene": 6,
+   "sentStart": 133.53,
+   "sentEnd": 136.43,
+   "wordT": 136.01,
+   "appears": 133.54,
+   "delta": -2.47,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 6,
+   "sentStart": 136.71,
+   "sentEnd": 141.85,
+   "wordT": 137.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "route",
+   "scene": 6,
+   "sentStart": 136.71,
+   "sentEnd": 141.85,
+   "wordT": 138.29,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "approve",
+   "scene": 6,
+   "sentStart": 136.71,
+   "sentEnd": 141.85,
+   "wordT": 138.68,
+   "appears": 73.85,
+   "delta": -64.83,
+   "status": "ok"
+  },
+  {
+   "label": "approve reject",
+   "scene": 6,
+   "sentStart": 136.71,
+   "sentEnd": 141.85,
+   "wordT": 138.68,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "reject",
+   "scene": 6,
+   "sentStart": 136.71,
+   "sentEnd": 141.85,
+   "wordT": 139.08,
+   "appears": 139.1,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "based on criteria",
+   "scene": 6,
+   "sentStart": 136.71,
+   "sentEnd": 141.85,
+   "wordT": 140.66,
+   "appears": 141.01,
+   "delta": 0.35,
+   "status": "ok"
+  },
+  {
+   "label": "without conditions",
+   "scene": 6,
+   "sentStart": 142.13,
+   "sentEnd": 144.28,
+   "wordT": 142.13,
+   "appears": 142.59,
+   "delta": 0.46,
+   "status": "ok"
+  },
+  {
+   "label": "conditions",
+   "scene": 6,
+   "sentStart": 142.13,
+   "sentEnd": 144.28,
+   "wordT": 142.49,
+   "appears": 144.43,
+   "delta": 1.94,
+   "status": "otro momento"
+  },
+  {
+   "label": "approved",
+   "scene": 6,
+   "sentStart": 144.56,
+   "sentEnd": 147.44,
+   "wordT": 145.61,
+   "appears": 144.73,
+   "delta": -0.88,
+   "status": "ok"
+  },
+  {
+   "label": "rejected",
+   "scene": 6,
+   "sentStart": 147.72,
+   "sentEnd": 149.94,
+   "wordT": 148.67,
+   "appears": 147.89,
+   "delta": -0.78,
+   "status": "ok"
+  },
+  {
+   "label": "the process ends",
+   "scene": 6,
+   "sentStart": 147.72,
+   "sentEnd": 149.94,
+   "wordT": 148.99,
+   "appears": 148.68,
+   "delta": -0.31,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 6,
+   "sentStart": 150.22,
+   "sentEnd": 154.4,
+   "wordT": 152.45,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "input",
+   "scene": 6,
+   "sentStart": 150.22,
+   "sentEnd": 154.4,
+   "wordT": 154.12,
+   "appears": 153.21,
+   "delta": -0.92,
+   "status": "ok"
+  },
+  {
+   "label": "only a piece of data",
+   "scene": 7,
+   "sentStart": 155.3,
+   "sentEnd": 159.4,
+   "wordT": 158.12,
+   "appears": 155.66,
+   "delta": -2.46,
+   "status": "ok"
+  },
+  {
+   "label": "piece of data",
+   "scene": 7,
+   "sentStart": 155.3,
+   "sentEnd": 159.4,
+   "wordT": 158.63,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "request for information",
+   "scene": 7,
+   "sentStart": 159.68,
+   "sentEnd": 162.56,
+   "wordT": 161.32,
+   "appears": 159.94,
+   "delta": -1.39,
+   "status": "ok"
+  },
+  {
+   "label": "outlook",
+   "scene": 7,
+   "sentStart": 162.84,
+   "sentEnd": 167.85,
+   "wordT": 166.28,
+   "appears": 163.33,
+   "delta": -2.96,
+   "status": "ok"
+  },
+  {
+   "label": "same tenant",
+   "scene": 7,
+   "sentStart": 162.84,
+   "sentEnd": 167.85,
+   "wordT": 167.22,
+   "appears": 166.95,
+   "delta": -0.27,
+   "status": "ok"
+  },
+  {
+   "label": "first response wins",
+   "scene": 7,
+   "sentStart": 168.13,
+   "sentEnd": 169.6,
+   "wordT": 168.5,
+   "appears": 168.52,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "input",
+   "scene": 7,
+   "sentStart": 169.88,
+   "sentEnd": 173.81,
+   "wordT": 169.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "email",
+   "scene": 7,
+   "sentStart": 169.88,
+   "sentEnd": 173.81,
+   "wordT": 172.38,
+   "appears": 164.41,
+   "delta": -7.97,
+   "status": "ok"
+  },
+  {
+   "label": "number",
+   "scene": 7,
+   "sentStart": 169.88,
+   "sentEnd": 173.81,
+   "wordT": 172.74,
+   "appears": 164.66,
+   "delta": -8.08,
+   "status": "ok"
+  },
+  {
+   "label": "dynamic content",
+   "scene": 7,
+   "sentStart": 174.09,
+   "sentEnd": 177.48,
+   "wordT": 175.63,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "laptop",
+   "scene": 8,
+   "sentStart": 179.54,
+   "sentEnd": 182.69,
+   "wordT": 179.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "cost center",
+   "scene": 8,
+   "sentStart": 179.54,
+   "sentEnd": 182.69,
+   "wordT": 181.9,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the flow cannot continue",
+   "scene": 8,
+   "sentStart": 182.97,
+   "sentEnd": 185.94,
+   "wordT": 182.97,
+   "appears": 183.17,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "a new manual approval stage",
+   "scene": 8,
+   "sentStart": 187.8,
+   "sentEnd": 189.55,
+   "wordT": 187.8,
+   "appears": 187.82,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 8,
+   "sentStart": 187.8,
+   "sentEnd": 189.55,
+   "wordT": 188.5,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approval",
+   "scene": 8,
+   "sentStart": 187.8,
+   "sentEnd": 189.55,
+   "wordT": 188.85,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a condition on the cost center",
+   "scene": 8,
+   "sentStart": 189.83,
+   "sentEnd": 191.45,
+   "wordT": 189.83,
+   "appears": 189.85,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 8,
+   "sentStart": 189.83,
+   "sentEnd": 191.45,
+   "wordT": 190.1,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "cost center",
+   "scene": 8,
+   "sentStart": 189.83,
+   "sentEnd": 191.45,
+   "wordT": 190.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a request for information",
+   "scene": 8,
+   "sentStart": 191.73,
+   "sentEnd": 193.44,
+   "wordT": 192.07,
+   "appears": 191.75,
+   "delta": -0.32,
+   "status": "ok"
+  },
+  {
+   "label": "request for information",
+   "scene": 8,
+   "sentStart": 191.73,
+   "sentEnd": 193.44,
+   "wordT": 192.41,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a request for information",
+   "scene": 8,
+   "sentStart": 199.03,
+   "sentEnd": 200.55,
+   "wordT": 199.03,
+   "appears": 191.75,
+   "delta": -7.28,
+   "status": "ok"
+  },
+  {
+   "label": "request for information",
+   "scene": 8,
+   "sentStart": 199.03,
+   "sentEnd": 200.55,
+   "wordT": 199.41,
+   "appears": 200.95,
+   "delta": 1.54,
+   "status": "otro momento"
+  },
+  {
+   "label": "outlook",
+   "scene": 8,
+   "sentStart": 200.83,
+   "sentEnd": 206.29,
+   "wordT": 203.9,
+   "appears": 201.02,
+   "delta": -2.88,
+   "status": "ok"
+  },
+  {
+   "label": "dynamic content",
+   "scene": 8,
+   "sentStart": 200.83,
+   "sentEnd": 206.29,
+   "wordT": 205.61,
+   "appears": 200.95,
+   "delta": -4.66,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 8,
+   "sentStart": 206.57,
+   "sentEnd": 212.69,
+   "wordT": 206.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approval",
+   "scene": 8,
+   "sentStart": 206.57,
+   "sentEnd": 212.69,
+   "wordT": 207.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the trap",
+   "scene": 8,
+   "sentStart": 206.57,
+   "sentEnd": 212.69,
+   "wordT": 208.37,
+   "appears": 206.69,
+   "delta": -1.68,
+   "status": "ok"
+  },
+  {
+   "label": "approve",
+   "scene": 8,
+   "sentStart": 206.57,
+   "sentEnd": 212.69,
+   "wordT": 210.17,
+   "appears": 215.5,
+   "delta": 5.33,
+   "status": "otro momento"
+  },
+  {
+   "label": "reject",
+   "scene": 8,
+   "sentStart": 206.57,
+   "sentEnd": 212.69,
+   "wordT": 210.89,
+   "appears": 215.5,
+   "delta": 4.61,
+   "status": "otro momento"
+  },
+  {
+   "label": "laptop",
+   "scene": 9,
+   "sentStart": 215.86,
+   "sentEnd": 221.51,
+   "wordT": 216.19,
+   "appears": 213.61,
+   "delta": -2.58,
+   "status": "ok"
+  },
+  {
+   "label": "budget",
+   "scene": 9,
+   "sentStart": 215.86,
+   "sentEnd": 221.51,
+   "wordT": 221.18,
+   "appears": 216.82,
+   "delta": -4.35,
+   "status": "ok"
+  },
+  {
+   "label": "approve",
+   "scene": 9,
+   "sentStart": 221.79,
+   "sentEnd": 224.63,
+   "wordT": 222.5,
+   "appears": 215.5,
+   "delta": -7,
+   "status": "ok"
+  },
+  {
+   "label": "reject",
+   "scene": 9,
+   "sentStart": 221.79,
+   "sentEnd": 224.63,
+   "wordT": 223.21,
+   "appears": 215.5,
+   "delta": -7.71,
+   "status": "ok"
+  },
+  {
+   "label": "rationale",
+   "scene": 9,
+   "sentStart": 221.79,
+   "sentEnd": 224.63,
+   "wordT": 224.27,
+   "appears": 216,
+   "delta": -8.27,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 9,
+   "sentStart": 224.91,
+   "sentEnd": 226.46,
+   "wordT": 225.69,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "threshold",
+   "scene": 9,
+   "sentStart": 226.74,
+   "sentEnd": 232.35,
+   "wordT": 227.8,
+   "appears": 227.45,
+   "delta": -0.34,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 9,
+   "sentStart": 226.74,
+   "sentEnd": 232.35,
+   "wordT": 229.9,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "management",
+   "scene": 9,
+   "sentStart": 226.74,
+   "sentEnd": 232.35,
+   "wordT": 230.25,
+   "appears": 229.64,
+   "delta": -0.61,
+   "status": "ok"
+  },
+  {
+   "label": "first to respond",
+   "scene": 9,
+   "sentStart": 226.74,
+   "sentEnd": 232.35,
+   "wordT": 231.3,
+   "appears": 226.38,
+   "delta": -4.92,
+   "status": "ok"
+  },
+  {
+   "label": "ends approved",
+   "scene": 9,
+   "sentStart": 232.63,
+   "sentEnd": 234.25,
+   "wordT": 233.61,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "approved",
+   "scene": 9,
+   "sentStart": 232.63,
+   "sentEnd": 234.25,
+   "wordT": 233.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "cost center",
+   "scene": 9,
+   "sentStart": 234.54,
+   "sentEnd": 237.95,
+   "wordT": 235.22,
+   "appears": 234.18,
+   "delta": -1.04,
+   "status": "ok"
+  },
+  {
+   "label": "request for information",
+   "scene": 9,
+   "sentStart": 234.54,
+   "sentEnd": 237.95,
+   "wordT": 236.92,
+   "appears": 234.18,
+   "delta": -2.74,
+   "status": "ok"
+  },
+  {
+   "label": "advanced approvals have",
+   "scene": 9,
+   "sentStart": 238.23,
+   "sentEnd": 244.61,
+   "wordT": 239.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "recreate them",
+   "scene": 9,
+   "sentStart": 238.23,
+   "sentEnd": 244.61,
+   "wordT": 243.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "designer",
+   "scene": 10,
+   "sentStart": 246.9,
+   "sentEnd": 248.94,
+   "wordT": 247.48,
+   "appears": 246.56,
+   "delta": -0.92,
+   "status": "ok"
+  },
+  {
+   "label": "designer of an agent flow",
+   "scene": 10,
+   "sentStart": 246.9,
+   "sentEnd": 248.94,
+   "wordT": 247.48,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "agent flow",
+   "scene": 10,
+   "sentStart": 246.9,
+   "sentEnd": 248.94,
+   "wordT": 248.36,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approval",
+   "scene": 10,
+   "sentStart": 249.22,
+   "sentEnd": 254.32,
+   "wordT": 251.77,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "run a multistage approval",
+   "scene": 10,
+   "sentStart": 249.22,
+   "sentEnd": 254.32,
+   "wordT": 253.05,
+   "appears": 250.26,
+   "delta": -2.79,
+   "status": "ok"
+  },
+  {
+   "label": "multistage approval",
+   "scene": 10,
+   "sentStart": 249.22,
+   "sentEnd": 254.32,
+   "wordT": 253.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "set up the approval",
+   "scene": 10,
+   "sentStart": 254.6,
+   "sentEnd": 257.59,
+   "wordT": 254.9,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 10,
+   "sentStart": 254.6,
+   "sentEnd": 257.59,
+   "wordT": 255.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "stage editor",
+   "scene": 10,
+   "sentStart": 254.6,
+   "sentEnd": 257.59,
+   "wordT": 256.99,
+   "appears": 256.91,
+   "delta": -0.09,
+   "status": "ok"
+  },
+  {
+   "label": "create",
+   "scene": 10,
+   "sentStart": 257.87,
+   "sentEnd": 261.58,
+   "wordT": 257.87,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "manual stage",
+   "scene": 10,
+   "sentStart": 257.87,
+   "sentEnd": 261.58,
+   "wordT": 258.55,
+   "appears": 258.86,
+   "delta": 0.32,
+   "status": "ok"
+  },
+  {
+   "label": "manual",
+   "scene": 10,
+   "sentStart": 257.87,
+   "sentEnd": 261.58,
+   "wordT": 258.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 10,
+   "sentStart": 257.87,
+   "sentEnd": 261.58,
+   "wordT": 259.9,
+   "appears": 258.86,
+   "delta": -1.03,
+   "status": "ok"
+  },
+  {
+   "label": "assigned to",
+   "scene": 10,
+   "sentStart": 257.87,
+   "sentEnd": 261.58,
+   "wordT": 260.23,
+   "appears": 258.86,
+   "delta": -1.37,
+   "status": "ok"
+  },
+  {
+   "label": "details",
+   "scene": 10,
+   "sentStart": 257.87,
+   "sentEnd": 261.58,
+   "wordT": 261.24,
+   "appears": 258.86,
+   "delta": -2.38,
+   "status": "ok"
+  },
+  {
+   "label": "instructions",
+   "scene": 10,
+   "sentStart": 261.86,
+   "sentEnd": 266.02,
+   "wordT": 263.78,
+   "appears": 262.26,
+   "delta": -1.53,
+   "status": "ok"
+  },
+  {
+   "label": "model",
+   "scene": 10,
+   "sentStart": 261.86,
+   "sentEnd": 266.02,
+   "wordT": 264.74,
+   "appears": 262.26,
+   "delta": -2.49,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 10,
+   "sentStart": 266.3,
+   "sentEnd": 268.24,
+   "wordT": 266.95,
+   "appears": 225.17,
+   "delta": -41.78,
+   "status": "ok"
+  },
+  {
+   "label": "piece of data",
+   "scene": 10,
+   "sentStart": 268.52,
+   "sentEnd": 273.11,
+   "wordT": 269.44,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "request for information",
+   "scene": 10,
+   "sentStart": 268.52,
+   "sentEnd": 273.11,
+   "wordT": 270.97,
+   "appears": 268.91,
+   "delta": -2.06,
+   "status": "ok"
+  },
+  {
+   "label": "text field",
+   "scene": 10,
+   "sentStart": 268.52,
+   "sentEnd": 273.11,
+   "wordT": 272.5,
+   "appears": 268.91,
+   "delta": -3.58,
+   "status": "ok"
+  },
+  {
+   "label": "laptop",
+   "scene": 11,
+   "sentStart": 275.17,
+   "sentEnd": 277.47,
+   "wordT": 275.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approval",
+   "scene": 11,
+   "sentStart": 275.17,
+   "sentEnd": 277.47,
+   "wordT": 275.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "works in development",
+   "scene": 11,
+   "sentStart": 275.17,
+   "sentEnd": 277.47,
+   "wordT": 276.32,
+   "appears": 275.66,
+   "delta": -0.66,
+   "status": "ok"
+  },
+  {
+   "label": "development",
+   "scene": 11,
+   "sentStart": 275.17,
+   "sentEnd": 277.47,
+   "wordT": 277.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "solution",
+   "scene": 11,
+   "sentStart": 277.75,
+   "sentEnd": 281.31,
+   "wordT": 278.94,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "production",
+   "scene": 11,
+   "sentStart": 277.75,
+   "sentEnd": 281.31,
+   "wordT": 280.92,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "multistage approval",
+   "scene": 11,
+   "sentStart": 281.59,
+   "sentEnd": 284.04,
+   "wordT": 283.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approval",
+   "scene": 11,
+   "sentStart": 281.59,
+   "sentEnd": 284.04,
+   "wordT": 283.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "recreate the approval after import",
+   "scene": 11,
+   "sentStart": 284.32,
+   "sentEnd": 286.42,
+   "wordT": 284.32,
+   "appears": 284.34,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 11,
+   "sentStart": 284.32,
+   "sentEnd": 286.42,
+   "wordT": 285.16,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "import",
+   "scene": 11,
+   "sentStart": 284.32,
+   "sentEnd": 286.42,
+   "wordT": 286,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "nothing it travels with the solution",
+   "scene": 11,
+   "sentStart": 286.7,
+   "sentEnd": 288.76,
+   "wordT": 286.7,
+   "appears": 286.72,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "solution",
+   "scene": 11,
+   "sentStart": 286.7,
+   "sentEnd": 288.76,
+   "wordT": 288.42,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "export it again as unmanaged first",
+   "scene": 11,
+   "sentStart": 289.05,
+   "sentEnd": 291.54,
+   "wordT": 289.4,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "recreate the approval after import",
+   "scene": 11,
+   "sentStart": 297.14,
+   "sentEnd": 299.31,
+   "wordT": 297.14,
+   "appears": 284.34,
+   "delta": -12.79,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 11,
+   "sentStart": 297.14,
+   "sentEnd": 299.31,
+   "wordT": 298.01,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "import",
+   "scene": 11,
+   "sentStart": 297.14,
+   "sentEnd": 299.31,
+   "wordT": 298.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "advanced approvals have",
+   "scene": 11,
+   "sentStart": 299.59,
+   "sentEnd": 304.54,
+   "wordT": 299.59,
+   "appears": 299.71,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "recreate them",
+   "scene": 11,
+   "sentStart": 299.59,
+   "sentEnd": 304.54,
+   "wordT": 303.22,
+   "appears": 299.71,
+   "delta": -3.51,
+   "status": "ok"
+  },
+  {
+   "label": "the trap",
+   "scene": 11,
+   "sentStart": 304.82,
+   "sentEnd": 309.13,
+   "wordT": 305.75,
+   "appears": 304.95,
+   "delta": -0.8,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 11,
+   "sentStart": 304.82,
+   "sentEnd": 309.13,
+   "wordT": 306.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "solution",
+   "scene": 11,
+   "sentStart": 304.82,
+   "sentEnd": 309.13,
+   "wordT": 308.82,
+   "appears": 299.78,
+   "delta": -9.04,
+   "status": "ok"
+  },
+  {
+   "label": "back at contoso",
+   "scene": 12,
+   "sentStart": 310.03,
+   "sentEnd": 315.73,
+   "wordT": 310.03,
+   "appears": 310.29,
+   "delta": 0.26,
+   "status": "ok"
+  },
+  {
+   "label": "laptop",
+   "scene": 12,
+   "sentStart": 310.03,
+   "sentEnd": 315.73,
+   "wordT": 311.55,
+   "appears": 310.92,
+   "delta": -0.63,
+   "status": "ok"
+  },
+  {
+   "label": "approved",
+   "scene": 12,
+   "sentStart": 310.03,
+   "sentEnd": 315.73,
+   "wordT": 312.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "service manager",
+   "scene": 12,
+   "sentStart": 310.03,
+   "sentEnd": 315.73,
+   "wordT": 313.45,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "remember",
+   "scene": 12,
+   "sentStart": 316.01,
+   "sentEnd": 317.1,
+   "wordT": 316.01,
+   "appears": 316.2,
+   "delta": 0.2,
+   "status": "ok"
+  },
+  {
+   "label": "multistage approval",
+   "scene": 12,
+   "sentStart": 317.38,
+   "sentEnd": 322.35,
+   "wordT": 320.22,
+   "appears": 317.57,
+   "delta": -2.65,
+   "status": "ok"
+  },
+  {
+   "label": "approval",
+   "scene": 12,
+   "sentStart": 317.38,
+   "sentEnd": 322.35,
+   "wordT": 320.57,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only in agent flows",
+   "scene": 12,
+   "sentStart": 317.38,
+   "sentEnd": 322.35,
+   "wordT": 320.93,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "manual",
+   "scene": 12,
+   "sentStart": 322.63,
+   "sentEnd": 328.73,
+   "wordT": 322.63,
+   "appears": 322.82,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "first to respond",
+   "scene": 12,
+   "sentStart": 322.63,
+   "sentEnd": 328.73,
+   "wordT": 323.85,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "first to respond or everyone must approve",
+   "scene": 12,
+   "sentStart": 322.63,
+   "sentEnd": 328.73,
+   "wordT": 323.85,
+   "appears": 322.82,
+   "delta": -1.03,
+   "status": "ok"
+  },
+  {
+   "label": "everyone must approve",
+   "scene": 12,
+   "sentStart": 322.63,
+   "sentEnd": 328.73,
+   "wordT": 325.47,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approve",
+   "scene": 12,
+   "sentStart": 322.63,
+   "sentEnd": 328.73,
+   "wordT": 326.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "same approver",
+   "scene": 12,
+   "sentStart": 322.63,
+   "sentEnd": 328.73,
+   "wordT": 327.51,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approve",
+   "scene": 12,
+   "sentStart": 329.01,
+   "sentEnd": 332.48,
+   "wordT": 330.4,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approve or reject with a rationale",
+   "scene": 12,
+   "sentStart": 329.01,
+   "sentEnd": 332.48,
+   "wordT": 330.4,
+   "appears": 329.2,
+   "delta": -1.2,
+   "status": "ok"
+  },
+  {
+   "label": "reject",
+   "scene": 12,
+   "sentStart": 329.01,
+   "sentEnd": 332.48,
+   "wordT": 331.09,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "rationale",
+   "scene": 12,
+   "sentStart": 329.01,
+   "sentEnd": 332.48,
+   "wordT": 332.14,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "conditions",
+   "scene": 12,
+   "sentStart": 332.76,
+   "sentEnd": 335.35,
+   "wordT": 332.76,
+   "appears": 332.95,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "route",
+   "scene": 12,
+   "sentStart": 332.76,
+   "sentEnd": 335.35,
+   "wordT": 333.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approve",
+   "scene": 12,
+   "sentStart": 332.76,
+   "sentEnd": 335.35,
+   "wordT": 333.63,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "approve reject",
+   "scene": 12,
+   "sentStart": 332.76,
+   "sentEnd": 335.35,
+   "wordT": 333.63,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "reject",
+   "scene": 12,
+   "sentStart": 332.76,
+   "sentEnd": 335.35,
+   "wordT": 334.06,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "piece of data",
+   "scene": 12,
+   "sentStart": 335.63,
+   "sentEnd": 338.44,
+   "wordT": 335.98,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "request for information",
+   "scene": 12,
+   "sentStart": 335.63,
+   "sentEnd": 338.44,
+   "wordT": 337.39,
+   "appears": 335.82,
+   "delta": -1.57,
+   "status": "ok"
+  },
+  {
+   "label": "recreate advanced approvals",
+   "scene": 12,
+   "sentStart": 338.72,
+   "sentEnd": 341.32,
+   "wordT": 338.72,
+   "appears": 338.91,
+   "delta": 0.19,
+   "status": "ok"
+  },
+  {
+   "label": "import",
+   "scene": 12,
+   "sentStart": 338.72,
+   "sentEnd": 341.32,
+   "wordT": 340.8,
+   "appears": 338.91,
+   "delta": -1.89,
+   "status": "ok"
+  },
+  {
+   "label": "monitor agent flows and their cost",
+   "scene": 12,
+   "sentStart": 341.61,
+   "sentEnd": 344.1,
+   "wordT": 341.96,
+   "appears": 342.19,
+   "delta": 0.23,
+   "status": "ok"
+  }
+ ]
+}

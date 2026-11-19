@@ -1,0 +1,57 @@
+[
+ {
+  "title": "The fix nobody sees",
+  "caption": "Valeria publishes a fix to Nexo's returns answer. Next morning, Marta in Teams still gets the old answer. Is something broken?",
+  "say": "Valeria fixes Nexo's answer about returns. She selects Publish and goes home happy. The next morning, Marta from sales opens Teams and asks about returns. She gets the old answer. Is Nexo broken? No. Today you learn what Publish really does, where your users meet the agent, and why some of them still see yesterday's version."
+ },
+ {
+  "title": "A new edition of the manual",
+  "caption": "Your draft is the manual on your desk. Publish prints the new edition and hands it out. Channels: Teams, a website, a mobile app.",
+  "say": "Think of the agent as a manual. While you edit, your changes are a draft on your desk. Publish prints the new edition and hands it out to everyone. But someone still reading the old edition won't see the changes until they pick up the new one. And the places where users pick it up are called channels. Teams, a website, a mobile app."
+ },
+ {
+  "title": "Saving is not publishing",
+  "caption": "Saved changes stay in your draft. Publish sends the saved version to every connected channel at once. No republishing channel by channel.",
+  "say": "First rule. Saving is not publishing. Your saved changes stay in your draft, and only you see them in the test pane. When you select Publish, every connected channel is updated at once. Teams, the website and the mobile app get the same new edition together. So you never republish channel by channel. One Publish is enough."
+ },
+ {
+  "title": "Decide: the change nobody sees",
+  "caption": "Valeria saved a change and it works in the test pane. Users on Teams and the website don't see it. What is missing?",
+  "say": "Your turn. Valeria saved a change, and it works in the test pane. But users on Teams and on the website don't see it, even in new conversations. What is missing? Republish each channel one by one? Select Publish once for the agent? Or wait for the save to reach channels? Decide before I answer. Select Publish once. Saving only updates the draft. One Publish updates every connected channel together."
+ },
+ {
+  "title": "Why some users see the old version",
+  "caption": "New content applies only in a new session: in most channels after 30 minutes idle. In Teams, type start over; else up to an hour.",
+  "say": "Now Marta's mystery. A session is a conversation in progress. New content only applies when a new session starts. In most channels, that happens after thirty minutes of inactivity. Teams keeps conversations open, so the old session can stay alive. There, the user can type start over to force a new session. Otherwise, it can take up to an hour."
+ },
+ {
+  "title": "Decide: Marta's old answer",
+  "caption": "Marta's Teams conversation is still open and she gets the old answer. Valeria wants her to see the fix right now. What should Marta do?",
+  "say": "Your turn. The fix is published, but Marta's conversation in Teams is still open, and she keeps getting the old answer. Valeria wants her to see the fix right now. What should Marta do? Type start over in the chat? Publish again just for Teams? Or reinstall the app in Teams? Decide before I answer. Type start over. It forces a new session, and new sessions get the published content. Publishing again changes nothing."
+ },
+ {
+  "title": "Which channels exist",
+  "caption": "Channels include Teams and Microsoft 365 and the Demo website. Direct Line channels cover the Demo website, custom websites and mobile apps. Some need authentication.",
+  "say": "So where can users meet the agent? There is Teams and Microsoft three sixty five. There is the Demo website, a quick page to try the agent. And there are others, such as WhatsApp and Facebook. One family deserves a name: Direct Line channels. It covers the Demo website, custom websites and mobile apps. And watch out: some channels require authentication before they work."
+ },
+ {
+  "title": "Channel governance",
+  "caption": "Each channel has its own connector in the administrator's data policies. Block the WhatsApp and Facebook connectors and makers can't use those channels.",
+  "say": "Who decides which channels makers may use? The administrator. Each channel has its own connector in the data policies. Teams and Microsoft three sixty five has one. Direct Line channels has one. WhatsApp and Facebook have their own. So if the administrator blocks the WhatsApp and Facebook connectors, makers can no longer use those two channels. Teams and the website keep working."
+ },
+ {
+  "title": "Decide: blocking Direct Line",
+  "caption": "The administrator blocks the Direct Line channels connector in a data policy. Which channels can makers no longer use?",
+  "say": "Your turn. Contoso's administrator puts the Direct Line channels connector in the Blocked group of a data policy. Makers ask which channels they just lost. Which channels can they no longer use? Every channel, even Teams? The Demo website alone? Or websites and mobile apps? Decide before I answer. Websites and mobile apps. Direct Line covers the Demo website, custom websites and mobile apps. Teams has its own connector."
+ },
+ {
+  "title": "Publish and connect in the studio",
+  "caption": "Check the changes are saved, Publish and confirm, open Channels, pick Teams or Demo website, follow its steps, check authentication, open a new conversation.",
+  "say": "Here is how it looks in the studio. Open Nexo and check that your changes are saved. Select Publish and confirm. Then go to Channels to see which ones are available. Pick one, for example Teams or the Demo website, and follow its connection steps. Check whether it requires authentication. Finally, open a new conversation in the channel to see your change."
+ },
+ {
+  "title": "One edition for everyone",
+  "caption": "Marta types start over and sees the fix. One Publish updates every channel; only a new session sees it; each channel has its own connector.",
+  "say": "Back at Contoso. Marta types start over, and Nexo gives her the new returns answer. Nothing was broken. Her session had simply started before the fix. Remember three things. One Publish updates every channel. Only a new session sees the change. And each channel has its own connector in the data policies. Next, keeping the agent safe and fair: responsible A I and moderation."
+ }
+]

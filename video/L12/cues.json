@@ -1,0 +1,1277 @@
+{
+ "id": "L12",
+ "sha256": "2c2cc0abba4e0bbf2af86df3c47e82f4aff2fdb2d74da7f542277fcbf34cc49e",
+ "generated": "2026-11-11T03:30:34.940Z",
+ "cues": [
+  {
+   "label": "report a problem",
+   "scene": 1,
+   "sentStart": 0.8,
+   "sentEnd": 4.15,
+   "wordT": 1.8,
+   "appears": 0,
+   "delta": -1.8,
+   "status": "ok"
+  },
+  {
+   "label": "title",
+   "scene": 1,
+   "sentStart": 4.43,
+   "sentEnd": 9.29,
+   "wordT": 6.05,
+   "appears": 5.82,
+   "delta": -0.23,
+   "status": "ok"
+  },
+  {
+   "label": "urgency",
+   "scene": 1,
+   "sentStart": 4.43,
+   "sentEnd": 9.29,
+   "wordT": 8,
+   "appears": 7.77,
+   "delta": -0.23,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 1,
+   "sentStart": 9.57,
+   "sentEnd": 14.31,
+   "wordT": 12.28,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "all at once",
+   "scene": 1,
+   "sentStart": 14.59,
+   "sentEnd": 17.98,
+   "wordT": 17.2,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "adaptive cards",
+   "scene": 1,
+   "sentStart": 18.26,
+   "sentEnd": 20.03,
+   "wordT": 19.32,
+   "appears": 18.5,
+   "delta": -0.82,
+   "status": "ok"
+  },
+  {
+   "label": "mini form",
+   "scene": 2,
+   "sentStart": 20.93,
+   "sentEnd": 25.77,
+   "wordT": 22.55,
+   "appears": 22.61,
+   "delta": 0.06,
+   "status": "ok"
+  },
+  {
+   "label": "one by one",
+   "scene": 2,
+   "sentStart": 26.05,
+   "sentEnd": 32.71,
+   "wordT": 28.18,
+   "appears": 28.58,
+   "delta": 0.39,
+   "status": "ok"
+  },
+  {
+   "label": "a sheet to fill in",
+   "scene": 2,
+   "sentStart": 26.05,
+   "sentEnd": 32.71,
+   "wordT": 30.58,
+   "appears": 32.62,
+   "delta": 2.04,
+   "status": "tarde"
+  },
+  {
+   "label": "all at once",
+   "scene": 2,
+   "sentStart": 26.05,
+   "sentEnd": 32.71,
+   "wordT": 31.91,
+   "appears": 31.94,
+   "delta": 0.03,
+   "status": "ok"
+  },
+  {
+   "label": "the agent gets everything together",
+   "scene": 2,
+   "sentStart": 32.99,
+   "sentEnd": 36.55,
+   "wordT": 32.99,
+   "appears": 33.87,
+   "delta": 0.88,
+   "status": "ok"
+  },
+  {
+   "label": "submit",
+   "scene": 2,
+   "sentStart": 32.99,
+   "sentEnd": 36.55,
+   "wordT": 36.2,
+   "appears": 32.93,
+   "delta": -3.27,
+   "status": "ok"
+  },
+  {
+   "label": "ask with adaptive card",
+   "scene": 3,
+   "sentStart": 37.45,
+   "sentEnd": 41.42,
+   "wordT": 40,
+   "appears": 39.57,
+   "delta": -0.43,
+   "status": "ok"
+  },
+  {
+   "label": "at least one submit button",
+   "scene": 3,
+   "sentStart": 41.7,
+   "sentEnd": 45.67,
+   "wordT": 42.55,
+   "appears": 43.3,
+   "delta": 0.75,
+   "status": "ok"
+  },
+  {
+   "label": "submit",
+   "scene": 3,
+   "sentStart": 41.7,
+   "sentEnd": 45.67,
+   "wordT": 43.4,
+   "appears": 42.01,
+   "delta": -1.4,
+   "status": "ok"
+  },
+  {
+   "label": "saved in variables",
+   "scene": 3,
+   "sentStart": 45.95,
+   "sentEnd": 50.56,
+   "wordT": 47.48,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "variables",
+   "scene": 3,
+   "sentStart": 45.95,
+   "sentEnd": 50.56,
+   "wordT": 48.1,
+   "appears": 38.04,
+   "delta": -10.06,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 3,
+   "sentStart": 50.84,
+   "sentEnd": 54.87,
+   "wordT": 52.3,
+   "appears": 51.82,
+   "delta": -0.48,
+   "status": "ok"
+  },
+  {
+   "label": "question",
+   "scene": 3,
+   "sentStart": 50.84,
+   "sentEnd": 54.87,
+   "wordT": 53.04,
+   "appears": 52.52,
+   "delta": -0.51,
+   "status": "ok"
+  },
+  {
+   "label": "only informational",
+   "scene": 3,
+   "sentStart": 50.84,
+   "sentEnd": 54.87,
+   "wordT": 54.14,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "collects no response",
+   "scene": 3,
+   "sentStart": 55.15,
+   "sentEnd": 57.77,
+   "wordT": 56.79,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 4,
+   "sentStart": 59.83,
+   "sentEnd": 64.05,
+   "wordT": 60.73,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 4,
+   "sentStart": 59.83,
+   "sentEnd": 64.05,
+   "wordT": 62.84,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "urgency",
+   "scene": 4,
+   "sentStart": 59.83,
+   "sentEnd": 64.05,
+   "wordT": 63.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a message node with a card",
+   "scene": 4,
+   "sentStart": 68.92,
+   "sentEnd": 70.5,
+   "wordT": 68.92,
+   "appears": 68.95,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 4,
+   "sentStart": 68.92,
+   "sentEnd": 70.5,
+   "wordT": 69.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask with adaptive card",
+   "scene": 4,
+   "sentStart": 70.78,
+   "sentEnd": 72.25,
+   "wordT": 70.78,
+   "appears": 70.8,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "a question node with a card",
+   "scene": 4,
+   "sentStart": 72.53,
+   "sentEnd": 74.26,
+   "wordT": 72.78,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "question",
+   "scene": 4,
+   "sentStart": 72.53,
+   "sentEnd": 74.26,
+   "wordT": 73.03,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask with adaptive card",
+   "scene": 4,
+   "sentStart": 79.86,
+   "sentEnd": 81.33,
+   "wordT": 79.86,
+   "appears": 70.8,
+   "delta": -9.05,
+   "status": "ok"
+  },
+  {
+   "label": "it is the node that needs at least one submit button and collects the response",
+   "scene": 4,
+   "sentStart": 81.61,
+   "sentEnd": 86,
+   "wordT": 81.61,
+   "appears": 81.73,
+   "delta": 0.12,
+   "status": "ok"
+  },
+  {
+   "label": "at least one submit button",
+   "scene": 4,
+   "sentStart": 81.61,
+   "sentEnd": 86,
+   "wordT": 83.37,
+   "appears": 81.73,
+   "delta": -1.63,
+   "status": "ok"
+  },
+  {
+   "label": "submit",
+   "scene": 4,
+   "sentStart": 81.61,
+   "sentEnd": 86,
+   "wordT": 84.25,
+   "appears": 81.94,
+   "delta": -2.31,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 4,
+   "sentStart": 86.28,
+   "sentEnd": 91.34,
+   "wordT": 87.63,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "question",
+   "scene": 4,
+   "sentStart": 86.28,
+   "sentEnd": 91.34,
+   "wordT": 88.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "only informational",
+   "scene": 4,
+   "sentStart": 86.28,
+   "sentEnd": 91.34,
+   "wordT": 89.32,
+   "appears": 86.41,
+   "delta": -2.91,
+   "status": "ok"
+  },
+  {
+   "label": "collects nothing",
+   "scene": 4,
+   "sentStart": 86.28,
+   "sentEnd": 91.34,
+   "wordT": 90.67,
+   "appears": 82.29,
+   "delta": -8.38,
+   "status": "ok"
+  },
+  {
+   "label": "nothing",
+   "scene": 4,
+   "sentStart": 86.28,
+   "sentEnd": 91.34,
+   "wordT": 91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "input text",
+   "scene": 5,
+   "sentStart": 94.55,
+   "sentEnd": 96.74,
+   "wordT": 94.55,
+   "appears": 92.65,
+   "delta": -1.89,
+   "status": "ok"
+  },
+  {
+   "label": "multiline",
+   "scene": 5,
+   "sentStart": 94.55,
+   "sentEnd": 96.74,
+   "wordT": 96.38,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "input number",
+   "scene": 5,
+   "sentStart": 97.03,
+   "sentEnd": 99.95,
+   "wordT": 97.03,
+   "appears": 92.79,
+   "delta": -4.23,
+   "status": "ok"
+  },
+  {
+   "label": "input date",
+   "scene": 5,
+   "sentStart": 100.23,
+   "sentEnd": 101.91,
+   "wordT": 100.23,
+   "appears": 92.93,
+   "delta": -7.29,
+   "status": "ok"
+  },
+  {
+   "label": "input time",
+   "scene": 5,
+   "sentStart": 100.23,
+   "sentEnd": 101.91,
+   "wordT": 101.24,
+   "appears": 93.07,
+   "delta": -8.16,
+   "status": "ok"
+  },
+  {
+   "label": "input toggle",
+   "scene": 5,
+   "sentStart": 102.19,
+   "sentEnd": 104.77,
+   "wordT": 102.19,
+   "appears": 93.21,
+   "delta": -8.98,
+   "status": "ok"
+  },
+  {
+   "label": "false",
+   "scene": 5,
+   "sentStart": 102.19,
+   "sentEnd": 104.77,
+   "wordT": 104.41,
+   "appears": 93.21,
+   "delta": -11.19,
+   "status": "ok"
+  },
+  {
+   "label": "input choiceset",
+   "scene": 5,
+   "sentStart": 105.06,
+   "sentEnd": 108.21,
+   "wordT": 105.45,
+   "appears": 93.35,
+   "delta": -12.1,
+   "status": "ok"
+  },
+  {
+   "label": "required",
+   "scene": 5,
+   "sentStart": 108.49,
+   "sentEnd": 113.42,
+   "wordT": 109.65,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "properties",
+   "scene": 5,
+   "sentStart": 108.49,
+   "sentEnd": 113.42,
+   "wordT": 110.52,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "cannot be sent without it",
+   "scene": 5,
+   "sentStart": 108.49,
+   "sentEnd": 113.42,
+   "wordT": 111.97,
+   "appears": 112.13,
+   "delta": 0.16,
+   "status": "ok"
+  },
+  {
+   "label": "copilot studio",
+   "scene": 6,
+   "sentStart": 114.32,
+   "sentEnd": 120.23,
+   "wordT": 116.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "variables",
+   "scene": 6,
+   "sentStart": 114.32,
+   "sentEnd": 120.23,
+   "wordT": 118.54,
+   "appears": 114.6,
+   "delta": -3.94,
+   "status": "ok"
+  },
+  {
+   "label": "edit schema",
+   "scene": 6,
+   "sentStart": 120.51,
+   "sentEnd": 124.24,
+   "wordT": 123.74,
+   "appears": 121.89,
+   "delta": -1.85,
+   "status": "ok"
+  },
+  {
+   "label": "title",
+   "scene": 6,
+   "sentStart": 130.12,
+   "sentEnd": 137.71,
+   "wordT": 136.33,
+   "appears": 134.98,
+   "delta": -1.34,
+   "status": "ok"
+  },
+  {
+   "label": "value",
+   "scene": 6,
+   "sentStart": 130.12,
+   "sentEnd": 137.71,
+   "wordT": 137.02,
+   "appears": 134.98,
+   "delta": -2.03,
+   "status": "ok"
+  },
+  {
+   "label": "copilot studio",
+   "scene": 7,
+   "sentStart": 138.61,
+   "sentEnd": 143.77,
+   "wordT": 138.61,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "web chat",
+   "scene": 7,
+   "sentStart": 144.05,
+   "sentEnd": 147.7,
+   "wordT": 144.05,
+   "appears": 138.86,
+   "delta": -5.19,
+   "status": "ok"
+  },
+  {
+   "label": "live chat widget",
+   "scene": 7,
+   "sentStart": 147.98,
+   "sentEnd": 151.37,
+   "wordT": 148.26,
+   "appears": 139.16,
+   "delta": -9.1,
+   "status": "ok"
+  },
+  {
+   "label": "teams",
+   "scene": 7,
+   "sentStart": 147.98,
+   "sentEnd": 151.37,
+   "wordT": 149.39,
+   "appears": 139.01,
+   "delta": -10.38,
+   "status": "ok"
+  },
+  {
+   "label": "test chat",
+   "scene": 7,
+   "sentStart": 151.65,
+   "sentEnd": 155.43,
+   "wordT": 151.97,
+   "appears": 138.4,
+   "delta": -13.57,
+   "status": "ok"
+  },
+  {
+   "label": "authoring canvas",
+   "scene": 7,
+   "sentStart": 155.71,
+   "sentEnd": 159.72,
+   "wordT": 156.02,
+   "appears": 138.64,
+   "delta": -17.37,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 8,
+   "sentStart": 161.77,
+   "sentEnd": 167.43,
+   "wordT": 162.72,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "test chat",
+   "scene": 8,
+   "sentStart": 161.77,
+   "sentEnd": 167.43,
+   "wordT": 166.8,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "teams",
+   "scene": 8,
+   "sentStart": 167.71,
+   "sentEnd": 169.73,
+   "wordT": 169.23,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "check it only in the authoring canvas",
+   "scene": 8,
+   "sentStart": 173.71,
+   "sentEnd": 175.63,
+   "wordT": 173.71,
+   "appears": 173.73,
+   "delta": 0.03,
+   "status": "ok"
+  },
+  {
+   "label": "authoring canvas",
+   "scene": 8,
+   "sentStart": 173.71,
+   "sentEnd": 175.63,
+   "wordT": 175.08,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "teams",
+   "scene": 8,
+   "sentStart": 186.09,
+   "sentEnd": 191.3,
+   "wordT": 186.09,
+   "appears": 185.84,
+   "delta": -0.25,
+   "status": "ok"
+  },
+  {
+   "label": "test chat",
+   "scene": 8,
+   "sentStart": 186.09,
+   "sentEnd": 191.3,
+   "wordT": 188.41,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "fails in teams",
+   "scene": 8,
+   "sentStart": 191.58,
+   "sentEnd": 195.82,
+   "wordT": 192.56,
+   "appears": 191.7,
+   "delta": -0.86,
+   "status": "ok"
+  },
+  {
+   "label": "teams",
+   "scene": 8,
+   "sentStart": 191.58,
+   "sentEnd": 195.82,
+   "wordT": 193.21,
+   "appears": 185.84,
+   "delta": -7.37,
+   "status": "ok"
+  },
+  {
+   "label": "authoring canvas",
+   "scene": 8,
+   "sentStart": 191.58,
+   "sentEnd": 195.82,
+   "wordT": 194.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "cannot render it",
+   "scene": 8,
+   "sentStart": 191.58,
+   "sentEnd": 195.82,
+   "wordT": 194.84,
+   "appears": 191.7,
+   "delta": -3.14,
+   "status": "ok"
+  },
+  {
+   "label": "submit",
+   "scene": 9,
+   "sentStart": 196.72,
+   "sentEnd": 200.07,
+   "wordT": 199.74,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "variables",
+   "scene": 9,
+   "sentStart": 200.35,
+   "sentEnd": 202.44,
+   "wordT": 201.4,
+   "appears": 196.74,
+   "delta": -4.66,
+   "status": "ok"
+  },
+  {
+   "label": "variables stay empty",
+   "scene": 9,
+   "sentStart": 200.35,
+   "sentEnd": 202.44,
+   "wordT": 201.4,
+   "appears": 202.4,
+   "delta": 1,
+   "status": "tarde"
+  },
+  {
+   "label": "empty",
+   "scene": 9,
+   "sentStart": 200.35,
+   "sentEnd": 202.44,
+   "wordT": 202.1,
+   "appears": 204.03,
+   "delta": 1.94,
+   "status": "otro momento"
+  },
+  {
+   "label": "condition",
+   "scene": 9,
+   "sentStart": 202.72,
+   "sentEnd": 206.44,
+   "wordT": 203.65,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "condition node",
+   "scene": 9,
+   "sentStart": 202.72,
+   "sentEnd": 206.44,
+   "wordT": 203.65,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask with adaptive card",
+   "scene": 9,
+   "sentStart": 202.72,
+   "sentEnd": 206.44,
+   "wordT": 204.89,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "Adaptive Card",
+   "scene": 9,
+   "sentStart": 202.72,
+   "sentEnd": 206.44,
+   "wordT": 205.51,
+   "appears": null,
+   "delta": null,
+   "status": "ausente"
+  },
+  {
+   "label": "submit",
+   "scene": 9,
+   "sentStart": 206.72,
+   "sentEnd": 214.16,
+   "wordT": 211.57,
+   "appears": 207.85,
+   "delta": -3.72,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 10,
+   "sentStart": 216.22,
+   "sentEnd": 219.67,
+   "wordT": 217.75,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "submit",
+   "scene": 10,
+   "sentStart": 216.22,
+   "sentEnd": 219.67,
+   "wordT": 219.29,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "empty",
+   "scene": 10,
+   "sentStart": 219.95,
+   "sentEnd": 221.51,
+   "wordT": 221.12,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a condition node that checks them",
+   "scene": 10,
+   "sentStart": 224.4,
+   "sentEnd": 226.14,
+   "wordT": 224.4,
+   "appears": 224.41,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 10,
+   "sentStart": 224.4,
+   "sentEnd": 226.14,
+   "wordT": 224.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "condition node",
+   "scene": 10,
+   "sentStart": 224.4,
+   "sentEnd": 226.14,
+   "wordT": 224.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "a message that uses the title variable",
+   "scene": 10,
+   "sentStart": 226.43,
+   "sentEnd": 228.9,
+   "wordT": 226.43,
+   "appears": 226.45,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 10,
+   "sentStart": 226.43,
+   "sentEnd": 228.9,
+   "wordT": 226.78,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 10,
+   "sentStart": 226.43,
+   "sentEnd": 228.9,
+   "wordT": 228.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "edit schema",
+   "scene": 10,
+   "sentStart": 229.18,
+   "sentEnd": 231.29,
+   "wordT": 229.48,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "edit schema with a new variable",
+   "scene": 10,
+   "sentStart": 229.18,
+   "sentEnd": 231.29,
+   "wordT": 229.48,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  },
+  {
+   "label": "a condition node that checks them",
+   "scene": 10,
+   "sentStart": 236.89,
+   "sentEnd": 238.66,
+   "wordT": 236.89,
+   "appears": 224.41,
+   "delta": -12.47,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 10,
+   "sentStart": 236.89,
+   "sentEnd": 238.66,
+   "wordT": 237.18,
+   "appears": 238.97,
+   "delta": 1.79,
+   "status": "otro momento"
+  },
+  {
+   "label": "condition node",
+   "scene": 10,
+   "sentStart": 236.89,
+   "sentEnd": 238.66,
+   "wordT": 237.18,
+   "appears": 238.97,
+   "delta": 1.79,
+   "status": "otro momento"
+  },
+  {
+   "label": "closed without submit",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 240.31,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "submit",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 241,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "the output variables stay empty and the condition node handles that case",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 241.34,
+   "appears": 239.06,
+   "delta": -2.28,
+   "status": "ok"
+  },
+  {
+   "label": "variables",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 242.03,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "variables stay empty",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 242.03,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "empty",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 242.72,
+   "appears": 238.97,
+   "delta": -3.75,
+   "status": "ok"
+  },
+  {
+   "label": "condition",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 243.75,
+   "appears": 238.97,
+   "delta": -4.78,
+   "status": "ok"
+  },
+  {
+   "label": "condition node",
+   "scene": 10,
+   "sentStart": 238.94,
+   "sentEnd": 245.47,
+   "wordT": 243.75,
+   "appears": 238.97,
+   "delta": -4.78,
+   "status": "ok"
+  },
+  {
+   "label": "a message that uses the title variable",
+   "scene": 10,
+   "sentStart": 245.75,
+   "sentEnd": 251.16,
+   "wordT": 245.75,
+   "appears": 226.45,
+   "delta": -19.3,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 10,
+   "sentStart": 245.75,
+   "sentEnd": 251.16,
+   "wordT": 246.11,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "title",
+   "scene": 10,
+   "sentStart": 245.75,
+   "sentEnd": 251.16,
+   "wordT": 247.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "nothing",
+   "scene": 10,
+   "sentStart": 245.75,
+   "sentEnd": 251.16,
+   "wordT": 249,
+   "appears": 245.87,
+   "delta": -3.13,
+   "status": "ok"
+  },
+  {
+   "label": "empty",
+   "scene": 10,
+   "sentStart": 245.75,
+   "sentEnd": 251.16,
+   "wordT": 250.8,
+   "appears": 238.97,
+   "delta": -11.83,
+   "status": "ok"
+  },
+  {
+   "label": "add node",
+   "scene": 11,
+   "sentStart": 253.75,
+   "sentEnd": 257.14,
+   "wordT": 255.17,
+   "appears": 252.89,
+   "delta": -2.27,
+   "status": "ok"
+  },
+  {
+   "label": "ask with adaptive card",
+   "scene": 11,
+   "sentStart": 257.43,
+   "sentEnd": 259.19,
+   "wordT": 257.78,
+   "appears": 255.49,
+   "delta": -2.29,
+   "status": "ok"
+  },
+  {
+   "label": "properties",
+   "scene": 11,
+   "sentStart": 259.48,
+   "sentEnd": 264.49,
+   "wordT": 262.34,
+   "appears": 262.36,
+   "delta": 0.02,
+   "status": "ok"
+  },
+  {
+   "label": "edit adaptive card",
+   "scene": 11,
+   "sentStart": 259.48,
+   "sentEnd": 264.49,
+   "wordT": 263.41,
+   "appears": 262.36,
+   "delta": -1.05,
+   "status": "ok"
+  },
+  {
+   "label": "submit",
+   "scene": 11,
+   "sentStart": 264.77,
+   "sentEnd": 268.78,
+   "wordT": 265.91,
+   "appears": 266.01,
+   "delta": 0.09,
+   "status": "ok"
+  },
+  {
+   "label": "copilot studio",
+   "scene": 11,
+   "sentStart": 269.06,
+   "sentEnd": 272.47,
+   "wordT": 269.91,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "variables",
+   "scene": 11,
+   "sentStart": 269.06,
+   "sentEnd": 272.47,
+   "wordT": 272.05,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "edit schema",
+   "scene": 11,
+   "sentStart": 272.75,
+   "sentEnd": 274.31,
+   "wordT": 273.69,
+   "appears": 271.29,
+   "delta": -2.4,
+   "status": "ok"
+  },
+  {
+   "label": "message",
+   "scene": 11,
+   "sentStart": 274.59,
+   "sentEnd": 276.38,
+   "wordT": 276.16,
+   "appears": 274.78,
+   "delta": -1.38,
+   "status": "ok"
+  },
+  {
+   "label": "ticket",
+   "scene": 12,
+   "sentStart": 277.28,
+   "sentEnd": 278.97,
+   "wordT": 278.69,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ticket",
+   "scene": 12,
+   "sentStart": 279.25,
+   "sentEnd": 284.75,
+   "wordT": 283.46,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "urgency",
+   "scene": 12,
+   "sentStart": 279.25,
+   "sentEnd": 284.75,
+   "wordT": 284.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "ask with adaptive card",
+   "scene": 12,
+   "sentStart": 286.55,
+   "sentEnd": 289.79,
+   "wordT": 286.55,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "teams",
+   "scene": 12,
+   "sentStart": 290.07,
+   "sentEnd": 295.04,
+   "wordT": 290.07,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "test chat",
+   "scene": 12,
+   "sentStart": 290.07,
+   "sentEnd": 295.04,
+   "wordT": 293.18,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "empty",
+   "scene": 12,
+   "sentStart": 295.32,
+   "sentEnd": 299.67,
+   "wordT": 296.88,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "variables",
+   "scene": 12,
+   "sentStart": 295.32,
+   "sentEnd": 299.67,
+   "wordT": 297.19,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "condition",
+   "scene": 12,
+   "sentStart": 295.32,
+   "sentEnd": 299.67,
+   "wordT": 298.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "condition node",
+   "scene": 12,
+   "sentStart": 295.32,
+   "sentEnd": 299.67,
+   "wordT": 298.43,
+   "appears": null,
+   "delta": null,
+   "status": "otro momento"
+  },
+  {
+   "label": "custom prompts",
+   "scene": 12,
+   "sentStart": 299.95,
+   "sentEnd": 301.45,
+   "wordT": 300.45,
+   "appears": null,
+   "delta": null,
+   "status": "ok"
+  }
+ ]
+}

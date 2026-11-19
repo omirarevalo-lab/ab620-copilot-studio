@@ -1,0 +1,62 @@
+[
+  {
+    "title": "One detail at a time",
+    "caption": "Marta reports a problem one detail at a time. Valeria wants one sheet. Today: Adaptive Cards.",
+    "say": "Marta wants to report a problem to Contoso's help team. Her agent asks for the title, waits, then asks for the urgency, and waits again. The service manager wants both details in every ticket, without the back and forth. Valeria wants to hand Marta one sheet to fill in all at once. Today you learn Adaptive Cards."
+  },
+  {
+    "title": "A mini form in the chat",
+    "caption": "An Adaptive Card is a mini form inside the chat, with text, fields, and buttons.",
+    "say": "An Adaptive Card is a mini form inside the chat, with text, fields, and buttons. It is the difference between asking for details one by one over the phone and handing someone a sheet to fill in all at once. The agent gets everything together when the user selects submit."
+  },
+  {
+    "title": "The right node",
+    "caption": "Ask with Adaptive Card needs a submit button. Message and Question cards are only informational.",
+    "say": "To collect data with a card, you use the Ask with Adaptive Card node. The card needs at least one submit button, and it can have input fields. What the user types is saved in variables you can use later in the conversation. A card inside a Message or Question node is only informational. It shows data, but it collects no response."
+  },
+  {
+    "title": "Decide: which node",
+    "caption": "A ticket form needs a title and an urgency sent together with a button. Which node should Valeria use?",
+    "say": "Your turn. Contoso wants a ticket form in the chat, with a title and an urgency. The user must send both together with a button. Which node should Valeria use? A Message node with a card? Ask with Adaptive Card? Or a Question node with a card? Decide before I answer. Ask with Adaptive Card. It is the node that needs at least one submit button and collects the response. A card in a Message or Question node is only informational, so it collects nothing."
+  },
+  {
+    "title": "Six input elements",
+    "caption": "Six inputs: Text, Number, Date, Time, Toggle, ChoiceSet. Mark a field Required so it cannot be skipped.",
+    "say": "A card can have six input elements. Input Text, which can be multiline. Input Number, with an optional minimum and maximum. Input Date and Input Time. Input Toggle, which returns true or false. And Input ChoiceSet, a dropdown or radio buttons. Mark a field as Required in the properties panel, and the form cannot be sent without it."
+  },
+  {
+    "title": "Variables and clear ids",
+    "caption": "Each input creates an output variable. Fix them with Edit Schema. Give inputs clear camelCase ids.",
+    "say": "When you save the design, Copilot Studio automatically creates output variables from the inputs. If they are not right, you fix the list and its types with Edit Schema. Give each input a clear camel case I D, such as leave type, instead of a default one. For a dropdown with dynamic choices, use a Power F X expression that points to a table with title and value columns."
+  },
+  {
+    "title": "Versions by channel",
+    "caption": "Web Chat 1.6 without Action.Execute; Teams and live chat widget 1.5. The test chat renders 1.6.",
+    "say": "Copilot Studio supports schema one point six and earlier, but it depends on the channel. Web Chat supports one point six, without Action Execute. The live chat widget and Teams go up to one point five. The test chat renders one point six, so everything looks fine there. The authoring canvas does not render version one point six cards at all."
+  },
+  {
+    "title": "Decide: the Teams version",
+    "caption": "The card was designed with 1.6 and looks perfect in the test chat. Employees use Teams. What should Valeria do?",
+    "say": "Your turn. Valeria designed the ticket card with schema one point six, and it looks perfect in the test chat. Contoso's employees use Teams. What should she do? Keep schema one point six everywhere? Check it only in the authoring canvas? Or design with schema one point five? Decide before I answer. Design with schema one point five. Teams stops at one point five, but the test chat shows one point six, so it fools you. One point six fails in Teams, and the authoring canvas cannot render it."
+  },
+  {
+    "title": "A card closed without submit",
+    "caption": "Closed without Submit: the variables stay empty. Add a Condition node right after. Use a unique id on retries.",
+    "say": "What if the user closes the card without selecting submit? Then the output variables stay empty. So add a Condition node after the Ask with Adaptive Card node. And when cards are consecutive or retried, put a unique I D in each Action Submit data, such as action Submit I D."
+  },
+  {
+    "title": "Decide: the closed card",
+    "caption": "A user closes the ticket card without Submit and the variables are empty. What goes right after the node?",
+    "say": "Your turn. A user closes the ticket card without selecting submit. Its outputs stay empty. What should Valeria add right after the node? A Condition node that checks them? A Message that uses the title variable? Or Edit Schema with a new variable? Decide before I answer. A Condition node that checks them. If the card is closed without submit, the output variables stay empty, and the Condition node handles that case. A Message that uses the title variable would show nothing, because that variable is empty."
+  },
+  {
+    "title": "Set it up in the studio",
+    "caption": "Add node, Ask with Adaptive Card; three dots, Properties, Edit adaptive card; add inputs and submit; Save; Edit Schema.",
+    "say": "Here it is in the studio. Open a topic and select Add node under the node you want. Choose Ask with Adaptive Card. Select the three dots on the node, open Properties, and select Edit adaptive card. Add inputs and a submit button, or paste the card J S O N. Save, and Copilot Studio creates the output variables. Review them with Edit Schema. Then use one of them in a Message."
+  },
+  {
+    "title": "Three rules to remember",
+    "caption": "Ask with Adaptive Card collects fields. Teams stops at 1.5. Closed card: add a Condition node.",
+    "say": "Back to Marta and her ticket. Marta fills in one card and sends it, and the agent confirms the ticket with its urgency. Remember three things. Ask with Adaptive Card collects several fields with buttons. Teams stops at schema one point five, even if the test chat shows one point six. And a closed card leaves empty variables, so add a Condition node after it. Next, custom prompts."
+  }
+]

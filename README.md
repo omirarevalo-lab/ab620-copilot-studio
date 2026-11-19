@@ -3,7 +3,7 @@
 **Pass the Microsoft Copilot Studio exam by watching and doing: 55 lessons, 335 original practice questions, 296 flashcards and spaced repetition, free and open source.**
 
 [![Live demo](https://img.shields.io/badge/demo-try%20it%20in%20your%20browser-2B55C9)](https://omirarevalo-lab.github.io/ab620-copilot-studio/)
-[![YouTube](https://img.shields.io/badge/YouTube-watch%20the%20lessons-red)](https://www.youtube.com/channel/UCHdZeuT866Cf_BxWWdnhi6Q)
+[![YouTube](https://img.shields.io/badge/YouTube-watch%20the%20lessons-red)](https://www.youtube.com/playlist?list=PLFCvw7ihXKJU)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-green)](LICENSE)
 [![Content: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-lightgrey)](LICENSE-CONTENT)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
@@ -20,8 +20,8 @@ A study app for the **AB-620** exam (Copilot Studio: AI Agent Builder Associate)
 
 Each class is a short narrated video (about 5 to 9 minutes) with a story, a mental model and three or four "Decide" pauses, where you answer an exam-style question before the narrator does.
 
-- **[Channel](https://www.youtube.com/channel/UCHdZeuT866Cf_BxWWdnhi6Q)**
-- **[Playlist](https://www.youtube.com/channel/UCHdZeuT866Cf_BxWWdnhi6Q)**
+- **[Channel](https://www.youtube.com/@CertLabClasses)**
+- **[Playlist](https://www.youtube.com/playlist?list=PLFCvw7ihXKJU)**
 
 34 class videos are finished so far; more are on the way. On the demo site, lessons whose video is not on YouTube yet show a "Video coming soon" card and your device's voice reads the class aloud; the checks and practice questions work for every topic.
 
